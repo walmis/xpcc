@@ -29,7 +29,7 @@ When you want to update the changes on github, add the files, write a commit mes
 
 Now push to the "gh-pages" branch
 
-	ichris:child $ git push origin gh-pages
+	user:homepage $ git push origin gh-pages
 
 It might take a minute or two until the changes are visible on the web.
 Be patient.
@@ -39,7 +39,7 @@ Change directory back to the xpcc/ folder, make sure it doesn't have the "gh-pag
 	user:homepage $ cd ../../
 	user:xpcc $ git branch
 
-If the xpcc/ folder has the "gh-pages" branch, change to master and remove the branch.
+If the xpcc/ folder does have the "gh-pages" branch for whatever reason, change to master and remove the branch.
 
 	user:xpcc $ git branch master
 	user:xpcc $ git branch -d gh-pages
