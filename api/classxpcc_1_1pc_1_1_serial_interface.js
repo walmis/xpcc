@@ -1,0 +1,27 @@
+var classxpcc_1_1pc_1_1_serial_interface =
+[
+    [ "SerialInterface", "classxpcc_1_1pc_1_1_serial_interface.html#abe00155ed78e5313f919f2076f63907d", null ],
+    [ "SerialInterface", "classxpcc_1_1pc_1_1_serial_interface.html#a54a8aa15ac4bfd7575de8ca7b5b1c484", null ],
+    [ "~SerialInterface", "classxpcc_1_1pc_1_1_serial_interface.html#a3ede9a73bdfae05e0c2f66a3f01403a1", null ],
+    [ "setDeviceName", "classxpcc_1_1pc_1_1_serial_interface.html#a7c286e45d5f54bbb47ad073886663d37", null ],
+    [ "getDeviceName", "classxpcc_1_1pc_1_1_serial_interface.html#a3b34aa159aef247a5a3b3401ddfe1f39", null ],
+    [ "setBaudRate", "classxpcc_1_1pc_1_1_serial_interface.html#acfb3bc16ade3f2885db573f18589e62e", null ],
+    [ "getBaudRate", "classxpcc_1_1pc_1_1_serial_interface.html#a9fcc524551e96feb17327307b878f43c", null ],
+    [ "open", "classxpcc_1_1pc_1_1_serial_interface.html#a8d19f15d37fcebdfca4ccada17d289c7", null ],
+    [ "close", "classxpcc_1_1pc_1_1_serial_interface.html#a8662c45bc6b0bb27309617dba7e56d56", null ],
+    [ "isOpen", "classxpcc_1_1pc_1_1_serial_interface.html#ade0e6a8da39d0905aa2ccae06722b5fe", null ],
+    [ "read", "classxpcc_1_1pc_1_1_serial_interface.html#adfd88e22c876f3e3a539ecaa225220c0", null ],
+    [ "readBytes", "classxpcc_1_1pc_1_1_serial_interface.html#a6c1215a9c84265bccc5faeb51d187842", null ],
+    [ "write", "classxpcc_1_1pc_1_1_serial_interface.html#ab9d8dc26d09a6fd4d71b5bd85fceaebf", null ],
+    [ "write", "classxpcc_1_1pc_1_1_serial_interface.html#acbb42fc8cd544c51c89a2f613952deb3", null ],
+    [ "writeBytes", "classxpcc_1_1pc_1_1_serial_interface.html#a48fce6d979a645142466dd18d9a3a0d2", null ],
+    [ "bytesAvailable", "classxpcc_1_1pc_1_1_serial_interface.html#a0b0dac83ddeb670271ecd27d29dcca08", null ],
+    [ "flush", "classxpcc_1_1pc_1_1_serial_interface.html#ade2a7d93ede71d7174518f0690fb6827", null ],
+    [ "dump", "classxpcc_1_1pc_1_1_serial_interface.html#a4c2947dec575132946d79bed216c9a80", null ],
+    [ "initSerial", "classxpcc_1_1pc_1_1_serial_interface.html#a980dcb7ed7184b5a8aca1f8d88ac9e69", null ],
+    [ "dumpErrorMessage", "classxpcc_1_1pc_1_1_serial_interface.html#aa81fc99ae2166d12ee0a3dfce8215bb2", null ],
+    [ "isConnected", "classxpcc_1_1pc_1_1_serial_interface.html#aa2664928e356cd5b0d233547024ff6eb", null ],
+    [ "deviceName", "classxpcc_1_1pc_1_1_serial_interface.html#aa8b14638eae64046721e25af62b5dc31", null ],
+    [ "baudRate", "classxpcc_1_1pc_1_1_serial_interface.html#a6d9cb5c1192bbf1b8769b1db6c02baff", null ],
+    [ "fileDescriptor", "classxpcc_1_1pc_1_1_serial_interface.html#ac65d1d3d8e24ced29cd45eddfbfe4cc9", null ]
+];

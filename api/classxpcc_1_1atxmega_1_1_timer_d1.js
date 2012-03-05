@@ -1,0 +1,27 @@
+var classxpcc_1_1atxmega_1_1_timer_d1 =
+[
+    [ "getModuleBase", "classxpcc_1_1atxmega_1_1_timer_d1.html#a508d9fa60534c9c7a8ad434ba054fd93", null ],
+    [ "isType0", "classxpcc_1_1atxmega_1_1_timer_d1.html#ae4e011df30ff56bd950bf00442fb4e71", null ],
+    [ "setClockSource", "classxpcc_1_1atxmega_1_1_timer_d1.html#a488473b9f727d74b698fb8c614f4cec4", null ],
+    [ "setWaveformGenerationMode", "classxpcc_1_1atxmega_1_1_timer_d1.html#a65d3c11fcffaaffeb0a166709e36aedd", null ],
+    [ "enableCompareCapture", "classxpcc_1_1atxmega_1_1_timer_d1.html#aeeeada393dd8c804dba6e949575c839b", null ],
+    [ "setCompareOutputValue", "classxpcc_1_1atxmega_1_1_timer_d1.html#a19c12434592112c0686c20ab1178ebcc", null ],
+    [ "setEventSource", "classxpcc_1_1atxmega_1_1_timer_d1.html#a9193805eb1d316504ed0fd388c3ce3b1", null ],
+    [ "setDelayEvent", "classxpcc_1_1atxmega_1_1_timer_d1.html#a4153bf80a1cca3c22dc7f66d1a990cb7", null ],
+    [ "setEventAction", "classxpcc_1_1atxmega_1_1_timer_d1.html#aea89429921162c46600b0d1e3a9d066d", null ],
+    [ "setByteMode", "classxpcc_1_1atxmega_1_1_timer_d1.html#a81ac47122e3658b9ce3ba9d07d9f7ff8", null ],
+    [ "setErrorInterrupt", "classxpcc_1_1atxmega_1_1_timer_d1.html#a4c5b6dd72aa5e9c609624683615be4dd", null ],
+    [ "setOverflowInterrupt", "classxpcc_1_1atxmega_1_1_timer_d1.html#a1239dccc232ef5c025dc4a8bc454aaf7", null ],
+    [ "setCompareCaptureAInterrupt", "classxpcc_1_1atxmega_1_1_timer_d1.html#ab34740211c48b4357f4eb2027dbcbe4d", null ],
+    [ "setCompareCaptureBInterrupt", "classxpcc_1_1atxmega_1_1_timer_d1.html#a51ee4130d07ee3dca37530940a25b012", null ],
+    [ "setTimerCommand", "classxpcc_1_1atxmega_1_1_timer_d1.html#aee731e169c3a81c8b86a6d9f8a84b9b7", null ],
+    [ "isTimerCountingUp", "classxpcc_1_1atxmega_1_1_timer_d1.html#a57ced4af7666220ba91fff4ae255e9e8", null ],
+    [ "setMsTimer", "classxpcc_1_1atxmega_1_1_timer_d1.html#ad83c447d3d7835abc16190bc181233ce", null ],
+    [ "getHighResBase", "classxpcc_1_1atxmega_1_1_high_res_d.html#acc5020d5b007207b05343e93f9d738ac", null ],
+    [ "setHIRESEnable", "classxpcc_1_1atxmega_1_1_high_res_d.html#ac6e05342b7af70b072087ca47d10bbcf", null ],
+    [ "getWaveformBase", "classxpcc_1_1atxmega_1_1_waveform_d.html#ada16a3cd6ebb2b380e2c6a9d3de22f2d", null ],
+    [ "setAWEXMode", "classxpcc_1_1atxmega_1_1_waveform_d.html#a972131583b1c05eb5090e4bc2f153115", null ],
+    [ "setAWEXDTIEnable", "classxpcc_1_1atxmega_1_1_waveform_d.html#a988fec5621359e5068fe7b16bfa4e412", null ],
+    [ "setAWEXFaultDetection", "classxpcc_1_1atxmega_1_1_waveform_d.html#aba971f211b701742f0314c445cd16559", null ],
+    [ "getAWEXStatus", "classxpcc_1_1atxmega_1_1_waveform_d.html#a3bd54f64d064b5c59f9735d699ee34e6", null ]
+];

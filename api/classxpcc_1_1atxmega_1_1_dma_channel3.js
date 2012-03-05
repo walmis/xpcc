@@ -1,0 +1,27 @@
+var classxpcc_1_1atxmega_1_1_dma_channel3 =
+[
+    [ "initialize", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a6c13022546cf7317fe3f6936685ff2ac", null ],
+    [ "enable", "classxpcc_1_1atxmega_1_1_dma_channel3.html#aa0d15633e98f33361ff1d342649f44e2", null ],
+    [ "reset", "classxpcc_1_1atxmega_1_1_dma_channel3.html#af62a386487728e9e315c26289909ca5b", null ],
+    [ "enableRepeatMode", "classxpcc_1_1atxmega_1_1_dma_channel3.html#abf17fdf74882c88a8c9e8ff327c815b3", null ],
+    [ "requestTransfer", "classxpcc_1_1atxmega_1_1_dma_channel3.html#ac9df3a4020e1245d2281c27f94266fdf", null ],
+    [ "setSingleShotMode", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a219e6e915b8a0aa5f00f65e35f674c96", null ],
+    [ "setBurstLength", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a16c34d5cf2b03efd9a4b96c9f5d53c62", null ],
+    [ "getStatus", "classxpcc_1_1atxmega_1_1_dma_channel3.html#abe809fc9de9f0d2e6759844c842b32b4", null ],
+    [ "setErrorInterruptLevel", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a6fa83e03073a9e8014d4153fdca14c21", null ],
+    [ "setTransactionCompleteInterruptLevel", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a8d3c7b6eee8e6cdb4b5b3d7c06168c08", null ],
+    [ "setSourceAddressReload", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a55f2671cf6a991f8a37f1715a0cebeb5", null ],
+    [ "setSourceAddressMode", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a28183441823441016869fc278139e088", null ],
+    [ "setDestinationAddressReload", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a1a4e874a43871406bd449bdb207a6a62", null ],
+    [ "setDestinationAddressMode", "classxpcc_1_1atxmega_1_1_dma_channel3.html#af4b4976b9f9323b8bafede1682e882aa", null ],
+    [ "setTriggerSource", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a4a84688b80132934d315f34d4bdad030", null ],
+    [ "setBlockTransferCount", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a2f01e8593e85fa7c8bdbba3f583d1655", null ],
+    [ "setRepeatCount", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a6f2c747fc4abf33506325495d0702c28", null ],
+    [ "setSource", "classxpcc_1_1atxmega_1_1_dma_channel3.html#aa2ed00f2faf567c23ec1f4af3a3312e4", null ],
+    [ "setSource", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a08faf1fd340ea4e6d48cf6b5384936d9", null ],
+    [ "setSource", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a05c93771e0aa5db56e1f071f42ffab13", null ],
+    [ "setDestination", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a2ef252e182dc4fd2e6f123fbe66ab10d", null ],
+    [ "setDestination", "classxpcc_1_1atxmega_1_1_dma_channel3.html#ac771684ce76f6cf9c67ace6c757813cf", null ],
+    [ "setDestination", "classxpcc_1_1atxmega_1_1_dma_channel3.html#a2628bc13a4af854e5a73ee47e8e97b9c", null ],
+    [ "getChannelRegister", "classxpcc_1_1atxmega_1_1_dma_channel3.html#ac35b5e52215f56180c6b4cc0de5a58bd", null ]
+];

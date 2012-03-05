@@ -1,0 +1,28 @@
+var classxpcc_1_1atmega_1_1_adc =
+[
+    [ "Reference", "classxpcc_1_1atmega_1_1_adc.html#ae2808a9a31ee566ef9c89a22965e531c", null ],
+    [ "Prescaler", "classxpcc_1_1atmega_1_1_adc.html#aaf3bbd93bcce8791a2ee6fcb513a65ff", null ],
+    [ "setChannel", "classxpcc_1_1atmega_1_1_adc.html#a9c38e3ed1684553e0ff3f34dcadadf05", null ],
+    [ "getChannel", "classxpcc_1_1atmega_1_1_adc.html#a786b5e7d91b2512cac793049099ef44c", null ],
+    [ "setEnableAdc", "classxpcc_1_1atmega_1_1_adc.html#a8b3bced2a3dfe76e9644a00eee2bee69", null ],
+    [ "setStartConversion", "classxpcc_1_1atmega_1_1_adc.html#a8838654e8b70117d3f56ad3b238ec900", null ],
+    [ "setAutoTriggerEnable", "classxpcc_1_1atmega_1_1_adc.html#ad54de827d5f06b89372226be96f52220", null ],
+    [ "setFreeRunningMode", "classxpcc_1_1atmega_1_1_adc.html#a8f1c0a3a016a2f66d0e1bdacaf8eefde", null ],
+    [ "isInterruptFlagSet", "classxpcc_1_1atmega_1_1_adc.html#a028172063b72d29f627808f89be0bb69", null ],
+    [ "clearInterruptFlag", "classxpcc_1_1atmega_1_1_adc.html#a26319d6f4ad2fa807a15dfa6397ba07e", null ],
+    [ "setInterruptEnable", "classxpcc_1_1atmega_1_1_adc.html#a34474ade893089c8a17bdc45fb9145e8", null ],
+    [ "setPrescaler", "classxpcc_1_1atmega_1_1_adc.html#a0cfa4e5d01e27b606b2c25eb15dd3ce6", null ],
+    [ "setAutoTriggerSource", "classxpcc_1_1atmega_1_1_adc.html#a4a8037de3a990bfaf6dc6f889f78ef3d", null ],
+    [ "setHighSpeedMode", "classxpcc_1_1atmega_1_1_adc.html#ab5d3102d56d26d784893c25a38366d5c", null ],
+    [ "setCurrentSourceEnable", "classxpcc_1_1atmega_1_1_adc.html#a0780d223093989a66d1f59d74b5f9a1d", null ],
+    [ "isAvddOk", "classxpcc_1_1atmega_1_1_adc.html#a62951ef3d1735bc80fbc72cda8cdbade", null ],
+    [ "isReferenceVoltageOk", "classxpcc_1_1atmega_1_1_adc.html#a5a454e270dd8dc91c9144e3487f68d18", null ],
+    [ "setAnalogChannelChange", "classxpcc_1_1atmega_1_1_adc.html#a2a1addb3e1bae4104ac2ce4ade87e9a6", null ],
+    [ "getDataRegister", "classxpcc_1_1atmega_1_1_adc.html#afd8fe1fe0e458ce36e49fc06bb79b9a2", null ],
+    [ "initialize", "classxpcc_1_1atmega_1_1_adc.html#a9eee7b16ec92e9b5b31382b352648763", null ],
+    [ "enableFreeRunningMode", "classxpcc_1_1atmega_1_1_adc.html#a3fe8e5a208c2bd450624358473cb6df3", null ],
+    [ "readChannel", "classxpcc_1_1atmega_1_1_adc.html#a5a67a3ea9a714916f6a836876743984d", null ],
+    [ "startConversion", "classxpcc_1_1atmega_1_1_adc.html#aff4fef035a617ef0473e656a4530f233", null ],
+    [ "isFinished", "classxpcc_1_1atmega_1_1_adc.html#a22c96287930e5bac0538bb67bdaba5a8", null ],
+    [ "getValue", "classxpcc_1_1atmega_1_1_adc.html#aac63913db942cbd30546a7d4435d005a", null ]
+];

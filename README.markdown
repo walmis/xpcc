@@ -1,11 +1,3 @@
-   __  __ ___   ___ ___ 
-   \ \/ /  _ \ / __/ __|
-    )  (| |_) | (_| (__ 
-   /_/\_\  __/ \___\___|
-        | |   
-        |_|  Cross Platform Component Communication
-             http://roboterclubaachen.github.com/xpcc/
-
 The GitHub Pages branch includes the project main page and the documentation.
 
 To update the documentation or main page, you need to checkout the gh-pages branch, update the files you need and push to that branch.
