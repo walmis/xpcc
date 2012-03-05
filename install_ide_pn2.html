@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--	Based on the "Golden Gate" Design by Free CSS Templates
+		http://www.freecsstemplates.org -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="de" />
+	<title>XPCC &raquo; Programmers Notepad 2</title>
+	
+	<meta name="robots" content="index" />
+	<meta name="keywords" content="XPCC, Communication, Robot, AVR, CAN, TCP/IP, TIPC, C++, RCA, Roboterclub Aachen" />
+	<meta name="author" content="Roboterclub Aachen e.V." />
+	<meta name="description" content="XPCC is a packet orientated communication library, that enables a transparent communication between various plattforms" />
+	
+	<link rel="stylesheet" type="text/css" href="default.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="screenshot.css" media="screen" />
+	
+	<link rel="icon" href="favicon.png" type="image/png" />
+	<link rel="shortcut icon" href="favicon.png" type="image/png" />
+	
+	<script type="text/javascript" src="highslide/highslide.js"></script>
+	<script type="text/javascript" src="highslide/highslide.config.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide.css" media="screen" />
+	<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide-ie6.css" />
+	<![endif]-->
+</head>
+
+<body>
+<div id="menu">
+	<ul id="main">
+		<li class="current_page"><a href="#">Home</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Development</a></li>
+		<li><a href="https://sourceforge.net/apps/trac/xpcc/">Wiki</a></li>
+		<li><a href="http://xpcc.sourceforge.net/api">API Documentation</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Download</a></li>
+		<li><a href="http://www.roboterclub.rwth-aachen.de/cms">Roboterclub Aachen e.V.</a></li>
+	</ul>
+</div>
+
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<h1>Programmers Notepad 2 als Entwicklungsumgebung</h1>
+		
+		<p>Programmers Notepad 2 (PN2) ist Teil des WinAVR-Paketes und wird
+		bei der Installation automatisch mit installiert. Es ist ein einfacher
+		Texteditor, der aber ein paar sehr nützliche Funktionen bietet. Vor allem
+		aber gibt es die Möglichkeit sogenannte Tools zu definieren. Damit
+		lassen sich Kommandozeilen Programme wie Make oder SCons aufrufen.</p>
+		
+		<h2>Zusätzliche Tools</h2>
+		
+		<div>
+			<a href="images/windows/pn2_scons_tool_file.png" class="highslide" onclick="return hs.expand(this)" title="Tool-Datei in den PN2-Ordner kopieren">
+				<img src="images/windows/pn2_scons_tool_file.thumb.png" class="screenshot" alt="" /></a>
+			<p>Standardmäßig sind von WinAVR einige Tools zum Arbeiten mit Make
+			vorinstalliert.</p>
+			<p>Um weitere Tools für SCons zu ergänzen lädt man sich am besten die
+			Datei <a href="files/scons.xml">scons.xml</a> herunter und kopiert
+			sie in das <code>WinAVR &raquo; pn &raquo; tools</code> Verzeichnis.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/pn2_scons_tools.png" class="highslide" onclick="return hs.expand(this)" title="Neue Tools zum Ausführen von SCons">
+				<img src="images/windows/pn2_scons_tools.thumb.png" class="screenshot" alt="" /></a>
+			<p>Nachdem man PN2 einmal neu gestartet hat sollten die zusätzlichen Tools
+			dann unter <code>Tools</code> verfügbar sein. Um Projekte zu kompilieren öffnet
+			man einfach eine Datei aus dem zugehörigen Ordner und wählt <i>Tools &raquo; SCons</i>.
+			Danach sollten im Output-Fenster die Compiler-Ausgaben durchlaufen.</p>
+		</div>
+		<div>
+			<p>Folgende Tools werden installiert:</p>
+			<ul>
+				<li><code>SCons</code> - Compiliert die Dateien im aktuellen Ordner.</li>
+				<li><code>SCons Verbose</code> - Gibt die wirklich ausgeführten Befehle beim Compilieren aus. Sinnvoll
+					um Parameter zu überprüfen, erzeugt aber sehr viele Ausgaben.</li>
+				<li><code>SCons Clean</code> - Löscht alle temporären Datei. Sollte eigentlich nie nötig sein.</li>
+				<li><code>SCons Program</code> - Programmiert den Flash-Speicher des AVRs.
+					Dazu werden die Einstellungen aus der <code>[avrdude]</code>
+					Sektion aus project.cfg verwendet</li>
+				<li><code>SCons Fuse</code> - Programmiert die Fusebits (dafür
+					muss die Sektion <code>[fusebit]</code> in der project.cfg angelegt sein)</li>
+			</ul>
+		</div>
+		<div>
+			<a href="images/windows/pn2_scons_program.png" class="highslide" onclick="return hs.expand(this)" title="Programmieren mit PN2">
+				<img src="images/windows/pn2_scons_program.thumb.png" class="screenshot" alt="" /></a>
+			<p>Genau wie beim Compilieren läuft beim Programmieren die Ausgabe
+			von <b>avrdude</b> im Output-Fenster durch.</p>
+		</div>
+		<div>
+			<a href="images/windows/pn2_error_avrdude.png" class="highslide" onclick="return hs.expand(this)" title="Fehler beim Programmieren mit avrdude">
+				<img src="images/windows/pn2_error_avrdude.thumb.png" class="screenshot" alt="" /></a>
+			<p>Falls <b>avrdude</b> einen Fehler wie <code>did not find any USB device "usb"</code> meldet
+			ist libusb nicht oder nicht korrekt installiert.</p>
+			
+			<p>Wie man dies ändert ist auf einer <a href="install_libusb.html">extra Seite</a> beschrieben.</p>
+		</div>
+		
+		<div><p>Zurück zur <a href="install_windows.html">Installationsanleitung</a>.</p></div>
+	</div>
+	
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+
+<div id="footer">
+	<p>&copy; <a href="http://www.roboterclub.rwth-aachen.de">Roboterclub Aachen e.V.</a> &bull;
+		Project hosted on <a href="http://sourceforge.net/projects/xpcc">
+			<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=276149&amp;type=16" width="150" height="40" alt="Get Cross Platform Component Communication at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a> &bull;
+		<a href="http://sourceforge.net/about">About</a> &bull;
+		<a href="http://sourceforge.net/tos/tos.php">Legal</a> &bull;
+		<a href="http://sourceforge.net/support">Help</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--	Based on the "Golden Gate" Design by Free CSS Templates
+		http://www.freecsstemplates.org -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="de" />
+	<title>XPCC &raquo; Installationsanleitung für Windows</title>
+	
+	<meta name="robots" content="index" />
+	<meta name="keywords" content="XPCC, Communication, Robot, AVR, CAN, TCP/IP, TIPC, C++, RCA, Roboterclub Aachen" />
+	<meta name="author" content="Roboterclub Aachen e.V." />
+	<meta name="description" content="XPCC is a packet orientated communication library, that enables a transparent communication between various plattforms" />
+	
+	<link rel="stylesheet" type="text/css" href="default.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="screenshot.css" media="screen" />
+	
+	<link rel="icon" href="favicon.png" type="image/png" />
+	<link rel="shortcut icon" href="favicon.png" type="image/png" />
+	
+	<script type="text/javascript" src="highslide/highslide.js"></script>
+	<script type="text/javascript" src="highslide/highslide.config.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide.css" media="screen" />
+	<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide-ie6.css" />
+	<![endif]-->
+</head>
+
+<body>
+<div id="menu">
+	<ul id="main">
+		<li class="current_page"><a href="#">Home</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Development</a></li>
+		<li><a href="https://sourceforge.net/apps/trac/xpcc/">Wiki</a></li>
+		<li><a href="http://xpcc.sourceforge.net/api">API Documentation</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Download</a></li>
+		<li><a href="http://www.roboterclub.rwth-aachen.de/cms">Roboterclub Aachen e.V.</a></li>
+	</ul>
+</div>
+
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<h1>Installationsanleitung für Windows</h1>
+		
+		<p>Diese Anleitung ist für Windows 7 geschrieben, sollte sich aber
+		für ältere Versionen (Windows XP und Vista) mit leichten Änderungen
+		genauso anwenden lassen.</p>
+		<p>Klick auf die Bilder um sie zu vergrößern. Mit den Pfeiltasten
+		kann man zusätzlich zwischen den Bildern umschalten.</p>
+		
+		<h2>Schritt 1: Hol dir den Code</h2>
+		<div>
+			<a href="images/windows/tortoisesvn_download.png" class="highslide" onclick="return hs.expand(this)" title="Installiere TortoiseSVN">
+				<img src="images/windows/tortoisesvn_download.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Installiere <a href="http://tortoisesvn.net/downloads">TortoiseSVN</a>.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/tortoisesvn_context_menu.jpg" class="highslide" onclick="return hs.expand(this)" title="TortoiseSVN: Kontextmenü">
+				<img src="images/windows/tortoisesvn_context_menu.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Erstelle einen neuen Ordner und benutze das Rechtsklick-Kontextmenü
+			von TortoiseSVN um einen Checkout in dem Ordner zu machen. Hier
+			wird <code>xpcc</code> als Ordnername verwendet.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/tortoisesvn_checkout_parameter.jpg" class="highslide" onclick="return hs.expand(this)" title="TortoiseSVN: Einstellen des SVN Servers">
+				<img src="images/windows/tortoisesvn_checkout_parameter.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Die URL um den aktuellsten Stand herunterzuladen lautet
+			<code>https://xpcc.svn.sourceforge.net/svnroot/xpcc/trunk</code>.
+			Man muss beachten, dass sich diese Version aktuell gerade in der Entwicklung befindet,
+			es können sich also immer Änderungen ergeben. Die Doxygen-Dokumentation
+			wird aus dieser Version erstellt.</p>
+			<p>Unter <code>https://xpcc.svn.sourceforge.net/svnroot/xpcc/tags/</code>
+			liegen die letzten stabilen Versionen. Aktuell ist dies
+			<code>https://xpcc.svn.sourceforge.net/svnroot/xpcc/tags/1.1/</code>.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/tortoisesvn_checkout_progress.jpg" class="highslide" onclick="return hs.expand(this)" title="TortoiseSVN: Herunterladen des Codes">
+				<img src="images/windows/tortoisesvn_checkout_progress.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Danach sollte TortoiseSVN das gesamte Projekt herunterladen.</p>
+			<p>Ab jetzt können Änderungen mit <i>Rechtsklick &raquo; SVN Update</i> heruntergeladen
+			werden.</p>
+		</div>
+		
+		<h2>Schritt 2: Installiere die Build-Umgebung (Python & Scons)</h2>
+		
+		<div>
+			<a href="images/windows/python_download.png" class="highslide" onclick="return hs.expand(this)" title="Download Python">
+				<img src="images/windows/python_download.thumb.png" class="screenshot" alt="" /></a>
+			<p>Wir verwenden <em>SCons</em> anstelle von <em>Make</em> um die
+			Programme zu compilieren.
+			Da SCons auf Python basiert muss man zuerst den Windows Installer von
+			<a href="http://www.python.org/download/">Python</a> herunterladen und installieren.</p>
+			<p>Man sollte die aktuellste 2.x Version von Python in 32-Bit verwenden.
+			Aktuell ist dies Version 2.7.2 (die Datei heißt dann "Python 2.7.2 Windows Installer"). Andere
+			Versionen könnten auch funktionieren, sind aber bisher nicht getestet.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_install.jpg" class="highslide" onclick="return hs.expand(this)" title="Installiere Python">
+				<img src="images/windows/python_install.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Installiere Python und merk dir den Installations-Pfad.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_path_prepare.jpg" class="highslide" onclick="return hs.expand(this)" title="Füge Python dem Systempfad hinzu">
+				<img src="images/windows/python_path_prepare.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Um den Befehl <code>scons</code> verfügbar zu machen muss der
+			System-Pfad geändert werden. Gehe zu
+			<i>Start &raquo; Systemsteuerung &raquo; System &raquo; Erweiterte Systemeinstellungen</i></p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_path.jpg" class="highslide" onclick="return hs.expand(this)" title="Füge Python dem Systempfad hinzu">
+				<img src="images/windows/python_path.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Das Verzeichnis von Python muss der PATH-Variable hinzugefügt werden. Bei einer
+			Standard-Installation ist der Pfad <code>C:\Program Files\Python27</code></p>
+
+			<p>Also hinzufügen (getrennt durch ";")
+			<code>C:\Program Files\Python27</code>
+			<code>C:\Program Files\Python27\Scripts</code></p>
+			
+			<p>Zum Beispiel: 
+			<code>C:\Program Files\Python27;C:\Program Files\Python27\Scripts;</code></p>
+		</div>
+		
+		<div>
+			<a href="images/windows/scons_download.png" class="highslide" onclick="return hs.expand(this)" title="Installiere SCons">
+				<img src="images/windows/scons_download.thumb.png" class="screenshot" alt="" /></a>
+			<p>Lade <a href="http://www.scons.org/download.php">SCons</a> herunter und installiere es.</p>
+		</div>
+		
+		<h2>Schritt 3: Entwicklungsumgebung für AVRs</h2>
+		
+		<div>
+			<a href="images/windows/winavr_download.png" class="highslide" onclick="return hs.expand(this)" title="Installiere WinAVR">
+				<img src="images/windows/winavr_download.thumb.png" class="screenshot" alt="" /></a>
+			<p><a href="http://sourceforge.net/projects/winavr/files/WinAVR/">WinAVR</a>
+			ist ein Program-Paket das die gesamte Entwicklungsumgebung für die AVRs enthält. Lade
+			die aktuellste Version herunter und installiere sie. Zum Zeitpunkt
+			des Schreibens dieser Anleitung war dies
+			<a href="http://sourceforge.net/projects/winavr/files/WinAVR/20100110/WinAVR-20100110-install.exe/download">WinAVR-20100110</a>.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd.jpg" class="highslide" onclick="return hs.expand(this)" title="Öffnen die Kommandozeile">
+				<img src="images/windows/cmd.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Um zu überprüfen das alles richtig eingerichtet ist werden
+			wir eines der Beispiel-Programme compilieren. Öffne dazu die Kommandozeile
+			indem du <code class="cmd">cmd</code> in die Suchleiste des Startmenüs eintippst.</p>
+			<p>(Später werden wir noch komfortablere Methoden vorstellen um SCons
+			auszuführen. Zum Testen ist es allerdings einfacher so).</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_gpio_scons.jpg" class="highslide" onclick="return hs.expand(this)" title="Führe SCons aus">
+				<img src="images/windows/cmd_gpio_scons.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Navigiere zum GPIO Bespiel in <code>xpcc/examples/avr/gpio/basic</code>
+			und führe <code>scons</code> aus. Falls scons nicht gefunden wird
+			überprüfe den Systempfad. Mit <code class="cmd">echo %PATH%</code> kannst du
+			den aktuellen Wert ausgeben lassen. Das <code>Scripts</code> Verzeichnis
+			aus dem Python-Pfad und der Python-Pfad muss darin enthalten sein.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_gio_scons_error_missing_visual_studio.jpg" class="highslide" onclick="return hs.expand(this)" title="SCons beschwert sich eventuell über ein fehlendes Visual Studio. Ignoriere diese Warnung.">
+				<img src="images/windows/cmd_gio_scons_error_missing_visual_studio.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Falls es eine Warnung über ein nicht gefundenes Visual Studio gibt,
+			ignoriere diese. Dies ist ein Fehler innerhalb von SCons und hat
+			nichts zu sagen.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_gpio_scons_success.jpg" class="highslide" onclick="return hs.expand(this)" title="Kompilieren war erfolgreich">
+				<img src="images/windows/cmd_gpio_scons_success.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Wenn alles korrekt eingerichtet ist sollte die Ausgabe wie
+			im Screenshot aussehen. Glückwunsch, du hast dein erstes Program
+			mithilfe von XPCC compiliert.</p>
+			<p>Alle jetzt folgenden Schritte sind optional.</p>
+		</div>
+		
+		<h2 style="clear: both" id="avrstudio">Schritt 3.1: Installiere AVR Studio</h2>
+		
+		<div>
+			<a href="images/windows/avrstudio_download.png" class="highslide" onclick="return hs.expand(this)" title="Lade AVR Studio 4.18 herunter">
+				<img src="images/windows/avrstudio_download.thumb.png" class="screenshot" alt="" /></a>
+			<p>Selbst wenn du AVR Studio nicht als Entwicklungsumgebung nutzen
+			willst brauchst du es um an die Treiber für die Atmel Programmier-Tools
+			wie AVRISP mkII oder AVR JTAGICE mkII zu kommen.</p>
+			<p>Um das AVR Studio herunter zu laden muss man ein Registierungsformular
+			ausfüllen. Es muss eine gültige E-Mail Adresse angegeben werden, da
+			der Download-Link dorthin geschickt wird. Alternativ sind im <a href="http://www.mikrocontroller.net/articles/AVR-Studio">microcontroller.net Wiki</a>
+			aber auch die Direktlinks auf die verschieden Versionen aufgelistet.
+			Damit spart man sich die Registrierung und kann direkt loslegen.</p>
+			<!--<a href="http://www.atmel.com/dyn/resources/prod_documents/AvrStudio4Setup.exe">AVR Studio 4</a>-->
+		</div>
+		
+		<div>
+			<a href="images/windows/avrstudio_jungo_driver.jpg" class="highslide" onclick="return hs.expand(this)" title="Installiere den Jungo Driver">
+				<img src="images/windows/avrstudio_jungo_driver.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Bei der Installation des AVR Studios sollte man auf jeden Fall
+			den Jungo-Treiber mit installieren.</p>
+			<p>Um USB-Programmer mit <b>avrdude</b> verwenden zu können muss zusätzlich
+			die <b>libusb</b> installiert werden. Die Vorgehensweise dazu ist auf einer
+			<a href="install_libusb.html">extra Seite</a> beschrieben.</p>
+		</div>
+		
+		<h2>Schritt 4: Installiere eine IDE</h2>
+		
+		<p>Da es gerade bei der IDE sehr viele verschiedene Vorlieben gibt wollen
+		wir hier drei populäre Entwicklungsumgebungen vorstellen und zeigen
+		wie XPCC dort eingebunden werden kann.</p>
+		
+		<ul>
+			<li><a href="install_ide_pn2.html">Programmers Notepad 2</a></li>
+			<li><a href="install_ide_avrstudio4.html">AVR Studio 4</a></li>
+			<li><a href="install_ide_eclipse.html">Eclipse</a></li>
+		</ul>
+		
+		<h2>Schritt 5: Erweiterte Build-Umgebung</h2>
+		
+		<div>
+			<a href="images/windows/python_setuptools_download.png" class="highslide" onclick="return hs.expand(this)" title="Installiere setuptools">
+				<img src="images/windows/python_setuptools_download.thumb.png" class="screenshot" alt="" /></a>
+			<p>Für das Kommunikations Framework nutzen wir zwei zusätzliche
+			Python Module: lxml und jinja2.
+			Der einfachste Weg sie zu installieren ist es <em>easy_install</em> zu verwenden. 
+			Dieses ist Teil des <a href="http://pypi.python.org/pypi/setuptools">
+			setuptools</a> Paketes.</p>
+			<p>Installiere <a href="http://pypi.python.org/pypi/setuptools">
+			setuptools</a> für die installiere Version von Python.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_setuptools_rights.jpg" class="highslide" onclick="return hs.expand(this)" title="Setze die Zugriffsrecht für den Python-Ordner">
+				<img src="images/windows/python_setuptools_rights.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Mit Windows 7 hat Windows ein besseres Rechte-Mangement eingeführt. 
+			Allerdings scheint easy_install daran noch nicht angepasst zu sein. Damit
+			es funktioniert braucht der Benutzer Schreibrechte für das Python
+			Verzeichnis.</p>
+			<p>Gehe zum Python Ordner, <i>Rechtsklick &raquo; Eigenschaften &raquo;
+			Sicherheit</i> und erlaube Vollzugriff für den aktuellen Benutzer.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_lxml.jpg" class="highslide" onclick="return hs.expand(this)" title="Installiere lxml">
+				<img src="images/windows/python_lxml.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Öffne die Kommandozeile und führe <code class="cmd">easy_install lxml==2.3</code> aus.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/python_jinja2.jpg" class="highslide" onclick="return hs.expand(this)" title="Installiere jinja2">
+				<img src="images/windows/python_jinja2.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Als nächstes führe <code class="cmd">easy_install jinja2</code> aus um die Jinja2 Template Engine
+			zu installieren.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_communication_scons.jpg" class="highslide" onclick="return hs.expand(this)" title="Überprüfe ob sich das Kommunikations-Beispiel kompilieren lässt.">
+				<img src="images/windows/cmd_communication_scons.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Um zu testen das alles funktioniert gehe zu <code>xpcc/examples/avr/communication/sender</code>
+			und führe SCons aus um das Program zu compilieren.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_communication_scons_success.jpg" class="highslide" onclick="return hs.expand(this)" title="Kompilieren war erfolgreich">
+				<img src="images/windows/cmd_communication_scons_success.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Wenn SCons keine Fehler ausgibt und die Programgröße angezeigt
+			wird ist alles in Ordnung.</p>
+		</div>
+		
+		<h2>Schritt 6: (optional) Unittests & Visual Studio</h2>
+		
+		<div>
+			<a href="images/windows/vc++_download.png" class="highslide" onclick="return hs.expand(this)" title="Lade Visual C++ herunter">
+				<img src="images/windows/vc++_download.thumb.png" class="screenshot" alt="" /></a>
+			<p>Um die XPCC Unittests auf dem PC auszuführen kann die 
+			Visual C++ in der Express Version verwendet werden. Diese bekommt
+			man frei auf der Microsoft Webseite.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_unittest_scons.jpg" class="highslide" onclick="return hs.expand(this)" title="Kompiliere und starte die Unittests">
+				<img src="images/windows/cmd_unittest_scons.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>Gehe zum XPCC Stammordner und führe <code class="cmd">scons unittest</code> aus.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/cmd_unittest_success.jpg" class="highslide" onclick="return hs.expand(this)" title="Übersicht Unittests">
+				<img src="images/windows/cmd_unittest_success.thumb.jpg" class="screenshot" alt="" /></a>
+			<p>SCons wird dann alle für diese Platform verfügbaren Unittests
+			kompilieren und ausführen.</p>
+			<p>Als Ergebnis bekommt man eine List mit allen Fehlern sowie eine
+			Übersicht über die bestanderen Tests. Im Idealfall sollten natürlich
+			gar keine Fehler vorhanden sein ;-)</p>
+		</div>
+	</div>
+	
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+
+<div id="footer">
+	<p>&copy; <a href="http://www.roboterclub.rwth-aachen.de">Roboterclub Aachen e.V.</a> &bull;
+		Project hosted on <a href="http://sourceforge.net/projects/xpcc">
+			<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=276149&amp;type=16" width="150" height="40" alt="Get Cross Platform Component Communication at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a> &bull;
+		<a href="http://sourceforge.net/about">About</a> &bull;
+		<a href="http://sourceforge.net/tos/tos.php">Legal</a> &bull;
+		<a href="http://sourceforge.net/support">Help</a></p>
+</div>
+
+</body>
+</html>

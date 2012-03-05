@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--	Based on the "Golden Gate" Design by Free CSS Templates
+		http://www.freecsstemplates.org -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="de" />
+	<title>XPCC &raquo; libusb</title>
+	
+	<meta name="robots" content="index" />
+	<meta name="keywords" content="XPCC, Communication, Robot, AVR, CAN, TCP/IP, TIPC, C++, RCA, Roboterclub Aachen" />
+	<meta name="author" content="Roboterclub Aachen e.V." />
+	<meta name="description" content="XPCC is a packet orientated communication library, that enables a transparent communication between various plattforms" />
+	
+	<link rel="stylesheet" type="text/css" href="default.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="screenshot.css" media="screen" />
+	
+	<link rel="icon" href="favicon.png" type="image/png" />
+	<link rel="shortcut icon" href="favicon.png" type="image/png" />
+	
+	<script type="text/javascript" src="highslide/highslide.js"></script>
+	<script type="text/javascript" src="highslide/highslide.config.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide.css" media="screen" />
+	<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide-ie6.css" />
+	<![endif]-->
+</head>
+
+<body>
+<div id="menu">
+	<ul id="main">
+		<li class="current_page"><a href="#">Home</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Development</a></li>
+		<li><a href="https://sourceforge.net/apps/trac/xpcc/">Wiki</a></li>
+		<li><a href="http://xpcc.sourceforge.net/api">API Documentation</a></li>
+		<li><a href="https://sourceforge.net/projects/xpcc/develop">Download</a></li>
+		<li><a href="http://www.roboterclub.rwth-aachen.de/cms">Roboterclub Aachen e.V.</a></li>
+	</ul>
+</div>
+
+<div id="wrapper">
+<div id="page">
+	<div id="content">
+		<h1>avrdude und libusb</h1>
+		
+		<p>Ohne installierte <em>libusb</em> findet avrdude unter Windows keinerlei USB
+		Programmer. Es erscheint nur eine Fehlermeldung wie <i>did not find any USB device "usb"</i>.</p>
+		
+		<h2>Installation</h2>
+		<div>
+			<a href="images/windows/libusb_install.png" class="highslide" onclick="return hs.expand(this)" title="">
+				<img src="images/windows/libusb_install.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Lade <a href="http://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.4.0/">libusb-win32</a>
+			herunter und entpacke es.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/libusb_install_wizard.png" class="highslide" onclick="return hs.expand(this)" title="">
+				<img src="images/windows/libusb_install_wizard.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Schließe den Programmer an und starte den Wizard im <i>bin</i> Verzeichnis.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/libusb_install_wizard_device_select.png" class="highslide" onclick="return hs.expand(this)" title="">
+				<img src="images/windows/libusb_install_wizard_device_select.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Er sollte darauf in der Liste der gefunden Geräte auftauchen.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/libusb_install_wizard_device_install.png" class="highslide" onclick="return hs.expand(this)" title="">
+				<img src="images/windows/libusb_install_wizard_device_install.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Installiere den Treiber für den Programmer.</p>
+		</div>
+		
+		<div>
+			<a href="images/windows/libusb_install_unsigned_driver.png" class="highslide" onclick="return hs.expand(this)" title="">
+				<img src="images/windows/libusb_install_unsigned_driver.thumb.png" class="screenshot"  alt="" /></a>
+			<p>Windows beschwert sich das der Treiber nicht signiert ist, installiere ihn trotzdem.
+			Danach muss der Programmer einmal abgezogen und neu anschloßen werden und <b>avrdude</b> sollte ihn erkennen.</p>
+		</div>
+		
+		<div><p>Zurück zur <a href="install_windows.html">Installationsanleitung</a>.</p></div>
+	</div>
+	
+	<div style="clear: both;">&nbsp;</div>
+</div>
+</div>
+
+<div id="footer">
+	<p>&copy; <a href="http://www.roboterclub.rwth-aachen.de">Roboterclub Aachen e.V.</a> &bull;
+		Project hosted on <a href="http://sourceforge.net/projects/xpcc">
+			<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=276149&amp;type=16" width="150" height="40" alt="Get Cross Platform Component Communication at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a> &bull;
+		<a href="http://sourceforge.net/about">About</a> &bull;
+		<a href="http://sourceforge.net/tos/tos.php">Legal</a> &bull;
+		<a href="http://sourceforge.net/support">Help</a></p>
+</div>
+
+</body>
+</html>
