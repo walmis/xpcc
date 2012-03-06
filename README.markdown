@@ -2,7 +2,7 @@ The GitHub Pages branch includes the project main page and the documentation.
 
 To update the documentation or main page, you need to checkout the gh-pages branch, update the files you need and push to that branch.
 
-These instructions should get you going (adapted from https://gist.github.com/825950):
+These instructions should get you going (adapted from [Chris Jacob](https://gist.github.com/825950)):
 
 You need to create the "doc/homepage" folder for your "gh-pages" branch.
 If the folder has already been created by doxygen, delete it.
