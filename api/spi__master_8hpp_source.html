@@ -127,39 +127,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: spi_master.hpp 748 2012-02-29 23:56:12Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_SPI__MASTER_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_SPI__MASTER_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/driver/interface.hpp&gt;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00067"></a><a class="code" href="classxpcc_1_1_spi_master.html">00067</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_spi_master.html" title="Interface of SPI Master.">SpiMaster</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_interface.html" title="Interface class.">Interface</a>
-<a name="l00068"></a>00068     {
-<a name="l00069"></a>00069     <span class="keyword">public</span>:
-<a name="l00071"></a>00071         <span class="keyword">static</span> uint8_t
-<a name="l00072"></a>00072         <a class="code" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9" title="initiates a SPI transfer and returns the received byte">write</a>(uint8_t data);
-<a name="l00073"></a>00073         
-<a name="l00084"></a>00084         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00085"></a>00085         <a class="code" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
-<a name="l00086"></a>00086                   uint8_t* transmit=0, uint8_t* receive=0,
-<a name="l00087"></a>00087                   <span class="keywordtype">bool</span> transmitIncr=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receiveIncr=<span class="keyword">true</span>);
-<a name="l00088"></a>00088         
-<a name="l00097"></a>00097         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00098"></a>00098         <a class="code" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03" title="Request a transfer, not buffered, blocking if not using DMA.">transfer</a>(<span class="keywordtype">bool</span> send=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receive=<span class="keyword">false</span>, <span class="keywordtype">bool</span> wait=<span class="keyword">true</span>);
-<a name="l00099"></a>00099         
-<a name="l00101"></a>00101         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00102"></a>00102         <a class="code" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d">isFinished</a>();
-<a name="l00103"></a>00103     };
-<a name="l00104"></a>00104 }
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif // XPCC_SPI__MASTER_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_SPI__MASTER_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_SPI__MASTER_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;xpcc/driver/interface.hpp&gt;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00065"></a><a class="code" href="classxpcc_1_1_spi_master.html">00065</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_spi_master.html" title="Interface of SPI Master.">SpiMaster</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_interface.html" title="Interface class.">Interface</a>
+<a name="l00066"></a>00066     {
+<a name="l00067"></a>00067     <span class="keyword">public</span>:
+<a name="l00069"></a>00069         <span class="keyword">static</span> uint8_t
+<a name="l00070"></a>00070         <a class="code" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9" title="initiates a SPI transfer and returns the received byte">write</a>(uint8_t data);
+<a name="l00071"></a>00071         
+<a name="l00082"></a>00082         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00083"></a>00083         <a class="code" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
+<a name="l00084"></a>00084                   uint8_t* transmit=0, uint8_t* receive=0,
+<a name="l00085"></a>00085                   <span class="keywordtype">bool</span> transmitIncr=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receiveIncr=<span class="keyword">true</span>);
+<a name="l00086"></a>00086         
+<a name="l00095"></a>00095         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03" title="Request a transfer, not buffered, blocking if not using DMA.">transfer</a>(<span class="keywordtype">bool</span> send=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receive=<span class="keyword">false</span>, <span class="keywordtype">bool</span> wait=<span class="keyword">true</span>);
+<a name="l00097"></a>00097         
+<a name="l00099"></a>00099         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00100"></a>00100         <a class="code" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d">isFinished</a>();
+<a name="l00101"></a>00101     };
+<a name="l00102"></a>00102 }
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104 <span class="preprocessor">#endif // XPCC_SPI__MASTER_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -180,7 +178,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>spi_master.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

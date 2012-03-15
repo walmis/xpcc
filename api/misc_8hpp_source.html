@@ -127,60 +127,58 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_MATH__UTILS_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_MATH__UTILS_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;cstddef&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;cmath&gt;</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_MATH__UTILS_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_MATH__UTILS_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;cstddef&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">namespace </span>xpcc
-<a name="l00043"></a>00043 {
-<a name="l00051"></a>00051     <span class="keyword">inline</span> <span class="keywordtype">bool</span>
-<a name="l00052"></a><a class="code" href="group__math.html#ga63f685e695ec0f51e61979ae7b95c887">00052</a>     <a class="code" href="group__math.html#ga63f685e695ec0f51e61979ae7b95c887" title="Fast check if a float variable is positive.">isPositive</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; a)
-<a name="l00053"></a>00053     {
-<a name="l00054"></a>00054 <span class="preprocessor">#ifdef __AVR__</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span>        <span class="comment">// IEEE 754-1985: the most significant bit is the sign bit</span>
-<a name="l00056"></a>00056         <span class="comment">// sign = 0 =&gt; positive</span>
-<a name="l00057"></a>00057         <span class="comment">// sign = 1 =&gt; negative</span>
-<a name="l00058"></a>00058         uint8_t *t = (uint8_t *) &amp;a;
-<a name="l00059"></a>00059         <span class="keywordflow">if</span> (*(t + 3) &amp; 0x80) {
-<a name="l00060"></a>00060             <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00061"></a>00061         }
-<a name="l00062"></a>00062         <span class="keywordflow">else</span> {
-<a name="l00063"></a>00063             <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00064"></a>00064         }
-<a name="l00065"></a>00065 <span class="preprocessor">#else</span>
-<a name="l00066"></a>00066 <span class="preprocessor"></span>        <span class="keywordflow">return</span> (a &gt; 0.0);
-<a name="l00067"></a>00067 <span class="preprocessor">#endif</span>
-<a name="l00068"></a>00068 <span class="preprocessor"></span>    }
-<a name="l00069"></a>00069     
-<a name="l00070"></a>00070     <span class="comment">// --------------------------------------------------------------------</span>
-<a name="l00086"></a>00086 <span class="comment"></span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> B, <span class="keywordtype">int</span> N&gt;
-<a name="l00087"></a><a class="code" href="classxpcc_1_1_pow.html">00087</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>
-<a name="l00088"></a>00088     {
-<a name="l00089"></a>00089     <span class="keyword">public</span>:
-<a name="l00090"></a>00090         <span class="keyword">enum</span> { value = B * <a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>&lt;B, N - 1&gt;::value };
-<a name="l00091"></a>00091     };
-<a name="l00092"></a>00092     
-<a name="l00093"></a>00093     <span class="comment">// specialization for B^0 which is always 1</span>
-<a name="l00094"></a>00094     <span class="comment">// used to end the recursion in Pow&lt;&gt;</span>
-<a name="l00095"></a>00095     <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> B&gt;
-<a name="l00096"></a><a class="code" href="classxpcc_1_1_pow_3_01_b_00_010_01_4.html">00096</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>&lt;B, 0&gt;
-<a name="l00097"></a>00097     {
-<a name="l00098"></a>00098     <span class="keyword">public</span>:
-<a name="l00099"></a>00099         <span class="keyword">enum</span> { value = 1 };
-<a name="l00100"></a>00100     };
-<a name="l00101"></a>00101 }
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="preprocessor">#endif  // XPCC_MATH__UTILS_HPP</span>
+<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
+<a name="l00041"></a>00041 {
+<a name="l00049"></a>00049     <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00050"></a><a class="code" href="group__math.html#ga63f685e695ec0f51e61979ae7b95c887">00050</a>     <a class="code" href="group__math.html#ga63f685e695ec0f51e61979ae7b95c887" title="Fast check if a float variable is positive.">isPositive</a>(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; a)
+<a name="l00051"></a>00051     {
+<a name="l00052"></a>00052 <span class="preprocessor">#ifdef __AVR__</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span>        <span class="comment">// IEEE 754-1985: the most significant bit is the sign bit</span>
+<a name="l00054"></a>00054         <span class="comment">// sign = 0 =&gt; positive</span>
+<a name="l00055"></a>00055         <span class="comment">// sign = 1 =&gt; negative</span>
+<a name="l00056"></a>00056         uint8_t *t = (uint8_t *) &amp;a;
+<a name="l00057"></a>00057         <span class="keywordflow">if</span> (*(t + 3) &amp; 0x80) {
+<a name="l00058"></a>00058             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00059"></a>00059         }
+<a name="l00060"></a>00060         <span class="keywordflow">else</span> {
+<a name="l00061"></a>00061             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00062"></a>00062         }
+<a name="l00063"></a>00063 <span class="preprocessor">#else</span>
+<a name="l00064"></a>00064 <span class="preprocessor"></span>        <span class="keywordflow">return</span> (a &gt; 0.0);
+<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
+<a name="l00066"></a>00066 <span class="preprocessor"></span>    }
+<a name="l00067"></a>00067     
+<a name="l00068"></a>00068     <span class="comment">// --------------------------------------------------------------------</span>
+<a name="l00084"></a>00084 <span class="comment"></span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> B, <span class="keywordtype">int</span> N&gt;
+<a name="l00085"></a><a class="code" href="classxpcc_1_1_pow.html">00085</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>
+<a name="l00086"></a>00086     {
+<a name="l00087"></a>00087     <span class="keyword">public</span>:
+<a name="l00088"></a>00088         <span class="keyword">enum</span> { value = B * <a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>&lt;B, N - 1&gt;::value };
+<a name="l00089"></a>00089     };
+<a name="l00090"></a>00090     
+<a name="l00091"></a>00091     <span class="comment">// specialization for B^0 which is always 1</span>
+<a name="l00092"></a>00092     <span class="comment">// used to end the recursion in Pow&lt;&gt;</span>
+<a name="l00093"></a>00093     <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> B&gt;
+<a name="l00094"></a><a class="code" href="classxpcc_1_1_pow_3_01_b_00_010_01_4.html">00094</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_pow.html" title="Compile time exponentiation.">Pow</a>&lt;B, 0&gt;
+<a name="l00095"></a>00095     {
+<a name="l00096"></a>00096     <span class="keyword">public</span>:
+<a name="l00097"></a>00097         <span class="keyword">enum</span> { value = 1 };
+<a name="l00098"></a>00098     };
+<a name="l00099"></a>00099 }
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 <span class="preprocessor">#endif  // XPCC_MATH__UTILS_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -201,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>misc.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

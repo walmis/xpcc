@@ -127,64 +127,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_PT__THREAD_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_PT__THREAD_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;macros.hpp&quot;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>pt
-<a name="l00042"></a>00042     {
-<a name="l00112"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html">00112</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1pt_1_1_protothread.html" title="A very lightweight, stackless thread.">Protothread</a>
-<a name="l00113"></a>00113         {
-<a name="l00114"></a>00114         <span class="keyword">public</span>:
-<a name="l00119"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4">00119</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4" title="Construct a new protothread that will start from the beginning of its run() function.">Protothread</a>() :
-<a name="l00120"></a>00120                 <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a>(0)
-<a name="l00121"></a>00121             {
-<a name="l00122"></a>00122             }
-<a name="l00123"></a>00123             
-<a name="l00125"></a>00125             <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00126"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3c9892ebfbed1112dd5a7dc8882c0e94">00126</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3c9892ebfbed1112dd5a7dc8882c0e94" title="Restart protothread.">restart</a>()
-<a name="l00127"></a>00127             {
-<a name="l00128"></a>00128                 this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> = 0;
-<a name="l00129"></a>00129             }
-<a name="l00130"></a>00130             
-<a name="l00140"></a>00140             <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00141"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e">00141</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e" title="Stop the protothread from running.">stop</a>()
-<a name="l00142"></a>00142             {
-<a name="l00143"></a>00143                 this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> = <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a>;
-<a name="l00144"></a>00144             }
-<a name="l00145"></a>00145             
-<a name="l00152"></a>00152             <span class="keyword">inline</span> <span class="keywordtype">bool</span>
-<a name="l00153"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a74d6c935ce548a93698d902420cbaab9">00153</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a74d6c935ce548a93698d902420cbaab9" title="Check if the protothread is still running.">isRunning</a>()<span class="keyword"> const</span>
-<a name="l00154"></a>00154 <span class="keyword">            </span>{
-<a name="l00155"></a>00155                 <span class="keywordflow">return</span> (this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> != <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a>);
-<a name="l00156"></a>00156             }
-<a name="l00157"></a>00157             
-<a name="l00158"></a>00158 <span class="preprocessor">#ifdef __DOXYGEN__</span>
-<a name="l00159"></a>00159 <span class="preprocessor"></span>
-<a name="l00173"></a>00173             <span class="keywordtype">bool</span>
-<a name="l00174"></a>00174             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a640728df919edbefe4c9cefa5c8be90c" title="Run the protothread.">run</a>();
-<a name="l00175"></a>00175 <span class="preprocessor">#endif</span>
-<a name="l00176"></a>00176 <span class="preprocessor"></span>            
-<a name="l00177"></a>00177         <span class="keyword">protected</span>:
-<a name="l00182"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">00182</a>             <span class="keyword">typedef</span> uint16_t <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a>;
-<a name="l00183"></a>00183             
-<a name="l00185"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f">00185</a>             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a> = <span class="keyword">static_cast&lt;</span><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a><span class="keyword">&gt;</span>(-1);
-<a name="l00186"></a>00186             
-<a name="l00191"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676">00191</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a>;
-<a name="l00192"></a>00192         };
-<a name="l00193"></a>00193     }
-<a name="l00194"></a>00194 }
-<a name="l00195"></a>00195 
-<a name="l00196"></a>00196 <span class="preprocessor">#endif // XPCC_PT__THREAD_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_PT__THREAD_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_PT__THREAD_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;macros.hpp&quot;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>pt
+<a name="l00040"></a>00040     {
+<a name="l00110"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html">00110</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1pt_1_1_protothread.html" title="A very lightweight, stackless thread.">Protothread</a>
+<a name="l00111"></a>00111         {
+<a name="l00112"></a>00112         <span class="keyword">public</span>:
+<a name="l00117"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4">00117</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4" title="Construct a new protothread that will start from the beginning of its run() function.">Protothread</a>() :
+<a name="l00118"></a>00118                 <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a>(0)
+<a name="l00119"></a>00119             {
+<a name="l00120"></a>00120             }
+<a name="l00121"></a>00121             
+<a name="l00123"></a>00123             <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00124"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3c9892ebfbed1112dd5a7dc8882c0e94">00124</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3c9892ebfbed1112dd5a7dc8882c0e94" title="Restart protothread.">restart</a>()
+<a name="l00125"></a>00125             {
+<a name="l00126"></a>00126                 this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> = 0;
+<a name="l00127"></a>00127             }
+<a name="l00128"></a>00128             
+<a name="l00138"></a>00138             <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00139"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e">00139</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e" title="Stop the protothread from running.">stop</a>()
+<a name="l00140"></a>00140             {
+<a name="l00141"></a>00141                 this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> = <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a>;
+<a name="l00142"></a>00142             }
+<a name="l00143"></a>00143             
+<a name="l00150"></a>00150             <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00151"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a74d6c935ce548a93698d902420cbaab9">00151</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a74d6c935ce548a93698d902420cbaab9" title="Check if the protothread is still running.">isRunning</a>()<span class="keyword"> const</span>
+<a name="l00152"></a>00152 <span class="keyword">            </span>{
+<a name="l00153"></a>00153                 <span class="keywordflow">return</span> (this-&gt;<a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a> != <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a>);
+<a name="l00154"></a>00154             }
+<a name="l00155"></a>00155             
+<a name="l00156"></a>00156 <span class="preprocessor">#ifdef __DOXYGEN__</span>
+<a name="l00157"></a>00157 <span class="preprocessor"></span>
+<a name="l00171"></a>00171             <span class="keywordtype">bool</span>
+<a name="l00172"></a>00172             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a640728df919edbefe4c9cefa5c8be90c" title="Run the protothread.">run</a>();
+<a name="l00173"></a>00173 <span class="preprocessor">#endif</span>
+<a name="l00174"></a>00174 <span class="preprocessor"></span>            
+<a name="l00175"></a>00175         <span class="keyword">protected</span>:
+<a name="l00180"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">00180</a>             <span class="keyword">typedef</span> uint16_t <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a>;
+<a name="l00181"></a>00181             
+<a name="l00183"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f">00183</a>             <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f" title="An invalid line number, used to mark the protothread has ended.">Invalid</a> = <span class="keyword">static_cast&lt;</span><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a><span class="keyword">&gt;</span>(-1);
+<a name="l00184"></a>00184             
+<a name="l00189"></a><a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676">00189</a>             <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03" title="Used to store a protothread&#39;s position (what Dunkels calls a &quot;local continuation&quot;).">State</a> <a class="code" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676" title="Stores the protothread&#39;s position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run).">ptState</a>;
+<a name="l00190"></a>00190         };
+<a name="l00191"></a>00191     }
+<a name="l00192"></a>00192 }
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194 <span class="preprocessor">#endif // XPCC_PT__THREAD_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -205,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>protothread.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

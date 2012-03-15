@@ -22,7 +22,6 @@ var searchData=
   ['error_5ftimeout',['ERROR_TIMEOUT',['../classxpcc_1_1amnb_1_1_node.html#ae7e9e6652ebadb03487fd0274224c333afa3db10471a2c95094c584b2775023e0',1,'xpcc::amnb::Node::ERROR_TIMEOUT()'],['../classxpcc_1_1sab_1_1_master.html#ab36ad33c0275c1de893982e1e2bfe19eae6b2a73c759746e25365104303388f1a',1,'xpcc::sab::Master::ERROR_TIMEOUT()']]],
   ['errorhandler',['ErrorHandler',['../structxpcc_1_1amnb_1_1_error_handler.html',1,'xpcc::amnb']]],
   ['errorreport',['ErrorReport',['../classxpcc_1_1_error_report.html',1,'xpcc']]],
-  ['errorstate',['ErrorState',['../group__i2c.html#ga34ac81f412c394d765705c291a0fcb59',1,'xpcc::i2c']]],
   ['event_5faction_5fch0',['EVENT_ACTION_CH0',['../namespacexpcc_1_1atxmega_1_1adc.html#ab47c0cc72ea37e4745ecb45382ed24dfaf71f9045227f765ff82ab25c40998d92',1,'xpcc::atxmega::adc']]],
   ['event_5faction_5fch01',['EVENT_ACTION_CH01',['../namespacexpcc_1_1atxmega_1_1adc.html#ab47c0cc72ea37e4745ecb45382ed24dfa1d3a5064cb8527e51b5bdc48dc453301',1,'xpcc::atxmega::adc']]],
   ['event_5faction_5fch012',['EVENT_ACTION_CH012',['../namespacexpcc_1_1atxmega_1_1adc.html#ab47c0cc72ea37e4745ecb45382ed24dfadfe1bbe75683e98a491294bfc6af7748',1,'xpcc::atxmega::adc']]],

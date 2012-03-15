@@ -127,56 +127,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: hmc5843.hpp 738 2012-02-25 17:54:01Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__HMC5843_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__HMC5843_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;hmc58.hpp&quot;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00040"></a>00040     <span class="keyword">namespace </span>hmc5843
-<a name="l00041"></a>00041     {
-<a name="l00042"></a>00042         <span class="keyword">using namespace </span>hmc58;
-<a name="l00043"></a>00043         
-<a name="l00045"></a>00045         <span class="keyword">enum</span> DataOutputRate {
-<a name="l00046"></a>00046             DATA_OUTPUT_RATE_0_5Hz_gc = 0x00,
-<a name="l00047"></a>00047             DATA_OUTPUT_RATE_1Hz_gc = 0x04,
-<a name="l00048"></a>00048             DATA_OUTPUT_RATE_2Hz_gc = 0x08,
-<a name="l00049"></a>00049             DATA_OUTPUT_RATE_5Hz_gc = 0x0c,
-<a name="l00050"></a>00050             DATA_OUTPUT_RATE_10Hz_gc = 0x10,
-<a name="l00051"></a>00051             DATA_OUTPUT_RATE_20Hz_gc = 0x14,
-<a name="l00052"></a>00052             DATA_OUTPUT_RATE_50Hz_gc = 0x18
-<a name="l00053"></a>00053         };
-<a name="l00054"></a>00054         
-<a name="l00056"></a>00056         <span class="keyword">enum</span> <a class="code" href="namespacexpcc_1_1atxmega_1_1adc.html#a4e242dfdfeafc9b3414a7cb7bb926651">Gain</a> {
-<a name="l00057"></a>00057             GAIN_0_7_gc,
-<a name="l00058"></a>00058             GAIN_1_0_gc,
-<a name="l00059"></a>00059             GAIN_1_5_gc,
-<a name="l00060"></a>00060             GAIN_2_0_gc,
-<a name="l00061"></a>00061             GAIN_3_2_gc,
-<a name="l00062"></a>00062             GAIN_3_8_gc,
-<a name="l00063"></a>00063             GAIN_4_5_gc,
-<a name="l00064"></a>00064             GAIN_6_5_gc
-<a name="l00065"></a>00065         };
-<a name="l00066"></a>00066     }
-<a name="l00067"></a>00067     
-<a name="l00085"></a>00085     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> TwiMaster &gt;
-<a name="l00086"></a><a class="code" href="classxpcc_1_1_h_m_c5843.html">00086</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_h_m_c5843.html" title="HMC5843 digital compass driver.">HMC5843</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_h_m_c58.html" title="HMC58* 3-axis digital magnetometer family driver.">HMC58</a>&lt; TwiMaster &gt;
-<a name="l00087"></a>00087     {
-<a name="l00088"></a>00088     <span class="keyword">public</span>:
-<a name="l00090"></a><a class="code" href="classxpcc_1_1_h_m_c5843.html#afeef7c42f75630e0c077d29c8bf65d8f">00090</a>         <a class="code" href="classxpcc_1_1_h_m_c5843.html" title="HMC5843 digital compass driver.">HMC5843</a>() :
-<a name="l00091"></a>00091             <a class="code" href="classxpcc_1_1_h_m_c58.html" title="HMC58* 3-axis digital magnetometer family driver.">HMC58</a>&lt;TwiMaster&gt;(0x1e)
-<a name="l00092"></a>00092         {
-<a name="l00093"></a>00093         }
-<a name="l00094"></a>00094     };
-<a name="l00095"></a>00095 }
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097 <span class="preprocessor">#endif // XPCC__HMC5843_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__HMC5843_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__HMC5843_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;hmc58.hpp&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00055"></a>00055     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> I2C &gt;
+<a name="l00056"></a><a class="code" href="classxpcc_1_1_hmc5843.html">00056</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_hmc5843.html" title="HMC5843 digital compass driver.">Hmc5843</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_hmc58.html" title="HMC58* 3-axis digital compass family driver.">Hmc58</a>&lt; I2C &gt;
+<a name="l00057"></a>00057     {
+<a name="l00058"></a>00058     <span class="keyword">public</span>:
+<a name="l00060"></a><a class="code" href="classxpcc_1_1_hmc5843.html#a98382acdf3aa6e86fdf92a33227cbc6e">00060</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_hmc5843.html#a98382acdf3aa6e86fdf92a33227cbc6e" title="device specific data output rate options of REGISTER_CONFIG_A">DataOutputRate</a> {
+<a name="l00061"></a>00061             DATA_OUTPUT_RATE_0_5_gc = 0x00,
+<a name="l00062"></a>00062             DATA_OUTPUT_RATE_1_gc = 0x04,
+<a name="l00063"></a>00063             DATA_OUTPUT_RATE_2_gc = 0x08,
+<a name="l00064"></a>00064             DATA_OUTPUT_RATE_5_gc = 0x0c,
+<a name="l00065"></a>00065             DATA_OUTPUT_RATE_10_gc = 0x10,
+<a name="l00066"></a>00066             DATA_OUTPUT_RATE_20_gc = 0x14,
+<a name="l00067"></a>00067             DATA_OUTPUT_RATE_50_gc = 0x18
+<a name="l00068"></a>00068         };
+<a name="l00069"></a>00069         
+<a name="l00071"></a><a class="code" href="classxpcc_1_1_hmc5843.html#ad45d6a6c23a645a64cac846d5a519e0d">00071</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_hmc5843.html#ad45d6a6c23a645a64cac846d5a519e0d" title="device specific data gain options of REGISTER_CONFIG_B">Gain</a> {
+<a name="l00072"></a>00072             GAIN_0_7_gc,
+<a name="l00073"></a>00073             GAIN_1_0_gc,
+<a name="l00074"></a>00074             GAIN_1_5_gc,
+<a name="l00075"></a>00075             GAIN_2_0_gc,
+<a name="l00076"></a>00076             GAIN_3_2_gc,
+<a name="l00077"></a>00077             GAIN_3_8_gc,
+<a name="l00078"></a>00078             GAIN_4_5_gc,
+<a name="l00079"></a>00079             GAIN_6_5_gc
+<a name="l00080"></a>00080         };
+<a name="l00081"></a>00081         
+<a name="l00083"></a><a class="code" href="classxpcc_1_1_hmc5843.html#ad48014e72919c75eef017b96d80c39f6">00083</a>         <a class="code" href="classxpcc_1_1_hmc5843.html#ad48014e72919c75eef017b96d80c39f6" title="Constructor, sets address to default of 0x1e.">Hmc5843</a>() :
+<a name="l00084"></a>00084             <a class="code" href="classxpcc_1_1_hmc58.html" title="HMC58* 3-axis digital compass family driver.">Hmc58</a>&lt;I2C&gt;(0x1e)
+<a name="l00085"></a>00085         {
+<a name="l00086"></a>00086         }
+<a name="l00087"></a>00087     };
+<a name="l00088"></a>00088 }
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090 <span class="preprocessor">#endif // XPCC__HMC5843_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -197,7 +190,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>hmc5843.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

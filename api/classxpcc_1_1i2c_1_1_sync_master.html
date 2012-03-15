@@ -122,7 +122,7 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5297c4d2f74846be1eebe530fd55dd3e"></a><!-- doxytag: member="xpcc::i2c::SyncMaster::stop" ref="a5297c4d2f74846be1eebe530fd55dd3e" args="()" -->
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html#a5297c4d2f74846be1eebe530fd55dd3e">stop</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Behaves like the Stop method but does not return until operation is finished. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">BusState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html#ad59a66fe744fce93ecdee64f97116f5f">read</a> (uint8_t *data, std::size_t size, ReadParameter param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>, <a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">SyncParams</a> syncParams=<a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">SYNC_STOP</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">BusState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html#ad59a66fe744fce93ecdee64f97116f5f">read</a> (uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">ReadParameter</a> param=<a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>, <a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">SyncParams</a> syncParams=<a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">SYNC_STOP</a>)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Behaves like the read method, but does not return until operation is finished.  <a href="#ad59a66fe744fce93ecdee64f97116f5f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">BusState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html#a444de9659b5f8c2aac5e3e8755314639">write</a> (const uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">SyncParams</a> syncParams=<a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">SYNC_STOP</a>)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Behaves like the write method, but does not return until operation is finished.  <a href="#a444de9659b5f8c2aac5e3e8755314639"></a><br/></td></tr>
@@ -135,7 +135,7 @@ class xpcc::i2c::SyncMaster&lt; M &gt;</h3>
 
 <p>That means All methods do not return while master is busy. In addition read and write methods give the resulting bus state as a return value and are optionally able to give up bus control on return. That is the default behavior. </p>
 
-<p>Definition at line <a class="el" href="sync__master_8hpp_source.html#l00065">65</a> of file <a class="el" href="sync__master_8hpp_source.html">sync_master.hpp</a>.</p>
+<p>Definition at line <a class="el" href="sync__master_8hpp_source.html#l00063">63</a> of file <a class="el" href="sync__master_8hpp_source.html">sync_master.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="acae08b37a4a5f5492197aa301297330f"></a><!-- doxytag: member="xpcc::i2c::SyncMaster::start" ref="acae08b37a4a5f5492197aa301297330f" args="(uint8_t slaveAddress, BusState *busState)" -->
 <div class="memitem">
@@ -217,8 +217,8 @@ template&lt;typename M &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ReadParameter&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>, </td>
+          <td class="paramtype"><a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">ReadParameter</a>&#160;</td>
+          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -320,7 +320,7 @@ template&lt;typename M &gt; </div>
       <li class="navelem"><a class="el" href="namespacexpcc_1_1i2c.html">i2c</a>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html">SyncMaster</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:05 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:09 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

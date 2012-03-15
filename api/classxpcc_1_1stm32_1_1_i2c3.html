@@ -133,44 +133,27 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the IO Pins for I2C3. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a91e71bd233ee5cf5945db37c5080d0cc">initialize</a> (uint16_t ccrPrescaler)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize I2C module.  <a href="#a91e71bd233ee5cf5945db37c5080d0cc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add45eae40ecf37d19819cec64267e5f4"></a><!-- doxytag: member="xpcc::stm32::I2c3::reset" ref="add45eae40ecf37d19819cec64267e5f4" args="()" -->
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#add45eae40ecf37d19819cec64267e5f4">reset</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Performed a software reset of bus driver. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436">start</a> (uint8_t slaveAddress)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests bus control and generates a start condition.  <a href="#a77843149a2998f1159bcecda82e0c436"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the Bus control.  <a href="#a77843149a2998f1159bcecda82e0c436"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ae4fabd72973458158f5adb0246085d4b">restart</a> (uint8_t slaveAddress)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts the bus without loosing control.  <a href="#ae4fabd72973458158f5adb0246085d4b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#abfb1cff38881dd6da6058df00b42439e">read</a> (uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of data.  <a href="#abfb1cff38881dd6da6058df00b42439e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#adc867a3eb1d91538f27fbc514a52f11c">write</a> (uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a block of data.  <a href="#adc867a3eb1d91538f27fbc514a52f11c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4">writeRead</a> (uint8_t *data, std::size_t writeSize, std::size_t readSize, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write and read blocks of data.  <a href="#a539e6eb6f4ea8919b30f5475b0b81ed4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ac6bb7f71eaa79d76e808053f8e321202">attachDelegate</a> (<a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a> *object)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach a delegate, which is called in the interrupt at the (un-)successful completion of an action (read or write) or after a restart.  <a href="#ac6bb7f71eaa79d76e808053f8e321202"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8585e775eb11dcca3d3139d5ce47d527"></a><!-- doxytag: member="xpcc::stm32::I2c3::getErrorState" ref="a8585e775eb11dcca3d3139d5ce47d527" args="()" -->
-static <a class="el" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59">xpcc::i2c::ErrorState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a8585e775eb11dcca3d3139d5ce47d527">getErrorState</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check current ErrorState. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fc7be1a796ed3aabe1260c4cd3c7d2e"></a><!-- doxytag: member="xpcc::stm32::I2c3::stop" ref="a8fc7be1a796ed3aabe1260c4cd3c7d2e" args="()" -->
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a8fc7be1a796ed3aabe1260c4cd3c7d2e">stop</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives up the Bus control. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#aeec81ec552f6b9f8d69f3ec69fa4377a">read</a> (uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a> param=<a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of data.  <a href="#aeec81ec552f6b9f8d69f3ec69fa4377a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a1a96ac7919abd1376019e02779ac488a">write</a> (const uint8_t *data, std::size_t size)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a block of data.  <a href="#a1a96ac7919abd1376019e02779ac488a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d44f631b2aa6f3c9bf621fcf465bbba"></a><!-- doxytag: member="xpcc::stm32::I2c3::getBusyState" ref="a0d44f631b2aa6f3c9bf621fcf465bbba" args="()" -->
 static <a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">xpcc::i2c::BusyState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a0d44f631b2aa6f3c9bf621fcf465bbba">getBusyState</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check current BusyState. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">xpcc::i2c::BusState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ab63fd189502270a69ab1479f3c64af43">getBusState</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the BusState after last operation.  <a href="#ab63fd189502270a69ab1479f3c64af43"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a85da9a7d1dd87d1113f170439d4e7062">startWrite</a> (uint8_t slaveAddress, uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b">xpcc::i2c::WRITE_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">writes a block of data, if bus state allows.  <a href="#a85da9a7d1dd87d1113f170439d4e7062"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#adc5e7ee70a49be60e70865dfabbf118b">startRead</a> (uint8_t slaveAddress, uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of data, if bus state allows.  <a href="#adc5e7ee70a49be60e70865dfabbf118b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a4db56ff292d72014426cda7d3dc29aff">startWriteRead</a> (uint8_t slaveAddress, uint8_t *data, std::size_t writeSize, std::size_t readSize, <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> param=<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write and read blocks of data, if bus state allows.  <a href="#a4db56ff292d72014426cda7d3dc29aff"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fc7be1a796ed3aabe1260c4cd3c7d2e"></a><!-- doxytag: member="xpcc::stm32::I2c3::stop" ref="a8fc7be1a796ed3aabe1260c4cd3c7d2e" args="()" -->
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><dl class="author"><dt><b>Author:</b></dt><dd>Georgi Grinshpun </dd>
-<dd>
-Niklas Hauser </dd></dl>
+<div class="textblock"><dl class="author"><dt><b>Author:</b></dt><dd>Georgi </dd></dl>
 
-<p>Definition at line <a class="el" href="i2c__3_8hpp_source.html#l00055">55</a> of file <a class="el" href="i2c__3_8hpp_source.html">i2c_3.hpp</a>.</p>
+<p>Definition at line <a class="el" href="i2c__3_8hpp_source.html#l00054">54</a> of file <a class="el" href="i2c__3_8hpp_source.html">i2c_3.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a91e71bd233ee5cf5945db37c5080d0cc"></a><!-- doxytag: member="xpcc::stm32::I2c3::initialize" ref="a91e71bd233ee5cf5945db37c5080d0cc" args="(uint16_t ccrPrescaler)" -->
 <div class="memitem">
@@ -209,17 +192,16 @@ Niklas Hauser </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+<p>This method can be used as a try for gaining control.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>Shifted 7-bit address of the slave device. LSB must be zero.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>7-bit address of the slave device. LSB must be zero.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Caller gains control if <code>true</code>. Call has no effect if <code>false</code>. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True: BusyState was free before call and goes to occupied after completion. Caller gains control and must give up later. False: Call has no effect. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#adef1610c8912a620e9075af8d23cbdb7">xpcc::i2c::Master</a>.</p>
-
-<p>Referenced by <a class="el" href="i2c__3_8hpp_source.html#l00126">startRead()</a>, <a class="el" href="i2c__3_8hpp_source.html#l00115">startWrite()</a>, and <a class="el" href="i2c__3_8hpp_source.html#l00137">startWriteRead()</a>.</p>
 
 </div>
 </div>
@@ -237,10 +219,9 @@ Niklas Hauser </dd></dl>
       </table>
 </div>
 <div class="memdoc">
-<p>Multiple calls will result in generating only one start condition.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>Shifted 7-bit address of the slave device. LSB must be zero. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>7-bit address of the slave device. LSB must be zero. </td></tr>
   </table>
   </dd>
 </dl>
@@ -249,12 +230,12 @@ Niklas Hauser </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="abfb1cff38881dd6da6058df00b42439e"></a><!-- doxytag: member="xpcc::stm32::I2c3::read" ref="abfb1cff38881dd6da6058df00b42439e" args="(uint8_t *data, std::size_t size, xpcc::i2c::OperationParameter param=xpcc::i2c::READ_STOP)" -->
+<a class="anchor" id="aeec81ec552f6b9f8d69f3ec69fa4377a"></a><!-- doxytag: member="xpcc::stm32::I2c3::read" ref="aeec81ec552f6b9f8d69f3ec69fa4377a" args="(uint8_t *data, std::size_t size, xpcc::i2c::ReadParameter param=xpcc::i2c::READ_STOP)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#abfb1cff38881dd6da6058df00b42439e">xpcc::stm32::I2c3::read</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#aeec81ec552f6b9f8d69f3ec69fa4377a">xpcc::stm32::I2c3::read</a> </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -268,8 +249,8 @@ Niklas Hauser </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a>&#160;</td>
+          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -284,36 +265,30 @@ Niklas Hauser </dd></dl>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>Pointer to buffer where received data should be stored. This must remain valid during operation is in progress. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Number of bytes to be received </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">param</td><td>See description OperationParameter. Default is READ_STOP. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">param</td><td>See description ReadParameter. Default is READ_STOP. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#afb7d0e1dc50f5c58a6ea35f038bb4c34">xpcc::i2c::Master</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a1fa3565e710d4d51b315ca36575839a7">xpcc::i2c::Master</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="adc867a3eb1d91538f27fbc514a52f11c"></a><!-- doxytag: member="xpcc::stm32::I2c3::write" ref="adc867a3eb1d91538f27fbc514a52f11c" args="(uint8_t *data, std::size_t size, xpcc::i2c::OperationParameter param=xpcc::i2c::READ_STOP)" -->
+<a class="anchor" id="a1a96ac7919abd1376019e02779ac488a"></a><!-- doxytag: member="xpcc::stm32::I2c3::write" ref="a1a96ac7919abd1376019e02779ac488a" args="(const uint8_t *data, std::size_t size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#adc867a3eb1d91538f27fbc514a52f11c">xpcc::stm32::I2c3::write</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a1a96ac7919abd1376019e02779ac488a">xpcc::stm32::I2c3::write</a> </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -326,93 +301,13 @@ Niklas Hauser </dd></dl>
 <p>Call this method if BusState allows writing.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">data</td><td>Pointer to buffer containing data to send. This must remain valid during operation is in progress. </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">size</td><td>Number of bytes to be send </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">param</td><td>See description OperationParameter. Default is WRITE_STOP. </td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to buffer containing data to send. This must remain valid during operation is in progress. </td></tr>
+    <tr><td class="paramname">size</td><td>Number of byte to be send </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#aafa44905114dffe3d09eef6c5e2a5145">xpcc::i2c::Master</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a539e6eb6f4ea8919b30f5475b0b81ed4"></a><!-- doxytag: member="xpcc::stm32::I2c3::writeRead" ref="a539e6eb6f4ea8919b30f5475b0b81ed4" args="(uint8_t *data, std::size_t writeSize, std::size_t readSize, xpcc::i2c::OperationParameter param=xpcc::i2c::READ_STOP)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4">xpcc::stm32::I2c3::writeRead</a> </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>writeSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>readSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Call this method if BusState allows writing.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">data</td><td>Pointer to the buffer containing data to be send and where received data should be stored. This must remain valid while the operation is in progress. The data sent will be (partially) overwritten by the data received! The Delegate will not be called after the write operation completed, but only after the receive operation completed.</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">writeSize</td><td>Number of bytes to be send </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">readSize</td><td>Number of bytes to be received </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">param</td><td>See description OperationParameter. Default is READ_STOP. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a0f967d9eb50c2c4f0b83a18f8764238a">xpcc::i2c::Master</a>.</p>
-
-<p>Referenced by <a class="el" href="i2c__3_8hpp_source.html#l00126">startRead()</a>, <a class="el" href="i2c__3_8hpp_source.html#l00115">startWrite()</a>, and <a class="el" href="i2c__3_8hpp_source.html#l00137">startWriteRead()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac6bb7f71eaa79d76e808053f8e321202"></a><!-- doxytag: member="xpcc::stm32::I2c3::attachDelegate" ref="ac6bb7f71eaa79d76e808053f8e321202" args="(xpcc::i2c::Delegate *object)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ac6bb7f71eaa79d76e808053f8e321202">xpcc::stm32::I2c3::attachDelegate</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a> *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>This allows for true asynchonous operation, multistage driver design and performance gain by premature data evaluation. The delegate gets reset after it has been called, meaning it has to be (re-)attached everytime a new action is being committed.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>class that inherits from Delegate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#af8a5bd3a9fe5accc0769a781b03f7c16">xpcc::i2c::Master</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a02b4ae377ea5dfa94d15a87fe51906ca">xpcc::i2c::Master</a>.</p>
 
 </div>
 </div>
@@ -433,171 +328,6 @@ Niklas Hauser </dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>BusState if BusyState is occupied </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a4dcdd3de4d5e30ca682347a9f2ca642d">xpcc::i2c::Master</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a85da9a7d1dd87d1113f170439d4e7062"></a><!-- doxytag: member="xpcc::stm32::I2c3::startWrite" ref="a85da9a7d1dd87d1113f170439d4e7062" args="(uint8_t slaveAddress, uint8_t *data, std::size_t size, xpcc::i2c::OperationParameter param=xpcc::i2c::WRITE_STOP)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a85da9a7d1dd87d1113f170439d4e7062">xpcc::stm32::I2c3::startWrite</a> </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>slaveAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b">xpcc::i2c::WRITE_STOP</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress)) {
-       <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#adc867a3eb1d91538f27fbc514a52f11c" title="Write a block of data.">write</a>(data, size, param);
-       <span class="keywordflow">return</span> <span class="keyword">true</span>;
- }
- <span class="keywordflow">return</span> <span class="keyword">false</span>;
-</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start()</a> </dd>
-<dd>
-<a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#adc867a3eb1d91538f27fbc514a52f11c" title="Write a block of data.">write()</a> </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#ae250e8dda797da8641a0b42bb67e319d">xpcc::i2c::Master</a>.</p>
-
-<p>Definition at line <a class="el" href="i2c__3_8hpp_source.html#l00115">115</a> of file <a class="el" href="i2c__3_8hpp_source.html">i2c_3.hpp</a>.</p>
-
-<p>References <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436">start()</a>, <a class="el" href="i2c_2constants_8hpp_source.html#l00071">xpcc::i2c::WRITE_RESTART</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4">writeRead()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adc5e7ee70a49be60e70865dfabbf118b"></a><!-- doxytag: member="xpcc::stm32::I2c3::startRead" ref="adc5e7ee70a49be60e70865dfabbf118b" args="(uint8_t slaveAddress, uint8_t *data, std::size_t size, xpcc::i2c::OperationParameter param=xpcc::i2c::READ_STOP)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#adc5e7ee70a49be60e70865dfabbf118b">xpcc::stm32::I2c3::startRead</a> </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>slaveAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress, xpcc::i2c::READ)) {
-       <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#abfb1cff38881dd6da6058df00b42439e" title="Read a block of data.">read</a>(data, size, param);
-       <span class="keywordflow">return</span> <span class="keyword">true</span>;
- }
- <span class="keywordflow">return</span> <span class="keyword">false</span>;
-</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start()</a> </dd>
-<dd>
-<a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#abfb1cff38881dd6da6058df00b42439e" title="Read a block of data.">read()</a> </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#acb764c515e3d8fb86f92a969ff0f7bf5">xpcc::i2c::Master</a>.</p>
-
-<p>Definition at line <a class="el" href="i2c__3_8hpp_source.html#l00126">126</a> of file <a class="el" href="i2c__3_8hpp_source.html">i2c_3.hpp</a>.</p>
-
-<p>References <a class="el" href="i2c_2constants_8hpp_source.html#l00069">xpcc::i2c::READ_RESTART</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436">start()</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4">writeRead()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4db56ff292d72014426cda7d3dc29aff"></a><!-- doxytag: member="xpcc::stm32::I2c3::startWriteRead" ref="a4db56ff292d72014426cda7d3dc29aff" args="(uint8_t slaveAddress, uint8_t *data, std::size_t writeSize, std::size_t readSize, xpcc::i2c::OperationParameter param=xpcc::i2c::READ_STOP)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a4db56ff292d72014426cda7d3dc29aff">xpcc::stm32::I2c3::startWriteRead</a> </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>slaveAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>writeSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>readSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress)) {
-       <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(data, writeSize, readSize, param);
-       <span class="keywordflow">return</span> <span class="keyword">true</span>;
- }
- <span class="keywordflow">return</span> <span class="keyword">false</span>;
-</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start()</a> </dd>
-<dd>
-<a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead()</a> </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a9711ecdeb9e10e4ba9fafb2d47180460">xpcc::i2c::Master</a>.</p>
-
-<p>Definition at line <a class="el" href="i2c__3_8hpp_source.html#l00137">137</a> of file <a class="el" href="i2c__3_8hpp_source.html">i2c_3.hpp</a>.</p>
-
-<p>References <a class="el" href="i2c_2constants_8hpp_source.html#l00069">xpcc::i2c::READ_RESTART</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436">start()</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4">writeRead()</a>.</p>
 
 </div>
 </div>
@@ -626,7 +356,7 @@ Niklas Hauser </dd></dl>
       <li class="navelem"><b>stm32</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html">I2c3</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:06 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:11 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -127,101 +127,93 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: tmp102.hpp 738 2012-02-25 17:54:01Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__TMP102_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TMP102_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/master.hpp&gt;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>tmp102
-<a name="l00042"></a>00042     {
-<a name="l00043"></a>00043         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51" title="Adressen der Register des MCP2515.">Register</a>
-<a name="l00044"></a>00044         {
-<a name="l00045"></a>00045             REGISTER_TEMPERATURE = 0x00,
-<a name="l00046"></a>00046             REGISTER_CONFIGURATION = 0x01,
-<a name="l00047"></a>00047             REGISTER_T_LOW = 0x02,
-<a name="l00048"></a>00048             REGISTER_T_HIGH = 0x03
-<a name="l00049"></a>00049         };
-<a name="l00050"></a>00050         
-<a name="l00051"></a>00051         <span class="keyword">enum</span> Temperature
-<a name="l00052"></a>00052         {
-<a name="l00053"></a>00053             TEMPERATURE_EXTENDED_MODE_bm = 0x01
-<a name="l00054"></a>00054         };
-<a name="l00055"></a>00055         
-<a name="l00056"></a>00056         <span class="keyword">enum</span> Config1
-<a name="l00057"></a>00057         {<span class="comment">// first byte</span>
-<a name="l00058"></a>00058             CONFIGURATION_SHUTDOWN_MODE_bm = 0x01,
-<a name="l00059"></a>00059             CONFIGURATION_THERMOSTAT_MODE_bm = 0x02,
-<a name="l00060"></a>00060             CONFIGURATION_POLARITY_bm = 0x04,
-<a name="l00061"></a>00061             CONFIGURATION_FAULT_QUEUE_gm = 0x18,
-<a name="l00062"></a>00062             CONFIGURATION_FAULT_QUEUE_1_gc = 0x00,
-<a name="l00063"></a>00063             CONFIGURATION_FAULT_QUEUE_2_gc = 0x08,
-<a name="l00064"></a>00064             CONFIGURATION_FAULT_QUEUE_4_gc = 0x10,
-<a name="l00065"></a>00065             CONFIGURATION_FAULT_QUEUE_6_gc = 0x18,
-<a name="l00066"></a>00066             CONFIGURATION_CONVERTER_RESOLUTION_gm = 0x60,
-<a name="l00067"></a>00067             CONFIGURATION_CONVERTER_RESOLUTION_12bit_gc = 0x60,
-<a name="l00068"></a>00068             CONFIGURATION_ONE_SHOT_bm = 0x80
-<a name="l00069"></a>00069         };
-<a name="l00070"></a>00070         
-<a name="l00071"></a>00071         <span class="keyword">enum</span> Config2
-<a name="l00072"></a>00072         {<span class="comment">// second byte</span>
-<a name="l00073"></a>00073             CONFIGURATION_EXTENDED_MODE_bm = 0x10,
-<a name="l00074"></a>00074             CONFIGURATION_ALERT_bm = 0x20,
-<a name="l00075"></a>00075             CONFIGURATION_CONVERSION_RATE_gm = 0xc0,
-<a name="l00076"></a>00076             CONFIGURATION_CONVERSION_RATE_0_25Hz_gc = 0x00,
-<a name="l00077"></a>00077             CONFIGURATION_CONVERSION_RATE_1Hz_gc = 0x40,
-<a name="l00078"></a>00078             CONFIGURATION_CONVERSION_RATE_4Hz_gc = 0x80,
-<a name="l00079"></a>00079             CONFIGURATION_CONVERSION_RATE_8Hz_gc = 0xc0
-<a name="l00080"></a>00080         };
-<a name="l00081"></a>00081     }
-<a name="l00082"></a>00082     
-<a name="l00108"></a>00108     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> TwiMaster &gt;
-<a name="l00109"></a><a class="code" href="classxpcc_1_1_t_m_p102.html">00109</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_t_m_p102.html" title="TMP102 digital temperature sensor driver.">TMP102</a> : <span class="keyword">public</span> xpcc::i2c::Delegate
-<a name="l00110"></a>00110     {
-<a name="l00111"></a>00111     <span class="keyword">public</span>:
-<a name="l00115"></a>00115         <a class="code" href="classxpcc_1_1_t_m_p102.html#a216c21784afefc5f6d41e7143ebd82c3" title="Constructor, Default address is 0x48 (alternatives are 0x49, 0x4A and 0x4B)">TMP102</a>(uint8_t address=0x48);
-<a name="l00116"></a>00116         
-<a name="l00117"></a>00117         <span class="keywordtype">bool</span>
-<a name="l00118"></a>00118         initialize(tmp102::Config1 msb=tmp102::CONFIGURATION_CONVERTER_RESOLUTION_12bit_gc,
-<a name="l00119"></a>00119                    tmp102::Config2 lsb=tmp102::CONFIGURATION_CONVERSION_RATE_4Hz_gc);
-<a name="l00120"></a>00120         
-<a name="l00122"></a>00122         <span class="keywordtype">bool</span>
-<a name="l00123"></a>00123         <a class="code" href="classxpcc_1_1_t_m_p102.html#acf535073f88eb4b1d7275edf6709721e" title="starts a temperature conversion right now">startConversion</a>();
-<a name="l00124"></a>00124         
-<a name="l00129"></a>00129         <span class="keywordtype">bool</span>
-<a name="l00130"></a>00130         <a class="code" href="classxpcc_1_1_t_m_p102.html#a02812c5b64a50fd552baf4cc53a9eea4" title="read the Temperature registers and buffer the results sets isNewDataAvailable() to true ...">readTemperature</a>();
-<a name="l00131"></a>00131         
-<a name="l00137"></a>00137         <span class="keywordtype">bool</span>
-<a name="l00138"></a>00138         <a class="code" href="classxpcc_1_1_t_m_p102.html#adfcce8f3107095472ce4a240d3b36e25" title="true, when new data has been from the sensor and buffered, false, when the data has already been read...">isNewDataAvailable</a>();
-<a name="l00139"></a>00139         
-<a name="l00141"></a>00141         uint8_t*
-<a name="l00142"></a>00142         <a class="code" href="classxpcc_1_1_t_m_p102.html#a6ed73819523e95f14cdea27329469bc1">getData</a>();
-<a name="l00143"></a>00143         
-<a name="l00145"></a>00145         <span class="keywordtype">float</span>
-<a name="l00146"></a>00146         <a class="code" href="classxpcc_1_1_t_m_p102.html#aa115263486aa1ad33e9f1724dbeb75f9">getTemperature</a>();
-<a name="l00147"></a>00147         
-<a name="l00148"></a>00148     <span class="keyword">private</span>:
-<a name="l00153"></a>00153         <span class="keywordtype">void</span>
-<a name="l00154"></a>00154         twiCompletion(<span class="keyword">const</span> uint8_t *data, std::size_t index, <span class="keywordtype">bool</span> reading);
-<a name="l00155"></a>00155         
-<a name="l00156"></a>00156         <span class="keywordtype">bool</span> newData;
-<a name="l00157"></a>00157         uint8_t config;
-<a name="l00158"></a>00158         uint8_t data[2];
-<a name="l00159"></a>00159         uint8_t deviceAddress;
-<a name="l00160"></a>00160     };
-<a name="l00161"></a>00161     
-<a name="l00162"></a>00162 }
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164 <span class="preprocessor">#include &quot;tmp102_impl.hpp&quot;</span>
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166 <span class="preprocessor">#endif // XPCC__TMP102_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__TMP102_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TMP102_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/device.hpp&gt;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00064"></a>00064     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> I2C &gt;
+<a name="l00065"></a><a class="code" href="classxpcc_1_1_tmp102.html">00065</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_tmp102.html" title="TMP102 digital temperature sensor driver.">Tmp102</a> : <span class="keyword">public</span> i2c::Device&lt; I2C &gt;
+<a name="l00066"></a>00066     {
+<a name="l00067"></a>00067     <span class="keyword">public</span>:
+<a name="l00068"></a>00068         <span class="keyword">enum</span> Register
+<a name="l00069"></a>00069         {
+<a name="l00070"></a>00070             REGISTER_TEMPERATURE,
+<a name="l00071"></a>00071             REGISTER_CONFIGURATION,
+<a name="l00072"></a>00072             REGISTER_T_LOW,
+<a name="l00073"></a>00073             REGISTER_T_HIGH
+<a name="l00074"></a>00074         };
+<a name="l00075"></a>00075         
+<a name="l00076"></a>00076         <span class="keyword">enum</span> Temperature
+<a name="l00077"></a>00077         {
+<a name="l00078"></a>00078             TEMPERATURE_EXTENDED_MODE_bm = 0x01
+<a name="l00079"></a>00079         };
+<a name="l00080"></a>00080         
+<a name="l00081"></a>00081         <span class="keyword">enum</span> Configuration
+<a name="l00082"></a>00082         {
+<a name="l00083"></a>00083             <span class="comment">// first byte</span>
+<a name="l00084"></a>00084             CONFIGURATION_SHUTDOWN_MODE_bm = 0x01,
+<a name="l00085"></a>00085             CONFIGURATION_THERMOSTAT_MODE_bm = 0x02,
+<a name="l00086"></a>00086             CONFIGURATION_POLARITY_bm = 0x04,
+<a name="l00087"></a>00087             CONFIGURATION_FAULT_QUEUE_gm = 0x18,
+<a name="l00088"></a>00088             CONFIGURATION_FAULT_QUEUE_1_gc = 0x00,
+<a name="l00089"></a>00089             CONFIGURATION_FAULT_QUEUE_2_gc = 0x08,
+<a name="l00090"></a>00090             CONFIGURATION_FAULT_QUEUE_4_gc = 0x10,
+<a name="l00091"></a>00091             CONFIGURATION_FAULT_QUEUE_6_gc = 0x18,
+<a name="l00092"></a>00092             CONFIGURATION_CONVERTER_RESOLUTION_gm = 0x60,
+<a name="l00093"></a>00093             CONFIGURATION_CONVERTER_RESOLUTION_12_gc = 0x60,
+<a name="l00094"></a>00094             CONFIGURATION_ONE_SHOT_bm = 0x80,
+<a name="l00095"></a>00095             
+<a name="l00096"></a>00096             <span class="comment">// second byte</span>
+<a name="l00097"></a>00097             CONFIGURATION_EXTENDED_MODE_bm = 0x10,
+<a name="l00098"></a>00098             CONFIGURATION_ALERT_bm = 0x20,
+<a name="l00099"></a>00099             CONFIGURATION_CONVERSION_RATE_gm = 0xc0,
+<a name="l00100"></a>00100             CONFIGURATION_CONVERSION_RATE_025_gc = 0x00,
+<a name="l00101"></a>00101             CONFIGURATION_CONVERSION_RATE_1_gc = 0x40,
+<a name="l00102"></a>00102             CONFIGURATION_CONVERSION_RATE_4_gc = 0x80,
+<a name="l00103"></a>00103             CONFIGURATION_CONVERSION_RATE_8_gc = 0xc0
+<a name="l00104"></a>00104         };
+<a name="l00105"></a>00105         
+<a name="l00109"></a>00109         <a class="code" href="classxpcc_1_1_tmp102.html#af63fffeea5eccf84b3c8940e6fff5ad4" title="Constructor, Default address is 0x90 (alternatives are 0x91, 0x92 and 0x93)">Tmp102</a>(uint8_t address=0x90);
+<a name="l00110"></a>00110         
+<a name="l00111"></a>00111         <span class="keywordtype">void</span>
+<a name="l00112"></a>00112         configure(uint8_t msb=CONFIGURATION_CONVERTER_RESOLUTION_12_gc,
+<a name="l00113"></a>00113                   uint8_t lsb=CONFIGURATION_CONVERSION_RATE_4_gc);
+<a name="l00114"></a>00114         
+<a name="l00116"></a>00116         <span class="keywordtype">void</span>
+<a name="l00117"></a>00117         <a class="code" href="classxpcc_1_1_tmp102.html#a50736294009d29444af79d4569b51d66" title="starts a temperature conversion right now">startConversion</a>();
+<a name="l00118"></a>00118         
+<a name="l00120"></a>00120         <span class="keywordtype">void</span>
+<a name="l00121"></a>00121         <a class="code" href="classxpcc_1_1_tmp102.html#aa20fd9f8d1bcf2dfdd077507e183300c" title="read the Temperature registers and buffer the results">readTemperature</a>();
+<a name="l00122"></a>00122         
+<a name="l00124"></a>00124         uint8_t*
+<a name="l00125"></a>00125         <a class="code" href="classxpcc_1_1_tmp102.html#a353c6eea20ea1ea3b99f3da5fac12580">getData</a>();
+<a name="l00126"></a>00126         
+<a name="l00128"></a>00128         <span class="keywordtype">float</span>
+<a name="l00129"></a>00129         <a class="code" href="classxpcc_1_1_tmp102.html#a8b9fb09ec6e0286bc3437bb9e4432b2d">getTemperature</a>();
+<a name="l00130"></a>00130         
+<a name="l00131"></a>00131     <span class="keyword">private</span>:
+<a name="l00132"></a>00132         <span class="keywordtype">void</span>
+<a name="l00133"></a>00133         writeRegister(Register reg, uint8_t msb, uint8_t lsb);
+<a name="l00134"></a>00134         
+<a name="l00135"></a>00135         <span class="keywordtype">void</span>
+<a name="l00136"></a>00136         readRegister(Register reg, uint8_t *buffer);
+<a name="l00137"></a>00137         
+<a name="l00138"></a>00138         uint8_t config;
+<a name="l00139"></a>00139         uint8_t data[2];
+<a name="l00140"></a>00140     };
+<a name="l00141"></a>00141     
+<a name="l00142"></a>00142 }
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 <span class="preprocessor">#include &quot;tmp102_impl.hpp&quot;</span>
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 <span class="preprocessor">#endif // XPCC__TMP102_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -242,7 +234,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>tmp102.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:00 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -20,7 +20,7 @@ var searchData=
   ['adcchannelb3',['AdcChannelB3',['../classxpcc_1_1atxmega_1_1_adc_channel_b3.html',1,'xpcc::atxmega']]],
   ['adcinterrupt',['AdcInterrupt',['../classxpcc_1_1atmega_1_1_adc_interrupt.html',1,'xpcc::atmega']]],
   ['advancedcontroltimer',['AdvancedControlTimer',['../classxpcc_1_1stm32_1_1_advanced_control_timer.html',1,'xpcc::stm32']]],
-  ['adxl345',['ADXL345',['../classxpcc_1_1_a_d_x_l345.html',1,'xpcc']]],
+  ['adxl345',['Adxl345',['../classxpcc_1_1_adxl345.html',1,'xpcc']]],
   ['aic',['Aic',['../classxpcc_1_1at91_1_1_aic.html',1,'xpcc::at91']]],
   ['allocatorbase',['AllocatorBase',['../classxpcc_1_1allocator_1_1_allocator_base.html',1,'xpcc::allocator']]],
   ['allocatorbase_3c_20receivelistitem_20_3e',['AllocatorBase< ReceiveListItem >',['../classxpcc_1_1allocator_1_1_allocator_base.html',1,'xpcc::allocator']]],
@@ -42,10 +42,6 @@ var searchData=
   ['arithmetictraits_3c_20uint32_5ft_20_3e',['ArithmeticTraits< uint32_t >',['../structxpcc_1_1_arithmetic_traits_3_01uint32__t_01_4.html',1,'xpcc']]],
   ['arithmetictraits_3c_20uint64_5ft_20_3e',['ArithmeticTraits< uint64_t >',['../structxpcc_1_1_arithmetic_traits_3_01uint64__t_01_4.html',1,'xpcc']]],
   ['arithmetictraits_3c_20unsigned_20char_20_3e',['ArithmeticTraits< unsigned char >',['../structxpcc_1_1_arithmetic_traits_3_01unsigned_01char_01_4.html',1,'xpcc']]],
-  ['asynchronousi2cmaster',['AsynchronousI2cMaster',['../classxpcc_1_1atmega_1_1_asynchronous_i2c_master.html',1,'xpcc::atmega']]],
-  ['asynchronousi2cmasterc',['AsynchronousI2cMasterC',['../classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_c.html',1,'xpcc::atxmega']]],
-  ['asynchronousi2cmasterd',['AsynchronousI2cMasterD',['../classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_d.html',1,'xpcc::atxmega']]],
-  ['asynchronousi2cmastere',['AsynchronousI2cMasterE',['../classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_e.html',1,'xpcc::atxmega']]],
-  ['asynchronousi2cmasterf',['AsynchronousI2cMasterF',['../classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_f.html',1,'xpcc::atxmega']]],
+  ['asynchronoustwimaster',['AsynchronousTwiMaster',['../classxpcc_1_1atmega_1_1_asynchronous_twi_master.html',1,'xpcc::atmega']]],
   ['at45db0x1d',['At45db0x1d',['../classxpcc_1_1_at45db0x1d.html',1,'xpcc']]]
 ];

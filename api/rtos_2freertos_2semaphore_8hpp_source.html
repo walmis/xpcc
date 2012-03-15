@@ -127,85 +127,83 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_FREERTOS__SEMAPHORE_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FREERTOS__SEMAPHORE_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;freertos/semphr.h&gt;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>rtos
-<a name="l00042"></a>00042     {
-<a name="l00047"></a><a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html">00047</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>
-<a name="l00048"></a>00048         {
-<a name="l00049"></a>00049         <span class="keyword">public</span>:
-<a name="l00050"></a>00050             ~<a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>();
-<a name="l00051"></a>00051             
-<a name="l00058"></a>00058             <span class="keywordtype">bool</span>
-<a name="l00059"></a>00059             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a0b7b068974747e2e8841d2c7c2332bc0" title="Aquire the semaphore.">acquire</a>(portTickType timeout = portMAX_DELAY);
-<a name="l00060"></a>00060             
-<a name="l00067"></a>00067             <span class="keywordtype">void</span>
-<a name="l00068"></a>00068             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a374349827dd06ac79ce0ddd7ed82f115" title="Release the semaphore.">release</a>();
-<a name="l00069"></a>00069             
-<a name="l00076"></a>00076             <span class="keywordtype">void</span>
-<a name="l00077"></a>00077             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#aa67b180e3f87f5632c10f77f8b2fdc12" title="Release the Semaphore from within an interrupt context.">releaseFromInterrupt</a>();
-<a name="l00078"></a>00078             
-<a name="l00079"></a>00079         <span class="keyword">protected</span>:
-<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>()
-<a name="l00081"></a>00081             {
-<a name="l00082"></a>00082             }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_FREERTOS__SEMAPHORE_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FREERTOS__SEMAPHORE_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;freertos/semphr.h&gt;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>rtos
+<a name="l00040"></a>00040     {
+<a name="l00045"></a><a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html">00045</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>
+<a name="l00046"></a>00046         {
+<a name="l00047"></a>00047         <span class="keyword">public</span>:
+<a name="l00048"></a>00048             ~<a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>();
+<a name="l00049"></a>00049             
+<a name="l00056"></a>00056             <span class="keywordtype">bool</span>
+<a name="l00057"></a>00057             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a0b7b068974747e2e8841d2c7c2332bc0" title="Aquire the semaphore.">acquire</a>(portTickType timeout = portMAX_DELAY);
+<a name="l00058"></a>00058             
+<a name="l00065"></a>00065             <span class="keywordtype">void</span>
+<a name="l00066"></a>00066             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a374349827dd06ac79ce0ddd7ed82f115" title="Release the semaphore.">release</a>();
+<a name="l00067"></a>00067             
+<a name="l00074"></a>00074             <span class="keywordtype">void</span>
+<a name="l00075"></a>00075             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html#aa67b180e3f87f5632c10f77f8b2fdc12" title="Release the Semaphore from within an interrupt context.">releaseFromInterrupt</a>();
+<a name="l00076"></a>00076             
+<a name="l00077"></a>00077         <span class="keyword">protected</span>:
+<a name="l00078"></a>00078             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>()
+<a name="l00079"></a>00079             {
+<a name="l00080"></a>00080             }
+<a name="l00081"></a>00081             
+<a name="l00082"></a>00082             xSemaphoreHandle handle;
 <a name="l00083"></a>00083             
-<a name="l00084"></a>00084             xSemaphoreHandle handle;
-<a name="l00085"></a>00085             
-<a name="l00086"></a>00086         <span class="keyword">private</span>:
-<a name="l00087"></a>00087             <span class="comment">// disable copy constructor</span>
-<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>&amp;);
-<a name="l00089"></a>00089             
-<a name="l00090"></a>00090             <span class="comment">// disable assignment operator</span>
-<a name="l00091"></a>00091             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a> &amp;
-<a name="l00092"></a>00092             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>&amp;);
-<a name="l00093"></a>00093         };
-<a name="l00094"></a>00094         
-<a name="l00095"></a>00095         <span class="comment">// --------------------------------------------------------------------</span>
-<a name="l00124"></a>00124 <span class="comment"></span>        <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>
-<a name="l00125"></a>00125         {
-<a name="l00126"></a>00126         <span class="keyword">public</span>:
-<a name="l00133"></a>00133             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html#a96912e5e5eae204661ffb07227a0448a" title="Create a counting semaphore.">Semaphore</a>(<span class="keywordtype">unsigned</span> portBASE_TYPE max,
-<a name="l00134"></a>00134                     <span class="keywordtype">unsigned</span> portBASE_TYPE initial);
-<a name="l00135"></a>00135             
-<a name="l00136"></a>00136         <span class="keyword">private</span>:
-<a name="l00137"></a>00137             <span class="comment">// disable copy constructor</span>
-<a name="l00138"></a>00138             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html#a96912e5e5eae204661ffb07227a0448a" title="Create a counting semaphore.">Semaphore</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a>&amp;);
-<a name="l00139"></a>00139             
-<a name="l00140"></a>00140             <span class="comment">// disable assignment operator</span>
-<a name="l00141"></a>00141             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a> &amp;
-<a name="l00142"></a>00142             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a>&amp;);
-<a name="l00143"></a>00143         };
-<a name="l00144"></a>00144         
-<a name="l00145"></a>00145         <span class="comment">// --------------------------------------------------------------------</span>
-<a name="l00153"></a>00153 <span class="comment"></span>        <span class="keyword">class </span>BinarySemaphore : <span class="keyword">public</span> SemaphoreBase
-<a name="l00154"></a>00154         {
-<a name="l00155"></a>00155         <span class="keyword">public</span>:
-<a name="l00156"></a>00156             BinarySemaphore();
-<a name="l00157"></a>00157             
-<a name="l00158"></a>00158         <span class="keyword">private</span>:
-<a name="l00159"></a>00159             <span class="comment">// disable copy constructor</span>
-<a name="l00160"></a>00160             BinarySemaphore(<span class="keyword">const</span> BinarySemaphore&amp;);
-<a name="l00161"></a>00161             
-<a name="l00162"></a>00162             <span class="comment">// disable assignment operator</span>
-<a name="l00163"></a>00163             BinarySemaphore &amp;
-<a name="l00164"></a>00164             operator = (<span class="keyword">const</span> BinarySemaphore&amp;);
-<a name="l00165"></a>00165         };
-<a name="l00166"></a>00166     }
-<a name="l00167"></a>00167 }
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169 <span class="preprocessor">#endif // XPCC_FREERTOS__SEMAPHORE_HPP</span>
+<a name="l00084"></a>00084         <span class="keyword">private</span>:
+<a name="l00085"></a>00085             <span class="comment">// disable copy constructor</span>
+<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>&amp;);
+<a name="l00087"></a>00087             
+<a name="l00088"></a>00088             <span class="comment">// disable assignment operator</span>
+<a name="l00089"></a>00089             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a> &amp;
+<a name="l00090"></a>00090             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>&amp;);
+<a name="l00091"></a>00091         };
+<a name="l00092"></a>00092         
+<a name="l00093"></a>00093         <span class="comment">// --------------------------------------------------------------------</span>
+<a name="l00122"></a>00122 <span class="comment"></span>        <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore_base.html" title="Base class for binary and counting semaphores.">SemaphoreBase</a>
+<a name="l00123"></a>00123         {
+<a name="l00124"></a>00124         <span class="keyword">public</span>:
+<a name="l00131"></a>00131             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html#a96912e5e5eae204661ffb07227a0448a" title="Create a counting semaphore.">Semaphore</a>(<span class="keywordtype">unsigned</span> portBASE_TYPE max,
+<a name="l00132"></a>00132                     <span class="keywordtype">unsigned</span> portBASE_TYPE initial);
+<a name="l00133"></a>00133             
+<a name="l00134"></a>00134         <span class="keyword">private</span>:
+<a name="l00135"></a>00135             <span class="comment">// disable copy constructor</span>
+<a name="l00136"></a>00136             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html#a96912e5e5eae204661ffb07227a0448a" title="Create a counting semaphore.">Semaphore</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a>&amp;);
+<a name="l00137"></a>00137             
+<a name="l00138"></a>00138             <span class="comment">// disable assignment operator</span>
+<a name="l00139"></a>00139             <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a> &amp;
+<a name="l00140"></a>00140             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_semaphore.html" title="Counting semaphore.">Semaphore</a>&amp;);
+<a name="l00141"></a>00141         };
+<a name="l00142"></a>00142         
+<a name="l00143"></a>00143         <span class="comment">// --------------------------------------------------------------------</span>
+<a name="l00151"></a>00151 <span class="comment"></span>        <span class="keyword">class </span>BinarySemaphore : <span class="keyword">public</span> SemaphoreBase
+<a name="l00152"></a>00152         {
+<a name="l00153"></a>00153         <span class="keyword">public</span>:
+<a name="l00154"></a>00154             BinarySemaphore();
+<a name="l00155"></a>00155             
+<a name="l00156"></a>00156         <span class="keyword">private</span>:
+<a name="l00157"></a>00157             <span class="comment">// disable copy constructor</span>
+<a name="l00158"></a>00158             BinarySemaphore(<span class="keyword">const</span> BinarySemaphore&amp;);
+<a name="l00159"></a>00159             
+<a name="l00160"></a>00160             <span class="comment">// disable assignment operator</span>
+<a name="l00161"></a>00161             BinarySemaphore &amp;
+<a name="l00162"></a>00162             operator = (<span class="keyword">const</span> BinarySemaphore&amp;);
+<a name="l00163"></a>00163         };
+<a name="l00164"></a>00164     }
+<a name="l00165"></a>00165 }
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167 <span class="preprocessor">#endif // XPCC_FREERTOS__SEMAPHORE_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -226,7 +224,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>semaphore.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

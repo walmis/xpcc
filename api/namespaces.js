@@ -9,6 +9,7 @@ var namespaces =
     [ "xpcc::ds1631", "namespacexpcc_1_1ds1631.html", "namespacexpcc_1_1ds1631" ],
     [ "xpcc::gpio", "namespacexpcc_1_1gpio.html", "namespacexpcc_1_1gpio" ],
     [ "xpcc::i2c", "namespacexpcc_1_1i2c.html", "namespacexpcc_1_1i2c" ],
+    [ "xpcc::led", "namespacexpcc_1_1led.html", "namespacexpcc_1_1led" ],
     [ "xpcc::log", "namespacexpcc_1_1log.html", "namespacexpcc_1_1log" ],
     [ "xpcc::one_wire", "namespacexpcc_1_1one__wire.html", "namespacexpcc_1_1one__wire" ],
     [ "xpcc::tmp", "namespacexpcc_1_1tmp.html", "namespacexpcc_1_1tmp" ],

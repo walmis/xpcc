@@ -127,31 +127,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__ACCESSOR_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__ACCESSOR_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;accessor/ram.hpp&quot;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;accessor/flash.hpp&quot;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00047"></a>00047     <span class="keyword">namespace </span>accessor
-<a name="l00048"></a>00048     {
-<a name="l00054"></a>00054         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00055"></a>00055         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keyword">volatile</span> T&amp;
-<a name="l00056"></a><a class="code" href="group__accessor.html#gaca5a949ad233f699688a2cfdd2c57efd">00056</a>         <a class="code" href="group__accessor.html#gaca5a949ad233f699688a2cfdd2c57efd" title="Add volatile modifier to T.">asVolatile</a>(T&amp; value)
-<a name="l00057"></a>00057         {
-<a name="l00058"></a>00058             <span class="keywordflow">return</span> (<span class="keyword">volatile</span> T&amp;) value;
-<a name="l00059"></a>00059         }
-<a name="l00060"></a>00060     }
-<a name="l00061"></a>00061 }
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="preprocessor">#endif // XPCC__ACCESSOR_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__ACCESSOR_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__ACCESSOR_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;accessor/ram.hpp&quot;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;accessor/flash.hpp&quot;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00045"></a>00045     <span class="keyword">namespace </span>accessor
+<a name="l00046"></a>00046     {
+<a name="l00052"></a>00052         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00053"></a>00053         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keyword">volatile</span> T&amp;
+<a name="l00054"></a><a class="code" href="group__accessor.html#gaca5a949ad233f699688a2cfdd2c57efd">00054</a>         <a class="code" href="group__accessor.html#gaca5a949ad233f699688a2cfdd2c57efd" title="Add volatile modifier to T.">asVolatile</a>(T&amp; value)
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056             <span class="keywordflow">return</span> (<span class="keyword">volatile</span> T&amp;) value;
+<a name="l00057"></a>00057         }
+<a name="l00058"></a>00058     }
+<a name="l00059"></a>00059 }
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 <span class="preprocessor">#endif // XPCC__ACCESSOR_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -172,7 +170,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>accessor.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -18,6 +18,5 @@ var searchData=
   ['iostream',['IOStream',['../classxpcc_1_1_i_o_stream.html',1,'xpcc']]],
   ['iterator',['iterator',['../classxpcc_1_1_linked_list_1_1iterator.html',1,'xpcc::LinkedList']]],
   ['iterator',['iterator',['../classxpcc_1_1_doubly_linked_list_1_1iterator.html',1,'xpcc::DoublyLinkedList']]],
-  ['iterator',['iterator',['../classxpcc_1_1_dynamic_array_1_1iterator.html',1,'xpcc::DynamicArray']]],
-  ['itg3200',['ITG3200',['../classxpcc_1_1_i_t_g3200.html',1,'xpcc']]]
+  ['iterator',['iterator',['../classxpcc_1_1_dynamic_array_1_1iterator.html',1,'xpcc::DynamicArray']]]
 ];

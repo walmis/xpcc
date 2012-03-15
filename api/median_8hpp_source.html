@@ -127,41 +127,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_FILTER__MEDIAN_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FILTER__MEDIAN_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00040"></a>00040     <span class="keyword">namespace </span>filter
-<a name="l00041"></a>00041     {
-<a name="l00072"></a>00072         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> N&gt;
-<a name="l00073"></a><a class="code" href="classxpcc_1_1filter_1_1_median.html">00073</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1filter_1_1_median.html" title="Median filter.">Median</a>
-<a name="l00074"></a>00074         {
-<a name="l00075"></a>00075         <span class="keyword">public</span>:
-<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1filter_1_1_median.html#ab42f104a44d4c403901d9c6111dedefe" title="Constructor.">Median</a>(<span class="keyword">const</span> T&amp; initialValue = 0);
-<a name="l00083"></a>00083             
-<a name="l00085"></a>00085             <span class="keywordtype">void</span>
-<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1filter_1_1_median.html#a26d1edadcb7d074e0955f876e63a8518" title="Append new value.">append</a>(<span class="keyword">const</span> T&amp; input);
-<a name="l00087"></a>00087             
-<a name="l00089"></a>00089             <span class="keywordtype">void</span>
-<a name="l00090"></a>00090             <a class="code" href="classxpcc_1_1filter_1_1_median.html#aa64372a5886053228e09388e0887264b" title="calculate median">udpate</a>();
-<a name="l00091"></a>00091             
-<a name="l00093"></a>00093             <span class="keyword">const</span> T
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1filter_1_1_median.html#ab6d8be22f4ca0ae92872b980d01fb357" title="Get median value.">getValue</a>() <span class="keyword">const</span>;
-<a name="l00095"></a>00095         };
-<a name="l00096"></a>00096     }
-<a name="l00097"></a>00097 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_FILTER__MEDIAN_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FILTER__MEDIAN_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038     <span class="keyword">namespace </span>filter
+<a name="l00039"></a>00039     {
+<a name="l00070"></a>00070         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> N&gt;
+<a name="l00071"></a><a class="code" href="classxpcc_1_1filter_1_1_median.html">00071</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1filter_1_1_median.html" title="Median filter.">Median</a>
+<a name="l00072"></a>00072         {
+<a name="l00073"></a>00073         <span class="keyword">public</span>:
+<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1filter_1_1_median.html#ab42f104a44d4c403901d9c6111dedefe" title="Constructor.">Median</a>(<span class="keyword">const</span> T&amp; initialValue = 0);
+<a name="l00081"></a>00081             
+<a name="l00083"></a>00083             <span class="keywordtype">void</span>
+<a name="l00084"></a>00084             <a class="code" href="classxpcc_1_1filter_1_1_median.html#a26d1edadcb7d074e0955f876e63a8518" title="Append new value.">append</a>(<span class="keyword">const</span> T&amp; input);
+<a name="l00085"></a>00085             
+<a name="l00087"></a>00087             <span class="keywordtype">void</span>
+<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1filter_1_1_median.html#aa64372a5886053228e09388e0887264b" title="calculate median">udpate</a>();
+<a name="l00089"></a>00089             
+<a name="l00091"></a>00091             <span class="keyword">const</span> T
+<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1filter_1_1_median.html#ab6d8be22f4ca0ae92872b980d01fb357" title="Get median value.">getValue</a>() <span class="keyword">const</span>;
+<a name="l00093"></a>00093         };
+<a name="l00094"></a>00094     }
+<a name="l00095"></a>00095 }
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="preprocessor">#include &quot;median_impl.hpp&quot;</span>
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099 <span class="preprocessor">#include &quot;median_impl.hpp&quot;</span>
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 <span class="preprocessor">#endif // XPCC_FILTER__MEDIAN_HPP</span>
+<a name="l00099"></a>00099 <span class="preprocessor">#endif // XPCC_FILTER__MEDIAN_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -182,7 +180,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>median.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -127,72 +127,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: tlc594x_led.hpp 753 2012-03-04 22:29:10Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__LED_TLC594X_LED_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LED_TLC594X_LED_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include &quot;led_table.hpp&quot;</span>
-<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/driver/pwm/tlc594x.hpp&gt;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/workflow/periodic_timer.hpp&gt;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor/flash.hpp&gt;</span>
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="keyword">namespace </span>xpcc
-<a name="l00044"></a>00044 {
-<a name="l00045"></a>00045     <span class="keyword">namespace </span>led
-<a name="l00046"></a>00046     {
-<a name="l00058"></a>00058         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> PwmController,
-<a name="l00059"></a>00059                   uint16_t CHANNEL,
-<a name="l00060"></a>00060                   <span class="keyword">const</span> uint16_t* PwmTable=PwmTable12_256,
-<a name="l00061"></a>00061                   uint16_t <span class="keyword">const</span> PwmTableSize=256 &gt;
-<a name="l00062"></a><a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html">00062</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html" title="LED Implementation for the TLC594X.">TLC594XLed</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1led_1_1_led.html" title="LED Interface.">Led</a>
-<a name="l00063"></a>00063         {
-<a name="l00064"></a>00064         <span class="keyword">private</span>:
-<a name="l00065"></a>00065             uint16_t currentValue;
-<a name="l00066"></a>00066             
-<a name="l00067"></a>00067             <span class="keywordtype">float</span> deltaValue;
-<a name="l00068"></a>00068             <span class="keywordtype">float</span> startValue;
-<a name="l00069"></a>00069             uint16_t endValue;
-<a name="l00070"></a>00070             uint16_t fadeTime;
-<a name="l00071"></a>00071             
-<a name="l00072"></a>00072             <a class="code" href="classxpcc_1_1_periodic_timer.html" title="Software timer.">xpcc::PeriodicTimer&lt;&gt;</a> timer;
-<a name="l00073"></a>00073             <a class="code" href="classxpcc_1_1accessor_1_1_flash.html">xpcc::accessor::Flash&lt;uint16_t&gt;</a> table;
-<a name="l00074"></a>00074             
-<a name="l00075"></a>00075         <span class="keyword">public</span>:
-<a name="l00076"></a>00076             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html" title="LED Implementation for the TLC594X.">TLC594XLed</a>();
-<a name="l00077"></a>00077             
-<a name="l00078"></a>00078             <span class="keywordtype">void</span>
-<a name="l00079"></a>00079             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a835aabbae54665572ef01d136a7caf1e">setBrightness</a>(uint16_t brightness);
-<a name="l00080"></a>00080             
-<a name="l00081"></a>00081             uint16_t
-<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a3528cdf564a30af31051872322104fa9">getBrightness</a>();
-<a name="l00083"></a>00083             
-<a name="l00084"></a>00084             <span class="keywordtype">bool</span>
-<a name="l00085"></a>00085             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#af9db9fc2177aa86add61402478c2ef4c">isFading</a>();
-<a name="l00086"></a>00086             
-<a name="l00087"></a>00087             <span class="keywordtype">void</span>
-<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#aaaabae8c315e9c6e8d6d51705e270ba2" title="Fade from the current brightness to a new brightness in the specified ms.">fadeTo</a>(uint16_t time, uint16_t brightness);
-<a name="l00089"></a>00089             
-<a name="l00090"></a>00090             <span class="keywordtype">void</span>
-<a name="l00091"></a>00091             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#adc920da5b747364be8e93c05280fd676" title="Mimmics the behaviour of normal lamps, which take a small amount of time until achiving full brightne...">on</a>(uint16_t time=7);
-<a name="l00092"></a>00092             
-<a name="l00093"></a>00093             <span class="keywordtype">void</span>
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a99138d76d26dd26715121b135018d979" title="Mimmics the behaviour of normal lamps, which take a small amount of time until fully extinguishing...">off</a>(uint16_t time=7);
-<a name="l00095"></a>00095             
-<a name="l00097"></a>00097             <span class="keywordtype">void</span>
-<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a10ce2fd16024c4383cfcc2e01bd134b2" title="must be called at least every ms">run</a>();
-<a name="l00099"></a>00099         };
-<a name="l00100"></a>00100     }
-<a name="l00101"></a>00101 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__LED_TLC594X_LED_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LED_TLC594X_LED_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;led_table.hpp&quot;</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/driver/pwm/tlc594x.hpp&gt;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/workflow/periodic_timer.hpp&gt;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor/flash.hpp&gt;</span>
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>xpcc
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043     <span class="keyword">namespace </span>led
+<a name="l00044"></a>00044     {
+<a name="l00056"></a>00056         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> PwmController,
+<a name="l00057"></a>00057                   uint16_t CHANNEL,
+<a name="l00058"></a>00058                   <span class="keyword">const</span> uint16_t* PwmTable=<a class="code" href="namespacexpcc_1_1led.html#aebff51425d88971c0789a827a6db4a16" title="Provides 12bit resolution (0 to 4095) in 256 steps, 512 bytes of flash.">PwmTable12_256</a>,
+<a name="l00059"></a>00059                   uint16_t <span class="keyword">const</span> PwmTableSize=256 &gt;
+<a name="l00060"></a><a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html">00060</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html" title="LED Implementation for the TLC594X.">TLC594XLed</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1led_1_1_led.html" title="LED Interface.">Led</a>
+<a name="l00061"></a>00061         {
+<a name="l00062"></a>00062         <span class="keyword">private</span>:
+<a name="l00063"></a>00063             uint16_t currentValue;
+<a name="l00064"></a>00064             
+<a name="l00065"></a>00065             <span class="keywordtype">float</span> deltaValue;
+<a name="l00066"></a>00066             <span class="keywordtype">float</span> startValue;
+<a name="l00067"></a>00067             uint16_t endValue;
+<a name="l00068"></a>00068             uint16_t fadeTime;
+<a name="l00069"></a>00069             
+<a name="l00070"></a>00070             <a class="code" href="classxpcc_1_1_periodic_timer.html" title="Software timer.">xpcc::PeriodicTimer&lt;&gt;</a> timer;
+<a name="l00071"></a>00071             <a class="code" href="classxpcc_1_1accessor_1_1_flash.html">xpcc::accessor::Flash&lt;uint16_t&gt;</a> table;
+<a name="l00072"></a>00072             
+<a name="l00073"></a>00073         <span class="keyword">public</span>:
+<a name="l00074"></a>00074             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html" title="LED Implementation for the TLC594X.">TLC594XLed</a>();
+<a name="l00075"></a>00075             
+<a name="l00076"></a>00076             <span class="keywordtype">void</span>
+<a name="l00077"></a>00077             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a835aabbae54665572ef01d136a7caf1e">setBrightness</a>(uint16_t brightness);
+<a name="l00078"></a>00078             
+<a name="l00079"></a>00079             uint16_t
+<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a3528cdf564a30af31051872322104fa9">getBrightness</a>();
+<a name="l00081"></a>00081             
+<a name="l00082"></a>00082             <span class="keywordtype">bool</span>
+<a name="l00083"></a>00083             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#af9db9fc2177aa86add61402478c2ef4c">isFading</a>();
+<a name="l00084"></a>00084             
+<a name="l00085"></a>00085             <span class="keywordtype">void</span>
+<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#aaaabae8c315e9c6e8d6d51705e270ba2" title="Fade from the current brightness to a new brightness in the specified ms.">fadeTo</a>(uint16_t time, uint16_t brightness);
+<a name="l00087"></a>00087             
+<a name="l00088"></a>00088             <span class="keywordtype">void</span>
+<a name="l00089"></a>00089             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#adc920da5b747364be8e93c05280fd676" title="Mimmics the behaviour of normal lamps, which take a small amount of time until achiving full brightne...">on</a>(uint16_t time=7);
+<a name="l00090"></a>00090             
+<a name="l00091"></a>00091             <span class="keywordtype">void</span>
+<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a99138d76d26dd26715121b135018d979" title="Mimmics the behaviour of normal lamps, which take a small amount of time until fully extinguishing...">off</a>(uint16_t time=7);
+<a name="l00093"></a>00093             
+<a name="l00095"></a>00095             <span class="keywordtype">void</span>
+<a name="l00096"></a>00096             <a class="code" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a10ce2fd16024c4383cfcc2e01bd134b2" title="must be called at least every ms">run</a>();
+<a name="l00097"></a>00097         };
+<a name="l00098"></a>00098     }
+<a name="l00099"></a>00099 }
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 <span class="preprocessor">#include &quot;tlc594x_led_impl.hpp&quot;</span>
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="preprocessor">#include &quot;tlc594x_led_impl.hpp&quot;</span>
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105 <span class="preprocessor">#endif  // XPCC__LED_TLC594X_LED_HPP</span>
+<a name="l00103"></a>00103 <span class="preprocessor">#endif  // XPCC__LED_TLC594X_LED_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -213,7 +211,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>tlc594x_led.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

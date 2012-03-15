@@ -126,51 +126,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00024"></a>00024 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00025"></a>00025 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00026"></a>00026 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> * $Id$</span>
-<a name="l00029"></a>00029 <span class="comment"> */</span>
-<a name="l00030"></a>00030 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#ifndef XPCC_TIPC_RECEIVER_SOCKET_H_</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_TIPC_RECEIVER_SOCKET_H_</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;header.hpp&quot;</span>
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;boost/scoped_array.hpp&gt;</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>tipc {
-<a name="l00050"></a><a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html">00050</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a> {
-<a name="l00051"></a>00051             <span class="keyword">public</span>: 
-<a name="l00052"></a>00052                 <a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a>();
-<a name="l00053"></a>00053                 ~<a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a>();
-<a name="l00054"></a>00054         
-<a name="l00055"></a>00055                 <span class="keywordtype">void</span> 
-<a name="l00056"></a>00056                 registerOnPacket(   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> typeId,
-<a name="l00057"></a>00057                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lowerInstance,
-<a name="l00058"></a>00058                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> upperInstance);
-<a name="l00059"></a>00059         
-<a name="l00064"></a>00064                 <span class="keywordtype">bool</span> 
-<a name="l00065"></a>00065                 <a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html#aa9faa4c5d44798f79137f7159c92f1ea">receiveHeader</a>(
-<a name="l00066"></a>00066                         uint32_t &amp; transmitterPortId,
-<a name="l00067"></a>00067                         <a class="code" href="structxpcc_1_1tipc_1_1_header.html" title="The header, that are send over the tipc.">tipc::Header</a> &amp; tipcHeader );
-<a name="l00068"></a>00068                 
-<a name="l00069"></a>00069                 <span class="keywordtype">bool</span> 
-<a name="l00070"></a>00070                 receivePayload(
-<a name="l00071"></a>00071                         uint8_t* payloadPointer,
-<a name="l00072"></a>00072                         <span class="keywordtype">size_t</span> payloadLength);
-<a name="l00073"></a>00073                 
-<a name="l00074"></a>00074                 <span class="keywordtype">bool</span> 
-<a name="l00075"></a>00075                 popPayload();
-<a name="l00076"></a>00076         
-<a name="l00077"></a>00077             <span class="keyword">private</span>:
-<a name="l00078"></a>00078                 <span class="keyword">const</span> <span class="keywordtype">int</span> socketDescriptor_;
-<a name="l00079"></a>00079         };
-<a name="l00080"></a>00080     }
-<a name="l00081"></a>00081 }
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="preprocessor">#endif </span><span class="comment">/* XPCC_TIPC_RECEIVER_SOCKET_H_ */</span>
+<a name="l00027"></a>00027 <span class="comment"> */</span>
+<a name="l00028"></a>00028 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="preprocessor">#ifndef XPCC_TIPC_RECEIVER_SOCKET_H_</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_TIPC_RECEIVER_SOCKET_H_</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include &quot;header.hpp&quot;</span>
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;boost/scoped_array.hpp&gt;</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc {
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>tipc {
+<a name="l00048"></a><a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html">00048</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a> {
+<a name="l00049"></a>00049             <span class="keyword">public</span>: 
+<a name="l00050"></a>00050                 <a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a>();
+<a name="l00051"></a>00051                 ~<a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html" title="Provide the handling of the socket interface from TIPC.">ReceiverSocket</a>();
+<a name="l00052"></a>00052         
+<a name="l00053"></a>00053                 <span class="keywordtype">void</span> 
+<a name="l00054"></a>00054                 registerOnPacket(   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> typeId,
+<a name="l00055"></a>00055                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lowerInstance,
+<a name="l00056"></a>00056                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> upperInstance);
+<a name="l00057"></a>00057         
+<a name="l00062"></a>00062                 <span class="keywordtype">bool</span> 
+<a name="l00063"></a>00063                 <a class="code" href="classxpcc_1_1tipc_1_1_receiver_socket.html#aa9faa4c5d44798f79137f7159c92f1ea">receiveHeader</a>(
+<a name="l00064"></a>00064                         uint32_t &amp; transmitterPortId,
+<a name="l00065"></a>00065                         <a class="code" href="structxpcc_1_1tipc_1_1_header.html" title="The header, that are send over the tipc.">tipc::Header</a> &amp; tipcHeader );
+<a name="l00066"></a>00066                 
+<a name="l00067"></a>00067                 <span class="keywordtype">bool</span> 
+<a name="l00068"></a>00068                 receivePayload(
+<a name="l00069"></a>00069                         uint8_t* payloadPointer,
+<a name="l00070"></a>00070                         <span class="keywordtype">size_t</span> payloadLength);
+<a name="l00071"></a>00071                 
+<a name="l00072"></a>00072                 <span class="keywordtype">bool</span> 
+<a name="l00073"></a>00073                 popPayload();
+<a name="l00074"></a>00074         
+<a name="l00075"></a>00075             <span class="keyword">private</span>:
+<a name="l00076"></a>00076                 <span class="keyword">const</span> <span class="keywordtype">int</span> socketDescriptor_;
+<a name="l00077"></a>00077         };
+<a name="l00078"></a>00078     }
+<a name="l00079"></a>00079 }
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 <span class="preprocessor">#endif </span><span class="comment">/* XPCC_TIPC_RECEIVER_SOCKET_H_ */</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -191,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>tipc_receiver_socket.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

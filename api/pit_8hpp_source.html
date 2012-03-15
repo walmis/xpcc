@@ -127,49 +127,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_AT91__PIT_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_AT91__PIT_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#include &quot;aic.hpp&quot;</span>
-<a name="l00039"></a>00039 <span class="preprocessor">#include &quot;device.h&quot;</span>
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041 <span class="keyword">namespace </span>xpcc
-<a name="l00042"></a>00042 {
-<a name="l00043"></a>00043     <span class="keyword">namespace </span>at91
-<a name="l00044"></a>00044     {
-<a name="l00053"></a><a class="code" href="classxpcc_1_1at91_1_1_pit.html">00053</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1at91_1_1_pit.html" title="Periodic Interval Timer (PIT)">Pit</a>
-<a name="l00054"></a>00054         {
-<a name="l00055"></a>00055         <span class="keyword">public</span>:
-<a name="l00064"></a>00064             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00065"></a>00065             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a7d995b95fc950fee673b547110be03b5" title="Restart timer with a new period.">start</a>(uint32_t period = 0);
-<a name="l00066"></a>00066             
-<a name="l00070"></a>00070             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00071"></a>00071             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a32caed0127b2534f4b8cab4e4fe7c506" title="Stop timer.">stop</a>();
-<a name="l00072"></a>00072             
-<a name="l00079"></a>00079             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#ad3620ba0460dce8b040ca36ccce25483" title="Set a interrupt handler function.">registerInterruptHandler</a>(Aic::Handler <span class="keyword">function</span>);
-<a name="l00081"></a>00081             
-<a name="l00085"></a>00085             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a8810dca0f2ac7128622573f2f227c9cd" title="Remove interrupt handler and disable the interrupt.">removeInterruptHandler</a>();
-<a name="l00087"></a>00087             
-<a name="l00088"></a>00088             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00089"></a>00089             acknowledgeInterrupt()
-<a name="l00090"></a>00090             {
-<a name="l00091"></a>00091                 <span class="comment">// read PIVR to reset the interrupt</span>
-<a name="l00092"></a>00092                 (void) AT91C_BASE_PITC-&gt;PITC_PIVR;
-<a name="l00093"></a>00093             }
-<a name="l00094"></a>00094         };
-<a name="l00095"></a>00095     }
-<a name="l00096"></a>00096 }
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098 <span class="preprocessor">#endif // XPCC_AT91__PIT_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_AT91__PIT_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_AT91__PIT_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;aic.hpp&quot;</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;device.h&quot;</span>
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041     <span class="keyword">namespace </span>at91
+<a name="l00042"></a>00042     {
+<a name="l00051"></a><a class="code" href="classxpcc_1_1at91_1_1_pit.html">00051</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1at91_1_1_pit.html" title="Periodic Interval Timer (PIT)">Pit</a>
+<a name="l00052"></a>00052         {
+<a name="l00053"></a>00053         <span class="keyword">public</span>:
+<a name="l00062"></a>00062             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00063"></a>00063             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a7d995b95fc950fee673b547110be03b5" title="Restart timer with a new period.">start</a>(uint32_t period = 0);
+<a name="l00064"></a>00064             
+<a name="l00068"></a>00068             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00069"></a>00069             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a32caed0127b2534f4b8cab4e4fe7c506" title="Stop timer.">stop</a>();
+<a name="l00070"></a>00070             
+<a name="l00077"></a>00077             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00078"></a>00078             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#ad3620ba0460dce8b040ca36ccce25483" title="Set a interrupt handler function.">registerInterruptHandler</a>(Aic::Handler <span class="keyword">function</span>);
+<a name="l00079"></a>00079             
+<a name="l00083"></a>00083             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00084"></a>00084             <a class="code" href="classxpcc_1_1at91_1_1_pit.html#a8810dca0f2ac7128622573f2f227c9cd" title="Remove interrupt handler and disable the interrupt.">removeInterruptHandler</a>();
+<a name="l00085"></a>00085             
+<a name="l00086"></a>00086             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00087"></a>00087             acknowledgeInterrupt()
+<a name="l00088"></a>00088             {
+<a name="l00089"></a>00089                 <span class="comment">// read PIVR to reset the interrupt</span>
+<a name="l00090"></a>00090                 (void) AT91C_BASE_PITC-&gt;PITC_PIVR;
+<a name="l00091"></a>00091             }
+<a name="l00092"></a>00092         };
+<a name="l00093"></a>00093     }
+<a name="l00094"></a>00094 }
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 <span class="preprocessor">#endif // XPCC_AT91__PIT_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -190,7 +188,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>pit.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

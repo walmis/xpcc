@@ -127,63 +127,61 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: ds18b20.hpp 607 2011-09-13 19:51:03Z dergraaf $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__DS18B20_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__DS18B20_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/one_wire.hpp&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00067"></a>00067     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> OneWire&gt;
-<a name="l00068"></a><a class="code" href="classxpcc_1_1_ds18b20.html">00068</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_ds18b20.html" title="Programmable resolution 1-wire digital thermometer.">Ds18b20</a>
-<a name="l00069"></a>00069     {
-<a name="l00070"></a>00070     <span class="keyword">public</span>:
-<a name="l00078"></a>00078         <a class="code" href="classxpcc_1_1_ds18b20.html#a49d368cb3403df7a2d23315c97d28bf9" title="Constructor.">Ds18b20</a>(<span class="keyword">const</span> uint8_t *rom);
-<a name="l00079"></a>00079         
-<a name="l00080"></a>00080         <span class="comment">// TODO</span>
-<a name="l00081"></a>00081         <span class="comment">//void</span>
-<a name="l00082"></a>00082         <span class="comment">//configure();</span>
-<a name="l00083"></a>00083         
-<a name="l00090"></a>00090         <span class="keywordtype">bool</span>
-<a name="l00091"></a>00091         <a class="code" href="classxpcc_1_1_ds18b20.html#a83083bf438fd193faff06b330eb337ec" title="Check if the device is present.">isAvailable</a>();
-<a name="l00092"></a>00092         
-<a name="l00096"></a>00096         <span class="keywordtype">void</span>
-<a name="l00097"></a>00097         <a class="code" href="classxpcc_1_1_ds18b20.html#ad50884d983cfe884ddf1c1fd60819413" title="Start the conversion of this device.">startConversion</a>();
-<a name="l00098"></a>00098         
-<a name="l00109"></a>00109         <span class="keywordtype">void</span>
-<a name="l00110"></a>00110         <a class="code" href="classxpcc_1_1_ds18b20.html#a99b70d7ec05487c75ff649561f2b8fc2" title="Start the conversion for all connected devices.">startConversions</a>();
-<a name="l00111"></a>00111         
-<a name="l00118"></a>00118         <span class="keywordtype">bool</span>
-<a name="l00119"></a>00119         <a class="code" href="classxpcc_1_1_ds18b20.html#a2ef6054d868ff31582738a34527fc2d3" title="Check if the last conversion is complete.">isConversionDone</a>();
-<a name="l00120"></a>00120         
-<a name="l00127"></a>00127         int16_t
-<a name="l00128"></a>00128         <a class="code" href="classxpcc_1_1_ds18b20.html#aea95e03bb1d9eb102fd2d806719f205a" title="Read the current temperature in centi-degree.">readTemperature</a>();
-<a name="l00129"></a>00129         
-<a name="l00130"></a>00130     <span class="keyword">protected</span>:
-<a name="l00134"></a>00134         <span class="keywordtype">bool</span>
-<a name="l00135"></a>00135         <a class="code" href="classxpcc_1_1_ds18b20.html#af1b05683ca51e25195f95c3631dd91c3" title="Select the current device.">selectDevice</a>();
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__DS18B20_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__DS18B20_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/one_wire.hpp&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00065"></a>00065     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> OneWire&gt;
+<a name="l00066"></a><a class="code" href="classxpcc_1_1_ds18b20.html">00066</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_ds18b20.html" title="Programmable resolution 1-wire digital thermometer.">Ds18b20</a>
+<a name="l00067"></a>00067     {
+<a name="l00068"></a>00068     <span class="keyword">public</span>:
+<a name="l00076"></a>00076         <a class="code" href="classxpcc_1_1_ds18b20.html#a49d368cb3403df7a2d23315c97d28bf9" title="Constructor.">Ds18b20</a>(<span class="keyword">const</span> uint8_t *rom);
+<a name="l00077"></a>00077         
+<a name="l00078"></a>00078         <span class="comment">// TODO</span>
+<a name="l00079"></a>00079         <span class="comment">//void</span>
+<a name="l00080"></a>00080         <span class="comment">//configure();</span>
+<a name="l00081"></a>00081         
+<a name="l00088"></a>00088         <span class="keywordtype">bool</span>
+<a name="l00089"></a>00089         <a class="code" href="classxpcc_1_1_ds18b20.html#a83083bf438fd193faff06b330eb337ec" title="Check if the device is present.">isAvailable</a>();
+<a name="l00090"></a>00090         
+<a name="l00094"></a>00094         <span class="keywordtype">void</span>
+<a name="l00095"></a>00095         <a class="code" href="classxpcc_1_1_ds18b20.html#ad50884d983cfe884ddf1c1fd60819413" title="Start the conversion of this device.">startConversion</a>();
+<a name="l00096"></a>00096         
+<a name="l00107"></a>00107         <span class="keywordtype">void</span>
+<a name="l00108"></a>00108         <a class="code" href="classxpcc_1_1_ds18b20.html#a99b70d7ec05487c75ff649561f2b8fc2" title="Start the conversion for all connected devices.">startConversions</a>();
+<a name="l00109"></a>00109         
+<a name="l00116"></a>00116         <span class="keywordtype">bool</span>
+<a name="l00117"></a>00117         <a class="code" href="classxpcc_1_1_ds18b20.html#a2ef6054d868ff31582738a34527fc2d3" title="Check if the last conversion is complete.">isConversionDone</a>();
+<a name="l00118"></a>00118         
+<a name="l00125"></a>00125         int16_t
+<a name="l00126"></a>00126         <a class="code" href="classxpcc_1_1_ds18b20.html#aea95e03bb1d9eb102fd2d806719f205a" title="Read the current temperature in centi-degree.">readTemperature</a>();
+<a name="l00127"></a>00127         
+<a name="l00128"></a>00128     <span class="keyword">protected</span>:
+<a name="l00132"></a>00132         <span class="keywordtype">bool</span>
+<a name="l00133"></a>00133         <a class="code" href="classxpcc_1_1_ds18b20.html#af1b05683ca51e25195f95c3631dd91c3" title="Select the current device.">selectDevice</a>();
+<a name="l00134"></a>00134         
+<a name="l00135"></a>00135         uint8_t identifier[8];
 <a name="l00136"></a>00136         
-<a name="l00137"></a>00137         uint8_t identifier[8];
-<a name="l00138"></a>00138         
-<a name="l00139"></a>00139         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONVERT_T = 0x44;
-<a name="l00140"></a>00140         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t WRITE_SCRATCHPAD = 0x4e;
-<a name="l00141"></a>00141         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ_SCRATCHPAD = 0xbe;
-<a name="l00142"></a>00142         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t COPY_SCRATCHPAD = 0x48;
-<a name="l00143"></a>00143         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t RECALL_E2 = 0xb8;
-<a name="l00144"></a>00144         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ_POWER_SUPPLY = 0xb4;
-<a name="l00145"></a>00145         
-<a name="l00146"></a>00146         <span class="keyword">static</span> OneWire ow;
-<a name="l00147"></a>00147     };
-<a name="l00148"></a>00148 }
+<a name="l00137"></a>00137         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t CONVERT_T = 0x44;
+<a name="l00138"></a>00138         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t WRITE_SCRATCHPAD = 0x4e;
+<a name="l00139"></a>00139         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ_SCRATCHPAD = 0xbe;
+<a name="l00140"></a>00140         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t COPY_SCRATCHPAD = 0x48;
+<a name="l00141"></a>00141         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t RECALL_E2 = 0xb8;
+<a name="l00142"></a>00142         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ_POWER_SUPPLY = 0xb4;
+<a name="l00143"></a>00143         
+<a name="l00144"></a>00144         <span class="keyword">static</span> OneWire ow;
+<a name="l00145"></a>00145     };
+<a name="l00146"></a>00146 }
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148 <span class="preprocessor">#include &quot;ds18b20_impl.hpp&quot;</span>
 <a name="l00149"></a>00149 
-<a name="l00150"></a>00150 <span class="preprocessor">#include &quot;ds18b20_impl.hpp&quot;</span>
-<a name="l00151"></a>00151 
-<a name="l00152"></a>00152 <span class="preprocessor">#endif // XPCC__DS18B20_HPP</span>
+<a name="l00150"></a>00150 <span class="preprocessor">#endif // XPCC__DS18B20_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -204,7 +202,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>ds18b20.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -13,5 +13,6 @@ var searchData=
   ['flash_3c_20listener_20_3e',['Flash< Listener >',['../classxpcc_1_1accessor_1_1_flash.html',1,'xpcc::accessor']]],
   ['flash_3c_20uint16_5ft_20_3e',['Flash< uint16_t >',['../classxpcc_1_1accessor_1_1_flash.html',1,'xpcc::accessor']]],
   ['flash_3c_20uint8_5ft_20_3e',['Flash< uint8_t >',['../classxpcc_1_1accessor_1_1_flash.html',1,'xpcc::accessor']]],
+  ['flexclock',['FlexClock',['../classxpcc_1_1_flex_clock.html',1,'xpcc']]],
   ['ft245',['Ft245',['../classxpcc_1_1_ft245.html',1,'xpcc']]]
 ];

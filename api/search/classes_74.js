@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['task',['Task',['../classxpcc_1_1_task.html',1,'xpcc']]],
   ['task',['Task',['../classxpcc_1_1_scheduler_1_1_task.html',1,'xpcc::Scheduler']]],
+  ['task',['Task',['../classxpcc_1_1_task.html',1,'xpcc']]],
   ['terminal',['Terminal',['../classxpcc_1_1pc_1_1_terminal.html',1,'xpcc::pc']]],
   ['testsuite',['TestSuite',['../classunittest_1_1_test_suite.html',1,'unittest']]],
   ['thread',['Thread',['../classxpcc_1_1rtos_1_1_thread.html',1,'xpcc::rtos']]],
@@ -38,9 +38,9 @@ var searchData=
   ['tipcconnector',['TipcConnector',['../classxpcc_1_1_tipc_connector.html',1,'xpcc']]],
   ['tlc594x',['TLC594X',['../classxpcc_1_1_t_l_c594_x.html',1,'xpcc']]],
   ['tlc594xled',['TLC594XLed',['../classxpcc_1_1led_1_1_t_l_c594_x_led.html',1,'xpcc::led']]],
-  ['tmp102',['TMP102',['../classxpcc_1_1_t_m_p102.html',1,'xpcc']]],
-  ['transmitter',['Transmitter',['../classxpcc_1_1tipc_1_1_transmitter.html',1,'xpcc::tipc']]],
+  ['tmp102',['Tmp102',['../classxpcc_1_1_tmp102.html',1,'xpcc']]],
   ['transmitter',['Transmitter',['../classxpcc_1_1amnb_1_1_transmitter.html',1,'xpcc::amnb']]],
+  ['transmitter',['Transmitter',['../classxpcc_1_1tipc_1_1_transmitter.html',1,'xpcc::tipc']]],
   ['transmitter',['Transmitter',['../classxpcc_1_1sab_1_1_transmitter.html',1,'xpcc::sab']]],
   ['transmittersocket',['TransmitterSocket',['../classxpcc_1_1tipc_1_1_transmitter_socket.html',1,'xpcc::tipc']]],
   ['twi',['Twi',['../classxpcc_1_1at91_1_1_twi.html',1,'xpcc::at91']]]

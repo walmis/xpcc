@@ -125,336 +125,334 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00023"></a>00023 <span class="comment"> * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY</span>
 <a name="l00024"></a>00024 <span class="comment"> * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF</span>
 <a name="l00025"></a>00025 <span class="comment"> * SUCH DAMAGE.</span>
-<a name="l00026"></a>00026 <span class="comment"> *</span>
-<a name="l00027"></a>00027 <span class="comment"> * $Id$</span>
-<a name="l00028"></a>00028 <span class="comment"> */</span>
-<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_MCP2515__DEFINITIONS_HPP</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_MCP2515__DEFINITIONS_HPP</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="keyword">namespace </span>xpcc
-<a name="l00035"></a>00035 {
-<a name="l00036"></a>00036     <span class="keyword">namespace </span>mcp2515
-<a name="l00037"></a>00037     {
-<a name="l00046"></a><a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51">00046</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51" title="Adressen der Register des MCP2515.">Register</a>
-<a name="l00047"></a>00047         {
-<a name="l00048"></a>00048             RXF0SIDH = 0x00,
-<a name="l00049"></a>00049             RXF0SIDL = 0x01,
-<a name="l00050"></a>00050             RXF0EID8 = 0x02,
-<a name="l00051"></a>00051             RXF0EID0 = 0x03,
-<a name="l00052"></a>00052             RXF1SIDH = 0x04,
-<a name="l00053"></a>00053             RXF1SIDL = 0x05,
-<a name="l00054"></a>00054             RXF1EID8 = 0x06,
-<a name="l00055"></a>00055             RXF1EID0 = 0x07,
-<a name="l00056"></a>00056             RXF2SIDH = 0x08,
-<a name="l00057"></a>00057             RXF2SIDL = 0x09,
-<a name="l00058"></a>00058             RXF2EID8 = 0x0A,
-<a name="l00059"></a>00059             RXF2EID0 = 0x0B,
-<a name="l00060"></a>00060             <a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582" title="Bitdefinition von BFPCTRL.">BFPCTRL</a> = 0x0C,
-<a name="l00061"></a>00061             <a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb" title="Bitdefinition von TXRTSCTRL.">TXRTSCTRL</a> = 0x0D,
-<a name="l00062"></a>00062             <a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1" title="Bitdefinition von CANSTAT.">CANSTAT</a> = 0x0E,
-<a name="l00063"></a>00063             <a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c" title="Bitdefinition von CANCTRL.">CANCTRL</a> = 0x0F,
-<a name="l00064"></a>00064             
-<a name="l00065"></a>00065             RXF3SIDH = 0x10,
-<a name="l00066"></a>00066             RXF3SIDL = 0x11,
-<a name="l00067"></a>00067             RXF3EID8 = 0x12,
-<a name="l00068"></a>00068             RXF3EID0 = 0x13,
-<a name="l00069"></a>00069             RXF4SIDH = 0x14,
-<a name="l00070"></a>00070             RXF4SIDL = 0x15,
-<a name="l00071"></a>00071             RXF4EID8 = 0x16,
-<a name="l00072"></a>00072             RXF4EID0 = 0x17,
-<a name="l00073"></a>00073             RXF5SIDH = 0x18,
-<a name="l00074"></a>00074             RXF5SIDL = 0x19,
-<a name="l00075"></a>00075             RXF5EID8 = 0x1A,
-<a name="l00076"></a>00076             RXF5EID0 = 0x1B,
-<a name="l00077"></a>00077             TEC =  0x1C,
-<a name="l00078"></a>00078             REC = 0x1D,
-<a name="l00079"></a>00079             
-<a name="l00080"></a>00080             RXM0SIDH = 0x20,
-<a name="l00081"></a>00081             RXM0SIDL = 0x21,
-<a name="l00082"></a>00082             RXM0EID8 = 0x22,
-<a name="l00083"></a>00083             RXM0EID0 = 0x23,
-<a name="l00084"></a>00084             RXM1SIDH = 0x24,
-<a name="l00085"></a>00085             RXM1SIDL = 0x25,
-<a name="l00086"></a>00086             RXM1EID8 = 0x26,
-<a name="l00087"></a>00087             RXM1EID0 = 0x27,
-<a name="l00088"></a>00088             <a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93" title="Bitdefinition von CNF3.">CNF3</a> = 0x28,
-<a name="l00089"></a>00089             <a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30" title="Bitdefinition von CNF2.">CNF2</a> = 0x29,
-<a name="l00090"></a>00090             <a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365" title="Bitdefinition von CNF1.">CNF1</a> = 0x2A,
-<a name="l00091"></a>00091             <a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267" title="Bitdefinition von CANINTE.">CANINTE</a> = 0x2B,
-<a name="l00092"></a>00092             <a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922" title="Bitdefinition von CANINTF.">CANINTF</a> = 0x2C,
-<a name="l00093"></a>00093             <a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660" title="Bitdefinition von EFLG.">EFLG</a> = 0x2D,
-<a name="l00094"></a>00094             
-<a name="l00095"></a>00095             TXB0CTRL = 0x30,
-<a name="l00096"></a>00096             TXB0SIDH = 0x31,
-<a name="l00097"></a>00097             TXB0SIDL = 0x32,
-<a name="l00098"></a>00098             TXB0EID8 = 0x33,
-<a name="l00099"></a>00099             TXB0EID0 = 0x34,
-<a name="l00100"></a>00100             TXB0DLC = 0x35,
-<a name="l00101"></a>00101             TXB0D0 = 0x36,
-<a name="l00102"></a>00102             TXB0D1 = 0x37,
-<a name="l00103"></a>00103             TXB0D2 = 0x38,
-<a name="l00104"></a>00104             TXB0D3 = 0x39,
-<a name="l00105"></a>00105             TXB0D4 = 0x3A,
-<a name="l00106"></a>00106             TXB0D5 = 0x3B,
-<a name="l00107"></a>00107             TXB0D6 = 0x3C,
-<a name="l00108"></a>00108             TXB0D7 = 0x3D,
-<a name="l00109"></a>00109             
-<a name="l00110"></a>00110             TXB1CTRL = 0x40,
-<a name="l00111"></a>00111             TXB1SIDH = 0x41,
-<a name="l00112"></a>00112             TXB1SIDL = 0x42,
-<a name="l00113"></a>00113             TXB1EID8 = 0x43,
-<a name="l00114"></a>00114             TXB1EID0 = 0x44,
-<a name="l00115"></a>00115             TXB1DLC = 0x45,
-<a name="l00116"></a>00116             TXB1D0 = 0x46,
-<a name="l00117"></a>00117             TXB1D1 = 0x47,
-<a name="l00118"></a>00118             TXB1D2 = 0x48,
-<a name="l00119"></a>00119             TXB1D3 = 0x49,
-<a name="l00120"></a>00120             TXB1D4 = 0x4A,
-<a name="l00121"></a>00121             TXB1D5 = 0x4B,
-<a name="l00122"></a>00122             TXB1D6 = 0x4C,
-<a name="l00123"></a>00123             TXB1D7 = 0x4D,
-<a name="l00124"></a>00124             
-<a name="l00125"></a>00125             TXB2CTRL = 0x50,
-<a name="l00126"></a>00126             TXB2SIDH = 0x51,
-<a name="l00127"></a>00127             TXB2SIDL = 0x52,
-<a name="l00128"></a>00128             TXB2EID8 = 0x53,
-<a name="l00129"></a>00129             TXB2EID0 = 0x54,
-<a name="l00130"></a>00130             TXB2DLC = 0x55,
-<a name="l00131"></a>00131             TXB2D0 = 0x56,
-<a name="l00132"></a>00132             TXB2D1 = 0x57,
-<a name="l00133"></a>00133             TXB2D2 = 0x58,
-<a name="l00134"></a>00134             TXB2D3 = 0x59,
-<a name="l00135"></a>00135             TXB2D4 = 0x5A,
-<a name="l00136"></a>00136             TXB2D5 = 0x5B,
-<a name="l00137"></a>00137             TXB2D6 = 0x5C,
-<a name="l00138"></a>00138             TXB2D7 = 0x5D,
-<a name="l00139"></a>00139             
-<a name="l00140"></a>00140             <a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d" title="Bitdefinition von RXB0CTRL.">RXB0CTRL</a> = 0x60,
-<a name="l00141"></a>00141             RXB0SIDH = 0x61,
-<a name="l00142"></a>00142             RXB0SIDL = 0x62,
-<a name="l00143"></a>00143             RXB0EID8 = 0x63,
-<a name="l00144"></a>00144             RXB0EID0 = 0x64,
-<a name="l00145"></a>00145             RXB0DLC = 0x65,
-<a name="l00146"></a>00146             RXB0D0 = 0x66,
-<a name="l00147"></a>00147             RXB0D1 = 0x67,
-<a name="l00148"></a>00148             RXB0D2 = 0x68,
-<a name="l00149"></a>00149             RXB0D3 = 0x69,
-<a name="l00150"></a>00150             RXB0D4 = 0x6A,
-<a name="l00151"></a>00151             RXB0D5 = 0x6B,
-<a name="l00152"></a>00152             RXB0D6 = 0x6C,
-<a name="l00153"></a>00153             RXB0D7 = 0x6D,
-<a name="l00154"></a>00154             
-<a name="l00155"></a>00155             <a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2" title="Bitdefinition von RXB1CTRL.">RXB1CTRL</a> = 0x70,
-<a name="l00156"></a>00156             RXB1SIDH = 0x71,
-<a name="l00157"></a>00157             RXB1SIDL = 0x72,
-<a name="l00158"></a>00158             RXB1EID8 = 0x73,
-<a name="l00159"></a>00159             RXB1EID0 = 0x74,
-<a name="l00160"></a>00160             RXB1DLC = 0x75,
-<a name="l00161"></a>00161             RXB1D0 = 0x76,
-<a name="l00162"></a>00162             RXB1D1 = 0x77,
-<a name="l00163"></a>00163             RXB1D2 = 0x78,
-<a name="l00164"></a>00164             RXB1D3 = 0x79,
-<a name="l00165"></a>00165             RXB1D4 = 0x7A,
-<a name="l00166"></a>00166             RXB1D5 = 0x7B,
-<a name="l00167"></a>00167             RXB1D6 = 0x7C,
-<a name="l00168"></a>00168             RXB1D7 = 0x7D
-<a name="l00169"></a>00169         };
-<a name="l00170"></a>00170         
-<a name="l00175"></a><a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582">00175</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582" title="Bitdefinition von BFPCTRL.">BFPCTRL</a>
-<a name="l00176"></a>00176         {
-<a name="l00177"></a>00177             B1BFS = (1 &lt;&lt; 5),
-<a name="l00178"></a>00178             B0BFS = (1 &lt;&lt; 4),
-<a name="l00179"></a>00179             B1BFE = (1 &lt;&lt; 3),
-<a name="l00180"></a>00180             B0BFE = (1 &lt;&lt; 2),
-<a name="l00181"></a>00181             B1BFM = (1 &lt;&lt; 1),
-<a name="l00182"></a>00182             B0BFM = (1 &lt;&lt; 0)
-<a name="l00183"></a>00183         };
-<a name="l00184"></a>00184         
-<a name="l00189"></a><a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb">00189</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb" title="Bitdefinition von TXRTSCTRL.">TXRTSCTRL</a>
-<a name="l00190"></a>00190         {
-<a name="l00191"></a>00191             B2RTS = (1 &lt;&lt; 5),
-<a name="l00192"></a>00192             B1RTS = (1 &lt;&lt; 4),
-<a name="l00193"></a>00193             B0RTS = (1 &lt;&lt; 3),
-<a name="l00194"></a>00194             B2RTSM = (1 &lt;&lt; 2),
-<a name="l00195"></a>00195             B1RTSM = (1 &lt;&lt; 1),
-<a name="l00196"></a>00196             B0RTSM = (1 &lt;&lt; 0)
-<a name="l00197"></a>00197         };
-<a name="l00198"></a>00198         
-<a name="l00203"></a><a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1">00203</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1" title="Bitdefinition von CANSTAT.">CANSTAT</a>
-<a name="l00204"></a>00204         {
-<a name="l00205"></a>00205             OPMOD2 = (1 &lt;&lt; 7),
-<a name="l00206"></a>00206             OPMOD1 = (1 &lt;&lt; 6),
-<a name="l00207"></a>00207             OPMOD0 = (1 &lt;&lt; 5),
-<a name="l00208"></a>00208             ICOD2 = (1 &lt;&lt; 3),
-<a name="l00209"></a>00209             ICOD1 = (1 &lt;&lt; 2),
-<a name="l00210"></a>00210             ICOD0 = (1 &lt;&lt; 1)
-<a name="l00211"></a>00211         };
-<a name="l00212"></a>00212         
-<a name="l00217"></a><a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c">00217</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c" title="Bitdefinition von CANCTRL.">CANCTRL</a>
-<a name="l00218"></a>00218         {
-<a name="l00219"></a>00219             REQOP2 = (1 &lt;&lt; 7),
-<a name="l00220"></a>00220             REQOP1 = (1 &lt;&lt; 6),
-<a name="l00221"></a>00221             REQOP0 = (1 &lt;&lt; 5),
-<a name="l00222"></a>00222             ABAT = (1 &lt;&lt; 4),
-<a name="l00223"></a>00223             CLKEN = (1 &lt;&lt; 2),
-<a name="l00224"></a>00224             CLKPRE1 = (1 &lt;&lt; 1),
-<a name="l00225"></a>00225             CLKPRE0 = (1 &lt;&lt; 0)
-<a name="l00226"></a>00226         };
-<a name="l00227"></a>00227         
-<a name="l00232"></a><a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93">00232</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93" title="Bitdefinition von CNF3.">CNF3</a>
-<a name="l00233"></a>00233         {
-<a name="l00234"></a>00234             WAKFIL = (1 &lt;&lt; 6),
-<a name="l00235"></a>00235             PHSEG22 = (1 &lt;&lt; 2),
-<a name="l00236"></a>00236             PHSEG21 = (1 &lt;&lt; 1),
-<a name="l00237"></a>00237             PHSEG20 = (1 &lt;&lt; 0)
-<a name="l00238"></a>00238         };
-<a name="l00239"></a>00239         
-<a name="l00244"></a><a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30">00244</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30" title="Bitdefinition von CNF2.">CNF2</a>
-<a name="l00245"></a>00245         {
-<a name="l00246"></a>00246             BTLMODE = (1 &lt;&lt; 7),
-<a name="l00247"></a>00247             SAM = (1 &lt;&lt; 6),
-<a name="l00248"></a>00248             PHSEG12 = (1 &lt;&lt; 5),
-<a name="l00249"></a>00249             PHSEG11 = (1 &lt;&lt; 4),
-<a name="l00250"></a>00250             PHSEG10 = (1 &lt;&lt; 3),
-<a name="l00251"></a>00251             PHSEG2 = (1 &lt;&lt; 2),
-<a name="l00252"></a>00252             PHSEG1 = (1 &lt;&lt; 1),
-<a name="l00253"></a>00253             PHSEG0 = (1 &lt;&lt; 0)
-<a name="l00254"></a>00254         };
-<a name="l00255"></a>00255         
-<a name="l00260"></a><a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365">00260</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365" title="Bitdefinition von CNF1.">CNF1</a>
-<a name="l00261"></a>00261         {
-<a name="l00262"></a>00262             MCP2515_SJW1 = (1 &lt;&lt; 7),    <span class="comment">// also defined by the AT90CAN</span>
-<a name="l00263"></a>00263             MCP2515_SJW0 = (1 &lt;&lt; 6),
-<a name="l00264"></a>00264             MCP2515_BRP5 = (1 &lt;&lt; 5),
-<a name="l00265"></a>00265             MCP2515_BRP4 = (1 &lt;&lt; 4),
-<a name="l00266"></a>00266             MCP2515_BRP3 = (1 &lt;&lt; 3),
-<a name="l00267"></a>00267             MCP2515_BRP2 = (1 &lt;&lt; 2),
-<a name="l00268"></a>00268             MCP2515_BRP1 = (1 &lt;&lt; 1),
-<a name="l00269"></a>00269             MCP2515_BRP0 = (1 &lt;&lt; 0)
-<a name="l00270"></a>00270         };
-<a name="l00271"></a>00271         
-<a name="l00276"></a><a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267">00276</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267" title="Bitdefinition von CANINTE.">CANINTE</a>
-<a name="l00277"></a>00277         {
-<a name="l00278"></a>00278             MERRE = (1 &lt;&lt; 7),
-<a name="l00279"></a>00279             WAKIE = (1 &lt;&lt; 6),
-<a name="l00280"></a>00280             ERRIE = (1 &lt;&lt; 5),
-<a name="l00281"></a>00281             TX2IE = (1 &lt;&lt; 4),
-<a name="l00282"></a>00282             TX1IE = (1 &lt;&lt; 3),
-<a name="l00283"></a>00283             TX0IE = (1 &lt;&lt; 2),
-<a name="l00284"></a>00284             RX1IE = (1 &lt;&lt; 1),
-<a name="l00285"></a>00285             RX0IE = (1 &lt;&lt; 0)
-<a name="l00286"></a>00286         };
-<a name="l00287"></a>00287         
-<a name="l00292"></a><a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922">00292</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922" title="Bitdefinition von CANINTF.">CANINTF</a>
-<a name="l00293"></a>00293         {
-<a name="l00294"></a>00294             MERRF = (1 &lt;&lt; 7),
-<a name="l00295"></a>00295             WAKIF = (1 &lt;&lt; 6),
-<a name="l00296"></a>00296             ERRIF = (1 &lt;&lt; 5),
-<a name="l00297"></a>00297             TX2IF = (1 &lt;&lt; 4),
-<a name="l00298"></a>00298             TX1IF = (1 &lt;&lt; 3),
-<a name="l00299"></a>00299             TX0IF = (1 &lt;&lt; 2),
-<a name="l00300"></a>00300             RX1IF = (1 &lt;&lt; 1),
-<a name="l00301"></a>00301             RX0IF = (1 &lt;&lt; 0)
-<a name="l00302"></a>00302         };
-<a name="l00303"></a>00303         
-<a name="l00308"></a><a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660">00308</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660" title="Bitdefinition von EFLG.">EFLG</a>
-<a name="l00309"></a>00309         {
-<a name="l00310"></a>00310             RX1OVR = (1 &lt;&lt; 7),
-<a name="l00311"></a>00311             RX0OVR = (1 &lt;&lt; 6),
-<a name="l00312"></a>00312             TXB0 = (1 &lt;&lt; 5),
-<a name="l00313"></a>00313             TXEP = (1 &lt;&lt; 4),
-<a name="l00314"></a>00314             RXEP = (1 &lt;&lt; 3),
-<a name="l00315"></a>00315             TXWAR = (1 &lt;&lt; 2),
-<a name="l00316"></a>00316             RXWAR = (1 &lt;&lt; 1),
-<a name="l00317"></a>00317             EWARN = (1 &lt;&lt; 0)
-<a name="l00318"></a>00318         };
-<a name="l00319"></a>00319         
-<a name="l00324"></a><a class="code" href="group__mcp2515.html#gaf74bdd1523bb66b9284df0873a42aa7b">00324</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaf74bdd1523bb66b9284df0873a42aa7b" title="Bitdefinition von TXBnCTRL (n = 0, 1), 2)">TXBnCTRL</a>
-<a name="l00325"></a>00325         {
-<a name="l00326"></a>00326             ABTF = (1 &lt;&lt; 6),
-<a name="l00327"></a>00327             MLOA = (1 &lt;&lt; 5),
-<a name="l00328"></a>00328             TXERR = (1 &lt;&lt; 4),
-<a name="l00329"></a>00329             TXREQ = (1 &lt;&lt; 3),
-<a name="l00330"></a>00330             TXP1 = (1 &lt;&lt; 1),
-<a name="l00331"></a>00331             TXP0 = (1 &lt;&lt; 0)
-<a name="l00332"></a>00332         };
-<a name="l00333"></a>00333         
-<a name="l00338"></a><a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d">00338</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d" title="Bitdefinition von RXB0CTRL.">RXB0CTRL</a>
-<a name="l00339"></a>00339         {
-<a name="l00340"></a>00340             RXM1 = (1 &lt;&lt; 6),
-<a name="l00341"></a>00341             RXM0 = (1 &lt;&lt; 5),
-<a name="l00342"></a>00342             RXRTR = (1 &lt;&lt; 3),
-<a name="l00343"></a>00343             BUKT = (1 &lt;&lt; 2),
-<a name="l00344"></a>00344             BUKT1 = (1 &lt;&lt; 1),
-<a name="l00345"></a>00345             FILHIT0 = (1 &lt;&lt; 0)
-<a name="l00346"></a>00346         };
-<a name="l00347"></a>00347         
-<a name="l00352"></a><a class="code" href="group__mcp2515.html#gaa208ef6c2d4c6f054e26b84e9c255c1d">00352</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaa208ef6c2d4c6f054e26b84e9c255c1d" title="Bitdefinition von TXBnSIDL (n = 0, 1)">TXBnSIDL</a>
-<a name="l00353"></a>00353         {
-<a name="l00354"></a>00354             EXIDE = (1 &lt;&lt; 3)
-<a name="l00355"></a>00355         };
-<a name="l00356"></a>00356         
-<a name="l00364"></a><a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2">00364</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2" title="Bitdefinition von RXB1CTRL.">RXB1CTRL</a>
-<a name="l00365"></a>00365         {
-<a name="l00366"></a>00366             FILHIT2 = (1 &lt;&lt; 2),
-<a name="l00367"></a>00367             FILHIT1 = (1 &lt;&lt; 1)
-<a name="l00368"></a>00368         };
-<a name="l00369"></a>00369         
-<a name="l00374"></a><a class="code" href="group__mcp2515.html#ga3aa0db6228517eab3734688afb98d28c">00374</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga3aa0db6228517eab3734688afb98d28c" title="Bitdefinition von RXBnSIDL (n = 0, 1)">RXBnSIDL</a>
-<a name="l00375"></a>00375         {
-<a name="l00376"></a>00376             MCP2515_SRR = (1 &lt;&lt; 4), <span class="comment">// also defined by the AT90CAN</span>
-<a name="l00377"></a>00377             MCP2515_IDE = (1 &lt;&lt; 3)
-<a name="l00378"></a>00378         };
-<a name="l00379"></a>00379         
-<a name="l00386"></a><a class="code" href="group__mcp2515.html#ga5dad9ab7d014ee3e9212445b0a8ff4e2">00386</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5dad9ab7d014ee3e9212445b0a8ff4e2" title="Bitdefinition von RXBnDLC (n = 0, 1)">RXBnDLC</a>
-<a name="l00387"></a>00387         {
-<a name="l00388"></a>00388             MCP2515_RTR = (1 &lt;&lt; 6), <span class="comment">// also defined by the AT90CAN</span>
-<a name="l00389"></a>00389             MCP2515_DLC3 = (1 &lt;&lt; 3),
-<a name="l00390"></a>00390             MCP2515_DLC2 = (1 &lt;&lt; 2),
-<a name="l00391"></a>00391             MCP2515_DLC1 = (1 &lt;&lt; 1),
-<a name="l00392"></a>00392             MCP2515_DLC0 = (1 &lt;&lt; 0)
-<a name="l00393"></a>00393         };
-<a name="l00394"></a>00394         
-<a name="l00399"></a><a class="code" href="group__mcp2515.html#ga14b0c039a9e0665612d74241fb1e8ebd">00399</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga14b0c039a9e0665612d74241fb1e8ebd" title="Definition of the status register.">Status</a>
-<a name="l00400"></a>00400         {
-<a name="l00401"></a>00401             CANINTF_TX2IF = (1 &lt;&lt; 7),
-<a name="l00402"></a>00402             TXB2CNTRL_TXREQ = (1 &lt;&lt; 6),
-<a name="l00403"></a>00403             CANINTF_TX1IF = (1 &lt;&lt; 5),
-<a name="l00404"></a>00404             TXB1CNTRL_TXREQ = (1 &lt;&lt; 4),
-<a name="l00405"></a>00405             CANINTF_TX0IF = (1 &lt;&lt; 3),
-<a name="l00406"></a>00406             TXB0CNTRL_TXREQ = (1 &lt;&lt; 2),
-<a name="l00407"></a>00407             CANINTF_RX1IF = (1 &lt;&lt; 1),
-<a name="l00408"></a>00408             CANINTF_RX0IF = (1 &lt;&lt; 0)
-<a name="l00409"></a>00409         };
-<a name="l00410"></a>00410         
-<a name="l00415"></a><a class="code" href="group__mcp2515.html#gac7ed30ce273b312ec0fcdcbfed9e6bf3">00415</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gac7ed30ce273b312ec0fcdcbfed9e6bf3" title="Definition of the receive status register.">RxStatus</a>
-<a name="l00416"></a>00416         {
-<a name="l00417"></a>00417             FLAG_RXB1_FULL = (1 &lt;&lt; 7),
-<a name="l00418"></a>00418             FLAG_RXB0_FULL = (1 &lt;&lt; 6),
-<a name="l00419"></a>00419             
-<a name="l00420"></a>00420             FLAG_EXTENDED = (1 &lt;&lt; 4),
-<a name="l00421"></a>00421             FLAG_RTR = (1 &lt;&lt; 3),
-<a name="l00422"></a>00422             
-<a name="l00423"></a>00423             TYPE_EXTENDED_REMOTE_FRAME = (1 &lt;&lt; 4) | (1 &lt;&lt; 3),
-<a name="l00424"></a>00424             TYPE_EXTENDED_DATA_FRAME = (1 &lt;&lt; 4),
-<a name="l00425"></a>00425             TYPE_STANDARD_REMOTE_FRAME = (1 &lt;&lt; 3),
-<a name="l00426"></a>00426             TYPE_STANDARD_DATA_FRAME = 0,
-<a name="l00427"></a>00427                     
-<a name="l00428"></a>00428             MATCH_RXF1_ROLLOVER_TO_RXB1 = 7,
-<a name="l00429"></a>00429             MATCH_RXF0_ROLLOVER_TO_RXB1 = 6,
-<a name="l00430"></a>00430             MATCH_RXF5 = 5,
-<a name="l00431"></a>00431             MATCH_RXF4 = 4,
-<a name="l00432"></a>00432             MATCH_RXF3 = 3,
-<a name="l00433"></a>00433             MATCH_RXF2 = 2,
-<a name="l00434"></a>00434             MATCH_RXF1 = 1,
-<a name="l00435"></a>00435             MATCH_RXF0 = 0,
-<a name="l00436"></a>00436         };
-<a name="l00437"></a>00437     }
-<a name="l00438"></a>00438 }
-<a name="l00439"></a>00439 
-<a name="l00440"></a>00440 <span class="preprocessor">#endif  // XPCC_MCP2515__DEFINITIONS_HPP</span>
+<a name="l00026"></a>00026 <span class="comment"> */</span>
+<a name="l00027"></a>00027 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="preprocessor">#ifndef XPCC_MCP2515__DEFINITIONS_HPP</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_MCP2515__DEFINITIONS_HPP</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>xpcc
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     <span class="keyword">namespace </span>mcp2515
+<a name="l00035"></a>00035     {
+<a name="l00044"></a><a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51">00044</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51" title="Adressen der Register des MCP2515.">Register</a>
+<a name="l00045"></a>00045         {
+<a name="l00046"></a>00046             RXF0SIDH = 0x00,
+<a name="l00047"></a>00047             RXF0SIDL = 0x01,
+<a name="l00048"></a>00048             RXF0EID8 = 0x02,
+<a name="l00049"></a>00049             RXF0EID0 = 0x03,
+<a name="l00050"></a>00050             RXF1SIDH = 0x04,
+<a name="l00051"></a>00051             RXF1SIDL = 0x05,
+<a name="l00052"></a>00052             RXF1EID8 = 0x06,
+<a name="l00053"></a>00053             RXF1EID0 = 0x07,
+<a name="l00054"></a>00054             RXF2SIDH = 0x08,
+<a name="l00055"></a>00055             RXF2SIDL = 0x09,
+<a name="l00056"></a>00056             RXF2EID8 = 0x0A,
+<a name="l00057"></a>00057             RXF2EID0 = 0x0B,
+<a name="l00058"></a>00058             <a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582" title="Bitdefinition von BFPCTRL.">BFPCTRL</a> = 0x0C,
+<a name="l00059"></a>00059             <a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb" title="Bitdefinition von TXRTSCTRL.">TXRTSCTRL</a> = 0x0D,
+<a name="l00060"></a>00060             <a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1" title="Bitdefinition von CANSTAT.">CANSTAT</a> = 0x0E,
+<a name="l00061"></a>00061             <a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c" title="Bitdefinition von CANCTRL.">CANCTRL</a> = 0x0F,
+<a name="l00062"></a>00062             
+<a name="l00063"></a>00063             RXF3SIDH = 0x10,
+<a name="l00064"></a>00064             RXF3SIDL = 0x11,
+<a name="l00065"></a>00065             RXF3EID8 = 0x12,
+<a name="l00066"></a>00066             RXF3EID0 = 0x13,
+<a name="l00067"></a>00067             RXF4SIDH = 0x14,
+<a name="l00068"></a>00068             RXF4SIDL = 0x15,
+<a name="l00069"></a>00069             RXF4EID8 = 0x16,
+<a name="l00070"></a>00070             RXF4EID0 = 0x17,
+<a name="l00071"></a>00071             RXF5SIDH = 0x18,
+<a name="l00072"></a>00072             RXF5SIDL = 0x19,
+<a name="l00073"></a>00073             RXF5EID8 = 0x1A,
+<a name="l00074"></a>00074             RXF5EID0 = 0x1B,
+<a name="l00075"></a>00075             TEC =  0x1C,
+<a name="l00076"></a>00076             REC = 0x1D,
+<a name="l00077"></a>00077             
+<a name="l00078"></a>00078             RXM0SIDH = 0x20,
+<a name="l00079"></a>00079             RXM0SIDL = 0x21,
+<a name="l00080"></a>00080             RXM0EID8 = 0x22,
+<a name="l00081"></a>00081             RXM0EID0 = 0x23,
+<a name="l00082"></a>00082             RXM1SIDH = 0x24,
+<a name="l00083"></a>00083             RXM1SIDL = 0x25,
+<a name="l00084"></a>00084             RXM1EID8 = 0x26,
+<a name="l00085"></a>00085             RXM1EID0 = 0x27,
+<a name="l00086"></a>00086             <a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93" title="Bitdefinition von CNF3.">CNF3</a> = 0x28,
+<a name="l00087"></a>00087             <a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30" title="Bitdefinition von CNF2.">CNF2</a> = 0x29,
+<a name="l00088"></a>00088             <a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365" title="Bitdefinition von CNF1.">CNF1</a> = 0x2A,
+<a name="l00089"></a>00089             <a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267" title="Bitdefinition von CANINTE.">CANINTE</a> = 0x2B,
+<a name="l00090"></a>00090             <a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922" title="Bitdefinition von CANINTF.">CANINTF</a> = 0x2C,
+<a name="l00091"></a>00091             <a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660" title="Bitdefinition von EFLG.">EFLG</a> = 0x2D,
+<a name="l00092"></a>00092             
+<a name="l00093"></a>00093             TXB0CTRL = 0x30,
+<a name="l00094"></a>00094             TXB0SIDH = 0x31,
+<a name="l00095"></a>00095             TXB0SIDL = 0x32,
+<a name="l00096"></a>00096             TXB0EID8 = 0x33,
+<a name="l00097"></a>00097             TXB0EID0 = 0x34,
+<a name="l00098"></a>00098             TXB0DLC = 0x35,
+<a name="l00099"></a>00099             TXB0D0 = 0x36,
+<a name="l00100"></a>00100             TXB0D1 = 0x37,
+<a name="l00101"></a>00101             TXB0D2 = 0x38,
+<a name="l00102"></a>00102             TXB0D3 = 0x39,
+<a name="l00103"></a>00103             TXB0D4 = 0x3A,
+<a name="l00104"></a>00104             TXB0D5 = 0x3B,
+<a name="l00105"></a>00105             TXB0D6 = 0x3C,
+<a name="l00106"></a>00106             TXB0D7 = 0x3D,
+<a name="l00107"></a>00107             
+<a name="l00108"></a>00108             TXB1CTRL = 0x40,
+<a name="l00109"></a>00109             TXB1SIDH = 0x41,
+<a name="l00110"></a>00110             TXB1SIDL = 0x42,
+<a name="l00111"></a>00111             TXB1EID8 = 0x43,
+<a name="l00112"></a>00112             TXB1EID0 = 0x44,
+<a name="l00113"></a>00113             TXB1DLC = 0x45,
+<a name="l00114"></a>00114             TXB1D0 = 0x46,
+<a name="l00115"></a>00115             TXB1D1 = 0x47,
+<a name="l00116"></a>00116             TXB1D2 = 0x48,
+<a name="l00117"></a>00117             TXB1D3 = 0x49,
+<a name="l00118"></a>00118             TXB1D4 = 0x4A,
+<a name="l00119"></a>00119             TXB1D5 = 0x4B,
+<a name="l00120"></a>00120             TXB1D6 = 0x4C,
+<a name="l00121"></a>00121             TXB1D7 = 0x4D,
+<a name="l00122"></a>00122             
+<a name="l00123"></a>00123             TXB2CTRL = 0x50,
+<a name="l00124"></a>00124             TXB2SIDH = 0x51,
+<a name="l00125"></a>00125             TXB2SIDL = 0x52,
+<a name="l00126"></a>00126             TXB2EID8 = 0x53,
+<a name="l00127"></a>00127             TXB2EID0 = 0x54,
+<a name="l00128"></a>00128             TXB2DLC = 0x55,
+<a name="l00129"></a>00129             TXB2D0 = 0x56,
+<a name="l00130"></a>00130             TXB2D1 = 0x57,
+<a name="l00131"></a>00131             TXB2D2 = 0x58,
+<a name="l00132"></a>00132             TXB2D3 = 0x59,
+<a name="l00133"></a>00133             TXB2D4 = 0x5A,
+<a name="l00134"></a>00134             TXB2D5 = 0x5B,
+<a name="l00135"></a>00135             TXB2D6 = 0x5C,
+<a name="l00136"></a>00136             TXB2D7 = 0x5D,
+<a name="l00137"></a>00137             
+<a name="l00138"></a>00138             <a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d" title="Bitdefinition von RXB0CTRL.">RXB0CTRL</a> = 0x60,
+<a name="l00139"></a>00139             RXB0SIDH = 0x61,
+<a name="l00140"></a>00140             RXB0SIDL = 0x62,
+<a name="l00141"></a>00141             RXB0EID8 = 0x63,
+<a name="l00142"></a>00142             RXB0EID0 = 0x64,
+<a name="l00143"></a>00143             RXB0DLC = 0x65,
+<a name="l00144"></a>00144             RXB0D0 = 0x66,
+<a name="l00145"></a>00145             RXB0D1 = 0x67,
+<a name="l00146"></a>00146             RXB0D2 = 0x68,
+<a name="l00147"></a>00147             RXB0D3 = 0x69,
+<a name="l00148"></a>00148             RXB0D4 = 0x6A,
+<a name="l00149"></a>00149             RXB0D5 = 0x6B,
+<a name="l00150"></a>00150             RXB0D6 = 0x6C,
+<a name="l00151"></a>00151             RXB0D7 = 0x6D,
+<a name="l00152"></a>00152             
+<a name="l00153"></a>00153             <a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2" title="Bitdefinition von RXB1CTRL.">RXB1CTRL</a> = 0x70,
+<a name="l00154"></a>00154             RXB1SIDH = 0x71,
+<a name="l00155"></a>00155             RXB1SIDL = 0x72,
+<a name="l00156"></a>00156             RXB1EID8 = 0x73,
+<a name="l00157"></a>00157             RXB1EID0 = 0x74,
+<a name="l00158"></a>00158             RXB1DLC = 0x75,
+<a name="l00159"></a>00159             RXB1D0 = 0x76,
+<a name="l00160"></a>00160             RXB1D1 = 0x77,
+<a name="l00161"></a>00161             RXB1D2 = 0x78,
+<a name="l00162"></a>00162             RXB1D3 = 0x79,
+<a name="l00163"></a>00163             RXB1D4 = 0x7A,
+<a name="l00164"></a>00164             RXB1D5 = 0x7B,
+<a name="l00165"></a>00165             RXB1D6 = 0x7C,
+<a name="l00166"></a>00166             RXB1D7 = 0x7D
+<a name="l00167"></a>00167         };
+<a name="l00168"></a>00168         
+<a name="l00173"></a><a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582">00173</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga0cd6dd287ed5ac93a148a5ab4ac2b582" title="Bitdefinition von BFPCTRL.">BFPCTRL</a>
+<a name="l00174"></a>00174         {
+<a name="l00175"></a>00175             B1BFS = (1 &lt;&lt; 5),
+<a name="l00176"></a>00176             B0BFS = (1 &lt;&lt; 4),
+<a name="l00177"></a>00177             B1BFE = (1 &lt;&lt; 3),
+<a name="l00178"></a>00178             B0BFE = (1 &lt;&lt; 2),
+<a name="l00179"></a>00179             B1BFM = (1 &lt;&lt; 1),
+<a name="l00180"></a>00180             B0BFM = (1 &lt;&lt; 0)
+<a name="l00181"></a>00181         };
+<a name="l00182"></a>00182         
+<a name="l00187"></a><a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb">00187</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga8014c6221c8c43f35ebc44e76fcef4fb" title="Bitdefinition von TXRTSCTRL.">TXRTSCTRL</a>
+<a name="l00188"></a>00188         {
+<a name="l00189"></a>00189             B2RTS = (1 &lt;&lt; 5),
+<a name="l00190"></a>00190             B1RTS = (1 &lt;&lt; 4),
+<a name="l00191"></a>00191             B0RTS = (1 &lt;&lt; 3),
+<a name="l00192"></a>00192             B2RTSM = (1 &lt;&lt; 2),
+<a name="l00193"></a>00193             B1RTSM = (1 &lt;&lt; 1),
+<a name="l00194"></a>00194             B0RTSM = (1 &lt;&lt; 0)
+<a name="l00195"></a>00195         };
+<a name="l00196"></a>00196         
+<a name="l00201"></a><a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1">00201</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga614921bf9d83e5e8d7d7c25d47df9ce1" title="Bitdefinition von CANSTAT.">CANSTAT</a>
+<a name="l00202"></a>00202         {
+<a name="l00203"></a>00203             OPMOD2 = (1 &lt;&lt; 7),
+<a name="l00204"></a>00204             OPMOD1 = (1 &lt;&lt; 6),
+<a name="l00205"></a>00205             OPMOD0 = (1 &lt;&lt; 5),
+<a name="l00206"></a>00206             ICOD2 = (1 &lt;&lt; 3),
+<a name="l00207"></a>00207             ICOD1 = (1 &lt;&lt; 2),
+<a name="l00208"></a>00208             ICOD0 = (1 &lt;&lt; 1)
+<a name="l00209"></a>00209         };
+<a name="l00210"></a>00210         
+<a name="l00215"></a><a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c">00215</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gad7f33d02e3ed5b8793dcac53b8ff114c" title="Bitdefinition von CANCTRL.">CANCTRL</a>
+<a name="l00216"></a>00216         {
+<a name="l00217"></a>00217             REQOP2 = (1 &lt;&lt; 7),
+<a name="l00218"></a>00218             REQOP1 = (1 &lt;&lt; 6),
+<a name="l00219"></a>00219             REQOP0 = (1 &lt;&lt; 5),
+<a name="l00220"></a>00220             ABAT = (1 &lt;&lt; 4),
+<a name="l00221"></a>00221             CLKEN = (1 &lt;&lt; 2),
+<a name="l00222"></a>00222             CLKPRE1 = (1 &lt;&lt; 1),
+<a name="l00223"></a>00223             CLKPRE0 = (1 &lt;&lt; 0)
+<a name="l00224"></a>00224         };
+<a name="l00225"></a>00225         
+<a name="l00230"></a><a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93">00230</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5e0bebf04d450643301e972c0b330a93" title="Bitdefinition von CNF3.">CNF3</a>
+<a name="l00231"></a>00231         {
+<a name="l00232"></a>00232             WAKFIL = (1 &lt;&lt; 6),
+<a name="l00233"></a>00233             PHSEG22 = (1 &lt;&lt; 2),
+<a name="l00234"></a>00234             PHSEG21 = (1 &lt;&lt; 1),
+<a name="l00235"></a>00235             PHSEG20 = (1 &lt;&lt; 0)
+<a name="l00236"></a>00236         };
+<a name="l00237"></a>00237         
+<a name="l00242"></a><a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30">00242</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga057de5cd1cb19284a6de228830a03c30" title="Bitdefinition von CNF2.">CNF2</a>
+<a name="l00243"></a>00243         {
+<a name="l00244"></a>00244             BTLMODE = (1 &lt;&lt; 7),
+<a name="l00245"></a>00245             SAM = (1 &lt;&lt; 6),
+<a name="l00246"></a>00246             PHSEG12 = (1 &lt;&lt; 5),
+<a name="l00247"></a>00247             PHSEG11 = (1 &lt;&lt; 4),
+<a name="l00248"></a>00248             PHSEG10 = (1 &lt;&lt; 3),
+<a name="l00249"></a>00249             PHSEG2 = (1 &lt;&lt; 2),
+<a name="l00250"></a>00250             PHSEG1 = (1 &lt;&lt; 1),
+<a name="l00251"></a>00251             PHSEG0 = (1 &lt;&lt; 0)
+<a name="l00252"></a>00252         };
+<a name="l00253"></a>00253         
+<a name="l00258"></a><a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365">00258</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga048ef049d1dc950515945f512cf4b365" title="Bitdefinition von CNF1.">CNF1</a>
+<a name="l00259"></a>00259         {
+<a name="l00260"></a>00260             MCP2515_SJW1 = (1 &lt;&lt; 7),    <span class="comment">// also defined by the AT90CAN</span>
+<a name="l00261"></a>00261             MCP2515_SJW0 = (1 &lt;&lt; 6),
+<a name="l00262"></a>00262             MCP2515_BRP5 = (1 &lt;&lt; 5),
+<a name="l00263"></a>00263             MCP2515_BRP4 = (1 &lt;&lt; 4),
+<a name="l00264"></a>00264             MCP2515_BRP3 = (1 &lt;&lt; 3),
+<a name="l00265"></a>00265             MCP2515_BRP2 = (1 &lt;&lt; 2),
+<a name="l00266"></a>00266             MCP2515_BRP1 = (1 &lt;&lt; 1),
+<a name="l00267"></a>00267             MCP2515_BRP0 = (1 &lt;&lt; 0)
+<a name="l00268"></a>00268         };
+<a name="l00269"></a>00269         
+<a name="l00274"></a><a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267">00274</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5027e1da00258c8ebf7e8ad1c0c6a267" title="Bitdefinition von CANINTE.">CANINTE</a>
+<a name="l00275"></a>00275         {
+<a name="l00276"></a>00276             MERRE = (1 &lt;&lt; 7),
+<a name="l00277"></a>00277             WAKIE = (1 &lt;&lt; 6),
+<a name="l00278"></a>00278             ERRIE = (1 &lt;&lt; 5),
+<a name="l00279"></a>00279             TX2IE = (1 &lt;&lt; 4),
+<a name="l00280"></a>00280             TX1IE = (1 &lt;&lt; 3),
+<a name="l00281"></a>00281             TX0IE = (1 &lt;&lt; 2),
+<a name="l00282"></a>00282             RX1IE = (1 &lt;&lt; 1),
+<a name="l00283"></a>00283             RX0IE = (1 &lt;&lt; 0)
+<a name="l00284"></a>00284         };
+<a name="l00285"></a>00285         
+<a name="l00290"></a><a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922">00290</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga3e43e6cc1f63b6c4c6e6b82f79c42922" title="Bitdefinition von CANINTF.">CANINTF</a>
+<a name="l00291"></a>00291         {
+<a name="l00292"></a>00292             MERRF = (1 &lt;&lt; 7),
+<a name="l00293"></a>00293             WAKIF = (1 &lt;&lt; 6),
+<a name="l00294"></a>00294             ERRIF = (1 &lt;&lt; 5),
+<a name="l00295"></a>00295             TX2IF = (1 &lt;&lt; 4),
+<a name="l00296"></a>00296             TX1IF = (1 &lt;&lt; 3),
+<a name="l00297"></a>00297             TX0IF = (1 &lt;&lt; 2),
+<a name="l00298"></a>00298             RX1IF = (1 &lt;&lt; 1),
+<a name="l00299"></a>00299             RX0IF = (1 &lt;&lt; 0)
+<a name="l00300"></a>00300         };
+<a name="l00301"></a>00301         
+<a name="l00306"></a><a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660">00306</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaaa656e18aaf05cfa9d0290f9b12cf660" title="Bitdefinition von EFLG.">EFLG</a>
+<a name="l00307"></a>00307         {
+<a name="l00308"></a>00308             RX1OVR = (1 &lt;&lt; 7),
+<a name="l00309"></a>00309             RX0OVR = (1 &lt;&lt; 6),
+<a name="l00310"></a>00310             TXB0 = (1 &lt;&lt; 5),
+<a name="l00311"></a>00311             TXEP = (1 &lt;&lt; 4),
+<a name="l00312"></a>00312             RXEP = (1 &lt;&lt; 3),
+<a name="l00313"></a>00313             TXWAR = (1 &lt;&lt; 2),
+<a name="l00314"></a>00314             RXWAR = (1 &lt;&lt; 1),
+<a name="l00315"></a>00315             EWARN = (1 &lt;&lt; 0)
+<a name="l00316"></a>00316         };
+<a name="l00317"></a>00317         
+<a name="l00322"></a><a class="code" href="group__mcp2515.html#gaf74bdd1523bb66b9284df0873a42aa7b">00322</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaf74bdd1523bb66b9284df0873a42aa7b" title="Bitdefinition von TXBnCTRL (n = 0, 1), 2)">TXBnCTRL</a>
+<a name="l00323"></a>00323         {
+<a name="l00324"></a>00324             ABTF = (1 &lt;&lt; 6),
+<a name="l00325"></a>00325             MLOA = (1 &lt;&lt; 5),
+<a name="l00326"></a>00326             TXERR = (1 &lt;&lt; 4),
+<a name="l00327"></a>00327             TXREQ = (1 &lt;&lt; 3),
+<a name="l00328"></a>00328             TXP1 = (1 &lt;&lt; 1),
+<a name="l00329"></a>00329             TXP0 = (1 &lt;&lt; 0)
+<a name="l00330"></a>00330         };
+<a name="l00331"></a>00331         
+<a name="l00336"></a><a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d">00336</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga0933772e1cca70207fa535568e90a79d" title="Bitdefinition von RXB0CTRL.">RXB0CTRL</a>
+<a name="l00337"></a>00337         {
+<a name="l00338"></a>00338             RXM1 = (1 &lt;&lt; 6),
+<a name="l00339"></a>00339             RXM0 = (1 &lt;&lt; 5),
+<a name="l00340"></a>00340             RXRTR = (1 &lt;&lt; 3),
+<a name="l00341"></a>00341             BUKT = (1 &lt;&lt; 2),
+<a name="l00342"></a>00342             BUKT1 = (1 &lt;&lt; 1),
+<a name="l00343"></a>00343             FILHIT0 = (1 &lt;&lt; 0)
+<a name="l00344"></a>00344         };
+<a name="l00345"></a>00345         
+<a name="l00350"></a><a class="code" href="group__mcp2515.html#gaa208ef6c2d4c6f054e26b84e9c255c1d">00350</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gaa208ef6c2d4c6f054e26b84e9c255c1d" title="Bitdefinition von TXBnSIDL (n = 0, 1)">TXBnSIDL</a>
+<a name="l00351"></a>00351         {
+<a name="l00352"></a>00352             EXIDE = (1 &lt;&lt; 3)
+<a name="l00353"></a>00353         };
+<a name="l00354"></a>00354         
+<a name="l00362"></a><a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2">00362</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5255ae28f455c1aefb8452aa43fe0df2" title="Bitdefinition von RXB1CTRL.">RXB1CTRL</a>
+<a name="l00363"></a>00363         {
+<a name="l00364"></a>00364             FILHIT2 = (1 &lt;&lt; 2),
+<a name="l00365"></a>00365             FILHIT1 = (1 &lt;&lt; 1)
+<a name="l00366"></a>00366         };
+<a name="l00367"></a>00367         
+<a name="l00372"></a><a class="code" href="group__mcp2515.html#ga3aa0db6228517eab3734688afb98d28c">00372</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga3aa0db6228517eab3734688afb98d28c" title="Bitdefinition von RXBnSIDL (n = 0, 1)">RXBnSIDL</a>
+<a name="l00373"></a>00373         {
+<a name="l00374"></a>00374             MCP2515_SRR = (1 &lt;&lt; 4), <span class="comment">// also defined by the AT90CAN</span>
+<a name="l00375"></a>00375             MCP2515_IDE = (1 &lt;&lt; 3)
+<a name="l00376"></a>00376         };
+<a name="l00377"></a>00377         
+<a name="l00384"></a><a class="code" href="group__mcp2515.html#ga5dad9ab7d014ee3e9212445b0a8ff4e2">00384</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga5dad9ab7d014ee3e9212445b0a8ff4e2" title="Bitdefinition von RXBnDLC (n = 0, 1)">RXBnDLC</a>
+<a name="l00385"></a>00385         {
+<a name="l00386"></a>00386             MCP2515_RTR = (1 &lt;&lt; 6), <span class="comment">// also defined by the AT90CAN</span>
+<a name="l00387"></a>00387             MCP2515_DLC3 = (1 &lt;&lt; 3),
+<a name="l00388"></a>00388             MCP2515_DLC2 = (1 &lt;&lt; 2),
+<a name="l00389"></a>00389             MCP2515_DLC1 = (1 &lt;&lt; 1),
+<a name="l00390"></a>00390             MCP2515_DLC0 = (1 &lt;&lt; 0)
+<a name="l00391"></a>00391         };
+<a name="l00392"></a>00392         
+<a name="l00397"></a><a class="code" href="group__mcp2515.html#ga14b0c039a9e0665612d74241fb1e8ebd">00397</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga14b0c039a9e0665612d74241fb1e8ebd" title="Definition of the status register.">Status</a>
+<a name="l00398"></a>00398         {
+<a name="l00399"></a>00399             CANINTF_TX2IF = (1 &lt;&lt; 7),
+<a name="l00400"></a>00400             TXB2CNTRL_TXREQ = (1 &lt;&lt; 6),
+<a name="l00401"></a>00401             CANINTF_TX1IF = (1 &lt;&lt; 5),
+<a name="l00402"></a>00402             TXB1CNTRL_TXREQ = (1 &lt;&lt; 4),
+<a name="l00403"></a>00403             CANINTF_TX0IF = (1 &lt;&lt; 3),
+<a name="l00404"></a>00404             TXB0CNTRL_TXREQ = (1 &lt;&lt; 2),
+<a name="l00405"></a>00405             CANINTF_RX1IF = (1 &lt;&lt; 1),
+<a name="l00406"></a>00406             CANINTF_RX0IF = (1 &lt;&lt; 0)
+<a name="l00407"></a>00407         };
+<a name="l00408"></a>00408         
+<a name="l00413"></a><a class="code" href="group__mcp2515.html#gac7ed30ce273b312ec0fcdcbfed9e6bf3">00413</a>         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gac7ed30ce273b312ec0fcdcbfed9e6bf3" title="Definition of the receive status register.">RxStatus</a>
+<a name="l00414"></a>00414         {
+<a name="l00415"></a>00415             FLAG_RXB1_FULL = (1 &lt;&lt; 7),
+<a name="l00416"></a>00416             FLAG_RXB0_FULL = (1 &lt;&lt; 6),
+<a name="l00417"></a>00417             
+<a name="l00418"></a>00418             FLAG_EXTENDED = (1 &lt;&lt; 4),
+<a name="l00419"></a>00419             FLAG_RTR = (1 &lt;&lt; 3),
+<a name="l00420"></a>00420             
+<a name="l00421"></a>00421             TYPE_EXTENDED_REMOTE_FRAME = (1 &lt;&lt; 4) | (1 &lt;&lt; 3),
+<a name="l00422"></a>00422             TYPE_EXTENDED_DATA_FRAME = (1 &lt;&lt; 4),
+<a name="l00423"></a>00423             TYPE_STANDARD_REMOTE_FRAME = (1 &lt;&lt; 3),
+<a name="l00424"></a>00424             TYPE_STANDARD_DATA_FRAME = 0,
+<a name="l00425"></a>00425                     
+<a name="l00426"></a>00426             MATCH_RXF1_ROLLOVER_TO_RXB1 = 7,
+<a name="l00427"></a>00427             MATCH_RXF0_ROLLOVER_TO_RXB1 = 6,
+<a name="l00428"></a>00428             MATCH_RXF5 = 5,
+<a name="l00429"></a>00429             MATCH_RXF4 = 4,
+<a name="l00430"></a>00430             MATCH_RXF3 = 3,
+<a name="l00431"></a>00431             MATCH_RXF2 = 2,
+<a name="l00432"></a>00432             MATCH_RXF1 = 1,
+<a name="l00433"></a>00433             MATCH_RXF0 = 0,
+<a name="l00434"></a>00434         };
+<a name="l00435"></a>00435     }
+<a name="l00436"></a>00436 }
+<a name="l00437"></a>00437 
+<a name="l00438"></a>00438 <span class="preprocessor">#endif  // XPCC_MCP2515__DEFINITIONS_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -475,7 +473,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>mcp2515_definitions.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

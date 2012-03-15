@@ -122,9 +122,8 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57c918b94d3e3b78aa0860c7de7a9348"></a><!-- doxytag: member="xpcc::stm32::Can1::configurePins" ref="a57c918b94d3e3b78aa0860c7de7a9348" args="(Mapping mapping)" -->
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348">configurePins</a> (<a class="el" href="classxpcc_1_1stm32_1_1_can1.html#abcd7dfb5030eff8a22ea9068d830fe6a">Mapping</a> mapping)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the IO Pins for CAN1. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348">configurePins</a> (<a class="el" href="classxpcc_1_1stm32_1_1_can1.html#abcd7dfb5030eff8a22ea9068d830fe6a">Mapping</a> mapping)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the IO Pins for CAN1.  <a href="#a57c918b94d3e3b78aa0860c7de7a9348"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html#aea57f08303a111fc1ead9c79d1fed4e5">initialize</a> (<a class="el" href="group__can.html#ga9260cc725120743c0dcd64b4ba3d66b7">can::Bitrate</a> bitrate, uint32_t interruptPriority, bool overwriteOnOverrun=true)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the clock for the CAN controller and resets all settings.  <a href="#aea57f08303a111fc1ead9c79d1fed4e5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a3be85ae52a021d7195fb99583ef27d42">setMode</a> (can::Mode mode)</td></tr>
@@ -188,6 +187,24 @@ static can::BusState&#160;</td><td class="memItemRight" valign="bottom"><b>getBu
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a57c918b94d3e3b78aa0860c7de7a9348"></a><!-- doxytag: member="xpcc::stm32::Can1::configurePins" ref="a57c918b94d3e3b78aa0860c7de7a9348" args="(Mapping mapping)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348">xpcc::stm32::Can1::configurePins</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html#abcd7dfb5030eff8a22ea9068d830fe6a">Mapping</a>&#160;</td>
+          <td class="paramname"><em>mapping</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="warning"><dt><b>Warning:</b></dt><dd>Has to done before calling <a class="el" href="classxpcc_1_1stm32_1_1_can1.html#aea57f08303a111fc1ead9c79d1fed4e5" title="Enables the clock for the CAN controller and resets all settings.">initialize()</a>! </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aea57f08303a111fc1ead9c79d1fed4e5"></a><!-- doxytag: member="xpcc::stm32::Can1::initialize" ref="aea57f08303a111fc1ead9c79d1fed4e5" args="(can::Bitrate bitrate, uint32_t interruptPriority, bool overwriteOnOverrun=true)" -->
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +242,7 @@ static can::BusState&#160;</td><td class="memItemRight" valign="bottom"><b>getBu
   </table>
   </dd>
 </dl>
-<dl class="warning"><dt><b>Warning:</b></dt><dd>Has to be before any other function from this class (except <a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348" title="Configure the IO Pins for CAN1.">configurePins()</a>)! </dd></dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>Has to called after <a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348" title="Configure the IO Pins for CAN1.">configurePins()</a>, but before any other function from this class! </dd></dl>
 
 </div>
 </div>
@@ -297,7 +314,7 @@ static can::BusState&#160;</td><td class="memItemRight" valign="bottom"><b>getBu
 <div class="memdoc">
 <p>In case of an error during reception, this counter is incremented by 1 or by 8 depending on the error condition as defined by the CAN standard. After every successful reception the counter is decremented by 1 or reset to 120 if its value was higher than 128. When the counter value exceeds 127, the CAN controller enters the error passive state. </p>
 
-<p>Definition at line <a class="el" href="can__1_8hpp_source.html#l00155">155</a> of file <a class="el" href="can__1_8hpp_source.html">can_1.hpp</a>.</p>
+<p>Definition at line <a class="el" href="can__1_8hpp_source.html#l00157">157</a> of file <a class="el" href="can__1_8hpp_source.html">can_1.hpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +397,7 @@ static can::BusState&#160;</td><td class="memItemRight" valign="bottom"><b>getBu
       <li class="navelem"><b>stm32</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1stm32_1_1_can1.html">Can1</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:05 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:11 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

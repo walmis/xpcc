@@ -127,93 +127,91 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__CPU_BOARD2_MASTER_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__CPU_BOARD2_MASTER_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/architecture/platform.hpp&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/architecture/driver.hpp&gt;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/software_spi.hpp&gt;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/can/mcp2515.hpp&gt;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;xpcc/driver/storage/at45db0x1d.hpp&gt;</span>
-<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;xpcc/driver/storage/spi_ram.hpp&gt;</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__CPU_BOARD2_MASTER_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__CPU_BOARD2_MASTER_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/architecture/platform.hpp&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;xpcc/architecture/driver.hpp&gt;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/spi/software_spi.hpp&gt;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/can/mcp2515.hpp&gt;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/driver/storage/at45db0x1d.hpp&gt;</span>
+<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/driver/storage/spi_ram.hpp&gt;</span>
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/interconnect/interconnect_interface.hpp&gt;</span>
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/interconnect/interconnect_interface.hpp&gt;</span>
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <span class="keyword">namespace </span>xpcc
-<a name="l00047"></a>00047 {
-<a name="l00101"></a>00101     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Transmit = Empty, <span class="keyword">typename</span> Receive = Empty&gt;
-<a name="l00102"></a><a class="code" href="classxpcc_1_1_cpu_board2.html">00102</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_cpu_board2.html" title="CPU Board 2.">CpuBoard2</a>
-<a name="l00103"></a>00103     {
-<a name="l00104"></a>00104     <span class="keyword">protected</span>:
-<a name="l00105"></a>00105         <span class="comment">// Mcp2515</span>
-<a name="l00106"></a>00106         GPIO__OUTPUT(Sck, C, 5);
-<a name="l00107"></a>00107         GPIO__INPUT(Miso, C, 6);
-<a name="l00108"></a>00108         GPIO__OUTPUT(Mosi, C, 7);
-<a name="l00109"></a>00109         
-<a name="l00110"></a>00110         GPIO__OUTPUT(Cs, C, 4);
-<a name="l00111"></a>00111         GPIO__INPUT(Int, B, 0);
+<a name="l00044"></a>00044 <span class="keyword">namespace </span>xpcc
+<a name="l00045"></a>00045 {
+<a name="l00099"></a>00099     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Transmit = Empty, <span class="keyword">typename</span> Receive = Empty&gt;
+<a name="l00100"></a><a class="code" href="classxpcc_1_1_cpu_board2.html">00100</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_cpu_board2.html" title="CPU Board 2.">CpuBoard2</a>
+<a name="l00101"></a>00101     {
+<a name="l00102"></a>00102     <span class="keyword">protected</span>:
+<a name="l00103"></a>00103         <span class="comment">// Mcp2515</span>
+<a name="l00104"></a>00104         GPIO__OUTPUT(Sck, C, 5);
+<a name="l00105"></a>00105         GPIO__INPUT(Miso, C, 6);
+<a name="l00106"></a>00106         GPIO__OUTPUT(Mosi, C, 7);
+<a name="l00107"></a>00107         
+<a name="l00108"></a>00108         GPIO__OUTPUT(Cs, C, 4);
+<a name="l00109"></a>00109         GPIO__INPUT(Int, B, 0);
+<a name="l00110"></a>00110         
+<a name="l00111"></a>00111         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">xpcc::SoftwareSpi&lt;Sck, Mosi, Miso&gt;</a> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">SpiCan</a>;
 <a name="l00112"></a>00112         
-<a name="l00113"></a>00113         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">xpcc::SoftwareSpi&lt;Sck, Mosi, Miso&gt;</a> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">SpiCan</a>;
-<a name="l00114"></a>00114         
-<a name="l00115"></a>00115         GPIO__INPUT(RxBf0, Q, 0);
-<a name="l00116"></a>00116         GPIO__INPUT(RxBf1, Q, 1);
-<a name="l00117"></a>00117         
-<a name="l00118"></a>00118         GPIO__OUTPUT(TxRts0, B, 1);
-<a name="l00119"></a>00119         GPIO__OUTPUT(TxRts1, B, 2);
-<a name="l00120"></a>00120         GPIO__OUTPUT(TxRts2, B, 3);
-<a name="l00121"></a>00121         
-<a name="l00122"></a>00122         <span class="comment">// Flash &amp; RAM</span>
-<a name="l00123"></a>00123         GPIO__OUTPUT(CsRam, Q, 3);
-<a name="l00124"></a>00124         GPIO__OUTPUT(HoldRam, Q, 2);
-<a name="l00125"></a>00125         GPIO__OUTPUT(CsFlash, F, 4);
-<a name="l00126"></a>00126         GPIO__OUTPUT(MosiFlash, F, 5);
-<a name="l00127"></a>00127         GPIO__INPUT(MisoFlash, F, 6);
-<a name="l00128"></a>00128         GPIO__OUTPUT(SckFlash, F, 7);
+<a name="l00113"></a>00113         GPIO__INPUT(RxBf0, Q, 0);
+<a name="l00114"></a>00114         GPIO__INPUT(RxBf1, Q, 1);
+<a name="l00115"></a>00115         
+<a name="l00116"></a>00116         GPIO__OUTPUT(TxRts0, B, 1);
+<a name="l00117"></a>00117         GPIO__OUTPUT(TxRts1, B, 2);
+<a name="l00118"></a>00118         GPIO__OUTPUT(TxRts2, B, 3);
+<a name="l00119"></a>00119         
+<a name="l00120"></a>00120         <span class="comment">// Flash &amp; RAM</span>
+<a name="l00121"></a>00121         GPIO__OUTPUT(CsRam, Q, 3);
+<a name="l00122"></a>00122         GPIO__OUTPUT(HoldRam, Q, 2);
+<a name="l00123"></a>00123         GPIO__OUTPUT(CsFlash, F, 4);
+<a name="l00124"></a>00124         GPIO__OUTPUT(MosiFlash, F, 5);
+<a name="l00125"></a>00125         GPIO__INPUT(MisoFlash, F, 6);
+<a name="l00126"></a>00126         GPIO__OUTPUT(SckFlash, F, 7);
+<a name="l00127"></a>00127         
+<a name="l00128"></a>00128         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">xpcc::SoftwareSpi&lt;SckFlash, MosiFlash, MisoFlash&gt;</a> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">SpiFlash</a>;
 <a name="l00129"></a>00129         
-<a name="l00130"></a>00130         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">xpcc::SoftwareSpi&lt;SckFlash, MosiFlash, MisoFlash&gt;</a> <a class="code" href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master.">SpiFlash</a>;
-<a name="l00131"></a>00131         
-<a name="l00132"></a>00132     <span class="keyword">public</span>:
-<a name="l00134"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a619d29e51e4f744ef4527a5c2b6f311a">00134</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_at45db0x1d.html" title="Atmel DataFlash.">xpcc::At45db0x1d&lt;SpiFlash, CsFlash&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a619d29e51e4f744ef4527a5c2b6f311a" title="Atmel DataFlash (4 MBit)">Flash</a>;
-<a name="l00135"></a>00135         
-<a name="l00137"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#af8aa207560ae6e11dbfd3617ee16f0b0">00137</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_spi_ram.html" title="256kBit (64kB) Serial SRAM">xpcc::SpiRam&lt;SpiFlash, CsRam, HoldRam&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#af8aa207560ae6e11dbfd3617ee16f0b0" title="32 kB serial RAM">Ram</a>;
-<a name="l00138"></a>00138         
-<a name="l00140"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a55c048518b5f9a597e6c8a8cb15b6381">00140</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_mcp2515.html" title="Driver for the MPC2515 CAN controller.">xpcc::Mcp2515&lt;SpiCan, Cs, Int&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a55c048518b5f9a597e6c8a8cb15b6381" title="CAN Controller.">Can</a>;
-<a name="l00141"></a>00141         
-<a name="l00143"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a4f8991a909cd9e2aa26ee2c72d5a88d1">00143</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_interconnect_interface.html" title="Type safe interface for the interconnect link.">InterconnectInterface&lt;Transmit, Receive&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a4f8991a909cd9e2aa26ee2c72d5a88d1" title="Connection to the Slave CPU.">Interconnect</a>;
-<a name="l00144"></a>00144         
-<a name="l00145"></a>00145         <span class="comment">// other</span>
-<a name="l00146"></a>00146         GPIO__PORT(Leds, H);
-<a name="l00147"></a>00147         
-<a name="l00148"></a>00148         GPIO__OUTPUT(Led0, H, 0);   
-<a name="l00149"></a>00149         GPIO__OUTPUT(Led1, H, 1);   
-<a name="l00150"></a>00150         GPIO__OUTPUT(Led2, H, 2);   
-<a name="l00151"></a>00151         GPIO__OUTPUT(Led3, H, 3);   
-<a name="l00152"></a>00152         GPIO__OUTPUT(Led4, H, 4);   
-<a name="l00153"></a>00153         GPIO__OUTPUT(Led5, H, 5);   
-<a name="l00154"></a>00154         GPIO__OUTPUT(Led6, H, 6);   
-<a name="l00155"></a>00155         GPIO__OUTPUT(Led7, H, 7);   
+<a name="l00130"></a>00130     <span class="keyword">public</span>:
+<a name="l00132"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a619d29e51e4f744ef4527a5c2b6f311a">00132</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_at45db0x1d.html" title="Atmel DataFlash.">xpcc::At45db0x1d&lt;SpiFlash, CsFlash&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a619d29e51e4f744ef4527a5c2b6f311a" title="Atmel DataFlash (4 MBit)">Flash</a>;
+<a name="l00133"></a>00133         
+<a name="l00135"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#af8aa207560ae6e11dbfd3617ee16f0b0">00135</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_spi_ram.html" title="256kBit (64kB) Serial SRAM">xpcc::SpiRam&lt;SpiFlash, CsRam, HoldRam&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#af8aa207560ae6e11dbfd3617ee16f0b0" title="32 kB serial RAM">Ram</a>;
+<a name="l00136"></a>00136         
+<a name="l00138"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a55c048518b5f9a597e6c8a8cb15b6381">00138</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_mcp2515.html" title="Driver for the MPC2515 CAN controller.">xpcc::Mcp2515&lt;SpiCan, Cs, Int&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a55c048518b5f9a597e6c8a8cb15b6381" title="CAN Controller.">Can</a>;
+<a name="l00139"></a>00139         
+<a name="l00141"></a><a class="code" href="classxpcc_1_1_cpu_board2.html#a4f8991a909cd9e2aa26ee2c72d5a88d1">00141</a>         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1_interconnect_interface.html" title="Type safe interface for the interconnect link.">InterconnectInterface&lt;Transmit, Receive&gt;</a> <a class="code" href="classxpcc_1_1_cpu_board2.html#a4f8991a909cd9e2aa26ee2c72d5a88d1" title="Connection to the Slave CPU.">Interconnect</a>;
+<a name="l00142"></a>00142         
+<a name="l00143"></a>00143         <span class="comment">// other</span>
+<a name="l00144"></a>00144         GPIO__PORT(Leds, H);
+<a name="l00145"></a>00145         
+<a name="l00146"></a>00146         GPIO__OUTPUT(Led0, H, 0);   
+<a name="l00147"></a>00147         GPIO__OUTPUT(Led1, H, 1);   
+<a name="l00148"></a>00148         GPIO__OUTPUT(Led2, H, 2);   
+<a name="l00149"></a>00149         GPIO__OUTPUT(Led3, H, 3);   
+<a name="l00150"></a>00150         GPIO__OUTPUT(Led4, H, 4);   
+<a name="l00151"></a>00151         GPIO__OUTPUT(Led5, H, 5);   
+<a name="l00152"></a>00152         GPIO__OUTPUT(Led6, H, 6);   
+<a name="l00153"></a>00153         GPIO__OUTPUT(Led7, H, 7);   
+<a name="l00154"></a>00154         
+<a name="l00155"></a>00155         GPIO__INPUT(<a class="code" href="classxpcc_1_1_button.html" title="Simple Button.">Button</a>, R, 0);  
 <a name="l00156"></a>00156         
-<a name="l00157"></a>00157         GPIO__INPUT(<a class="code" href="classxpcc_1_1_button.html" title="Simple Button.">Button</a>, R, 0);  
-<a name="l00158"></a>00158         
-<a name="l00159"></a>00159     <span class="keyword">public</span>:
-<a name="l00166"></a>00166         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00167"></a>00167         <a class="code" href="classxpcc_1_1_cpu_board2.html#a9b3886a25e856a910e649ca3451a94de" title="Initialize all peripheral devices.">initialize</a>();
-<a name="l00168"></a>00168         
-<a name="l00169"></a>00169     <span class="keyword">protected</span>:
-<a name="l00171"></a>00171         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00172"></a>00172         <a class="code" href="classxpcc_1_1_cpu_board2.html#ae5016f5ad0da7b5eed3d9ebb477c52d9" title="Enable internal PLL (x4) to generate the 32 MHz clock frequency.">enableExternalClock</a>();
-<a name="l00173"></a>00173     };
-<a name="l00174"></a>00174 }
+<a name="l00157"></a>00157     <span class="keyword">public</span>:
+<a name="l00164"></a>00164         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00165"></a>00165         <a class="code" href="classxpcc_1_1_cpu_board2.html#a9b3886a25e856a910e649ca3451a94de" title="Initialize all peripheral devices.">initialize</a>();
+<a name="l00166"></a>00166         
+<a name="l00167"></a>00167     <span class="keyword">protected</span>:
+<a name="l00169"></a>00169         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00170"></a>00170         <a class="code" href="classxpcc_1_1_cpu_board2.html#ae5016f5ad0da7b5eed3d9ebb477c52d9" title="Enable internal PLL (x4) to generate the 32 MHz clock frequency.">enableExternalClock</a>();
+<a name="l00171"></a>00171     };
+<a name="l00172"></a>00172 }
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174 <span class="preprocessor">#include &quot;master_impl.hpp&quot;</span>
 <a name="l00175"></a>00175 
-<a name="l00176"></a>00176 <span class="preprocessor">#include &quot;master_impl.hpp&quot;</span>
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178 <span class="preprocessor">#endif // XPCC__CPU_BOARD2_MASTER_HPP</span>
+<a name="l00176"></a>00176 <span class="preprocessor">#endif // XPCC__CPU_BOARD2_MASTER_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -234,7 +232,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>master.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

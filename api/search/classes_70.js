@@ -1,8 +1,8 @@
 var searchData=
 [
   ['pair',['Pair',['../classxpcc_1_1_pair.html',1,'xpcc']]],
-  ['parameter',['Parameter',['../structxpcc_1_1_pid_1_1_parameter.html',1,'xpcc::Pid']]],
   ['parameter',['Parameter',['../structxpcc_1_1_s_curve_controller_1_1_parameter.html',1,'xpcc::SCurveController']]],
+  ['parameter',['Parameter',['../structxpcc_1_1_pid_1_1_parameter.html',1,'xpcc::Pid']]],
   ['periodictimer',['PeriodicTimer',['../classxpcc_1_1_periodic_timer.html',1,'xpcc']]],
   ['physicalvolume',['PhysicalVolume',['../classxpcc_1_1fat_1_1_physical_volume.html',1,'xpcc::fat']]],
   ['pid',['Pid',['../classxpcc_1_1_pid.html',1,'xpcc']]],

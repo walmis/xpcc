@@ -148,8 +148,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a raw character at cursor position.  <a href="#a609cc093936e1f4fa480e38768d3e7e2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_st7036.html#a87ede776e8ff73b40f4e5405f02afe28">execute</a> (<a class="el" href="classxpcc_1_1_character_display.html#a0f39ee990503a252e38a2ded7b2febd0">Command</a> command)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Excute a command.  <a href="#a87ede776e8ff73b40f4e5405f02afe28"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_st7036.html#a0438cd38f50365b34c785df59585000e">setCursor</a> (uint8_t column, uint8_t line)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set cursor to specified position.  <a href="#a0438cd38f50365b34c785df59585000e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_st7036.html#a792618722d99b2fc01ded0b28183c12f">setCursor</a> (uint8_t line, uint8_t column)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set cursor to specified position.  <a href="#a792618722d99b2fc01ded0b28183c12f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_character_display.html#a6fa309ca48eab3029aa78b1b7ccb918b">write</a> (char c)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a character.  <a href="#a6fa309ca48eab3029aa78b1b7ccb918b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a391fdcd5984ea8c120afc39898da4c7a"></a><!-- doxytag: member="xpcc::DogM163::flush" ref="a391fdcd5984ea8c120afc39898da4c7a" args="()" -->
@@ -234,7 +234,7 @@ class xpcc::DogM163&lt; SPI, CS, RS &gt;</h3>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Initialization </dd></dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a href="http://www.lcd-module.de/eng/pdf/doma/dog-me.pdf">Datasheet</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00184">184</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
+<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00182">182</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
 </div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a0f39ee990503a252e38a2ded7b2febd0"></a><!-- doxytag: member="xpcc::DogM163::Command" ref="a0f39ee990503a252e38a2ded7b2febd0" args="" -->
 <div class="memitem">
@@ -272,7 +272,7 @@ class xpcc::DogM163&lt; SPI, CS, RS &gt;</h3>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="character__display_8hpp_source.html#l00060">60</a> of file <a class="el" href="character__display_8hpp_source.html">character_display.hpp</a>.</p>
+<p>Definition at line <a class="el" href="character__display_8hpp_source.html#l00058">58</a> of file <a class="el" href="character__display_8hpp_source.html">character_display.hpp</a>.</p>
 
 </div>
 </div>
@@ -342,21 +342,21 @@ class xpcc::DogM163&lt; SPI, CS, RS &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="a0438cd38f50365b34c785df59585000e"></a><!-- doxytag: member="xpcc::DogM163::setCursor" ref="a0438cd38f50365b34c785df59585000e" args="(uint8_t column, uint8_t line)" -->
+<a class="anchor" id="a792618722d99b2fc01ded0b28183c12f"></a><!-- doxytag: member="xpcc::DogM163::setCursor" ref="a792618722d99b2fc01ded0b28183c12f" args="(uint8_t line, uint8_t column)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classxpcc_1_1_st7036.html">xpcc::St7036</a>&lt; SPI, CS, RS, Width, Heigth &gt;::<a class="el" href="classxpcc_1_1_st7036.html#a0438cd38f50365b34c785df59585000e">setCursor</a> </td>
+          <td class="memname">virtual void <a class="el" href="classxpcc_1_1_st7036.html">xpcc::St7036</a>&lt; SPI, CS, RS, Width, Heigth &gt;::<a class="el" href="classxpcc_1_1_st7036.html#a792618722d99b2fc01ded0b28183c12f">setCursor</a> </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>column</em>, </td>
+          <td class="paramname"><em>line</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>line</em>&#160;</td>
+          <td class="paramname"><em>column</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -368,13 +368,13 @@ class xpcc::DogM163&lt; SPI, CS, RS &gt;</h3>
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">column</td><td>horizontal position </td></tr>
     <tr><td class="paramname">line</td><td>vertical position </td></tr>
+    <tr><td class="paramname">column</td><td>horizontal position </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classxpcc_1_1_character_display.html#a226a741abd176f94ec1f38488e174948">xpcc::CharacterDisplay</a>.</p>
+<p>Implements <a class="el" href="classxpcc_1_1_character_display.html#a66d742eb15e39671054a01498fcee303">xpcc::CharacterDisplay</a>.</p>
 
 </div>
 </div>
@@ -506,7 +506,7 @@ class xpcc::DogM163&lt; SPI, CS, RS &gt;</h3>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_dog_m163.html">DogM163</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:02 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:03 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

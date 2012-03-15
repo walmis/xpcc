@@ -147,103 +147,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00045"></a>00045 {
 <a name="l00046"></a>00046     <span class="keyword">namespace </span>stm32
 <a name="l00047"></a>00047     {
-<a name="l00055"></a><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html">00055</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html" title="I2C3 Module.">I2c3</a> : ::xpcc::i2c::Master
-<a name="l00056"></a>00056         {
-<a name="l00057"></a>00057         <span class="keyword">public</span>:
-<a name="l00058"></a>00058             <span class="keyword">enum</span> Mapping
-<a name="l00059"></a>00059             {
-<a name="l00060"></a>00060 <span class="preprocessor">#if defined(STM32F2XX) || defined(STM32F4XX)</span>
-<a name="l00061"></a>00061 <span class="preprocessor"></span>                REMAP_PA8_PC9,      
-<a name="l00062"></a>00062                 REMAP_PH7_PH8,      
-<a name="l00063"></a>00063 <span class="preprocessor">#else</span>
-<a name="l00064"></a>00064 <span class="preprocessor"></span>                
-<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
-<a name="l00066"></a>00066 <span class="preprocessor"></span>            };
-<a name="l00067"></a>00067             
-<a name="l00071"></a>00071             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00072"></a>00072             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a54e28baa51904d2ec125202be66eac93" title="Configure the IO Pins for I2C3.">configurePins</a>(Mapping mapping);
-<a name="l00073"></a>00073             
-<a name="l00078"></a>00078             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00079"></a>00079             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a91e71bd233ee5cf5945db37c5080d0cc" title="Initialize I2C module.">initialize</a>(uint16_t ccrPrescaler);
-<a name="l00080"></a>00080             
-<a name="l00081"></a>00081             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#add45eae40ecf37d19819cec64267e5f4" title="Performed a software reset of bus driver.">reset</a>();
-<a name="l00083"></a>00083             
-<a name="l00084"></a>00084         <span class="keyword">public</span>:
-<a name="l00085"></a>00085             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(uint8_t slaveAddress);
-<a name="l00087"></a>00087             
-<a name="l00088"></a>00088             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00089"></a>00089             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#ae4fabd72973458158f5adb0246085d4b" title="Restarts the bus without loosing control.">restart</a>(uint8_t slaveAddress);
-<a name="l00090"></a>00090             
-<a name="l00091"></a>00091             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#abfb1cff38881dd6da6058df00b42439e" title="Read a block of data.">read</a>(uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>);
-<a name="l00093"></a>00093             
-<a name="l00094"></a>00094             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00095"></a>00095             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#adc867a3eb1d91538f27fbc514a52f11c" title="Write a block of data.">write</a>(uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>);
-<a name="l00096"></a>00096             
-<a name="l00097"></a>00097             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(uint8_t *data, std::size_t writeSize, std::size_t readSize, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>);
-<a name="l00099"></a>00099             
-<a name="l00100"></a>00100             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00101"></a>00101             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#ac6bb7f71eaa79d76e808053f8e321202" title="Attach a delegate, which is called in the interrupt at the (un-)successful completion of an action (r...">attachDelegate</a>(<a class="code" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">xpcc::i2c::Delegate</a> *<span class="keywordtype">object</span>);
-<a name="l00102"></a>00102             
-<a name="l00103"></a>00103             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59" title="If an error occurs these states give further information.">xpcc::i2c::ErrorState</a>
-<a name="l00104"></a>00104             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a8585e775eb11dcca3d3139d5ce47d527" title="Check current ErrorState.">getErrorState</a>();
-<a name="l00105"></a>00105             
-<a name="l00106"></a>00106             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">xpcc::i2c::BusyState</a>
-<a name="l00107"></a>00107             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a0d44f631b2aa6f3c9bf621fcf465bbba" title="Check current BusyState.">getBusyState</a>();
-<a name="l00108"></a>00108             
-<a name="l00109"></a>00109             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">xpcc::i2c::BusState</a>
-<a name="l00110"></a>00110             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#ab63fd189502270a69ab1479f3c64af43" title="Check the BusState after last operation.">getBusState</a>();
-<a name="l00111"></a>00111             
-<a name="l00112"></a>00112         <span class="keyword">public</span>:
-<a name="l00113"></a>00113             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a>
-<a name="l00114"></a>00114             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00115"></a><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a85da9a7d1dd87d1113f170439d4e7062">00115</a>             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a85da9a7d1dd87d1113f170439d4e7062" title="writes a block of data, if bus state allows.">startWrite</a>(uint8_t slaveAddress, uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b" title="After Writing busState results BUS_STOPPED.">xpcc::i2c::WRITE_STOP</a>)
-<a name="l00116"></a>00116             {
-<a name="l00117"></a>00117                 <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress)) {
-<a name="l00118"></a>00118                     <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(data, size, 0, (param == <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf" title="After Writing busState results BUS_WRITE.">xpcc::i2c::WRITE_RESTART</a>), <span class="keyword">false</span>);
-<a name="l00119"></a>00119                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00120"></a>00120                 }
-<a name="l00121"></a>00121                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00122"></a>00122             }
-<a name="l00123"></a>00123             
-<a name="l00124"></a>00124             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a>
-<a name="l00125"></a>00125             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00126"></a><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#adc5e7ee70a49be60e70865dfabbf118b">00126</a>             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#adc5e7ee70a49be60e70865dfabbf118b" title="Read a block of data, if bus state allows.">startRead</a>(uint8_t slaveAddress, uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>)
-<a name="l00127"></a>00127             {
-<a name="l00128"></a>00128                 <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress)) {
-<a name="l00129"></a>00129                     <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(data, 0, size, <span class="keyword">false</span>, (param == <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393" title="After Reading busState results BUS_HOLD.">xpcc::i2c::READ_RESTART</a>));
-<a name="l00130"></a>00130                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00131"></a>00131                 }
-<a name="l00132"></a>00132                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00133"></a>00133             }
-<a name="l00134"></a>00134             
-<a name="l00135"></a>00135             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a>
-<a name="l00136"></a>00136             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00137"></a><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a4db56ff292d72014426cda7d3dc29aff">00137</a>             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a4db56ff292d72014426cda7d3dc29aff" title="Write and read blocks of data, if bus state allows.">startWriteRead</a>(uint8_t slaveAddress, uint8_t *data, std::size_t writeSize, std::size_t readSize, <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">xpcc::i2c::OperationParameter</a> param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>)
-<a name="l00138"></a>00138             {
-<a name="l00139"></a>00139                 <span class="keywordflow">if</span> (<a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests bus control and generates a start condition.">start</a>(slaveAddress)) {
-<a name="l00140"></a>00140                     <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(data, writeSize, readSize, <span class="keyword">false</span>, (param == <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393" title="After Reading busState results BUS_HOLD.">xpcc::i2c::READ_RESTART</a>));
-<a name="l00141"></a>00141                     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00142"></a>00142                 }
-<a name="l00143"></a>00143                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00144"></a>00144             }
-<a name="l00145"></a>00145             
-<a name="l00146"></a>00146         <span class="keyword">public</span>:
-<a name="l00147"></a>00147             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a>
-<a name="l00148"></a>00148             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00149"></a>00149             stop();
-<a name="l00150"></a>00150             
-<a name="l00151"></a>00151         <span class="keyword">private</span>:
-<a name="l00152"></a>00152             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00153"></a>00153             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a539e6eb6f4ea8919b30f5475b0b81ed4" title="Write and read blocks of data.">writeRead</a>(uint8_t *data, std::size_t writeSize, std::size_t readSize, <span class="keywordtype">bool</span> restartW, <span class="keywordtype">bool</span> restartR);
-<a name="l00154"></a>00154         };
-<a name="l00155"></a>00155     }
-<a name="l00156"></a>00156 }
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158 <span class="preprocessor">#endif // XPCC_STM32__I2C_3_HPP</span>
+<a name="l00054"></a><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html">00054</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html" title="I2C3 Module.">I2c3</a> : ::xpcc::i2c::Master
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057             <span class="keyword">enum</span> Mapping
+<a name="l00058"></a>00058             {
+<a name="l00059"></a>00059 <span class="preprocessor">#if defined(STM32F2XX) || defined(STM32F4XX)</span>
+<a name="l00060"></a>00060 <span class="preprocessor"></span>                REMAP_PA8_PC9,      
+<a name="l00061"></a>00061                 REMAP_PH7_PH8,      
+<a name="l00062"></a>00062 <span class="preprocessor">#else</span>
+<a name="l00063"></a>00063 <span class="preprocessor"></span>                
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
+<a name="l00065"></a>00065 <span class="preprocessor"></span>            };
+<a name="l00066"></a>00066             
+<a name="l00070"></a>00070             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00071"></a>00071             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a54e28baa51904d2ec125202be66eac93" title="Configure the IO Pins for I2C3.">configurePins</a>(Mapping mapping);
+<a name="l00072"></a>00072             
+<a name="l00077"></a>00077             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00078"></a>00078             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a91e71bd233ee5cf5945db37c5080d0cc" title="Initialize I2C module.">initialize</a>(uint16_t ccrPrescaler);
+<a name="l00079"></a>00079             
+<a name="l00080"></a>00080         <span class="keyword">public</span>:
+<a name="l00081"></a>00081             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436" title="Requests the Bus control.">start</a>(uint8_t slaveAddress);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00085"></a>00085             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#ae4fabd72973458158f5adb0246085d4b" title="Restarts the bus without loosing control.">restart</a>(uint8_t slaveAddress);
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a8fc7be1a796ed3aabe1260c4cd3c7d2e" title="Gives up the Bus control.">stop</a>();
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00091"></a>00091             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#aeec81ec552f6b9f8d69f3ec69fa4377a" title="Read a block of data.">read</a>(uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b" title="While reading you have to decide if after operation bus goes into BUS_STOPPED or BUS_HOLD state...">xpcc::i2c::ReadParameter</a> param = <a class="code" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>);
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a1a96ac7919abd1376019e02779ac488a" title="Write a block of data.">write</a>(<span class="keyword">const</span> uint8_t *data, std::size_t size);
+<a name="l00095"></a>00095             
+<a name="l00096"></a>00096         <span class="keyword">public</span>:
+<a name="l00097"></a>00097             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">xpcc::i2c::BusyState</a>
+<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#a0d44f631b2aa6f3c9bf621fcf465bbba" title="Check current BusyState.">getBusyState</a>();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">xpcc::i2c::BusState</a>
+<a name="l00101"></a>00101             <a class="code" href="classxpcc_1_1stm32_1_1_i2c3.html#ab63fd189502270a69ab1479f3c64af43" title="Check the BusState after last operation.">getBusState</a>();
+<a name="l00102"></a>00102         };
+<a name="l00103"></a>00103     }
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106 <span class="preprocessor">#endif // XPCC_STM32__I2C_3_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -264,7 +213,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>i2c_3.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

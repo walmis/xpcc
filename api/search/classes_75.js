@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['uart0',['Uart0',['../classxpcc_1_1at91_1_1_uart0.html',1,'xpcc::at91']]],
   ['uart0',['Uart0',['../classxpcc_1_1_uart0.html',1,'xpcc']]],
-  ['uart1',['Uart1',['../classxpcc_1_1at91_1_1_uart1.html',1,'xpcc::at91']]],
+  ['uart0',['Uart0',['../classxpcc_1_1at91_1_1_uart0.html',1,'xpcc::at91']]],
   ['uart1',['Uart1',['../classxpcc_1_1_uart1.html',1,'xpcc']]],
+  ['uart1',['Uart1',['../classxpcc_1_1at91_1_1_uart1.html',1,'xpcc::at91']]],
   ['uart2',['Uart2',['../classxpcc_1_1_uart2.html',1,'xpcc']]],
   ['uart3',['Uart3',['../classxpcc_1_1_uart3.html',1,'xpcc']]],
   ['uart4',['Uart4',['../classxpcc_1_1stm32_1_1_uart4.html',1,'xpcc::stm32']]],
   ['uart5',['Uart5',['../classxpcc_1_1stm32_1_1_uart5.html',1,'xpcc::stm32']]],
-  ['uartbase',['UartBase',['../classxpcc_1_1stm32_1_1_uart_base.html',1,'xpcc::stm32']]],
   ['uartbase',['UartBase',['../classxpcc_1_1atxmega_1_1_uart_base.html',1,'xpcc::atxmega']]],
+  ['uartbase',['UartBase',['../classxpcc_1_1stm32_1_1_uart_base.html',1,'xpcc::stm32']]],
   ['uartinterface',['UartInterface',['../class_uart_interface.html',1,'']]],
   ['uartspimasterc0',['UartSpiMasterC0',['../classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html',1,'xpcc::atxmega']]],
   ['uartspimasterc1',['UartSpiMasterC1',['../classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html',1,'xpcc::atxmega']]],

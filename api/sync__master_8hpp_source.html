@@ -127,61 +127,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: sync_master.hpp 695 2012-01-16 11:21:23Z georgi-g $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_I2C__SYNC_MASTER_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_I2C__SYNC_MASTER_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;master.hpp&quot;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00044"></a>00044     <span class="keyword">namespace </span>i2c
-<a name="l00045"></a>00045     {
-<a name="l00046"></a>00046 
-<a name="l00051"></a><a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">00051</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a>
-<a name="l00052"></a>00052         {
-<a name="l00053"></a><a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3">00053</a>             <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3" title="BusyState stays occupied.">SYNC_NO_STOP</a> = 0,       
-<a name="l00054"></a><a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">00054</a>             <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a> = 1,          
-<a name="l00055"></a>00055         };
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057 
-<a name="l00064"></a>00064         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> M&gt;
-<a name="l00065"></a><a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html">00065</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">SyncMaster</a>
-<a name="l00066"></a>00066         {
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="keyword">public</span>:
-<a name="l00081"></a>00081             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#acae08b37a4a5f5492197aa301297330f" title="Behaves like the master Start method, but does not return until operation is finished.">start</a>(uint8_t slaveAddress, <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a> *busState);
-<a name="l00083"></a>00083 
-<a name="l00093"></a>00093             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a2f7ecae0d14d32be0e4c15c38af6415f" title="Behaves like the Start method, but performs an additional BusState check, so return values have diffe...">startCheck</a>(uint8_t slaveAddress);
-<a name="l00095"></a>00095 
-<a name="l00099"></a>00099             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00100"></a>00100             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a5297c4d2f74846be1eebe530fd55dd3e" title="Behaves like the Stop method but does not return until operation is finished.">stop</a>();
-<a name="l00101"></a>00101 
-<a name="l00108"></a>00108             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
-<a name="l00109"></a>00109             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#ad59a66fe744fce93ecdee64f97116f5f" title="Behaves like the read method, but does not return until operation is finished.">read</a>(uint8_t *data, std::size_t size, ReadParameter param = <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>, <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a> syncParams = <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a>);
-<a name="l00110"></a>00110 
-<a name="l00116"></a>00116             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
-<a name="l00117"></a>00117             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a444de9659b5f8c2aac5e3e8755314639" title="Behaves like the write method, but does not return until operation is finished.">write</a>(<span class="keyword">const</span> uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a> syncParams = <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a>);
-<a name="l00118"></a>00118 
-<a name="l00124"></a>00124             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
-<a name="l00125"></a>00125             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a8698b731ddde58c6c6e7acfb00cbdf4d" title="Behaves like the restart method, but does not return until operation is finished.">restart</a>(uint8_t slaveAddress);
-<a name="l00126"></a>00126             
-<a name="l00127"></a>00127         <span class="keyword">private</span>:
-<a name="l00128"></a>00128             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">BusyState</a>
-<a name="l00129"></a>00129             wait();
-<a name="l00130"></a>00130         };
-<a name="l00131"></a>00131     }
-<a name="l00132"></a>00132 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_I2C__SYNC_MASTER_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_I2C__SYNC_MASTER_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;master.hpp&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00042"></a>00042     <span class="keyword">namespace </span>i2c
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044 
+<a name="l00049"></a><a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">00049</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a>
+<a name="l00050"></a>00050         {
+<a name="l00051"></a><a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3">00051</a>             <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3" title="BusyState stays occupied.">SYNC_NO_STOP</a> = 0,       
+<a name="l00052"></a><a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">00052</a>             <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a> = 1,          
+<a name="l00053"></a>00053         };
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 
+<a name="l00062"></a>00062         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> M&gt;
+<a name="l00063"></a><a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html">00063</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">SyncMaster</a>
+<a name="l00064"></a>00064         {
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066         <span class="keyword">public</span>:
+<a name="l00079"></a>00079             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#acae08b37a4a5f5492197aa301297330f" title="Behaves like the master Start method, but does not return until operation is finished.">start</a>(uint8_t slaveAddress, <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a> *busState);
+<a name="l00081"></a>00081 
+<a name="l00091"></a>00091             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a2f7ecae0d14d32be0e4c15c38af6415f" title="Behaves like the Start method, but performs an additional BusState check, so return values have diffe...">startCheck</a>(uint8_t slaveAddress);
+<a name="l00093"></a>00093 
+<a name="l00097"></a>00097             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a5297c4d2f74846be1eebe530fd55dd3e" title="Behaves like the Stop method but does not return until operation is finished.">stop</a>();
+<a name="l00099"></a>00099 
+<a name="l00106"></a>00106             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
+<a name="l00107"></a>00107             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#ad59a66fe744fce93ecdee64f97116f5f" title="Behaves like the read method, but does not return until operation is finished.">read</a>(uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b" title="While reading you have to decide if after operation bus goes into BUS_STOPPED or BUS_HOLD state...">ReadParameter</a> param = <a class="code" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>, <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a> syncParams = <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a>);
+<a name="l00108"></a>00108 
+<a name="l00114"></a>00114             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
+<a name="l00115"></a>00115             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a444de9659b5f8c2aac5e3e8755314639" title="Behaves like the write method, but does not return until operation is finished.">write</a>(<span class="keyword">const</span> uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga790a250c59496eae3777195006adc59e" title="Optional Parameter for syncronous operation.">SyncParams</a> syncParams = <a class="code" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" title="Bus is automatically given up.">SYNC_STOP</a>);
+<a name="l00116"></a>00116 
+<a name="l00122"></a>00122             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
+<a name="l00123"></a>00123             <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html#a8698b731ddde58c6c6e7acfb00cbdf4d" title="Behaves like the restart method, but does not return until operation is finished.">restart</a>(uint8_t slaveAddress);
+<a name="l00124"></a>00124             
+<a name="l00125"></a>00125         <span class="keyword">private</span>:
+<a name="l00126"></a>00126             <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">BusyState</a>
+<a name="l00127"></a>00127             wait();
+<a name="l00128"></a>00128         };
+<a name="l00129"></a>00129     }
+<a name="l00130"></a>00130 }
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132 <span class="preprocessor">#include &quot;sync_master_impl.hpp&quot;</span>
 <a name="l00133"></a>00133 
-<a name="l00134"></a>00134 <span class="preprocessor">#include &quot;sync_master_impl.hpp&quot;</span>
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136 <span class="preprocessor">#endif </span><span class="comment">/* XPCC_I2C__SYNC_MASTER_HPP */</span>
+<a name="l00134"></a>00134 <span class="preprocessor">#endif </span><span class="comment">/* XPCC_I2C__SYNC_MASTER_HPP */</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -202,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>sync_master.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

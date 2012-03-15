@@ -4,8 +4,6 @@ var searchData=
   ['basictimer',['BasicTimer',['../classxpcc_1_1stm32_1_1_basic_timer.html',1,'xpcc::stm32']]],
   ['binarysemaphore',['BinarySemaphore',['../classxpcc_1_1rtos_1_1_binary_semaphore.html',1,'xpcc::rtos']]],
   ['block',['Block',['../classxpcc_1_1allocator_1_1_block.html',1,'xpcc::allocator']]],
-  ['bma180',['BMA180',['../classxpcc_1_1_b_m_a180.html',1,'xpcc']]],
-  ['bmp085',['BMP085',['../classxpcc_1_1_b_m_p085.html',1,'xpcc']]],
   ['boundeddeque',['BoundedDeque',['../classxpcc_1_1_bounded_deque.html',1,'xpcc']]],
   ['boundedqueue',['BoundedQueue',['../classxpcc_1_1_bounded_queue.html',1,'xpcc']]],
   ['boundedstack',['BoundedStack',['../classxpcc_1_1_bounded_stack.html',1,'xpcc']]],

@@ -126,47 +126,45 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00024"></a>00024 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00025"></a>00025 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00026"></a>00026 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> * $Id$</span>
-<a name="l00029"></a>00029 <span class="comment"> */</span>
-<a name="l00030"></a>00030 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__TIPC_TRANSMITTER_HPP</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIPC_TRANSMITTER_HPP</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span> 
-<a name="l00034"></a>00034 <span class="comment">// STD exceptions... </span>
-<a name="l00035"></a>00035 <span class="comment">//#include &lt;stdexcept&gt;</span>
+<a name="l00027"></a>00027 <span class="comment"> */</span>
+<a name="l00028"></a>00028 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#ifndef XPCC__TIPC_TRANSMITTER_HPP</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIPC_TRANSMITTER_HPP</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span> 
+<a name="l00032"></a>00032 <span class="comment">// STD exceptions... </span>
+<a name="l00033"></a>00033 <span class="comment">//#include &lt;stdexcept&gt;</span>
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;bitset&gt;</span>
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;bitset&gt;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="preprocessor">#include &quot;tipc_transmitter_socket.hpp&quot;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/container/smart_pointer.hpp&gt;</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">namespace </span>xpcc
-<a name="l00043"></a>00043 {
-<a name="l00044"></a>00044     <span class="keyword">namespace </span>tipc
-<a name="l00045"></a>00045     {
-<a name="l00056"></a><a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html">00056</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>
-<a name="l00057"></a>00057         {
-<a name="l00058"></a>00058         <span class="keyword">public</span>:
-<a name="l00059"></a>00059             <a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>();
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061             ~<a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>();
-<a name="l00062"></a>00062     
-<a name="l00063"></a>00063             <span class="keywordtype">void</span> 
-<a name="l00064"></a>00064             transmitRequest( uint8_t destination, <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_smart_pointer.html" title="Container which destroys itself when the last copy is destroyed.">SmartPointer</a>&amp; payload );
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066             <span class="keywordtype">void</span>
-<a name="l00067"></a>00067             transmitEvent( uint8_t event, <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_smart_pointer.html" title="Container which destroys itself when the last copy is destroyed.">SmartPointer</a>&amp; payload );
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069             uint32_t
-<a name="l00070"></a>00070             getPortId();
-<a name="l00071"></a>00071     
-<a name="l00072"></a>00072         <span class="keyword">private</span>:
-<a name="l00073"></a>00073             <a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>   tipcTransmitterSocket_;
-<a name="l00074"></a>00074         };
-<a name="l00075"></a>00075     }
-<a name="l00076"></a>00076 }
-<a name="l00077"></a>00077 <span class="preprocessor">#endif // XPCC__TIPC_TRANSMITTER_HPP</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;tipc_transmitter_socket.hpp&quot;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/container/smart_pointer.hpp&gt;</span>
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042     <span class="keyword">namespace </span>tipc
+<a name="l00043"></a>00043     {
+<a name="l00054"></a><a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html">00054</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057             <a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>();
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059             ~<a class="code" href="classxpcc_1_1tipc_1_1_transmitter.html" title="Transmit packets over the TIPC.">Transmitter</a>();
+<a name="l00060"></a>00060     
+<a name="l00061"></a>00061             <span class="keywordtype">void</span> 
+<a name="l00062"></a>00062             transmitRequest( uint8_t destination, <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_smart_pointer.html" title="Container which destroys itself when the last copy is destroyed.">SmartPointer</a>&amp; payload );
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064             <span class="keywordtype">void</span>
+<a name="l00065"></a>00065             transmitEvent( uint8_t event, <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_smart_pointer.html" title="Container which destroys itself when the last copy is destroyed.">SmartPointer</a>&amp; payload );
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067             uint32_t
+<a name="l00068"></a>00068             getPortId();
+<a name="l00069"></a>00069     
+<a name="l00070"></a>00070         <span class="keyword">private</span>:
+<a name="l00071"></a>00071             <a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>   tipcTransmitterSocket_;
+<a name="l00072"></a>00072         };
+<a name="l00073"></a>00073     }
+<a name="l00074"></a>00074 }
+<a name="l00075"></a>00075 <span class="preprocessor">#endif // XPCC__TIPC_TRANSMITTER_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -187,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>tipc_transmitter.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

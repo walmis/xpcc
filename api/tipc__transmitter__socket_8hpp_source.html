@@ -126,49 +126,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00024"></a>00024 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00025"></a>00025 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00026"></a>00026 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00027"></a>00027 <span class="comment"> *</span>
-<a name="l00028"></a>00028 <span class="comment"> * $Id$</span>
-<a name="l00029"></a>00029 <span class="comment"> */</span>
-<a name="l00030"></a>00030 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__TIPC_TRANSMITTER_SOCKET_H_</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIPC_TRANSMITTER_SOCKET_H_</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span> 
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;cstring&gt;</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc {
-<a name="l00038"></a>00038     <span class="keyword">namespace </span>tipc {
-<a name="l00047"></a><a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html">00047</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a> {
-<a name="l00048"></a>00048             <span class="keyword">public</span>: 
-<a name="l00049"></a>00049                 <a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>();
-<a name="l00050"></a>00050                 ~<a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>();
-<a name="l00051"></a>00051         
-<a name="l00052"></a>00052                 <span class="keywordtype">void</span> 
-<a name="l00053"></a>00053                 transmitPayload(    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> typeId,
-<a name="l00054"></a>00054                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> instanceId,
-<a name="l00055"></a>00055                                     <span class="keyword">const</span> uint8_t* packet,
-<a name="l00056"></a>00056                                     <span class="keywordtype">size_t</span> length);
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058                 <span class="comment">/*</span>
-<a name="l00059"></a>00059 <span class="comment">                 * \brief Returns the ref part of the tipc port id.</span>
-<a name="l00060"></a>00060 <span class="comment">                 *</span>
-<a name="l00061"></a>00061 <span class="comment">                 * 1.3.2 Port Identifier \n</span>
-<a name="l00062"></a>00062 <span class="comment">                 * Each port in a TIPC network has a unique &quot;port identifier&quot; or &quot;port ID&quot;,</span>
-<a name="l00063"></a>00063 <span class="comment">                 * which is typically denoted as &lt;Z.C.N:ref&gt;.  The port ID is assigned</span>
-<a name="l00064"></a>00064 <span class="comment">                 * automatically by TIPC when the port is created, and consists of the 32-bit</span>
-<a name="l00065"></a>00065 <span class="comment">                 * network address of the port&#39;s node and a 32-bit reference value.  The</span>
-<a name="l00066"></a>00066 <span class="comment">                 * reference value is guaranteed to be unique on a per-node basis and will not</span>
-<a name="l00067"></a>00067 <span class="comment">                 * be reused for a long time once the port ceases to exist.</span>
-<a name="l00068"></a>00068 <span class="comment">                 */</span>
-<a name="l00069"></a>00069                 uint32_t
-<a name="l00070"></a>00070                 getPortId();
-<a name="l00071"></a>00071         
-<a name="l00072"></a>00072             <span class="keyword">private</span>:
-<a name="l00073"></a>00073                 <span class="keyword">const</span> <span class="keywordtype">int</span> socketDescriptor_;
-<a name="l00074"></a>00074         };
-<a name="l00075"></a>00075     }
-<a name="l00076"></a>00076 }
-<a name="l00077"></a>00077 <span class="preprocessor">#endif // TIPC_TRANSMITTER_SOCKET_H_</span>
+<a name="l00027"></a>00027 <span class="comment"> */</span>
+<a name="l00028"></a>00028 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#ifndef XPCC__TIPC_TRANSMITTER_SOCKET_H_</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIPC_TRANSMITTER_SOCKET_H_</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span> 
+<a name="l00032"></a>00032 <span class="preprocessor">#include &lt;cstring&gt;</span>
+<a name="l00033"></a>00033 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">namespace </span>xpcc {
+<a name="l00036"></a>00036     <span class="keyword">namespace </span>tipc {
+<a name="l00045"></a><a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html">00045</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a> {
+<a name="l00046"></a>00046             <span class="keyword">public</span>: 
+<a name="l00047"></a>00047                 <a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>();
+<a name="l00048"></a>00048                 ~<a class="code" href="classxpcc_1_1tipc_1_1_transmitter_socket.html" title="Proviede the handling of the socket interface from TIPC.">TransmitterSocket</a>();
+<a name="l00049"></a>00049         
+<a name="l00050"></a>00050                 <span class="keywordtype">void</span> 
+<a name="l00051"></a>00051                 transmitPayload(    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> typeId,
+<a name="l00052"></a>00052                                     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> instanceId,
+<a name="l00053"></a>00053                                     <span class="keyword">const</span> uint8_t* packet,
+<a name="l00054"></a>00054                                     <span class="keywordtype">size_t</span> length);
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056                 <span class="comment">/*</span>
+<a name="l00057"></a>00057 <span class="comment">                 * \brief Returns the ref part of the tipc port id.</span>
+<a name="l00058"></a>00058 <span class="comment">                 *</span>
+<a name="l00059"></a>00059 <span class="comment">                 * 1.3.2 Port Identifier \n</span>
+<a name="l00060"></a>00060 <span class="comment">                 * Each port in a TIPC network has a unique &quot;port identifier&quot; or &quot;port ID&quot;,</span>
+<a name="l00061"></a>00061 <span class="comment">                 * which is typically denoted as &lt;Z.C.N:ref&gt;.  The port ID is assigned</span>
+<a name="l00062"></a>00062 <span class="comment">                 * automatically by TIPC when the port is created, and consists of the 32-bit</span>
+<a name="l00063"></a>00063 <span class="comment">                 * network address of the port&#39;s node and a 32-bit reference value.  The</span>
+<a name="l00064"></a>00064 <span class="comment">                 * reference value is guaranteed to be unique on a per-node basis and will not</span>
+<a name="l00065"></a>00065 <span class="comment">                 * be reused for a long time once the port ceases to exist.</span>
+<a name="l00066"></a>00066 <span class="comment">                 */</span>
+<a name="l00067"></a>00067                 uint32_t
+<a name="l00068"></a>00068                 getPortId();
+<a name="l00069"></a>00069         
+<a name="l00070"></a>00070             <span class="keyword">private</span>:
+<a name="l00071"></a>00071                 <span class="keyword">const</span> <span class="keywordtype">int</span> socketDescriptor_;
+<a name="l00072"></a>00072         };
+<a name="l00073"></a>00073     }
+<a name="l00074"></a>00074 }
+<a name="l00075"></a>00075 <span class="preprocessor">#endif // TIPC_TRANSMITTER_SOCKET_H_</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -189,7 +187,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>tipc_transmitter_socket.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

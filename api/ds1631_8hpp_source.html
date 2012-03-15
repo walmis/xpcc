@@ -127,64 +127,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: ds1631.hpp 642 2011-11-24 13:46:48Z georgi-g $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__DS1631_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__DS1631_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/sync_master.hpp&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00044"></a><a class="code" href="namespacexpcc_1_1ds1631.html">00044</a>     <span class="keyword">namespace </span>ds1631
-<a name="l00045"></a>00045     {
-<a name="l00046"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">00046</a>         <span class="keyword">enum</span> <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">Resolution</a>
-<a name="l00047"></a>00047         {
-<a name="l00048"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba325eb1046926b40d9810b0c729b32fda">00048</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba325eb1046926b40d9810b0c729b32fda" title="9 Bit">RESOLUTION_9BIT</a> = 0x00,     
-<a name="l00049"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba2c94afc51755d2e3dab3aa13fc72edf3">00049</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba2c94afc51755d2e3dab3aa13fc72edf3" title="10 Bit">RESOLUTION_10BIT</a> = 0x04,    
-<a name="l00050"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbaae5b95e50741b839ab29f7ea8fe8cb78">00050</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbaae5b95e50741b839ab29f7ea8fe8cb78" title="11 Bit">RESOLUTION_11BIT</a> = 0x08,    
-<a name="l00051"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbab49ad2a85e9219d2e21df21cbf834e84">00051</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbab49ad2a85e9219d2e21df21cbf834e84" title="12 Bit">RESOLUTION_12BIT</a> = 0x0c     
-<a name="l00052"></a>00052         };
-<a name="l00053"></a>00053     }
-<a name="l00054"></a>00054         
-<a name="l00063"></a>00063     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> I2C&gt;
-<a name="l00064"></a><a class="code" href="classxpcc_1_1_ds1631.html">00064</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_ds1631.html" title="DS1631 Temperature Sensor.">Ds1631</a>
-<a name="l00065"></a>00065     {
-<a name="l00066"></a>00066     <span class="keyword">public</span>:
-<a name="l00072"></a>00072         <a class="code" href="classxpcc_1_1_ds1631.html#aa31f290749da2fe929e9c36dd0595860" title="Constructor.">Ds1631</a>(uint8_t address);
-<a name="l00073"></a>00073         
-<a name="l00089"></a>00089         <span class="keywordtype">void</span>
-<a name="l00090"></a>00090         <a class="code" href="classxpcc_1_1_ds1631.html#a752adf820ac17b96b0ffbe60e5f4b2bd" title="Configure DS1631.">configure</a>(<a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">ds1631::Resolution</a> resolution, <span class="keywordtype">bool</span> continuousMode);
-<a name="l00091"></a>00091         
-<a name="l00095"></a>00095         <span class="keywordtype">void</span>
-<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_ds1631.html#a60dc38ea477e0d7676923b098c891766" title="Perform a software reset.">reset</a>();
-<a name="l00097"></a>00097         
-<a name="l00106"></a>00106         <span class="keywordtype">void</span>
-<a name="l00107"></a>00107         <a class="code" href="classxpcc_1_1_ds1631.html#a4da884d5890f858925f8ded7803656b0" title="Initiates temperature conversions.">startConversion</a>();
-<a name="l00108"></a>00108         
-<a name="l00113"></a>00113         <span class="keywordtype">void</span>
-<a name="l00114"></a>00114         <a class="code" href="classxpcc_1_1_ds1631.html#abe7588078bac81fc2dc27d09de36dd8e" title="Stops temperature conversions when the device is in continuous conversion mode.">stopConversion</a>();
-<a name="l00115"></a>00115         
-<a name="l00119"></a>00119         <span class="keywordtype">bool</span>
-<a name="l00120"></a>00120         <a class="code" href="classxpcc_1_1_ds1631.html#a283e0bd2c965fe879c4d8e5ded2c9c75" title="Check if the conversion is done.">isConversionDone</a>();
-<a name="l00121"></a>00121         
-<a name="l00127"></a>00127         int16_t
-<a name="l00128"></a>00128         <a class="code" href="classxpcc_1_1_ds1631.html#a46cb6e4fbb2c93e7a648e9054628a8e4">readTemperature</a>();
-<a name="l00129"></a>00129 
-<a name="l00136"></a>00136         <span class="keywordtype">bool</span>
-<a name="l00137"></a>00137         <a class="code" href="classxpcc_1_1_ds1631.html#aaae609d6c7d390c4ca98881aedbe3ce4" title="Check if the device is accessable.">isAvailable</a>() <span class="keyword">const</span>;
-<a name="l00138"></a>00138     <span class="keyword">private</span>:
-<a name="l00139"></a>00139         <span class="keyword">const</span> uint8_t deviceAddress;
-<a name="l00140"></a>00140         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">xpcc::i2c::SyncMaster&lt;I2C&gt;</a> <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">MySyncI2C</a>;
-<a name="l00141"></a>00141     };
-<a name="l00142"></a>00142 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__DS1631_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__DS1631_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/sync_master.hpp&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00042"></a><a class="code" href="namespacexpcc_1_1ds1631.html">00042</a>     <span class="keyword">namespace </span>ds1631
+<a name="l00043"></a>00043     {
+<a name="l00044"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">00044</a>         <span class="keyword">enum</span> <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">Resolution</a>
+<a name="l00045"></a>00045         {
+<a name="l00046"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba325eb1046926b40d9810b0c729b32fda">00046</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba325eb1046926b40d9810b0c729b32fda" title="9 Bit">RESOLUTION_9BIT</a> = 0x00,     
+<a name="l00047"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba2c94afc51755d2e3dab3aa13fc72edf3">00047</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdba2c94afc51755d2e3dab3aa13fc72edf3" title="10 Bit">RESOLUTION_10BIT</a> = 0x04,    
+<a name="l00048"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbaae5b95e50741b839ab29f7ea8fe8cb78">00048</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbaae5b95e50741b839ab29f7ea8fe8cb78" title="11 Bit">RESOLUTION_11BIT</a> = 0x08,    
+<a name="l00049"></a><a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbab49ad2a85e9219d2e21df21cbf834e84">00049</a>             <a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdbab49ad2a85e9219d2e21df21cbf834e84" title="12 Bit">RESOLUTION_12BIT</a> = 0x0c     
+<a name="l00050"></a>00050         };
+<a name="l00051"></a>00051     }
+<a name="l00052"></a>00052         
+<a name="l00061"></a>00061     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> I2C&gt;
+<a name="l00062"></a><a class="code" href="classxpcc_1_1_ds1631.html">00062</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_ds1631.html" title="DS1631 Temperature Sensor.">Ds1631</a>
+<a name="l00063"></a>00063     {
+<a name="l00064"></a>00064     <span class="keyword">public</span>:
+<a name="l00070"></a>00070         <a class="code" href="classxpcc_1_1_ds1631.html#aa31f290749da2fe929e9c36dd0595860" title="Constructor.">Ds1631</a>(uint8_t address);
+<a name="l00071"></a>00071         
+<a name="l00087"></a>00087         <span class="keywordtype">void</span>
+<a name="l00088"></a>00088         <a class="code" href="classxpcc_1_1_ds1631.html#a752adf820ac17b96b0ffbe60e5f4b2bd" title="Configure DS1631.">configure</a>(<a class="code" href="namespacexpcc_1_1ds1631.html#a6d692ea31b3aec07190d7815f7947bdb">ds1631::Resolution</a> resolution, <span class="keywordtype">bool</span> continuousMode);
+<a name="l00089"></a>00089         
+<a name="l00093"></a>00093         <span class="keywordtype">void</span>
+<a name="l00094"></a>00094         <a class="code" href="classxpcc_1_1_ds1631.html#a60dc38ea477e0d7676923b098c891766" title="Perform a software reset.">reset</a>();
+<a name="l00095"></a>00095         
+<a name="l00104"></a>00104         <span class="keywordtype">void</span>
+<a name="l00105"></a>00105         <a class="code" href="classxpcc_1_1_ds1631.html#a4da884d5890f858925f8ded7803656b0" title="Initiates temperature conversions.">startConversion</a>();
+<a name="l00106"></a>00106         
+<a name="l00111"></a>00111         <span class="keywordtype">void</span>
+<a name="l00112"></a>00112         <a class="code" href="classxpcc_1_1_ds1631.html#abe7588078bac81fc2dc27d09de36dd8e" title="Stops temperature conversions when the device is in continuous conversion mode.">stopConversion</a>();
+<a name="l00113"></a>00113         
+<a name="l00117"></a>00117         <span class="keywordtype">bool</span>
+<a name="l00118"></a>00118         <a class="code" href="classxpcc_1_1_ds1631.html#a283e0bd2c965fe879c4d8e5ded2c9c75" title="Check if the conversion is done.">isConversionDone</a>();
+<a name="l00119"></a>00119         
+<a name="l00125"></a>00125         int16_t
+<a name="l00126"></a>00126         <a class="code" href="classxpcc_1_1_ds1631.html#a46cb6e4fbb2c93e7a648e9054628a8e4">readTemperature</a>();
+<a name="l00127"></a>00127 
+<a name="l00134"></a>00134         <span class="keywordtype">bool</span>
+<a name="l00135"></a>00135         <a class="code" href="classxpcc_1_1_ds1631.html#aaae609d6c7d390c4ca98881aedbe3ce4" title="Check if the device is accessable.">isAvailable</a>() <span class="keyword">const</span>;
+<a name="l00136"></a>00136     <span class="keyword">private</span>:
+<a name="l00137"></a>00137         <span class="keyword">const</span> uint8_t deviceAddress;
+<a name="l00138"></a>00138         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">xpcc::i2c::SyncMaster&lt;I2C&gt;</a> <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">MySyncI2C</a>;
+<a name="l00139"></a>00139     };
+<a name="l00140"></a>00140 }
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142 <span class="preprocessor">#include &quot;ds1631_impl.hpp&quot;</span>
 <a name="l00143"></a>00143 
-<a name="l00144"></a>00144 <span class="preprocessor">#include &quot;ds1631_impl.hpp&quot;</span>
-<a name="l00145"></a>00145 
-<a name="l00146"></a>00146 <span class="preprocessor">#endif // XPCC__DS1631_HPP</span>
+<a name="l00144"></a>00144 <span class="preprocessor">#endif // XPCC__DS1631_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -205,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>ds1631.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

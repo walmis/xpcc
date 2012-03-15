@@ -127,114 +127,112 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: core.hpp 662 2011-12-06 18:35:25Z georgi-g $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_STM32F1__CLOCK_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_STM32F1__CLOCK_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;../device.h&quot;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>stm32
-<a name="l00042"></a>00042     {
-<a name="l00073"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html">00073</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_clock.html" title="Clock management.">Clock</a>
-<a name="l00074"></a>00074         {
-<a name="l00075"></a>00075         <span class="keyword">public</span>:
-<a name="l00076"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">00076</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">HseConfig</a>
-<a name="l00077"></a>00077             {
-<a name="l00078"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995">00078</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995" title="Use a crystal to generate a clock.">HSE_CRYSTAL</a>,
-<a name="l00079"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a65bf64ba4f3c5d87b799946d6cc72272">00079</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a65bf64ba4f3c5d87b799946d6cc72272" title="Use an external clock (e.g. a crystal oscillator)">HSE_BYPASS</a>,
-<a name="l00080"></a>00080             };
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00083"></a>00083             enableHse(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">HseConfig</a> config, uint32_t waitCycles = 1500);
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="preprocessor">#ifdef STM32F10X_CL</span>
-<a name="l00086"></a>00086 <span class="preprocessor"></span>            <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a>
-<a name="l00087"></a>00087             {
-<a name="l00088"></a>00088                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a" title="Can&#39;t be used yet!">PLL_HSI_DIV_2</a>,      
-<a name="l00089"></a>00089                 PLL_PREDIV1,
-<a name="l00090"></a>00090             };
-<a name="l00091"></a>00091             
-<a name="l00092"></a>00092             <span class="keyword">enum</span> PreDiv1Source
-<a name="l00093"></a>00093             {
-<a name="l00094"></a>00094                 PREDIV1_HSE,
-<a name="l00095"></a>00095                 PREDIV1_PLL2,
-<a name="l00096"></a>00096             };
-<a name="l00097"></a>00097             
-<a name="l00098"></a>00098             <span class="keyword">enum</span> PllMul
-<a name="l00099"></a>00099             {
-<a name="l00100"></a>00100                 PLL_MUL_4 = RCC_CFGR_PLLMULL4,
-<a name="l00101"></a>00101                 PLL_MUL_5 = RCC_CFGR_PLLMULL5,
-<a name="l00102"></a>00102                 PLL_MUL_6 = RCC_CFGR_PLLMULL6,
-<a name="l00103"></a>00103                 PLL_MUL_7 = RCC_CFGR_PLLMULL7,
-<a name="l00104"></a>00104                 PLL_MUL_8 = RCC_CFGR_PLLMULL8,
-<a name="l00105"></a>00105                 PLL_MUL_9 = RCC_CFGR_PLLMULL9,
-<a name="l00106"></a>00106                 PLL_MUL_6_5 = RCC_CFGR_PLLMULL6_5,      
-<a name="l00107"></a>00107             };
-<a name="l00108"></a>00108             
-<a name="l00109"></a>00109             <span class="keyword">enum</span> Pll2Mul
-<a name="l00110"></a>00110             {
-<a name="l00111"></a>00111                 PLL2_MUL_8 = RCC_CFGR2_PLL2MUL8,
-<a name="l00112"></a>00112                 PLL2_MUL_9 = RCC_CFGR2_PLL2MUL9,
-<a name="l00113"></a>00113                 PLL2_MUL_10 = RCC_CFGR2_PLL2MUL10,
-<a name="l00114"></a>00114                 PLL2_MUL_11 = RCC_CFGR2_PLL2MUL11,
-<a name="l00115"></a>00115                 PLL2_MUL_12 = RCC_CFGR2_PLL2MUL12,
-<a name="l00116"></a>00116                 PLL2_MUL_13 = RCC_CFGR2_PLL2MUL13,
-<a name="l00117"></a>00117                 PLL2_MUL_14 = RCC_CFGR2_PLL2MUL14,
-<a name="l00118"></a>00118                 PLL2_MUL_16 = RCC_CFGR2_PLL2MUL16,
-<a name="l00119"></a>00119                 PLL2_MUL_20 = RCC_CFGR2_PLL2MUL20,
-<a name="l00120"></a>00120             };
-<a name="l00121"></a>00121             
-<a name="l00132"></a>00132             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00133"></a>00133             enablePll2(uint32_t div, Pll2Mul <a class="code" href="group__math.html#gadeafcd9563d112d2bbc292c7277e69d7" title="unsigned 16bit x 16bit = 32bit multiplication">mul</a>);
-<a name="l00134"></a>00134             
-<a name="l00157"></a>00157             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00158"></a>00158             <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a> source, PllMul pllMul,
-<a name="l00159"></a>00159                     PreDiv1Source preDivSource = PREDIV1_HSE, uint32_t preDivFactor = 1);
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161 <span class="preprocessor">#else</span>
-<a name="l00162"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">00162</a> <span class="preprocessor"></span>            <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a>
-<a name="l00163"></a>00163             {
-<a name="l00164"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a">00164</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a" title="Can&#39;t be used yet!">PLL_HSI_DIV_2</a>,      
-<a name="l00165"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6">00165</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6" title="PLL_HSE.">PLL_HSE</a>,
-<a name="l00166"></a>00166             };
-<a name="l00167"></a>00167 
-<a name="l00168"></a>00168             <span class="keyword">enum</span> PllMul
-<a name="l00169"></a>00169             {
-<a name="l00170"></a>00170                 PLL_MUL_2 = RCC_CFGR_PLLMULL2,
-<a name="l00171"></a>00171                 PLL_MUL_3 = RCC_CFGR_PLLMULL3,
-<a name="l00172"></a>00172                 PLL_MUL_4 = RCC_CFGR_PLLMULL4,
-<a name="l00173"></a>00173                 PLL_MUL_5 = RCC_CFGR_PLLMULL5,
-<a name="l00174"></a>00174                 PLL_MUL_6 = RCC_CFGR_PLLMULL6,
-<a name="l00175"></a>00175                 PLL_MUL_7 = RCC_CFGR_PLLMULL7,
-<a name="l00176"></a>00176                 PLL_MUL_8 = RCC_CFGR_PLLMULL8,
-<a name="l00177"></a>00177                 PLL_MUL_9 = RCC_CFGR_PLLMULL9,
-<a name="l00178"></a>00178                 PLL_MUL_10 = RCC_CFGR_PLLMULL10,
-<a name="l00179"></a>00179                 PLL_MUL_11 = RCC_CFGR_PLLMULL11,
-<a name="l00180"></a>00180                 PLL_MUL_12 = RCC_CFGR_PLLMULL12,
-<a name="l00181"></a>00181                 PLL_MUL_13 = RCC_CFGR_PLLMULL13,
-<a name="l00182"></a>00182                 PLL_MUL_14 = RCC_CFGR_PLLMULL14,
-<a name="l00183"></a>00183                 PLL_MUL_15 = RCC_CFGR_PLLMULL15,
-<a name="l00184"></a>00184                 PLL_MUL_16 = RCC_CFGR_PLLMULL16,
-<a name="l00185"></a>00185             };
-<a name="l00186"></a>00186 
-<a name="l00205"></a>00205             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00206"></a>00206             <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a> source, PllMul pllMul);
-<a name="l00207"></a>00207 <span class="preprocessor">#endif</span>
-<a name="l00208"></a>00208 <span class="preprocessor"></span>            
-<a name="l00209"></a>00209             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00210"></a>00210             switchToPll(uint32_t waitCycles = 1500);
-<a name="l00211"></a>00211         };
-<a name="l00212"></a>00212     }
-<a name="l00213"></a>00213 }
-<a name="l00214"></a>00214 
-<a name="l00215"></a>00215 <span class="preprocessor">#endif  //  XPCC_STM32F1__CLOCK_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_STM32F1__CLOCK_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_STM32F1__CLOCK_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;../device.h&quot;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>stm32
+<a name="l00040"></a>00040     {
+<a name="l00071"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html">00071</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_clock.html" title="Clock management.">Clock</a>
+<a name="l00072"></a>00072         {
+<a name="l00073"></a>00073         <span class="keyword">public</span>:
+<a name="l00074"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">00074</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">HseConfig</a>
+<a name="l00075"></a>00075             {
+<a name="l00076"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995">00076</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995" title="Use a crystal to generate a clock.">HSE_CRYSTAL</a>,
+<a name="l00077"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a65bf64ba4f3c5d87b799946d6cc72272">00077</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a65bf64ba4f3c5d87b799946d6cc72272" title="Use an external clock (e.g. a crystal oscillator)">HSE_BYPASS</a>,
+<a name="l00078"></a>00078             };
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00081"></a>00081             enableHse(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1">HseConfig</a> config, uint32_t waitCycles = 1500);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="preprocessor">#ifdef STM32F10X_CL</span>
+<a name="l00084"></a>00084 <span class="preprocessor"></span>            <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a>
+<a name="l00085"></a>00085             {
+<a name="l00086"></a>00086                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a" title="Can&#39;t be used yet!">PLL_HSI_DIV_2</a>,      
+<a name="l00087"></a>00087                 PLL_PREDIV1,
+<a name="l00088"></a>00088             };
+<a name="l00089"></a>00089             
+<a name="l00090"></a>00090             <span class="keyword">enum</span> PreDiv1Source
+<a name="l00091"></a>00091             {
+<a name="l00092"></a>00092                 PREDIV1_HSE,
+<a name="l00093"></a>00093                 PREDIV1_PLL2,
+<a name="l00094"></a>00094             };
+<a name="l00095"></a>00095             
+<a name="l00096"></a>00096             <span class="keyword">enum</span> PllMul
+<a name="l00097"></a>00097             {
+<a name="l00098"></a>00098                 PLL_MUL_4 = RCC_CFGR_PLLMULL4,
+<a name="l00099"></a>00099                 PLL_MUL_5 = RCC_CFGR_PLLMULL5,
+<a name="l00100"></a>00100                 PLL_MUL_6 = RCC_CFGR_PLLMULL6,
+<a name="l00101"></a>00101                 PLL_MUL_7 = RCC_CFGR_PLLMULL7,
+<a name="l00102"></a>00102                 PLL_MUL_8 = RCC_CFGR_PLLMULL8,
+<a name="l00103"></a>00103                 PLL_MUL_9 = RCC_CFGR_PLLMULL9,
+<a name="l00104"></a>00104                 PLL_MUL_6_5 = RCC_CFGR_PLLMULL6_5,      
+<a name="l00105"></a>00105             };
+<a name="l00106"></a>00106             
+<a name="l00107"></a>00107             <span class="keyword">enum</span> Pll2Mul
+<a name="l00108"></a>00108             {
+<a name="l00109"></a>00109                 PLL2_MUL_8 = RCC_CFGR2_PLL2MUL8,
+<a name="l00110"></a>00110                 PLL2_MUL_9 = RCC_CFGR2_PLL2MUL9,
+<a name="l00111"></a>00111                 PLL2_MUL_10 = RCC_CFGR2_PLL2MUL10,
+<a name="l00112"></a>00112                 PLL2_MUL_11 = RCC_CFGR2_PLL2MUL11,
+<a name="l00113"></a>00113                 PLL2_MUL_12 = RCC_CFGR2_PLL2MUL12,
+<a name="l00114"></a>00114                 PLL2_MUL_13 = RCC_CFGR2_PLL2MUL13,
+<a name="l00115"></a>00115                 PLL2_MUL_14 = RCC_CFGR2_PLL2MUL14,
+<a name="l00116"></a>00116                 PLL2_MUL_16 = RCC_CFGR2_PLL2MUL16,
+<a name="l00117"></a>00117                 PLL2_MUL_20 = RCC_CFGR2_PLL2MUL20,
+<a name="l00118"></a>00118             };
+<a name="l00119"></a>00119             
+<a name="l00130"></a>00130             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00131"></a>00131             enablePll2(uint32_t div, Pll2Mul <a class="code" href="group__math.html#gadeafcd9563d112d2bbc292c7277e69d7" title="unsigned 16bit x 16bit = 32bit multiplication">mul</a>);
+<a name="l00132"></a>00132             
+<a name="l00155"></a>00155             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00156"></a>00156             <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a> source, PllMul pllMul,
+<a name="l00157"></a>00157                     PreDiv1Source preDivSource = PREDIV1_HSE, uint32_t preDivFactor = 1);
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159 <span class="preprocessor">#else</span>
+<a name="l00160"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">00160</a> <span class="preprocessor"></span>            <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a>
+<a name="l00161"></a>00161             {
+<a name="l00162"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a">00162</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea6b85a8eafb57eef750ad113d38a2413a" title="Can&#39;t be used yet!">PLL_HSI_DIV_2</a>,      
+<a name="l00163"></a><a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6">00163</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6" title="PLL_HSE.">PLL_HSE</a>,
+<a name="l00164"></a>00164             };
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166             <span class="keyword">enum</span> PllMul
+<a name="l00167"></a>00167             {
+<a name="l00168"></a>00168                 PLL_MUL_2 = RCC_CFGR_PLLMULL2,
+<a name="l00169"></a>00169                 PLL_MUL_3 = RCC_CFGR_PLLMULL3,
+<a name="l00170"></a>00170                 PLL_MUL_4 = RCC_CFGR_PLLMULL4,
+<a name="l00171"></a>00171                 PLL_MUL_5 = RCC_CFGR_PLLMULL5,
+<a name="l00172"></a>00172                 PLL_MUL_6 = RCC_CFGR_PLLMULL6,
+<a name="l00173"></a>00173                 PLL_MUL_7 = RCC_CFGR_PLLMULL7,
+<a name="l00174"></a>00174                 PLL_MUL_8 = RCC_CFGR_PLLMULL8,
+<a name="l00175"></a>00175                 PLL_MUL_9 = RCC_CFGR_PLLMULL9,
+<a name="l00176"></a>00176                 PLL_MUL_10 = RCC_CFGR_PLLMULL10,
+<a name="l00177"></a>00177                 PLL_MUL_11 = RCC_CFGR_PLLMULL11,
+<a name="l00178"></a>00178                 PLL_MUL_12 = RCC_CFGR_PLLMULL12,
+<a name="l00179"></a>00179                 PLL_MUL_13 = RCC_CFGR_PLLMULL13,
+<a name="l00180"></a>00180                 PLL_MUL_14 = RCC_CFGR_PLLMULL14,
+<a name="l00181"></a>00181                 PLL_MUL_15 = RCC_CFGR_PLLMULL15,
+<a name="l00182"></a>00182                 PLL_MUL_16 = RCC_CFGR_PLLMULL16,
+<a name="l00183"></a>00183             };
+<a name="l00184"></a>00184 
+<a name="l00203"></a>00203             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00204"></a>00204             <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7e">PllSource</a> source, PllMul pllMul);
+<a name="l00205"></a>00205 <span class="preprocessor">#endif</span>
+<a name="l00206"></a>00206 <span class="preprocessor"></span>            
+<a name="l00207"></a>00207             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00208"></a>00208             switchToPll(uint32_t waitCycles = 1500);
+<a name="l00209"></a>00209         };
+<a name="l00210"></a>00210     }
+<a name="l00211"></a>00211 }
+<a name="l00212"></a>00212 
+<a name="l00213"></a>00213 <span class="preprocessor">#endif  //  XPCC_STM32F1__CLOCK_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -255,7 +253,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>clock.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

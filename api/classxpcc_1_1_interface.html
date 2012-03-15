@@ -116,15 +116,11 @@ Inheritance diagram for xpcc::Interface:</div>
   <map id="xpcc::Interface_map" name="xpcc::Interface_map">
 <area href="classxpcc_1_1i2c_1_1_master.html" title="Interface of a I2C master." alt="xpcc::i2c::Master" shape="rect" coords="0,56,297,80"/>
 <area href="classxpcc_1_1_spi_master.html" title="Interface of SPI Master." alt="xpcc::SpiMaster" shape="rect" coords="614,56,911,80"/>
-<area href="classxpcc_1_1atmega_1_1_asynchronous_i2c_master.html" title="Interrupt-driven I2C master module." alt="xpcc::atmega::AsynchronousI2cMaster" shape="rect" coords="307,112,604,136"/>
-<area href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_c.html" title="Asynchronous I2C master module for Port C." alt="xpcc::atxmega::AsynchronousI2cMasterC" shape="rect" coords="307,168,604,192"/>
-<area href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_d.html" title="Asynchronous I2C master module for Port D." alt="xpcc::atxmega::AsynchronousI2cMasterD" shape="rect" coords="307,224,604,248"/>
-<area href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_e.html" title="Asynchronous I2C master module for Port E." alt="xpcc::atxmega::AsynchronousI2cMasterE" shape="rect" coords="307,280,604,304"/>
-<area href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_f.html" title="Asynchronous I2C master module for Port F." alt="xpcc::atxmega::AsynchronousI2cMasterF" shape="rect" coords="307,336,604,360"/>
-<area href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation." alt="xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;" shape="rect" coords="307,392,604,416"/>
-<area href="classxpcc_1_1stm32_1_1_i2c1.html" title="I2C1 Module." alt="xpcc::stm32::I2c1" shape="rect" coords="307,448,604,472"/>
-<area href="classxpcc_1_1stm32_1_1_i2c2.html" title="I2C2 Module." alt="xpcc::stm32::I2c2" shape="rect" coords="307,504,604,528"/>
-<area href="classxpcc_1_1stm32_1_1_i2c3.html" title="I2C3 Module." alt="xpcc::stm32::I2c3" shape="rect" coords="307,560,604,584"/>
+<area href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html" title="Interrupt-driven TWI master module." alt="xpcc::atmega::AsynchronousTwiMaster" shape="rect" coords="307,112,604,136"/>
+<area href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation." alt="xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;" shape="rect" coords="307,168,604,192"/>
+<area href="classxpcc_1_1stm32_1_1_i2c1.html" title="I2C1 Module." alt="xpcc::stm32::I2c1" shape="rect" coords="307,224,604,248"/>
+<area href="classxpcc_1_1stm32_1_1_i2c2.html" title="I2C2 Module." alt="xpcc::stm32::I2c2" shape="rect" coords="307,280,604,304"/>
+<area href="classxpcc_1_1stm32_1_1_i2c3.html" title="I2C3 Module." alt="xpcc::stm32::I2c3" shape="rect" coords="307,336,604,360"/>
 <area href="classxpcc_1_1atmega_1_1_spi_master.html" title="SPI master module." alt="xpcc::atmega::SpiMaster" shape="rect" coords="921,112,1218,136"/>
 <area href="classxpcc_1_1atxmega_1_1_spi_master_c.html" title="SPI Master for Port C." alt="xpcc::atxmega::SpiMasterC" shape="rect" coords="921,168,1218,192"/>
 <area href="classxpcc_1_1atxmega_1_1_spi_master_d.html" title="SPI Master for Port D." alt="xpcc::atxmega::SpiMasterD" shape="rect" coords="921,224,1218,248"/>
@@ -139,6 +135,9 @@ Inheritance diagram for xpcc::Interface:</div>
 <area href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html" title="UART0 in SPI master mode." alt="xpcc::atxmega::UartSpiMasterF0" shape="rect" coords="921,728,1218,752"/>
 <area href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html" title="UART1 in SPI master mode." alt="xpcc::atxmega::UartSpiMasterF1" shape="rect" coords="921,784,1218,808"/>
 <area href="classxpcc_1_1_software_spi.html" title="Software emulation of a SPI Master." alt="xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;" shape="rect" coords="921,840,1218,864"/>
+<area href="classxpcc_1_1stm32_1_1_spi_master1.html" title="Serial peripheral interface (SPI1)" alt="xpcc::stm32::SpiMaster1" shape="rect" coords="921,896,1218,920"/>
+<area href="classxpcc_1_1stm32_1_1_spi_master2.html" title="Serial peripheral interface (SPI2)" alt="xpcc::stm32::SpiMaster2" shape="rect" coords="921,952,1218,976"/>
+<area href="classxpcc_1_1stm32_1_1_spi_master3.html" title="Serial peripheral interface (SPI3)" alt="xpcc::stm32::SpiMaster3" shape="rect" coords="921,1008,1218,1032"/>
 </map>
  </div></div>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -147,7 +146,7 @@ Inheritance diagram for xpcc::Interface:</div>
 <p>Because they don't have any virtual methods and don't implement any of the methods they don't add any overhead to the system.</p>
 <p>The user must implement all given methods and therewith shadowing the methods of the base classes. Otherwise the Compiler will try to use methods of the base class and this will lead to Linker errors because of the missing implementation. </p>
 
-<p>Definition at line <a class="el" href="interface_8hpp_source.html#l00060">60</a> of file <a class="el" href="interface_8hpp_source.html">interface.hpp</a>.</p>
+<p>Definition at line <a class="el" href="interface_8hpp_source.html#l00058">58</a> of file <a class="el" href="interface_8hpp_source.html">interface.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="interface_8hpp_source.html">interface.hpp</a></li>
 </ul>
@@ -172,7 +171,7 @@ Inheritance diagram for xpcc::Interface:</div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_interface.html">Interface</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:01 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:03 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -6,7 +6,7 @@ var classxpcc_1_1_character_display =
     [ "write", "classxpcc_1_1_character_display.html#a6fa309ca48eab3029aa78b1b7ccb918b", null ],
     [ "writeRaw", "classxpcc_1_1_character_display.html#a547d0c7b21f4e68733da49da9756f423", null ],
     [ "execute", "classxpcc_1_1_character_display.html#ab6f50e29ae8ebccfc0c9e8f2d5bc9bbb", null ],
-    [ "setCursor", "classxpcc_1_1_character_display.html#a226a741abd176f94ec1f38488e174948", null ],
+    [ "setCursor", "classxpcc_1_1_character_display.html#a66d742eb15e39671054a01498fcee303", null ],
     [ "flush", "classxpcc_1_1_i_o_stream.html#a391fdcd5984ea8c120afc39898da4c7a", null ],
     [ "hex", "classxpcc_1_1_i_o_stream.html#a5fc256c0ac76183a547c40a2cdb0fa93", null ],
     [ "ascii", "classxpcc_1_1_i_o_stream.html#a609d723cea9b8808037135c6f2decba3", null ],

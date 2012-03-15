@@ -127,50 +127,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_AT91__CORE_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_AT91__CORE_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
-<a name="l00037"></a>00037 {
-<a name="l00038"></a>00038     <span class="keyword">namespace </span>at91
-<a name="l00039"></a>00039     {
-<a name="l00046"></a><a class="code" href="classxpcc_1_1at91_1_1_core.html">00046</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1at91_1_1_core.html" title="Core - Collection of functions like the reset controller, clock generator or power managment...">Core</a>
-<a name="l00047"></a>00047         {
-<a name="l00048"></a>00048             <span class="comment">//static void</span>
-<a name="l00049"></a>00049             <span class="comment">//initialize();</span>
-<a name="l00050"></a>00050             
-<a name="l00051"></a>00051             <span class="comment">// Reset Controller (RSTC)</span>
-<a name="l00052"></a>00052             <span class="comment">// RTT as slow</span>
-<a name="l00053"></a>00053             <span class="comment">// Voltage Regulator Mode Controller (VREG)</span>
-<a name="l00054"></a>00054             <span class="comment">// PMC:</span>
-<a name="l00055"></a>00055             <span class="comment">/*</span>
-<a name="l00056"></a>00056 <span class="comment">            #define AT91C_ID_FIQ    ((unsigned int)  0) // Advanced Interrupt Controller (FIQ)</span>
-<a name="l00057"></a>00057 <span class="comment">            #define AT91C_ID_SYS    ((unsigned int)  1) // System Peripheral (PIT, RTT, WDT, DBGU, PMC, RSTC, EFC)</span>
-<a name="l00058"></a>00058 <span class="comment">            #define AT91C_ID_PIOA   ((unsigned int)  2) // Parallel IO Controller</span>
-<a name="l00059"></a>00059 <span class="comment">            #define AT91C_ID_ADC    ((unsigned int)  4) // Analog-to-Digital Converter</span>
-<a name="l00060"></a>00060 <span class="comment">            #define AT91C_ID_SPI    ((unsigned int)  5) // Serial Peripheral Interface</span>
-<a name="l00061"></a>00061 <span class="comment">            #define AT91C_ID_US0    ((unsigned int)  6) // USART 0</span>
-<a name="l00062"></a>00062 <span class="comment">            #define AT91C_ID_US1    ((unsigned int)  7) // USART 1</span>
-<a name="l00063"></a>00063 <span class="comment">            #define AT91C_ID_SSC    ((unsigned int)  8) // Serial Synchronous Controller</span>
-<a name="l00064"></a>00064 <span class="comment">            #define AT91C_ID_TWI    ((unsigned int)  9) // Two-Wire Interface</span>
-<a name="l00065"></a>00065 <span class="comment">            #define AT91C_ID_PWMC   ((unsigned int) 10) // PWM Controller</span>
-<a name="l00066"></a>00066 <span class="comment">            #define AT91C_ID_UDP    ((unsigned int) 11) // USB Device Port</span>
-<a name="l00067"></a>00067 <span class="comment">            #define AT91C_ID_TC0    ((unsigned int) 12) // Timer Counter 0</span>
-<a name="l00068"></a>00068 <span class="comment">            #define AT91C_ID_TC1    ((unsigned int) 13) // Timer Counter 1</span>
-<a name="l00069"></a>00069 <span class="comment">            #define AT91C_ID_TC2    ((unsigned int) 14) // Timer Counter 2</span>
-<a name="l00070"></a>00070 <span class="comment">            #define AT91C_ID_IRQ0   ((unsigned int) 30) // Advanced Interrupt Controller (IRQ0)</span>
-<a name="l00071"></a>00071 <span class="comment">            #define AT91C_ID_IRQ1   ((unsigned int) 31) // Advanced Interrupt Controller (IRQ1)</span>
-<a name="l00072"></a>00072 <span class="comment">            */</span>
-<a name="l00073"></a>00073         };
-<a name="l00074"></a>00074     }
-<a name="l00075"></a>00075 }
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#endif // XPCC_AT91__CORE_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_AT91__CORE_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_AT91__CORE_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="keyword">namespace </span>xpcc
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036     <span class="keyword">namespace </span>at91
+<a name="l00037"></a>00037     {
+<a name="l00044"></a><a class="code" href="classxpcc_1_1at91_1_1_core.html">00044</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1at91_1_1_core.html" title="Core - Collection of functions like the reset controller, clock generator or power managment...">Core</a>
+<a name="l00045"></a>00045         {
+<a name="l00046"></a>00046             <span class="comment">//static void</span>
+<a name="l00047"></a>00047             <span class="comment">//initialize();</span>
+<a name="l00048"></a>00048             
+<a name="l00049"></a>00049             <span class="comment">// Reset Controller (RSTC)</span>
+<a name="l00050"></a>00050             <span class="comment">// RTT as slow</span>
+<a name="l00051"></a>00051             <span class="comment">// Voltage Regulator Mode Controller (VREG)</span>
+<a name="l00052"></a>00052             <span class="comment">// PMC:</span>
+<a name="l00053"></a>00053             <span class="comment">/*</span>
+<a name="l00054"></a>00054 <span class="comment">            #define AT91C_ID_FIQ    ((unsigned int)  0) // Advanced Interrupt Controller (FIQ)</span>
+<a name="l00055"></a>00055 <span class="comment">            #define AT91C_ID_SYS    ((unsigned int)  1) // System Peripheral (PIT, RTT, WDT, DBGU, PMC, RSTC, EFC)</span>
+<a name="l00056"></a>00056 <span class="comment">            #define AT91C_ID_PIOA   ((unsigned int)  2) // Parallel IO Controller</span>
+<a name="l00057"></a>00057 <span class="comment">            #define AT91C_ID_ADC    ((unsigned int)  4) // Analog-to-Digital Converter</span>
+<a name="l00058"></a>00058 <span class="comment">            #define AT91C_ID_SPI    ((unsigned int)  5) // Serial Peripheral Interface</span>
+<a name="l00059"></a>00059 <span class="comment">            #define AT91C_ID_US0    ((unsigned int)  6) // USART 0</span>
+<a name="l00060"></a>00060 <span class="comment">            #define AT91C_ID_US1    ((unsigned int)  7) // USART 1</span>
+<a name="l00061"></a>00061 <span class="comment">            #define AT91C_ID_SSC    ((unsigned int)  8) // Serial Synchronous Controller</span>
+<a name="l00062"></a>00062 <span class="comment">            #define AT91C_ID_TWI    ((unsigned int)  9) // Two-Wire Interface</span>
+<a name="l00063"></a>00063 <span class="comment">            #define AT91C_ID_PWMC   ((unsigned int) 10) // PWM Controller</span>
+<a name="l00064"></a>00064 <span class="comment">            #define AT91C_ID_UDP    ((unsigned int) 11) // USB Device Port</span>
+<a name="l00065"></a>00065 <span class="comment">            #define AT91C_ID_TC0    ((unsigned int) 12) // Timer Counter 0</span>
+<a name="l00066"></a>00066 <span class="comment">            #define AT91C_ID_TC1    ((unsigned int) 13) // Timer Counter 1</span>
+<a name="l00067"></a>00067 <span class="comment">            #define AT91C_ID_TC2    ((unsigned int) 14) // Timer Counter 2</span>
+<a name="l00068"></a>00068 <span class="comment">            #define AT91C_ID_IRQ0   ((unsigned int) 30) // Advanced Interrupt Controller (IRQ0)</span>
+<a name="l00069"></a>00069 <span class="comment">            #define AT91C_ID_IRQ1   ((unsigned int) 31) // Advanced Interrupt Controller (IRQ1)</span>
+<a name="l00070"></a>00070 <span class="comment">            */</span>
+<a name="l00071"></a>00071         };
+<a name="l00072"></a>00072     }
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="preprocessor">#endif // XPCC_AT91__CORE_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -191,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>core.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

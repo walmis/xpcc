@@ -127,61 +127,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: rgb.hpp 753 2012-03-04 22:29:10Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__PWM_RGB_LED_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__PWM_RGB_LED_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>led
-<a name="l00042"></a>00042     {
-<a name="l00043"></a>00043         
-<a name="l00044"></a>00044         <span class="keyword">enum</span> Color
-<a name="l00045"></a>00045         {
-<a name="l00046"></a>00046             RED,
-<a name="l00047"></a>00047             GREEN,
-<a name="l00048"></a>00048             BLUE
-<a name="l00049"></a>00049         };
-<a name="l00050"></a>00050         
-<a name="l00063"></a>00063         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> Red, <span class="keyword">typename</span> Green, <span class="keyword">typename</span> Blue &gt;
-<a name="l00064"></a><a class="code" href="classxpcc_1_1led_1_1_rgb.html">00064</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_rgb.html" title="Group three LEDs into a RGB controller.">Rgb</a>
-<a name="l00065"></a>00065         {
-<a name="l00066"></a>00066         <span class="keyword">private</span>:
-<a name="l00067"></a>00067             Red red;
-<a name="l00068"></a>00068             Green green;
-<a name="l00069"></a>00069             Blue blue;
-<a name="l00070"></a>00070             
-<a name="l00071"></a>00071         <span class="keyword">public</span>:
-<a name="l00072"></a>00072             <a class="code" href="classxpcc_1_1led_1_1_rgb.html" title="Group three LEDs into a RGB controller.">Rgb</a>();
-<a name="l00073"></a>00073             
-<a name="l00074"></a>00074             <span class="keywordtype">void</span>
-<a name="l00075"></a>00075             setBrightness(uint16_t redValue, uint16_t greenValue, uint16_t blueValue);
-<a name="l00076"></a>00076             
-<a name="l00077"></a>00077             uint16_t
-<a name="l00078"></a>00078             getBrightness(Color color);
-<a name="l00079"></a>00079             
-<a name="l00080"></a>00080             <span class="keywordtype">bool</span>
-<a name="l00081"></a>00081             isFading();
-<a name="l00082"></a>00082             
-<a name="l00083"></a>00083             <span class="keywordtype">void</span>
-<a name="l00084"></a>00084             fadeTo(uint16_t time, uint16_t redValue, uint16_t greenValue, uint16_t blueValue);
-<a name="l00085"></a>00085             
-<a name="l00087"></a>00087             <span class="keywordtype">void</span>
-<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1led_1_1_rgb.html#aab342a40ebfb331f9835a62e05238a4e" title="Must be called at least every ms.">run</a>();
-<a name="l00089"></a>00089         };
-<a name="l00090"></a>00090     }
-<a name="l00091"></a>00091 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__PWM_RGB_LED_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__PWM_RGB_LED_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>led
+<a name="l00040"></a>00040     {
+<a name="l00041"></a>00041         
+<a name="l00042"></a>00042         <span class="keyword">enum</span> Color
+<a name="l00043"></a>00043         {
+<a name="l00044"></a>00044             RED,
+<a name="l00045"></a>00045             GREEN,
+<a name="l00046"></a>00046             BLUE
+<a name="l00047"></a>00047         };
+<a name="l00048"></a>00048         
+<a name="l00061"></a>00061         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> Red, <span class="keyword">typename</span> Green, <span class="keyword">typename</span> Blue &gt;
+<a name="l00062"></a><a class="code" href="classxpcc_1_1led_1_1_rgb.html">00062</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_rgb.html" title="Group three LEDs into a RGB controller.">Rgb</a>
+<a name="l00063"></a>00063         {
+<a name="l00064"></a>00064         <span class="keyword">private</span>:
+<a name="l00065"></a>00065             Red red;
+<a name="l00066"></a>00066             Green green;
+<a name="l00067"></a>00067             Blue blue;
+<a name="l00068"></a>00068             
+<a name="l00069"></a>00069         <span class="keyword">public</span>:
+<a name="l00070"></a>00070             <a class="code" href="classxpcc_1_1led_1_1_rgb.html" title="Group three LEDs into a RGB controller.">Rgb</a>();
+<a name="l00071"></a>00071             
+<a name="l00072"></a>00072             <span class="keywordtype">void</span>
+<a name="l00073"></a>00073             setBrightness(uint16_t redValue, uint16_t greenValue, uint16_t blueValue);
+<a name="l00074"></a>00074             
+<a name="l00075"></a>00075             uint16_t
+<a name="l00076"></a>00076             getBrightness(Color color);
+<a name="l00077"></a>00077             
+<a name="l00078"></a>00078             <span class="keywordtype">bool</span>
+<a name="l00079"></a>00079             isFading();
+<a name="l00080"></a>00080             
+<a name="l00081"></a>00081             <span class="keywordtype">void</span>
+<a name="l00082"></a>00082             fadeTo(uint16_t time, uint16_t redValue, uint16_t greenValue, uint16_t blueValue);
+<a name="l00083"></a>00083             
+<a name="l00085"></a>00085             <span class="keywordtype">void</span>
+<a name="l00086"></a>00086             <a class="code" href="classxpcc_1_1led_1_1_rgb.html#aab342a40ebfb331f9835a62e05238a4e" title="Must be called at least every ms.">run</a>();
+<a name="l00087"></a>00087         };
+<a name="l00088"></a>00088     }
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <span class="preprocessor">#include &quot;rgb_impl.hpp&quot;</span>
 <a name="l00092"></a>00092 
-<a name="l00093"></a>00093 <span class="preprocessor">#include &quot;rgb_impl.hpp&quot;</span>
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095 <span class="preprocessor">#endif  // XPCC__PWM_RGB_LED_HPP</span>
+<a name="l00093"></a>00093 <span class="preprocessor">#endif  // XPCC__PWM_RGB_LED_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -202,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>rgb.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

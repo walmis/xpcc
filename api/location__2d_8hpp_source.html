@@ -127,107 +127,105 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__LOCATION_2D_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LOCATION_2D_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__LOCATION_2D_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LOCATION_2D_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/io/iostream.hpp&gt;</span>
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/io/iostream.hpp&gt;</span>
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="preprocessor">#include &quot;angle.hpp&quot;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include &quot;vector.hpp&quot;</span>
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="keyword">namespace </span>xpcc
-<a name="l00044"></a>00044 {
-<a name="l00054"></a>00054     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = <span class="keywordtype">int</span>16_t&gt;
-<a name="l00055"></a><a class="code" href="classxpcc_1_1_location2_d.html">00055</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>
-<a name="l00056"></a>00056     {
-<a name="l00057"></a>00057     <span class="keyword">public</span>:
-<a name="l00058"></a>00058         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>();
+<a name="l00038"></a>00038 <span class="preprocessor">#include &quot;angle.hpp&quot;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &quot;vector.hpp&quot;</span>
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>xpcc
+<a name="l00042"></a>00042 {
+<a name="l00052"></a>00052     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = <span class="keywordtype">int</span>16_t&gt;
+<a name="l00053"></a><a class="code" href="classxpcc_1_1_location2_d.html">00053</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>
+<a name="l00054"></a>00054     {
+<a name="l00055"></a>00055     <span class="keyword">public</span>:
+<a name="l00056"></a>00056         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>();
+<a name="l00057"></a>00057         
+<a name="l00058"></a>00058         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; position, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; orientation);
 <a name="l00059"></a>00059         
-<a name="l00060"></a>00060         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; position, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; orientation);
+<a name="l00060"></a>00060         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>(<span class="keyword">const</span> T&amp; x, <span class="keyword">const</span> T&amp; y, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; orientation);
 <a name="l00061"></a>00061         
-<a name="l00062"></a>00062         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>(<span class="keyword">const</span> T&amp; x, <span class="keyword">const</span> T&amp; y, <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; orientation);
-<a name="l00063"></a>00063         
-<a name="l00064"></a>00064         <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp;
-<a name="l00065"></a>00065         getPosition() <span class="keyword">const</span>;
-<a name="l00066"></a>00066         
-<a name="l00067"></a>00067         <span class="keyword">inline</span> <span class="keyword">const</span> T&amp;
-<a name="l00068"></a>00068         getX() <span class="keyword">const</span>;
-<a name="l00069"></a>00069         
-<a name="l00070"></a>00070         <span class="keyword">inline</span> <span class="keyword">const</span> T&amp;
-<a name="l00071"></a>00071         getY() <span class="keyword">const</span>;
-<a name="l00072"></a>00072         
-<a name="l00073"></a>00073         <span class="keywordtype">void</span>
-<a name="l00074"></a>00074         setPosition(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; point);
-<a name="l00075"></a>00075         
-<a name="l00076"></a>00076         <span class="keywordtype">void</span>
-<a name="l00077"></a>00077         setPosition(<span class="keyword">const</span> T&amp; x, <span class="keyword">const</span> T&amp; y);
-<a name="l00078"></a>00078         
-<a name="l00079"></a>00079         <span class="keyword">inline</span> <span class="keywordtype">float</span>
-<a name="l00080"></a>00080         getOrientation() <span class="keyword">const</span>;
-<a name="l00081"></a>00081         
-<a name="l00082"></a>00082         <span class="keywordtype">void</span>
-<a name="l00083"></a>00083         setOrientation(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; phi);
-<a name="l00084"></a>00084         
-<a name="l00086"></a>00086         <span class="keywordtype">void</span>
-<a name="l00087"></a>00087         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>&amp; diff);
-<a name="l00088"></a>00088         
-<a name="l00089"></a>00089         <span class="keywordtype">void</span>
-<a name="l00090"></a>00090         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; diff);
-<a name="l00091"></a>00091         
-<a name="l00111"></a>00111         <span class="keywordtype">void</span>
-<a name="l00112"></a>00112         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(T x, <span class="keywordtype">float</span> phi);
-<a name="l00113"></a>00113         
-<a name="l00115"></a>00115         <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>
-<a name="l00116"></a>00116         <a class="code" href="classxpcc_1_1_location2_d.html#aa446f672745e2e6c5b826dd0c3aef519" title="TODO.">translated</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; vector) <span class="keyword">const</span>;
-<a name="l00117"></a>00117         
-<a name="l00119"></a>00119         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;
-<a name="l00120"></a>00120         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D&lt;U&gt;</a>
-<a name="l00121"></a>00121         <a class="code" href="classxpcc_1_1_location2_d.html#a4a6060e0be37671a825403213b178e0b" title="Convert between Location-objects with different base-types.">convert</a>() <span class="keyword">const</span>;
-<a name="l00122"></a>00122         
-<a name="l00123"></a>00123         <span class="keywordtype">bool</span>
-<a name="l00124"></a>00124         operator == (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a> &amp;other) <span class="keyword">const</span>;
-<a name="l00125"></a>00125         
-<a name="l00126"></a>00126         <span class="keywordtype">bool</span>
-<a name="l00127"></a>00127         operator != (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a> &amp;other) <span class="keyword">const</span>;
-<a name="l00128"></a>00128         
-<a name="l00129"></a>00129     <span class="keyword">private</span>:
-<a name="l00130"></a>00130         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;
-<a name="l00131"></a>00131         <span class="keyword">friend</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
-<a name="l00132"></a>00132         operator &lt;&lt;( IOStream&amp;, const Location2D&lt;U&gt;&amp;);
-<a name="l00133"></a>00133         
-<a name="l00134"></a>00134         <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a> position;
-<a name="l00135"></a>00135         <span class="keywordtype">float</span> orientation;
-<a name="l00136"></a>00136     };
-<a name="l00137"></a>00137     
+<a name="l00062"></a>00062         <span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp;
+<a name="l00063"></a>00063         getPosition() <span class="keyword">const</span>;
+<a name="l00064"></a>00064         
+<a name="l00065"></a>00065         <span class="keyword">inline</span> <span class="keyword">const</span> T&amp;
+<a name="l00066"></a>00066         getX() <span class="keyword">const</span>;
+<a name="l00067"></a>00067         
+<a name="l00068"></a>00068         <span class="keyword">inline</span> <span class="keyword">const</span> T&amp;
+<a name="l00069"></a>00069         getY() <span class="keyword">const</span>;
+<a name="l00070"></a>00070         
+<a name="l00071"></a>00071         <span class="keywordtype">void</span>
+<a name="l00072"></a>00072         setPosition(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; point);
+<a name="l00073"></a>00073         
+<a name="l00074"></a>00074         <span class="keywordtype">void</span>
+<a name="l00075"></a>00075         setPosition(<span class="keyword">const</span> T&amp; x, <span class="keyword">const</span> T&amp; y);
+<a name="l00076"></a>00076         
+<a name="l00077"></a>00077         <span class="keyword">inline</span> <span class="keywordtype">float</span>
+<a name="l00078"></a>00078         getOrientation() <span class="keyword">const</span>;
+<a name="l00079"></a>00079         
+<a name="l00080"></a>00080         <span class="keywordtype">void</span>
+<a name="l00081"></a>00081         setOrientation(<span class="keyword">const</span> <span class="keywordtype">float</span>&amp; phi);
+<a name="l00082"></a>00082         
+<a name="l00084"></a>00084         <span class="keywordtype">void</span>
+<a name="l00085"></a>00085         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a>&amp; diff);
+<a name="l00086"></a>00086         
+<a name="l00087"></a>00087         <span class="keywordtype">void</span>
+<a name="l00088"></a>00088         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; diff);
+<a name="l00089"></a>00089         
+<a name="l00109"></a>00109         <span class="keywordtype">void</span>
+<a name="l00110"></a>00110         <a class="code" href="classxpcc_1_1_location2_d.html#ac51123341f76d822d14693002541c581" title="Add a position increment.">move</a>(T x, <span class="keywordtype">float</span> phi);
+<a name="l00111"></a>00111         
+<a name="l00113"></a>00113         <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>
+<a name="l00114"></a>00114         <a class="code" href="classxpcc_1_1_location2_d.html#aa446f672745e2e6c5b826dd0c3aef519" title="TODO.">translated</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a>&amp; vector) <span class="keyword">const</span>;
+<a name="l00115"></a>00115         
+<a name="l00117"></a>00117         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;
+<a name="l00118"></a>00118         <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D&lt;U&gt;</a>
+<a name="l00119"></a>00119         <a class="code" href="classxpcc_1_1_location2_d.html#a4a6060e0be37671a825403213b178e0b" title="Convert between Location-objects with different base-types.">convert</a>() <span class="keyword">const</span>;
+<a name="l00120"></a>00120         
+<a name="l00121"></a>00121         <span class="keywordtype">bool</span>
+<a name="l00122"></a>00122         operator == (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a> &amp;other) <span class="keyword">const</span>;
+<a name="l00123"></a>00123         
+<a name="l00124"></a>00124         <span class="keywordtype">bool</span>
+<a name="l00125"></a>00125         operator != (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_location2_d.html" title="Location in a 2D coordinate system.">Location2D</a> &amp;other) <span class="keyword">const</span>;
+<a name="l00126"></a>00126         
+<a name="l00127"></a>00127     <span class="keyword">private</span>:
+<a name="l00128"></a>00128         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;
+<a name="l00129"></a>00129         <span class="keyword">friend</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00130"></a>00130         operator &lt;&lt;( IOStream&amp;, const Location2D&lt;U&gt;&amp;);
+<a name="l00131"></a>00131         
+<a name="l00132"></a>00132         <a class="code" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html" title="Class for handling common vector operations (2D)">Vector&lt;T, 2&gt;</a> position;
+<a name="l00133"></a>00133         <span class="keywordtype">float</span> orientation;
+<a name="l00134"></a>00134     };
+<a name="l00135"></a>00135     
+<a name="l00136"></a>00136     <span class="comment">// ------------------------------------------------------------------------</span>
+<a name="l00137"></a>00137     <span class="comment">// Global functions</span>
 <a name="l00138"></a>00138     <span class="comment">// ------------------------------------------------------------------------</span>
-<a name="l00139"></a>00139     <span class="comment">// Global functions</span>
-<a name="l00140"></a>00140     <span class="comment">// ------------------------------------------------------------------------</span>
-<a name="l00146"></a>00146 <span class="comment"></span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
-<a name="l00147"></a>00147     <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
-<a name="l00148"></a>00148     operator &lt;&lt; (IOStream&amp; os, const Location2D&lt;T&gt;&amp; l);
-<a name="l00149"></a>00149     
+<a name="l00144"></a>00144 <span class="comment"></span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00145"></a>00145     <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00146"></a>00146     operator &lt;&lt; (IOStream&amp; os, const Location2D&lt;T&gt;&amp; l);
+<a name="l00147"></a>00147     
+<a name="l00148"></a>00148     <span class="comment">// ------------------------------------------------------------------------</span>
+<a name="l00149"></a>00149     <span class="comment">// Declaration of specialized methods</span>
 <a name="l00150"></a>00150     <span class="comment">// ------------------------------------------------------------------------</span>
-<a name="l00151"></a>00151     <span class="comment">// Declaration of specialized methods</span>
-<a name="l00152"></a>00152     <span class="comment">// ------------------------------------------------------------------------</span>
-<a name="l00153"></a>00153     <span class="comment">/*template&lt;&gt;</span>
-<a name="l00154"></a>00154 <span class="comment">    bool</span>
-<a name="l00155"></a>00155 <span class="comment">    Location2D&lt;float&gt;::operator == (const Location2D &amp;other) const;</span>
-<a name="l00156"></a>00156 <span class="comment">    </span>
-<a name="l00157"></a>00157 <span class="comment">    template&lt;&gt;</span>
-<a name="l00158"></a>00158 <span class="comment">    bool</span>
-<a name="l00159"></a>00159 <span class="comment">    Location2D&lt;double&gt;::operator == (const Location2D &amp;other) const;*/</span>
-<a name="l00160"></a>00160 }
+<a name="l00151"></a>00151     <span class="comment">/*template&lt;&gt;</span>
+<a name="l00152"></a>00152 <span class="comment">    bool</span>
+<a name="l00153"></a>00153 <span class="comment">    Location2D&lt;float&gt;::operator == (const Location2D &amp;other) const;</span>
+<a name="l00154"></a>00154 <span class="comment">    </span>
+<a name="l00155"></a>00155 <span class="comment">    template&lt;&gt;</span>
+<a name="l00156"></a>00156 <span class="comment">    bool</span>
+<a name="l00157"></a>00157 <span class="comment">    Location2D&lt;double&gt;::operator == (const Location2D &amp;other) const;*/</span>
+<a name="l00158"></a>00158 }
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 <span class="preprocessor">#include &quot;location_2d_impl.hpp&quot;</span>
 <a name="l00161"></a>00161 
-<a name="l00162"></a>00162 <span class="preprocessor">#include &quot;location_2d_impl.hpp&quot;</span>
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164 <span class="preprocessor">#endif  // XPCC__LOCATION_2D_HPP</span>
+<a name="l00162"></a>00162 <span class="preprocessor">#endif  // XPCC__LOCATION_2D_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -248,7 +246,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>location_2d.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

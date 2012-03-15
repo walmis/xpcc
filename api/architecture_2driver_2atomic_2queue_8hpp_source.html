@@ -127,75 +127,73 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_ATOMIC__QUEUE_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_ATOMIC__QUEUE_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;cstddef&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
-<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor.hpp&gt;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/utils/template_metaprogramming.hpp&gt;</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">namespace </span>xpcc
-<a name="l00043"></a>00043 {
-<a name="l00044"></a>00044     <span class="keyword">namespace </span>atomic
-<a name="l00045"></a>00045     {
-<a name="l00054"></a>00054         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,
-<a name="l00055"></a>00055                  std::size_t N&gt;
-<a name="l00056"></a><a class="code" href="classxpcc_1_1atomic_1_1_queue.html">00056</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1atomic_1_1_queue.html" title="Interrupt save queue.">Queue</a>
-<a name="l00057"></a>00057         {
-<a name="l00058"></a>00058         <span class="keyword">public</span>:
-<a name="l00059"></a>00059             <span class="comment">// select the type of the index variables with some template magic :-)</span>
-<a name="l00060"></a>00060             <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="structxpcc_1_1tmp_1_1_select.html" title="Selects type Result = (flag == true) ? T : U.">xpcc::tmp::Select&lt; (N &gt;</a>= 254),
-<a name="l00061"></a>00061                                                 uint16_t,
-<a name="l00062"></a>00062                                                 uint8_t &gt;::Result Index;
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_ATOMIC__QUEUE_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_ATOMIC__QUEUE_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;cstddef&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor.hpp&gt;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/utils/template_metaprogramming.hpp&gt;</span>
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042     <span class="keyword">namespace </span>atomic
+<a name="l00043"></a>00043     {
+<a name="l00052"></a>00052         <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,
+<a name="l00053"></a>00053                  std::size_t N&gt;
+<a name="l00054"></a><a class="code" href="classxpcc_1_1atomic_1_1_queue.html">00054</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1atomic_1_1_queue.html" title="Interrupt save queue.">Queue</a>
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057             <span class="comment">// select the type of the index variables with some template magic :-)</span>
+<a name="l00058"></a>00058             <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="structxpcc_1_1tmp_1_1_select.html" title="Selects type Result = (flag == true) ? T : U.">xpcc::tmp::Select&lt; (N &gt;</a>= 254),
+<a name="l00059"></a>00059                                                 uint16_t,
+<a name="l00060"></a>00060                                                 uint8_t &gt;::Result Index;
+<a name="l00061"></a>00061             
+<a name="l00062"></a>00062             <span class="keyword">typedef</span> Index Size;
 <a name="l00063"></a>00063             
-<a name="l00064"></a>00064             <span class="keyword">typedef</span> Index Size;
-<a name="l00065"></a>00065             
-<a name="l00066"></a>00066         <span class="keyword">public</span>:
-<a name="l00067"></a>00067             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html" title="Interrupt save queue.">Queue</a>();
-<a name="l00068"></a>00068             
-<a name="l00069"></a>00069             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">bool</span>
-<a name="l00070"></a>00070             isFull() <span class="keyword">const</span>;
-<a name="l00071"></a>00071             
-<a name="l00078"></a>00078             <span class="keywordtype">bool</span>
-<a name="l00079"></a>00079             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html#af0a0f1b60302573bd5e2c2ff29748bf2">isNearlyFull</a>() <span class="keyword">const</span>;
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">bool</span>
-<a name="l00082"></a>00082             isEmpty() <span class="keyword">const</span>;
-<a name="l00083"></a>00083             
-<a name="l00093"></a>00093             <span class="keywordtype">bool</span>
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html#a97354223a7edacb6cb9c501985d63917" title="Check if the queue is nearly empty.">isNearlyEmpty</a>() <span class="keyword">const</span>;
-<a name="l00095"></a>00095             
-<a name="l00096"></a>00096             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> Size
-<a name="l00097"></a>00097             getMaxSize() <span class="keyword">const</span>;
-<a name="l00098"></a>00098             
-<a name="l00099"></a>00099             <span class="keyword">const</span> T&amp;
-<a name="l00100"></a>00100             <span class="keyword">get</span>() <span class="keyword">const</span>;
-<a name="l00101"></a>00101             
-<a name="l00102"></a>00102             <span class="keywordtype">bool</span>
-<a name="l00103"></a>00103             push(<span class="keyword">const</span> T&amp; value);
-<a name="l00104"></a>00104             
-<a name="l00105"></a>00105             <span class="keywordtype">void</span>
-<a name="l00106"></a>00106             pop();
-<a name="l00107"></a>00107     
-<a name="l00108"></a>00108         <span class="keyword">private</span>:
-<a name="l00109"></a>00109             Index head;
-<a name="l00110"></a>00110             Index tail;
-<a name="l00111"></a>00111             
-<a name="l00112"></a>00112             T buffer[N+1];
-<a name="l00113"></a>00113         };
-<a name="l00114"></a>00114     }
-<a name="l00115"></a>00115 }
+<a name="l00064"></a>00064         <span class="keyword">public</span>:
+<a name="l00065"></a>00065             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html" title="Interrupt save queue.">Queue</a>();
+<a name="l00066"></a>00066             
+<a name="l00067"></a>00067             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">bool</span>
+<a name="l00068"></a>00068             isFull() <span class="keyword">const</span>;
+<a name="l00069"></a>00069             
+<a name="l00076"></a>00076             <span class="keywordtype">bool</span>
+<a name="l00077"></a>00077             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html#af0a0f1b60302573bd5e2c2ff29748bf2">isNearlyFull</a>() <span class="keyword">const</span>;
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">bool</span>
+<a name="l00080"></a>00080             isEmpty() <span class="keyword">const</span>;
+<a name="l00081"></a>00081             
+<a name="l00091"></a>00091             <span class="keywordtype">bool</span>
+<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1atomic_1_1_queue.html#a97354223a7edacb6cb9c501985d63917" title="Check if the queue is nearly empty.">isNearlyEmpty</a>() <span class="keyword">const</span>;
+<a name="l00093"></a>00093             
+<a name="l00094"></a>00094             <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> Size
+<a name="l00095"></a>00095             getMaxSize() <span class="keyword">const</span>;
+<a name="l00096"></a>00096             
+<a name="l00097"></a>00097             <span class="keyword">const</span> T&amp;
+<a name="l00098"></a>00098             <span class="keyword">get</span>() <span class="keyword">const</span>;
+<a name="l00099"></a>00099             
+<a name="l00100"></a>00100             <span class="keywordtype">bool</span>
+<a name="l00101"></a>00101             push(<span class="keyword">const</span> T&amp; value);
+<a name="l00102"></a>00102             
+<a name="l00103"></a>00103             <span class="keywordtype">void</span>
+<a name="l00104"></a>00104             pop();
+<a name="l00105"></a>00105     
+<a name="l00106"></a>00106         <span class="keyword">private</span>:
+<a name="l00107"></a>00107             Index head;
+<a name="l00108"></a>00108             Index tail;
+<a name="l00109"></a>00109             
+<a name="l00110"></a>00110             T buffer[N+1];
+<a name="l00111"></a>00111         };
+<a name="l00112"></a>00112     }
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 <span class="preprocessor">#include &quot;queue_impl.hpp&quot;</span>
 <a name="l00116"></a>00116 
-<a name="l00117"></a>00117 <span class="preprocessor">#include &quot;queue_impl.hpp&quot;</span>
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119 <span class="preprocessor">#endif  // XPCC_ATOMIC__QUEUE_HPP</span>
+<a name="l00117"></a>00117 <span class="preprocessor">#endif  // XPCC_ATOMIC__QUEUE_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -216,7 +214,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>queue.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

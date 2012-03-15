@@ -105,16 +105,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_i2c_master.html">xpcc::atmega::AsynchronousI2cMaster</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-driven I2C master module.  <a href="classxpcc_1_1atmega_1_1_asynchronous_i2c_master.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_c.html">xpcc::atxmega::AsynchronousI2cMasterC</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port C.  <a href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_c.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_d.html">xpcc::atxmega::AsynchronousI2cMasterD</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port D.  <a href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_d.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_e.html">xpcc::atxmega::AsynchronousI2cMasterE</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port E.  <a href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_e.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_f.html">xpcc::atxmega::AsynchronousI2cMasterF</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port F.  <a href="classxpcc_1_1atxmega_1_1_asynchronous_i2c_master_f.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html">xpcc::atmega::AsynchronousTwiMaster</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-driven TWI master module.  <a href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Software emulation of a I2C master implementation.  <a href="classxpcc_1_1_software_i2_c.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
@@ -124,23 +116,10 @@ Namespaces</h2></td></tr>
 <br/></td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a> { <a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a> =  0, 
-<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393">xpcc::i2c::READ_RESTART</a> =  1, 
-<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b">xpcc::i2c::WRITE_STOP</a> =  2, 
-<a class="el" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf">xpcc::i2c::WRITE_RESTART</a> =  3
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a> { <a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a> =  0, 
+<a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393">xpcc::i2c::READ_RESTART</a> =  1
  }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.  <a href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59">xpcc::i2c::ErrorState</a> { <br/>
-&#160;&#160;<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a5fcff3cb278b5198e646b8cf8414b18f">xpcc::i2c::NO_ERROR</a>, 
-<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a583dc34d8d1e00f0f53c0f37ffd66ab3">xpcc::i2c::ADDRESS_NACK</a>, 
-<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22">xpcc::i2c::DATA_NACK</a>, 
-<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59aaa7ffad8db803504a36a85a1f8901a43">xpcc::i2c::ARBITRATION_LOST</a>, 
-<br/>
-&#160;&#160;<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ae257d52707c552529bb312516861c090">xpcc::i2c::BUS_ERROR</a>, 
-<a class="el" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a174ea8a3d8a12bc8fc47335d7d27bcd8">xpcc::i2c::UNKNOWN_ERROR</a>
-<br/>
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">If an error occurs these states give further information.  <a href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59">More...</a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">While reading you have to decide if after operation bus goes into BUS_STOPPED or BUS_HOLD state.  <a href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">xpcc::i2c::BusState</a> { <br/>
 &#160;&#160;<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852">xpcc::i2c::BUS_RESET</a> =  0, 
 <a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef">xpcc::i2c::BUS_STANDBY</a> =  1, 
@@ -151,10 +130,9 @@ Enumerations</h2></td></tr>
 <br/>
  }</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of bus.  <a href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">xpcc::i2c::BusyState</a> { <a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a0714b1b122adba983247954e09939858">xpcc::i2c::UNKNOWN</a> =  0, 
-<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381">xpcc::i2c::FREE</a> =  1, 
-<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7">xpcc::i2c::OCCUPIED</a> =  2, 
-<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c">xpcc::i2c::BUSY</a> =  3
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">xpcc::i2c::BusyState</a> { <a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381">xpcc::i2c::FREE</a> =  0, 
+<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c">xpcc::i2c::BUSY</a> =  1, 
+<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7">xpcc::i2c::OCCUPIED</a> =  2
  }</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of a asynchronous operation.  <a href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">xpcc::i2c::SyncParams</a> { <a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3">xpcc::i2c::SYNC_NO_STOP</a> =  0, 
@@ -168,72 +146,28 @@ Enumerations</h2></td></tr>
 <p>After every 8 bits of data transferred a 1 bit handshake is performed to indicate success ... an ACK is generated by pulling the line low (logical 0). A NACK is signified by leaving the line high (logical 1).</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a href="http://en.wikipedia.org/wiki/I2c" target="_blank">http://en.wikipedia.org/wiki/I2c</a> </dd></dl>
 <hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="ga19fdc0df061c6ca9a150b3b85d8463fc"></a><!-- doxytag: member="xpcc::i2c::OperationParameter" ref="ga19fdc0df061c6ca9a150b3b85d8463fc" args="" -->
+<a class="anchor" id="ga415c5b3176c117fb3670a64fec536d2b"></a><!-- doxytag: member="xpcc::i2c::ReadParameter" ref="ga415c5b3176c117fb3670a64fec536d2b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">xpcc::i2c::OperationParameter</a></td>
+          <td class="memname">enum <a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047"></a><!-- doxytag: member="READ_STOP" ref="gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" args="" -->READ_STOP</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047"></a><!-- doxytag: member="READ_STOP" ref="gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047" args="" -->READ_STOP</em>&nbsp;</td><td>
 <p>After Reading busState results BUS_STOPPED. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393"></a><!-- doxytag: member="READ_RESTART" ref="gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393" args="" -->READ_RESTART</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393"></a><!-- doxytag: member="READ_RESTART" ref="gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393" args="" -->READ_RESTART</em>&nbsp;</td><td>
 <p>After Reading busState results BUS_HOLD. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b"></a><!-- doxytag: member="WRITE_STOP" ref="gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b" args="" -->WRITE_STOP</em>&nbsp;</td><td>
-<p>After Writing busState results BUS_STOPPED. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf"></a><!-- doxytag: member="WRITE_RESTART" ref="gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf" args="" -->WRITE_RESTART</em>&nbsp;</td><td>
-<p>After Writing busState results BUS_WRITE. </p>
-</td></tr>
 </table>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i2c_2constants_8hpp_source.html#l00066">66</a> of file <a class="el" href="i2c_2constants_8hpp_source.html">i2c/constants.hpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga34ac81f412c394d765705c291a0fcb59"></a><!-- doxytag: member="xpcc::i2c::ErrorState" ref="ga34ac81f412c394d765705c291a0fcb59" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59">xpcc::i2c::ErrorState</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>After an error a stop condition is generated, forcing a release of bus control. Regaining control can be attemped by calling start. </p>
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59a5fcff3cb278b5198e646b8cf8414b18f"></a><!-- doxytag: member="NO_ERROR" ref="gga34ac81f412c394d765705c291a0fcb59a5fcff3cb278b5198e646b8cf8414b18f" args="" -->NO_ERROR</em>&nbsp;</td><td>
-<p>No Error ocurred. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59a583dc34d8d1e00f0f53c0f37ffd66ab3"></a><!-- doxytag: member="ADDRESS_NACK" ref="gga34ac81f412c394d765705c291a0fcb59a583dc34d8d1e00f0f53c0f37ffd66ab3" args="" -->ADDRESS_NACK</em>&nbsp;</td><td>
-<p>Slave address was transmitted and NACK received. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22"></a><!-- doxytag: member="DATA_NACK" ref="gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22" args="" -->DATA_NACK</em>&nbsp;</td><td>
-<p>Data was transmitted and NACK received. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59aaa7ffad8db803504a36a85a1f8901a43"></a><!-- doxytag: member="ARBITRATION_LOST" ref="gga34ac81f412c394d765705c291a0fcb59aaa7ffad8db803504a36a85a1f8901a43" args="" -->ARBITRATION_LOST</em>&nbsp;</td><td>
-<p>Arbitration was lost during writing or reading. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59ae257d52707c552529bb312516861c090"></a><!-- doxytag: member="BUS_ERROR" ref="gga34ac81f412c394d765705c291a0fcb59ae257d52707c552529bb312516861c090" args="" -->BUS_ERROR</em>&nbsp;</td><td>
-<p>Misplaced Start or Stop condition. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga34ac81f412c394d765705c291a0fcb59a174ea8a3d8a12bc8fc47335d7d27bcd8"></a><!-- doxytag: member="UNKNOWN_ERROR" ref="gga34ac81f412c394d765705c291a0fcb59a174ea8a3d8a12bc8fc47335d7d27bcd8" args="" -->UNKNOWN_ERROR</em>&nbsp;</td><td>
-<p>Unknown error condition. </p>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i2c_2constants_8hpp_source.html#l00082">82</a> of file <a class="el" href="i2c_2constants_8hpp_source.html">i2c/constants.hpp</a>.</p>
+<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00068">68</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
 
 </div>
 </div>
@@ -270,7 +204,7 @@ Enumerations</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i2c_2constants_8hpp_source.html#l00096">96</a> of file <a class="el" href="i2c_2constants_8hpp_source.html">i2c/constants.hpp</a>.</p>
+<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00078">78</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
 
 </div>
 </div>
@@ -285,23 +219,20 @@ Enumerations</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a0714b1b122adba983247954e09939858"></a><!-- doxytag: member="UNKNOWN" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a0714b1b122adba983247954e09939858" args="" -->UNKNOWN</em>&nbsp;</td><td>
-<p>Bus has been reset and is in no known state. </p>
-</td></tr>
 <tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381"></a><!-- doxytag: member="FREE" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381" args="" -->FREE</em>&nbsp;</td><td>
 <p>Bus is not used, call start for gaining control. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7"></a><!-- doxytag: member="OCCUPIED" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7" args="" -->OCCUPIED</em>&nbsp;</td><td>
-<p>Asynchronous operation is finished, check BusState for the result. </p>
-</td></tr>
 <tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c"></a><!-- doxytag: member="BUSY" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c" args="" -->BUSY</em>&nbsp;</td><td>
 <p>Asynchronous operation is ongoing. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7"></a><!-- doxytag: member="OCCUPIED" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7" args="" -->OCCUPIED</em>&nbsp;</td><td>
+<p>Asynchronous operation is finished, check BusState for the result. </p>
 </td></tr>
 </table>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i2c_2constants_8hpp_source.html#l00109">109</a> of file <a class="el" href="i2c_2constants_8hpp_source.html">i2c/constants.hpp</a>.</p>
+<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00091">91</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
 
 </div>
 </div>
@@ -326,7 +257,7 @@ Enumerations</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="sync__master_8hpp_source.html#l00051">51</a> of file <a class="el" href="sync__master_8hpp_source.html">sync_master.hpp</a>.</p>
+<p>Definition at line <a class="el" href="sync__master_8hpp_source.html#l00049">49</a> of file <a class="el" href="sync__master_8hpp_source.html">sync_master.hpp</a>.</p>
 
 </div>
 </div>
@@ -349,7 +280,7 @@ Enumerations</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:26:00 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

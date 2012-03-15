@@ -127,68 +127,66 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: double_indicator.hpp 753 2012-03-04 22:29:10Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__LED_DOUBLE_INDICATOR_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LED_DOUBLE_INDICATOR_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
-<a name="l00040"></a>00040 {
-<a name="l00041"></a>00041     <span class="keyword">namespace </span>led
-<a name="l00042"></a>00042     {
-<a name="l00051"></a>00051         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> LedClass &gt;
-<a name="l00052"></a><a class="code" href="classxpcc_1_1led_1_1_double_indicator.html">00052</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_double_indicator.html" title="LED Double Indicator.">DoubleIndicator</a>
-<a name="l00053"></a>00053         {
-<a name="l00054"></a>00054         <span class="keyword">private</span>:
-<a name="l00055"></a>00055             <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">xpcc::Timeout&lt;&gt;</a> timer;
-<a name="l00056"></a>00056             LedClass led;
-<a name="l00057"></a>00057             uint16_t <span class="keyword">const</span> on1;
-<a name="l00058"></a>00058             uint16_t <span class="keyword">const</span> pause1;
-<a name="l00059"></a>00059             uint16_t <span class="keyword">const</span> on2;
-<a name="l00060"></a>00060             uint16_t <span class="keyword">const</span> pause2;
-<a name="l00061"></a>00061             uint8_t <span class="keyword">const</span> onFade;
-<a name="l00062"></a>00062             uint8_t <span class="keyword">const</span> offFade;
-<a name="l00063"></a>00063             uint8_t counter;
-<a name="l00064"></a>00064             <span class="keywordtype">bool</span> isBlinking;
-<a name="l00065"></a>00065             <span class="keywordtype">bool</span> isCounting;
-<a name="l00066"></a>00066             
-<a name="l00067"></a>00067             <span class="keyword">enum</span>
-<a name="l00068"></a>00068             {
-<a name="l00069"></a>00069                 FIRST_FLASH,
-<a name="l00070"></a>00070                 FIRST_BREAK,
-<a name="l00071"></a>00071                 SECOND_FLASH,
-<a name="l00072"></a>00072                 SECOND_BREAK
-<a name="l00073"></a>00073             } state;
-<a name="l00074"></a>00074             
-<a name="l00075"></a>00075         <span class="keyword">public</span>:
-<a name="l00084"></a>00084             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a4d12fcf5662fdc256a4a859f97425978">DoubleIndicator</a>(uint16_t <span class="keyword">const</span> period=1000, <span class="keywordtype">float</span> <span class="keyword">const</span> on1=0.1f,
-<a name="l00085"></a>00085                             <span class="keywordtype">float</span> <span class="keyword">const</span> pause=0.2f, <span class="keywordtype">float</span> <span class="keyword">const</span> on2=0.1f,
-<a name="l00086"></a>00086                             uint8_t <span class="keyword">const</span> onFade=60, uint8_t <span class="keyword">const</span> offFade=90);
-<a name="l00087"></a>00087             
-<a name="l00089"></a>00089             <span class="keywordtype">void</span>
-<a name="l00090"></a>00090             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a626dc96916104b6ee175dc490183b4c1" title="start indicating for ever">start</a>();
-<a name="l00091"></a>00091             
-<a name="l00093"></a>00093             <span class="keywordtype">void</span>
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#ada18e999f11ce154ce3ca5706b7c3b8f" title="Stops indicating after finishing the current cycle.">stop</a>();
-<a name="l00095"></a>00095             
-<a name="l00097"></a>00097             <span class="keywordtype">void</span>
-<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#af988e74a4032a1f9a8a2c5fd5a022b83" title="Indicate a number of times and then stop.">indicate</a>(uint8_t times=1);
-<a name="l00099"></a>00099             
-<a name="l00101"></a>00101             <span class="keywordtype">void</span>
-<a name="l00102"></a>00102             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a662eaf9f3ec5203c4a2dce5be8003833" title="Must be called at least every ms.">run</a>();
-<a name="l00103"></a>00103         };
-<a name="l00104"></a>00104     }
-<a name="l00105"></a>00105 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__LED_DOUBLE_INDICATOR_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__LED_DOUBLE_INDICATOR_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 <span class="preprocessor">#include &quot;led.hpp&quot;</span>
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
+<a name="l00038"></a>00038 {
+<a name="l00039"></a><a class="code" href="namespacexpcc_1_1led.html">00039</a>     <span class="keyword">namespace </span>led
+<a name="l00040"></a>00040     {
+<a name="l00049"></a>00049         <span class="keyword">template</span>&lt; <span class="keyword">typename</span> LedClass &gt;
+<a name="l00050"></a><a class="code" href="classxpcc_1_1led_1_1_double_indicator.html">00050</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1led_1_1_double_indicator.html" title="LED Double Indicator.">DoubleIndicator</a>
+<a name="l00051"></a>00051         {
+<a name="l00052"></a>00052         <span class="keyword">private</span>:
+<a name="l00053"></a>00053             <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">xpcc::Timeout&lt;&gt;</a> timer;
+<a name="l00054"></a>00054             LedClass led;
+<a name="l00055"></a>00055             uint16_t <span class="keyword">const</span> on1;
+<a name="l00056"></a>00056             uint16_t <span class="keyword">const</span> pause1;
+<a name="l00057"></a>00057             uint16_t <span class="keyword">const</span> on2;
+<a name="l00058"></a>00058             uint16_t <span class="keyword">const</span> pause2;
+<a name="l00059"></a>00059             uint8_t <span class="keyword">const</span> onFade;
+<a name="l00060"></a>00060             uint8_t <span class="keyword">const</span> offFade;
+<a name="l00061"></a>00061             uint8_t counter;
+<a name="l00062"></a>00062             <span class="keywordtype">bool</span> isBlinking;
+<a name="l00063"></a>00063             <span class="keywordtype">bool</span> isCounting;
+<a name="l00064"></a>00064             
+<a name="l00065"></a>00065             <span class="keyword">enum</span>
+<a name="l00066"></a>00066             {
+<a name="l00067"></a>00067                 FIRST_FLASH,
+<a name="l00068"></a>00068                 FIRST_BREAK,
+<a name="l00069"></a>00069                 SECOND_FLASH,
+<a name="l00070"></a>00070                 SECOND_BREAK
+<a name="l00071"></a>00071             } state;
+<a name="l00072"></a>00072             
+<a name="l00073"></a>00073         <span class="keyword">public</span>:
+<a name="l00082"></a>00082             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a4d12fcf5662fdc256a4a859f97425978">DoubleIndicator</a>(uint16_t <span class="keyword">const</span> period=1000, <span class="keywordtype">float</span> <span class="keyword">const</span> on1=0.1f,
+<a name="l00083"></a>00083                             <span class="keywordtype">float</span> <span class="keyword">const</span> pause=0.2f, <span class="keywordtype">float</span> <span class="keyword">const</span> on2=0.1f,
+<a name="l00084"></a>00084                             uint8_t <span class="keyword">const</span> onFade=60, uint8_t <span class="keyword">const</span> offFade=90);
+<a name="l00085"></a>00085             
+<a name="l00087"></a>00087             <span class="keywordtype">void</span>
+<a name="l00088"></a>00088             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a626dc96916104b6ee175dc490183b4c1" title="start indicating for ever">start</a>();
+<a name="l00089"></a>00089             
+<a name="l00091"></a>00091             <span class="keywordtype">void</span>
+<a name="l00092"></a>00092             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#ada18e999f11ce154ce3ca5706b7c3b8f" title="Stops indicating after finishing the current cycle.">stop</a>();
+<a name="l00093"></a>00093             
+<a name="l00095"></a>00095             <span class="keywordtype">void</span>
+<a name="l00096"></a>00096             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#af988e74a4032a1f9a8a2c5fd5a022b83" title="Indicate a number of times and then stop.">indicate</a>(uint8_t times=1);
+<a name="l00097"></a>00097             
+<a name="l00099"></a>00099             <span class="keywordtype">void</span>
+<a name="l00100"></a>00100             <a class="code" href="classxpcc_1_1led_1_1_double_indicator.html#a662eaf9f3ec5203c4a2dce5be8003833" title="Must be called at least every ms.">run</a>();
+<a name="l00101"></a>00101         };
+<a name="l00102"></a>00102     }
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105 <span class="preprocessor">#include &quot;double_indicator_impl.hpp&quot;</span>
 <a name="l00106"></a>00106 
-<a name="l00107"></a>00107 <span class="preprocessor">#include &quot;double_indicator_impl.hpp&quot;</span>
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 <span class="preprocessor">#endif  // XPCC__LED_DOUBLE_INDICATOR_HPP</span>
+<a name="l00107"></a>00107 <span class="preprocessor">#endif  // XPCC__LED_DOUBLE_INDICATOR_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -209,7 +207,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>double_indicator.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

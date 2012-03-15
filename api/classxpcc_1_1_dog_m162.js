@@ -4,7 +4,7 @@ var classxpcc_1_1_dog_m162 =
     [ "initialize", "classxpcc_1_1_st7036.html#abca9ca37b61eaa22a41eb8ffc2b755d0", null ],
     [ "writeRaw", "classxpcc_1_1_st7036.html#a609cc093936e1f4fa480e38768d3e7e2", null ],
     [ "execute", "classxpcc_1_1_st7036.html#a87ede776e8ff73b40f4e5405f02afe28", null ],
-    [ "setCursor", "classxpcc_1_1_st7036.html#a0438cd38f50365b34c785df59585000e", null ],
+    [ "setCursor", "classxpcc_1_1_st7036.html#a792618722d99b2fc01ded0b28183c12f", null ],
     [ "writeCommand", "classxpcc_1_1_st7036.html#ae6561c5a5afa1f237a6777d51156faf3", null ],
     [ "write", "classxpcc_1_1_character_display.html#a6fa309ca48eab3029aa78b1b7ccb918b", null ],
     [ "flush", "classxpcc_1_1_i_o_stream.html#a391fdcd5984ea8c120afc39898da4c7a", null ],

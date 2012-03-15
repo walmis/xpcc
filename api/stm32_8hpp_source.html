@@ -127,36 +127,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00061"></a>00061 <span class="comment"></span><span class="preprocessor">#include &quot;stm32/device.h&quot;</span>
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="preprocessor">#include &quot;stm32/core.hpp&quot;</span>
-<a name="l00064"></a>00064 <span class="preprocessor">#include &quot;stm32/gpio.hpp&quot;</span>
-<a name="l00065"></a>00065 <span class="preprocessor">#include &quot;stm32/clock.hpp&quot;</span>
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="preprocessor">#include &quot;stm32/can/can_1.hpp&quot;</span>
-<a name="l00068"></a>00068 <span class="preprocessor">#include &quot;stm32/can/can_2.hpp&quot;</span>
-<a name="l00069"></a>00069 <span class="preprocessor">#include &quot;stm32/can/can_filter.hpp&quot;</span>
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="preprocessor">#include &quot;stm32/uart/usart_1.hpp&quot;</span>
-<a name="l00072"></a>00072 <span class="preprocessor">#include &quot;stm32/uart/usart_2.hpp&quot;</span>
-<a name="l00073"></a>00073 <span class="preprocessor">#include &quot;stm32/uart/usart_3.hpp&quot;</span>
-<a name="l00074"></a>00074 <span class="preprocessor">#include &quot;stm32/uart/uart_4.hpp&quot;</span>
-<a name="l00075"></a>00075 <span class="preprocessor">#include &quot;stm32/uart/uart_5.hpp&quot;</span>
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#include &quot;stm32/spi/spi_1.hpp&quot;</span>
-<a name="l00078"></a>00078 <span class="preprocessor">#include &quot;stm32/spi/spi_2.hpp&quot;</span>
-<a name="l00079"></a>00079 <span class="preprocessor">#include &quot;stm32/spi/spi_3.hpp&quot;</span>
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081 <span class="preprocessor">#include &quot;stm32/i2c/i2c_1.hpp&quot;</span>
-<a name="l00082"></a>00082 <span class="preprocessor">#include &quot;stm32/i2c/i2c_2.hpp&quot;</span>
-<a name="l00083"></a>00083 <span class="preprocessor">#include &quot;stm32/i2c/i2c_3.hpp&quot;</span>
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="preprocessor">#include &quot;stm32/systick_timer.hpp&quot;</span>
-<a name="l00086"></a>00086 <span class="preprocessor">#include &quot;stm32/timer.hpp&quot;</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00059"></a>00059 <span class="comment"></span><span class="preprocessor">#include &quot;stm32/device.h&quot;</span>
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 <span class="preprocessor">#include &quot;stm32/core.hpp&quot;</span>
+<a name="l00062"></a>00062 <span class="preprocessor">#include &quot;stm32/gpio.hpp&quot;</span>
+<a name="l00063"></a>00063 <span class="preprocessor">#include &quot;stm32/clock.hpp&quot;</span>
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="preprocessor">#include &quot;stm32/can/can_1.hpp&quot;</span>
+<a name="l00066"></a>00066 <span class="preprocessor">#include &quot;stm32/can/can_2.hpp&quot;</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#include &quot;stm32/can/can_filter.hpp&quot;</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="preprocessor">#include &quot;stm32/uart/usart_1.hpp&quot;</span>
+<a name="l00070"></a>00070 <span class="preprocessor">#include &quot;stm32/uart/usart_2.hpp&quot;</span>
+<a name="l00071"></a>00071 <span class="preprocessor">#include &quot;stm32/uart/usart_3.hpp&quot;</span>
+<a name="l00072"></a>00072 <span class="preprocessor">#include &quot;stm32/uart/uart_4.hpp&quot;</span>
+<a name="l00073"></a>00073 <span class="preprocessor">#include &quot;stm32/uart/uart_5.hpp&quot;</span>
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="preprocessor">#include &quot;stm32/spi/spi_1.hpp&quot;</span>
+<a name="l00076"></a>00076 <span class="preprocessor">#include &quot;stm32/spi/spi_2.hpp&quot;</span>
+<a name="l00077"></a>00077 <span class="preprocessor">#include &quot;stm32/spi/spi_3.hpp&quot;</span>
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 <span class="preprocessor">#include &quot;stm32/i2c/i2c_1.hpp&quot;</span>
+<a name="l00080"></a>00080 <span class="preprocessor">#include &quot;stm32/i2c/i2c_2.hpp&quot;</span>
+<a name="l00081"></a>00081 <span class="preprocessor">#include &quot;stm32/i2c/i2c_3.hpp&quot;</span>
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="preprocessor">#include &quot;stm32/systick_timer.hpp&quot;</span>
+<a name="l00084"></a>00084 <span class="preprocessor">#include &quot;stm32/timer.hpp&quot;</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -177,7 +175,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>stm32.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

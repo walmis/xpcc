@@ -127,61 +127,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__POLYGON_2D_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__POLYGON_2D_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;point_set_2d.hpp&quot;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00040"></a>00040     <span class="comment">// forward declaration</span>
-<a name="l00041"></a>00041     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
-<a name="l00042"></a>00042     <span class="keyword">class </span>Circle2D;
-<a name="l00043"></a>00043     
-<a name="l00044"></a>00044     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
-<a name="l00045"></a>00045     <span class="keyword">class </span>LineSegment2D;
-<a name="l00046"></a>00046     
-<a name="l00056"></a>00056     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
-<a name="l00057"></a><a class="code" href="classxpcc_1_1_polygon2_d.html">00057</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_point_set2_d.html" title="Point set.">PointSet2D</a>&lt;T&gt;
-<a name="l00058"></a>00058     {
-<a name="l00059"></a>00059         <span class="keyword">typedef</span> std::size_t SizeType;
-<a name="l00060"></a>00060     <span class="keyword">public</span>:
-<a name="l00064"></a>00064         <a class="code" href="classxpcc_1_1_polygon2_d.html#abe922fd771cc46cb58f353b0045d44fa" title="Constructs a polygon capable of holding n points.">Polygon2D</a>(SizeType n);
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__POLYGON_2D_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__POLYGON_2D_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &quot;point_set_2d.hpp&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038     <span class="comment">// forward declaration</span>
+<a name="l00039"></a>00039     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
+<a name="l00040"></a>00040     <span class="keyword">class </span>Circle2D;
+<a name="l00041"></a>00041     
+<a name="l00042"></a>00042     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
+<a name="l00043"></a>00043     <span class="keyword">class </span>LineSegment2D;
+<a name="l00044"></a>00044     
+<a name="l00054"></a>00054     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;
+<a name="l00055"></a><a class="code" href="classxpcc_1_1_polygon2_d.html">00055</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_point_set2_d.html" title="Point set.">PointSet2D</a>&lt;T&gt;
+<a name="l00056"></a>00056     {
+<a name="l00057"></a>00057         <span class="keyword">typedef</span> std::size_t SizeType;
+<a name="l00058"></a>00058     <span class="keyword">public</span>:
+<a name="l00062"></a>00062         <a class="code" href="classxpcc_1_1_polygon2_d.html#abe922fd771cc46cb58f353b0045d44fa" title="Constructs a polygon capable of holding n points.">Polygon2D</a>(SizeType n);
+<a name="l00063"></a>00063         
+<a name="l00064"></a>00064         <a class="code" href="classxpcc_1_1_polygon2_d.html#abe922fd771cc46cb58f353b0045d44fa" title="Constructs a polygon capable of holding n points.">Polygon2D</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other);
 <a name="l00065"></a>00065         
-<a name="l00066"></a>00066         <a class="code" href="classxpcc_1_1_polygon2_d.html#abe922fd771cc46cb58f353b0045d44fa" title="Constructs a polygon capable of holding n points.">Polygon2D</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other);
-<a name="l00067"></a>00067         
-<a name="l00068"></a>00068         <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp;
-<a name="l00069"></a>00069         operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other);
-<a name="l00070"></a>00070         
-<a name="l00072"></a>00072         <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp;
-<a name="l00073"></a>00073         operator &lt;&lt; (const Vector&lt;T, 2&gt;&amp; point);
-<a name="l00074"></a>00074         
-<a name="l00081"></a>00081         <span class="keywordtype">bool</span>
-<a name="l00082"></a>00082         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other) <span class="keyword">const</span>;
-<a name="l00083"></a>00083         
-<a name="l00085"></a>00085         <span class="keywordtype">bool</span>
-<a name="l00086"></a>00086         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_circle2_d.html" title="Circle.">Circle2D&lt;T&gt;</a>&amp; circle) <span class="keyword">const</span>;
-<a name="l00087"></a>00087         
-<a name="l00089"></a>00089         <span class="keywordtype">bool</span>
-<a name="l00090"></a>00090         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_line_segment2_d.html" title="Line segment.">LineSegment2D&lt;T&gt;</a>&amp; segment) <span class="keyword">const</span>;
-<a name="l00091"></a>00091         
-<a name="l00095"></a>00095         <span class="keywordtype">bool</span>
-<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_polygon2_d.html#a73182df0259b2e13381dfc51971f471a" title="Calculate the intersection point(s)">getIntersections</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_line_segment2_d.html" title="Line segment.">LineSegment2D&lt;T&gt;</a>&amp; segment,
-<a name="l00097"></a>00097                 <a class="code" href="classxpcc_1_1_point_set2_d.html" title="Point set.">PointSet2D&lt;T&gt;</a>&amp; intersectionPoints) <span class="keyword">const</span>;
-<a name="l00098"></a>00098     };
-<a name="l00099"></a>00099 }
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 <span class="preprocessor">#include &quot;circle_2d.hpp&quot;</span>
-<a name="l00102"></a>00102 <span class="preprocessor">#include &quot;line_segment_2d.hpp&quot;</span>
+<a name="l00066"></a>00066         <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp;
+<a name="l00067"></a>00067         operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other);
+<a name="l00068"></a>00068         
+<a name="l00070"></a>00070         <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp;
+<a name="l00071"></a>00071         operator &lt;&lt; (const Vector&lt;T, 2&gt;&amp; point);
+<a name="l00072"></a>00072         
+<a name="l00079"></a>00079         <span class="keywordtype">bool</span>
+<a name="l00080"></a>00080         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_polygon2_d.html" title="Polygon.">Polygon2D</a>&amp; other) <span class="keyword">const</span>;
+<a name="l00081"></a>00081         
+<a name="l00083"></a>00083         <span class="keywordtype">bool</span>
+<a name="l00084"></a>00084         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_circle2_d.html" title="Circle.">Circle2D&lt;T&gt;</a>&amp; circle) <span class="keyword">const</span>;
+<a name="l00085"></a>00085         
+<a name="l00087"></a>00087         <span class="keywordtype">bool</span>
+<a name="l00088"></a>00088         <a class="code" href="classxpcc_1_1_polygon2_d.html#ad815a69df97c81086fddc5488ffa9241" title="Check if a intersection exists.">intersects</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_line_segment2_d.html" title="Line segment.">LineSegment2D&lt;T&gt;</a>&amp; segment) <span class="keyword">const</span>;
+<a name="l00089"></a>00089         
+<a name="l00093"></a>00093         <span class="keywordtype">bool</span>
+<a name="l00094"></a>00094         <a class="code" href="classxpcc_1_1_polygon2_d.html#a73182df0259b2e13381dfc51971f471a" title="Calculate the intersection point(s)">getIntersections</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_line_segment2_d.html" title="Line segment.">LineSegment2D&lt;T&gt;</a>&amp; segment,
+<a name="l00095"></a>00095                 <a class="code" href="classxpcc_1_1_point_set2_d.html" title="Point set.">PointSet2D&lt;T&gt;</a>&amp; intersectionPoints) <span class="keyword">const</span>;
+<a name="l00096"></a>00096     };
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="preprocessor">#include &quot;circle_2d.hpp&quot;</span>
+<a name="l00100"></a>00100 <span class="preprocessor">#include &quot;line_segment_2d.hpp&quot;</span>
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="preprocessor">#include &quot;polygon_2d_impl.hpp&quot;</span>
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#include &quot;polygon_2d_impl.hpp&quot;</span>
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif // XPCC__POLYGON_2D_HPP</span>
+<a name="l00104"></a>00104 <span class="preprocessor">#endif // XPCC__POLYGON_2D_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -202,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>polygon_2d.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

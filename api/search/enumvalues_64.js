@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['data_5fnack',['DATA_NACK',['../group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22',1,'xpcc::i2c']]],
   ['display_5foff',['DISPLAY_OFF',['../classxpcc_1_1_character_display.html#a0f39ee990503a252e38a2ded7b2febd0a11b583ac9c5ba8aa53bf7f311afd49fd',1,'xpcc::CharacterDisplay']]],
   ['display_5fon',['DISPLAY_ON',['../classxpcc_1_1_character_display.html#a0f39ee990503a252e38a2ded7b2febd0a76b135e471d4c65b2ce53dff243c0742',1,'xpcc::CharacterDisplay']]],
   ['dma_5frequest_5fch01',['DMA_REQUEST_CH01',['../namespacexpcc_1_1atxmega_1_1adc.html#a8d1769a0eb6fb94626d7ba29a3e27b59aae192a42edbfd4047c117da200d53b1e',1,'xpcc::atxmega::adc']]],

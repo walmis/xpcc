@@ -127,71 +127,69 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00042"></a>00042 <span class="comment"></span><span class="preprocessor">#ifndef XPCC__CONSTANTS_H</span>
-<a name="l00043"></a>00043 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__CONSTANTS_H</span>
-<a name="l00044"></a>00044 <span class="preprocessor"></span>
-<a name="l00045"></a>00045 <span class="comment">/*</span>
-<a name="l00046"></a>00046 <span class="comment"> * ARM register quick reference:</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00040"></a>00040 <span class="comment"></span><span class="preprocessor">#ifndef XPCC__CONSTANTS_H</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__CONSTANTS_H</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span>
+<a name="l00043"></a>00043 <span class="comment">/*</span>
+<a name="l00044"></a>00044 <span class="comment"> * ARM register quick reference:</span>
+<a name="l00045"></a>00045 <span class="comment"> * </span>
+<a name="l00046"></a>00046 <span class="comment"> * Name    Number   ARM Procedure Calling Standard Role</span>
 <a name="l00047"></a>00047 <span class="comment"> * </span>
-<a name="l00048"></a>00048 <span class="comment"> * Name    Number   ARM Procedure Calling Standard Role</span>
-<a name="l00049"></a>00049 <span class="comment"> * </span>
-<a name="l00050"></a>00050 <span class="comment"> * a1      r0       argument 1 / integer result / scratch register / argc</span>
-<a name="l00051"></a>00051 <span class="comment"> * a2      r1       argument 2 / scratch register / argv</span>
-<a name="l00052"></a>00052 <span class="comment"> * a3      r2       argument 3 / scratch register / envp</span>
-<a name="l00053"></a>00053 <span class="comment"> * a4      r3       argument 4 / scratch register</span>
-<a name="l00054"></a>00054 <span class="comment"> * v1      r4       register variable</span>
-<a name="l00055"></a>00055 <span class="comment"> * v2      r5       register variable</span>
-<a name="l00056"></a>00056 <span class="comment"> * v3      r6       register variable</span>
-<a name="l00057"></a>00057 <span class="comment"> * v4      r7       register variable</span>
-<a name="l00058"></a>00058 <span class="comment"> * v5      r8       register variable</span>
-<a name="l00059"></a>00059 <span class="comment"> * sb/v6   r9       static base / register variable</span>
-<a name="l00060"></a>00060 <span class="comment"> * sl/v7   r10      stack limit / stack chunk handle /  reg. variable</span>
-<a name="l00061"></a>00061 <span class="comment"> * fp      r11      frame pointer</span>
-<a name="l00062"></a>00062 <span class="comment"> * ip      r12      scratch register / new-sb in inter-link-unit calls</span>
-<a name="l00063"></a>00063 <span class="comment"> * sp      r13      lower end of current stack frame</span>
-<a name="l00064"></a>00064 <span class="comment"> * lr      r14      link address / scratch register</span>
-<a name="l00065"></a>00065 <span class="comment"> * pc      r15      program counter</span>
-<a name="l00066"></a>00066 <span class="comment"> */</span>
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068 <span class="comment">/* Standard definitions of Mode bits and Interrupt (I &amp; F) flags in PSRs */</span>
-<a name="l00069"></a>00069 <span class="preprocessor">#define ARM_MODE_MASK       0x1F    </span><span class="comment">/* lower 5 bits of CPSR */</span>
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="preprocessor">#define ARM_MODE_USR        0x10    // User Mode</span>
-<a name="l00072"></a>00072 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_FIQ        0x11    // Fast Interrupt Mode</span>
-<a name="l00073"></a>00073 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_IRQ        0x12    // Interrupt Mode</span>
-<a name="l00074"></a>00074 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_SVC        0x13    // Supervisor Mode</span>
-<a name="l00075"></a>00075 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_ABT        0x17    // Abort Mode</span>
-<a name="l00076"></a>00076 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_UND        0x1B    // Unidentified Instruction Mode</span>
-<a name="l00077"></a>00077 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_SYS        0x1F    // System Mode (uses the same Stack as User Mode)</span>
-<a name="l00078"></a>00078 <span class="preprocessor"></span>
-<a name="l00079"></a>00079 <span class="preprocessor">#define ARM_CPSR_N_BIT      (1 &lt;&lt; 31)</span>
-<a name="l00080"></a>00080 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_Z_BIT      (1 &lt;&lt; 30)</span>
-<a name="l00081"></a>00081 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_C_BIT      (1 &lt;&lt; 29)</span>
-<a name="l00082"></a>00082 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_V_BIT      (1 &lt;&lt; 28)</span>
-<a name="l00083"></a>00083 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_I_BIT      (1 &lt;&lt; 7)</span>
-<a name="l00084"></a>00084 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_F_BIT      (1 &lt;&lt; 6)</span>
-<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_T_BIT      (1 &lt;&lt; 5)</span>
-<a name="l00086"></a>00086 <span class="preprocessor"></span>
-<a name="l00087"></a>00087 <span class="preprocessor">#define ARM_IRQ_DISABLE     (1 &lt;&lt; 7)    // when I bit is set, IRQ is disabled</span>
-<a name="l00088"></a>00088 <span class="preprocessor"></span><span class="preprocessor">#define ARM_FIQ_DISABLE     (1 &lt;&lt; 6)    // when F bit is set, FIQ is disabled</span>
-<a name="l00089"></a>00089 <span class="preprocessor"></span><span class="preprocessor">#define ARM_THUMB_ENABLE    (1 &lt;&lt; 5)    // when T bit is set, Thumb mode is enabled</span>
-<a name="l00090"></a>00090 <span class="preprocessor"></span>
-<a name="l00091"></a>00091 <span class="comment">// constant to pre-fill the stack</span>
-<a name="l00092"></a>00092 <span class="preprocessor">#define STACK_FILL          0xaaaaaaaa</span>
-<a name="l00093"></a>00093 <span class="preprocessor"></span><span class="preprocessor">#define MAGIC_MARKER        0xdeadbeef</span>
-<a name="l00094"></a>00094 <span class="preprocessor"></span>
-<a name="l00095"></a>00095 <span class="comment">// Registers</span>
-<a name="l00096"></a>00096 <span class="preprocessor">#if defined(__ARM_AT91__) || defined(__ARM_LPC2000__)</span>
-<a name="l00097"></a>00097 <span class="preprocessor"></span><span class="preprocessor">#   define INTERRUPT_BASE_REGISTER  0xFFFFF000</span>
-<a name="l00098"></a>00098 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00099"></a>00099 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Unknown device family: Check the value of VIC_BASE_REGISTER&quot;</span>
-<a name="l00100"></a>00100 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00101"></a>00101 <span class="preprocessor"></span>
-<a name="l00102"></a>00102 <span class="preprocessor">#endif  // XPCC__CONSTANTS_H</span>
+<a name="l00048"></a>00048 <span class="comment"> * a1      r0       argument 1 / integer result / scratch register / argc</span>
+<a name="l00049"></a>00049 <span class="comment"> * a2      r1       argument 2 / scratch register / argv</span>
+<a name="l00050"></a>00050 <span class="comment"> * a3      r2       argument 3 / scratch register / envp</span>
+<a name="l00051"></a>00051 <span class="comment"> * a4      r3       argument 4 / scratch register</span>
+<a name="l00052"></a>00052 <span class="comment"> * v1      r4       register variable</span>
+<a name="l00053"></a>00053 <span class="comment"> * v2      r5       register variable</span>
+<a name="l00054"></a>00054 <span class="comment"> * v3      r6       register variable</span>
+<a name="l00055"></a>00055 <span class="comment"> * v4      r7       register variable</span>
+<a name="l00056"></a>00056 <span class="comment"> * v5      r8       register variable</span>
+<a name="l00057"></a>00057 <span class="comment"> * sb/v6   r9       static base / register variable</span>
+<a name="l00058"></a>00058 <span class="comment"> * sl/v7   r10      stack limit / stack chunk handle /  reg. variable</span>
+<a name="l00059"></a>00059 <span class="comment"> * fp      r11      frame pointer</span>
+<a name="l00060"></a>00060 <span class="comment"> * ip      r12      scratch register / new-sb in inter-link-unit calls</span>
+<a name="l00061"></a>00061 <span class="comment"> * sp      r13      lower end of current stack frame</span>
+<a name="l00062"></a>00062 <span class="comment"> * lr      r14      link address / scratch register</span>
+<a name="l00063"></a>00063 <span class="comment"> * pc      r15      program counter</span>
+<a name="l00064"></a>00064 <span class="comment"> */</span>
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="comment">/* Standard definitions of Mode bits and Interrupt (I &amp; F) flags in PSRs */</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#define ARM_MODE_MASK       0x1F    </span><span class="comment">/* lower 5 bits of CPSR */</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="preprocessor">#define ARM_MODE_USR        0x10    // User Mode</span>
+<a name="l00070"></a>00070 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_FIQ        0x11    // Fast Interrupt Mode</span>
+<a name="l00071"></a>00071 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_IRQ        0x12    // Interrupt Mode</span>
+<a name="l00072"></a>00072 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_SVC        0x13    // Supervisor Mode</span>
+<a name="l00073"></a>00073 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_ABT        0x17    // Abort Mode</span>
+<a name="l00074"></a>00074 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_UND        0x1B    // Unidentified Instruction Mode</span>
+<a name="l00075"></a>00075 <span class="preprocessor"></span><span class="preprocessor">#define ARM_MODE_SYS        0x1F    // System Mode (uses the same Stack as User Mode)</span>
+<a name="l00076"></a>00076 <span class="preprocessor"></span>
+<a name="l00077"></a>00077 <span class="preprocessor">#define ARM_CPSR_N_BIT      (1 &lt;&lt; 31)</span>
+<a name="l00078"></a>00078 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_Z_BIT      (1 &lt;&lt; 30)</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_C_BIT      (1 &lt;&lt; 29)</span>
+<a name="l00080"></a>00080 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_V_BIT      (1 &lt;&lt; 28)</span>
+<a name="l00081"></a>00081 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_I_BIT      (1 &lt;&lt; 7)</span>
+<a name="l00082"></a>00082 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_F_BIT      (1 &lt;&lt; 6)</span>
+<a name="l00083"></a>00083 <span class="preprocessor"></span><span class="preprocessor">#define ARM_CPSR_T_BIT      (1 &lt;&lt; 5)</span>
+<a name="l00084"></a>00084 <span class="preprocessor"></span>
+<a name="l00085"></a>00085 <span class="preprocessor">#define ARM_IRQ_DISABLE     (1 &lt;&lt; 7)    // when I bit is set, IRQ is disabled</span>
+<a name="l00086"></a>00086 <span class="preprocessor"></span><span class="preprocessor">#define ARM_FIQ_DISABLE     (1 &lt;&lt; 6)    // when F bit is set, FIQ is disabled</span>
+<a name="l00087"></a>00087 <span class="preprocessor"></span><span class="preprocessor">#define ARM_THUMB_ENABLE    (1 &lt;&lt; 5)    // when T bit is set, Thumb mode is enabled</span>
+<a name="l00088"></a>00088 <span class="preprocessor"></span>
+<a name="l00089"></a>00089 <span class="comment">// constant to pre-fill the stack</span>
+<a name="l00090"></a>00090 <span class="preprocessor">#define STACK_FILL          0xaaaaaaaa</span>
+<a name="l00091"></a>00091 <span class="preprocessor"></span><span class="preprocessor">#define MAGIC_MARKER        0xdeadbeef</span>
+<a name="l00092"></a>00092 <span class="preprocessor"></span>
+<a name="l00093"></a>00093 <span class="comment">// Registers</span>
+<a name="l00094"></a>00094 <span class="preprocessor">#if defined(__ARM_AT91__) || defined(__ARM_LPC2000__)</span>
+<a name="l00095"></a>00095 <span class="preprocessor"></span><span class="preprocessor">#   define INTERRUPT_BASE_REGISTER  0xFFFFF000</span>
+<a name="l00096"></a>00096 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Unknown device family: Check the value of VIC_BASE_REGISTER&quot;</span>
+<a name="l00098"></a>00098 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00099"></a>00099 <span class="preprocessor"></span>
+<a name="l00100"></a>00100 <span class="preprocessor">#endif  // XPCC__CONSTANTS_H</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -212,7 +210,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><a class="el" href="constants_8h.html">constants.h</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

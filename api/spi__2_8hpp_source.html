@@ -140,60 +140,72 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00038"></a>00038 <span class="preprocessor"></span>
 <a name="l00039"></a>00039 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
 <a name="l00040"></a>00040 <span class="preprocessor">#include &quot;../device.h&quot;</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">namespace </span>xpcc
-<a name="l00043"></a>00043 {
-<a name="l00044"></a>00044     <span class="keyword">namespace </span>stm32
-<a name="l00045"></a>00045     {
-<a name="l00060"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html">00060</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html" title="Serial peripheral interface (SPI2)">Spi2</a>
-<a name="l00061"></a>00061         {
-<a name="l00062"></a>00062         <span class="keyword">public</span>:
-<a name="l00063"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495c">00063</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495c">Mode</a>
-<a name="l00064"></a>00064             {
-<a name="l00065"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495cac19e157e501915289696b1cefe511c3e">00065</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495cac19e157e501915289696b1cefe511c3e" title="SCK normal, sample on rising edge.">MODE_0</a> = 0,                             
-<a name="l00066"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495ca81ea40ae6d10e7a553d4d5d748551f61">00066</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495ca81ea40ae6d10e7a553d4d5d748551f61" title="SCK normal, sample on falling edge.">MODE_1</a> = SPI_CR1_CPHA,                  
-<a name="l00067"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495ca4a4e567a29398c5c5e7aa373f9736729">00067</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495ca4a4e567a29398c5c5e7aa373f9736729" title="SCK inverted, sample on falling edge.">MODE_2</a> = SPI_CR1_CPOL,                  
-<a name="l00068"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495caf47a877920948a8e43e10a25a99eddd2">00068</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495caf47a877920948a8e43e10a25a99eddd2" title="SCK inverted, sample on rising edge.">MODE_3</a> = SPI_CR1_CPOL | SPI_CR1_CPHA,   
-<a name="l00069"></a>00069             };
-<a name="l00070"></a>00070             
-<a name="l00071"></a>00071             <span class="keyword">enum</span> Prescaler
-<a name="l00072"></a>00072             {
-<a name="l00073"></a>00073                 PRESCALER_2 = 0,
-<a name="l00074"></a>00074                 PRESCALER_4 = SPI_CR1_BR_0,
-<a name="l00075"></a>00075                 PRESCALER_8 = SPI_CR1_BR_1,
-<a name="l00076"></a>00076                 PRESCALER_16 = SPI_CR1_BR_1 | SPI_CR1_BR_0,
-<a name="l00077"></a>00077                 PRESCALER_32 = SPI_CR1_BR_2,
-<a name="l00078"></a>00078                 PRESCALER_64 = SPI_CR1_BR_2 | SPI_CR1_BR_0,
-<a name="l00079"></a>00079                 PRESCALER_128 = SPI_CR1_BR_2 | SPI_CR1_BR_1,
-<a name="l00080"></a>00080                 PRESCALER_256 = SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0,
-<a name="l00081"></a>00081             };
-<a name="l00082"></a>00082             
-<a name="l00083"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75c">00083</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75c">Mapping</a>
-<a name="l00084"></a>00084             {
-<a name="l00085"></a>00085 <span class="preprocessor">#if defined(STM32F2XX) || defined(STM32F4XX)</span>
-<a name="l00086"></a>00086 <span class="preprocessor"></span>                <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75cac8500a41a7e5eb8f70cbd0279dc445f6" title="SCK/PB13, MISO/PB14, MOSI/PB15, NSS/PB12.">REMAP_PB13_PB14_PB15</a>,   
-<a name="l00087"></a>00087                 
-<a name="l00088"></a>00088                 <span class="comment">// TODO PB9..15, PC2..3</span>
-<a name="l00089"></a>00089                 <span class="comment">//REMAP_PI1_PI2_PI3,        ///&lt; SCK/PI1, MISO/PI2, MOSI/PI3, NSS/PI0</span>
-<a name="l00090"></a>00090 <span class="preprocessor">#else</span>
-<a name="l00091"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75cac8500a41a7e5eb8f70cbd0279dc445f6">00091</a> <span class="preprocessor"></span>                <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75cac8500a41a7e5eb8f70cbd0279dc445f6" title="SCK/PB13, MISO/PB14, MOSI/PB15, NSS/PB12.">REMAP_PB13_PB14_PB15</a>,                           
-<a name="l00092"></a>00092 <span class="preprocessor">#endif</span>
-<a name="l00093"></a>00093 <span class="preprocessor"></span>            };
-<a name="l00094"></a>00094             
-<a name="l00101"></a>00101             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00102"></a>00102             <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a4d9f327f13812646b677bb0ac2edddd0" title="Configure the IO Pins for SPI2.">configurePins</a>(<a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a0a337f49f60f65cf3879571ac54ad75c">Mapping</a> mapping);
-<a name="l00103"></a>00103             
-<a name="l00104"></a>00104         <span class="keyword">public</span>:
-<a name="l00108"></a>00108             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00109"></a>00109             <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a895f88a982d72c94b389cba8a52196d1" title="Initialize SPI module.">initialize</a>(<a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495c">Mode</a> mode = <a class="code" href="classxpcc_1_1stm32_1_1_spi2.html#a7c04a89e0651657a886f2bc74fd5495cac19e157e501915289696b1cefe511c3e" title="SCK normal, sample on rising edge.">MODE_0</a>, Prescaler prescaler = PRESCALER_64);
-<a name="l00110"></a>00110             
-<a name="l00111"></a>00111             <span class="keyword">static</span> uint8_t
-<a name="l00112"></a>00112             write(uint8_t data);
-<a name="l00113"></a>00113         };
-<a name="l00114"></a>00114     }
-<a name="l00115"></a>00115 }
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117 <span class="preprocessor">#endif // XPCC_STM32__SPI_2_HPP</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/spi/spi_master.hpp&gt;</span>
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 <span class="keyword">namespace </span>xpcc
+<a name="l00044"></a>00044 {
+<a name="l00045"></a>00045     <span class="keyword">namespace </span>stm32
+<a name="l00046"></a>00046     {
+<a name="l00061"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html">00061</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html" title="Serial peripheral interface (SPI2)">SpiMaster2</a> : <span class="keyword">public</span> xpcc::<a class="code" href="classxpcc_1_1_spi_master.html" title="Interface of SPI Master.">SpiMaster</a>
+<a name="l00062"></a>00062         {
+<a name="l00063"></a>00063         <span class="keyword">public</span>:
+<a name="l00064"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5">00064</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5">Mode</a>
+<a name="l00065"></a>00065             {
+<a name="l00066"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5ab191e45e58ed48850db00968867f9a0d">00066</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5ab191e45e58ed48850db00968867f9a0d" title="SCK normal, sample on rising edge.">MODE_0</a> = 0,                             
+<a name="l00067"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5a0e0e5000772298c4dae979b19674d6e0">00067</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5a0e0e5000772298c4dae979b19674d6e0" title="SCK normal, sample on falling edge.">MODE_1</a> = SPI_CR1_CPHA,                  
+<a name="l00068"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5a051b1aba630712d350f83623cb8cda0b">00068</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5a051b1aba630712d350f83623cb8cda0b" title="SCK inverted, sample on falling edge.">MODE_2</a> = SPI_CR1_CPOL,                  
+<a name="l00069"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5ae4bc3c5862794f2c077ff17e9dee3064">00069</a>                 <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5ae4bc3c5862794f2c077ff17e9dee3064" title="SCK inverted, sample on rising edge.">MODE_3</a> = SPI_CR1_CPOL | SPI_CR1_CPHA,   
+<a name="l00070"></a>00070             };
+<a name="l00071"></a>00071             
+<a name="l00072"></a>00072             <span class="keyword">enum</span> Prescaler
+<a name="l00073"></a>00073             {
+<a name="l00074"></a>00074                 PRESCALER_2 = 0,
+<a name="l00075"></a>00075                 PRESCALER_4 = SPI_CR1_BR_0,
+<a name="l00076"></a>00076                 PRESCALER_8 = SPI_CR1_BR_1,
+<a name="l00077"></a>00077                 PRESCALER_16 = SPI_CR1_BR_1 | SPI_CR1_BR_0,
+<a name="l00078"></a>00078                 PRESCALER_32 = SPI_CR1_BR_2,
+<a name="l00079"></a>00079                 PRESCALER_64 = SPI_CR1_BR_2 | SPI_CR1_BR_0,
+<a name="l00080"></a>00080                 PRESCALER_128 = SPI_CR1_BR_2 | SPI_CR1_BR_1,
+<a name="l00081"></a>00081                 PRESCALER_256 = SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0,
+<a name="l00082"></a>00082             };
+<a name="l00083"></a>00083             
+<a name="l00084"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38">00084</a>             <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38">Mapping</a>
+<a name="l00085"></a>00085             {
+<a name="l00086"></a>00086 <span class="preprocessor">#if defined(STM32F2XX) || defined(STM32F4XX)</span>
+<a name="l00087"></a>00087 <span class="preprocessor"></span>                <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38affcb1491345e10dd58d51c2fbd5bc6db" title="SCK/PB13, MISO/PB14, MOSI/PB15, NSS/PB12.">REMAP_PB13_PB14_PB15</a>,   
+<a name="l00088"></a>00088                 
+<a name="l00089"></a>00089                 <span class="comment">// TODO PB9..15, PC2..3</span>
+<a name="l00090"></a>00090                 <span class="comment">//REMAP_PI1_PI2_PI3,        ///&lt; SCK/PI1, MISO/PI2, MOSI/PI3, NSS/PI0</span>
+<a name="l00091"></a>00091 <span class="preprocessor">#else</span>
+<a name="l00092"></a><a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38affcb1491345e10dd58d51c2fbd5bc6db">00092</a> <span class="preprocessor"></span>                <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38affcb1491345e10dd58d51c2fbd5bc6db" title="SCK/PB13, MISO/PB14, MOSI/PB15, NSS/PB12.">REMAP_PB13_PB14_PB15</a>,                           
+<a name="l00093"></a>00093 <span class="preprocessor">#endif</span>
+<a name="l00094"></a>00094 <span class="preprocessor"></span>            };
+<a name="l00095"></a>00095             
+<a name="l00102"></a>00102             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00103"></a>00103             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#ad0b774363c2cb3a7e25d9f0e0c32126f" title="Configure the IO Pins for SPI2.">configurePins</a>(<a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38">Mapping</a> mapping);
+<a name="l00104"></a>00104             
+<a name="l00105"></a>00105         <span class="keyword">public</span>:
+<a name="l00109"></a>00109             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00110"></a>00110             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a55116a3b7d1ab063441214d5d44ad144" title="Initialize SPI module.">initialize</a>(<a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5">Mode</a> mode = <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5ab191e45e58ed48850db00968867f9a0d" title="SCK normal, sample on rising edge.">MODE_0</a>, Prescaler prescaler = PRESCALER_64);
+<a name="l00111"></a>00111             
+<a name="l00112"></a>00112             <span class="keyword">static</span> uint8_t
+<a name="l00113"></a>00113             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a954edf00f517e7deed478155405e9d9a" title="initiates a SPI transfer and returns the received byte">write</a>(uint8_t data);
+<a name="l00114"></a>00114             
+<a name="l00115"></a>00115             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00116"></a>00116             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a74aca1a9497809dcffcc01632317686b" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
+<a name="l00117"></a>00117                       uint8_t* transmit=0, uint8_t* receive=0,
+<a name="l00118"></a>00118                       <span class="keywordtype">bool</span> transmitIncr=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receiveIncr=<span class="keyword">true</span>);
+<a name="l00119"></a>00119             
+<a name="l00120"></a>00120             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00121"></a>00121             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#a4c3485005216c8551d2d6522dc00716b" title="Request a transfer, not buffered, blocking if not using DMA.">transfer</a>(<span class="keywordtype">bool</span> send=<span class="keyword">true</span>, <span class="keywordtype">bool</span> receive=<span class="keyword">false</span>, <span class="keywordtype">bool</span> wait=<span class="keyword">true</span>);
+<a name="l00122"></a>00122             
+<a name="l00123"></a>00123             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00124"></a>00124             <a class="code" href="classxpcc_1_1stm32_1_1_spi_master2.html#abb5505b4c8a535d9184ca279ca682442">isFinished</a>();
+<a name="l00125"></a>00125         };
+<a name="l00126"></a>00126     }
+<a name="l00127"></a>00127 }
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129 <span class="preprocessor">#endif // XPCC_STM32__SPI_2_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -214,7 +226,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>spi_2.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

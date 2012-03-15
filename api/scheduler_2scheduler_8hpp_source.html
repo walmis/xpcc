@@ -127,88 +127,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__SCHEDULER_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__SCHEDULER_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
-<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor.hpp&gt;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;xpcc/architecture/driver/atomic/lock.hpp&gt;</span>     <span class="comment">// for Scheduler::scheduleInterrupt()</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">namespace </span>xpcc
-<a name="l00043"></a>00043 {
-<a name="l00060"></a><a class="code" href="classxpcc_1_1_scheduler.html">00060</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scheduler.html" title="Scheduler">Scheduler</a>
-<a name="l00061"></a>00061     {
-<a name="l00062"></a>00062     <span class="keyword">public</span>:
-<a name="l00063"></a>00063         <span class="keyword">typedef</span> uint8_t Priority;
-<a name="l00064"></a>00064         
-<a name="l00068"></a><a class="code" href="classxpcc_1_1_scheduler_1_1_task.html">00068</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>
-<a name="l00069"></a>00069         {
-<a name="l00070"></a>00070         <span class="keyword">public</span>:
-<a name="l00071"></a>00071             <span class="keyword">virtual</span> <span class="keywordtype">void</span>
-<a name="l00072"></a>00072             run() = 0;
-<a name="l00073"></a>00073         };
-<a name="l00074"></a>00074     
-<a name="l00075"></a>00075     <span class="keyword">public</span>:
-<a name="l00076"></a>00076         <a class="code" href="classxpcc_1_1_scheduler.html" title="Scheduler">Scheduler</a>();
-<a name="l00077"></a>00077         
-<a name="l00078"></a>00078         <span class="keywordtype">void</span>
-<a name="l00079"></a>00079         scheduleTask(<a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>&amp; task,
-<a name="l00080"></a>00080                      uint16_t period,
-<a name="l00081"></a>00081                      Priority priority = 127);
-<a name="l00082"></a>00082         
-<a name="l00083"></a>00083         <span class="comment">// TODO Implement this function</span>
-<a name="l00084"></a>00084         <span class="comment">/*bool</span>
-<a name="l00085"></a>00085 <span class="comment">        removeTask(const Task&amp; task);*/</span>
-<a name="l00086"></a>00086         
-<a name="l00087"></a>00087         <span class="keywordtype">void</span>
-<a name="l00088"></a>00088         schedule();
-<a name="l00089"></a>00089         
-<a name="l00090"></a>00090         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">void</span>
-<a name="l00091"></a>00091         scheduleInterupt();
-<a name="l00092"></a>00092         
-<a name="l00093"></a>00093     <span class="keyword">private</span>:
-<a name="l00094"></a>00094         <span class="keyword">struct </span>TaskListItem
-<a name="l00095"></a>00095         {
-<a name="l00096"></a>00096             TaskListItem(<a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>&amp; task,
-<a name="l00097"></a>00097                          uint16_t period,
-<a name="l00098"></a>00098                          Priority priority) :
-<a name="l00099"></a>00099                 nextTask(0), nextReady(0), task(task),
-<a name="l00100"></a>00100                 period(period), time(period), priority(priority),
-<a name="l00101"></a>00101                 state(WAITING)
-<a name="l00102"></a>00102             {
-<a name="l00103"></a>00103             }
-<a name="l00104"></a>00104             
-<a name="l00105"></a>00105             TaskListItem *nextTask;
-<a name="l00106"></a>00106             TaskListItem *nextReady;
-<a name="l00107"></a>00107             
-<a name="l00108"></a>00108             <a class="code" href="classxpcc_1_1_task.html" title="Interface for a state-machine.">Task</a>&amp; task;
-<a name="l00109"></a>00109             uint16_t period;
-<a name="l00110"></a>00110             uint16_t time;
-<a name="l00111"></a>00111             Priority priority;
-<a name="l00112"></a>00112             <span class="keyword">enum</span> {
-<a name="l00113"></a>00113                 RUNNING,
-<a name="l00114"></a>00114                 READY,
-<a name="l00115"></a>00115                 WAITING
-<a name="l00116"></a>00116             } state;
-<a name="l00117"></a>00117         };
-<a name="l00118"></a>00118         
-<a name="l00119"></a>00119         TaskListItem *taskList;
-<a name="l00120"></a>00120         TaskListItem *readyList;
-<a name="l00121"></a>00121         
-<a name="l00122"></a>00122         Priority currentPriority;
-<a name="l00123"></a>00123     };
-<a name="l00124"></a>00124 }
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__SCHEDULER_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__SCHEDULER_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/architecture/utils.hpp&gt;</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &lt;xpcc/architecture/driver/accessor.hpp&gt;</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;xpcc/architecture/driver/atomic/lock.hpp&gt;</span>     <span class="comment">// for Scheduler::scheduleInterrupt()</span>
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
+<a name="l00041"></a>00041 {
+<a name="l00058"></a><a class="code" href="classxpcc_1_1_scheduler.html">00058</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scheduler.html" title="Scheduler">Scheduler</a>
+<a name="l00059"></a>00059     {
+<a name="l00060"></a>00060     <span class="keyword">public</span>:
+<a name="l00061"></a>00061         <span class="keyword">typedef</span> uint8_t Priority;
+<a name="l00062"></a>00062         
+<a name="l00066"></a><a class="code" href="classxpcc_1_1_scheduler_1_1_task.html">00066</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>
+<a name="l00067"></a>00067         {
+<a name="l00068"></a>00068         <span class="keyword">public</span>:
+<a name="l00069"></a>00069             <span class="keyword">virtual</span> <span class="keywordtype">void</span>
+<a name="l00070"></a>00070             run() = 0;
+<a name="l00071"></a>00071         };
+<a name="l00072"></a>00072     
+<a name="l00073"></a>00073     <span class="keyword">public</span>:
+<a name="l00074"></a>00074         <a class="code" href="classxpcc_1_1_scheduler.html" title="Scheduler">Scheduler</a>();
+<a name="l00075"></a>00075         
+<a name="l00076"></a>00076         <span class="keywordtype">void</span>
+<a name="l00077"></a>00077         scheduleTask(<a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>&amp; task,
+<a name="l00078"></a>00078                      uint16_t period,
+<a name="l00079"></a>00079                      Priority priority = 127);
+<a name="l00080"></a>00080         
+<a name="l00081"></a>00081         <span class="comment">// TODO Implement this function</span>
+<a name="l00082"></a>00082         <span class="comment">/*bool</span>
+<a name="l00083"></a>00083 <span class="comment">        removeTask(const Task&amp; task);*/</span>
+<a name="l00084"></a>00084         
+<a name="l00085"></a>00085         <span class="keywordtype">void</span>
+<a name="l00086"></a>00086         schedule();
+<a name="l00087"></a>00087         
+<a name="l00088"></a>00088         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">void</span>
+<a name="l00089"></a>00089         scheduleInterupt();
+<a name="l00090"></a>00090         
+<a name="l00091"></a>00091     <span class="keyword">private</span>:
+<a name="l00092"></a>00092         <span class="keyword">struct </span>TaskListItem
+<a name="l00093"></a>00093         {
+<a name="l00094"></a>00094             TaskListItem(<a class="code" href="classxpcc_1_1_scheduler_1_1_task.html" title="Scheduler task">Task</a>&amp; task,
+<a name="l00095"></a>00095                          uint16_t period,
+<a name="l00096"></a>00096                          Priority priority) :
+<a name="l00097"></a>00097                 nextTask(0), nextReady(0), task(task),
+<a name="l00098"></a>00098                 period(period), time(period), priority(priority),
+<a name="l00099"></a>00099                 state(WAITING)
+<a name="l00100"></a>00100             {
+<a name="l00101"></a>00101             }
+<a name="l00102"></a>00102             
+<a name="l00103"></a>00103             TaskListItem *nextTask;
+<a name="l00104"></a>00104             TaskListItem *nextReady;
+<a name="l00105"></a>00105             
+<a name="l00106"></a>00106             <a class="code" href="classxpcc_1_1_task.html" title="Interface for a state-machine.">Task</a>&amp; task;
+<a name="l00107"></a>00107             uint16_t period;
+<a name="l00108"></a>00108             uint16_t time;
+<a name="l00109"></a>00109             Priority priority;
+<a name="l00110"></a>00110             <span class="keyword">enum</span> {
+<a name="l00111"></a>00111                 RUNNING,
+<a name="l00112"></a>00112                 READY,
+<a name="l00113"></a>00113                 WAITING
+<a name="l00114"></a>00114             } state;
+<a name="l00115"></a>00115         };
+<a name="l00116"></a>00116         
+<a name="l00117"></a>00117         TaskListItem *taskList;
+<a name="l00118"></a>00118         TaskListItem *readyList;
+<a name="l00119"></a>00119         
+<a name="l00120"></a>00120         Priority currentPriority;
+<a name="l00121"></a>00121     };
+<a name="l00122"></a>00122 }
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124 <span class="preprocessor">#include &quot;scheduler_impl.hpp&quot;</span>
 <a name="l00125"></a>00125 
-<a name="l00126"></a>00126 <span class="preprocessor">#include &quot;scheduler_impl.hpp&quot;</span>
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128 <span class="preprocessor">#endif // XPCC__SCHEDULER_HPP</span>
+<a name="l00126"></a>00126 <span class="preprocessor">#endif // XPCC__SCHEDULER_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -229,7 +227,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>scheduler.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

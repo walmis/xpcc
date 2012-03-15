@@ -127,56 +127,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id$</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC__TIMEOUT_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIMEOUT_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/architecture/driver/clock.hpp&gt;</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__TIMEOUT_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__TIMEOUT_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/architecture/driver/clock.hpp&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;timestamp.hpp&quot;</span>
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="preprocessor">#include &quot;timestamp.hpp&quot;</span>
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
-<a name="l00041"></a>00041 {
-<a name="l00069"></a>00069     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T = ::xpcc::Clock&gt;
-<a name="l00070"></a><a class="code" href="classxpcc_1_1_timeout.html">00070</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>
-<a name="l00071"></a>00071     {
-<a name="l00072"></a>00072     <span class="keyword">public</span>:
-<a name="l00073"></a>00073         <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>();
-<a name="l00074"></a>00074         
-<a name="l00078"></a>00078         <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> time);
-<a name="l00079"></a>00079         
-<a name="l00086"></a>00086         <span class="keywordtype">bool</span>
-<a name="l00087"></a>00087         <a class="code" href="classxpcc_1_1_timeout.html#aaf8a16d397a8ddc1aafef5d4cf1940de" title="Check if the given time has passed.">isExpired</a>();
-<a name="l00088"></a>00088         
-<a name="l00095"></a>00095         <span class="keyword">inline</span> <span class="keywordtype">bool</span>
-<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_timeout.html#a3e47ce819c41402e60fa4b70e0dec04f" title="Check if the timer was started and was not stopped.">isActive</a>() <span class="keyword">const</span>;
-<a name="l00097"></a>00097 
-<a name="l00103"></a>00103         <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00104"></a>00104         <a class="code" href="classxpcc_1_1_timeout.html#a1a1174a27e75a7d4ebb28631e049548a" title="Stop the timer.">stop</a>();
-<a name="l00105"></a>00105         
-<a name="l00109"></a>00109         <span class="keywordtype">void</span>
-<a name="l00110"></a>00110         <a class="code" href="classxpcc_1_1_timeout.html#ac81c5274545f4195f8ba8b95d41f3ba0" title="Set a new timeout value.">restart</a>(<a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> time);
-<a name="l00111"></a>00111         
-<a name="l00112"></a>00112     <span class="keyword">private</span>:
-<a name="l00113"></a>00113         <span class="keyword">enum</span> State
-<a name="l00114"></a>00114         {
-<a name="l00115"></a>00115             STOPPED,
-<a name="l00116"></a>00116             ACTIVE,
-<a name="l00117"></a>00117             EXPIRED
-<a name="l00118"></a>00118         };
-<a name="l00119"></a>00119         
-<a name="l00120"></a>00120         <a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> endTime;
-<a name="l00121"></a>00121         State state;
-<a name="l00122"></a>00122     };
-<a name="l00123"></a>00123 }
+<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
+<a name="l00039"></a>00039 {
+<a name="l00067"></a>00067     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T = ::xpcc::Clock&gt;
+<a name="l00068"></a><a class="code" href="classxpcc_1_1_timeout.html">00068</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>
+<a name="l00069"></a>00069     {
+<a name="l00070"></a>00070     <span class="keyword">public</span>:
+<a name="l00071"></a>00071         <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>();
+<a name="l00072"></a>00072         
+<a name="l00076"></a>00076         <a class="code" href="classxpcc_1_1_timeout.html" title="Software timer.">Timeout</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> time);
+<a name="l00077"></a>00077         
+<a name="l00084"></a>00084         <span class="keywordtype">bool</span>
+<a name="l00085"></a>00085         <a class="code" href="classxpcc_1_1_timeout.html#aaf8a16d397a8ddc1aafef5d4cf1940de" title="Check if the given time has passed.">isExpired</a>();
+<a name="l00086"></a>00086         
+<a name="l00093"></a>00093         <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00094"></a>00094         <a class="code" href="classxpcc_1_1_timeout.html#a3e47ce819c41402e60fa4b70e0dec04f" title="Check if the timer was started and was not stopped.">isActive</a>() <span class="keyword">const</span>;
+<a name="l00095"></a>00095 
+<a name="l00101"></a>00101         <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00102"></a>00102         <a class="code" href="classxpcc_1_1_timeout.html#a1a1174a27e75a7d4ebb28631e049548a" title="Stop the timer.">stop</a>();
+<a name="l00103"></a>00103         
+<a name="l00107"></a>00107         <span class="keywordtype">void</span>
+<a name="l00108"></a>00108         <a class="code" href="classxpcc_1_1_timeout.html#ac81c5274545f4195f8ba8b95d41f3ba0" title="Set a new timeout value.">restart</a>(<a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> time);
+<a name="l00109"></a>00109         
+<a name="l00110"></a>00110     <span class="keyword">private</span>:
+<a name="l00111"></a>00111         <span class="keyword">enum</span> State
+<a name="l00112"></a>00112         {
+<a name="l00113"></a>00113             STOPPED,
+<a name="l00114"></a>00114             ACTIVE,
+<a name="l00115"></a>00115             EXPIRED
+<a name="l00116"></a>00116         };
+<a name="l00117"></a>00117         
+<a name="l00118"></a>00118         <a class="code" href="classxpcc_1_1_timestamp.html" title="Simple 16-bit timestamp.">Timestamp</a> endTime;
+<a name="l00119"></a>00119         State state;
+<a name="l00120"></a>00120     };
+<a name="l00121"></a>00121 }
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 <span class="preprocessor">#include &quot;timeout_impl.hpp&quot;</span>
 <a name="l00124"></a>00124 
-<a name="l00125"></a>00125 <span class="preprocessor">#include &quot;timeout_impl.hpp&quot;</span>
-<a name="l00126"></a>00126 
-<a name="l00127"></a>00127 <span class="preprocessor">#endif // XPCC__TIMEOUT_HPP</span>
+<a name="l00125"></a>00125 <span class="preprocessor">#endif // XPCC__TIMEOUT_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -197,7 +195,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>timeout.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">
