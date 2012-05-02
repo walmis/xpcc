@@ -1,8 +1,10 @@
 var searchData=
 [
+  ['date',['Date',['../classxpcc_1_1_date.html',1,'xpcc']]],
   ['debounce',['Debounce',['../classxpcc_1_1filter_1_1_debounce.html',1,'xpcc::filter']]],
   ['debug',['Debug',['../classxpcc_1_1at91_1_1_debug.html',1,'xpcc::at91']]],
   ['defaultstyle',['DefaultStyle',['../classxpcc_1_1log_1_1_default_style.html',1,'xpcc::log']]],
+  ['delegate',['Delegate',['../classxpcc_1_1i2c_1_1_delegate.html',1,'xpcc::i2c']]],
   ['directory',['Directory',['../classxpcc_1_1fat_1_1_directory.html',1,'xpcc::fat']]],
   ['dispatcher',['Dispatcher',['../classxpcc_1_1_dispatcher.html',1,'xpcc']]],
   ['dmachannel0',['DmaChannel0',['../classxpcc_1_1atxmega_1_1_dma_channel0.html',1,'xpcc::atxmega']]],

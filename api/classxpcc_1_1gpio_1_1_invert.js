@@ -7,6 +7,5 @@ var classxpcc_1_1gpio_1_1_invert =
     [ "set", "classxpcc_1_1gpio_1_1_invert.html#a1186e432cde2d8a42a03e5b7480ece44", null ],
     [ "reset", "classxpcc_1_1gpio_1_1_invert.html#a25784574b1994d005b23bea84eead583", null ],
     [ "toggle", "classxpcc_1_1gpio_1_1_invert.html#a9c8979aa0e8dc109a8afd7837055c993", null ],
-    [ "read", "classxpcc_1_1gpio_1_1_invert.html#aa980f174f7898b740fea2da284841b3a", null ],
-    [ "pin", "classxpcc_1_1gpio_1_1_invert.html#a7a984d82beffd1e8c733a861e9bf6365", null ]
+    [ "read", "classxpcc_1_1gpio_1_1_invert.html#aa980f174f7898b740fea2da284841b3a", null ]
 ];

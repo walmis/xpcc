@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: gpio.hpp Source File</title>
+<title>xpcc: gpio.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -323,10 +324,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00241"></a>00241 <span class="preprocessor">        setOutput(::xpcc::stm32::OutputType out = ::xpcc::stm32::PUSH_PULL, \</span>
 <a name="l00242"></a>00242 <span class="preprocessor">                ::xpcc::stm32::OutputSpeed speed = ::xpcc::stm32::SPEED_50MHZ, \</span>
 <a name="l00243"></a>00243 <span class="preprocessor">                ::xpcc::stm32::PullType pull = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00244"></a>00244 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x1 &lt;&lt; (pin * 2)); \</span>
-<a name="l00245"></a>00245 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
-<a name="l00246"></a>00246 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
-<a name="l00247"></a>00247 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00244"></a>00244 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x1 &lt;&lt; (pin * 2)); \</span>
+<a name="l00245"></a>00245 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
+<a name="l00246"></a>00246 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
+<a name="l00247"></a>00247 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00248"></a>00248 <span class="preprocessor">        } \</span>
 <a name="l00249"></a>00249 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00250"></a>00250 <span class="preprocessor">        setAlternateFunction( \</span>
@@ -334,42 +335,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00252"></a>00252 <span class="preprocessor">                ::xpcc::stm32::OutputType out, \</span>
 <a name="l00253"></a>00253 <span class="preprocessor">                ::xpcc::stm32::OutputSpeed speed = ::xpcc::stm32::SPEED_50MHZ, \</span>
 <a name="l00254"></a>00254 <span class="preprocessor">                ::xpcc::stm32::PullType pull = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00255"></a>00255 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
-<a name="l00256"></a>00256 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;GPIO ## port ## _BASE, pin&gt;::setMode(alt); \</span>
-<a name="l00257"></a>00257 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
-<a name="l00258"></a>00258 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
-<a name="l00259"></a>00259 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00255"></a>00255 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
+<a name="l00256"></a>00256 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;CONCAT3(GPIO, port, _BASE), pin&gt;::setMode(alt); \</span>
+<a name="l00257"></a>00257 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
+<a name="l00258"></a>00258 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
+<a name="l00259"></a>00259 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00260"></a>00260 <span class="preprocessor">        } \</span>
 <a name="l00261"></a>00261 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00262"></a>00262 <span class="preprocessor">        setAlternateFunction( \</span>
 <a name="l00263"></a>00263 <span class="preprocessor">                ::xpcc::stm32::AlternateFunction alt, \</span>
 <a name="l00264"></a>00264 <span class="preprocessor">                ::xpcc::stm32::PullType pull) { \</span>
-<a name="l00265"></a>00265 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
-<a name="l00266"></a>00266 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;GPIO ## port ## _BASE, pin&gt;::setMode(alt); \</span>
-<a name="l00267"></a>00267 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | \</span>
+<a name="l00265"></a>00265 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
+<a name="l00266"></a>00266 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;CONCAT3(GPIO, port, _BASE), pin&gt;::setMode(alt); \</span>
+<a name="l00267"></a>00267 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | \</span>
 <a name="l00268"></a>00268 <span class="preprocessor">                (::xpcc::stm32::PUSH_PULL &lt;&lt; pin); \</span>
-<a name="l00269"></a>00269 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
+<a name="l00269"></a>00269 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
 <a name="l00270"></a>00270 <span class="preprocessor">                (::xpcc::stm32::SPEED_2MHZ &lt;&lt; (pin * 2)); \</span>
-<a name="l00271"></a>00271 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00271"></a>00271 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00272"></a>00272 <span class="preprocessor">        } \</span>
 <a name="l00273"></a>00273 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00274"></a>00274 <span class="preprocessor">        setInput(::xpcc::stm32::PullType type = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00275"></a>00275 <span class="preprocessor">            GPIO ## port-&gt;MODER &amp;= ~(0x3 &lt;&lt; (pin * 2)); \</span>
-<a name="l00276"></a>00276 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = \</span>
-<a name="l00277"></a>00277 <span class="preprocessor">                (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
+<a name="l00275"></a>00275 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER &amp;= ~(0x3 &lt;&lt; (pin * 2)); \</span>
+<a name="l00276"></a>00276 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = \</span>
+<a name="l00277"></a>00277 <span class="preprocessor">                (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
 <a name="l00278"></a>00278 <span class="preprocessor">                (type &lt;&lt; (pin * 2)); \</span>
 <a name="l00279"></a>00279 <span class="preprocessor">        } \</span>
 <a name="l00280"></a>00280 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00281"></a>00281 <span class="preprocessor">        setAnalogInput() { \</span>
-<a name="l00282"></a>00282 <span class="preprocessor">            GPIO ## port-&gt;MODER |= 0x3 &lt;&lt; (pin * 2); \</span>
+<a name="l00282"></a>00282 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER |= 0x3 &lt;&lt; (pin * 2); \</span>
 <a name="l00283"></a>00283 <span class="preprocessor">        } \</span>
-<a name="l00284"></a>00284 <span class="preprocessor">        ALWAYS_INLINE static void set() { GPIO ## port-&gt;BSRRL = (1 &lt;&lt; pin); } \</span>
-<a name="l00285"></a>00285 <span class="preprocessor">        ALWAYS_INLINE static void reset() { GPIO ## port-&gt;BSRRH = (1 &lt;&lt; pin); } \</span>
-<a name="l00286"></a>00286 <span class="preprocessor">        ALWAYS_INLINE static void toggle() { if (GPIO ## port-&gt;ODR &amp; (1 &lt;&lt; pin)) { reset(); } else { set(); } } \</span>
+<a name="l00284"></a>00284 <span class="preprocessor">        ALWAYS_INLINE static void set() { CONCAT(GPIO, port)-&gt;BSRRL = (1 &lt;&lt; pin); } \</span>
+<a name="l00285"></a>00285 <span class="preprocessor">        ALWAYS_INLINE static void reset() { CONCAT(GPIO, port)-&gt;BSRRH = (1 &lt;&lt; pin); } \</span>
+<a name="l00286"></a>00286 <span class="preprocessor">        ALWAYS_INLINE static void toggle() { if (CONCAT(GPIO, port)-&gt;ODR &amp; (1 &lt;&lt; pin)) { reset(); } else { set(); } } \</span>
 <a name="l00287"></a>00287 <span class="preprocessor">        ALWAYS_INLINE static void set(bool status) { if (status) { set(); } else { reset(); } } \</span>
 <a name="l00288"></a>00288 <span class="preprocessor">        \</span>
 <a name="l00289"></a>00289 <span class="preprocessor">        ALWAYS_INLINE static bool read() { \</span>
-<a name="l00290"></a>00290 <span class="preprocessor">            return GPIO ## port-&gt;IDR &amp; (1 &lt;&lt; pin); \</span>
+<a name="l00290"></a>00290 <span class="preprocessor">            return CONCAT(GPIO, port)-&gt;IDR &amp; (1 &lt;&lt; pin); \</span>
 <a name="l00291"></a>00291 <span class="preprocessor">        } \</span>
 <a name="l00292"></a>00292 <span class="preprocessor">    }</span>
 <a name="l00293"></a>00293 <span class="preprocessor"></span>
@@ -382,10 +383,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00326"></a>00326 <span class="preprocessor">        setOutput(::xpcc::stm32::OutputType out = ::xpcc::stm32::PUSH_PULL, \</span>
 <a name="l00327"></a>00327 <span class="preprocessor">                ::xpcc::stm32::OutputSpeed speed = ::xpcc::stm32::SPEED_50MHZ, \</span>
 <a name="l00328"></a>00328 <span class="preprocessor">                ::xpcc::stm32::PullType pull = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00329"></a>00329 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x1 &lt;&lt; (pin * 2)); \</span>
-<a name="l00330"></a>00330 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
-<a name="l00331"></a>00331 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
-<a name="l00332"></a>00332 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00329"></a>00329 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x1 &lt;&lt; (pin * 2)); \</span>
+<a name="l00330"></a>00330 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
+<a name="l00331"></a>00331 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
+<a name="l00332"></a>00332 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00333"></a>00333 <span class="preprocessor">        } \</span>
 <a name="l00334"></a>00334 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00335"></a>00335 <span class="preprocessor">        setAlternateFunction( \</span>
@@ -393,15 +394,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00337"></a>00337 <span class="preprocessor">                ::xpcc::stm32::OutputType out, \</span>
 <a name="l00338"></a>00338 <span class="preprocessor">                ::xpcc::stm32::OutputSpeed speed = ::xpcc::stm32::SPEED_50MHZ, \</span>
 <a name="l00339"></a>00339 <span class="preprocessor">                ::xpcc::stm32::PullType pull = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00340"></a>00340 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
-<a name="l00341"></a>00341 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;GPIO ## port ## _BASE, pin&gt;::setMode(alt); \</span>
-<a name="l00342"></a>00342 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
-<a name="l00343"></a>00343 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
-<a name="l00344"></a>00344 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00340"></a>00340 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
+<a name="l00341"></a>00341 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;CONCAT3(GPIO, port, _BASE), pin&gt;::setMode(alt); \</span>
+<a name="l00342"></a>00342 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | (out &lt;&lt; pin); \</span>
+<a name="l00343"></a>00343 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (speed &lt;&lt; (pin * 2)); \</span>
+<a name="l00344"></a>00344 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00345"></a>00345 <span class="preprocessor">        } \</span>
-<a name="l00346"></a>00346 <span class="preprocessor">        ALWAYS_INLINE static void set() { GPIO ## port-&gt;BSRRL = (1 &lt;&lt; pin); } \</span>
-<a name="l00347"></a>00347 <span class="preprocessor">        ALWAYS_INLINE static void reset() { GPIO ## port-&gt;BSRRH = (1 &lt;&lt; pin); } \</span>
-<a name="l00348"></a>00348 <span class="preprocessor">        ALWAYS_INLINE static void toggle() { if (GPIO ## port-&gt;ODR &amp; (1 &lt;&lt; pin)) { reset(); } else { set(); } } \</span>
+<a name="l00346"></a>00346 <span class="preprocessor">        ALWAYS_INLINE static void set() { CONCAT(GPIO, port)-&gt;BSRRL = (1 &lt;&lt; pin); } \</span>
+<a name="l00347"></a>00347 <span class="preprocessor">        ALWAYS_INLINE static void reset() { CONCAT(GPIO, port)-&gt;BSRRH = (1 &lt;&lt; pin); } \</span>
+<a name="l00348"></a>00348 <span class="preprocessor">        ALWAYS_INLINE static void toggle() { if (CONCAT(GPIO, port)-&gt;ODR &amp; (1 &lt;&lt; pin)) { reset(); } else { set(); } } \</span>
 <a name="l00349"></a>00349 <span class="preprocessor">        ALWAYS_INLINE static void set(bool status) { if (status) { set(); } else { reset(); } } \</span>
 <a name="l00350"></a>00350 <span class="preprocessor">    }</span>
 <a name="l00351"></a>00351 <span class="preprocessor"></span>
@@ -409,29 +410,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00375"></a>00375 <span class="preprocessor">    struct name { \</span>
 <a name="l00376"></a>00376 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00377"></a>00377 <span class="preprocessor">        setInput(::xpcc::stm32::PullType type = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00378"></a>00378 <span class="preprocessor">            GPIO ## port-&gt;MODER &amp;= ~(0x3 &lt;&lt; (pin * 2)); \</span>
-<a name="l00379"></a>00379 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = \</span>
-<a name="l00380"></a>00380 <span class="preprocessor">                (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
+<a name="l00378"></a>00378 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER &amp;= ~(0x3 &lt;&lt; (pin * 2)); \</span>
+<a name="l00379"></a>00379 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = \</span>
+<a name="l00380"></a>00380 <span class="preprocessor">                (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
 <a name="l00381"></a>00381 <span class="preprocessor">                (type &lt;&lt; (pin * 2)); \</span>
 <a name="l00382"></a>00382 <span class="preprocessor">        } \</span>
 <a name="l00383"></a>00383 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00384"></a>00384 <span class="preprocessor">        setAnalogInput() { \</span>
-<a name="l00385"></a>00385 <span class="preprocessor">            GPIO ## port-&gt;MODER |= 0x3 &lt;&lt; (pin * 2); \</span>
+<a name="l00385"></a>00385 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER |= 0x3 &lt;&lt; (pin * 2); \</span>
 <a name="l00386"></a>00386 <span class="preprocessor">        } \</span>
 <a name="l00387"></a>00387 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00388"></a>00388 <span class="preprocessor">        setAlternateFunction( \</span>
 <a name="l00389"></a>00389 <span class="preprocessor">                ::xpcc::stm32::AlternateFunction alt, \</span>
 <a name="l00390"></a>00390 <span class="preprocessor">                ::xpcc::stm32::PullType pull = ::xpcc::stm32::FLOATING) { \</span>
-<a name="l00391"></a>00391 <span class="preprocessor">            GPIO ## port-&gt;MODER = (GPIO ## port-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
-<a name="l00392"></a>00392 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;GPIO ## port ## _BASE, pin&gt;::setMode(alt); \</span>
-<a name="l00393"></a>00393 <span class="preprocessor">            GPIO ## port-&gt;OTYPER = (GPIO ## port-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | \</span>
+<a name="l00391"></a>00391 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;MODER = (CONCAT(GPIO, port)-&gt;MODER &amp; ~(0x3 &lt;&lt; (pin * 2))) | (0x2 &lt;&lt; (pin * 2)); \</span>
+<a name="l00392"></a>00392 <span class="preprocessor">            ::xpcc::stm32::AlternateMode&lt;CONCAT3(GPIO, port, _BASE), pin&gt;::setMode(alt); \</span>
+<a name="l00393"></a>00393 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OTYPER = (CONCAT(GPIO, port)-&gt;OTYPER &amp; ~(1 &lt;&lt; pin)) | \</span>
 <a name="l00394"></a>00394 <span class="preprocessor">                (::xpcc::stm32::PUSH_PULL &lt;&lt; pin); \</span>
-<a name="l00395"></a>00395 <span class="preprocessor">            GPIO ## port-&gt;OSPEEDR = (GPIO ## port-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
+<a name="l00395"></a>00395 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;OSPEEDR = (CONCAT(GPIO, port)-&gt;OSPEEDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | \</span>
 <a name="l00396"></a>00396 <span class="preprocessor">                (::xpcc::stm32::SPEED_2MHZ &lt;&lt; (pin * 2)); \</span>
-<a name="l00397"></a>00397 <span class="preprocessor">            GPIO ## port-&gt;PUPDR = (GPIO ## port-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
+<a name="l00397"></a>00397 <span class="preprocessor">            CONCAT(GPIO, port)-&gt;PUPDR = (CONCAT(GPIO, port)-&gt;PUPDR &amp; ~(0x3 &lt;&lt; (pin * 2))) | (pull &lt;&lt; (pin * 2)); \</span>
 <a name="l00398"></a>00398 <span class="preprocessor">        } \</span>
 <a name="l00399"></a>00399 <span class="preprocessor">        ALWAYS_INLINE static bool read() { \</span>
-<a name="l00400"></a>00400 <span class="preprocessor">            return GPIO ## port-&gt;IDR &amp; (1 &lt;&lt; pin); \</span>
+<a name="l00400"></a>00400 <span class="preprocessor">            return CONCAT(GPIO, port)-&gt;IDR &amp; (1 &lt;&lt; pin); \</span>
 <a name="l00401"></a>00401 <span class="preprocessor">        } \</span>
 <a name="l00402"></a>00402 <span class="preprocessor">    }</span>
 <a name="l00403"></a>00403 <span class="preprocessor"></span>
@@ -443,7 +444,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -456,7 +457,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>gpio.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: hcla12x5.hpp Source File</title>
+<title>xpcc: hcla12x5.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -127,46 +128,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: hcla12x5.hpp 738 2012-02-25 17:54:01Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_HCLA12X5_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_HCLA12X5_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/master.hpp&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00046"></a>00046     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> TwiMaster &gt;
-<a name="l00047"></a><a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html">00047</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html" title="Driver for the HCLA12X5 differential pressure sensor.">HCLA12X5</a> : <span class="keyword">public</span> xpcc::i2c::Delegate
-<a name="l00048"></a>00048     {
-<a name="l00049"></a>00049     <span class="keyword">public</span>:
-<a name="l00057"></a>00057         <a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html#ae329e922d144f09b2a3a9eb993d0af44" title="Constructor.">HCLA12X5</a>(uint8_t address=0x78);
-<a name="l00058"></a>00058         
-<a name="l00063"></a>00063         <span class="keywordtype">bool</span>
-<a name="l00064"></a>00064         <a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html#a849113e4134ef3f8717d51f27c68aa8a" title="read the pressure registers and buffer the results sets isNewDataAvailable() to true ...">readPressure</a>();
-<a name="l00065"></a>00065         
-<a name="l00071"></a>00071         <span class="keywordtype">bool</span>
-<a name="l00072"></a>00072         <a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html#a45bc96fe813480f467874122eddddbfb" title="true, when new data has been from the sensor and buffered, false, when the data has already been read...">isNewDataAvailable</a>();
-<a name="l00073"></a>00073         
-<a name="l00075"></a>00075         uint8_t*
-<a name="l00076"></a>00076         <a class="code" href="classxpcc_1_1_h_c_l_a12_x5.html#a9b2f49101d1215c1fea2d5ae42fb8dad">getData</a>();
-<a name="l00077"></a>00077         
-<a name="l00078"></a>00078     <span class="keyword">private</span>:
-<a name="l00083"></a>00083         <span class="keywordtype">void</span>
-<a name="l00084"></a>00084         twiCompletion(<span class="keyword">const</span> uint8_t *data, std::size_t index, <span class="keywordtype">bool</span> reading);
-<a name="l00085"></a>00085         
-<a name="l00086"></a>00086         <span class="keywordtype">bool</span> newData;
-<a name="l00087"></a>00087         uint8_t data[2];
-<a name="l00088"></a>00088         uint8_t deviceAddress;
-<a name="l00089"></a>00089     };
-<a name="l00090"></a>00090 }
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="preprocessor">#include &quot;hcla12x5_impl.hpp&quot;</span>
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094 <span class="preprocessor">#endif // XPCC_HCLA12X5_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_HCLA12X5_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_HCLA12X5_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/read_adapter.hpp&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00044"></a>00044     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> I2cMaster &gt;
+<a name="l00045"></a><a class="code" href="classxpcc_1_1_hcla12x5.html">00045</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_hcla12x5.html" title="Driver for the HCLA12X5 differential pressure sensor.">Hcla12x5</a>
+<a name="l00046"></a>00046     {
+<a name="l00047"></a>00047     <span class="keyword">public</span>:
+<a name="l00056"></a>00056         <a class="code" href="classxpcc_1_1_hcla12x5.html" title="Driver for the HCLA12X5 differential pressure sensor.">Hcla12x5</a>(uint8_t *data, uint8_t address=0x78)
+<a name="l00057"></a>00057         :   data(data), newData(<span class="keyword">false</span>);
+<a name="l00058"></a>00058         {
+<a name="l00059"></a><a class="code" href="classxpcc_1_1_hcla12x5.html#ac718af683e74cf09166fe54fb332725b">00059</a>             reader.initialize(address &lt;&lt; 1, data, 2);
+<a name="l00060"></a>00060         }
+<a name="l00061"></a>00061         
+<a name="l00066"></a>00066         <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00067"></a><a class="code" href="classxpcc_1_1_hcla12x5.html#a9fc39fa33c40765ea82f65e742fee491">00067</a>         <a class="code" href="classxpcc_1_1_hcla12x5.html#a9fc39fa33c40765ea82f65e742fee491" title="read the pressure registers and buffer the results sets isNewDataAvailable() to true ...">readPressure</a>()
+<a name="l00068"></a>00068         {
+<a name="l00069"></a>00069             <span class="keywordflow">if</span> (I2cMaster::start(&amp;reader)) {
+<a name="l00070"></a>00070                 newData = <span class="keyword">true</span>;
+<a name="l00071"></a>00071                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00072"></a>00072             }
+<a name="l00073"></a>00073             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00074"></a>00074         }
+<a name="l00075"></a>00075         
+<a name="l00079"></a>00079         <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00080"></a><a class="code" href="classxpcc_1_1_hcla12x5.html#a48f4a47724cba94fda5314dfd4658091">00080</a>         <a class="code" href="classxpcc_1_1_hcla12x5.html#a48f4a47724cba94fda5314dfd4658091" title="true, when new data has been read from the sensor">isNewDataAvailable</a>()
+<a name="l00081"></a>00081         {
+<a name="l00082"></a>00082             <span class="keywordflow">return</span> (newData &amp;&amp; reader.getState() == xpcc::i2c::ReadAdapter::NO_ERROR)
+<a name="l00083"></a>00083         }
+<a name="l00084"></a>00084         
+<a name="l00086"></a>00086         <span class="keyword">inline</span> uint8_t *
+<a name="l00087"></a><a class="code" href="classxpcc_1_1_hcla12x5.html#a1ce4d001c4469165c56ea8798c1b1047">00087</a>         <a class="code" href="classxpcc_1_1_hcla12x5.html#a1ce4d001c4469165c56ea8798c1b1047">getData</a>()
+<a name="l00088"></a>00088         {
+<a name="l00089"></a>00089             newData = <span class="keyword">false</span>;
+<a name="l00090"></a>00090             <span class="keywordflow">return</span> data;
+<a name="l00091"></a>00091         }
+<a name="l00092"></a>00092         
+<a name="l00093"></a>00093     <span class="keyword">private</span>:
+<a name="l00094"></a>00094         <a class="code" href="classxpcc_1_1i2c_1_1_read_adapter.html" title="This class is an implementation of xpcc::i2c::Delegate which, when passed to an i2c driver...">xpcc::i2c::ReadAdapter</a> reader;
+<a name="l00095"></a>00095         uint8_t *data;
+<a name="l00096"></a>00096         <span class="keywordtype">bool</span> newData;
+<a name="l00097"></a>00097     };
+<a name="l00098"></a>00098 }
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="preprocessor">#endif // XPCC_HCLA12X5_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -174,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -187,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>hcla12x5.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

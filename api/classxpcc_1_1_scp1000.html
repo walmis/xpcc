@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::Scp1000&lt; Spi, Cs, Int &gt; Class Template Reference</title>
+<title>xpcc: xpcc::Scp1000&lt; Spi, Cs, Int &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -100,7 +100,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xpcc::Scp1000&lt; Spi, Cs, Int &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__pressure.html">Pressure sensors</a></div></div>  </div>
@@ -114,58 +113,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><a href="classxpcc_1_1_scp1000-members.html">List of all members.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2">Register</a> { <br/>
-&#160;&#160;<b>REGISTER_REVID</b> =  0x00, 
-<b>REGISTER_DATAWR</b> =  0x01, 
-<b>REGISTER_ADDPTR</b> =  0x02, 
-<b>REGISTER_OPERATION</b> =  0x03, 
-<br/>
-&#160;&#160;<b>REGISTER_OPSTATUS</b> =  0x04, 
-<b>REGISTER_RSTR</b> =  0x06, 
-<b>REGISTER_STATUS</b> =  0x07, 
-<b>REGISTER_DATARD8</b> =  0x1F, 
-<br/>
-&#160;&#160;<b>REGISTER_DATARD16</b> =  0x20, 
-<b>REGISTER_TEMPOUT</b> =  0x21
-<br/>
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The addresses of the Direct Access Registers. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">Operation</a> { <br/>
-&#160;&#160;<b>OPERATION_NO_OPERATION</b> =  0x00, 
-<b>OPERATION_READ_REGISTER</b> =  0x01, 
-<b>OPERATION_WRITE_REGISTER</b> =  0x02, 
-<b>OPERATION_READ_EEPROM</b> =  0x05, 
-<br/>
-&#160;&#160;<b>OPERATION_WRITE_EEPROM</b> =  0x06, 
-<b>OPERATION_INIT_SEQUENCE</b> =  0x07, 
-<b>OPERATION_HIGH_RESOLUTION_MODE_START</b> =  0x0A, 
-<b>OPERATION_HIGH_SPEED_MODE_START</b> =  0x09, 
-<br/>
-&#160;&#160;<b>OPERATION_ULTRA_LOW_POWER_MODE_START</b> =  0x0B, 
-<b>OPERATION_LOW_POWER_AQUISITION</b> =  0x0C, 
-<b>OPERATION_ASIC_TEST</b> =  0x0F
-<br/>
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The operation options of REGISTER_OPERATION. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#a3e55a98de6cf4892a496fc13593faa7a">Status</a> { <b>STATUS_EXT_TRIGGERED_AQUISITION_RUNNING_bm</b> =  0x40, 
-<b>STATUS_DATA_READY_bm</b> =  0x20, 
-<b>STATUS_REAL_TIME_ERROR_bm</b> =  0x10, 
-<b>STATUS_STARTUP_RUNNING_bm</b> =  0x01
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The status bitmasks of REGISTER_STATUS. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#af24f5a2a198d08763ebd05237d57ced7">OperationStatus</a> { <b>OPERATION_STATUS_FINISHED</b> =  0x00, 
-<b>OPERATION_STATUS_RUNNING</b> =  0x01
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The status of REGISTER_OPSTATUS. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> { <b>NO_RESET</b> =  0x00, 
-<b>RESET</b> =  0x01
- }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#a79230651048d96058de9dcd59227c6d8">initialize</a> (<a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">Operation</a> opMode=OPERATION_HIGH_RESOLUTION_MODE_START)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets and initializes the chip to the new operation mode.  <a href="#a79230651048d96058de9dcd59227c6d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ad31cb9f20e9eea6eee11dfb6c0583925">initialize</a> (scp1000::Operation opMode=scp1000::OPERATION_HIGH_RESOLUTION_MODE_START)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets and initializes the chip to the new operation mode.  <a href="#ad31cb9f20e9eea6eee11dfb6c0583925"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae07a6c5fd97f681cfc5c6947685c613b"></a><!-- doxytag: member="xpcc::Scp1000::readTemperature" ref="ae07a6c5fd97f681cfc5c6947685c613b" args="()" -->
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ae07a6c5fd97f681cfc5c6947685c613b">readTemperature</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the temperature register and buffers the result sets isTemperatureAvailable() to <code>true</code>. <br/></td></tr>
@@ -175,8 +126,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a842559b74ac4832daf7237e43c1a4b6d"></a><!-- doxytag: member="xpcc::Scp1000::getTemperature" ref="a842559b74ac4832daf7237e43c1a4b6d" args="()" -->
 static uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getTemperature</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#afbaca9dedda4c723f80995860c910760">getPressure</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ab75b736ad402a0d77db961fe424ebf06">setOperation</a> (<a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">Operation</a> opMode)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the operation mode to REGISTER_OPERATION and waits until the operation completed (up to 16ms).  <a href="#ab75b736ad402a0d77db961fe424ebf06"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ac0dc1fb32e36000bcb48a93c572120bd">setOperation</a> (scp1000::Operation opMode)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the operation mode to REGISTER_OPERATION and waits until the operation completed (up to 16ms).  <a href="#ac0dc1fb32e36000bcb48a93c572120bd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#ab618da875ad24e841e158cdfe6bb96f8">readStatus</a> (bool opStatus=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_scp1000.html#a5a499c2f612904ce80022eacdecd1a04">reset</a> (uint8_t timeout)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the chip, waits 151ms, then starts checking the status register if the startup completed.  <a href="#a5a499c2f612904ce80022eacdecd1a04"></a><br/></td></tr>
@@ -208,19 +159,19 @@ Ultra Low Power :   ~1Hz  |  15bit   |   14bit
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scp1000_8hpp_source.html#l00076">76</a> of file <a class="el" href="scp1000_8hpp_source.html">scp1000.hpp</a>.</p>
+<p>Definition at line <a class="el" href="scp1000_8hpp_source.html#l00132">132</a> of file <a class="el" href="scp1000_8hpp_source.html">scp1000.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a79230651048d96058de9dcd59227c6d8"></a><!-- doxytag: member="xpcc::Scp1000::initialize" ref="a79230651048d96058de9dcd59227c6d8" args="(Operation opMode=OPERATION_HIGH_RESOLUTION_MODE_START)" -->
+<a class="anchor" id="ad31cb9f20e9eea6eee11dfb6c0583925"></a><!-- doxytag: member="xpcc::Scp1000::initialize" ref="ad31cb9f20e9eea6eee11dfb6c0583925" args="(scp1000::Operation opMode=scp1000::OPERATION_HIGH_RESOLUTION_MODE_START)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Spi , typename Cs , typename Int &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1_scp1000.html">xpcc::Scp1000</a>&lt; Spi, Cs, Int &gt;::<a class="el" href="classxpcc_1_1_scp1000.html#a79230651048d96058de9dcd59227c6d8">initialize</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1_scp1000.html">xpcc::Scp1000</a>&lt; Spi, Cs, Int &gt;::<a class="el" href="classxpcc_1_1_scp1000.html#ad31cb9f20e9eea6eee11dfb6c0583925">initialize</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">Operation</a>&#160;</td>
-          <td class="paramname"><em>opMode</em> = <code>OPERATION_HIGH_RESOLUTION_MODE_START</code></td><td>)</td>
+          <td class="paramtype">scp1000::Operation&#160;</td>
+          <td class="paramname"><em>opMode</em> = <code>scp1000::OPERATION_HIGH_RESOLUTION_MODE_START</code></td><td>)</td>
           <td><code> [static]</code></td>
         </tr>
       </table>
@@ -255,16 +206,16 @@ template&lt;typename Spi , typename Cs , typename Int &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ab75b736ad402a0d77db961fe424ebf06"></a><!-- doxytag: member="xpcc::Scp1000::setOperation" ref="ab75b736ad402a0d77db961fe424ebf06" args="(Operation opMode)" -->
+<a class="anchor" id="ac0dc1fb32e36000bcb48a93c572120bd"></a><!-- doxytag: member="xpcc::Scp1000::setOperation" ref="ac0dc1fb32e36000bcb48a93c572120bd" args="(scp1000::Operation opMode)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Spi , typename Cs , typename Int &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1_scp1000.html">xpcc::Scp1000</a>&lt; Spi, Cs, Int &gt;::<a class="el" href="classxpcc_1_1_scp1000.html#ab75b736ad402a0d77db961fe424ebf06">setOperation</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1_scp1000.html">xpcc::Scp1000</a>&lt; Spi, Cs, Int &gt;::<a class="el" href="classxpcc_1_1_scp1000.html#ac0dc1fb32e36000bcb48a93c572120bd">setOperation</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">Operation</a>&#160;</td>
+          <td class="paramtype">scp1000::Operation&#160;</td>
           <td class="paramname"><em>opMode</em></td><td>)</td>
           <td><code> [static]</code></td>
         </tr>
@@ -400,7 +351,7 @@ template&lt;typename Spi , typename Cs , typename Int &gt; </div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -414,7 +365,7 @@ template&lt;typename Spi , typename Cs , typename Int &gt; </div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_scp1000.html">Scp1000</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:03 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:39 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

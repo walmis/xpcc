@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::BMA180&lt; TwiMaster &gt; Class Template Reference</title>
+<title>XPCC: xpcc::BMA180&lt; I2cMaster &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">xpcc::BMA180&lt; TwiMaster &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__inertial.html">Inertial measurement</a></div></div>  </div>
+<div class="title">xpcc::BMA180&lt; I2cMaster &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__inertial.html">Inertial measurement</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="xpcc::BMA180" --><!-- doxytag: inherits="xpcc::i2c::Delegate" -->
@@ -111,11 +111,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="bma180_8hpp_source.html">xpcc/driver/inertial/bma180.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for xpcc::BMA180&lt; TwiMaster &gt;:</div>
+Inheritance diagram for xpcc::BMA180&lt; I2cMaster &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classxpcc_1_1_b_m_a180.png" usemap="#xpcc::BMA180&lt; TwiMaster &gt;_map" alt=""/>
-  <map id="xpcc::BMA180&lt; TwiMaster &gt;_map" name="xpcc::BMA180&lt; TwiMaster &gt;_map">
+  <img src="classxpcc_1_1_b_m_a180.png" usemap="#xpcc::BMA180&lt; I2cMaster &gt;_map" alt=""/>
+  <map id="xpcc::BMA180&lt; I2cMaster &gt;_map" name="xpcc::BMA180&lt; I2cMaster &gt;_map">
 <area href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation." alt="xpcc::i2c::Delegate" shape="rect" coords="0,0,176,24"/>
 </map>
  </div></div>
@@ -146,8 +146,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called during the interrupt at error occurance. <br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TwiMaster&gt;<br/>
-class xpcc::BMA180&lt; TwiMaster &gt;</h3>
+<div class="textblock"><h3>template&lt;typename I2cMaster&gt;<br/>
+class xpcc::BMA180&lt; I2cMaster &gt;</h3>
 
 <p>The <a class="el" href="classxpcc_1_1_b_m_a180.html" title="Basic BMA180 digital accelerometer sensor driver.">BMA180</a> is a 3-axis accelerometer with high resolution (14-bit) measurement at up to +-16 g. Digital output data is formatted as 16-bit twos complement and is accessible through I2C digital interface.</p>
 <p>The following LSB-values are valid: 1 LSB{ADC} = 0.25mg in 2g range; it scales with range 1 LSB{TEMP} = 0.5 degrees Celcius</p>
@@ -155,7 +155,7 @@ class xpcc::BMA180&lt; TwiMaster &gt;</h3>
 <dl class="author"><dt><b>Author:</b></dt><dd>Niklas Hauser</dd></dl>
 <dl class=""><dt><b>Template Parameters:</b></dt><dd>
   <table class="">
-    <tr><td class="paramname">TwiMaster</td><td>Asynchronous Two Wire interface </td></tr>
+    <tr><td class="paramname">I2cMaster</td><td>Asynchronous Two Wire interface </td></tr>
   </table>
   </dd>
 </dl>
@@ -166,10 +166,10 @@ class xpcc::BMA180&lt; TwiMaster &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html">BMA180</a> </td>
+          <td class="memname"><a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html">BMA180</a> </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>address</em> = <code>0x40</code></td><td>)</td>
@@ -192,10 +192,10 @@ template&lt;typename TwiMaster &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html#aaeb9d4daaaff2c10aad918ecdd1b4322">initialize</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html#aaeb9d4daaaff2c10aad918ecdd1b4322">initialize</a> </td>
           <td>(</td>
           <td class="paramtype">bma180::Range&#160;</td>
           <td class="paramname"><em>range</em> = <code>bma180::RANGE_3g_gc</code>, </td>
@@ -234,10 +234,10 @@ template&lt;typename TwiMaster &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html#aca6af8288bf09dde7fe488732e8f90a3">writeMaskedRegister</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_b_m_a180.html">xpcc::BMA180</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_b_m_a180.html#aca6af8288bf09dde7fe488732e8f90a3">writeMaskedRegister</a> </td>
           <td>(</td>
           <td class="paramtype">bma180::Register&#160;</td>
           <td class="paramname"><em>reg</em>, </td>

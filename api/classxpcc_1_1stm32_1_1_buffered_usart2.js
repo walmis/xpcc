@@ -1,9 +1,9 @@
 var classxpcc_1_1stm32_1_1_buffered_usart2 =
 [
     [ "Mapping", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a8841b28fbfa1a8dab680cb1ff25dbb69", null ],
-    [ "BufferedUsart2", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a6330c4c4e24a3246a96403f198b9e091", null ],
+    [ "BufferedUsart2", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a461ae50d036154015b68918ef80b9c67", null ],
     [ "configurePins", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a5251329b2a3b042ec85d9d13205a4863", null ],
-    [ "setBaudrate", "classxpcc_1_1stm32_1_1_buffered_usart2.html#aa260e354ea149784a9584fff1385a8c2", null ],
+    [ "setBaudrate", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a69b30ea6e85fc4af90ce2239695211e6", null ],
     [ "write", "classxpcc_1_1stm32_1_1_buffered_usart2.html#aba79ab637a72fbf5d542030868c44ee5", null ],
     [ "write", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a2bf497339be71550702780c962621062", null ],
     [ "read", "classxpcc_1_1stm32_1_1_buffered_usart2.html#a6c0078bcf945fab44ab33340b2f7b75b", null ],

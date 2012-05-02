@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: Modules</title>
+<title>xpcc: Modules</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -114,6 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="group__atxmega.html">XMEGA</a><ul>
 <li><a class="el" href="group__atxmega__adc.html">Analog/Digital Converter Module</a></li>
 <li><a class="el" href="group__atxmega__dma.html">Direct Memory Access Controller</a></li>
+<li><a class="el" href="group__atxmega__i2c.html">I2C Module</a></li>
 <li><a class="el" href="group__atxmega__spi.html">SPI Module</a></li>
 <li><a class="el" href="group__atxmega__timer.html">Timer/Counter Module</a></li>
 <li><a class="el" href="group__atxmega__uart.html">UART module</a></li>
@@ -126,7 +127,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 </li>
 <li><a class="el" href="group__cortex__m3.html">Cortex M3</a><ul>
-<li><a class="el" href="group__stm32.html">STM32Fxxx</a></li>
+<li><a class="el" href="group__stm32.html">STM32Fxxx</a><ul>
+<li><a class="el" href="group__stm32f1.html">STM32F10x</a></li>
+<li><a class="el" href="group__stm32f2__4.html">STM32F2xx and STM32F4xx</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="el" href="group__hosted.html">Hosted platforms (Linux/Windows/...)</a><ul>
@@ -160,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li><a class="el" href="group__i2c.html">(I2C) Inter-Integrated Circuit</a></li>
 <li><a class="el" href="group__wire.html">1-Wire</a></li>
-<li><a class="el" href="group__sab.html">(SAB) Sensor Actor Bus</a></li>
+<li><a class="el" href="group__sab.html">(SAB) Sensor Actuator Bus</a></li>
 <li><a class="el" href="group__spi.html">(SPI) Serial Peripheral Interface</a></li>
 </ul>
 </li>
@@ -209,7 +214,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -222,7 +227,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:14 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:44 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

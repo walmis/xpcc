@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: input_capture.hpp Source File</title>
+<title>xpcc: input_capture.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -141,61 +142,71 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040 <span class="preprocessor">#include &quot;timer.hpp&quot;</span>
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="preprocessor">#if !defined(HIRESD_CTRLA)</span>
-<a name="l00043"></a>00043 <span class="preprocessor"></span><span class="comment">// older versions of avr-libc provide false register names</span>
-<a name="l00044"></a>00044 <span class="preprocessor">#   define TC_EVACT_FRQ_gc      TC_EVACT_FRW_gc</span>
-<a name="l00045"></a>00045 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00046"></a>00046 <span class="preprocessor"></span>
-<a name="l00047"></a>00047 <span class="keyword">namespace </span>xpcc
-<a name="l00048"></a>00048 {
-<a name="l00049"></a>00049     <span class="keyword">namespace </span>atxmega
-<a name="l00050"></a>00050     {
-<a name="l00051"></a>00051         <span class="keyword">namespace </span>input_capture
-<a name="l00052"></a>00052         {
-<a name="l00053"></a>00053             <span class="keyword">enum</span> <a class="code" href="group__gpio.html#ga9e23fc3764157b7fdb10b023d8c9d5aa" title="Mode of an I/O-pin.">Mode</a>
-<a name="l00054"></a>00054             {
-<a name="l00055"></a>00055                 <a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">NORMAL</a> = TC_EVACT_CAPT_gc,
-<a name="l00056"></a>00056                 FREQUENCY = TC_EVACT_FRQ_gc,
-<a name="l00057"></a>00057                 PULSEWIDTH = TC_EVACT_PW_gc
-<a name="l00058"></a>00058             };
-<a name="l00059"></a>00059         }
-<a name="l00060"></a>00060         
-<a name="l00077"></a>00077         <span class="keyword">template</span> &lt; <span class="keyword">typename</span> TIMER,
-<a name="l00078"></a>00078                    <span class="keyword">typename</span> PIN &gt;
-<a name="l00079"></a><a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html">00079</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html" title="A generic Input Capture implementation.">InputCapture</a>
-<a name="l00080"></a>00080         {
-<a name="l00081"></a>00081         <span class="keyword">public</span>:
-<a name="l00105"></a>00105             <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00106"></a>00106             <a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html#a194a4b71feae19aed4706467c34b1357" title="Calculates all the settings to set up the Event System.">initialize</a>(register8_t&amp; eventChannel=EVSYS_CH0MUX,
-<a name="l00107"></a>00107                     TC_CLKSEL_t clock=TC_CLKSEL_DIV1024_gc,
-<a name="l00108"></a>00108                     input_capture::Mode action=<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">input_capture::NORMAL</a>,
-<a name="l00109"></a>00109                     <a class="code" href="group__atxmega__timer.html#ga0e75a6625624988be99b9dbfb3da06b1" title="Timer/Counter Channel definition.">timer::Channel</a> timerChannel=timer::CHANNELA,
-<a name="l00110"></a>00110                     Configuration pinConfig=<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">NORMAL</a>,
-<a name="l00111"></a>00111                     InputSense inputSense=RISING);
-<a name="l00112"></a>00112             
-<a name="l00113"></a>00113             <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00114"></a>00114             isDataAvailable();
-<a name="l00115"></a>00115             
-<a name="l00117"></a>00117             <span class="keyword">inline</span> <span class="keyword">static</span> uint16_t
-<a name="l00118"></a>00118             <a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html#a0a58bf35ea390872469e85776f40181c">getData</a>();
-<a name="l00119"></a>00119             
-<a name="l00120"></a>00120         <span class="keyword">private</span>:
-<a name="l00121"></a>00121             <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00122"></a>00122             captureData();
-<a name="l00123"></a>00123             
-<a name="l00124"></a>00124             <span class="keyword">static</span> TIMER timer;
-<a name="l00125"></a>00125             <span class="keyword">static</span> PIN pin;
-<a name="l00126"></a>00126             
-<a name="l00127"></a>00127             <span class="keyword">static</span> register16_t* captureRegister;
-<a name="l00128"></a>00128             <span class="keyword">static</span> uint16_t capture;
-<a name="l00129"></a>00129             <span class="keyword">static</span> <span class="keywordtype">bool</span> newData;
-<a name="l00130"></a>00130         };
-<a name="l00131"></a>00131     }
-<a name="l00132"></a>00132 }
-<a name="l00133"></a>00133 
-<a name="l00134"></a>00134 <span class="preprocessor">#include &quot;input_capture_impl.hpp&quot;</span>
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136 <span class="preprocessor">#endif // XPCC_ATXMEGA__TIMER_INPUT_CAPTURE_HPP</span>
+<a name="l00042"></a>00042 <span class="comment">// older versions of avr-libc provide false register names</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#if defined _AVR_ATxmega128A1_H_  || \</span>
+<a name="l00044"></a>00044 <span class="preprocessor">    defined _AVR_ATxmega128A3_H_  || \</span>
+<a name="l00045"></a>00045 <span class="preprocessor">    defined _AVR_ATxmega16A4_H_   || \</span>
+<a name="l00046"></a>00046 <span class="preprocessor">    defined _AVR_ATxmega16D4_H_   || \</span>
+<a name="l00047"></a>00047 <span class="preprocessor">    defined _AVR_ATxmega192A3_H_  || \</span>
+<a name="l00048"></a>00048 <span class="preprocessor">    defined _AVR_ATxmega256A3_H_  || \</span>
+<a name="l00049"></a>00049 <span class="preprocessor">    defined _AVR_ATxmega256A3B_H_ || \</span>
+<a name="l00050"></a>00050 <span class="preprocessor">    defined _AVR_ATxmega32A4_H_   || \</span>
+<a name="l00051"></a>00051 <span class="preprocessor">    defined _AVR_ATxmega32D4_H_   || \</span>
+<a name="l00052"></a>00052 <span class="preprocessor">    defined _AVR_ATxmega64A1_H_   || \</span>
+<a name="l00053"></a>00053 <span class="preprocessor">    defined _AVR_ATxmega64A3_H_</span>
+<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="preprocessor">#define TC_EVACT_FRQ_gc (0x05&lt;&lt;5)</span>
+<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00056"></a>00056 <span class="preprocessor"></span>
+<a name="l00057"></a>00057 <span class="keyword">namespace </span>xpcc
+<a name="l00058"></a>00058 {
+<a name="l00059"></a>00059     <span class="keyword">namespace </span>atxmega
+<a name="l00060"></a>00060     {
+<a name="l00061"></a>00061         <span class="keyword">namespace </span>input_capture
+<a name="l00062"></a>00062         {
+<a name="l00063"></a>00063             <span class="keyword">enum</span> <a class="code" href="group__gpio.html#ga9e23fc3764157b7fdb10b023d8c9d5aa" title="Mode of an I/O-pin.">Mode</a>
+<a name="l00064"></a>00064             {
+<a name="l00065"></a>00065                 <a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">NORMAL</a> = TC_EVACT_CAPT_gc,
+<a name="l00066"></a>00066                 FREQUENCY = TC_EVACT_FRQ_gc,
+<a name="l00067"></a>00067                 PULSEWIDTH = TC_EVACT_PW_gc
+<a name="l00068"></a>00068             };
+<a name="l00069"></a>00069         }
+<a name="l00070"></a>00070         
+<a name="l00087"></a>00087         <span class="keyword">template</span> &lt; <span class="keyword">typename</span> TIMER,
+<a name="l00088"></a>00088                    <span class="keyword">typename</span> PIN &gt;
+<a name="l00089"></a><a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html">00089</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html" title="A generic Input Capture implementation.">InputCapture</a>
+<a name="l00090"></a>00090         {
+<a name="l00091"></a>00091         <span class="keyword">public</span>:
+<a name="l00115"></a>00115             <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00116"></a>00116             <a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html#a194a4b71feae19aed4706467c34b1357" title="Calculates all the settings to set up the Event System.">initialize</a>(register8_t&amp; eventChannel=EVSYS_CH0MUX,
+<a name="l00117"></a>00117                     TC_CLKSEL_t clock=TC_CLKSEL_DIV1024_gc,
+<a name="l00118"></a>00118                     input_capture::Mode action=<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">input_capture::NORMAL</a>,
+<a name="l00119"></a>00119                     <a class="code" href="group__atxmega__timer.html#ga0e75a6625624988be99b9dbfb3da06b1" title="Timer/Counter Channel definition.">timer::Channel</a> timerChannel=timer::CHANNELA,
+<a name="l00120"></a>00120                     Configuration pinConfig=<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">NORMAL</a>,
+<a name="l00121"></a>00121                     InputSense inputSense=RISING);
+<a name="l00122"></a>00122             
+<a name="l00123"></a>00123             <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00124"></a>00124             isDataAvailable();
+<a name="l00125"></a>00125             
+<a name="l00127"></a>00127             <span class="keyword">inline</span> <span class="keyword">static</span> uint16_t
+<a name="l00128"></a>00128             <a class="code" href="classxpcc_1_1atxmega_1_1_input_capture.html#a0a58bf35ea390872469e85776f40181c">getData</a>();
+<a name="l00129"></a>00129             
+<a name="l00130"></a>00130         <span class="keyword">private</span>:
+<a name="l00131"></a>00131             <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00132"></a>00132             captureData();
+<a name="l00133"></a>00133             
+<a name="l00134"></a>00134             <span class="keyword">static</span> TIMER timer;
+<a name="l00135"></a>00135             <span class="keyword">static</span> PIN pin;
+<a name="l00136"></a>00136             
+<a name="l00137"></a>00137             <span class="keyword">static</span> register16_t* captureRegister;
+<a name="l00138"></a>00138             <span class="keyword">static</span> uint16_t capture;
+<a name="l00139"></a>00139             <span class="keyword">static</span> <span class="keywordtype">bool</span> newData;
+<a name="l00140"></a>00140         };
+<a name="l00141"></a>00141     }
+<a name="l00142"></a>00142 }
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 <span class="preprocessor">#include &quot;input_capture_impl.hpp&quot;</span>
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 <span class="preprocessor">#endif // XPCC_ATXMEGA__TIMER_INPUT_CAPTURE_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -203,7 +214,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -216,7 +227,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>input_capture.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

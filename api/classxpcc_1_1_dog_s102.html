@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::DogS102&lt; SPI, CS, A0, Reset, TopView &gt; Class Template Reference</title>
+<title>xpcc: xpcc::DogS102&lt; SPI, CS, A0, Reset, TopView &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -297,9 +297,10 @@ glcd::Color&#160;</td><td class="memItemRight" valign="bottom"><b>color</b></td>
 <div class="textblock"><h3>template&lt;typename SPI, typename CS, typename A0, typename Reset, bool TopView = false&gt;<br/>
 class xpcc::DogS102&lt; SPI, CS, A0, Reset, TopView &gt;</h3>
 
+<p>SPI needs to operate in Mode 3. Maximum SPI frequency is 33 MHz.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a href="http://www.lcd-module.de/eng/pdf/grafik/dogs102-6e.pdf">Datasheet</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00053">53</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
+<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00055">55</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a61ed2621e5902e68693b17897b5eb53b"></a><!-- doxytag: member="xpcc::DogS102::initialize" ref="a61ed2621e5902e68693b17897b5eb53b" args="()" -->
 <div class="memitem">
@@ -318,7 +319,7 @@ template&lt;typename SPI , typename CS , typename A0 , typename Reset , bool Top
 <div class="memdoc">
 <p>The display needs some time to initialize after power-up. You have to wait at least 50 ms until calling this method. </p>
 
-<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00063">63</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
+<p>Definition at line <a class="el" href="ea__dog_8hpp_source.html#l00065">65</a> of file <a class="el" href="ea__dog_8hpp_source.html">ea_dog.hpp</a>.</p>
 
 <p>References <a class="el" href="driver_2accessor_2flash_8hpp_source.html#l00167">xpcc::accessor::asFlash()</a>.</p>
 
@@ -759,7 +760,7 @@ template&lt;uint8_t Width, uint8_t Height&gt; </div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -773,7 +774,7 @@ template&lt;uint8_t Width, uint8_t Height&gt; </div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_dog_s102.html">DogS102</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:03 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:39 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

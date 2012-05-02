@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: timer_2.hpp Source File</title>
+<title>xpcc: timer_2.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -238,8 +239,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00163"></a>00163                 TIM2-&gt;ARR = overflow;
 <a name="l00164"></a>00164             }
 <a name="l00165"></a>00165             
-<a name="l00166"></a>00166             <span class="keyword">static</span> uint16_t
-<a name="l00167"></a>00167             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a7dd344a456ad84f9d867ccf92927327e" title="Set period in microseconds.">setPeriod</a>(uint32_t microseconds, <span class="keywordtype">bool</span> autoApply = <span class="keyword">true</span>);
+<a name="l00166"></a>00166             <span class="keyword">static</span> Value
+<a name="l00167"></a>00167             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a67f31171633ae8aa49638ea05edcb3d3" title="Set period in microseconds.">setPeriod</a>(uint32_t microseconds, <span class="keywordtype">bool</span> autoApply = <span class="keyword">true</span>);
 <a name="l00168"></a>00168             
 <a name="l00169"></a>00169             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
 <a name="l00170"></a><a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a0bde0123c048250734bdaf62119074d7">00170</a>             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a0bde0123c048250734bdaf62119074d7" title="Reset the counter, and update the prescaler and overflow values.">applyAndReset</a>()
@@ -294,15 +295,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00219"></a>00219             enableInterruptVector(<span class="keywordtype">bool</span> <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a4b3a41b8afbda098e144e53e9474344b" title="Enables the clock for the timer and resets all settings.">enable</a>, uint32_t priority);
 <a name="l00220"></a>00220             
 <a name="l00221"></a>00221             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00222"></a><a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#ae117e5f16a7daa4e30e7a1dd9086d301">00222</a>             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#ae117e5f16a7daa4e30e7a1dd9086d301" title="Enables interrupts.">enableInterrupt</a>(Interrupt interrupts)
+<a name="l00222"></a><a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a4499bf949f5eef538759d15cb0ed1c14">00222</a>             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#a4499bf949f5eef538759d15cb0ed1c14" title="Enables interrupts.">enableInterrupt</a>(Interrupt interrupt)
 <a name="l00223"></a>00223             {
-<a name="l00224"></a>00224                 TIM2-&gt;DIER |= interrupts;
+<a name="l00224"></a>00224                 TIM2-&gt;DIER |= interrupt;
 <a name="l00225"></a>00225             }
 <a name="l00226"></a>00226             
 <a name="l00227"></a>00227             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00228"></a><a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#acc7d28935bd876c4c736c33c3e9d7eab">00228</a>             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#acc7d28935bd876c4c736c33c3e9d7eab" title="Disables interrupts.">disableInterrupt</a>(Interrupt interrupts)
+<a name="l00228"></a><a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#aeb7e58bbe8e9b53ef6c6bbd5f147a792">00228</a>             <a class="code" href="classxpcc_1_1stm32_1_1_timer2.html#aeb7e58bbe8e9b53ef6c6bbd5f147a792" title="Disables interrupts.">disableInterrupt</a>(Interrupt interrupt)
 <a name="l00229"></a>00229             {
-<a name="l00230"></a>00230                 TIM2-&gt;DIER &amp;= ~interrupts;
+<a name="l00230"></a>00230                 TIM2-&gt;DIER &amp;= ~interrupt;
 <a name="l00231"></a>00231             }
 <a name="l00232"></a>00232             
 <a name="l00233"></a>00233             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
@@ -342,7 +343,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -355,7 +356,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>timer_2.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

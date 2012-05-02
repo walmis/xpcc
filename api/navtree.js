@@ -1,13 +1,13 @@
 var NAVTREE =
 [
-  [ "XPCC", "index.html", [
+  [ "xpcc", "index.html", [
     [ "Cross Platform Component Communication", "index.html", "index" ],
     [ "Related Pages", "pages.html", "pages" ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
+        [ "All", "namespacemembers.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ],
         [ "Enumerator", "namespacemembers_eval.html", null ]
@@ -23,12 +23,16 @@ var NAVTREE =
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
+        [ "Enumerator", "functions_eval.html", "functions_eval" ],
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", null, [
-      [ "File List", "files.html", "files" ]
+      [ "File List", "files.html", "files" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Defines", "globals_defs.html", null ]
+      ] ]
     ] ],
     [ "Directories", "dirs.html", "dirs" ]
   ] ]

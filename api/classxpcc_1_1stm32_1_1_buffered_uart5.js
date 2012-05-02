@@ -1,9 +1,9 @@
 var classxpcc_1_1stm32_1_1_buffered_uart5 =
 [
     [ "Mapping", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a4a7d27930d0203ab9565544af339c89c", null ],
-    [ "BufferedUart5", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a8c796481522297ceb58aac881d86bf6b", null ],
+    [ "BufferedUart5", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a174277854dca32c8f99e418605e45646", null ],
     [ "configurePins", "classxpcc_1_1stm32_1_1_buffered_uart5.html#aca932bff1bc3e75d33fa24ee6a0e93bd", null ],
-    [ "setBaudrate", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a732f1bc228e29bb23ef432a9d9773faa", null ],
+    [ "setBaudrate", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a5e162a5c84c734e98a4fd74e143fd3c2", null ],
     [ "write", "classxpcc_1_1stm32_1_1_buffered_uart5.html#afdf178907cd09e7fb9a2775f056fc49f", null ],
     [ "write", "classxpcc_1_1stm32_1_1_buffered_uart5.html#a1c79e31aeb0de31214d511dc0e8f735c", null ],
     [ "read", "classxpcc_1_1stm32_1_1_buffered_uart5.html#aa47b4f511f3d761520c5cc98086e9bc7", null ],

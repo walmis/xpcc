@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::stm32::GeneralPurposeTimer Class Reference</title>
+<title>xpcc: xpcc::stm32::GeneralPurposeTimer Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -207,8 +207,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO Description. <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a482d21f021449ce655cf7896cc8ae654">setMode</a> (<a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#ab1269983cd297b40c0d9a55a30c535f3">Mode</a> mode)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set operation mode of the timer.  <a href="#a482d21f021449ce655cf7896cc8ae654"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a639cd7ff7bc4f8511b83bb56057aa075">setMode</a> (<a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#ab1269983cd297b40c0d9a55a30c535f3">Mode</a> mode, SlaveMode slaveMode=SLAVE_DISABLED, SlaveModeTrigger slaveModeTrigger=(SlaveModeTrigger) 0)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set operation mode of the timer.  <a href="#a639cd7ff7bc4f8511b83bb56057aa075"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a64f98bd414bd5818e01261393d07532e">configureOutputChannel</a> (uint32_t channel, <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#adc6a9bfdf9839c351c0da0d922cda10a">OutputCompareMode</a> mode, uint16_t compareValue)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure output channel 1..4.  <a href="#a64f98bd414bd5818e01261393d07532e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a1f23ea760fb1f88692fba05da93a7e64">setCompareValue</a> (uint32_t channel, uint16_t value)</td></tr>
@@ -223,6 +223,9 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pause timer operation.  <a href="#a6e534ec8977606035bac89bd991bdcb5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#aae23bdbbbe86ea014a53e6c56e8478a5">start</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-enable timer operations.  <a href="#aae23bdbbbe86ea014a53e6c56e8478a5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f95704fd0c5a47dcceee0b0e66ffc99"></a><!-- doxytag: member="xpcc::stm32::GeneralPurposeTimer::setMode" ref="a0f95704fd0c5a47dcceee0b0e66ffc99" args="(Mode mode)" -->
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a0f95704fd0c5a47dcceee0b0e66ffc99">setMode</a> (<a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#ab1269983cd297b40c0d9a55a30c535f3">Mode</a> mode)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set operation mode of the timer. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a4d485e9ca489b9e47d006a1f4a93ee70">setPrescaler</a> (uint16_t prescaler)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set new prescaler.  <a href="#a4d485e9ca489b9e47d006a1f4a93ee70"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a3ffdac5556526b14a4085c89de003fce">setOverflow</a> (uint16_t overflow)</td></tr>
@@ -250,7 +253,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00242">242</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
+<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00244">244</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
 </div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="ab1269983cd297b40c0d9a55a30c535f3"></a><!-- doxytag: member="xpcc::stm32::GeneralPurposeTimer::Mode" ref="ab1269983cd297b40c0d9a55a30c535f3" args="" -->
 <div class="memitem">
@@ -278,7 +281,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 <p>Reimplemented from <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html">xpcc::stm32::BasicTimer</a>.</p>
 
-<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00293">293</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
+<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00295">295</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
 
 </div>
 </div>
@@ -308,7 +311,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00306">306</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
+<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00308">308</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
 
 </div>
 </div>
@@ -325,28 +328,42 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>(A channel with an odd number is paired with the next even numbered channel) It is possible to choose as trigger for the input capture functionality either the own timer input or the input associated with the paired channel.</p>
 <p>For working with Internal Triggers, TRC can also be selected. </p>
 
-<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00341">341</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
+<p>Definition at line <a class="el" href="timer__base_8hpp_source.html#l00343">343</a> of file <a class="el" href="timer__base_8hpp_source.html">timer_base.hpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a482d21f021449ce655cf7896cc8ae654"></a><!-- doxytag: member="xpcc::stm32::GeneralPurposeTimer::setMode" ref="a482d21f021449ce655cf7896cc8ae654" args="(Mode mode)" -->
+<a class="anchor" id="a639cd7ff7bc4f8511b83bb56057aa075"></a><!-- doxytag: member="xpcc::stm32::GeneralPurposeTimer::setMode" ref="a639cd7ff7bc4f8511b83bb56057aa075" args="(Mode mode, SlaveMode slaveMode=SLAVE_DISABLED, SlaveModeTrigger slaveModeTrigger=(SlaveModeTrigger) 0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a482d21f021449ce655cf7896cc8ae654">xpcc::stm32::GeneralPurposeTimer::setMode</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a639cd7ff7bc4f8511b83bb56057aa075">xpcc::stm32::GeneralPurposeTimer::setMode</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#ab1269983cd297b40c0d9a55a30c535f3">Mode</a>&#160;</td>
-          <td class="paramname"><em>mode</em></td><td>)</td>
-          <td><code> [static]</code></td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SlaveMode&#160;</td>
+          <td class="paramname"><em>slaveMode</em> = <code>SLAVE_DISABLED</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SlaveModeTrigger&#160;</td>
+          <td class="paramname"><em>slaveModeTrigger</em> = <code>(SlaveModeTrigger)&#160;0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>In Encoder mode the encoder channels A and B must be connected to channel 1 and 2 of the timer (e.g. TIM2_CH1 and TIM2_CH2). </p>
-
-<p>Reimplemented from <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a0f95704fd0c5a47dcceee0b0e66ffc99">xpcc::stm32::BasicTimer</a>.</p>
 
 </div>
 </div>
@@ -609,7 +626,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <dl class="return"><dt><b>Returns:</b></dt><dd>New overflow value.</dd></dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#ac431fac3752a2c0da270dca142d9d2d3" title="Reset the counter, and update the prescaler and overflow values.">applyAndReset()</a> </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a9fc79542a2b20a449e19b6f9fb238840">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#a7dd344a456ad84f9d867ccf92927327e">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a86463a8925c27944be429bfb1d9a0f5e">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#a980c054e7793b2a3fe4a40d8959c54b3">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a9a0b2b593cb0830a6df031a4dc5231f2">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#ab8303f4878c7fbd79a03be9fbba43ccb">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#ab6ee510f6869b55c6cbdc2b9d3cb63c7">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#ae83e0faae31cb00025e692a0d112333d">xpcc::stm32::Timer7</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a9fc79542a2b20a449e19b6f9fb238840">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#a67f31171633ae8aa49638ea05edcb3d3">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a324344eee72c6221eb99b70d917a04ab">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#a7787eed2387fe3f54da361b29c9132e9">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a53d3102b2b848e6d1ce2f0d259ef38a4">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#ab8303f4878c7fbd79a03be9fbba43ccb">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#ab6ee510f6869b55c6cbdc2b9d3cb63c7">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#ae83e0faae31cb00025e692a0d112333d">xpcc::stm32::Timer7</a>.</p>
 
 </div>
 </div>
@@ -685,13 +702,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>Don't forget to enable the Interrupt <a class="el" href="classxpcc_1_1_vector.html" title="Class for handling common point operations.">Vector</a>.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">interrupts</td><td>Interrupts to enable</td></tr>
+    <tr><td class="paramname">interrupt</td><td>Interrupts to enable</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a10d52ab3de123b0309e53c41ee131b03" title="Enables or disables the Interrupt Vector.">enableInterruptVector()</a> </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a1d4c539c22a696e56a3b07b440017145">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#ac0b4b2f42d71d3667c5b58ca2fc07fd5">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#ae117e5f16a7daa4e30e7a1dd9086d301">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a7fabca24e6947fb438c6a8d00929fb23">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#ac900d175b9f74ac2052ef51563280da0">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#af20a7658c9d5d470670d6492d064eba0">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a6220eeffde6abef182ff7fcc7a9993d1">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a787e52d14296e632e8c55014e27ed870">xpcc::stm32::Timer7</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a04b49924f1002777dca3a68c15deda2b">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#a01d0d1d8dcb3010517d8f95a9368d642">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#a4499bf949f5eef538759d15cb0ed1c14">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a714a2de1b43bb9f06c08e575a92ed3aa">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#a2132e74b216289fb3088b45ffb17a83b">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a9870caf07b3d83b8e945fd453996eb15">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a6220eeffde6abef182ff7fcc7a9993d1">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a787e52d14296e632e8c55014e27ed870">xpcc::stm32::Timer7</a>.</p>
 
 </div>
 </div>
@@ -711,12 +728,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">interrupts</td><td>Interrupts to disable </td></tr>
+    <tr><td class="paramname">interrupt</td><td>Interrupts to disable </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a5e1dc3c945586f6ca95dd747c5eafb25">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#a9b80684eebf4611812c8fde8a8fe2aa9">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#acc7d28935bd876c4c736c33c3e9d7eab">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a018980c4fe162fbef63d01fc681ff68d">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#af4f3854f74369b2a782b507919ee31b9">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a3c896d8ab42bd558b0a02bf40cd06276">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#af90a0cebf57505b671806722580d1c9e">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a45b5435821a480886b5a4289355ec026">xpcc::stm32::Timer7</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#af2fff7d75bbf7132e4bcdcb9f99a1069">xpcc::stm32::Timer1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#a98047a108f9a227a1c2ff9c7c4b609b7">xpcc::stm32::Timer8</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#aeb7e58bbe8e9b53ef6c6bbd5f147a792">xpcc::stm32::Timer2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#ae334d6ef1c45fc00e052bbe621a119df">xpcc::stm32::Timer5</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#ac149fe17802e167e12fafce4b3c64f12">xpcc::stm32::Timer3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a171f37dc8b67fddf0fe68bb491ea6310">xpcc::stm32::Timer4</a>, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#af90a0cebf57505b671806722580d1c9e">xpcc::stm32::Timer6</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a45b5435821a480886b5a4289355ec026">xpcc::stm32::Timer7</a>.</p>
 
 </div>
 </div>
@@ -782,7 +799,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -797,7 +814,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
       <li class="navelem"><b>stm32</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html">GeneralPurposeTimer</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:12 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:44 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

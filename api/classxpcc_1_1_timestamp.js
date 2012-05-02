@@ -1,5 +1,6 @@
 var classxpcc_1_1_timestamp =
 [
+    [ "Type", "classxpcc_1_1_timestamp.html#a9276c87772ca28e0fd63e2d620eedf0b", null ],
     [ "Timestamp", "classxpcc_1_1_timestamp.html#a5a2831f063c78ec29d65c72236f1963a", null ],
     [ "getTime", "classxpcc_1_1_timestamp.html#a27fec096198fe58e3bcb5cf0d345d802", null ],
     [ "operator+", "classxpcc_1_1_timestamp.html#ace163521f5683c2a9c90026591cd61d6", null ],

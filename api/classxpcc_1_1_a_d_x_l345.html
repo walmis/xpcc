@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::ADXL345&lt; TwiMaster &gt; Class Template Reference</title>
+<title>XPCC: xpcc::ADXL345&lt; I2cMaster &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">xpcc::ADXL345&lt; TwiMaster &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__inertial.html">Inertial measurement</a></div></div>  </div>
+<div class="title">xpcc::ADXL345&lt; I2cMaster &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__inertial.html">Inertial measurement</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="xpcc::ADXL345" --><!-- doxytag: inherits="xpcc::i2c::Delegate" -->
@@ -111,11 +111,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="adxl345_8hpp_source.html">xpcc/driver/inertial/adxl345.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for xpcc::ADXL345&lt; TwiMaster &gt;:</div>
+Inheritance diagram for xpcc::ADXL345&lt; I2cMaster &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classxpcc_1_1_a_d_x_l345.png" usemap="#xpcc::ADXL345&lt; TwiMaster &gt;_map" alt=""/>
-  <map id="xpcc::ADXL345&lt; TwiMaster &gt;_map" name="xpcc::ADXL345&lt; TwiMaster &gt;_map">
+  <img src="classxpcc_1_1_a_d_x_l345.png" usemap="#xpcc::ADXL345&lt; I2cMaster &gt;_map" alt=""/>
+  <map id="xpcc::ADXL345&lt; I2cMaster &gt;_map" name="xpcc::ADXL345&lt; I2cMaster &gt;_map">
 <area href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation." alt="xpcc::i2c::Delegate" shape="rect" coords="0,0,182,24"/>
 </map>
  </div></div>
@@ -143,8 +143,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called during the interrupt at error occurance. <br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TwiMaster&gt;<br/>
-class xpcc::ADXL345&lt; TwiMaster &gt;</h3>
+<div class="textblock"><h3>template&lt;typename I2cMaster&gt;<br/>
+class xpcc::ADXL345&lt; I2cMaster &gt;</h3>
 
 <p>The <a class="el" href="classxpcc_1_1_a_d_x_l345.html" title="Basic ADXL345 digital accelerometer sensor driver.">ADXL345</a> is a 3-axis accelerometer with high resolution (13-bit) measurement at up to +-16 g. Digital output data is formatted as 16-bit twos complement and is accessible through I2C digital interface.</p>
 <p>Its high resolution (4 mg/LSB) enables measurement of inclination changes less than 1.0 degree. Several special sensing functions are provided. Activity and inactivity sensing detect the presence or lack of motion and if the acceleration on any axis exceeds a user-set level. Tap sensing detects single and double taps. Free-fall sensing detects if the device is falling. These functions can be mapped to one of two interrupt output pins. An integrated 32-level first in, first out (FIFO) buffer can be used to store data to minimize host processor intervention. Low power modes enable intelligent motion-based power management with threshold sensing and active acceleration measurement at extremely low power dissipation.</p>
@@ -152,7 +152,7 @@ class xpcc::ADXL345&lt; TwiMaster &gt;</h3>
 <dl class="author"><dt><b>Author:</b></dt><dd>Niklas Hauser</dd></dl>
 <dl class=""><dt><b>Template Parameters:</b></dt><dd>
   <table class="">
-    <tr><td class="paramname">TwiMaster</td><td>Asynchronous Two Wire interface </td></tr>
+    <tr><td class="paramname">I2cMaster</td><td>Asynchronous Two Wire interface </td></tr>
   </table>
   </dd>
 </dl>
@@ -163,10 +163,10 @@ class xpcc::ADXL345&lt; TwiMaster &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html">ADXL345</a> </td>
+          <td class="memname"><a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html">ADXL345</a> </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>address</em> = <code>0x1d</code></td><td>)</td>
@@ -189,10 +189,10 @@ template&lt;typename TwiMaster &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t* <a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html#a5c44d4c9b3a7c845a038204c504b624f">getData</a> </td>
+          <td class="memname">uint8_t* <a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html#a5c44d4c9b3a7c845a038204c504b624f">getData</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -208,10 +208,10 @@ template&lt;typename TwiMaster &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TwiMaster &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; TwiMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html#a57a3113e40a73f56d4792675ee5ce510">isDataReady</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_a_d_x_l345.html">xpcc::ADXL345</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_a_d_x_l345.html#a57a3113e40a73f56d4792675ee5ce510">isDataReady</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

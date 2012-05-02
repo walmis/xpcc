@@ -1,11 +1,14 @@
 var classxpcc_1_1_ds1631 =
 [
-    [ "Ds1631", "classxpcc_1_1_ds1631.html#aa31f290749da2fe929e9c36dd0595860", null ],
-    [ "configure", "classxpcc_1_1_ds1631.html#a752adf820ac17b96b0ffbe60e5f4b2bd", null ],
-    [ "reset", "classxpcc_1_1_ds1631.html#a60dc38ea477e0d7676923b098c891766", null ],
-    [ "startConversion", "classxpcc_1_1_ds1631.html#a4da884d5890f858925f8ded7803656b0", null ],
-    [ "stopConversion", "classxpcc_1_1_ds1631.html#abe7588078bac81fc2dc27d09de36dd8e", null ],
-    [ "isConversionDone", "classxpcc_1_1_ds1631.html#a283e0bd2c965fe879c4d8e5ded2c9c75", null ],
-    [ "readTemperature", "classxpcc_1_1_ds1631.html#a46cb6e4fbb2c93e7a648e9054628a8e4", null ],
-    [ "isAvailable", "classxpcc_1_1_ds1631.html#aaae609d6c7d390c4ca98881aedbe3ce4", null ]
+    [ "Ds1631", "classxpcc_1_1_ds1631.html#acf7e0435650ee5973ee6a94eb13edc1b", null ],
+    [ "configure", "classxpcc_1_1_ds1631.html#ab991bb3c9b2458e6d6fcf4a3c72e4b24", null ],
+    [ "startConversion", "classxpcc_1_1_ds1631.html#a5052392b189564ae7d00cd76c56fbedd", null ],
+    [ "stopConversion", "classxpcc_1_1_ds1631.html#a6e986c2a4dce00bc8dc9e6bca2759fc2", null ],
+    [ "isConversionDone", "classxpcc_1_1_ds1631.html#ab7f97ea74eea31ebcb5bf76ed49bcae6", null ],
+    [ "readTemperature", "classxpcc_1_1_ds1631.html#a1914fea85409ac70c13c9e08fa1c8117", null ],
+    [ "isNewDataAvailable", "classxpcc_1_1_ds1631.html#a04dc6aeeeeefdffd935e622a05665125", null ],
+    [ "getData", "classxpcc_1_1_ds1631.html#ad6cf43efc6d305d41cba588821c7bf2e", null ],
+    [ "reset", "classxpcc_1_1_ds1631.html#a40d2f301351004d4531ad5a10c0ff32f", null ],
+    [ "update", "classxpcc_1_1_ds1631.html#a93061d139227ebb0fa08aff0049fd823", null ],
+    [ "getTemperature", "classxpcc_1_1_ds1631.html#a5ff19b09c87cf7e679e99e64d665825d", null ]
 ];

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: device.h Source File</title>
+<title>xpcc: device.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -133,15 +134,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 <span class="preprocessor">#ifndef STM32__DEVICE_H</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define STM32__DEVICE_H</span>
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="preprocessor">#if defined(STM32F2XX)</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f2xx.h&gt;</span>
-<a name="l00036"></a>00036 <span class="preprocessor">#elif defined(STM32F4XX)</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f4xx.h&gt;</span>
-<a name="l00038"></a>00038 <span class="preprocessor">#else</span>
-<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f10x.h&gt;</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#endif</span>
-<a name="l00041"></a>00041 <span class="preprocessor"></span>
-<a name="l00042"></a>00042 <span class="preprocessor">#endif // STM32__DEVICE_H</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#if !defined(STM32F4XX) &amp;&amp; !defined(STM32F2XX) &amp;&amp; \</span>
+<a name="l00035"></a>00035 <span class="preprocessor">    !defined(STM32F10X_CL) &amp;&amp; \</span>
+<a name="l00036"></a>00036 <span class="preprocessor">    !defined(STM32F10X_LD) &amp;&amp; !defined(STM32F10X_MD) &amp;&amp; !defined(STM32F10X_HD) &amp;&amp; !defined(STM32F10X_XL) &amp;&amp; \</span>
+<a name="l00037"></a>00037 <span class="preprocessor">    !defined(STM32F10X_LD_VL) &amp;&amp; !defined(STM32F10X_MD_VL) &amp;&amp; !defined (STM32F10X_HD_VL) </span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Please select the target STM32F??X device used in your application (in the stm32f??x.h file)&quot;</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>
+<a name="l00041"></a>00041 <span class="preprocessor">#if defined(STM32F2XX)</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f2xx.h&gt;</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#elif defined(STM32F4XX)</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f4xx.h&gt;</span>
+<a name="l00045"></a>00045 <span class="preprocessor">#else</span>
+<a name="l00046"></a>00046 <span class="preprocessor"></span><span class="preprocessor">#   include &lt;stm32f10x.h&gt;</span>
+<a name="l00047"></a>00047 <span class="preprocessor">#endif</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span>
+<a name="l00059"></a>00059 <span class="preprocessor">#endif // STM32__DEVICE_H</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -149,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -162,7 +170,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>device.h</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

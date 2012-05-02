@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: adxl345.hpp Source File</title>
+<title>xpcc: adxl345.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -133,154 +134,160 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC__ADXL345_HPP</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC__ADXL345_HPP</span>
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/sync_master.hpp&gt;</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/driver/connectivity/i2c/write_read_adapter.hpp&gt;</span>
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
 <a name="l00037"></a>00037 {
-<a name="l00067"></a>00067     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> I2C &gt;
-<a name="l00068"></a><a class="code" href="classxpcc_1_1_adxl345.html">00068</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_adxl345.html" title="Basic ADXL345 digital accelerometer sensor driver.">Adxl345</a>
-<a name="l00069"></a>00069     {
-<a name="l00070"></a>00070     <span class="keyword">public</span>:
-<a name="l00072"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647">00072</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647" title="The addresses of the Configuration and Data Registers.">Register</a>
-<a name="l00073"></a>00073         {
-<a name="l00074"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ab15aae9d95ac04428d783d43e20b0380">00074</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ab15aae9d95ac04428d783d43e20b0380" title="Device ID 0xE5.">REGISTER_DEVID</a> = 0x00,          
-<a name="l00075"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647aba83497bf767661a2775704e30edba22">00075</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647aba83497bf767661a2775704e30edba22" title="Tap threshold.">REGISTER_THRESH_TAP</a> = 0x1D,     
-<a name="l00076"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a0dd849c49591b553ef482977fce6a229">00076</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a0dd849c49591b553ef482977fce6a229" title="X-axis offset.">REGISTER_OFSX</a> = 0x1E,           
-<a name="l00077"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ad60196438edd72fac157686741077316">00077</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ad60196438edd72fac157686741077316" title="Y-axis offset.">REGISTER_OFSY</a> = 0x1F,           
-<a name="l00078"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a27c70011e710a49130fa38b79ea457ef">00078</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a27c70011e710a49130fa38b79ea457ef" title="Z-axis offset.">REGISTER_OFSZ</a> = 0x20,           
-<a name="l00079"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a295cfda671b76abeb0d4d3a8ef0df796">00079</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a295cfda671b76abeb0d4d3a8ef0df796" title="Tap duration.">REGISTER_DUR</a> = 0x21,            
-<a name="l00080"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a81e6c15fce829592bff9c770b5f482e3">00080</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a81e6c15fce829592bff9c770b5f482e3" title="Tap latency.">REGISTER_LATENT</a> = 0x22,         
-<a name="l00081"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac4295e3fe6f6795e46489973ce5dddd7">00081</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac4295e3fe6f6795e46489973ce5dddd7" title="Tap window.">REGISTER_WINDOW</a> = 0x23,         
-<a name="l00082"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a55176ba88020b1fa88364119981bf2eb">00082</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a55176ba88020b1fa88364119981bf2eb" title="Activity threshold.">REGISTER_THRESH_ACT</a> = 0x24,     
-<a name="l00083"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ae1a0caeee5ca59f808045b8cc0e2114d">00083</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ae1a0caeee5ca59f808045b8cc0e2114d" title="Inactivity threshold.">REGISTER_THRESH_INACT</a> = 0x25,   
-<a name="l00084"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac729f33bd5f8aad1ae4563514ce75192">00084</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac729f33bd5f8aad1ae4563514ce75192" title="Inactivity time.">REGISTER_TIME_INACT</a> = 0x26,     
-<a name="l00085"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647afec0759ada1c0f3f5e3290aae1b83ffd">00085</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647afec0759ada1c0f3f5e3290aae1b83ffd" title="Axix enable control for activity and inactivity detection.">REGISTER_ACT_INACT_CTL</a> = 0x27,  
-<a name="l00086"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647af3f12db867a2be60355bdfdb718a8132">00086</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647af3f12db867a2be60355bdfdb718a8132" title="Free-fall threshold.">REGISTER_THRESH_FF</a> = 0x28,      
-<a name="l00087"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a7e79dca68ad9f237f9a2dc97d8186058">00087</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a7e79dca68ad9f237f9a2dc97d8186058" title="Free-fall time.">REGISTER_TIME_FF</a> = 0x29,        
-<a name="l00088"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a202dbf84bac792647d3bbbd353da062d">00088</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a202dbf84bac792647d3bbbd353da062d" title="Axis control for tap/double tap.">REGISTER_TAP_AXES</a> = 0x2A,       
-<a name="l00089"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a915c603009749d322af4498e78e97e15">00089</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a915c603009749d322af4498e78e97e15" title="Source of tap/double tap.">REGISTER_ACT_TAP_STATUS</a> = 0x2B, 
-<a name="l00090"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647acb6edcec70a01f7e1238414369f91653">00090</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647acb6edcec70a01f7e1238414369f91653" title="Date rate and power control.">REGISTER_BW_RATE</a> = 0x2C,        
-<a name="l00091"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a253dde3d41862bcdec8965bad1b0f7a0">00091</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a253dde3d41862bcdec8965bad1b0f7a0" title="Power-saving features control.">REGISTER_POWER_CTL</a> = 0x2D,      
-<a name="l00092"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a1d690a6ca8d02713b6b3a1295e53fa07">00092</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a1d690a6ca8d02713b6b3a1295e53fa07" title="Interrupt enable control.">REGISTER_INT_ENABLE</a> = 0x2E,     
-<a name="l00093"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a11495d0a8e428e6752deabcb61f82199">00093</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a11495d0a8e428e6752deabcb61f82199" title="Interrupt mapping control.">REGISTER_INT_MAP</a> = 0x2F,        
-<a name="l00094"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a6a76995f4cdb46c4ad4da39a8be365d6">00094</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a6a76995f4cdb46c4ad4da39a8be365d6" title="Source of interrupts.">REGISTER_INT_SOURCE</a> = 0x30,     
-<a name="l00095"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a72db67397d1d276e1aed57edc78c89aa">00095</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a72db67397d1d276e1aed57edc78c89aa" title="Data format control.">REGISTER_DATA_FORMAT</a> = 0x31,    
-<a name="l00096"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a7bc82c90aceb0fb90575005e0ef6fa22">00096</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a7bc82c90aceb0fb90575005e0ef6fa22" title="X-Axis Data LSB.">REGISTER_DATA_X0</a> = 0x32,        
-<a name="l00097"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a2408b0cb4ab81167d3508ab2f4e20ecb">00097</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a2408b0cb4ab81167d3508ab2f4e20ecb" title="X-Axis Data MSB.">REGISTER_DATA_X1</a> = 0x33,        
-<a name="l00098"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a69d59cf82cf946f6c848c45fc7b95c29">00098</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a69d59cf82cf946f6c848c45fc7b95c29" title="Y-Axis Data LSB.">REGISTER_DATA_Y0</a> = 0x34,        
-<a name="l00099"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647af9f2f7774548e627373d75cc7f4ee0b4">00099</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647af9f2f7774548e627373d75cc7f4ee0b4" title="Y-Axis Data MSB.">REGISTER_DATA_Y1</a> = 0x35,        
-<a name="l00100"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ae947fc766dbf0ca4fe4ea98abb7766d1">00100</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ae947fc766dbf0ca4fe4ea98abb7766d1" title="Z-Axis Data LSB.">REGISTER_DATA_Z0</a> = 0x36,        
-<a name="l00101"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac81ee07246cb2e40458f7677d673ac73">00101</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647ac81ee07246cb2e40458f7677d673ac73" title="Z-Axis Data MSB.">REGISTER_DATA_Z1</a> = 0x37,        
-<a name="l00102"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a365d6f2b9cb8be9b0d848d88548edacd">00102</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a365d6f2b9cb8be9b0d848d88548edacd" title="FIFO control.">REGISTER_FIFO_CTL</a> = 0x38,       
-<a name="l00103"></a><a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a81447eae8edde69770d8402199ecd32d">00103</a>             <a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647a81447eae8edde69770d8402199ecd32d" title="FIFO Status.">REGISTER_FIFO_STATUS</a> = 0x39     
-<a name="l00104"></a>00104         };
-<a name="l00105"></a>00105         
-<a name="l00108"></a><a class="code" href="classxpcc_1_1_adxl345.html#a9cd3a5ac302f51a07d7990204f40b096">00108</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#a9cd3a5ac302f51a07d7990204f40b096" title="The bandwidth options of REGISTER_BW_RATE.">Bandwidth</a> {
-<a name="l00109"></a>00109             BANDWIDTH_1600 = 0x0F,
-<a name="l00110"></a>00110             BANDWIDTH_800 = 0x0E,
-<a name="l00111"></a>00111             BANDWIDTH_400 = 0x0D,
-<a name="l00112"></a>00112             BANDWIDTH_200 = 0x0C,
-<a name="l00113"></a>00113             BANDWIDTH_100 = 0x0B,
-<a name="l00114"></a>00114             BANDWIDTH_50 = 0x0A,
-<a name="l00115"></a>00115             BANDWIDTH_25 = 0x09,
-<a name="l00116"></a>00116             BANDWIDTH_12 = 0x08,
-<a name="l00117"></a>00117             BANDWIDTH_6 = 0x07,
-<a name="l00118"></a>00118             BANDWIDTH_3 = 0x06
-<a name="l00119"></a>00119         };
-<a name="l00120"></a>00120         
-<a name="l00122"></a><a class="code" href="classxpcc_1_1_adxl345.html#a8ec13393327fbaf411965b21851a7bff">00122</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#a8ec13393327fbaf411965b21851a7bff" title="The power options of REGISTER_POWER_CTL.">Power</a> {
-<a name="l00123"></a>00123             POWER_LINK_bm = 0x20,
-<a name="l00124"></a>00124             POWER_AUTO_SLEEP_bm = 0x10,
-<a name="l00125"></a>00125             POWER_MEASURE_bm = 0x08,
-<a name="l00126"></a>00126             POWER_SLEEP_bm = 0x04,
-<a name="l00127"></a>00127             POWER_WAKEUP_gm = 0x03,
-<a name="l00128"></a>00128             POWER_WAKEUP_1HZ_gc = 0x03,
-<a name="l00129"></a>00129             POWER_WAKEUP_2HZ_gc = 0x02,
-<a name="l00130"></a>00130             POWER_WAKEUP_4HZ_gc = 0x01,
-<a name="l00131"></a>00131             POWER_WAKEUP_8HZ_gc = 0x00,
-<a name="l00132"></a>00132             <span class="comment">// BW_RATE register</span>
-<a name="l00133"></a>00133             POWER_LOW_POWER = 0x10
-<a name="l00134"></a>00134         };
-<a name="l00135"></a>00135         
-<a name="l00138"></a><a class="code" href="classxpcc_1_1_adxl345.html#ae8746196ad74c2b9d61f6883961e78fc">00138</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#ae8746196ad74c2b9d61f6883961e78fc" title="The interrupt bit masks of REGISTER_INT_ENABLE, REGISTER_INT_MAP and REGISTER_INT_SOURCE.">Interrupt</a> {
-<a name="l00139"></a>00139             INTERRUPT_DATA_READY_bm = 0x80,
-<a name="l00140"></a>00140             INTERRUPT_SINGLE_TAP_bm = 0x40,
-<a name="l00141"></a>00141             INTERRUPT_DOUBLE_TAP_bm = 0x20,
-<a name="l00142"></a>00142             INTERRUPT_ACTIVITY_bm = 0x10,
-<a name="l00143"></a>00143             INTERRUPT_INACTIVITY_bm = 0x08,
-<a name="l00144"></a>00144             INTERRUPT_FREE_FALL_bm = 0x04,
-<a name="l00145"></a>00145             INTERRUPT_WATERMARK_bm = 0x02,
-<a name="l00146"></a>00146             INTERRUPT_OVERRUN_bm = 0x01,
-<a name="l00147"></a>00147         };
-<a name="l00148"></a>00148         
-<a name="l00150"></a><a class="code" href="classxpcc_1_1_adxl345.html#a0098bd939b6c9190a527ce58e938ced6">00150</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#a0098bd939b6c9190a527ce58e938ced6" title="The options of REGISTER_DATA_FORMAT.">DataFormat</a> {
-<a name="l00151"></a>00151             DATAFORMAT_SELF_TEST_bm = 0x80,
-<a name="l00152"></a>00152             DATAFORMAT_SPI_bm = 0x40,
-<a name="l00153"></a>00153             DATAFORMAT_INT_INVERT_bm = 0x20,
-<a name="l00154"></a>00154             DATAFORMAT_FULL_RES_bm = 0x08,
-<a name="l00155"></a>00155             DATAFORMAT_JUSTIFY_bm = 0x04,
-<a name="l00156"></a>00156             DATAFORMAT_RANGE_gm = 0x03,
-<a name="l00157"></a>00157             DATAFORMAT_RANGE_16G_gc = 0x03,
-<a name="l00158"></a>00158             DATAFORMAT_RANGE_8G_gc = 0x02,
-<a name="l00159"></a>00159             DATAFORMAT_RANGE_4G_gc = 0x01,
-<a name="l00160"></a>00160             DATAFORMAT_RANGE_2G_gc = 0x00
-<a name="l00161"></a>00161         };
-<a name="l00162"></a>00162         
-<a name="l00164"></a><a class="code" href="classxpcc_1_1_adxl345.html#a98b4b5a5a0320e9d3d9d034537797be3">00164</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_adxl345.html#a98b4b5a5a0320e9d3d9d034537797be3" title="The options of REGISTER_FIFO_CTL and REGISTER_FIFO_STATUS.">FIFO</a> {
-<a name="l00165"></a>00165             FIFO_CTL_MODE_gm = 0xc0,
-<a name="l00166"></a>00166             FIFO_CTL_MODE_TRIGGER_gc = 0xc0,
-<a name="l00167"></a>00167             FIFO_CTL_MODE_STREAM_gc = 0x80,
-<a name="l00168"></a>00168             FIFO_CTL_MODE_FIFO_gc = 0x40,
-<a name="l00169"></a>00169             FIFO_CTL_MODE_BYPASS_gc = 0x00,
-<a name="l00170"></a>00170             FIFO_CTL_TRIGGER_bm = 0x20,
-<a name="l00171"></a>00171             FIFO_CTL_SAMPLES_gm = 0x0f,
-<a name="l00172"></a>00172             <span class="comment">// FIFO_STATUS register</span>
-<a name="l00173"></a>00173             FIFO_STATUS_TRIG_bm = 0x80,
-<a name="l00174"></a>00174             FIFO_STATUS_ENTRIES_gm = 0x3f
-<a name="l00175"></a>00175         };
-<a name="l00176"></a>00176         
-<a name="l00181"></a>00181         <a class="code" href="classxpcc_1_1_adxl345.html#ad0d27813051d3d197a6bfa33d628b66e" title="Constructor.">Adxl345</a>(uint8_t address=0x1d);
-<a name="l00182"></a>00182         
-<a name="l00187"></a>00187         <span class="keywordtype">void</span>
-<a name="l00188"></a>00188         <a class="code" href="classxpcc_1_1_adxl345.html#a4db1d0bcc9f23ecb9cb342fb638a65e8" title="Configures the sensor to measurement mode with full resolution with the 32-level buffer in Stream Mod...">initialize</a>(<a class="code" href="classxpcc_1_1_adxl345.html#a9cd3a5ac302f51a07d7990204f40b096" title="The bandwidth options of REGISTER_BW_RATE.">Bandwidth</a> bandwidth=BANDWIDTH_50, <span class="keywordtype">bool</span> streamMode=<span class="keyword">false</span>);
-<a name="l00189"></a>00189         
-<a name="l00194"></a>00194         <span class="keywordtype">void</span>
-<a name="l00195"></a>00195         <a class="code" href="classxpcc_1_1_adxl345.html#ae8ee9de75021072b9f1a9d81b08e9199" title="read the X-ZDATA0-1 registers and buffer the results sets isNewDataAvailable() to true ...">readAcceleration</a>();
-<a name="l00196"></a>00196         
-<a name="l00204"></a>00204         <span class="keywordtype">void</span>
-<a name="l00205"></a>00205         <a class="code" href="classxpcc_1_1_adxl345.html#ae95b5e8ca7c2ce10d1029609b17d6083" title="read the X-ZDATA0-1 registers 32 times (the entire 32-level buffer in stream mode) and calculates the...">readAccelerationAverage</a>();
-<a name="l00206"></a>00206         
-<a name="l00210"></a>00210         uint8_t*
-<a name="l00211"></a>00211         <a class="code" href="classxpcc_1_1_adxl345.html#a3ec65f445756e6b89b8801173318ff1b">getData</a>();
-<a name="l00212"></a>00212         
+<a name="l00038"></a>00038     <span class="keyword">namespace </span>adxl345
+<a name="l00039"></a>00039     {
+<a name="l00041"></a>00041         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51" title="Adressen der Register des MCP2515.">Register</a>
+<a name="l00042"></a>00042         {
+<a name="l00043"></a>00043             REGISTER_DEVID = 0x00,          
+<a name="l00044"></a>00044             REGISTER_THRESH_TAP = 0x1D,     
+<a name="l00045"></a>00045             REGISTER_OFSX = 0x1E,           
+<a name="l00046"></a>00046             REGISTER_OFSY = 0x1F,           
+<a name="l00047"></a>00047             REGISTER_OFSZ = 0x20,           
+<a name="l00048"></a>00048             REGISTER_DUR = 0x21,            
+<a name="l00049"></a>00049             REGISTER_LATENT = 0x22,         
+<a name="l00050"></a>00050             REGISTER_WINDOW = 0x23,         
+<a name="l00051"></a>00051             REGISTER_THRESH_ACT = 0x24,     
+<a name="l00052"></a>00052             REGISTER_THRESH_INACT = 0x25,   
+<a name="l00053"></a>00053             REGISTER_TIME_INACT = 0x26,     
+<a name="l00054"></a>00054             REGISTER_ACT_INACT_CTL = 0x27,  
+<a name="l00055"></a>00055             REGISTER_THRESH_FF = 0x28,      
+<a name="l00056"></a>00056             REGISTER_TIME_FF = 0x29,        
+<a name="l00057"></a>00057             REGISTER_TAP_AXES = 0x2A,       
+<a name="l00058"></a>00058             REGISTER_ACT_TAP_STATUS = 0x2B, 
+<a name="l00059"></a>00059             REGISTER_BW_RATE = 0x2C,        
+<a name="l00060"></a>00060             REGISTER_POWER_CTL = 0x2D,      
+<a name="l00061"></a>00061             REGISTER_INT_ENABLE = 0x2E,     
+<a name="l00062"></a>00062             REGISTER_INT_MAP = 0x2F,        
+<a name="l00063"></a>00063             REGISTER_INT_SOURCE = 0x30,     
+<a name="l00064"></a>00064             REGISTER_DATA_FORMAT = 0x31,    
+<a name="l00065"></a>00065             REGISTER_DATA_X0 = 0x32,        
+<a name="l00066"></a>00066             REGISTER_DATA_X1 = 0x33,        
+<a name="l00067"></a>00067             REGISTER_DATA_Y0 = 0x34,        
+<a name="l00068"></a>00068             REGISTER_DATA_Y1 = 0x35,        
+<a name="l00069"></a>00069             REGISTER_DATA_Z0 = 0x36,        
+<a name="l00070"></a>00070             REGISTER_DATA_Z1 = 0x37,        
+<a name="l00071"></a>00071             REGISTER_FIFO_CTL = 0x38,       
+<a name="l00072"></a>00072             REGISTER_FIFO_STATUS = 0x39     
+<a name="l00073"></a>00073         };
+<a name="l00074"></a>00074         
+<a name="l00077"></a>00077         <span class="keyword">enum</span> Bandwidth {
+<a name="l00078"></a>00078             BANDWIDTH_1600Hz = 0x0F,
+<a name="l00079"></a>00079             BANDWIDTH_800Hz = 0x0E,
+<a name="l00080"></a>00080             BANDWIDTH_400Hz = 0x0D,
+<a name="l00081"></a>00081             BANDWIDTH_200Hz = 0x0C,
+<a name="l00082"></a>00082             BANDWIDTH_100Hz = 0x0B,
+<a name="l00083"></a>00083             BANDWIDTH_50Hz = 0x0A,
+<a name="l00084"></a>00084             BANDWIDTH_25Hz = 0x09,
+<a name="l00085"></a>00085             BANDWIDTH_12Hz = 0x08,
+<a name="l00086"></a>00086             BANDWIDTH_6Hz = 0x07,
+<a name="l00087"></a>00087             BANDWIDTH_3Hz = 0x06
+<a name="l00088"></a>00088         };
+<a name="l00089"></a>00089         
+<a name="l00091"></a>00091         <span class="keyword">enum</span> Power {
+<a name="l00092"></a>00092             POWER_LINK = 0x20,
+<a name="l00093"></a>00093             POWER_AUTO_SLEEP = 0x10,
+<a name="l00094"></a>00094             POWER_MEASURE = 0x08,
+<a name="l00095"></a>00095             POWER_SLEEP = 0x04,
+<a name="l00096"></a>00096             POWER_WAKEUP_gm = 0x03,
+<a name="l00097"></a>00097             POWER_WAKEUP_1Hz = 0x03,
+<a name="l00098"></a>00098             POWER_WAKEUP_2Hz = 0x02,
+<a name="l00099"></a>00099             POWER_WAKEUP_4Hz = 0x01,
+<a name="l00100"></a>00100             POWER_WAKEUP_8Hz = 0x00,
+<a name="l00101"></a>00101             <span class="comment">// BW_RATE register</span>
+<a name="l00102"></a>00102             POWER_LOW_POWER = 0x10
+<a name="l00103"></a>00103         };
+<a name="l00104"></a>00104         
+<a name="l00107"></a>00107         <span class="keyword">enum</span> Interrupt {
+<a name="l00108"></a>00108             INTERRUPT_DATA_READY = 0x80,
+<a name="l00109"></a>00109             INTERRUPT_SINGLE_TAP = 0x40,
+<a name="l00110"></a>00110             INTERRUPT_DOUBLE_TAP = 0x20,
+<a name="l00111"></a>00111             INTERRUPT_ACTIVITY = 0x10,
+<a name="l00112"></a>00112             INTERRUPT_INACTIVITY = 0x08,
+<a name="l00113"></a>00113             INTERRUPT_FREE_FALL = 0x04,
+<a name="l00114"></a>00114             INTERRUPT_WATERMARK = 0x02,
+<a name="l00115"></a>00115             INTERRUPT_OVERRUN = 0x01,
+<a name="l00116"></a>00116         };
+<a name="l00117"></a>00117         
+<a name="l00119"></a>00119         <span class="keyword">enum</span> DataFormat {
+<a name="l00120"></a>00120             DATAFORMAT_SELF_TEST = 0x80,
+<a name="l00121"></a>00121             DATAFORMAT_SPI = 0x40,
+<a name="l00122"></a>00122             DATAFORMAT_INT_INVERT = 0x20,
+<a name="l00123"></a>00123             DATAFORMAT_FULL_RES = 0x08,
+<a name="l00124"></a>00124             DATAFORMAT_JUSTIFY = 0x04,
+<a name="l00125"></a>00125             DATAFORMAT_RANGE_gm = 0x03,
+<a name="l00126"></a>00126             DATAFORMAT_RANGE_16g = 0x03,
+<a name="l00127"></a>00127             DATAFORMAT_RANGE_8g = 0x02,
+<a name="l00128"></a>00128             DATAFORMAT_RANGE_4g = 0x01,
+<a name="l00129"></a>00129             DATAFORMAT_RANGE_2g = 0x00
+<a name="l00130"></a>00130         };
+<a name="l00131"></a>00131         
+<a name="l00133"></a>00133         <span class="keyword">enum</span> FIFO {
+<a name="l00134"></a>00134             FIFO_CTL_MODE_gm = 0xc0,
+<a name="l00135"></a>00135             FIFO_CTL_MODE_TRIGGER = 0xc0,
+<a name="l00136"></a>00136             FIFO_CTL_MODE_STREAM = 0x80,
+<a name="l00137"></a>00137             FIFO_CTL_MODE_FIFO = 0x40,
+<a name="l00138"></a>00138             FIFO_CTL_MODE_BYPASS = 0x00,
+<a name="l00139"></a>00139             FIFO_CTL_TRIGGER = 0x20,
+<a name="l00140"></a>00140             FIFO_CTL_SAMPLES_gm = 0x0f,
+<a name="l00141"></a>00141             <span class="comment">// FIFO_STATUS register</span>
+<a name="l00142"></a>00142             FIFO_STATUS_TRIG = 0x80,
+<a name="l00143"></a>00143             FIFO_STATUS_ENTRIES_gm = 0x3f
+<a name="l00144"></a>00144         };
+<a name="l00145"></a>00145     }
+<a name="l00146"></a>00146     
+<a name="l00176"></a>00176     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> I2cMaster &gt;
+<a name="l00177"></a><a class="code" href="classxpcc_1_1_adxl345.html">00177</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_adxl345.html" title="Basic ADXL345 digital accelerometer sensor driver.">Adxl345</a>
+<a name="l00178"></a>00178     {
+<a name="l00179"></a>00179     <span class="keyword">public</span>:
+<a name="l00184"></a>00184         <a class="code" href="classxpcc_1_1_adxl345.html#a3661252d964c000f925e5ff820e34dd7" title="Constructor.">Adxl345</a>(uint8_t* data, uint8_t address=0x1d);
+<a name="l00185"></a>00185         
+<a name="l00190"></a>00190         <span class="keywordtype">bool</span>
+<a name="l00191"></a>00191         <a class="code" href="classxpcc_1_1_adxl345.html#a86d28a32cd38ca3990c023cd8c3a3a0c" title="Configures the sensor to measurement mode with full resolution with the 32-level buffer in Stream Mod...">initialize</a>(adxl345::Bandwidth bandwidth=adxl345::BANDWIDTH_50Hz, <span class="keywordtype">bool</span> streamMode=<span class="keyword">false</span>, <span class="keywordtype">bool</span> enableInterrupt=<span class="keyword">true</span>);
+<a name="l00192"></a>00192         
+<a name="l00197"></a>00197         <span class="keywordtype">void</span>
+<a name="l00198"></a>00198         <a class="code" href="classxpcc_1_1_adxl345.html#acad903ecf4d2f46e8ead962ca65a4d9d" title="read the X-ZDATA0-1 registers and buffer the results sets isNewDataAvailable() to true ...">readAccelerometer</a>();
+<a name="l00199"></a>00199         
+<a name="l00203"></a>00203         uint8_t*
+<a name="l00204"></a>00204         <a class="code" href="classxpcc_1_1_adxl345.html#acb4130aa8d240bea1a499060d992c54f">getData</a>();
+<a name="l00205"></a>00205         
+<a name="l00211"></a>00211         <span class="keywordtype">bool</span>
+<a name="l00212"></a>00212         <a class="code" href="classxpcc_1_1_adxl345.html#a135fce9c967168e401b550d654c818dd" title="true, when new data has been from the sensor and buffered, false, when the data has already been read...">isNewDataAvailable</a>();
+<a name="l00213"></a>00213         
 <a name="l00218"></a>00218         <span class="keywordtype">bool</span>
-<a name="l00219"></a>00219         <a class="code" href="classxpcc_1_1_adxl345.html#abdcac9b9079a8a91a34db17f262345bf" title="true, when new data has been from the sensor and buffered, false, when the data has already been read...">isNewDataAvailable</a>();
+<a name="l00219"></a>00219         <a class="code" href="classxpcc_1_1_adxl345.html#aaeaab187049cee13aaca42a8466d6e78" title="Reads the sensor register if new results have been computed.">isDataReady</a>();
 <a name="l00220"></a>00220         
-<a name="l00225"></a>00225         <span class="keywordtype">bool</span>
-<a name="l00226"></a>00226         <a class="code" href="classxpcc_1_1_adxl345.html#a3f47f18f1aa73019a7ac399fa9cea728" title="Reads the sensor register if new results have been computed.">isDataReady</a>();
-<a name="l00227"></a>00227         
-<a name="l00228"></a>00228     <span class="keyword">private</span>:
-<a name="l00229"></a>00229         
-<a name="l00235"></a>00235         <span class="keywordtype">void</span>
-<a name="l00236"></a>00236         writeRegister(<a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647" title="The addresses of the Configuration and Data Registers.">Register</a> reg, uint8_t data);
-<a name="l00237"></a>00237         
-<a name="l00243"></a>00243         uint8_t
-<a name="l00244"></a>00244         readRegister(<a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647" title="The addresses of the Configuration and Data Registers.">Register</a> reg);
-<a name="l00245"></a>00245         
-<a name="l00246"></a>00246         <span class="keywordtype">bool</span>
-<a name="l00247"></a>00247         readData(<a class="code" href="classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647" title="The addresses of the Configuration and Data Registers.">Register</a> reg, uint8_t *data, uint8_t size);
-<a name="l00248"></a>00248 
-<a name="l00249"></a>00249         <span class="keywordtype">bool</span> newData;
-<a name="l00250"></a>00250         uint8_t data[6];
-<a name="l00251"></a>00251         uint8_t deviceAddress;
-<a name="l00252"></a>00252         <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1i2c_1_1_sync_master.html" title="This is a wrapper class for i2c master which makes access to it synchronous.">xpcc::i2c::SyncMaster&lt;I2C&gt;</a> MySyncI2C;
-<a name="l00253"></a>00253     };
-<a name="l00254"></a>00254     
-<a name="l00255"></a>00255 }
-<a name="l00256"></a>00256 
-<a name="l00257"></a>00257 <span class="preprocessor">#include &quot;adxl345_impl.hpp&quot;</span>
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259 <span class="preprocessor">#endif // XPCC__ADXL345_HPP</span>
+<a name="l00221"></a>00221         <span class="keywordtype">void</span>
+<a name="l00222"></a>00222         update();
+<a name="l00223"></a>00223         
+<a name="l00224"></a>00224     <span class="keyword">private</span>:
+<a name="l00230"></a>00230         <span class="keywordtype">bool</span>
+<a name="l00231"></a>00231         writeRegister(adxl345::Register reg, uint8_t value);
+<a name="l00232"></a>00232         
+<a name="l00238"></a>00238         uint8_t
+<a name="l00239"></a>00239         readRegister(adxl345::Register reg);
+<a name="l00240"></a>00240         
+<a name="l00241"></a>00241         <a class="code" href="classxpcc_1_1i2c_1_1_write_read_adapter.html" title="This class is an implementation of xpcc::i2c::Delegate which, when passed to an i2c driver...">xpcc::i2c::WriteReadAdapter</a> adapter;
+<a name="l00242"></a>00242         
+<a name="l00243"></a>00243         <span class="keyword">enum</span> Status {
+<a name="l00244"></a>00244             READ_ACCELEROMETER_PENDING = 0x01,
+<a name="l00245"></a>00245             READ_ACCELEROMETER_RUNNING = 0x02,
+<a name="l00246"></a>00246             NEW_ACCELEROMETER_DATA = 0x04,
+<a name="l00247"></a>00247         };
+<a name="l00248"></a>00248         
+<a name="l00249"></a>00249         uint8_t status;
+<a name="l00250"></a>00250         uint8_t* data;
+<a name="l00251"></a>00251         uint8_t buffer[2];
+<a name="l00252"></a>00252     };
+<a name="l00253"></a>00253     
+<a name="l00254"></a>00254 }
+<a name="l00255"></a>00255 
+<a name="l00256"></a>00256 <span class="preprocessor">#include &quot;adxl345_impl.hpp&quot;</span>
+<a name="l00257"></a>00257 
+<a name="l00258"></a>00258 <span class="preprocessor">#endif // XPCC__ADXL345_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -288,7 +295,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -301,7 +308,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>adxl345.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

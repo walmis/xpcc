@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: Class Hierarchy</title>
+<title>xpcc: Class Hierarchy</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -118,6 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1amnb_1_1_action.html">xpcc::amnb::Action</a></li>
 <li><a class="el" href="structxpcc_1_1sab_1_1_action.html">xpcc::sab::Action</a></li>
 <li><a class="el" href="classxpcc_1_1_action_callback.html">xpcc::ActionCallback</a></li>
+<li><a class="el" href="classxpcc_1_1_ad7280a.html">xpcc::Ad7280a&lt; Spi, Cs, Cnvst, N &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_a_d840x.html">xpcc::AD840x&lt; Spi, Cs, Rs, Shdn &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_adc.html">xpcc::at91::Adc</a></li>
 <li><a class="el" href="classxpcc_1_1atmega_1_1_adc.html">xpcc::atmega::Adc</a><ul>
@@ -138,7 +139,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b3.html">xpcc::atxmega::AdcChannelB3</a></li>
 </ul>
 </li>
-<li><a class="el" href="classxpcc_1_1_adxl345.html">xpcc::Adxl345&lt; I2C &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_adxl345.html">xpcc::Adxl345&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_aic.html">xpcc::at91::Aic</a></li>
 <li><a class="el" href="classxpcc_1_1allocator_1_1_allocator_base.html">xpcc::allocator::AllocatorBase&lt; T &gt;</a><ul>
 <li><a class="el" href="classxpcc_1_1allocator_1_1_block.html">xpcc::allocator::Block&lt; T, BLOCKSIZE &gt;</a></li>
@@ -185,6 +186,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1stm32_1_1_timer7.html">xpcc::stm32::Timer7</a></li>
 </ul>
 </li>
+<li><a class="el" href="classxpcc_1_1_bma180.html">xpcc::Bma180&lt; I2cMaster &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_bmp085.html">xpcc::Bmp085&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_bounded_deque.html">xpcc::BoundedDeque&lt; T, N &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1atmega_1_1_buffered_uart0.html">xpcc::atmega::BufferedUart0</a></li>
 <li><a class="el" href="classxpcc_1_1atmega_1_1_buffered_uart1.html">xpcc::atmega::BufferedUart1</a></li>
@@ -200,12 +203,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 </li>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_can_filter.html">xpcc::stm32::CanFilter</a></li>
+<li><a class="el" href="classxpcc_1_1_can_lawicel_formatter.html">xpcc::CanLawicelFormatter</a></li>
 <li><a class="el" href="classxpcc_1_1_can_usb.html">xpcc::CanUsb</a></li>
-<li><a class="el" href="classxpcc_1_1_can_usb_formater.html">xpcc::CanUsbFormater</a></li>
 <li><a class="el" href="classxpcc_1_1_circle2_d.html">xpcc::Circle2D&lt; T &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_clock.html">xpcc::stm32::Clock</a></li>
 <li><a class="el" href="classxpcc_1_1lpc_1_1_clock.html">xpcc::lpc::Clock</a></li>
 <li><a class="el" href="classxpcc_1_1_clock.html">xpcc::Clock</a></li>
-<li><a class="el" href="classxpcc_1_1stm32_1_1_clock.html">xpcc::stm32::Clock</a></li>
 <li><a class="el" href="classxpcc_1_1_communicatable.html">xpcc::Communicatable</a><ul>
 <li><a class="el" href="classxpcc_1_1_abstract_component.html">xpcc::AbstractComponent</a></li>
 <li><a class="el" href="classxpcc_1_1_communicatable_task.html">xpcc::CommunicatableTask</a></li>
@@ -223,11 +226,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1tmp_1_1_conversion_3_01_t_00_01void_01_4.html">xpcc::tmp::Conversion&lt; T, void &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_conversion_3_01void_00_01_t_01_4.html">xpcc::tmp::Conversion&lt; void, T &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_conversion_3_01void_00_01void_01_4.html">xpcc::tmp::Conversion&lt; void, void &gt;</a></li>
+<li><a class="el" href="structxpcc_1_1ad7280a_1_1_conversion_value.html">xpcc::ad7280a::ConversionValue</a></li>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_core.html">xpcc::stm32::Core</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_core.html">xpcc::at91::Core</a></li>
 <li><a class="el" href="classunittest_1_1_count_type.html">unittest::CountType</a></li>
 <li><a class="el" href="classxpcc_1_1_cpu_board2.html">xpcc::CpuBoard2&lt; Transmit, Receive &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_cpu_board2_slave.html">xpcc::CpuBoard2Slave&lt; Transmit, Receive &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_date.html">xpcc::Date</a></li>
 <li><a class="el" href="classxpcc_1_1filter_1_1_debounce.html">xpcc::filter::Debounce&lt; T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_debug.html">xpcc::at91::Debug</a></li>
 <li><a class="el" href="classxpcc_1_1log_1_1_default_style.html">xpcc::log::DefaultStyle</a></li>
@@ -240,7 +245,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_dma_controller.html">xpcc::atxmega::DmaController</a></li>
 <li><a class="el" href="classxpcc_1_1led_1_1_double_indicator.html">xpcc::led::DoubleIndicator&lt; LedClass &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_doubly_linked_list.html">xpcc::DoublyLinkedList&lt; T, Allocator &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1_ds1631.html">xpcc::Ds1631&lt; I2C &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_ds1631.html">xpcc::Ds1631&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_ds18b20.html">xpcc::Ds18b20&lt; OneWire &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_dynamic_array.html">xpcc::DynamicArray&lt; T, Allocator &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1_empty.html">xpcc::Empty</a></li>
@@ -261,9 +266,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1fat_1_1_file_system.html">xpcc::fat::FileSystem</a></li>
 <li><a class="el" href="classxpcc_1_1atomic_1_1_flag.html">xpcc::atomic::Flag</a></li>
 <li><a class="el" href="structxpcc_1_1can_1_1_message_1_1_flags.html">xpcc::can::Message::Flags</a></li>
-<li><a class="el" href="classxpcc_1_1at91_1_1_flash.html">xpcc::at91::Flash</a></li>
 <li><a class="el" href="classxpcc_1_1accessor_1_1_flash.html">xpcc::accessor::Flash&lt; T &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1_flex_clock.html">xpcc::FlexClock</a></li>
+<li><a class="el" href="classxpcc_1_1at91_1_1_flash.html">xpcc::at91::Flash</a></li>
 <li><a class="el" href="classxpcc_1_1_ft245.html">xpcc::Ft245&lt; PORT, RD, WR, RXF, TXE &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1_geometric_traits.html">xpcc::GeometricTraits&lt; T &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1_geometric_traits_3_01double_01_4.html">xpcc::GeometricTraits&lt; double &gt;</a></li>
@@ -274,8 +278,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1_geometric_traits_3_01uint8__t_01_4.html">xpcc::GeometricTraits&lt; uint8_t &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1stm32_1_1_gpio_mode.html">xpcc::stm32::GpioMode&lt; P, N, bool &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1stm32_1_1_gpio_mode_3_01_p_00_01_n_00_01false_01_4.html">xpcc::stm32::GpioMode&lt; P, N, false &gt;</a></li>
-<li><a class="el" href="structxpcc_1_1_header.html">xpcc::Header</a></li>
+<li><a class="el" href="classxpcc_1_1_hcla12x5.html">xpcc::Hcla12x5&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tipc_1_1_header.html">xpcc::tipc::Header</a></li>
+<li><a class="el" href="structxpcc_1_1_header.html">xpcc::Header</a></li>
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_high_res_c.html">xpcc::atxmega::HighResC</a><ul>
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_timer_c0.html">xpcc::atxmega::TimerC0</a><ul>
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_timer_interrupt_c0.html">xpcc::atxmega::TimerInterruptC0</a></li>
@@ -320,12 +325,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 </ul>
 </li>
-<li><a class="el" href="classxpcc_1_1_hmc58.html">xpcc::Hmc58&lt; I2C &gt;</a><ul>
-<li><a class="el" href="classxpcc_1_1_hmc5843.html">xpcc::Hmc5843&lt; I2C &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1_hmc5883l.html">xpcc::Hmc5883l&lt; I2C &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_hmc58.html">xpcc::Hmc58&lt; I2cMaster &gt;</a><ul>
+<li><a class="el" href="classxpcc_1_1_hmc5843.html">xpcc::Hmc5843&lt; I2cMaster &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_hmc5883l.html">xpcc::Hmc5883l&lt; I2cMaster &gt;</a></li>
 </ul>
 </li>
-<li><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1color_1_1_hsv.html">xpcc::color::Hsv</a></li>
 <li><a class="el" href="classxpcc_1_1led_1_1_indicator.html">xpcc::led::Indicator&lt; LedClass &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_input_capture.html">xpcc::atxmega::InputCapture&lt; TIMER, PIN &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_interconnect_interface.html">xpcc::InterconnectInterface&lt; T, R &gt;</a></li>
@@ -334,12 +339,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1sab_1_1_interface.html">xpcc::sab::Interface&lt; Device &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1sab2_1_1_interface.html">xpcc::sab2::Interface&lt; Device, N &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_interface.html">xpcc::Interface</a><ul>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a><ul>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_read_adapter.html">xpcc::i2c::ReadAdapter</a></li>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_write_adapter.html">xpcc::i2c::WriteAdapter</a></li>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_write_read_adapter.html">xpcc::i2c::WriteReadAdapter</a></li>
+<li><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></li>
+</ul>
+</li>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></li>
 <li><a class="el" href="classxpcc_1_1i2c_1_1_master.html">xpcc::i2c::Master</a><ul>
-<li><a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html">xpcc::atmega::AsynchronousTwiMaster</a></li>
+<li><a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html">xpcc::atmega::I2cMaster</a></li>
+<li><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html">xpcc::atxmega::I2cMasterC</a></li>
+<li><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html">xpcc::atxmega::I2cMasterD</a></li>
+<li><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html">xpcc::atxmega::I2cMasterE</a></li>
+<li><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html">xpcc::atxmega::I2cMasterF</a></li>
+<li><a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html">xpcc::i2c::MockMaster</a></li>
 <li><a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html">xpcc::stm32::I2c1</a></li>
-<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html">xpcc::stm32::I2c2</a></li>
-<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html">xpcc::stm32::I2c3</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html">xpcc::stm32::I2cMaster1</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html">xpcc::stm32::I2cMaster2</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html">xpcc::stm32::I2cMaster3</a></li>
 </ul>
 </li>
 <li><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a><ul>
@@ -362,6 +380,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html">xpcc::stm32::SpiMaster3</a></li>
 </ul>
 </li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_adc1.html">xpcc::stm32::Adc1</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_adc2.html">xpcc::stm32::Adc2</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_adc3.html">xpcc::stm32::Adc3</a></li>
 </ul>
 </li>
 <li><a class="el" href="classxpcc_1_1gpio_1_1_invert.html">xpcc::gpio::Invert&lt; Pin &gt;</a></li>
@@ -427,6 +448,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1_doubly_linked_list_1_1iterator.html">xpcc::DoublyLinkedList&lt; T, Allocator &gt;::iterator</a></li>
 <li><a class="el" href="classxpcc_1_1_dynamic_array_1_1iterator.html">xpcc::DynamicArray&lt; T, Allocator &gt;::iterator</a></li>
 <li><a class="el" href="classxpcc_1_1_linked_list_1_1iterator.html">xpcc::LinkedList&lt; T, Allocator &gt;::iterator</a></li>
+<li><a class="el" href="classxpcc_1_1_itg3200.html">xpcc::Itg3200&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1interpolation_1_1_lagrange.html">xpcc::interpolation::Lagrange&lt; T, Accessor &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1led_1_1_led.html">xpcc::led::Led</a><ul>
 <li><a class="el" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html">xpcc::led::TLC594XLed&lt; PwmController, CHANNEL, PwmTable, PwmTableSize &gt;</a></li>
@@ -437,10 +459,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1_line_segment2_d.html">xpcc::LineSegment2D&lt; T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_linked_list.html">xpcc::LinkedList&lt; T, Allocator &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1amnb_1_1_listener.html">xpcc::amnb::Listener</a></li>
-<li><a class="el" href="classxpcc_1_1_l_m75.html">xpcc::LM75&lt; I2C &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1_lm75.html">xpcc::Lm75&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_location2_d.html">xpcc::Location2D&lt; T &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1atomic_1_1_lock.html">xpcc::atomic::Lock</a></li>
 <li><a class="el" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html">xpcc::rtos::Thread::Lock</a></li>
+<li><a class="el" href="classxpcc_1_1atomic_1_1_lock.html">xpcc::atomic::Lock</a></li>
 <li><a class="el" href="classxpcc_1_1_l_u_decomposition.html">xpcc::LUDecomposition</a></li>
 <li><a class="el" href="classxpcc_1_1sab_1_1_master.html">xpcc::sab::Master&lt; Interface &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_matrix.html">xpcc::Matrix&lt; T, ROWS, COLUMNS &gt;</a></li>
@@ -460,8 +482,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1_doubly_linked_list_1_1_node.html">xpcc::DoublyLinkedList&lt; T, Allocator &gt;::Node</a></li>
 <li><a class="el" href="classxpcc_1_1tmp_1_1_null_type.html">xpcc::tmp::NullType</a></li>
 <li><a class="el" href="classxpcc_1_1_pair.html">xpcc::Pair&lt; T1, T2 &gt;</a></li>
-<li><a class="el" href="structxpcc_1_1_s_curve_controller_1_1_parameter.html">xpcc::SCurveController&lt; T &gt;::Parameter</a></li>
 <li><a class="el" href="structxpcc_1_1_pid_1_1_parameter.html">xpcc::Pid&lt; T, ScaleFactor &gt;::Parameter</a></li>
+<li><a class="el" href="structxpcc_1_1_s_curve_controller_1_1_parameter.html">xpcc::SCurveController&lt; T &gt;::Parameter</a></li>
 <li><a class="el" href="classxpcc_1_1_periodic_timer.html">xpcc::PeriodicTimer&lt; T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1fat_1_1_physical_volume.html">xpcc::fat::PhysicalVolume</a></li>
 <li><a class="el" href="classxpcc_1_1_pid.html">xpcc::Pid&lt; T, ScaleFactor &gt;</a></li>
@@ -494,23 +516,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li><a class="el" href="classxpcc_1_1accessor_1_1_ram.html">xpcc::accessor::Ram&lt; T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1filter_1_1_ramp.html">xpcc::filter::Ramp&lt; T &gt;</a></li>
-<li><a class="el" href="structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html">xpcc::allocator::Dynamic&lt; T &gt;::rebind&lt; U &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1stm32_1_1_random_number_generator.html">xpcc::stm32::RandomNumberGenerator</a></li>
+<li><a class="el" href="structxpcc_1_1i2c_1_1_delegate_1_1_reading.html">xpcc::i2c::Delegate::Reading</a></li>
 <li><a class="el" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html">xpcc::allocator::Static&lt; T, N &gt;::rebind&lt; U &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1allocator_1_1_block_1_1rebind.html">xpcc::allocator::Block&lt; T, BLOCKSIZE &gt;::rebind&lt; U &gt;</a></li>
+<li><a class="el" href="structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html">xpcc::allocator::Dynamic&lt; T &gt;::rebind&lt; U &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_can_connector_1_1_receive_list_item.html">xpcc::CanConnector&lt; Driver &gt;::ReceiveListItem</a></li>
 <li><a class="el" href="classxpcc_1_1tipc_1_1_receiver.html">xpcc::tipc::Receiver</a></li>
 <li><a class="el" href="classxpcc_1_1tipc_1_1_receiver_socket.html">xpcc::tipc::ReceiverSocket</a></li>
+<li><a class="el" href="structxpcc_1_1ad7280a_1_1_register_value.html">xpcc::ad7280a::RegisterValue</a></li>
 <li><a class="el" href="classunittest_1_1_reporter.html">unittest::Reporter</a></li>
 <li><a class="el" href="classxpcc_1_1amnb_1_1_response.html">xpcc::amnb::Response</a></li>
 <li><a class="el" href="classxpcc_1_1sab_1_1_response.html">xpcc::sab::Response</a></li>
 <li><a class="el" href="classxpcc_1_1_response_callback.html">xpcc::ResponseCallback</a></li>
 <li><a class="el" href="classxpcc_1_1_response_handle.html">xpcc::ResponseHandle</a></li>
 <li><a class="el" href="classxpcc_1_1led_1_1_rgb.html">xpcc::led::Rgb&lt; Red, Green, Blue &gt;</a></li>
+<li><a class="el" href="classxpcc_1_1color_1_1_rgb.html">xpcc::color::Rgb</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_same_type.html">xpcc::tmp::SameType&lt; T, U &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_same_type_3_01_t_00_01_t_01_4.html">xpcc::tmp::SameType&lt; T, T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_saturated.html">xpcc::Saturated&lt; T &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1rtos_1_1_scheduler.html">xpcc::rtos::Scheduler</a></li>
 <li><a class="el" href="classxpcc_1_1_scheduler.html">xpcc::Scheduler</a></li>
+<li><a class="el" href="classxpcc_1_1rtos_1_1_scheduler.html">xpcc::rtos::Scheduler</a></li>
 <li><a class="el" href="classxpcc_1_1_scp1000.html">xpcc::Scp1000&lt; Spi, Cs, Int &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_s_curve_controller.html">xpcc::SCurveController&lt; T &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1_s_curve_generator.html">xpcc::SCurveGenerator&lt; T &gt;</a></li>
@@ -542,6 +568,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1stm32_1_1_can_filter_1_1_standard_filter_mask_short.html">xpcc::stm32::CanFilter::StandardFilterMaskShort</a></li>
 <li><a class="el" href="structxpcc_1_1stm32_1_1_can_filter_1_1_standard_identifier.html">xpcc::stm32::CanFilter::StandardIdentifier</a></li>
 <li><a class="el" href="structxpcc_1_1stm32_1_1_can_filter_1_1_standard_identifier_short.html">xpcc::stm32::CanFilter::StandardIdentifierShort</a></li>
+<li><a class="el" href="structxpcc_1_1i2c_1_1_delegate_1_1_starting.html">xpcc::i2c::Delegate::Starting</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1static__assert__test.html">xpcc::tmp::static_assert_test&lt; x &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_s_t_a_t_i_c___a_s_s_e_r_t_i_o_n___f_a_i_l_u_r_e_3_01true_01_4.html">xpcc::tmp::STATIC_ASSERTION_FAILURE&lt; true &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1log_1_1_style.html">xpcc::log::Style&lt; STYLE &gt;</a><ul>
@@ -554,7 +581,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="structxpcc_1_1tmp_1_1_super_subclass_3_01void_00_01_u_01_4.html">xpcc::tmp::SuperSubclass&lt; void, U &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_super_subclass_3_01void_00_01void_01_4.html">xpcc::tmp::SuperSubclass&lt; void, void &gt;</a></li>
 <li><a class="el" href="structxpcc_1_1tmp_1_1_super_subclass_strict.html">xpcc::tmp::SuperSubclassStrict&lt; T, U &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1i2c_1_1_sync_master.html">xpcc::i2c::SyncMaster&lt; M &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html">xpcc::stm32::SysTickTimer</a></li>
 <li><a class="el" href="classxpcc_1_1_scheduler_1_1_task.html">xpcc::Scheduler::Task</a></li>
 <li><a class="el" href="classxpcc_1_1_task.html">xpcc::Task</a><ul>
@@ -572,8 +598,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li><a class="el" href="classxpcc_1_1_timestamp.html">xpcc::Timestamp</a></li>
 <li><a class="el" href="classxpcc_1_1_t_l_c594_x.html">xpcc::TLC594X&lt; CHANNELS, Spi, Xlat, Vprog, Xerr &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1_tmp102.html">xpcc::Tmp102&lt; I2C &gt;</a></li>
-<li><a class="el" href="classxpcc_1_1tipc_1_1_transmitter.html">xpcc::tipc::Transmitter</a></li>
+<li><a class="el" href="classxpcc_1_1_tmp102.html">xpcc::Tmp102&lt; I2cMaster &gt;</a></li>
 <li><a class="el" href="classxpcc_1_1amnb_1_1_transmitter.html">xpcc::amnb::Transmitter</a><ul>
 <li><a class="el" href="classxpcc_1_1amnb_1_1_node.html">xpcc::amnb::Node&lt; Interface &gt;</a></li>
 </ul>
@@ -582,15 +607,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1sab_1_1_slave.html">xpcc::sab::Slave&lt; Interface &gt;</a></li>
 </ul>
 </li>
+<li><a class="el" href="classxpcc_1_1tipc_1_1_transmitter.html">xpcc::tipc::Transmitter</a></li>
 <li><a class="el" href="classxpcc_1_1tipc_1_1_transmitter_socket.html">xpcc::tipc::TransmitterSocket</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_twi.html">xpcc::at91::Twi</a></li>
-<li><a class="el" href="classxpcc_1_1_uart0.html">xpcc::Uart0</a></li>
+<li><a class="el" href="classxpcc_1_1lpc2000_1_1_uart0.html">xpcc::lpc2000::Uart0</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_uart0.html">xpcc::at91::Uart0</a></li>
+<li><a class="el" href="classxpcc_1_1lpc2000_1_1_uart1.html">xpcc::lpc2000::Uart1</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_uart1.html">xpcc::at91::Uart1</a></li>
-<li><a class="el" href="classxpcc_1_1_uart1.html">xpcc::Uart1</a></li>
-<li><a class="el" href="classxpcc_1_1_uart2.html">xpcc::Uart2</a></li>
-<li><a class="el" href="classxpcc_1_1_uart3.html">xpcc::Uart3</a></li>
-<li><a class="el" href="classxpcc_1_1atxmega_1_1_uart_base.html">xpcc::atxmega::UartBase</a></li>
+<li><a class="el" href="classxpcc_1_1lpc2000_1_1_uart2.html">xpcc::lpc2000::Uart2</a></li>
+<li><a class="el" href="classxpcc_1_1lpc2000_1_1_uart3.html">xpcc::lpc2000::Uart3</a></li>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_uart_base.html">xpcc::stm32::UartBase</a><ul>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_buffered_uart4.html">xpcc::stm32::BufferedUart4</a></li>
 <li><a class="el" href="classxpcc_1_1stm32_1_1_buffered_uart5.html">xpcc::stm32::BufferedUart5</a></li>
@@ -606,7 +631,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1stm32_1_1_usart6.html">xpcc::stm32::Usart6</a></li>
 </ul>
 </li>
+<li><a class="el" href="classxpcc_1_1atxmega_1_1_uart_base.html">xpcc::atxmega::UartBase</a></li>
 <li><a class="el" href="class_uart_interface.html">UartInterface</a></li>
+<li><a class="el" href="classxpcc_1_1_unix_time.html">xpcc::UnixTime</a></li>
 <li><a class="el" href="classxpcc_1_1atomic_1_1_unlock.html">xpcc::atomic::Unlock</a></li>
 <li><a class="el" href="classxpcc_1_1gpio_1_1_unused.html">xpcc::gpio::Unused</a></li>
 <li><a class="el" href="classxpcc_1_1at91_1_1_usb.html">xpcc::at91::Usb</a></li>
@@ -637,6 +664,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classxpcc_1_1atxmega_1_1_timer_f1.html">xpcc::atxmega::TimerF1</a></li>
 </ul>
 </li>
+<li><a class="el" href="structxpcc_1_1i2c_1_1_delegate_1_1_writing.html">xpcc::i2c::Delegate::Writing</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -644,7 +672,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -657,7 +685,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:14 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

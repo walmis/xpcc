@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['value',['value',['../structxpcc_1_1ad7280a_1_1_conversion_value.html#a202d63f1e887924dacf3ce6f0b4bf57d',1,'xpcc::ad7280a::ConversionValue']]],
   ['vector',['Vector',['../classxpcc_1_1_vector.html',1,'xpcc']]],
   ['vector',['Vector',['../classxpcc_1_1_vector_3_01_t_00_012_01_4.html#a05be28408394d61362b36cb40f13597f',1,'xpcc::Vector&lt; T, 2 &gt;']]],
   ['vector_3c_20int16_5ft_2c_202_20_3e',['Vector< int16_t, 2 >',['../classxpcc_1_1_vector.html',1,'xpcc']]],

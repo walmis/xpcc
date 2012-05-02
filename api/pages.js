@@ -1,4 +1,6 @@
 var pages =
 [
-    [ "Todo List", "todo.html", null ]
+    [ "Tool: stlink", "tool_stlink.html", null ],
+    [ "Todo List", "todo.html", null ],
+    [ "Bug List", "bug.html", null ]
 ];

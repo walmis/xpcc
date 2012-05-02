@@ -10,6 +10,7 @@ var searchData=
   ['mcp4922',['Mcp4922',['../classxpcc_1_1_mcp4922.html',1,'xpcc']]],
   ['median',['Median',['../classxpcc_1_1filter_1_1_median.html',1,'xpcc::filter']]],
   ['message',['Message',['../structxpcc_1_1can_1_1_message.html',1,'xpcc::can']]],
+  ['mockmaster',['MockMaster',['../classxpcc_1_1i2c_1_1_mock_master.html',1,'xpcc::i2c']]],
   ['movingaverage',['MovingAverage',['../classxpcc_1_1_moving_average.html',1,'xpcc']]],
   ['mutex',['Mutex',['../classxpcc_1_1rtos_1_1_mutex.html',1,'xpcc::rtos']]],
   ['mutexguard',['MutexGuard',['../classxpcc_1_1rtos_1_1_mutex_guard.html',1,'xpcc::rtos']]],

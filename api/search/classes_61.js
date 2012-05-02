@@ -5,9 +5,13 @@ var searchData=
   ['action',['Action',['../structxpcc_1_1sab_1_1_action.html',1,'xpcc::sab']]],
   ['action',['Action',['../structxpcc_1_1amnb_1_1_action.html',1,'xpcc::amnb']]],
   ['actioncallback',['ActionCallback',['../classxpcc_1_1_action_callback.html',1,'xpcc']]],
+  ['ad7280a',['Ad7280a',['../classxpcc_1_1_ad7280a.html',1,'xpcc']]],
   ['ad840x',['AD840x',['../classxpcc_1_1_a_d840x.html',1,'xpcc']]],
-  ['adc',['Adc',['../classxpcc_1_1atmega_1_1_adc.html',1,'xpcc::atmega']]],
   ['adc',['Adc',['../classxpcc_1_1at91_1_1_adc.html',1,'xpcc::at91']]],
+  ['adc',['Adc',['../classxpcc_1_1atmega_1_1_adc.html',1,'xpcc::atmega']]],
+  ['adc1',['Adc1',['../classxpcc_1_1stm32_1_1_adc1.html',1,'xpcc::stm32']]],
+  ['adc2',['Adc2',['../classxpcc_1_1stm32_1_1_adc2.html',1,'xpcc::stm32']]],
+  ['adc3',['Adc3',['../classxpcc_1_1stm32_1_1_adc3.html',1,'xpcc::stm32']]],
   ['adca',['AdcA',['../classxpcc_1_1atxmega_1_1_adc_a.html',1,'xpcc::atxmega']]],
   ['adcb',['AdcB',['../classxpcc_1_1atxmega_1_1_adc_b.html',1,'xpcc::atxmega']]],
   ['adcchannela0',['AdcChannelA0',['../classxpcc_1_1atxmega_1_1_adc_channel_a0.html',1,'xpcc::atxmega']]],
@@ -42,6 +46,5 @@ var searchData=
   ['arithmetictraits_3c_20uint32_5ft_20_3e',['ArithmeticTraits< uint32_t >',['../structxpcc_1_1_arithmetic_traits_3_01uint32__t_01_4.html',1,'xpcc']]],
   ['arithmetictraits_3c_20uint64_5ft_20_3e',['ArithmeticTraits< uint64_t >',['../structxpcc_1_1_arithmetic_traits_3_01uint64__t_01_4.html',1,'xpcc']]],
   ['arithmetictraits_3c_20unsigned_20char_20_3e',['ArithmeticTraits< unsigned char >',['../structxpcc_1_1_arithmetic_traits_3_01unsigned_01char_01_4.html',1,'xpcc']]],
-  ['asynchronoustwimaster',['AsynchronousTwiMaster',['../classxpcc_1_1atmega_1_1_asynchronous_twi_master.html',1,'xpcc::atmega']]],
   ['at45db0x1d',['At45db0x1d',['../classxpcc_1_1_at45db0x1d.html',1,'xpcc']]]
 ];

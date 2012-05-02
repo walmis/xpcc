@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::i2c::Master Class Reference</title>
+<title>xpcc: xpcc::i2c::Master Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -116,12 +116,17 @@ Inheritance diagram for xpcc::i2c::Master:</div>
  <div class="center">
   <img src="classxpcc_1_1i2c_1_1_master.png" usemap="#xpcc::i2c::Master_map" alt=""/>
   <map id="xpcc::i2c::Master_map" name="xpcc::i2c::Master_map">
-<area href="classxpcc_1_1_interface.html" title="Interface class." alt="xpcc::Interface" shape="rect" coords="534,0,791,24"/>
-<area href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html" title="Interrupt-driven TWI master module." alt="xpcc::atmega::AsynchronousTwiMaster" shape="rect" coords="0,112,257,136"/>
-<area href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation." alt="xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;" shape="rect" coords="267,112,524,136"/>
-<area href="classxpcc_1_1stm32_1_1_i2c1.html" title="I2C1 Module." alt="xpcc::stm32::I2c1" shape="rect" coords="534,112,791,136"/>
-<area href="classxpcc_1_1stm32_1_1_i2c2.html" title="I2C2 Module." alt="xpcc::stm32::I2c2" shape="rect" coords="801,112,1058,136"/>
-<area href="classxpcc_1_1stm32_1_1_i2c3.html" title="I2C3 Module." alt="xpcc::stm32::I2c3" shape="rect" coords="1068,112,1325,136"/>
+<area href="classxpcc_1_1_interface.html" title="Interface class." alt="xpcc::Interface" shape="rect" coords="0,0,257,24"/>
+<area href="classxpcc_1_1atmega_1_1_i2c_master.html" title="Interrupt-driven I2C master module." alt="xpcc::atmega::I2cMaster" shape="rect" coords="267,112,524,136"/>
+<area href="classxpcc_1_1atxmega_1_1_i2c_master_c.html" title="Asynchronous I2C master module for Port C." alt="xpcc::atxmega::I2cMasterC" shape="rect" coords="267,168,524,192"/>
+<area href="classxpcc_1_1atxmega_1_1_i2c_master_d.html" title="Asynchronous I2C master module for Port D." alt="xpcc::atxmega::I2cMasterD" shape="rect" coords="267,224,524,248"/>
+<area href="classxpcc_1_1atxmega_1_1_i2c_master_e.html" title="Asynchronous I2C master module for Port E." alt="xpcc::atxmega::I2cMasterE" shape="rect" coords="267,280,524,304"/>
+<area href="classxpcc_1_1atxmega_1_1_i2c_master_f.html" title="Asynchronous I2C master module for Port F." alt="xpcc::atxmega::I2cMasterF" shape="rect" coords="267,336,524,360"/>
+<area href="classxpcc_1_1i2c_1_1_mock_master.html" alt="xpcc::i2c::MockMaster" shape="rect" coords="267,392,524,416"/>
+<area href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation." alt="xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;" shape="rect" coords="267,448,524,472"/>
+<area href="classxpcc_1_1stm32_1_1_i2c_master1.html" title="I2C1 Module." alt="xpcc::stm32::I2cMaster1" shape="rect" coords="267,504,524,528"/>
+<area href="classxpcc_1_1stm32_1_1_i2c_master2.html" title="I2C2 Module." alt="xpcc::stm32::I2cMaster2" shape="rect" coords="267,560,524,584"/>
+<area href="classxpcc_1_1stm32_1_1_i2c_master3.html" title="I2C3 Module." alt="xpcc::stm32::I2cMaster3" shape="rect" coords="267,616,524,640"/>
 </map>
  </div></div>
 
@@ -129,73 +134,32 @@ Inheritance diagram for xpcc::i2c::Master:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#adef1610c8912a620e9075af8d23cbdb7">start</a> (uint8_t slaveAddress)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the Bus control.  <a href="#adef1610c8912a620e9075af8d23cbdb7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a1d051bc54ded21c33ad9ed7f88c81cb5">restart</a> (uint8_t slaveAddress)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts the bus without loosing control.  <a href="#a1d051bc54ded21c33ad9ed7f88c81cb5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c87c3ea9b4608a576221d935b5cab78"></a><!-- doxytag: member="xpcc::i2c::Master::stop" ref="a9c87c3ea9b4608a576221d935b5cab78" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a9c87c3ea9b4608a576221d935b5cab78">stop</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives up the Bus control. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a1fa3565e710d4d51b315ca36575839a7">read</a> (uint8_t *data, std::size_t size, <a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">ReadParameter</a> param=<a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">READ_STOP</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of data.  <a href="#a1fa3565e710d4d51b315ca36575839a7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a02b4ae377ea5dfa94d15a87fe51906ca">write</a> (const uint8_t *data, std::size_t size)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a block of data.  <a href="#a02b4ae377ea5dfa94d15a87fe51906ca"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae396ae88543740cfc84f256d6efcb9cd"></a><!-- doxytag: member="xpcc::i2c::Master::getBusyState" ref="ae396ae88543740cfc84f256d6efcb9cd" args="()" -->
-<a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">BusyState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#ae396ae88543740cfc84f256d6efcb9cd">getBusyState</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check current BusyState. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">BusState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a4dcdd3de4d5e30ca682347a9f2ca642d">getBusState</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the BusState after last operation.  <a href="#a4dcdd3de4d5e30ca682347a9f2ca642d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89">start</a> (<a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">Delegate</a> *delegate)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests bus control and starts the transfer.  <a href="#a6c72a92b7b7cd271136a4f810c576b89"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216">startSync</a> (<a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">Delegate</a> *delegate)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests bus control and starts the transfer.  <a href="#a928247e0e15c1f5f701d574197d05216"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a48ee37397780944e1048a54b613c180a">reset</a> (bool error=false)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a software reset of the driver.  <a href="#a48ee37397780944e1048a54b613c180a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_master.html#a85d3628c184fa4140b9c29528837beca">getErrorState</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the error state of the driver.  <a href="#a85d3628c184fa4140b9c29528837beca"></a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>The operations are potentially asynchronous and can return just after the call. This behavior is implementation dependent. Check always BusyState for completion.</p>
-<p>Performing transfers in background allows the use of DMA etc. and enables the program to do other things while the operation is going on.</p>
-<p>Implementation hint: Every asynchronous functionality must be performed in an interrupt, no work or update methods in main loop are permitted, because a device driver (using this <a class="el" href="classxpcc_1_1i2c_1_1_master.html" title="Interface of a I2C master.">i2c::Master</a>) may wait just after a method call for BusyState become not Busy.</p>
-<p>All methods but start and getBusyState may only be called by owner and only if BusyState is occupied</p>
-<p>After start returned false bus control is not gained by caller. no operation has been started, try again later.</p>
-<p>After start returned true bus control is gained by caller. BusyState will go occupied after completion BusState results to STANDBY or RESET if error occurs</p>
-<p>After restart BusyState will go occupied after completion BusState results to STANDBY or BUS_RESET if error occurs</p>
-<p>After write BusyState will go occupied after completion BusState results to WRITE or BUS_RESET if en error occurs</p>
-<p>After read BusyState will go occupied after completion BusState results to BUS_HOLD, BUS_STOPPED or BUS_RESET if error occurs</p>
-<p>After stop caller is not owner of bus any more BusyState will go free after completion BusState is irrelevant </p>
+<div class="textblock"><p>Performing transfers in background allows the use of DMA etc. and enables the program to do other things while the operation is going on.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Georgi Grinshpun </dd>
+<dd>
+Niklas Hauser </dd></dl>
 
-<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00140">140</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
+<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00061">61</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="adef1610c8912a620e9075af8d23cbdb7"></a><!-- doxytag: member="xpcc::i2c::Master::start" ref="adef1610c8912a620e9075af8d23cbdb7" args="(uint8_t slaveAddress)" -->
+<a class="anchor" id="a6c72a92b7b7cd271136a4f810c576b89"></a><!-- doxytag: member="xpcc::i2c::Master::start" ref="a6c72a92b7b7cd271136a4f810c576b89" args="(Delegate *delegate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1i2c_1_1_master.html#adef1610c8912a620e9075af8d23cbdb7">xpcc::i2c::Master::start</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89">xpcc::i2c::Master::start</a> </td>
           <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>slaveAddress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>This method can be used as a try for gaining control.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>7-bit address of the slave device. LSB must be zero.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>True: BusyState was free before call and goes to occupied after completion. Caller gains control and must give up later. False: Call has no effect. </dd></dl>
-
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#a3dd0929f5f2feecd8770aa3167840adf">xpcc::atmega::AsynchronousTwiMaster</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#a2155aba5176f5fc6bceceb6cd016c88d">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html#a41f2670938e664f597cd622e6aed01f3">xpcc::stm32::I2c1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html#a545118534c0ec7994ce45e8c7cd8bf69">xpcc::stm32::I2c2</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a77843149a2998f1159bcecda82e0c436">xpcc::stm32::I2c3</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1d051bc54ded21c33ad9ed7f88c81cb5"></a><!-- doxytag: member="xpcc::i2c::Master::restart" ref="a1d051bc54ded21c33ad9ed7f88c81cb5" args="(uint8_t slaveAddress)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a1d051bc54ded21c33ad9ed7f88c81cb5">xpcc::i2c::Master::restart</a> </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>slaveAddress</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">Delegate</a> *&#160;</td>
+          <td class="paramname"><em>delegate</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -203,102 +167,75 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">slaveAddress</td><td>7-bit address of the slave device. LSB must be zero. </td></tr>
+    <tr><td class="paramname">delegate</td><td>object that inherits from the <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">Delegate</a> class. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Caller gains control if <code>true</code>. Call has no effect if <code>false</code>. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1_software_i2_c.html#acf27305c4bfd32e88433a04ac6421b35">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#a5b35e058bd906808580d906bdd2f2b7f">xpcc::atmega::AsynchronousTwiMaster</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html#a6baffda1fb46d93c12008d2b873f6f4e">xpcc::stm32::I2c1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html#aecbedff4eefcee0513bb52115ee84a8a">xpcc::stm32::I2c2</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ae4fabd72973458158f5adb0246085d4b">xpcc::stm32::I2c3</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#a926d3571e3edccdab18aca054aed8d60">xpcc::stm32::I2cMaster1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#abb79a5945b947132f61ab02c198ee592">xpcc::stm32::I2cMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#aeaf4347aede5e2808002a1d86ae56267">xpcc::stm32::I2cMaster3</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#a9b604078fb9a03bd4748fc58e5e82192">xpcc::atmega::I2cMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#a7bde0e5633502b9f65a5b2e924acfc2a">xpcc::atxmega::I2cMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#af9c9366febc1cad169b4b94b9798e9b3">xpcc::atxmega::I2cMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a8d763882ba7df731c09d83543e56d1d4">xpcc::atxmega::I2cMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#ab40d56ae6b5b6a80be61d01734e7520e">xpcc::atxmega::I2cMasterF</a>, and <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#ac7bc44cd8a36c16f1db106a8c99fb956">xpcc::i2c::MockMaster</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1fa3565e710d4d51b315ca36575839a7"></a><!-- doxytag: member="xpcc::i2c::Master::read" ref="a1fa3565e710d4d51b315ca36575839a7" args="(uint8_t *data, std::size_t size, ReadParameter param=READ_STOP)" -->
+<a class="anchor" id="a928247e0e15c1f5f701d574197d05216"></a><!-- doxytag: member="xpcc::i2c::Master::startSync" ref="a928247e0e15c1f5f701d574197d05216" args="(Delegate *delegate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a1fa3565e710d4d51b315ca36575839a7">xpcc::i2c::Master::read</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216">xpcc::i2c::Master::startSync</a> </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">Delegate</a> *&#160;</td>
+          <td class="paramname"><em>delegate</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">ReadParameter</a>&#160;</td>
-          <td class="paramname"><em>param</em> = <code><a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">READ_STOP</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Call this method only if BusState allows reading.</p>
+<p>Blocks until delegate is detached.</p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>Pointer to buffer where received data should be stored. This must remain valid during operation is in progress. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Number of bytes to be received </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">param</td><td>See description ReadParameter. Default is READ_STOP. </td></tr>
+    <tr><td class="paramname">delegate</td><td>object that inherits from the <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">Delegate</a> class. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Caller gains control if <code>true</code>. Call has no effect if <code>false</code>. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#a10734f6883959202d6e64c9ece357f87">xpcc::atmega::AsynchronousTwiMaster</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#ae76f848d9f8f1b23fb101cd2c9d68d0e">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html#a65f15606a3c24711f62eddb5a0777af2">xpcc::stm32::I2c1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html#ada3177f1de2e39223f960987e8dc6432">xpcc::stm32::I2c2</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#aeec81ec552f6b9f8d69f3ec69fa4377a">xpcc::stm32::I2c3</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#aa5c98449178c61f0a3af2c8b91c1f66b">xpcc::stm32::I2cMaster1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#a510ccd59721566b33ab7631ba2f14921">xpcc::stm32::I2cMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#afc61c9cad7bf8f07ff16d024bb84a815">xpcc::stm32::I2cMaster3</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#adfcb0dddf8c76c1dd126408e298f7742">xpcc::atmega::I2cMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#aacfbcf7d64954773efcb36ad6b196b4f">xpcc::atxmega::I2cMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#a4493e9aac48c9848cc6aa10c5c66a9a9">xpcc::atxmega::I2cMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a1929e521a0b80f5d1092095ab3819e5f">xpcc::atxmega::I2cMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#aafd975e6e97d98d88b85e1e79399ae60">xpcc::atxmega::I2cMasterF</a>, and <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#a792bf7446e14d9cef60c0128ca2b0a0c">xpcc::i2c::MockMaster</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a02b4ae377ea5dfa94d15a87fe51906ca"></a><!-- doxytag: member="xpcc::i2c::Master::write" ref="a02b4ae377ea5dfa94d15a87fe51906ca" args="(const uint8_t *data, std::size_t size)" -->
+<a class="anchor" id="a48ee37397780944e1048a54b613c180a"></a><!-- doxytag: member="xpcc::i2c::Master::reset" ref="a48ee37397780944e1048a54b613c180a" args="(bool error=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a02b4ae377ea5dfa94d15a87fe51906ca">xpcc::i2c::Master::write</a> </td>
+          <td class="memname">void <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a48ee37397780944e1048a54b613c180a">xpcc::i2c::Master::reset</a> </td>
           <td>(</td>
-          <td class="paramtype">const uint8_t *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>error</em> = <code>false</code></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Call this method if BusState allows writing.</p>
+<p>This method calls the stopped <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">Delegate</a> method and then detaches the delegate. </p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Pointer to buffer containing data to send. This must remain valid during operation is in progress. </td></tr>
-    <tr><td class="paramname">size</td><td>Number of byte to be send </td></tr>
+    <tr><td class="paramname">error</td><td>DetachCause <code>ERROR_CONDITION</code> if <code>true</code>, else <code>SOFTWARE_RESET</code> </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#ab5a7f39dcf32b1b52e6703ce75a7bf8c">xpcc::atmega::AsynchronousTwiMaster</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#ae150f315440d8bb7b4f0004bfadb359e">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html#add529a2118ca80518cbf2d1b697e6e91">xpcc::stm32::I2c1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html#a88aaa742ace8cbeee4ae9751eea11c84">xpcc::stm32::I2c2</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#a1a96ac7919abd1376019e02779ac488a">xpcc::stm32::I2c3</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#a9c38f2e53e92ec66e75405bbfa253ca3">xpcc::stm32::I2cMaster1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#a07f4ca1b1bbed8bce1c7fe78bec510cc">xpcc::stm32::I2cMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#a01aad62c7dfd0190dac7e325b5490778">xpcc::stm32::I2cMaster3</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#a1b76caaeede3205fca07d1601fcc8efc">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#a1de974d26f590cacc6ed146b79fcf170">xpcc::atmega::I2cMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#aab16430c80fab6ac2cfd5add40599c7b">xpcc::atxmega::I2cMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#a8a4d93ec2daf96bb8e86bc206de1bd4a">xpcc::atxmega::I2cMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a772525323603ff9ebd20cedc0c0f9373">xpcc::atxmega::I2cMasterE</a>, and <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#a15cc5a6e593844f4bbac35b02b55bc17">xpcc::atxmega::I2cMasterF</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4dcdd3de4d5e30ca682347a9f2ca642d"></a><!-- doxytag: member="xpcc::i2c::Master::getBusState" ref="a4dcdd3de4d5e30ca682347a9f2ca642d" args="()" -->
+<a class="anchor" id="a85d3628c184fa4140b9c29528837beca"></a><!-- doxytag: member="xpcc::i2c::Master::getErrorState" ref="a85d3628c184fa4140b9c29528837beca" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">BusState</a> <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a4dcdd3de4d5e30ca682347a9f2ca642d">xpcc::i2c::Master::getBusState</a> </td>
+          <td class="memname">uint8_t <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a85d3628c184fa4140b9c29528837beca">xpcc::i2c::Master::getErrorState</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -306,10 +243,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div>
 <div class="memdoc">
-<p>This message should only be called by owner while BusyState is occupied. In other cases returned value is not relevant.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>BusState if BusyState is occupied </dd></dl>
+<p>Since the error states are hardware and implementation specific, this is only the recommended interface and does not need to be implemented. </p>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#a8036bbcef70f7234508ec8ad8b1ba628">xpcc::atmega::AsynchronousTwiMaster</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#af68b6e7351fb2a24beccae2c6dde329d">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c1.html#ab0ed6ebcb742061ab14859cb96be5982">xpcc::stm32::I2c1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c2.html#a7b6f9a0c1d100937bfc7589945baf450">xpcc::stm32::I2c2</a>, and <a class="el" href="classxpcc_1_1stm32_1_1_i2c3.html#ab63fd189502270a69ab1479f3c64af43">xpcc::stm32::I2c3</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#ae351c2c46e8b0cbc3c4799e8011e58bb">xpcc::stm32::I2cMaster1</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#a586a5fcc1fc6896650a21b3a612a816a">xpcc::stm32::I2cMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#aea70367ccd60194bbe48a08ed3056d97">xpcc::stm32::I2cMaster3</a>, <a class="el" href="classxpcc_1_1_software_i2_c.html#a2819453ffc3ea12db34ba2ef5043fd63">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#a3ece25f3230dcb361a5a8cd33e4a36bb">xpcc::atmega::I2cMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#a1db8e1e17d2b9d1dba42eb8b5c2b78bc">xpcc::atxmega::I2cMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#a4e0e779e574905d1e14e61df69edf17d">xpcc::atxmega::I2cMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a2eca64f92c1363d06f2453d48a5bb1d9">xpcc::atxmega::I2cMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#a16b2fe0157850e25fb37d84fbacdb8af">xpcc::atxmega::I2cMasterF</a>, and <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#aeafba79677099ec53b593a460225a69b">xpcc::i2c::MockMaster</a>.</p>
 
 </div>
 </div>
@@ -323,7 +259,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -338,7 +274,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       <li class="navelem"><a class="el" href="namespacexpcc_1_1i2c.html">i2c</a>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1i2c_1_1_master.html">Master</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:09 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:42 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

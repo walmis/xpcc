@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: Class Members</title>
+<title>xpcc: Class Members</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -155,18 +155,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>open()
 : <a class="el" href="classxpcc_1_1pc_1_1_serial_interface.html#a8d19f15d37fcebdfca4ccada17d289c7">xpcc::pc::SerialInterface</a>
 </li>
-<li>Operation
-: <a class="el" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">xpcc::Scp1000&lt; Spi, Cs, Int &gt;</a>
-</li>
-<li>OperationMode
-: <a class="el" href="classxpcc_1_1_hmc58.html#ae93d879fef19a571569d59535889773a">xpcc::Hmc58&lt; I2C &gt;</a>
-</li>
-<li>OperationStatus
-: <a class="el" href="classxpcc_1_1_scp1000.html#af24f5a2a198d08763ebd05237d57ced7">xpcc::Scp1000&lt; Spi, Cs, Int &gt;</a>
-</li>
-<li>operator*
-: <a class="el" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html#aefd21149e400d47cc32c97a1b85ef59d">xpcc::Vector&lt; T, 2 &gt;</a>
-, <a class="el" href="classxpcc_1_1_matrix.html#a5d23b613933b0b8c6b90cfdde32387a8">xpcc::Matrix&lt; T, ROWS, COLUMNS &gt;</a>
+<li>operator*()
+: <a class="el" href="classxpcc_1_1_matrix.html#a5d23b613933b0b8c6b90cfdde32387a8">xpcc::Matrix&lt; T, ROWS, COLUMNS &gt;</a>
+, <a class="el" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html#aefd21149e400d47cc32c97a1b85ef59d">xpcc::Vector&lt; T, 2 &gt;</a>
 </li>
 <li>operator*=()
 : <a class="el" href="classxpcc_1_1_matrix.html#ad9bec1f054b7e1ec8a1afafd38be5825">xpcc::Matrix&lt; T, ROWS, COLUMNS &gt;</a>
@@ -182,11 +173,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>operator&lt;&lt;()
 : <a class="el" href="classxpcc_1_1_polygon2_d.html#a213387ff25d1fe6dd46ec17b4ea09331">xpcc::Polygon2D&lt; T &gt;</a>
-, <a class="el" href="classxpcc_1_1log_1_1_logger.html#a5fa309ec2b4c002fb250c103f01564a1">xpcc::log::Logger</a>
 , <a class="el" href="classxpcc_1_1_vector_3_01_t_00_012_01_4.html#aed86d4e7055e5e2247952cba3f905f6e">xpcc::Vector&lt; T, 2 &gt;</a>
+, <a class="el" href="classxpcc_1_1log_1_1_logger.html#a5fa309ec2b4c002fb250c103f01564a1">xpcc::log::Logger</a>
 </li>
 <li>operator[]()
-: <a class="el" href="classxpcc_1_1_dynamic_array.html#a7c34810f5f180277417c3f65d12b2fd4">xpcc::DynamicArray&lt; T, Allocator &gt;</a>
+: <a class="el" href="classxpcc_1_1_dynamic_array.html#a2bd5abf0e6c383232977c857c124e920">xpcc::DynamicArray&lt; T, Allocator &gt;</a>
 </li>
 <li>OUTPUT_INACTIVE
 : <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#adc6a9bfdf9839c351c0da0d922cda10aad49677ca9804743e6a059f7438092050">xpcc::stm32::GeneralPurposeTimer</a>
@@ -200,6 +191,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>OutputCompareMode
 : <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#adc6a9bfdf9839c351c0da0d922cda10a">xpcc::stm32::GeneralPurposeTimer</a>
 </li>
+<li>OVERRUN
+: <a class="el" href="classxpcc_1_1stm32_1_1_adc1.html#a7ec62355d3e5ff87e40ef9e8c83ffc35accc84232a0fefbae5b3a1c8e52112a31">xpcc::stm32::Adc1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_adc2.html#a4f4a06cd8b69c36818a4da58e5a175d7aecaeed6c34c29968c4d1d51aee368422">xpcc::stm32::Adc2</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_adc3.html#a736b79303b106b16385774848447f9dbae942587ca50d4835f30904857fd1a570">xpcc::stm32::Adc3</a>
+</li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -207,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -220,7 +216,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:14 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

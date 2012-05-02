@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: (I2C) Inter-Integrated Circuit</title>
+<title>xpcc: (I2C) Inter-Integrated Circuit</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -93,8 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">(I2C) Inter-Integrated Circuit</div>  </div>
 <div class="ingroups"><a class="el" href="group__connectivity.html">Connectivity</a></div></div><!--header-->
@@ -105,8 +104,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html">xpcc::atmega::AsynchronousTwiMaster</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-driven TWI master module.  <a href="classxpcc_1_1atmega_1_1_asynchronous_twi_master.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html">xpcc::atmega::I2cMaster</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-driven I2C master module.  <a href="classxpcc_1_1atmega_1_1_i2c_master.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html">xpcc::atxmega::I2cMasterC</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port C.  <a href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html">xpcc::atxmega::I2cMasterD</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port D.  <a href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html">xpcc::atxmega::I2cMasterE</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port E.  <a href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html">xpcc::atxmega::I2cMasterF</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Asynchronous I2C master module for Port F.  <a href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Software emulation of a I2C master implementation.  <a href="classxpcc_1_1_software_i2_c.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="namespaces"></a>
@@ -114,160 +121,19 @@ Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacexpcc_1_1i2c.html">xpcc::i2c</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>I2C <a class="el" href="classxpcc_1_1_interface.html" title="Interface class.">Interface</a>. </p>
 <br/></td></tr>
-<tr><td colspan="2"><h2><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a> { <a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047">xpcc::i2c::READ_STOP</a> =  0, 
-<a class="el" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393">xpcc::i2c::READ_RESTART</a> =  1
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">While reading you have to decide if after operation bus goes into BUS_STOPPED or BUS_HOLD state.  <a href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">xpcc::i2c::BusState</a> { <br/>
-&#160;&#160;<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852">xpcc::i2c::BUS_RESET</a> =  0, 
-<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef">xpcc::i2c::BUS_STANDBY</a> =  1, 
-<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a254f0de5764cc00d4eb2603da8706102">xpcc::i2c::BUS_WRITE</a> =  2, 
-<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a84e5c74df518b5294674c4440eb77d33">xpcc::i2c::BUS_HOLD</a> =  3, 
-<br/>
-&#160;&#160;<a class="el" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2adb89e155db1ad86368ce9c5c1e364c88">xpcc::i2c::BUS_STOPPED</a> =  4
-<br/>
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of bus.  <a href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">xpcc::i2c::BusyState</a> { <a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381">xpcc::i2c::FREE</a> =  0, 
-<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c">xpcc::i2c::BUSY</a> =  1, 
-<a class="el" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7">xpcc::i2c::OCCUPIED</a> =  2
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of a asynchronous operation.  <a href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">xpcc::i2c::SyncParams</a> { <a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3">xpcc::i2c::SYNC_NO_STOP</a> =  0, 
-<a class="el" href="group__i2c.html#gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25">xpcc::i2c::SYNC_STOP</a> =  1
- }</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional Parameter for syncronous operation.  <a href="group__i2c.html#ga790a250c59496eae3777195006adc59e">More...</a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <p>Data is exchanged between these devices. It was invented by Philips to attach low-speed peripherals to a motherboard, embedded system or other devices.</p>
 <p>The I2C bus consists of two lines: Clock and Data with a strong pull-up resistor (usually 4.7kOhm) on each. A logical 0 is signified by actively pulling the line low (open collector output) and a logical 1 is signified by passively leaving the line high (hi-Z). Standard communication speed is up to 100kHz and high speed is up to 400 kHz. The maximum communication speed is affected by the line capacitance and EMI.</p>
 <p>After every 8 bits of data transferred a 1 bit handshake is performed to indicate success ... an ACK is generated by pulling the line low (logical 0). A NACK is signified by leaving the line high (logical 1).</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a href="http://en.wikipedia.org/wiki/I2c" target="_blank">http://en.wikipedia.org/wiki/I2c</a> </dd></dl>
-<hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="ga415c5b3176c117fb3670a64fec536d2b"></a><!-- doxytag: member="xpcc::i2c::ReadParameter" ref="ga415c5b3176c117fb3670a64fec536d2b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b">xpcc::i2c::ReadParameter</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047"></a><!-- doxytag: member="READ_STOP" ref="gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047" args="" -->READ_STOP</em>&nbsp;</td><td>
-<p>After Reading busState results BUS_STOPPED. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393"></a><!-- doxytag: member="READ_RESTART" ref="gga415c5b3176c117fb3670a64fec536d2ba9c8394b88a45fe3b2cca443715026393" args="" -->READ_RESTART</em>&nbsp;</td><td>
-<p>After Reading busState results BUS_HOLD. </p>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00068">68</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga15a56b0ab89e4d5961fdf6100bfa78e2"></a><!-- doxytag: member="xpcc::i2c::BusState" ref="ga15a56b0ab89e4d5961fdf6100bfa78e2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">xpcc::i2c::BusState</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852"></a><!-- doxytag: member="BUS_RESET" ref="gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852" args="" -->BUS_RESET</em>&nbsp;</td><td>
-<p>Last operation was not successful, give up bus control (call stop). </p>
-<p>No restart possible. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef"></a><!-- doxytag: member="BUS_STANDBY" ref="gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef" args="" -->BUS_STANDBY</em>&nbsp;</td><td>
-<p>Last operation (Start or Restart) was successful, ready for writing or reading. </p>
-<p>Note: this state does not indicate a present device, only the bus is ready to be used and reserved for the owner! </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga15a56b0ab89e4d5961fdf6100bfa78e2a254f0de5764cc00d4eb2603da8706102"></a><!-- doxytag: member="BUS_WRITE" ref="gga15a56b0ab89e4d5961fdf6100bfa78e2a254f0de5764cc00d4eb2603da8706102" args="" -->BUS_WRITE</em>&nbsp;</td><td>
-<p>Last operation (write) was successful, ready for writing, restart or stop. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga15a56b0ab89e4d5961fdf6100bfa78e2a84e5c74df518b5294674c4440eb77d33"></a><!-- doxytag: member="BUS_HOLD" ref="gga15a56b0ab89e4d5961fdf6100bfa78e2a84e5c74df518b5294674c4440eb77d33" args="" -->BUS_HOLD</em>&nbsp;</td><td>
-<p>Last operation (read) was successful, ready for restart only. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga15a56b0ab89e4d5961fdf6100bfa78e2adb89e155db1ad86368ce9c5c1e364c88"></a><!-- doxytag: member="BUS_STOPPED" ref="gga15a56b0ab89e4d5961fdf6100bfa78e2adb89e155db1ad86368ce9c5c1e364c88" args="" -->BUS_STOPPED</em>&nbsp;</td><td>
-<p>Last operation (read) was successful, give up bus control (call stop). </p>
-<p>No restart possible. </p>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00078">78</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga90d3b31e8fb5a5b80b67590fa83fdd83"></a><!-- doxytag: member="xpcc::i2c::BusyState" ref="ga90d3b31e8fb5a5b80b67590fa83fdd83" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">xpcc::i2c::BusyState</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381"></a><!-- doxytag: member="FREE" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381" args="" -->FREE</em>&nbsp;</td><td>
-<p>Bus is not used, call start for gaining control. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c"></a><!-- doxytag: member="BUSY" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c" args="" -->BUSY</em>&nbsp;</td><td>
-<p>Asynchronous operation is ongoing. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7"></a><!-- doxytag: member="OCCUPIED" ref="gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7" args="" -->OCCUPIED</em>&nbsp;</td><td>
-<p>Asynchronous operation is finished, check BusState for the result. </p>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html#l00091">91</a> of file <a class="el" href="driver_2connectivity_2i2c_2master_8hpp_source.html">driver/connectivity/i2c/master.hpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga790a250c59496eae3777195006adc59e"></a><!-- doxytag: member="xpcc::i2c::SyncParams" ref="ga790a250c59496eae3777195006adc59e" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="group__i2c.html#ga790a250c59496eae3777195006adc59e">xpcc::i2c::SyncParams</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3"></a><!-- doxytag: member="SYNC_NO_STOP" ref="gga790a250c59496eae3777195006adc59eaccd6e15e1de8730e853d19764fb82fa3" args="" -->SYNC_NO_STOP</em>&nbsp;</td><td>
-<p>BusyState stays occupied. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25"></a><!-- doxytag: member="SYNC_STOP" ref="gga790a250c59496eae3777195006adc59ea727ad2976e8958d92a3cffe1e793ad25" args="" -->SYNC_STOP</em>&nbsp;</td><td>
-<p>Bus is automatically given up. </p>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="sync__master_8hpp_source.html#l00049">49</a> of file <a class="el" href="sync__master_8hpp_source.html">sync_master.hpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -280,7 +146,7 @@ Enumerations</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:59 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

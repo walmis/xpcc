@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: gpio.hpp Source File</title>
+<title>xpcc: gpio.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -177,13 +178,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00087"></a>00087 <span class="preprocessor">        setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL, \</span>
 <a name="l00088"></a>00088 <span class="preprocessor">                ::xpcc::lpc::OutputSpeed speed = ::xpcc::lpc::SPEED_50MHZ) { \</span>
 <a name="l00089"></a>00089 <span class="preprocessor">            uint32_t config = 0x0 | type | speed; \</span>
-<a name="l00090"></a>00090 <span class="preprocessor">            ::xpcc::lpc::GpioMode&lt;GPIO ## port ## _BASE_ADDR, pin&gt;::setMode(config); \</span>
+<a name="l00090"></a>00090 <span class="preprocessor">            ::xpcc::lpc::GpioMode&lt;CONCAT3(GPIO, port, _BASE_ADDR), pin&gt;::setMode(config); \</span>
 <a name="l00091"></a>00091 <span class="preprocessor">        } \</span>
 <a name="l00092"></a>00092 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00093"></a>00093 <span class="preprocessor">        setAlternateFunction(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL, \</span>
 <a name="l00094"></a>00094 <span class="preprocessor">                ::xpcc::lpc::OutputSpeed speed = ::xpcc::lpc::SPEED_50MHZ) { \</span>
 <a name="l00095"></a>00095 <span class="preprocessor">            uint32_t config = 0x8 | type | speed; \</span>
-<a name="l00096"></a>00096 <span class="preprocessor">            ::xpcc::lpc::GpioMode&lt;GPIO ## port ## _BASE_ADDR, pin&gt;::setMode(config); \</span>
+<a name="l00096"></a>00096 <span class="preprocessor">            ::xpcc::lpc::GpioMode&lt;CONCAT3(GPIO, port, _BASE_ADDR), pin&gt;::setMode(config); \</span>
 <a name="l00097"></a>00097 <span class="preprocessor">        } \</span>
 <a name="l00098"></a>00098 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00099"></a>00099 <span class="preprocessor">        setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \</span>
@@ -222,20 +223,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00152"></a>00152 <span class="preprocessor">            setOutput(); } \</span>
 <a name="l00153"></a>00153 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00154"></a>00154 <span class="preprocessor">        setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \</span>
-<a name="l00155"></a>00155 <span class="preprocessor">            LPC_IOCON-&gt;PIO##port##_## pin = type;\</span>
-<a name="l00156"></a>00156 <span class="preprocessor">            LPC_GPIO ## port-&gt;DIR |= 1 &lt;&lt; pin; \</span>
+<a name="l00155"></a>00155 <span class="preprocessor">            LPC_IOCON-&gt;CONCAT4(PIO, port, _, pin) = type;\</span>
+<a name="l00156"></a>00156 <span class="preprocessor">            CONCAT(LPC_GPIO, port)-&gt;DIR |= 1 &lt;&lt; pin; \</span>
 <a name="l00157"></a>00157 <span class="preprocessor">        } \</span>
 <a name="l00158"></a>00158 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
-<a name="l00159"></a>00159 <span class="preprocessor">        set() { LPC_GPIO##port-&gt;MASKED_ACCESS[1 &lt;&lt; pin] = (1 &lt;&lt; pin); } \</span>
+<a name="l00159"></a>00159 <span class="preprocessor">        set() { CONCAT(LPC_GPIO, port)-&gt;MASKED_ACCESS[1 &lt;&lt; pin] = (1 &lt;&lt; pin); } \</span>
 <a name="l00160"></a>00160 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
-<a name="l00161"></a>00161 <span class="preprocessor">        reset() { LPC_GPIO##port-&gt;MASKED_ACCESS[1 &lt;&lt; pin] = 0; } \</span>
+<a name="l00161"></a>00161 <span class="preprocessor">        reset() { CONCAT(LPC_GPIO, port)-&gt;MASKED_ACCESS[1 &lt;&lt; pin] = 0; } \</span>
 <a name="l00162"></a>00162 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00163"></a>00163 <span class="preprocessor">        toggle() { if (read()) { reset(); } else { set(); } } \</span>
 <a name="l00164"></a>00164 <span class="preprocessor">        ALWAYS_INLINE static void \</span>
 <a name="l00165"></a>00165 <span class="preprocessor">        set(bool status) { if (status) { set(); } else { reset(); } } \</span>
 <a name="l00166"></a>00166 <span class="preprocessor">    protected: \</span>
 <a name="l00167"></a>00167 <span class="preprocessor">        ALWAYS_INLINE static bool \</span>
-<a name="l00168"></a>00168 <span class="preprocessor">        read() { return (LPC_GPIO##port-&gt;MASKED_ACCESS[1 &lt;&lt; pin]) &gt;&gt; pin; } \</span>
+<a name="l00168"></a>00168 <span class="preprocessor">        read() { return (CONCAT(LPC_GPIO, port)-&gt;MASKED_ACCESS[1 &lt;&lt; pin]) &gt;&gt; pin; } \</span>
 <a name="l00169"></a>00169 <span class="preprocessor">    }</span>
 <a name="l00170"></a>00170 <span class="preprocessor"></span>
 <a name="l00190"></a>00190 <span class="preprocessor">#define GPIO__INPUT(name, port, pin) \</span>
@@ -260,7 +261,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -273,7 +274,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>gpio.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:57 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

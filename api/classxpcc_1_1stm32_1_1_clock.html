@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: xpcc::stm32::Clock Class Reference</title>
+<title>xpcc: xpcc::stm32::Clock Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">xpcc::stm32::Clock Class Reference</div>  </div>
+<div class="title">xpcc::stm32::Clock Class Reference<div class="ingroups"><a class="el" href="group__stm32f1.html">STM32F10x</a> &#124; <a class="el" href="group__stm32f2__4.html">STM32F2xx and STM32F4xx</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="xpcc::stm32::Clock" -->
@@ -185,8 +185,14 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
      <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6" title="PLL_HSE.">PLL_HSE</a>, PLL_MUL_9);
      switchToPll();
  }
-</pre></div><p>For using a 25 MHz crystal on a Connectivity Line device: if (enableHSE(HSE_CRYSTAL)) { enablePll2(5, PLL2_MUL_8); // 40 MHz = (25 MHz / 5) * 8 enablePll(PLL_PREDIV1, PLL_MUL_9, PREDIV1_PLL2, 5); // 72 MHz = (40 MHz / 5) * 9 switchToPll(); } </p>
-<p>For using the internal clock (which is 16MHz) use: </p>
+</pre></div><p>For using a 25 MHz crystal on a Connectivity Line device: </p>
+<div class="fragment"><pre class="fragment"> <span class="keywordflow">if</span> (enableHse(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995" title="Use a crystal to generate a clock.">HSE_CRYSTAL</a>))
+ {
+     enablePll2(5, PLL2_MUL_8); <span class="comment">// 40 MHz = (25 MHz / 5) * 8</span>
+     <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(PLL_PREDIV1, PLL_MUL_9, PREDIV1_PLL2, 5);    <span class="comment">// 72 MHz = (40 MHz / 5) * 9</span>
+     switchToPll();
+ }
+</pre></div><p>For using the internal clock (which is 16MHz) use: </p>
 <div class="fragment"><pre class="fragment"> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7eabc700dc7c257a650d48893b24221ac8c" title="High speed internal clock (16 MHz)">PLL_HSI</a>, 8, 120);    <span class="comment">// for STM32F2xx</span>
  <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7eabc700dc7c257a650d48893b24221ac8c" title="High speed internal clock (16 MHz)">PLL_HSI</a>, 8, 168);    <span class="comment">// for STM32F4xx</span>
  switchToPll();
@@ -205,7 +211,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
      switchToPll();
  }
 </pre></div> 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00071">71</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00074">74</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
 </div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a5f20786733ab16acac26288f5a758ca1"></a><!-- doxytag: member="xpcc::stm32::Clock::HseConfig" ref="a5f20786733ab16acac26288f5a758ca1" args="" -->
 <div class="memitem">
@@ -234,7 +240,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00074">74</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00077">77</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -267,7 +273,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00160">160</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html#l00163">163</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f1_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f1/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +304,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00073">73</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00075">75</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -331,7 +337,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00079">79</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00081">81</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -363,7 +369,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>Source select for PLL and for plli2s. If you are using HSE you must enable it first (see enableHse()).</td></tr>
-    <tr><td class="paramname">pllMull</td><td>PLL multiplication factor. Set multiplication factor so that the output of the PLL is 72MHz PLL output = pllMul * frequency of PLL source</td></tr>
+    <tr><td class="paramname">pllMul</td><td>PLL multiplication factor. Set multiplication factor so that the output of the PLL is 72MHz PLL output = pllMul * frequency of PLL source</td></tr>
   </table>
   </dd>
 </dl>
@@ -430,7 +436,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -445,7 +451,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
       <li class="navelem"><b>stm32</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1stm32_1_1_clock.html">Clock</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:11:12 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

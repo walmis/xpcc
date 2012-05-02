@@ -13,5 +13,6 @@ var namespaces =
     [ "xpcc::log", "namespacexpcc_1_1log.html", "namespacexpcc_1_1log" ],
     [ "xpcc::one_wire", "namespacexpcc_1_1one__wire.html", "namespacexpcc_1_1one__wire" ],
     [ "xpcc::tmp", "namespacexpcc_1_1tmp.html", "namespacexpcc_1_1tmp" ],
+    [ "xpcc::tmp102", "namespacexpcc_1_1tmp102.html", "namespacexpcc_1_1tmp102" ],
     [ "xpcc::x86", "namespacexpcc_1_1x86.html", null ]
 ];

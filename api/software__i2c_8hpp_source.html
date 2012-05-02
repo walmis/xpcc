@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: software_i2c.hpp Source File</title>
+<title>xpcc: software_i2c.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -136,77 +137,89 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00034"></a>00034 <span class="preprocessor">#include &lt;xpcc/architecture/driver/delay.hpp&gt;</span>
 <a name="l00035"></a>00035 <span class="preprocessor">#include &quot;master.hpp&quot;</span>
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
-<a name="l00038"></a>00038 {
-<a name="l00089"></a>00089     <span class="keyword">template</span>&lt; <span class="keyword">typename</span> Scl,
-<a name="l00090"></a>00090               <span class="keyword">typename</span> Sda,
-<a name="l00091"></a>00091               int32_t Frequency = 100000 &gt;
-<a name="l00092"></a><a class="code" href="classxpcc_1_1_software_i2_c.html">00092</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation.">SoftwareI2C</a> : <span class="keyword">public</span> i2c::Master
-<a name="l00093"></a>00093     {
-<a name="l00094"></a>00094     <span class="keyword">public</span>:
-<a name="l00098"></a>00098         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00099"></a>00099         <a class="code" href="classxpcc_1_1_software_i2_c.html#a28d33b582b8a6dd2703bdb8d96363d39" title="Initialize the hardware.">initialize</a>();
-<a name="l00100"></a>00100         
-<a name="l00101"></a>00101     <span class="keyword">public</span>:
-<a name="l00102"></a>00102         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00103"></a>00103         <a class="code" href="classxpcc_1_1_software_i2_c.html#a2155aba5176f5fc6bceceb6cd016c88d" title="Requests the Bus control.">start</a>(uint8_t slaveAddress);
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00106"></a>00106         <a class="code" href="classxpcc_1_1_software_i2_c.html#a8983df1931c2805499cdf46c2a9d2b1e" title="Gives up the Bus control.">stop</a>();
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00109"></a>00109         <a class="code" href="classxpcc_1_1_software_i2_c.html#ae76f848d9f8f1b23fb101cd2c9d68d0e" title="Read a block of data.">read</a>(uint8_t *data, std::size_t size, <a class="code" href="group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b" title="While reading you have to decide if after operation bus goes into BUS_STOPPED or BUS_HOLD state...">xpcc::i2c::ReadParameter</a> param = <a class="code" href="group__i2c.html#gga415c5b3176c117fb3670a64fec536d2ba8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">xpcc::i2c::READ_STOP</a>);
-<a name="l00110"></a>00110 
+<a name="l00037"></a>00037 <span class="comment">// debugging for dummies</span>
+<a name="l00038"></a>00038 <span class="comment">//#define DEBUG_SW_I2C(x) xpcc::atxmega::BufferedUartF0::write(x)</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#define DEBUG_SW_I2C(x)</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>xpcc
+<a name="l00042"></a>00042 {
+<a name="l00093"></a>00093     <span class="keyword">template</span>&lt; <span class="keyword">typename</span> Scl,
+<a name="l00094"></a>00094               <span class="keyword">typename</span> Sda,
+<a name="l00095"></a>00095               int32_t Frequency = 100000 &gt;
+<a name="l00096"></a><a class="code" href="classxpcc_1_1_software_i2_c.html">00096</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation.">SoftwareI2C</a> : <span class="keyword">public</span> i2c::Master
+<a name="l00097"></a>00097     {
+<a name="l00098"></a>00098     <span class="keyword">public</span>:
+<a name="l00099"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785">00099</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785">ErrorState</a>
+<a name="l00100"></a>00100         {
+<a name="l00101"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a4d137e9cb574a851751cdd7d3b9dddf1">00101</a>             <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a4d137e9cb574a851751cdd7d3b9dddf1" title="No Error ocurred.">NO_ERROR</a>,           
+<a name="l00102"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a6d3b88867e0fc7e1f94598ceb4112286">00102</a>             <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a6d3b88867e0fc7e1f94598ceb4112286" title="Data was transmitted and NACK received.">DATA_NACK</a>,          
+<a name="l00103"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a8183ac56e82563928ca29b331d3ea16e">00103</a>             <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785a8183ac56e82563928ca29b331d3ea16e" title="Arbitration was lost during writing or reading.">ARBITRATION_LOST</a>,   
+<a name="l00104"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785aec505cc68918aa30724adc407a147b8e">00104</a>             <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785aec505cc68918aa30724adc407a147b8e" title="Misplaced Start or Stop condition.">BUS_ERROR</a>,          
+<a name="l00105"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785ae0983204d846cc56a1de0499b7fe6ef9">00105</a>             <a class="code" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785ae0983204d846cc56a1de0499b7fe6ef9" title="Unknown error condition.">UNKNOWN_ERROR</a>       
+<a name="l00106"></a>00106         };
+<a name="l00107"></a>00107         
 <a name="l00111"></a>00111         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00112"></a>00112         <a class="code" href="classxpcc_1_1_software_i2_c.html#ae150f315440d8bb7b4f0004bfadb359e" title="Write a block of data.">write</a>(<span class="keyword">const</span> uint8_t *data, std::size_t size);
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00115"></a>00115         <a class="code" href="classxpcc_1_1_software_i2_c.html#acf27305c4bfd32e88433a04ac6421b35" title="Restarts the bus without loosing control.">restart</a>(uint8_t slaveAddress);
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117         <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">xpcc::i2c::BusyState</a>
-<a name="l00118"></a>00118         <a class="code" href="classxpcc_1_1_software_i2_c.html#a2719d5e997bf8fef75fa973c97e16014" title="Check current BusyState.">getBusyState</a>();
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120         <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">xpcc::i2c::BusState</a>
-<a name="l00121"></a>00121         <a class="code" href="classxpcc_1_1_software_i2_c.html#af68b6e7351fb2a24beccae2c6dde329d" title="Check the BusState after last operation.">getBusState</a>();
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keyword">protected</span>:
-<a name="l00124"></a>00124         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00125"></a>00125         startCondition(uint8_t address);
+<a name="l00112"></a>00112         <a class="code" href="classxpcc_1_1_software_i2_c.html#ad9fec6d4b03130a8d9c68ae8e6607531" title="Initialize the hardware.">initialize</a>(<span class="keywordtype">bool</span> pullup=<span class="keyword">false</span>);
+<a name="l00113"></a>00113         
+<a name="l00114"></a>00114     <span class="keyword">public</span>:
+<a name="l00115"></a>00115         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00116"></a>00116         <a class="code" href="classxpcc_1_1_software_i2_c.html#a1b76caaeede3205fca07d1601fcc8efc" title="Perform a software reset of the driver.">reset</a>(<span class="keywordtype">bool</span> error=<span class="keyword">false</span>);
+<a name="l00117"></a>00117         
+<a name="l00118"></a>00118         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00119"></a>00119         <a class="code" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08" title="Requests bus control and starts the transfer.">start</a>(<a class="code" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">xpcc::i2c::Delegate</a> *delegate);
+<a name="l00120"></a>00120         
+<a name="l00121"></a>00121         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00122"></a><a class="code" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa">00122</a>         <a class="code" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa" title="Requests bus control and starts the transfer.">startSync</a>(<a class="code" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">xpcc::i2c::Delegate</a> *delegate)
+<a name="l00123"></a>00123         {
+<a name="l00124"></a>00124             <span class="keywordflow">return</span> <a class="code" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08" title="Requests bus control and starts the transfer.">start</a>(delegate);
+<a name="l00125"></a>00125         };
 <a name="l00126"></a>00126         
-<a name="l00127"></a>00127         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00128"></a>00128         <a class="code" href="classxpcc_1_1_software_i2_c.html#ae150f315440d8bb7b4f0004bfadb359e" title="Write a block of data.">write</a>(uint8_t data);
-<a name="l00129"></a>00129         
-<a name="l00130"></a>00130         <span class="keyword">static</span> uint8_t
-<a name="l00131"></a>00131         <a class="code" href="classxpcc_1_1_software_i2_c.html#ae76f848d9f8f1b23fb101cd2c9d68d0e" title="Read a block of data.">read</a>(<span class="keywordtype">bool</span> ack);
-<a name="l00132"></a>00132         
-<a name="l00133"></a>00133         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00134"></a>00134         stopCondition();
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136     <span class="keyword">protected</span>:
-<a name="l00137"></a>00137         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span>
-<a name="l00138"></a>00138         readBit();
-<a name="l00139"></a>00139         
-<a name="l00140"></a>00140         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00141"></a>00141         writeBit(<span class="keywordtype">bool</span> bit);
-<a name="l00142"></a>00142         
-<a name="l00143"></a>00143         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00144"></a>00144         delay();
-<a name="l00145"></a>00145         
-<a name="l00146"></a>00146         <span class="comment">// calculate the delay in microseconds needed to achieve the</span>
-<a name="l00147"></a>00147         <span class="comment">// requested SPI frequency</span>
-<a name="l00148"></a>00148         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> delayTime = (1000000.0 / Frequency) / 2.0;
-<a name="l00149"></a>00149         
-<a name="l00150"></a>00150         <span class="keyword">static</span> Scl scl;
-<a name="l00151"></a>00151         <span class="keyword">static</span> Sda sda;
-<a name="l00152"></a>00152         <span class="keyword">static</span> <span class="keywordtype">bool</span> occupied;
-<a name="l00153"></a>00153         <span class="keyword">static</span> uint8_t address;
-<a name="l00154"></a>00154         <span class="keyword">static</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">xpcc::i2c::BusState</a> busState;
-<a name="l00155"></a>00155     };
-<a name="l00156"></a>00156 }
-<a name="l00157"></a>00157 
-<a name="l00158"></a>00158 <span class="preprocessor">#include &quot;software_i2c_impl.hpp&quot;</span>
-<a name="l00159"></a>00159 
-<a name="l00160"></a>00160 <span class="preprocessor">#endif // XPCC__SOFTWARE_I2C_HPP</span>
+<a name="l00127"></a>00127         <span class="keyword">static</span> uint8_t
+<a name="l00128"></a>00128         <a class="code" href="classxpcc_1_1_software_i2_c.html#a2819453ffc3ea12db34ba2ef5043fd63" title="Check the error state of the driver.">getErrorState</a>();
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130     <span class="keyword">private</span>:
+<a name="l00131"></a>00131         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00132"></a>00132         error();
+<a name="l00133"></a>00133         
+<a name="l00134"></a>00134     <span class="keyword">private</span>:
+<a name="l00135"></a>00135         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00136"></a>00136         startCondition();
+<a name="l00137"></a>00137         
+<a name="l00138"></a>00138         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00139"></a>00139         stopCondition();
+<a name="l00140"></a>00140         
+<a name="l00141"></a>00141         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00142"></a>00142         write(uint8_t data);
+<a name="l00143"></a>00143         
+<a name="l00144"></a>00144         <span class="keyword">static</span> uint8_t
+<a name="l00145"></a>00145         read(<span class="keywordtype">bool</span> ack);
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147     <span class="keyword">private</span>:
+<a name="l00148"></a>00148         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span>
+<a name="l00149"></a>00149         readBit();
+<a name="l00150"></a>00150         
+<a name="l00151"></a>00151         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00152"></a>00152         writeBit(<span class="keywordtype">bool</span> bit);
+<a name="l00153"></a>00153         
+<a name="l00154"></a>00154         <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00155"></a>00155         delay();
+<a name="l00156"></a>00156         
+<a name="l00157"></a>00157         <span class="comment">// calculate the delay in microseconds needed to achieve the</span>
+<a name="l00158"></a>00158         <span class="comment">// requested SPI frequency</span>
+<a name="l00159"></a>00159         <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> delayTime = (1000000.0 / Frequency) / 2.0;
+<a name="l00160"></a>00160         
+<a name="l00161"></a>00161         <span class="keyword">static</span> Scl scl;
+<a name="l00162"></a>00162         <span class="keyword">static</span> Sda sda;
+<a name="l00163"></a>00163         
+<a name="l00164"></a>00164         <span class="keyword">static</span> <a class="code" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1" title="Possible operations after start or restart.">xpcc::i2c::Delegate::NextOperation</a> nextOperation;
+<a name="l00165"></a>00165         <span class="keyword">static</span> <a class="code" href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation.">xpcc::i2c::Delegate</a> *myDelegate;
+<a name="l00166"></a>00166         <span class="keyword">static</span> uint8_t errorState;
+<a name="l00167"></a>00167     };
+<a name="l00168"></a>00168 }
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170 <span class="preprocessor">#include &quot;software_i2c_impl.hpp&quot;</span>
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172 <span class="preprocessor">#endif // XPCC__SOFTWARE_I2C_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -214,7 +227,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -227,7 +240,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>software_i2c.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

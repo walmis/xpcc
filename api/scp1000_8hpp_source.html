@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: scp1000.hpp Source File</title>
+<title>xpcc: scp1000.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -138,116 +139,119 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
 <a name="l00038"></a>00038 {
-<a name="l00075"></a>00075     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> Spi, <span class="keyword">typename</span> Cs, <span class="keyword">typename</span> Int &gt;
-<a name="l00076"></a><a class="code" href="classxpcc_1_1_scp1000.html">00076</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scp1000.html" title="SCP1000-D01 absolute pressure sensor driver.">Scp1000</a>
-<a name="l00077"></a>00077     {
-<a name="l00078"></a>00078     <span class="keyword">public</span>:
-<a name="l00080"></a><a class="code" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2">00080</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2" title="The addresses of the Direct Access Registers.">Register</a>
-<a name="l00081"></a>00081         {
-<a name="l00082"></a>00082             REGISTER_REVID = 0x00,
-<a name="l00083"></a>00083             REGISTER_DATAWR = 0x01,
-<a name="l00084"></a>00084             REGISTER_ADDPTR = 0x02,
-<a name="l00085"></a>00085             REGISTER_OPERATION = 0x03,
-<a name="l00086"></a>00086             REGISTER_OPSTATUS = 0x04,
-<a name="l00087"></a>00087             REGISTER_RSTR = 0x06,
-<a name="l00088"></a>00088             REGISTER_STATUS = 0x07,
-<a name="l00089"></a>00089             REGISTER_DATARD8 = 0x1F,
-<a name="l00090"></a>00090             REGISTER_DATARD16 = 0x20,
-<a name="l00091"></a>00091             REGISTER_TEMPOUT = 0x21
+<a name="l00039"></a>00039     <span class="keyword">namespace </span>scp1000
+<a name="l00040"></a>00040     {
+<a name="l00042"></a>00042         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#gae2e716657a43e2aba93b77d048d90b51" title="Adressen der Register des MCP2515.">Register</a>
+<a name="l00043"></a>00043         {
+<a name="l00044"></a>00044             REGISTER_REVID = 0x00,
+<a name="l00045"></a>00045             REGISTER_DATAWR = 0x01,
+<a name="l00046"></a>00046             REGISTER_ADDPTR = 0x02,
+<a name="l00047"></a>00047             REGISTER_OPERATION = 0x03,
+<a name="l00048"></a>00048             REGISTER_OPSTATUS = 0x04,
+<a name="l00049"></a>00049             REGISTER_RSTR = 0x06,
+<a name="l00050"></a>00050             REGISTER_STATUS = 0x07,
+<a name="l00051"></a>00051             REGISTER_DATARD8 = 0x1F,
+<a name="l00052"></a>00052             REGISTER_DATARD16 = 0x20,
+<a name="l00053"></a>00053             REGISTER_TEMPOUT = 0x21
+<a name="l00054"></a>00054         };
+<a name="l00055"></a>00055         
+<a name="l00057"></a>00057         <span class="keyword">enum</span> Operation
+<a name="l00058"></a>00058         {
+<a name="l00059"></a>00059             OPERATION_NO_OPERATION = 0x00,
+<a name="l00060"></a>00060             OPERATION_READ_REGISTER = 0x01,
+<a name="l00061"></a>00061             OPERATION_WRITE_REGISTER = 0x02,
+<a name="l00062"></a>00062             OPERATION_READ_EEPROM = 0x05,
+<a name="l00063"></a>00063             OPERATION_WRITE_EEPROM = 0x06,
+<a name="l00064"></a>00064             OPERATION_INIT_SEQUENCE = 0x07,
+<a name="l00065"></a>00065             OPERATION_HIGH_RESOLUTION_MODE_START = 0x0A,
+<a name="l00066"></a>00066             OPERATION_HIGH_SPEED_MODE_START = 0x09,
+<a name="l00067"></a>00067             OPERATION_ULTRA_LOW_POWER_MODE_START = 0x0B,
+<a name="l00068"></a>00068             OPERATION_LOW_POWER_AQUISITION = 0x0C,
+<a name="l00069"></a>00069             OPERATION_ASIC_TEST = 0x0F
+<a name="l00070"></a>00070         };
+<a name="l00071"></a>00071         
+<a name="l00073"></a>00073         <span class="keyword">enum</span> <a class="code" href="group__mcp2515.html#ga14b0c039a9e0665612d74241fb1e8ebd" title="Definition of the status register.">Status</a>
+<a name="l00074"></a>00074         {
+<a name="l00075"></a>00075             STATUS_EXT_TRIGGERED_AQUISITION_RUNNING = 0x40,
+<a name="l00076"></a>00076             STATUS_DATA_READY = 0x20,
+<a name="l00077"></a>00077             STATUS_REAL_TIME_ERROR = 0x10,
+<a name="l00078"></a>00078             STATUS_STARTUP_RUNNING = 0x01
+<a name="l00079"></a>00079         };
+<a name="l00080"></a>00080         
+<a name="l00082"></a>00082         <span class="keyword">enum</span> OperationStatus
+<a name="l00083"></a>00083         {
+<a name="l00084"></a>00084             OPERATION_STATUS_FINISHED = 0x00,
+<a name="l00085"></a>00085             OPERATION_STATUS_RUNNING = 0x01
+<a name="l00086"></a>00086         };
+<a name="l00087"></a>00087         
+<a name="l00088"></a>00088         <span class="keyword">enum</span> Reset
+<a name="l00089"></a>00089         {
+<a name="l00090"></a>00090             NO_RESET = 0x00,
+<a name="l00091"></a>00091             RESET = 0x01
 <a name="l00092"></a>00092         };
-<a name="l00093"></a>00093         
-<a name="l00095"></a><a class="code" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3">00095</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3" title="The operation options of REGISTER_OPERATION.">Operation</a>
-<a name="l00096"></a>00096         {
-<a name="l00097"></a>00097             OPERATION_NO_OPERATION = 0x00,
-<a name="l00098"></a>00098             OPERATION_READ_REGISTER = 0x01,
-<a name="l00099"></a>00099             OPERATION_WRITE_REGISTER = 0x02,
-<a name="l00100"></a>00100             OPERATION_READ_EEPROM = 0x05,
-<a name="l00101"></a>00101             OPERATION_WRITE_EEPROM = 0x06,
-<a name="l00102"></a>00102             OPERATION_INIT_SEQUENCE = 0x07,
-<a name="l00103"></a>00103             OPERATION_HIGH_RESOLUTION_MODE_START = 0x0A,
-<a name="l00104"></a>00104             OPERATION_HIGH_SPEED_MODE_START = 0x09,
-<a name="l00105"></a>00105             OPERATION_ULTRA_LOW_POWER_MODE_START = 0x0B,
-<a name="l00106"></a>00106             OPERATION_LOW_POWER_AQUISITION = 0x0C,
-<a name="l00107"></a>00107             OPERATION_ASIC_TEST = 0x0F
-<a name="l00108"></a>00108         };
-<a name="l00109"></a>00109         
-<a name="l00111"></a><a class="code" href="classxpcc_1_1_scp1000.html#a3e55a98de6cf4892a496fc13593faa7a">00111</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_scp1000.html#a3e55a98de6cf4892a496fc13593faa7a" title="The status bitmasks of REGISTER_STATUS.">Status</a>
-<a name="l00112"></a>00112         {
-<a name="l00113"></a>00113             STATUS_EXT_TRIGGERED_AQUISITION_RUNNING_bm = 0x40,
-<a name="l00114"></a>00114             STATUS_DATA_READY_bm = 0x20,
-<a name="l00115"></a>00115             STATUS_REAL_TIME_ERROR_bm = 0x10,
-<a name="l00116"></a>00116             STATUS_STARTUP_RUNNING_bm = 0x01
-<a name="l00117"></a>00117         };
-<a name="l00118"></a>00118         
-<a name="l00120"></a><a class="code" href="classxpcc_1_1_scp1000.html#af24f5a2a198d08763ebd05237d57ced7">00120</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_scp1000.html#af24f5a2a198d08763ebd05237d57ced7" title="The status of REGISTER_OPSTATUS.">OperationStatus</a>
-<a name="l00121"></a>00121         {
-<a name="l00122"></a>00122             OPERATION_STATUS_FINISHED = 0x00,
-<a name="l00123"></a>00123             OPERATION_STATUS_RUNNING = 0x01
-<a name="l00124"></a>00124         };
-<a name="l00125"></a>00125         
-<a name="l00126"></a>00126         <span class="keyword">enum</span> Reset
-<a name="l00127"></a>00127         {
-<a name="l00128"></a>00128             NO_RESET = 0x00,
-<a name="l00129"></a>00129             RESET = 0x01
-<a name="l00130"></a>00130         };
-<a name="l00131"></a>00131         
-<a name="l00137"></a>00137         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00138"></a>00138         <a class="code" href="classxpcc_1_1_scp1000.html#a79230651048d96058de9dcd59227c6d8" title="Resets and initializes the chip to the new operation mode.">initialize</a>(<a class="code" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3" title="The operation options of REGISTER_OPERATION.">Operation</a> opMode=OPERATION_HIGH_RESOLUTION_MODE_START);
-<a name="l00139"></a>00139         
-<a name="l00144"></a>00144         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00145"></a>00145         <a class="code" href="classxpcc_1_1_scp1000.html#ae07a6c5fd97f681cfc5c6947685c613b" title="Reads the temperature register and buffers the result sets isTemperatureAvailable() to true...">readTemperature</a>();
-<a name="l00146"></a>00146         
-<a name="l00151"></a>00151         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00152"></a>00152         <a class="code" href="classxpcc_1_1_scp1000.html#abd669e6644cc7c5c39955ba5023bb23c" title="Reads the pressure MSB and LSB registers and buffers the results sets isPressureAvailable() to true...">readPressure</a>();
-<a name="l00153"></a>00153         
-<a name="l00155"></a>00155         <span class="keyword">static</span> uint8_t*
-<a name="l00156"></a>00156         getTemperature();
-<a name="l00157"></a>00157         
-<a name="l00159"></a>00159         <span class="keyword">static</span> uint8_t*
-<a name="l00160"></a>00160         <a class="code" href="classxpcc_1_1_scp1000.html#afbaca9dedda4c723f80995860c910760">getPressure</a>();
-<a name="l00161"></a>00161         
-<a name="l00170"></a>00170         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00171"></a>00171         <a class="code" href="classxpcc_1_1_scp1000.html#ab75b736ad402a0d77db961fe424ebf06" title="Writes the operation mode to REGISTER_OPERATION and waits until the operation completed (up to 16ms)...">setOperation</a>(<a class="code" href="classxpcc_1_1_scp1000.html#ace74b0093656c69ab39a341696051bc3" title="The operation options of REGISTER_OPERATION.">Operation</a> opMode);
-<a name="l00172"></a>00172         
-<a name="l00177"></a>00177         <span class="keyword">static</span> uint8_t
-<a name="l00178"></a>00178         <a class="code" href="classxpcc_1_1_scp1000.html#ab618da875ad24e841e158cdfe6bb96f8">readStatus</a>(<span class="keywordtype">bool</span> opStatus=<span class="keyword">false</span>);
-<a name="l00179"></a>00179         
-<a name="l00187"></a>00187         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00188"></a>00188         <a class="code" href="classxpcc_1_1_scp1000.html#a5a499c2f612904ce80022eacdecd1a04" title="Resets the chip, waits 151ms, then starts checking the status register if the startup completed...">reset</a>(uint8_t timeout);
-<a name="l00189"></a>00189         
-<a name="l00191"></a>00191         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00192"></a>00192         <a class="code" href="classxpcc_1_1_scp1000.html#a8481d8816138eadb84e999c7169186b8">isNewTemperatureAvailable</a>();
-<a name="l00193"></a>00193         
-<a name="l00195"></a>00195         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00196"></a>00196         <a class="code" href="classxpcc_1_1_scp1000.html#a90ccfe7fc22ccd0bc06113cac79d8d6f">isNewPressureAvailable</a>();
-<a name="l00197"></a>00197         
-<a name="l00199"></a>00199         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00200"></a>00200         <a class="code" href="classxpcc_1_1_scp1000.html#aca0bea1365d4e61b4aa79af69b1094ab">isNewDataReady</a>();
-<a name="l00201"></a>00201         
-<a name="l00202"></a>00202     <span class="keyword">private</span>:
-<a name="l00209"></a>00209         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00210"></a>00210         writeRegister(<a class="code" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2" title="The addresses of the Direct Access Registers.">Register</a> reg, uint8_t data);
-<a name="l00211"></a>00211         
-<a name="l00218"></a>00218         <span class="keyword">static</span> uint8_t
-<a name="l00219"></a>00219         read8BitRegister(<a class="code" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2" title="The addresses of the Direct Access Registers.">Register</a> reg);
-<a name="l00220"></a>00220         
-<a name="l00228"></a>00228         <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00229"></a>00229         read16BitRegister(<a class="code" href="classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2" title="The addresses of the Direct Access Registers.">Register</a> reg, uint8_t *buffer);
-<a name="l00230"></a>00230         
-<a name="l00231"></a>00231         <span class="keyword">static</span> Spi spi;
-<a name="l00232"></a>00232         <span class="keyword">static</span> Cs chipSelect;
-<a name="l00233"></a>00233         <span class="keyword">static</span> Int interruptPin;
-<a name="l00234"></a>00234         
-<a name="l00235"></a>00235         <span class="keyword">static</span> <span class="keywordtype">bool</span> newTemperature;
-<a name="l00236"></a>00236         <span class="keyword">static</span> <span class="keywordtype">bool</span> newPressure;
-<a name="l00237"></a>00237         <span class="keyword">static</span> uint8_t temperature[2];
-<a name="l00238"></a>00238         <span class="keyword">static</span> uint8_t pressure[3];
-<a name="l00239"></a>00239     };
-<a name="l00240"></a>00240 }
-<a name="l00241"></a>00241 
-<a name="l00242"></a>00242 <span class="preprocessor">#include &quot;scp1000_impl.hpp&quot;</span>
-<a name="l00243"></a>00243 
-<a name="l00244"></a>00244 <span class="preprocessor">#endif // XPCC__SCP1000_HPP</span>
+<a name="l00093"></a>00093     }
+<a name="l00094"></a>00094     
+<a name="l00131"></a>00131     <span class="keyword">template</span> &lt; <span class="keyword">typename</span> Spi, <span class="keyword">typename</span> Cs, <span class="keyword">typename</span> Int &gt;
+<a name="l00132"></a><a class="code" href="classxpcc_1_1_scp1000.html">00132</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_scp1000.html" title="SCP1000-D01 absolute pressure sensor driver.">Scp1000</a>
+<a name="l00133"></a>00133     {
+<a name="l00134"></a>00134     <span class="keyword">public</span>:
+<a name="l00140"></a>00140         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00141"></a>00141         <a class="code" href="classxpcc_1_1_scp1000.html#ad31cb9f20e9eea6eee11dfb6c0583925" title="Resets and initializes the chip to the new operation mode.">initialize</a>(scp1000::Operation opMode=scp1000::OPERATION_HIGH_RESOLUTION_MODE_START);
+<a name="l00142"></a>00142         
+<a name="l00147"></a>00147         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00148"></a>00148         <a class="code" href="classxpcc_1_1_scp1000.html#ae07a6c5fd97f681cfc5c6947685c613b" title="Reads the temperature register and buffers the result sets isTemperatureAvailable() to true...">readTemperature</a>();
+<a name="l00149"></a>00149         
+<a name="l00154"></a>00154         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00155"></a>00155         <a class="code" href="classxpcc_1_1_scp1000.html#abd669e6644cc7c5c39955ba5023bb23c" title="Reads the pressure MSB and LSB registers and buffers the results sets isPressureAvailable() to true...">readPressure</a>();
+<a name="l00156"></a>00156         
+<a name="l00158"></a>00158         <span class="keyword">static</span> uint8_t*
+<a name="l00159"></a>00159         getTemperature();
+<a name="l00160"></a>00160         
+<a name="l00162"></a>00162         <span class="keyword">static</span> uint8_t*
+<a name="l00163"></a>00163         <a class="code" href="classxpcc_1_1_scp1000.html#afbaca9dedda4c723f80995860c910760">getPressure</a>();
+<a name="l00164"></a>00164         
+<a name="l00173"></a>00173         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00174"></a>00174         <a class="code" href="classxpcc_1_1_scp1000.html#ac0dc1fb32e36000bcb48a93c572120bd" title="Writes the operation mode to REGISTER_OPERATION and waits until the operation completed (up to 16ms)...">setOperation</a>(scp1000::Operation opMode);
+<a name="l00175"></a>00175         
+<a name="l00180"></a>00180         <span class="keyword">static</span> uint8_t
+<a name="l00181"></a>00181         <a class="code" href="classxpcc_1_1_scp1000.html#ab618da875ad24e841e158cdfe6bb96f8">readStatus</a>(<span class="keywordtype">bool</span> opStatus=<span class="keyword">false</span>);
+<a name="l00182"></a>00182         
+<a name="l00190"></a>00190         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00191"></a>00191         <a class="code" href="classxpcc_1_1_scp1000.html#a5a499c2f612904ce80022eacdecd1a04" title="Resets the chip, waits 151ms, then starts checking the status register if the startup completed...">reset</a>(uint8_t timeout);
+<a name="l00192"></a>00192         
+<a name="l00194"></a>00194         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00195"></a>00195         <a class="code" href="classxpcc_1_1_scp1000.html#a8481d8816138eadb84e999c7169186b8">isNewTemperatureAvailable</a>();
+<a name="l00196"></a>00196         
+<a name="l00198"></a>00198         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00199"></a>00199         <a class="code" href="classxpcc_1_1_scp1000.html#a90ccfe7fc22ccd0bc06113cac79d8d6f">isNewPressureAvailable</a>();
+<a name="l00200"></a>00200         
+<a name="l00202"></a>00202         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00203"></a>00203         <a class="code" href="classxpcc_1_1_scp1000.html#aca0bea1365d4e61b4aa79af69b1094ab">isNewDataReady</a>();
+<a name="l00204"></a>00204         
+<a name="l00205"></a>00205     <span class="keyword">private</span>:
+<a name="l00212"></a>00212         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00213"></a>00213         writeRegister(scp1000::Register reg, uint8_t data);
+<a name="l00214"></a>00214         
+<a name="l00221"></a>00221         <span class="keyword">static</span> uint8_t
+<a name="l00222"></a>00222         read8BitRegister(scp1000::Register reg);
+<a name="l00223"></a>00223         
+<a name="l00231"></a>00231         <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00232"></a>00232         read16BitRegister(scp1000::Register reg, uint8_t *buffer);
+<a name="l00233"></a>00233         
+<a name="l00234"></a>00234         <span class="keyword">static</span> Spi spi;
+<a name="l00235"></a>00235         <span class="keyword">static</span> Cs chipSelect;
+<a name="l00236"></a>00236         <span class="keyword">static</span> Int interruptPin;
+<a name="l00237"></a>00237         
+<a name="l00238"></a>00238         <span class="keyword">static</span> <span class="keywordtype">bool</span> newTemperature;
+<a name="l00239"></a>00239         <span class="keyword">static</span> <span class="keywordtype">bool</span> newPressure;
+<a name="l00240"></a>00240         <span class="keyword">static</span> uint8_t temperature[2];
+<a name="l00241"></a>00241         <span class="keyword">static</span> uint8_t pressure[3];
+<a name="l00242"></a>00242     };
+<a name="l00243"></a>00243 }
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245 <span class="preprocessor">#include &quot;scp1000_impl.hpp&quot;</span>
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247 <span class="preprocessor">#endif // XPCC__SCP1000_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -255,7 +259,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -268,7 +272,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>scp1000.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Thu Mar 15 2012 10:10:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

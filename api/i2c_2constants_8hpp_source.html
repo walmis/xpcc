@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>XPCC: constants.hpp Source File</title>
+<title>xpcc: constants.hpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,7 +32,7 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">XPCC
+   <div id="projectname">xpcc
    
    </div>
    
@@ -79,6 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -127,62 +128,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="comment"> * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
 <a name="l00026"></a>00026 <span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span>
 <a name="l00027"></a>00027 <span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
-<a name="l00028"></a>00028 <span class="comment"> *</span>
-<a name="l00029"></a>00029 <span class="comment"> * $Id: constants.hpp 735 2012-02-18 22:04:33Z salkinium $</span>
-<a name="l00030"></a>00030 <span class="comment"> */</span>
-<a name="l00031"></a>00031 <span class="comment">// ----------------------------------------------------------------------------</span>
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#ifndef XPCC_I2C__CONSTANTS_HPP</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_I2C__CONSTANTS_HPP</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>
-<a name="l00036"></a>00036 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">namespace </span>xpcc
-<a name="l00039"></a>00039 {
-<a name="l00044"></a><a class="code" href="namespacexpcc_1_1i2c.html">00044</a>     <span class="keyword">namespace </span>i2c
-<a name="l00045"></a>00045     {
-<a name="l00051"></a>00051         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t WRITE = 0x00;
-<a name="l00052"></a>00052         
-<a name="l00058"></a>00058         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ = 0x01;
-<a name="l00059"></a>00059         
-<a name="l00066"></a><a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc">00066</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga19fdc0df061c6ca9a150b3b85d8463fc" title="While reading/writing you have to decide if after operation bus goes into BUS_STOPPED, BUS_HOLD or BUS_WRITE state.">OperationParameter</a>
-<a name="l00067"></a>00067         {
-<a name="l00068"></a><a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047">00068</a>             <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca8a8d42b376d4e926045b943f87eb7047" title="After Reading busState results BUS_STOPPED.">READ_STOP</a> = 0,      
-<a name="l00069"></a><a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393">00069</a>             <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca9c8394b88a45fe3b2cca443715026393" title="After Reading busState results BUS_HOLD.">READ_RESTART</a> = 1,   
-<a name="l00070"></a><a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b">00070</a>             <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fca6a1fb1e9ad13119f9fda2000fc79508b" title="After Writing busState results BUS_STOPPED.">WRITE_STOP</a> = 2,     
-<a name="l00071"></a><a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf">00071</a>             <a class="code" href="group__i2c.html#gga19fdc0df061c6ca9a150b3b85d8463fcaf6f4345aa32aa8d7c7e5b83792762cdf" title="After Writing busState results BUS_WRITE.">WRITE_RESTART</a> = 3,  
-<a name="l00072"></a>00072         };
-<a name="l00073"></a>00073         
-<a name="l00082"></a><a class="code" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59">00082</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga34ac81f412c394d765705c291a0fcb59" title="If an error occurs these states give further information.">ErrorState</a>
-<a name="l00083"></a>00083         {
-<a name="l00084"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a5fcff3cb278b5198e646b8cf8414b18f">00084</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a5fcff3cb278b5198e646b8cf8414b18f" title="No Error ocurred.">NO_ERROR</a>,           
-<a name="l00085"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a583dc34d8d1e00f0f53c0f37ffd66ab3">00085</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a583dc34d8d1e00f0f53c0f37ffd66ab3" title="Slave address was transmitted and NACK received.">ADDRESS_NACK</a>,       
-<a name="l00086"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22">00086</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ad161d2cf6b9518150bb09cd7a70a0d22" title="Data was transmitted and NACK received.">DATA_NACK</a>,          
-<a name="l00087"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59aaa7ffad8db803504a36a85a1f8901a43">00087</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59aaa7ffad8db803504a36a85a1f8901a43" title="Arbitration was lost during writing or reading.">ARBITRATION_LOST</a>,   
-<a name="l00088"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ae257d52707c552529bb312516861c090">00088</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59ae257d52707c552529bb312516861c090" title="Misplaced Start or Stop condition.">BUS_ERROR</a>,          
-<a name="l00089"></a><a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a174ea8a3d8a12bc8fc47335d7d27bcd8">00089</a>             <a class="code" href="group__i2c.html#gga34ac81f412c394d765705c291a0fcb59a174ea8a3d8a12bc8fc47335d7d27bcd8" title="Unknown error condition.">UNKNOWN_ERROR</a>       
-<a name="l00090"></a>00090         };
-<a name="l00091"></a>00091         
-<a name="l00096"></a><a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2">00096</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga15a56b0ab89e4d5961fdf6100bfa78e2" title="Status of bus.">BusState</a>
-<a name="l00097"></a>00097         {
-<a name="l00098"></a><a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852">00098</a>             <a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2aa9a6b0085734a0f434384407c5485852" title="Last operation was not successful, give up bus control (call stop).">BUS_RESET</a> = 0,      
-<a name="l00099"></a><a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef">00099</a>             <a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2ab890e1814c82c558c358b1e9234c25ef" title="Last operation (Start or Restart) was successful, ready for writing or reading.">BUS_STANDBY</a> = 1,    
-<a name="l00100"></a><a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a254f0de5764cc00d4eb2603da8706102">00100</a>             <a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a254f0de5764cc00d4eb2603da8706102" title="Last operation (write) was successful, ready for writing, restart or stop.">BUS_WRITE</a> = 2,      
-<a name="l00101"></a><a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a84e5c74df518b5294674c4440eb77d33">00101</a>             <a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2a84e5c74df518b5294674c4440eb77d33" title="Last operation (read) was successful, ready for restart only.">BUS_HOLD</a> = 3,       
-<a name="l00102"></a><a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2adb89e155db1ad86368ce9c5c1e364c88">00102</a>             <a class="code" href="group__i2c.html#gga15a56b0ab89e4d5961fdf6100bfa78e2adb89e155db1ad86368ce9c5c1e364c88" title="Last operation (read) was successful, give up bus control (call stop).">BUS_STOPPED</a> = 4,    
-<a name="l00103"></a>00103         };
-<a name="l00104"></a>00104         
-<a name="l00109"></a><a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83">00109</a>         <span class="keyword">enum</span> <a class="code" href="group__i2c.html#ga90d3b31e8fb5a5b80b67590fa83fdd83" title="Status of a asynchronous operation.">BusyState</a>
-<a name="l00110"></a>00110         {
-<a name="l00111"></a><a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a0714b1b122adba983247954e09939858">00111</a>             <a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a0714b1b122adba983247954e09939858" title="Bus has been reset and is in no known state.">UNKNOWN</a> = 0,    
-<a name="l00112"></a><a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381">00112</a>             <a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a83734979c5a02b817a1d51087dc74381" title="Bus is not used, call start for gaining control.">FREE</a> = 1,       
-<a name="l00113"></a><a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7">00113</a>             <a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a352d3d249131cf51c64da92d4959c5a7" title="Asynchronous operation is finished, check BusState for the result.">OCCUPIED</a> = 2,   
-<a name="l00114"></a><a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c">00114</a>             <a class="code" href="group__i2c.html#gga90d3b31e8fb5a5b80b67590fa83fdd83a73fcb6b2788672c4659abaa9b36cab3c" title="Asynchronous operation is ongoing.">BUSY</a> = 3,       
-<a name="l00115"></a>00115         };
-<a name="l00116"></a>00116     }
-<a name="l00117"></a>00117 }
-<a name="l00118"></a>00118 
-<a name="l00119"></a>00119 <span class="preprocessor">#endif // XPCC_I2C__CONSTANTS_HPP</span>
+<a name="l00028"></a>00028 <span class="comment"> */</span>
+<a name="l00029"></a>00029 <span class="comment">// ----------------------------------------------------------------------------</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_I2C__CONSTANTS_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_I2C__CONSTANTS_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
+<a name="l00037"></a>00037 {
+<a name="l00042"></a><a class="code" href="namespacexpcc_1_1i2c.html">00042</a>     <span class="keyword">namespace </span>i2c
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t WRITE = 0x00;
+<a name="l00045"></a>00045         <span class="keyword">static</span> <span class="keyword">const</span> uint8_t READ = 0x01;
+<a name="l00046"></a>00046         
+<a name="l00047"></a>00047         <span class="keyword">namespace </span>adapter
+<a name="l00048"></a>00048         {
+<a name="l00049"></a>00049             <span class="keyword">enum</span> State
+<a name="l00050"></a>00050             {
+<a name="l00051"></a>00051                 BUSY,
+<a name="l00052"></a>00052                 NO_ERROR,
+<a name="l00053"></a>00053                 ERROR
+<a name="l00054"></a>00054             };
+<a name="l00055"></a>00055         }
+<a name="l00056"></a>00056     }
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif // XPCC_I2C__CONSTANTS_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -190,7 +163,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -203,7 +176,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>constants.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Mar 5 2012 21:25:58 for XPCC by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

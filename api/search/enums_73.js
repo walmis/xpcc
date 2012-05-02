@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['status',['Status',['../classxpcc_1_1_hmc58.html#ae7f4e738a91a6a84cdb95d58a8cafec3',1,'xpcc::Hmc58::Status()'],['../classxpcc_1_1_scp1000.html#a3e55a98de6cf4892a496fc13593faa7a',1,'xpcc::Scp1000::Status()']]],
-  ['statusregister',['StatusRegister',['../classxpcc_1_1_spi_ram.html#a403a729e701fbf90682552e686f9b7d4',1,'xpcc::SpiRam']]],
-  ['syncparams',['SyncParams',['../group__i2c.html#ga790a250c59496eae3777195006adc59e',1,'xpcc::i2c']]]
+  ['sampletime',['SampleTime',['../classxpcc_1_1stm32_1_1_adc1.html#aa266f4d649b8dfcfe3bfdaf3e786eb41',1,'xpcc::stm32::Adc1::SampleTime()'],['../classxpcc_1_1stm32_1_1_adc2.html#a0f01cc1b5e077ebb0e3c6f908ef10f4a',1,'xpcc::stm32::Adc2::SampleTime()'],['../classxpcc_1_1stm32_1_1_adc3.html#a45022f795175c8b9a4ff8741b9d0a309',1,'xpcc::stm32::Adc3::SampleTime()']]],
+  ['statusregister',['StatusRegister',['../classxpcc_1_1_spi_ram.html#a403a729e701fbf90682552e686f9b7d4',1,'xpcc::SpiRam']]]
 ];

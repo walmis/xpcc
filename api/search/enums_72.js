@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['readparameter',['ReadParameter',['../group__i2c.html#ga415c5b3176c117fb3670a64fec536d2b',1,'xpcc::i2c']]],
   ['receptionstate',['ReceptionState',['../structxpcc_1_1_interconnect_link.html#a0cc500c619b08444ec89002beeeec8e4',1,'xpcc::InterconnectLink']]],
   ['reference',['Reference',['../namespacexpcc_1_1atxmega_1_1adc.html#a9619e95e7d9e0d7522c13bd649023d4a',1,'xpcc::atxmega::adc']]],
-  ['register',['Register',['../classxpcc_1_1_mcp4922.html#a57f88db5fdae273b35abed4a6d3bc096',1,'xpcc::Mcp4922::Register()'],['../classxpcc_1_1_adxl345.html#af45d1660e85241be22f4aa4745900647',1,'xpcc::Adxl345::Register()'],['../classxpcc_1_1_hmc58.html#a9200732cdd38a009f94a1d5ed207c63b',1,'xpcc::Hmc58::Register()'],['../classxpcc_1_1_scp1000.html#a80df9823550839c0f05a456fc28638b2',1,'xpcc::Scp1000::Register()']]],
+  ['register',['Register',['../classxpcc_1_1_mcp4922.html#a57f88db5fdae273b35abed4a6d3bc096',1,'xpcc::Mcp4922']]],
   ['registeraddress',['RegisterAddress',['../classxpcc_1_1_mcp23s08.html#a555755959e90e6a82611b6a03c25abdb',1,'xpcc::Mcp23s08::RegisterAddress()'],['../classxpcc_1_1_mcp23s17.html#aa6c2d2baf0938c1e2c1a2ceb56a14296',1,'xpcc::Mcp23s17::RegisterAddress()']]],
   ['remap',['Remap',['../classxpcc_1_1stm32_1_1_timer1.html#a274753212a3b9513dded110f644f88f1',1,'xpcc::stm32::Timer1::Remap()'],['../classxpcc_1_1stm32_1_1_timer2.html#a7ddd9971a5e6cbeef2bd4f61c1ec1691',1,'xpcc::stm32::Timer2::Remap()'],['../classxpcc_1_1stm32_1_1_timer3.html#a203787326dab4a40d3a4d77ed8c83cb6',1,'xpcc::stm32::Timer3::Remap()'],['../classxpcc_1_1stm32_1_1_timer4.html#a11b288c20cf1b199eeb8ed08cf80105d',1,'xpcc::stm32::Timer4::Remap()'],['../classxpcc_1_1stm32_1_1_timer5.html#ad93e5d7f519730bfca73918da290b716',1,'xpcc::stm32::Timer5::Remap()']]],
   ['remoterequestfilter',['RemoteRequestFilter',['../classxpcc_1_1stm32_1_1_can_filter.html#aa1688e3a34e1fb86b42e4a896e3f4c4c',1,'xpcc::stm32::CanFilter']]],
