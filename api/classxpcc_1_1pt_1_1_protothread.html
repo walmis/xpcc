@@ -132,18 +132,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the protothread.  <a href="#a640728df919edbefe4c9cefa5c8be90c"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-types"></a>
 Protected Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4410b68c3c9894c9056a1bbba46ad03"></a><!-- doxytag: member="xpcc::pt::Protothread::State" ref="ac4410b68c3c9894c9056a1bbba46ad03" args="" -->
-typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">State</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee9771f189d2f3b55901d03be6d22c1c"></a><!-- doxytag: member="xpcc::pt::Protothread::PtState" ref="aee9771f189d2f3b55901d03be6d22c1c" args="" -->
+typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c">PtState</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to store a protothread's position (what Dunkels calls a "local continuation"). <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2a9fc340b7d60d230010e5506c7d676"></a><!-- doxytag: member="xpcc::pt::Protothread::ptState" ref="ae2a9fc340b7d60d230010e5506c7d676" args="" -->
-<a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676">ptState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0f48036333fbcd2ff506988406a6a83"></a><!-- doxytag: member="xpcc::pt::Protothread::ptState" ref="ad0f48036333fbcd2ff506988406a6a83" args="" -->
+<a class="el" href="classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c">PtState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ad0f48036333fbcd2ff506988406a6a83">ptState</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the protothread's position (by storing the line number of the last PT_WAIT, which is then switched on at the next Run). <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d87cc545a84f031b266d521c32d088f"></a><!-- doxytag: member="xpcc::pt::Protothread::Invalid" ref="a3d87cc545a84f031b266d521c32d088f" args="" -->
-static const <a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f">Invalid</a> = static_cast&lt;<a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03">State</a>&gt;(-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbf847be3168e1d99bb7c93f3060de11"></a><!-- doxytag: member="xpcc::pt::Protothread::Invalid" ref="acbf847be3168e1d99bb7c93f3060de11" args="" -->
+static const <a class="el" href="classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c">PtState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html#acbf847be3168e1d99bb7c93f3060de11">Invalid</a> = static_cast&lt;<a class="el" href="classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c">PtState</a>&gt;(-1)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An invalid line number, used to mark the protothread has ended. <br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -285,7 +285,7 @@ static const <a class="el" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c
       <li class="navelem"><b>pt</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1pt_1_1_protothread.html">Protothread</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:49 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

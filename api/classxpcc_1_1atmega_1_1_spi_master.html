@@ -142,6 +142,16 @@ Public Types</h2></td></tr>
 <b>PRESCALER_128</b> =  (1 &lt;&lt; SPR1) | (1 &lt;&lt; SPR0)
 <br/>
  }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BufferIncrease</b> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
+<b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> =  0x01, 
+<b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> =  0x02, 
+<b>BUFFER_INCR_BOTH</b> =  0x03
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TransferOptions</b> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
+<b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> =  0x01, 
+<b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> =  0x02, 
+<b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> =  0x03
+ }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a1d4f7bb30f0ecdadae976fc96f3a9e99">initialize</a> (<a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a56b0ebb8aa8eef96eeda0ad291291ac7">Mode</a> mode, Prescaler prescaler)</td></tr>
@@ -149,15 +159,18 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad9f5725fcc14a9d91a8237081d943ce"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::write" ref="aad9f5725fcc14a9d91a8237081d943ce" args="(uint8_t data)" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aad9f5725fcc14a9d91a8237081d943ce">write</a> (uint8_t data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">initiates a SPI transfer and returns the received byte <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#a3ee141d9b3fa64af4ba6d2f0fe26bfc4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a8d07611c3fb7f61cbe28addd2dd532d7">transfer</a> (bool send=true, bool receive=false, bool wait=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request a transfer, not buffered, blocking if not using DMA.  <a href="#a8d07611c3fb7f61cbe28addd2dd532d7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#afec4afe371675f42fed3fe4f394fdf29"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e">transfer</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request an asynchronous transfer, synchronous if DMA unavailable.  <a href="#aee1a8d563334c495470721b74cafbd5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab550c77d9e8e26b038bc8198d30e16f1"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::transferSync" ref="ab550c77d9e8e26b038bc8198d30e16f1" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#ab550c77d9e8e26b038bc8198d30e16f1">transferSync</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">synchronous transfer, even if using DMA <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a895a2f783e53750f4136c150980d5e8c">isFinished</a> ()</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html#l00046">46</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html">architecture/platform/avr/atmega/spi.hpp</a>.</p>
+<p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html#l00047">47</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html">architecture/platform/avr/atmega/spi.hpp</a>.</p>
 </div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a56b0ebb8aa8eef96eeda0ad291291ac7"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::Mode" ref="a56b0ebb8aa8eef96eeda0ad291291ac7" args="" -->
 <div class="memitem">
@@ -186,7 +199,7 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html#l00049">49</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html">architecture/platform/avr/atmega/spi.hpp</a>.</p>
+<p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html#l00050">50</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2spi_8hpp_source.html">architecture/platform/avr/atmega/spi.hpp</a>.</p>
 
 </div>
 </div>
@@ -219,12 +232,12 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 
 </div>
 </div>
-<a class="anchor" id="a3ee141d9b3fa64af4ba6d2f0fe26bfc4"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::setBuffer" ref="a3ee141d9b3fa64af4ba6d2f0fe26bfc4" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)" -->
+<a class="anchor" id="afec4afe371675f42fed3fe4f394fdf29"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::setBuffer" ref="afec4afe371675f42fed3fe4f394fdf29" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4">xpcc::atmega::SpiMaster::setBuffer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29">xpcc::atmega::SpiMaster::setBuffer</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>length</em>, </td>
@@ -244,14 +257,8 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>transmitIncr</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receiveIncr</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">BufferIncrease&#160;</td>
+          <td class="paramname"><em>bufferIncrease</em> = <code>BUFFER_INCR_BOTH</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -266,58 +273,39 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
     <tr><td class="paramname">length</td><td>length of buffer or number of dummy bytes to be send </td></tr>
     <tr><td class="paramname">transmit</td><td>pointer to transmit buffer, set to zero to send dummy bytes </td></tr>
     <tr><td class="paramname">receive</td><td>pointer to receive buffer, if set to zero transmit buffer is used </td></tr>
-    <tr><td class="paramname">transmitIncr</td><td>increment or decrement transmit buffer </td></tr>
-    <tr><td class="paramname">receiveIncr</td><td>increment or decrement receive buffer </td></tr>
+    <tr><td class="paramname">bufferIncrease</td><td>increment or decrement buffers </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if buffer has been successfully copied </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d">xpcc::SpiMaster</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97">xpcc::SpiMaster</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8d07611c3fb7f61cbe28addd2dd532d7"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::transfer" ref="a8d07611c3fb7f61cbe28addd2dd532d7" args="(bool send=true, bool receive=false, bool wait=true)" -->
+<a class="anchor" id="aee1a8d563334c495470721b74cafbd5e"></a><!-- doxytag: member="xpcc::atmega::SpiMaster::transfer" ref="aee1a8d563334c495470721b74cafbd5e" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a8d07611c3fb7f61cbe28addd2dd532d7">xpcc::atmega::SpiMaster::transfer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e">xpcc::atmega::SpiMaster::transfer</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>send</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receive</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>wait</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static]</code></td>
+          <td class="paramtype">TransferOptions&#160;</td>
+          <td class="paramname"><em>options</em> = <code>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</code></td><td>)</td>
+          <td><code> [inline, static]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">send</td><td>set to false to send dummy data (0xff) </td></tr>
-    <tr><td class="paramname">receive</td><td>set to true to write received data back in buffer. </td></tr>
-    <tr><td class="paramname">wait</td><td>set to true to wait until (DMA) operation finished </td></tr>
+    <tr><td class="paramname">options</td><td>TransferOptions </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if request was successfully serviced </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03">xpcc::SpiMaster</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25">xpcc::SpiMaster</a>.</p>
 
 </div>
 </div>
@@ -365,7 +353,7 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
       <li class="navelem"><b>atmega</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">SpiMaster</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:41 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

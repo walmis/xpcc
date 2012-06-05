@@ -134,58 +134,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_FREERTOS__MUTEX_HPP</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FREERTOS__MUTEX_HPP</span>
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;freertos/semphr.h&gt;</span>
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">namespace </span>xpcc
-<a name="l00038"></a>00038 {
-<a name="l00039"></a>00039     <span class="keyword">namespace </span>rtos
-<a name="l00040"></a>00040     {
-<a name="l00054"></a>00054         <span class="keyword">class </span>Mutex
-<a name="l00055"></a>00055         {
-<a name="l00056"></a>00056         <span class="keyword">public</span>:
-<a name="l00057"></a>00057             Mutex();
-<a name="l00058"></a>00058             
-<a name="l00059"></a>00059             ~Mutex();
-<a name="l00060"></a>00060             
-<a name="l00061"></a>00061             <span class="keywordtype">bool</span>
-<a name="l00062"></a>00062             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>(portTickType timeout = portMAX_DELAY);
-<a name="l00063"></a>00063             
-<a name="l00064"></a>00064             <span class="keywordtype">void</span>
-<a name="l00065"></a>00065             release();
-<a name="l00066"></a>00066             
-<a name="l00067"></a>00067         <span class="keyword">private</span>:
-<a name="l00068"></a>00068             <span class="comment">// disable copy constructor</span>
-<a name="l00069"></a>00069             Mutex(<span class="keyword">const</span> Mutex&amp; other);
+<a name="l00034"></a>00034 <span class="preprocessor">#ifndef XPCC_RTOS__MUTEX_HPP</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Don&#39;t include this file directly, use &lt;xpcc/workflow/rtos/mutex.hpp&gt;&quot;</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;freertos/semphr.h&gt;</span>
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>xpcc
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043     <span class="keyword">namespace </span>rtos
+<a name="l00044"></a>00044     {
+<a name="l00058"></a>00058         <span class="keyword">class </span>Mutex
+<a name="l00059"></a>00059         {
+<a name="l00060"></a>00060         <span class="keyword">public</span>:
+<a name="l00061"></a>00061             Mutex();
+<a name="l00062"></a>00062             
+<a name="l00063"></a>00063             ~Mutex();
+<a name="l00064"></a>00064             
+<a name="l00065"></a>00065             <span class="keywordtype">bool</span>
+<a name="l00066"></a>00066             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>(portTickType timeout = portMAX_DELAY);
+<a name="l00067"></a>00067             
+<a name="l00068"></a>00068             <span class="keywordtype">void</span>
+<a name="l00069"></a>00069             release();
 <a name="l00070"></a>00070             
-<a name="l00071"></a>00071             <span class="comment">// disable assignment operator</span>
-<a name="l00072"></a>00072             Mutex&amp;
-<a name="l00073"></a>00073             operator = (<span class="keyword">const</span> Mutex&amp; other);
+<a name="l00071"></a>00071         <span class="keyword">private</span>:
+<a name="l00072"></a>00072             <span class="comment">// disable copy constructor</span>
+<a name="l00073"></a>00073             Mutex(<span class="keyword">const</span> Mutex&amp; other);
 <a name="l00074"></a>00074             
-<a name="l00075"></a>00075             xSemaphoreHandle handle;
-<a name="l00076"></a>00076         };
-<a name="l00077"></a>00077         
-<a name="l00083"></a>00083         <span class="keyword">class </span>MutexGuard
-<a name="l00084"></a>00084         {
-<a name="l00085"></a>00085         <span class="keyword">public</span>:
-<a name="l00086"></a>00086             MutexGuard(Mutex&amp; m) :
-<a name="l00087"></a>00087                 mutex(m)
-<a name="l00088"></a>00088             {
-<a name="l00089"></a>00089                 mutex.<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>();
-<a name="l00090"></a>00090             }
-<a name="l00091"></a>00091             
-<a name="l00092"></a>00092             ~MutexGuard()
-<a name="l00093"></a>00093             {
-<a name="l00094"></a>00094                 mutex.release();
-<a name="l00095"></a>00095             }
-<a name="l00096"></a>00096             
-<a name="l00097"></a>00097         <span class="keyword">private</span>:
-<a name="l00098"></a>00098             Mutex&amp; mutex;
-<a name="l00099"></a>00099         };
-<a name="l00100"></a>00100     }
-<a name="l00101"></a>00101 }
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="preprocessor">#endif // XPCC_FREERTOS__MUTEX_HPP</span>
+<a name="l00075"></a>00075             <span class="comment">// disable assignment operator</span>
+<a name="l00076"></a>00076             Mutex&amp;
+<a name="l00077"></a>00077             operator = (<span class="keyword">const</span> Mutex&amp; other);
+<a name="l00078"></a>00078             
+<a name="l00079"></a>00079             xSemaphoreHandle handle;
+<a name="l00080"></a>00080         };
+<a name="l00081"></a>00081         
+<a name="l00087"></a>00087         <span class="keyword">class </span>MutexGuard
+<a name="l00088"></a>00088         {
+<a name="l00089"></a>00089         <span class="keyword">public</span>:
+<a name="l00090"></a>00090             MutexGuard(Mutex&amp; m) :
+<a name="l00091"></a>00091                 mutex(m)
+<a name="l00092"></a>00092             {
+<a name="l00093"></a>00093                 mutex.<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>();
+<a name="l00094"></a>00094             }
+<a name="l00095"></a>00095             
+<a name="l00096"></a>00096             ~MutexGuard()
+<a name="l00097"></a>00097             {
+<a name="l00098"></a>00098                 mutex.release();
+<a name="l00099"></a>00099             }
+<a name="l00100"></a>00100             
+<a name="l00101"></a>00101         <span class="keyword">private</span>:
+<a name="l00102"></a>00102             Mutex&amp; mutex;
+<a name="l00103"></a>00103         };
+<a name="l00104"></a>00104     }
+<a name="l00105"></a>00105 }
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107 <span class="preprocessor">#endif // XPCC_FREERTOS__MUTEX_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -206,7 +210,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>mutex.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:30 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -1,9 +1,12 @@
 var classxpcc_1_1_software_spi =
 [
+    [ "BufferIncrease", "classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522", null ],
+    [ "TransferOptions", "classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7", null ],
     [ "initialize", "classxpcc_1_1_software_spi.html#a14b4a1290acc9317ddaa27e439e90f59", null ],
     [ "write", "classxpcc_1_1_software_spi.html#ad179284b1658b79322fd9f68f11ff122", null ],
-    [ "setBuffer", "classxpcc_1_1_software_spi.html#aa694e19f72a3fc1447449c07b013f385", null ],
-    [ "transfer", "classxpcc_1_1_software_spi.html#a63c42256c936dafe523d06ed3730b9ae", null ],
+    [ "setBuffer", "classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c", null ],
+    [ "transfer", "classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c", null ],
+    [ "transferSync", "classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb", null ],
     [ "isFinished", "classxpcc_1_1_software_spi.html#aaf5dcd3f5c5a294a0580c8341f2d4140", null ],
     [ "delay", "classxpcc_1_1_software_spi.html#ab75ba79b9929b2093cf4aa66cfe8f721", null ],
     [ "delayTime", "classxpcc_1_1_software_spi.html#add04d8f72584eef524ae4af8283cd9c9", null ],

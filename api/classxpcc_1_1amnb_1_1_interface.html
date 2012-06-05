@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>xpcc: xpcc::amnb::Interface&lt; Device &gt; Class Template Reference</title>
+<title>xpcc: xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
-<div class="title">xpcc::amnb::Interface&lt; Device &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__amnb.html">(AMNB) Asynchronous Multi-Node Bus</a></div></div>  </div>
+<div class="title">xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__amnb.html">(AMNB) Asynchronous Multi-Node Bus</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="xpcc::amnb::Interface" -->
@@ -116,69 +116,67 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ab65c482727ebfbfef92cf93e53d313f7">initialize</a> (int seed)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the interface.  <a href="#ab65c482727ebfbfef92cf93e53d313f7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a2a16d698bdfec3abf061f9bcfc864a75">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command, const void *payload, uint8_t payloadLength)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message.  <a href="#a2a16d698bdfec3abf061f9bcfc864a75"></a><br/></td></tr>
-<tr><td class="memTemplParams" colspan="2"><a class="anchor" id="a56af5eae41c4b87584add2a19f7d18f6"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="a56af5eae41c4b87584add2a19f7d18f6" args="(uint8_t address, Flags flags, uint8_t command, const T &amp;payload)" -->
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#af8d4ddc680792620a1be4c7dc741403c">initialize</a> (int seed)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the interface.  <a href="#af8d4ddc680792620a1be4c7dc741403c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a1c7823251df03a4c4adea975a2681dd4">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command, const void *payload, uint8_t payloadLength)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message.  <a href="#a1c7823251df03a4c4adea975a2681dd4"></a><br/></td></tr>
+<tr><td class="memTemplParams" colspan="2"><a class="anchor" id="acd4aae1bb7c16c17c3e76c3db6a9486e"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="acd4aae1bb7c16c17c3e76c3db6a9486e" args="(uint8_t address, Flags flags, uint8_t command, const T &amp;payload)" -->
 template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a56af5eae41c4b87584add2a19f7d18f6">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command, const T &amp;payload)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#acd4aae1bb7c16c17c3e76c3db6a9486e">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command, const T &amp;payload)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86e6d280d683a6805f299d8f284bac34"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="a86e6d280d683a6805f299d8f284bac34" args="(uint8_t address, Flags flags, uint8_t command)" -->
-static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a86e6d280d683a6805f299d8f284bac34">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21b93d2e3c6f8214654fcbb8f057df19"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="a21b93d2e3c6f8214654fcbb8f057df19" args="(uint8_t address, Flags flags, uint8_t command)" -->
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a21b93d2e3c6f8214654fcbb8f057df19">sendMessage</a> (uint8_t address, <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a> flags, uint8_t command)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a empty message. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a771a205285671ad705fb781e9dfaf8ac">isMessageAvailable</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a message was received.  <a href="#a771a205285671ad705fb781e9dfaf8ac"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab14d393400cd20c2e3546f6de7fd3e0"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedAddress" ref="aab14d393400cd20c2e3546f6de7fd3e0" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a10108d36ade2efa89b3cabc61d4a0020">isMessageAvailable</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a message was received.  <a href="#a10108d36ade2efa89b3cabc61d4a0020"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fc08242a40327966187b2b39dea7b2a"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedAddress" ref="a2fc08242a40327966187b2b39dea7b2a" args="()" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>getTransmittedAddress</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3e8a49d1c875e37920e5a951ecd0bb7"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedCommand" ref="ae3e8a49d1c875e37920e5a951ecd0bb7" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dca01b389c4806d88daaeb01cbdc957"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedCommand" ref="a8dca01b389c4806d88daaeb01cbdc957" args="()" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>getTransmittedCommand</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac2ccff36e40b14847cdac34500ccbe6"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedFlags" ref="aac2ccff36e40b14847cdac34500ccbe6" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d0430686b02767a0c99e37254b10691"></a><!-- doxytag: member="xpcc::amnb::Interface::getTransmittedFlags" ref="a4d0430686b02767a0c99e37254b10691" args="()" -->
 static <a class="el" href="group__amnb.html#ga9d51acabbd29c61b9931e2ebae600686">Flags</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransmittedFlags</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91a844696e7833f6f2a4c3ce7facd5a3"></a><!-- doxytag: member="xpcc::amnb::Interface::getAddress" ref="a91a844696e7833f6f2a4c3ce7facd5a3" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4ac8fa3a68b0eeb575239f0410c4027"></a><!-- doxytag: member="xpcc::amnb::Interface::getAddress" ref="ad4ac8fa3a68b0eeb575239f0410c4027" args="()" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>getAddress</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1038ce6bdadb05979929706de0b84b1d"></a><!-- doxytag: member="xpcc::amnb::Interface::getCommand" ref="a1038ce6bdadb05979929706de0b84b1d" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1530a25dbb04067a4d4ceab3ee30e00"></a><!-- doxytag: member="xpcc::amnb::Interface::getCommand" ref="aa1530a25dbb04067a4d4ceab3ee30e00" args="()" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>getCommand</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3ac8d3249e2967852f32340c702f95a"></a><!-- doxytag: member="xpcc::amnb::Interface::isResponse" ref="ac3ac8d3249e2967852f32340c702f95a" args="()" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9bd877a64af8cff11231cd9b9c4ddf29"></a><!-- doxytag: member="xpcc::amnb::Interface::isResponse" ref="a9bd877a64af8cff11231cd9b9c4ddf29" args="()" -->
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>isResponse</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a9d19eac231cd3042b129353ba28f5c39">isAcknowledge</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the message is an ACK or NACK.  <a href="#a9d19eac231cd3042b129353ba28f5c39"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a7d38e3deee01774bae28f5a58d991a26">isBusAvailable</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a35ffefa02150a7f03a453b79d18ab7aa">messageTransmitted</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if there has been an error during transmission.  <a href="#a35ffefa02150a7f03a453b79d18ab7aa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ad6de327be5c37da409d454f9bca5fc05">getPayload</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the data of a received message.  <a href="#ad6de327be5c37da409d454f9bca5fc05"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ae39218a446e42597a4fa8c1932add4d6">getPayloadLength</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7e06f3e00480190ee34b0eb8e83c0db"></a><!-- doxytag: member="xpcc::amnb::Interface::dropMessage" ref="ab7e06f3e00480190ee34b0eb8e83c0db" args="()" -->
-static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ab7e06f3e00480190ee34b0eb8e83c0db">dropMessage</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a8b20950e27952eb2d7be79290378cba8">isAcknowledge</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the message is an ACK or NACK.  <a href="#a8b20950e27952eb2d7be79290378cba8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#afbaf2fe6baad89883c235004d81ce524">isBusAvailable</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ae1b2e97145ec8256ee4e0ededf91fe75">messageTransmitted</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if there has been an error during transmission.  <a href="#ae1b2e97145ec8256ee4e0ededf91fe75"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a820a4bd723ecde3484970e732581a68d">getPayload</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the data of a received message.  <a href="#a820a4bd723ecde3484970e732581a68d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a4889bb6ff7aa3e7ecf6b746f8ff2c778">getPayloadLength</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9582810fb4f902b36d42749698aeeab7"></a><!-- doxytag: member="xpcc::amnb::Interface::dropMessage" ref="a9582810fb4f902b36d42749698aeeab7" args="()" -->
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7">dropMessage</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">End procession of the current message. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ac05262ab7948e4e3d8dc62f377690104">update</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Update internal status.  <a href="#ac05262ab7948e4e3d8dc62f377690104"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff">update</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Update internal status.  <a href="#a6e1364a2c18a4856eb6ba7028bfdf5ff"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a700c2a97516d148f7ddbc54d32345396"></a><!-- doxytag: member="xpcc::amnb::Interface::latency" ref="a700c2a97516d148f7ddbc54d32345396" args="" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add85a0aaccd437bbb8317446186338f2"></a><!-- doxytag: member="xpcc::amnb::Interface::latency" ref="add85a0aaccd437bbb8317446186338f2" args="" -->
 static <a class="el" href="classxpcc_1_1_timestamp.html">xpcc::Timestamp</a>&#160;</td><td class="memItemRight" valign="bottom"><b>latency</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab696475c9387d02ed984c4e058609ee0"></a><!-- doxytag: member="xpcc::amnb::Interface::collisions" ref="ab696475c9387d02ed984c4e058609ee0" args="" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf2bf0ff56f3a21cb432969f299588ad"></a><!-- doxytag: member="xpcc::amnb::Interface::collisions" ref="aaf2bf0ff56f3a21cb432969f299588ad" args="" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>collisions</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Device&gt;<br/>
-class xpcc::amnb::Interface&lt; Device &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Device, uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt;<br/>
+class xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt;</h3>
 
-<dl class="author"><dt><b>Author:</b></dt><dd>Fabian Greif </dd>
-<dd>
-Niklas Hauser </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Niklas Hauser </dd></dl>
 
-<p>Definition at line <a class="el" href="connectivity_2amnb_2interface_8hpp_source.html#l00072">72</a> of file <a class="el" href="connectivity_2amnb_2interface_8hpp_source.html">connectivity/amnb/interface.hpp</a>.</p>
+<p>Definition at line <a class="el" href="connectivity_2amnb_2interface_8hpp_source.html#l00096">96</a> of file <a class="el" href="connectivity_2amnb_2interface_8hpp_source.html">connectivity/amnb/interface.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ab65c482727ebfbfef92cf93e53d313f7"></a><!-- doxytag: member="xpcc::amnb::Interface::initialize" ref="ab65c482727ebfbfef92cf93e53d313f7" args="(int seed)" -->
+<a class="anchor" id="af8d4ddc680792620a1be4c7dc741403c"></a><!-- doxytag: member="xpcc::amnb::Interface::initialize" ref="af8d4ddc680792620a1be4c7dc741403c" args="(int seed)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ab65c482727ebfbfef92cf93e53d313f7">initialize</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#af8d4ddc680792620a1be4c7dc741403c">initialize</a> </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>seed</em></td><td>)</td>
@@ -187,7 +185,6 @@ template&lt;typename Device &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>Sets the baudrate for the DEVICE etc. </p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">seed</td><td>for the random number generator </td></tr>
@@ -197,14 +194,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a2a16d698bdfec3abf061f9bcfc864a75"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="a2a16d698bdfec3abf061f9bcfc864a75" args="(uint8_t address, Flags flags, uint8_t command, const void *payload, uint8_t payloadLength)" -->
+<a class="anchor" id="a1c7823251df03a4c4adea975a2681dd4"></a><!-- doxytag: member="xpcc::amnb::Interface::sendMessage" ref="a1c7823251df03a4c4adea975a2681dd4" args="(uint8_t address, Flags flags, uint8_t command, const void *payload, uint8_t payloadLength)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a2a16d698bdfec3abf061f9bcfc864a75">sendMessage</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a1c7823251df03a4c4adea975a2681dd4">sendMessage</a> </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -254,14 +251,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a771a205285671ad705fb781e9dfaf8ac"></a><!-- doxytag: member="xpcc::amnb::Interface::isMessageAvailable" ref="a771a205285671ad705fb781e9dfaf8ac" args="()" -->
+<a class="anchor" id="a10108d36ade2efa89b3cabc61d4a0020"></a><!-- doxytag: member="xpcc::amnb::Interface::isMessageAvailable" ref="a10108d36ade2efa89b3cabc61d4a0020" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a771a205285671ad705fb781e9dfaf8ac">isMessageAvailable</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a10108d36ade2efa89b3cabc61d4a0020">isMessageAvailable</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -269,18 +266,18 @@ template&lt;typename Device &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>Reset the status with a call of <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ab7e06f3e00480190ee34b0eb8e83c0db" title="End procession of the current message.">dropMessage()</a>. </p>
+<p>Reset the status with a call of <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7" title="End procession of the current message.">dropMessage()</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a9d19eac231cd3042b129353ba28f5c39"></a><!-- doxytag: member="xpcc::amnb::Interface::isAcknowledge" ref="a9d19eac231cd3042b129353ba28f5c39" args="()" -->
+<a class="anchor" id="a8b20950e27952eb2d7be79290378cba8"></a><!-- doxytag: member="xpcc::amnb::Interface::isAcknowledge" ref="a8b20950e27952eb2d7be79290378cba8" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a9d19eac231cd3042b129353ba28f5c39">isAcknowledge</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a8b20950e27952eb2d7be79290378cba8">isAcknowledge</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -292,14 +289,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a7d38e3deee01774bae28f5a58d991a26"></a><!-- doxytag: member="xpcc::amnb::Interface::isBusAvailable" ref="a7d38e3deee01774bae28f5a58d991a26" args="()" -->
+<a class="anchor" id="afbaf2fe6baad89883c235004d81ce524"></a><!-- doxytag: member="xpcc::amnb::Interface::isBusAvailable" ref="afbaf2fe6baad89883c235004d81ce524" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a7d38e3deee01774bae28f5a58d991a26">isBusAvailable</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#afbaf2fe6baad89883c235004d81ce524">isBusAvailable</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -311,14 +308,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a35ffefa02150a7f03a453b79d18ab7aa"></a><!-- doxytag: member="xpcc::amnb::Interface::messageTransmitted" ref="a35ffefa02150a7f03a453b79d18ab7aa" args="()" -->
+<a class="anchor" id="ae1b2e97145ec8256ee4e0ededf91fe75"></a><!-- doxytag: member="xpcc::amnb::Interface::messageTransmitted" ref="ae1b2e97145ec8256ee4e0ededf91fe75" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a35ffefa02150a7f03a453b79d18ab7aa">messageTransmitted</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ae1b2e97145ec8256ee4e0ededf91fe75">messageTransmitted</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -330,14 +327,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ad6de327be5c37da409d454f9bca5fc05"></a><!-- doxytag: member="xpcc::amnb::Interface::getPayload" ref="ad6de327be5c37da409d454f9bca5fc05" args="()" -->
+<a class="anchor" id="a820a4bd723ecde3484970e732581a68d"></a><!-- doxytag: member="xpcc::amnb::Interface::getPayload" ref="a820a4bd723ecde3484970e732581a68d" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static const uint8_t* <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ad6de327be5c37da409d454f9bca5fc05">getPayload</a> </td>
+          <td class="memname">static const uint8_t* <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a820a4bd723ecde3484970e732581a68d">getPayload</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -345,18 +342,18 @@ template&lt;typename Device &gt; </div>
       </table>
 </div>
 <div class="memdoc">
-<p>Data access is only valid after <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a771a205285671ad705fb781e9dfaf8ac" title="Check if a message was received.">isMessageAvailable()</a> returns <code>true</code> and before any call of <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ab7e06f3e00480190ee34b0eb8e83c0db" title="End procession of the current message.">dropMessage()</a> or <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ac05262ab7948e4e3d8dc62f377690104" title="Update internal status.">update()</a> </p>
+<p>Data access is only valid after <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a10108d36ade2efa89b3cabc61d4a0020" title="Check if a message was received.">isMessageAvailable()</a> returns <code>true</code> and before any call of <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7" title="End procession of the current message.">dropMessage()</a> or <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff" title="Update internal status.">update()</a> </p>
 
 </div>
 </div>
-<a class="anchor" id="ae39218a446e42597a4fa8c1932add4d6"></a><!-- doxytag: member="xpcc::amnb::Interface::getPayloadLength" ref="ae39218a446e42597a4fa8c1932add4d6" args="()" -->
+<a class="anchor" id="a4889bb6ff7aa3e7ecf6b746f8ff2c778"></a><!-- doxytag: member="xpcc::amnb::Interface::getPayloadLength" ref="a4889bb6ff7aa3e7ecf6b746f8ff2c778" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static uint8_t <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ae39218a446e42597a4fa8c1932add4d6">getPayloadLength</a> </td>
+          <td class="memname">static uint8_t <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a4889bb6ff7aa3e7ecf6b746f8ff2c778">getPayloadLength</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, static]</code></td>
@@ -368,14 +365,14 @@ template&lt;typename Device &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ac05262ab7948e4e3d8dc62f377690104"></a><!-- doxytag: member="xpcc::amnb::Interface::update" ref="ac05262ab7948e4e3d8dc62f377690104" args="()" -->
+<a class="anchor" id="a6e1364a2c18a4856eb6ba7028bfdf5ff"></a><!-- doxytag: member="xpcc::amnb::Interface::update" ref="a6e1364a2c18a4856eb6ba7028bfdf5ff" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Device &gt; </div>
+template&lt;typename Device , uint8_t PROBABILITY = 50, uint8_t TIMEOUT = 4&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#ac05262ab7948e4e3d8dc62f377690104">update</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface</a>&lt; Device, PROBABILITY, TIMEOUT &gt;::<a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff">update</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [static]</code></td>
@@ -412,7 +409,7 @@ template&lt;typename Device &gt; </div>
       <li class="navelem"><b>amnb</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html">Interface</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:41 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

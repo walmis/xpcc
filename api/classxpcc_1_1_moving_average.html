@@ -128,7 +128,7 @@ const T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div class="textblock"><h3>template&lt;typename T, std::size_t N&gt;<br/>
 class xpcc::MovingAverage&lt; T, N &gt;</h3>
 
-<p>Calculates the average of N newest values, i.a. the sum of the last N values have been passed to update(...), devided by N. If less than N values have been passed to the filter, the division factor is still N, so missing values are assumed to be zero.</p>
+<p>Calculates the average of N newest values, i.a. the sum of the last N values have been passed to update(...), divided by N. If less than N values have been passed to the filter, the division factor is still N, so missing values are assumed to be zero.</p>
 <p>This implementation stores the current sum of all values in the buffer and updates this value with every call of <a class="el" href="classxpcc_1_1_moving_average.html#ab7ba16c0f82169462d1e52ff723863fd" title="Append new value.">update()</a> by subtracting the overwritten buffer index and adding the new one. That way the internal sum is always up to date and the <a class="el" href="classxpcc_1_1_moving_average.html#ad1358181159681bf300091397cb6d63e" title="Get filtered value.">getValue()</a> method consists of only one division.</p>
 <dl class="warning"><dt><b>Warning:</b></dt><dd>Input range is limited by the following equation <div class="fragment"><pre class="fragment"> N * input::maxValue &lt; T::maxValue 
 </pre></div> The sum off the last N input values must not be greater than the maximum value of T, otherwise an overflow will occur.</dd></dl>
@@ -165,7 +165,7 @@ class xpcc::MovingAverage&lt; T, N &gt;</h3>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_moving_average.html">MovingAverage</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:40 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:42 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

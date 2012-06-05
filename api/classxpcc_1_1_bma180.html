@@ -117,8 +117,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_bma180.html#a59d59c6b8498626a800d5ccb6b851533">Bma180</a> (uint8_t *data, uint8_t address=0x40)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a59d59c6b8498626a800d5ccb6b851533"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_bma180.html#ae6da434f042862a5fdcdb119d7c2675d">initialize</a> (bma180::Range range=bma180::RANGE_3g, bma180::Bandwidth bandwidth=bma180::BW_75Hz, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, bool interrupt=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the sensor to full scale resolution with specified range, bandwidth, mode and interrupt enable.  <a href="#ae6da434f042862a5fdcdb119d7c2675d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_bma180.html#a1351d98faca2c640d59b70d5996c0ece">configure</a> (bma180::Range range=bma180::RANGE_3G, bma180::Bandwidth bandwidth=bma180::BW_75HZ, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, bool interrupt=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the sensor to full scale resolution with specified range, bandwidth, mode and interrupt enable.  <a href="#a1351d98faca2c640d59b70d5996c0ece"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68f6803fd4bf91f49e4343af028a3aee"></a><!-- doxytag: member="xpcc::Bma180::readAccelerometer" ref="a68f6803fd4bf91f49e4343af028a3aee" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_bma180.html#a68f6803fd4bf91f49e4343af028a3aee">readAccelerometer</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">only read the X-ZDATA0-1 registers and buffer the results sets <a class="el" href="classxpcc_1_1_bma180.html#acb1821b99699eccee6489c0adb64f6ab" title="true, when new data has been from the sensor and buffered, false, when the data has been accessed...">isNewDataAvailable()</a> to <code>true</code> <br/></td></tr>
@@ -188,23 +188,23 @@ template&lt;typename I2cMaster &gt; </div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ae6da434f042862a5fdcdb119d7c2675d"></a><!-- doxytag: member="xpcc::Bma180::initialize" ref="ae6da434f042862a5fdcdb119d7c2675d" args="(bma180::Range range=bma180::RANGE_3g, bma180::Bandwidth bandwidth=bma180::BW_75Hz, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, bool interrupt=true)" -->
+<a class="anchor" id="a1351d98faca2c640d59b70d5996c0ece"></a><!-- doxytag: member="xpcc::Bma180::configure" ref="a1351d98faca2c640d59b70d5996c0ece" args="(bma180::Range range=bma180::RANGE_3G, bma180::Bandwidth bandwidth=bma180::BW_75HZ, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, bool interrupt=true)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_bma180.html">xpcc::Bma180</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_bma180.html#ae6da434f042862a5fdcdb119d7c2675d">initialize</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_bma180.html">xpcc::Bma180</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_bma180.html#a1351d98faca2c640d59b70d5996c0ece">configure</a> </td>
           <td>(</td>
           <td class="paramtype">bma180::Range&#160;</td>
-          <td class="paramname"><em>range</em> = <code>bma180::RANGE_3g</code>, </td>
+          <td class="paramname"><em>range</em> = <code>bma180::RANGE_3G</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bma180::Bandwidth&#160;</td>
-          <td class="paramname"><em>bandwidth</em> = <code>bma180::BW_75Hz</code>, </td>
+          <td class="paramname"><em>bandwidth</em> = <code>bma180::BW_75HZ</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -296,7 +296,7 @@ template&lt;typename I2cMaster &gt; </div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_bma180.html">Bma180</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:38 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

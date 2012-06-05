@@ -100,6 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xpcc::SpiMaster Class Reference<div class="ingroups"><a class="el" href="group__spi.html">(SPI) Serial Peripheral Interface</a></div></div>  </div>
@@ -139,32 +140,47 @@ Inheritance diagram for xpcc::SpiMaster:</div>
 
 <p><a href="classxpcc_1_1_spi_master-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BufferIncrease</b> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
+<b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> =  0x01, 
+<b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> =  0x02, 
+<b>BUFFER_INCR_BOTH</b> =  0x03
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TransferOptions</b> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
+<b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> =  0x01, 
+<b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> =  0x02, 
+<b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> =  0x03
+ }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb6a462a56bf3ddf2546428803ce40e9"></a><!-- doxytag: member="xpcc::SpiMaster::write" ref="aeb6a462a56bf3ddf2546428803ce40e9" args="(uint8_t data)" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9">write</a> (uint8_t data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">initiates a SPI transfer and returns the received byte <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#af91773ce943d57777080bff4e68e204d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03">transfer</a> (bool send=true, bool receive=false, bool wait=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request a transfer, not buffered, blocking if not using DMA.  <a href="#a14eebce2d61c756496c18a5510721b03"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#acbd3eb615c3a983475f04749fbbf7f97"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25">transfer</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request an asynchronous transfer, synchronous if DMA unavailable.  <a href="#a8c954ae714f4481cc8dc23a0e7057b25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0f87516c345051d9334385b0cf7f15e"></a><!-- doxytag: member="xpcc::SpiMaster::transferSync" ref="ac0f87516c345051d9334385b0cf7f15e" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e">transferSync</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">synchronous transfer, even if using DMA <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d">isFinished</a> ()</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The design of SPI is very simple, therefore very fast clock speed and little overhead are features of SPI data transfers.</p>
 <p>However, the fast clock speeds make it unreasonable to use an interrupt based approach to shifting out each byte of the data, since the interrupt handling might decrease performance over busy waiting especially for targets operating on low frequencies.</p>
 <p>Therefore, no interrupt-based asynchronous operation is implemented, however, depending on the target architecture, DMA support for all operations can be activated by providing certain definitions.</p>
-<p>In case of DMA support the interface operation remains the same, however the <a class="el" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03" title="Request a transfer, not buffered, blocking if not using DMA.">transfer()</a> function has an option to return directly after the call or wait for the DMA to finish the operation. Synchronous operation with DMA support can be more efficient, since the CPU can continue to work with values stored in CPU registers. However DMA support is only implemented for transfers between memory and SPI peripheral, so there is no peripheral-peripheral transfer support.</p>
+<p>In case of DMA support the interface operation remains the same, however the <a class="el" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25" title="Request an asynchronous transfer, synchronous if DMA unavailable.">transfer()</a> function has an option to return directly after the call or wait for the DMA to finish the operation. Synchronous operation with DMA support can be more efficient, since the CPU can continue to work with values stored in CPU registers. However DMA support is only implemented for transfers between memory and SPI peripheral, so there is no peripheral-peripheral transfer support.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Niklas Hauser </dd></dl>
 
 <p>Definition at line <a class="el" href="spi__master_8hpp_source.html#l00065">65</a> of file <a class="el" href="spi__master_8hpp_source.html">spi_master.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="af91773ce943d57777080bff4e68e204d"></a><!-- doxytag: member="xpcc::SpiMaster::setBuffer" ref="af91773ce943d57777080bff4e68e204d" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)" -->
+<a class="anchor" id="acbd3eb615c3a983475f04749fbbf7f97"></a><!-- doxytag: member="xpcc::SpiMaster::setBuffer" ref="acbd3eb615c3a983475f04749fbbf7f97" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d">xpcc::SpiMaster::setBuffer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97">xpcc::SpiMaster::setBuffer</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>length</em>, </td>
@@ -184,14 +200,8 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>transmitIncr</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receiveIncr</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">BufferIncrease&#160;</td>
+          <td class="paramname"><em>bufferIncrease</em> = <code>BUFFER_INCR_BOTH</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -206,58 +216,39 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
     <tr><td class="paramname">length</td><td>length of buffer or number of dummy bytes to be send </td></tr>
     <tr><td class="paramname">transmit</td><td>pointer to transmit buffer, set to zero to send dummy bytes </td></tr>
     <tr><td class="paramname">receive</td><td>pointer to receive buffer, if set to zero transmit buffer is used </td></tr>
-    <tr><td class="paramname">transmitIncr</td><td>increment or decrement transmit buffer </td></tr>
-    <tr><td class="paramname">receiveIncr</td><td>increment or decrement receive buffer </td></tr>
+    <tr><td class="paramname">bufferIncrease</td><td>increment or decrement buffers </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if buffer has been successfully copied </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a018cb623ca04a3af6347cbcb057a39ca">xpcc::atxmega::UartSpiMasterC1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ac19911bf2ec2b9a4df47d29089f3892e">xpcc::atxmega::UartSpiMasterD1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ad409529e9331789fd446d6881bc2b0b6">xpcc::atxmega::UartSpiMasterE1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a1d13ab071d41ffdff32583d0f008f6cf">xpcc::atxmega::UartSpiMasterF1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a29f3fe30706064b82543ebf728add5ae">xpcc::atxmega::UartSpiMasterC0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a11fec016a6be7d65b96f3256f0740294">xpcc::atxmega::UartSpiMasterD0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a861a77d120bb6ea1b713c15973b1561f">xpcc::atxmega::UartSpiMasterE0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a5ea522dc515f311f905cf671c75d96b5">xpcc::atxmega::UartSpiMasterF0</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#ab208b962bc36802596e5e1b5f8d674f3">xpcc::stm32::SpiMaster3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#a74aca1a9497809dcffcc01632317686b">xpcc::stm32::SpiMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#acef75d23cf77e8b1f2c15c361615066b">xpcc::stm32::SpiMaster1</a>, <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4">xpcc::atmega::SpiMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a83f59cba1eceb17c0c34b4083e91d9d7">xpcc::atxmega::SpiMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a89a8f5151cc95057f570dd46253a10b4">xpcc::atxmega::SpiMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#af6612562c66d334404c7cff5c7087f2e">xpcc::atxmega::SpiMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a084b9da64f79a3aaa22efdbbda6a38bb">xpcc::atxmega::SpiMasterF</a>, and <a class="el" href="classxpcc_1_1_software_spi.html#aa694e19f72a3fc1447449c07b013f385">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a785b372faedca4efbab2bf9a36cd7619">xpcc::atxmega::UartSpiMasterC1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ab86da924b6c159ca0bfa92533483eec1">xpcc::atxmega::UartSpiMasterD1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a3d0439482e36c7ae78938443be1240da">xpcc::atxmega::UartSpiMasterE1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a58d9c9158096c003a12665523b928d5d">xpcc::atxmega::UartSpiMasterF1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a635f44e4e58b53f444de726babab05af">xpcc::atxmega::UartSpiMasterC0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#acfb7a28ed4e7fa8702ead3c4720aebc8">xpcc::atxmega::UartSpiMasterD0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a1642e4b4f021a85bb6b59d66deff79ce">xpcc::atxmega::UartSpiMasterE0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a3d06a85068f7788653fe2dcb1d0e019d">xpcc::atxmega::UartSpiMasterF0</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#a0c4f1ea3bf34d5c7bdfe40bec85a6be8">xpcc::stm32::SpiMaster3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#a61f264a4d33ec9195bff21267daec085">xpcc::stm32::SpiMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#ae2432d8788fac025e3d6e86f5b6b2773">xpcc::stm32::SpiMaster1</a>, <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29">xpcc::atmega::SpiMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a9aae093fe8f35cbcd8a6fdda09bd84cd">xpcc::atxmega::SpiMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a2bd5b231b0cbc452c351662b6b95713d">xpcc::atxmega::SpiMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a3ad60dc2a935cf637346d23c66328f32">xpcc::atxmega::SpiMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#aadc01c2f82540eba0e28a1b60e884be7">xpcc::atxmega::SpiMasterF</a>, and <a class="el" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a14eebce2d61c756496c18a5510721b03"></a><!-- doxytag: member="xpcc::SpiMaster::transfer" ref="a14eebce2d61c756496c18a5510721b03" args="(bool send=true, bool receive=false, bool wait=true)" -->
+<a class="anchor" id="a8c954ae714f4481cc8dc23a0e7057b25"></a><!-- doxytag: member="xpcc::SpiMaster::transfer" ref="a8c954ae714f4481cc8dc23a0e7057b25" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03">xpcc::SpiMaster::transfer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25">xpcc::SpiMaster::transfer</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>send</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receive</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>wait</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static]</code></td>
+          <td class="paramtype">TransferOptions&#160;</td>
+          <td class="paramname"><em>options</em> = <code>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</code></td><td>)</td>
+          <td><code> [static]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">send</td><td>set to false to send dummy data (0xff) </td></tr>
-    <tr><td class="paramname">receive</td><td>set to true to write received data back in buffer. </td></tr>
-    <tr><td class="paramname">wait</td><td>set to true to wait until (DMA) operation finished </td></tr>
+    <tr><td class="paramname">options</td><td>TransferOptions </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if request was successfully serviced </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#aa49ece0077ac6040d03ce29e215dfe93">xpcc::atxmega::UartSpiMasterC1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a05c35241ccf1ae881d742f36cd570bcb">xpcc::atxmega::UartSpiMasterD1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ab8a9c1dd1f2ade96a21a2670f7cf63ee">xpcc::atxmega::UartSpiMasterE1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a3193da7562382f1ddfb0686e21569070">xpcc::atxmega::UartSpiMasterF1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#ac434dc638984dd2b784b1c96f895120f">xpcc::atxmega::UartSpiMasterC0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a35d7dca88b6a8bd3d869619ecf05ae03">xpcc::atxmega::UartSpiMasterD0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a8723239eb8d21fe0afead1d68499d0ee">xpcc::atxmega::UartSpiMasterE0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a4b747aa1f79ecf2060769634f42d60a4">xpcc::atxmega::UartSpiMasterF0</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#aef668aee41ed3d455ab471df5532e9d8">xpcc::stm32::SpiMaster3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#a4c3485005216c8551d2d6522dc00716b">xpcc::stm32::SpiMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#a900a53167b123f51df88d1d3d118dbec">xpcc::stm32::SpiMaster1</a>, <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a8d07611c3fb7f61cbe28addd2dd532d7">xpcc::atmega::SpiMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a532e57f7acb8eea83c625c68bdfcfb08">xpcc::atxmega::SpiMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a43b257c6048bac1641f59f848858dd8f">xpcc::atxmega::SpiMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#ad38b3be984744cfca99c2fa7493acf91">xpcc::atxmega::SpiMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a63c656a7fe0162cb6093b7a99bdec82c">xpcc::atxmega::SpiMasterF</a>, and <a class="el" href="classxpcc_1_1_software_spi.html#a63c42256c936dafe523d06ed3730b9ae">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a947c961d8b97e8f7f50f6213482e152c">xpcc::atxmega::UartSpiMasterC1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a7e3c9407e5777730ae65d62e384f5563">xpcc::atxmega::UartSpiMasterD1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ac29abce9ffecf639a57541b1e8230e29">xpcc::atxmega::UartSpiMasterE1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a94cd9a7862f446b63c3a53e59e9c00be">xpcc::atxmega::UartSpiMasterF1</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#aaf5b0719225c2f02522004a553ab2c66">xpcc::atxmega::UartSpiMasterC0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#ac8f83d77803d53b7604fbb4bfbbb9d14">xpcc::atxmega::UartSpiMasterD0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a2ff069b6e0846e36b3aa7c7cfae86b43">xpcc::atxmega::UartSpiMasterE0</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a176c00c51ac7396acf6ac4524475df42">xpcc::atxmega::UartSpiMasterF0</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#a8a4c8e0e935009800ed7ad5b3c541be3">xpcc::stm32::SpiMaster3</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#ae8c3525353a609abc54b1071f0e0026e">xpcc::stm32::SpiMaster2</a>, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#a7ef55033ac45af20258a0a161179a561">xpcc::stm32::SpiMaster1</a>, <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e">xpcc::atmega::SpiMaster</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a8b44c38a04fe3c0b942a8c5a9a4c0414">xpcc::atxmega::SpiMasterC</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#adec9d1d6d36181372bee231a3353dacc">xpcc::atxmega::SpiMasterD</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a3ed5a41f056195f9a373161aed412001">xpcc::atxmega::SpiMasterE</a>, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a3dd617703ebb5c47eb1aaace3b29526f">xpcc::atxmega::SpiMasterF</a>, and <a class="el" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>.</p>
 
 </div>
 </div>
@@ -304,7 +295,7 @@ static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_spi_master.html">SpiMaster</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:38 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

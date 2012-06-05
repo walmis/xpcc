@@ -1,7 +1,7 @@
 var classxpcc_1_1_itg3200 =
 [
     [ "Itg3200", "classxpcc_1_1_itg3200.html#a95d3899472f9cf80b4537094d5c6bf82", null ],
-    [ "configure", "classxpcc_1_1_itg3200.html#ad6d58ea8c119d3c0d843ab310cb76833", null ],
+    [ "configure", "classxpcc_1_1_itg3200.html#a7acc0f68a7291bb7f670d0e10ec40b96", null ],
     [ "readGyroscope", "classxpcc_1_1_itg3200.html#ac97c853b78abc458159a007307baaf16", null ],
     [ "readTemperatureGyroscope", "classxpcc_1_1_itg3200.html#a504325aae9b32f71133c44e321e48d53", null ],
     [ "getData", "classxpcc_1_1_itg3200.html#a3fd3839e0f201ae3fd9f3b862b417979", null ],

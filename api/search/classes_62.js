@@ -12,6 +12,7 @@ var searchData=
   ['bufferedgraphicdisplay',['BufferedGraphicDisplay',['../classxpcc_1_1_buffered_graphic_display.html',1,'xpcc']]],
   ['bufferedgraphicdisplay_3c_20128_2c_2064_20_3e',['BufferedGraphicDisplay< 128, 64 >',['../classxpcc_1_1_buffered_graphic_display.html',1,'xpcc']]],
   ['bufferedgraphicdisplay_3c_20130_2c_20128_20_3e',['BufferedGraphicDisplay< 130, 128 >',['../classxpcc_1_1_buffered_graphic_display.html',1,'xpcc']]],
+  ['bufferedgraphicdisplay_3c_20132_2c_20176_20_3e',['BufferedGraphicDisplay< 132, 176 >',['../classxpcc_1_1_buffered_graphic_display.html',1,'xpcc']]],
   ['buffereduart0',['BufferedUart0',['../classxpcc_1_1atmega_1_1_buffered_uart0.html',1,'xpcc::atmega']]],
   ['buffereduart1',['BufferedUart1',['../classxpcc_1_1atmega_1_1_buffered_uart1.html',1,'xpcc::atmega']]],
   ['buffereduart2',['BufferedUart2',['../classxpcc_1_1atmega_1_1_buffered_uart2.html',1,'xpcc::atmega']]],

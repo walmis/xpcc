@@ -175,16 +175,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00073"></a>00073         };
 <a name="l00074"></a>00074         
 <a name="l00077"></a>00077         <span class="keyword">enum</span> Bandwidth {
-<a name="l00078"></a>00078             BANDWIDTH_1600Hz = 0x0F,
-<a name="l00079"></a>00079             BANDWIDTH_800Hz = 0x0E,
-<a name="l00080"></a>00080             BANDWIDTH_400Hz = 0x0D,
-<a name="l00081"></a>00081             BANDWIDTH_200Hz = 0x0C,
-<a name="l00082"></a>00082             BANDWIDTH_100Hz = 0x0B,
-<a name="l00083"></a>00083             BANDWIDTH_50Hz = 0x0A,
-<a name="l00084"></a>00084             BANDWIDTH_25Hz = 0x09,
-<a name="l00085"></a>00085             BANDWIDTH_12Hz = 0x08,
-<a name="l00086"></a>00086             BANDWIDTH_6Hz = 0x07,
-<a name="l00087"></a>00087             BANDWIDTH_3Hz = 0x06
+<a name="l00078"></a>00078             BANDWIDTH_1600HZ = 0x0F,
+<a name="l00079"></a>00079             BANDWIDTH_800HZ = 0x0E,
+<a name="l00080"></a>00080             BANDWIDTH_400HZ = 0x0D,
+<a name="l00081"></a>00081             BANDWIDTH_200HZ = 0x0C,
+<a name="l00082"></a>00082             BANDWIDTH_100HZ = 0x0B,
+<a name="l00083"></a>00083             BANDWIDTH_50HZ = 0x0A,
+<a name="l00084"></a>00084             BANDWIDTH_25HZ = 0x09,
+<a name="l00085"></a>00085             BANDWIDTH_12HZ = 0x08,
+<a name="l00086"></a>00086             BANDWIDTH_6HZ = 0x07,
+<a name="l00087"></a>00087             BANDWIDTH_3HZ = 0x06
 <a name="l00088"></a>00088         };
 <a name="l00089"></a>00089         
 <a name="l00091"></a>00091         <span class="keyword">enum</span> Power {
@@ -193,10 +193,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00094"></a>00094             POWER_MEASURE = 0x08,
 <a name="l00095"></a>00095             POWER_SLEEP = 0x04,
 <a name="l00096"></a>00096             POWER_WAKEUP_gm = 0x03,
-<a name="l00097"></a>00097             POWER_WAKEUP_1Hz = 0x03,
-<a name="l00098"></a>00098             POWER_WAKEUP_2Hz = 0x02,
-<a name="l00099"></a>00099             POWER_WAKEUP_4Hz = 0x01,
-<a name="l00100"></a>00100             POWER_WAKEUP_8Hz = 0x00,
+<a name="l00097"></a>00097             POWER_WAKEUP_1HZ = 0x03,
+<a name="l00098"></a>00098             POWER_WAKEUP_2HZ = 0x02,
+<a name="l00099"></a>00099             POWER_WAKEUP_4HZ = 0x01,
+<a name="l00100"></a>00100             POWER_WAKEUP_8HZ = 0x00,
 <a name="l00101"></a>00101             <span class="comment">// BW_RATE register</span>
 <a name="l00102"></a>00102             POWER_LOW_POWER = 0x10
 <a name="l00103"></a>00103         };
@@ -219,10 +219,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00123"></a>00123             DATAFORMAT_FULL_RES = 0x08,
 <a name="l00124"></a>00124             DATAFORMAT_JUSTIFY = 0x04,
 <a name="l00125"></a>00125             DATAFORMAT_RANGE_gm = 0x03,
-<a name="l00126"></a>00126             DATAFORMAT_RANGE_16g = 0x03,
-<a name="l00127"></a>00127             DATAFORMAT_RANGE_8g = 0x02,
-<a name="l00128"></a>00128             DATAFORMAT_RANGE_4g = 0x01,
-<a name="l00129"></a>00129             DATAFORMAT_RANGE_2g = 0x00
+<a name="l00126"></a>00126             DATAFORMAT_RANGE_16G = 0x03,
+<a name="l00127"></a>00127             DATAFORMAT_RANGE_8G = 0x02,
+<a name="l00128"></a>00128             DATAFORMAT_RANGE_4G = 0x01,
+<a name="l00129"></a>00129             DATAFORMAT_RANGE_2G = 0x00
 <a name="l00130"></a>00130         };
 <a name="l00131"></a>00131         
 <a name="l00133"></a>00133         <span class="keyword">enum</span> FIFO {
@@ -246,7 +246,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00184"></a>00184         <a class="code" href="classxpcc_1_1_adxl345.html#a3661252d964c000f925e5ff820e34dd7" title="Constructor.">Adxl345</a>(uint8_t* data, uint8_t address=0x1d);
 <a name="l00185"></a>00185         
 <a name="l00190"></a>00190         <span class="keywordtype">bool</span>
-<a name="l00191"></a>00191         <a class="code" href="classxpcc_1_1_adxl345.html#a86d28a32cd38ca3990c023cd8c3a3a0c" title="Configures the sensor to measurement mode with full resolution with the 32-level buffer in Stream Mod...">initialize</a>(adxl345::Bandwidth bandwidth=adxl345::BANDWIDTH_50Hz, <span class="keywordtype">bool</span> streamMode=<span class="keyword">false</span>, <span class="keywordtype">bool</span> enableInterrupt=<span class="keyword">true</span>);
+<a name="l00191"></a>00191         <a class="code" href="classxpcc_1_1_adxl345.html#a621fb7cdf6c28e7d951637c9985986da" title="Configures the sensor to measurement mode with full resolution with the 32-level buffer in Stream Mod...">configure</a>(adxl345::Bandwidth bandwidth=adxl345::BANDWIDTH_50HZ, <span class="keywordtype">bool</span> streamMode=<span class="keyword">false</span>, <span class="keywordtype">bool</span> enableInterrupt=<span class="keyword">true</span>);
 <a name="l00192"></a>00192         
 <a name="l00197"></a>00197         <span class="keywordtype">void</span>
 <a name="l00198"></a>00198         <a class="code" href="classxpcc_1_1_adxl345.html#acad903ecf4d2f46e8ead962ca65a4d9d" title="read the X-ZDATA0-1 registers and buffer the results sets isNewDataAvailable() to true ...">readAccelerometer</a>();
@@ -308,7 +308,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>adxl345.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:28 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

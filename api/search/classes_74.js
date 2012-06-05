@@ -1,15 +1,16 @@
 var searchData=
 [
-  ['task',['Task',['../classxpcc_1_1_scheduler_1_1_task.html',1,'xpcc::Scheduler']]],
   ['task',['Task',['../classxpcc_1_1_task.html',1,'xpcc']]],
+  ['task',['Task',['../classxpcc_1_1_scheduler_1_1_task.html',1,'xpcc::Scheduler']]],
   ['terminal',['Terminal',['../classxpcc_1_1pc_1_1_terminal.html',1,'xpcc::pc']]],
   ['testsuite',['TestSuite',['../classunittest_1_1_test_suite.html',1,'unittest']]],
   ['thread',['Thread',['../classxpcc_1_1rtos_1_1_thread.html',1,'xpcc::rtos']]],
   ['timeout',['Timeout',['../classxpcc_1_1_timeout.html',1,'xpcc']]],
+  ['timeout_3c_20xpcc_3a_3aamnb_3a_3aclock_20_3e',['Timeout< xpcc::amnb::Clock >',['../classxpcc_1_1_timeout.html',1,'xpcc']]],
   ['timer',['Timer',['../classxpcc_1_1at91_1_1_timer.html',1,'xpcc::at91']]],
   ['timer0',['Timer0',['../classxpcc_1_1at91_1_1_timer0.html',1,'xpcc::at91']]],
-  ['timer1',['Timer1',['../classxpcc_1_1stm32_1_1_timer1.html',1,'xpcc::stm32']]],
   ['timer1',['Timer1',['../classxpcc_1_1at91_1_1_timer1.html',1,'xpcc::at91']]],
+  ['timer1',['Timer1',['../classxpcc_1_1stm32_1_1_timer1.html',1,'xpcc::stm32']]],
   ['timer2',['Timer2',['../classxpcc_1_1stm32_1_1_timer2.html',1,'xpcc::stm32']]],
   ['timer2',['Timer2',['../classxpcc_1_1at91_1_1_timer2.html',1,'xpcc::at91']]],
   ['timer3',['Timer3',['../classxpcc_1_1stm32_1_1_timer3.html',1,'xpcc::stm32']]],
@@ -39,9 +40,9 @@ var searchData=
   ['tlc594x',['TLC594X',['../classxpcc_1_1_t_l_c594_x.html',1,'xpcc']]],
   ['tlc594xled',['TLC594XLed',['../classxpcc_1_1led_1_1_t_l_c594_x_led.html',1,'xpcc::led']]],
   ['tmp102',['Tmp102',['../classxpcc_1_1_tmp102.html',1,'xpcc']]],
+  ['transmitter',['Transmitter',['../classxpcc_1_1tipc_1_1_transmitter.html',1,'xpcc::tipc']]],
   ['transmitter',['Transmitter',['../classxpcc_1_1sab_1_1_transmitter.html',1,'xpcc::sab']]],
   ['transmitter',['Transmitter',['../classxpcc_1_1amnb_1_1_transmitter.html',1,'xpcc::amnb']]],
-  ['transmitter',['Transmitter',['../classxpcc_1_1tipc_1_1_transmitter.html',1,'xpcc::tipc']]],
   ['transmittersocket',['TransmitterSocket',['../classxpcc_1_1tipc_1_1_transmitter_socket.html',1,'xpcc::tipc']]],
   ['twi',['Twi',['../classxpcc_1_1at91_1_1_twi.html',1,'xpcc::at91']]]
 ];

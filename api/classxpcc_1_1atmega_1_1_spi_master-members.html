@@ -104,6 +104,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 This is the complete list of members for <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>BUFFER_DECR_BOTH</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>BUFFER_INCR_BOTH</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>BufferIncrease</b> enum name (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a1d4f7bb30f0ecdadae976fc96f3a9e99">initialize</a>(Mode mode, Prescaler prescaler)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a895a2f783e53750f4136c150980d5e8c">isFinished</a>()</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a56b0ebb8aa8eef96eeda0ad291291ac7">Mode</a> enum name</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td></td></tr>
@@ -119,8 +124,14 @@ This is the complete list of members for <a class="el" href="classxpcc_1_1atmega
   <tr bgcolor="#f0f0f0"><td><b>PRESCALER_4</b> enum value (defined in <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>PRESCALER_64</b> enum value (defined in <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>PRESCALER_8</b> enum value (defined in <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4">setBuffer</a>(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a8d07611c3fb7f61cbe28addd2dd532d7">transfer</a>(bool send=true, bool receive=false, bool wait=true)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29">setBuffer</a>(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e">transfer</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [inline, static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> enum value (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>TransferOptions</b> enum name (defined in <a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a>)</td><td><a class="el" href="classxpcc_1_1_spi_master.html">xpcc::SpiMaster</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#ab550c77d9e8e26b038bc8198d30e16f1">transferSync</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#aad9f5725fcc14a9d91a8237081d943ce">write</a>(uint8_t data)</td><td><a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html">xpcc::atmega::SpiMaster</a></td><td><code> [static]</code></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
@@ -141,7 +152,7 @@ This is the complete list of members for <a class="el" href="classxpcc_1_1atmega
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:41 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

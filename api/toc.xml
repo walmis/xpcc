@@ -1098,7 +1098,7 @@
       </topic>
       <topic label="xpcc::Adxl345&lt; I2cMaster &gt;" href="classxpcc_1_1_adxl345.html">
         <topic label="Adxl345" href="classxpcc_1_1_adxl345.html#a3661252d964c000f925e5ff820e34dd7"/>
-        <topic label="initialize" href="classxpcc_1_1_adxl345.html#a86d28a32cd38ca3990c023cd8c3a3a0c"/>
+        <topic label="configure" href="classxpcc_1_1_adxl345.html#a621fb7cdf6c28e7d951637c9985986da"/>
         <topic label="readAccelerometer" href="classxpcc_1_1_adxl345.html#acad903ecf4d2f46e8ead962ca65a4d9d"/>
         <topic label="getData" href="classxpcc_1_1_adxl345.html#acb4130aa8d240bea1a499060d992c54f"/>
         <topic label="isNewDataAvailable" href="classxpcc_1_1_adxl345.html#a135fce9c967168e401b550d654c818dd"/>
@@ -1126,7 +1126,7 @@
         <topic label="setMode" href="structxpcc_1_1stm32_1_1_alternate_mode_3_01_p_00_01_n_00_01false_01_4.html#a429e06d9e6b595a386c1d320e871f64b"/>
       </topic>
       <topic label="xpcc::atmega::AnalogSensors&lt; ADConv, CHANNELS, SAMPLES &gt;" href="classxpcc_1_1atmega_1_1_analog_sensors.html">
-        <topic label="initialize" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a40242d529db4a088ab84c589e96bd1fb"/>
+        <topic label="initialize" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a49eae010acef25b8717aa5da5b4081c6"/>
         <topic label="readSensors" href="classxpcc_1_1atmega_1_1_analog_sensors.html#aa4ba3036629622472660ff691a940332"/>
         <topic label="getData" href="classxpcc_1_1atmega_1_1_analog_sensors.html#aad7d92b8acd3cfd14761d2264af8f019"/>
         <topic label="readData" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a2fa7dd6c493181b63d1b4c44efe0b2c1"/>
@@ -1136,6 +1136,7 @@
         <topic label="Type" href="classxpcc_1_1_angle.html#adfdd030c52e037e1e807e239827476d3"/>
         <topic label="normalize" href="classxpcc_1_1_angle.html#a05e1cc613dcfa04ca0d3bc6d736e5461"/>
         <topic label="reverse" href="classxpcc_1_1_angle.html#ab716e661c09f28d851b773d4edf4f7f2"/>
+        <topic label="perpendicular" href="classxpcc_1_1_angle.html#a8ff6441a1908a56525d0a963d3038746"/>
         <topic label="toRadian" href="classxpcc_1_1_angle.html#a1e48ae55a90362be9cfcc5e99f5a010b"/>
         <topic label="toDegree" href="classxpcc_1_1_angle.html#ab0c620d67eb6a652e9dae24a3f0e6c39"/>
       </topic>
@@ -1333,7 +1334,7 @@
       </topic>
       <topic label="xpcc::Bma180&lt; I2cMaster &gt;" href="classxpcc_1_1_bma180.html">
         <topic label="Bma180" href="classxpcc_1_1_bma180.html#a59d59c6b8498626a800d5ccb6b851533"/>
-        <topic label="initialize" href="classxpcc_1_1_bma180.html#ae6da434f042862a5fdcdb119d7c2675d"/>
+        <topic label="configure" href="classxpcc_1_1_bma180.html#a1351d98faca2c640d59b70d5996c0ece"/>
         <topic label="readAccelerometer" href="classxpcc_1_1_bma180.html#a68f6803fd4bf91f49e4343af028a3aee"/>
         <topic label="getData" href="classxpcc_1_1_bma180.html#a67e9c63a9b936dc0ed7cfc637dd3d8e9"/>
         <topic label="isNewDataAvailable" href="classxpcc_1_1_bma180.html#acb1821b99699eccee6489c0adb64f6ab"/>
@@ -1764,6 +1765,11 @@
       </topic>
       <topic label="xpcc::lpc::Clock" href="classxpcc_1_1lpc_1_1_clock.html">
       </topic>
+      <topic label="xpcc::amnb::Clock" href="classxpcc_1_1amnb_1_1_clock.html">
+        <topic label="now" href="classxpcc_1_1amnb_1_1_clock.html#abffae3fc98b66a095bc29eca97e935c1"/>
+        <topic label="increment" href="classxpcc_1_1amnb_1_1_clock.html#ab8670bd3a33b9f9b95a6188b5ffed9a4"/>
+        <topic label="time" href="classxpcc_1_1amnb_1_1_clock.html#a55063d0b2b4fda855e15ac3e0cc9db15"/>
+      </topic>
       <topic label="xpcc::Clock" href="classxpcc_1_1_clock.html">
         <topic label="now" href="classxpcc_1_1_clock.html#af53c13944a7ad95f3a9b9237031f7af0"/>
         <topic label="increment" href="classxpcc_1_1_clock.html#a2ef7b9b05734029b96924d5bef77d0e8"/>
@@ -1778,6 +1784,7 @@
         <topic label="parent" href="classxpcc_1_1_communicatable_task.html#a6b8f50b5f1ee52836b8e4b5f8c4fb40a"/>
       </topic>
       <topic label="xpcc::Communicator" href="classxpcc_1_1_communicator.html">
+        <topic label="getIdentifier" href="classxpcc_1_1_communicator.html#a8dadb8af081ff28b3cc0929314e918e5"/>
         <topic label="callAction" href="classxpcc_1_1_communicator.html#a2d2c66a52913b7b689582ea186e2fde8"/>
         <topic label="callAction" href="classxpcc_1_1_communicator.html#a9f4eeb2d993bb8e6d3dcd5ddd90dc30f"/>
         <topic label="callAction" href="classxpcc_1_1_communicator.html#ae51a6194725481cd2673a1de0e861ce4"/>
@@ -2003,7 +2010,8 @@
         <topic label="requestTransfer" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a4cc88fabc0496d57cd044a04e9914318"/>
         <topic label="setSingleShotMode" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a2885714a3875e3893f389e036bc14bdb"/>
         <topic label="setBurstLength" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a7bb49d2fdc41ca2c7d34836026ad0933"/>
-        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a8fef1cc2aa5bd597ebc4824967dacaca"/>
+        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#ab114e93495ce4f413245de7f7a7c7d23"/>
+        <topic label="getAndClearStatus" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#aa87621d17e2be576d042a179fea109f5"/>
         <topic label="setErrorInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a26ab371f17300c0648a1e97ef76da45f"/>
         <topic label="setTransactionCompleteInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a3b9ff373c26166793e779c48a9efb815"/>
         <topic label="setSourceAddressReload" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#aaaba805a61e6535018c984ca1add4e6f"/>
@@ -2029,7 +2037,8 @@
         <topic label="requestTransfer" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a4cf0916e6a450b2f9d09d467586b567c"/>
         <topic label="setSingleShotMode" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#ade8a57fee7b9f1491a56bd185fbcbe73"/>
         <topic label="setBurstLength" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a66ae4127db0222571557b10a89c6b25b"/>
-        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a6c750cf0b8c7bc79c288a4ebeb89affc"/>
+        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a2529863e89406b1b4b4f8f7f504ea37f"/>
+        <topic label="getAndClearStatus" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a8debac40e555ec3b35eb722e36b8b19e"/>
         <topic label="setErrorInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a446beb91bec8231cd618faefedafa491"/>
         <topic label="setTransactionCompleteInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#ae535616a834db2dfec8d02f80a01c74e"/>
         <topic label="setSourceAddressReload" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a5446734718d7a2ff3dcf17e045790bc0"/>
@@ -2055,7 +2064,8 @@
         <topic label="requestTransfer" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a86eba2ff04aeb25d3b2a960dd87e6eff"/>
         <topic label="setSingleShotMode" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a065af924b8ffadc929db6ba0fe2b1edb"/>
         <topic label="setBurstLength" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#ad8970ad4cfc463412fb6e9219d374d75"/>
-        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a8913747b2e78a2bb13e119277c01e7c7"/>
+        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a68a13d1585fc9db26b9a1c1c6c59d89b"/>
+        <topic label="getAndClearStatus" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a24e02232c96fb16453f84f3fb58a4f29"/>
         <topic label="setErrorInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a687635769bb52e239c09e8cc0cfbcc7a"/>
         <topic label="setTransactionCompleteInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#ad1217cc80db3ad57bd65ede3bad026f1"/>
         <topic label="setSourceAddressReload" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a33320778ea9d21d4f9b156fdfcbf85d5"/>
@@ -2081,7 +2091,8 @@
         <topic label="requestTransfer" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#ac9df3a4020e1245d2281c27f94266fdf"/>
         <topic label="setSingleShotMode" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a219e6e915b8a0aa5f00f65e35f674c96"/>
         <topic label="setBurstLength" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a16c34d5cf2b03efd9a4b96c9f5d53c62"/>
-        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#abe809fc9de9f0d2e6759844c842b32b4"/>
+        <topic label="getStatus" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#ab39d89d1d1b54987cd2259834263ad0a"/>
+        <topic label="getAndClearStatus" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#ac3e18ff2138de8bd562f5e1321272b45"/>
         <topic label="setErrorInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a6fa83e03073a9e8014d4153fdca14c21"/>
         <topic label="setTransactionCompleteInterruptLevel" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a8d3c7b6eee8e6cdb4b5b3d7c06168c08"/>
         <topic label="setSourceAddressReload" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a55f2671cf6a991f8a37f1715a0cebeb5"/>
@@ -2719,6 +2730,8 @@
         <topic label="rtr" href="structxpcc_1_1can_1_1_message_1_1_flags.html#a84f80bc204dfb83496c76bf87dc91514"/>
         <topic label="extended" href="structxpcc_1_1can_1_1_message_1_1_flags.html#a629a059abe346c185666c930ca70cc25"/>
       </topic>
+      <topic label="xpcc::at91::Flash" href="classxpcc_1_1at91_1_1_flash.html">
+      </topic>
       <topic label="xpcc::accessor::Flash&lt; T &gt;" href="classxpcc_1_1accessor_1_1_flash.html">
         <topic label="Flash" href="classxpcc_1_1accessor_1_1_flash.html#af32bffbc19e3f29d03812f4abb84134f"/>
         <topic label="Flash" href="classxpcc_1_1accessor_1_1_flash.html#a302f88ac6457061de711ec981a6a6566"/>
@@ -2733,8 +2746,6 @@
         <topic label="isValid" href="classxpcc_1_1accessor_1_1_flash.html#a26e927a7619c04ec35264b479fa22077"/>
         <topic label="getPointer" href="classxpcc_1_1accessor_1_1_flash.html#a43572bb986b98491b05cad807a7e3930"/>
         <topic label="operator&lt;&lt;" href="classxpcc_1_1accessor_1_1_flash.html#a42384253ab8b1b455ce018721ca9be45"/>
-      </topic>
-      <topic label="xpcc::at91::Flash" href="classxpcc_1_1at91_1_1_flash.html">
       </topic>
       <topic label="xpcc::Ft245&lt; PORT, RD, WR, RXF, TXE &gt;" href="classxpcc_1_1_ft245.html">
         <topic label="Ft245" href="classxpcc_1_1_ft245.html#ac84ea6247e04b26d056d3594e117898c"/>
@@ -3022,24 +3033,15 @@
         <topic label="saturation" href="classxpcc_1_1color_1_1_hsv.html#aad584d77bd5aa1a3d6687d416f74eaaa"/>
         <topic label="value" href="classxpcc_1_1color_1_1_hsv.html#af35be1f5db46680d08c6123707dcb91f"/>
       </topic>
-      <topic label="xpcc::I2cEeprom&lt; I2cMaster &gt;" href="classxpcc_1_1_i2c_eeprom.html">
-        <topic label="NextOperation" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1"/>
-        <topic label="NextOperation" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1"/>
-        <topic label="NextOperationAfterWrite" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e"/>
-        <topic label="NextOperationAfterWrite" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e"/>
-        <topic label="NextOperationAfterRead" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607"/>
-        <topic label="NextOperationAfterRead" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607"/>
-        <topic label="DetachCause" href="classxpcc_1_1i2c_1_1_delegate.html#a1948c1e100fbbce948c2e0e05839e8bb"/>
-        <topic label="DetachCause" href="classxpcc_1_1i2c_1_1_delegate.html#a1948c1e100fbbce948c2e0e05839e8bb"/>
-        <topic label="I2cEeprom" href="classxpcc_1_1_i2c_eeprom.html#a46662c70d9c90e0deb0b028ac73ab67a"/>
-        <topic label="writeByte" href="classxpcc_1_1_i2c_eeprom.html#a1e300ff21ce37470f3d40b7ce9a57cda"/>
-        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a98b238b8b526fd17d8ea3732d51b7188"/>
-        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a48de65951b8b04e2bf066c3dfd545945"/>
-        <topic label="readByte" href="classxpcc_1_1_i2c_eeprom.html#a2ebc778478f1988d031cac3e685d85ea"/>
-        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#a03096822bbc0d64a7b05e8add02ec3c0"/>
-        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#a5ca8c5f4224c86aae72ddddd8108dd66"/>
-        <topic label="update" href="classxpcc_1_1_i2c_eeprom.html#a1d689548fd06f1e1a39dd3fbaa01e902"/>
-        <topic label="event" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a"/>
+      <topic label="xpcc::I2cEeprom&lt; I2C &gt;" href="classxpcc_1_1_i2c_eeprom.html">
+        <topic label="I2cEeprom" href="classxpcc_1_1_i2c_eeprom.html#aac6db6f4ddb3fa2b8d834eff0a6a71bd"/>
+        <topic label="writeByte" href="classxpcc_1_1_i2c_eeprom.html#a88a608ad3b8f8ddb91e6d48a80811598"/>
+        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a"/>
+        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a1a35b57101198bfe55198b5f65eee760"/>
+        <topic label="readByte" href="classxpcc_1_1_i2c_eeprom.html#a73cb5c223f96e92313d5d23bd5b20b4f"/>
+        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20"/>
+        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#aa06774c3a70b3eb3be820631ff3fe6f9"/>
+        <topic label="isAvailable" href="classxpcc_1_1_i2c_eeprom.html#ae168fe4de2103b46f9b7d4c07db84886"/>
       </topic>
       <topic label="xpcc::atmega::I2cMaster" href="classxpcc_1_1atmega_1_1_i2c_master.html">
         <topic label="ErrorState" href="classxpcc_1_1atmega_1_1_i2c_master.html#a181e2feeb342aa71bf4723d1755f2abf"/>
@@ -3152,27 +3154,27 @@
         <topic label="stateTransmission" href="structxpcc_1_1_interconnect_link.html#a1295888391ce567eec1388ac33e9e2cc"/>
         <topic label="newDataReceived" href="structxpcc_1_1_interconnect_link.html#a2e1b050099d886a9fc57579165332825"/>
       </topic>
-      <topic label="xpcc::amnb::Interface&lt; Device &gt;" href="classxpcc_1_1amnb_1_1_interface.html">
-        <topic label="initialize" href="classxpcc_1_1amnb_1_1_interface.html#ab65c482727ebfbfef92cf93e53d313f7"/>
-        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#a2a16d698bdfec3abf061f9bcfc864a75"/>
-        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#a56af5eae41c4b87584add2a19f7d18f6"/>
-        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#a86e6d280d683a6805f299d8f284bac34"/>
-        <topic label="isMessageAvailable" href="classxpcc_1_1amnb_1_1_interface.html#a771a205285671ad705fb781e9dfaf8ac"/>
-        <topic label="getTransmittedAddress" href="classxpcc_1_1amnb_1_1_interface.html#aab14d393400cd20c2e3546f6de7fd3e0"/>
-        <topic label="getTransmittedCommand" href="classxpcc_1_1amnb_1_1_interface.html#ae3e8a49d1c875e37920e5a951ecd0bb7"/>
-        <topic label="getTransmittedFlags" href="classxpcc_1_1amnb_1_1_interface.html#aac2ccff36e40b14847cdac34500ccbe6"/>
-        <topic label="getAddress" href="classxpcc_1_1amnb_1_1_interface.html#a91a844696e7833f6f2a4c3ce7facd5a3"/>
-        <topic label="getCommand" href="classxpcc_1_1amnb_1_1_interface.html#a1038ce6bdadb05979929706de0b84b1d"/>
-        <topic label="isResponse" href="classxpcc_1_1amnb_1_1_interface.html#ac3ac8d3249e2967852f32340c702f95a"/>
-        <topic label="isAcknowledge" href="classxpcc_1_1amnb_1_1_interface.html#a9d19eac231cd3042b129353ba28f5c39"/>
-        <topic label="isBusAvailable" href="classxpcc_1_1amnb_1_1_interface.html#a7d38e3deee01774bae28f5a58d991a26"/>
-        <topic label="messageTransmitted" href="classxpcc_1_1amnb_1_1_interface.html#a35ffefa02150a7f03a453b79d18ab7aa"/>
-        <topic label="getPayload" href="classxpcc_1_1amnb_1_1_interface.html#ad6de327be5c37da409d454f9bca5fc05"/>
-        <topic label="getPayloadLength" href="classxpcc_1_1amnb_1_1_interface.html#ae39218a446e42597a4fa8c1932add4d6"/>
-        <topic label="dropMessage" href="classxpcc_1_1amnb_1_1_interface.html#ab7e06f3e00480190ee34b0eb8e83c0db"/>
-        <topic label="update" href="classxpcc_1_1amnb_1_1_interface.html#ac05262ab7948e4e3d8dc62f377690104"/>
-        <topic label="latency" href="classxpcc_1_1amnb_1_1_interface.html#a700c2a97516d148f7ddbc54d32345396"/>
-        <topic label="collisions" href="classxpcc_1_1amnb_1_1_interface.html#ab696475c9387d02ed984c4e058609ee0"/>
+      <topic label="xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt;" href="classxpcc_1_1amnb_1_1_interface.html">
+        <topic label="initialize" href="classxpcc_1_1amnb_1_1_interface.html#af8d4ddc680792620a1be4c7dc741403c"/>
+        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#a1c7823251df03a4c4adea975a2681dd4"/>
+        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#acd4aae1bb7c16c17c3e76c3db6a9486e"/>
+        <topic label="sendMessage" href="classxpcc_1_1amnb_1_1_interface.html#a21b93d2e3c6f8214654fcbb8f057df19"/>
+        <topic label="isMessageAvailable" href="classxpcc_1_1amnb_1_1_interface.html#a10108d36ade2efa89b3cabc61d4a0020"/>
+        <topic label="getTransmittedAddress" href="classxpcc_1_1amnb_1_1_interface.html#a2fc08242a40327966187b2b39dea7b2a"/>
+        <topic label="getTransmittedCommand" href="classxpcc_1_1amnb_1_1_interface.html#a8dca01b389c4806d88daaeb01cbdc957"/>
+        <topic label="getTransmittedFlags" href="classxpcc_1_1amnb_1_1_interface.html#a4d0430686b02767a0c99e37254b10691"/>
+        <topic label="getAddress" href="classxpcc_1_1amnb_1_1_interface.html#ad4ac8fa3a68b0eeb575239f0410c4027"/>
+        <topic label="getCommand" href="classxpcc_1_1amnb_1_1_interface.html#aa1530a25dbb04067a4d4ceab3ee30e00"/>
+        <topic label="isResponse" href="classxpcc_1_1amnb_1_1_interface.html#a9bd877a64af8cff11231cd9b9c4ddf29"/>
+        <topic label="isAcknowledge" href="classxpcc_1_1amnb_1_1_interface.html#a8b20950e27952eb2d7be79290378cba8"/>
+        <topic label="isBusAvailable" href="classxpcc_1_1amnb_1_1_interface.html#afbaf2fe6baad89883c235004d81ce524"/>
+        <topic label="messageTransmitted" href="classxpcc_1_1amnb_1_1_interface.html#ae1b2e97145ec8256ee4e0ededf91fe75"/>
+        <topic label="getPayload" href="classxpcc_1_1amnb_1_1_interface.html#a820a4bd723ecde3484970e732581a68d"/>
+        <topic label="getPayloadLength" href="classxpcc_1_1amnb_1_1_interface.html#a4889bb6ff7aa3e7ecf6b746f8ff2c778"/>
+        <topic label="dropMessage" href="classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7"/>
+        <topic label="update" href="classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff"/>
+        <topic label="latency" href="classxpcc_1_1amnb_1_1_interface.html#add85a0aaccd437bbb8317446186338f2"/>
+        <topic label="collisions" href="classxpcc_1_1amnb_1_1_interface.html#aaf2bf0ff56f3a21cb432969f299588ad"/>
       </topic>
       <topic label="xpcc::sab::Interface&lt; Device &gt;" href="classxpcc_1_1sab_1_1_interface.html">
         <topic label="initialize" href="classxpcc_1_1sab_1_1_interface.html#a6937f58c44f6ee2296eca203716ab230"/>
@@ -3303,7 +3305,7 @@
       </topic>
       <topic label="xpcc::Itg3200&lt; I2cMaster &gt;" href="classxpcc_1_1_itg3200.html">
         <topic label="Itg3200" href="classxpcc_1_1_itg3200.html#a95d3899472f9cf80b4537094d5c6bf82"/>
-        <topic label="configure" href="classxpcc_1_1_itg3200.html#ad6d58ea8c119d3c0d843ab310cb76833"/>
+        <topic label="configure" href="classxpcc_1_1_itg3200.html#a7acc0f68a7291bb7f670d0e10ec40b96"/>
         <topic label="readGyroscope" href="classxpcc_1_1_itg3200.html#ac97c853b78abc458159a007307baaf16"/>
         <topic label="readTemperatureGyroscope" href="classxpcc_1_1_itg3200.html#a504325aae9b32f71133c44e321e48d53"/>
         <topic label="getData" href="classxpcc_1_1_itg3200.html#a3fd3839e0f201ae3fd9f3b862b417979"/>
@@ -3777,6 +3779,11 @@
         <topic label="value" href="structxpcc_1_1_linked_list_1_1_node.html#a9daec409fe008e9accddcce3084ca923"/>
         <topic label="next" href="structxpcc_1_1_linked_list_1_1_node.html#a5d62cff41a20abc9ca2ac6991652f7a6"/>
       </topic>
+      <topic label="xpcc::DoublyLinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_doubly_linked_list_1_1_node.html">
+        <topic label="value" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a81520a31188c2a7fcdae67a329fdf830"/>
+        <topic label="previous" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a737bffabe85c9901949c42035200d605"/>
+        <topic label="next" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a44658487886ea776bcaaa848d600ce15"/>
+      </topic>
       <topic label="xpcc::amnb::Node&lt; Interface &gt;" href="classxpcc_1_1amnb_1_1_node.html">
         <topic label="QueryStatus" href="classxpcc_1_1amnb_1_1_node.html#ae7e9e6652ebadb03487fd0274224c333"/>
         <topic label="Node" href="classxpcc_1_1amnb_1_1_node.html#ae936cf7987bea962772d3e73e8881eb8"/>
@@ -3809,11 +3816,6 @@
         <topic label="expectedResponseLength" href="classxpcc_1_1amnb_1_1_node.html#a0477269104ecf8130f4f454b40c04895"/>
         <topic label="timer" href="classxpcc_1_1amnb_1_1_node.html#a73e0a2e3027dcc5eec505b63713f35d6"/>
         <topic label="timeout" href="classxpcc_1_1amnb_1_1_node.html#a68cfb7c81b855e4727ee753cb951cbf2"/>
-      </topic>
-      <topic label="xpcc::DoublyLinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_doubly_linked_list_1_1_node.html">
-        <topic label="value" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a81520a31188c2a7fcdae67a329fdf830"/>
-        <topic label="previous" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a737bffabe85c9901949c42035200d605"/>
-        <topic label="next" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a44658487886ea776bcaaa848d600ce15"/>
       </topic>
       <topic label="xpcc::Nokia6610&lt; SPI, CS, Reset, GE12 &gt;" href="classxpcc_1_1_nokia6610.html">
         <topic label="initialize" href="classxpcc_1_1_nokia6610.html#ad124a150d657d53aded45659ddaac3ca"/>
@@ -4019,14 +4021,14 @@
         <topic label="parseArg" href="classxpcc_1_1log_1_1_style.html#a140c55ad563d65e7371392c4b0e46970"/>
       </topic>
       <topic label="xpcc::pt::Protothread" href="classxpcc_1_1pt_1_1_protothread.html">
-        <topic label="State" href="classxpcc_1_1pt_1_1_protothread.html#ac4410b68c3c9894c9056a1bbba46ad03"/>
+        <topic label="PtState" href="classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c"/>
         <topic label="Protothread" href="classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4"/>
         <topic label="restart" href="classxpcc_1_1pt_1_1_protothread.html#a3c9892ebfbed1112dd5a7dc8882c0e94"/>
         <topic label="stop" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e"/>
         <topic label="isRunning" href="classxpcc_1_1pt_1_1_protothread.html#a74d6c935ce548a93698d902420cbaab9"/>
         <topic label="run" href="classxpcc_1_1pt_1_1_protothread.html#a640728df919edbefe4c9cefa5c8be90c"/>
-        <topic label="Invalid" href="classxpcc_1_1pt_1_1_protothread.html#a3d87cc545a84f031b266d521c32d088f"/>
-        <topic label="ptState" href="classxpcc_1_1pt_1_1_protothread.html#ae2a9fc340b7d60d230010e5506c7d676"/>
+        <topic label="Invalid" href="classxpcc_1_1pt_1_1_protothread.html#acbf847be3168e1d99bb7c93f3060de11"/>
+        <topic label="ptState" href="classxpcc_1_1pt_1_1_protothread.html#ad0f48036333fbcd2ff506988406a6a83"/>
       </topic>
       <topic label="xpcc::led::Pulse&lt; LedClass &gt;" href="classxpcc_1_1led_1_1_pulse.html">
         <topic label="Pulse" href="classxpcc_1_1led_1_1_pulse.html#ab53924177e8a83af923203c329141572"/>
@@ -4120,18 +4122,6 @@
         <topic label="prependFromInterrupt" href="classxpcc_1_1rtos_1_1_queue.html#a8a5e76293b9088da7ead7232b60e8ecf"/>
         <topic label="getFromInterrupt" href="classxpcc_1_1rtos_1_1_queue.html#a023dcede9080877aa31501c2087309e3"/>
       </topic>
-      <topic label="xpcc::Queue&lt; T, Container &gt;" href="classxpcc_1_1_queue.html">
-        <topic label="Size" href="classxpcc_1_1_queue.html#a22b626c9cea492425dee0907fb84c5b6"/>
-        <topic label="isEmpty" href="classxpcc_1_1_queue.html#ab0cfb0dcbed020052bb5757586da9e52"/>
-        <topic label="isFull" href="classxpcc_1_1_queue.html#a872c572b72be6b045dad9eceacbd9177"/>
-        <topic label="getSize" href="classxpcc_1_1_queue.html#a1c3985a138c57ea13648a85d6b51f04a"/>
-        <topic label="getMaxSize" href="classxpcc_1_1_queue.html#accd17c5c21ed7201973b2ff99e9179aa"/>
-        <topic label="get" href="classxpcc_1_1_queue.html#adf6c9fea53aa053c3f377dd861521697"/>
-        <topic label="get" href="classxpcc_1_1_queue.html#a975de4f4684089135fc87aa159403f87"/>
-        <topic label="push" href="classxpcc_1_1_queue.html#a71f8ab3511278b9d1fd8becb2d10b83a"/>
-        <topic label="pop" href="classxpcc_1_1_queue.html#a9c09f7820c051f39f73a8b42653bc700"/>
-        <topic label="c" href="classxpcc_1_1_queue.html#abaabfe78c130c443eb50b1ce7b3de0be"/>
-      </topic>
       <topic label="xpcc::atomic::Queue&lt; T, N &gt;" href="classxpcc_1_1atomic_1_1_queue.html">
         <topic label="Size" href="classxpcc_1_1atomic_1_1_queue.html#a330cf801491d3a6675041e2987145d53"/>
         <topic label="Queue" href="classxpcc_1_1atomic_1_1_queue.html#a9fa2bc4ecf3c021b80e387fc2a9bb6d7"/>
@@ -4143,6 +4133,18 @@
         <topic label="get" href="classxpcc_1_1atomic_1_1_queue.html#a873da6c8c54f30bcc229417f049eccc8"/>
         <topic label="push" href="classxpcc_1_1atomic_1_1_queue.html#a2e3ae55c3528d48ee8c48b3a971b3ec9"/>
         <topic label="pop" href="classxpcc_1_1atomic_1_1_queue.html#ad393604167ad689e417e257794483fb2"/>
+      </topic>
+      <topic label="xpcc::Queue&lt; T, Container &gt;" href="classxpcc_1_1_queue.html">
+        <topic label="Size" href="classxpcc_1_1_queue.html#a22b626c9cea492425dee0907fb84c5b6"/>
+        <topic label="isEmpty" href="classxpcc_1_1_queue.html#ab0cfb0dcbed020052bb5757586da9e52"/>
+        <topic label="isFull" href="classxpcc_1_1_queue.html#a872c572b72be6b045dad9eceacbd9177"/>
+        <topic label="getSize" href="classxpcc_1_1_queue.html#a1c3985a138c57ea13648a85d6b51f04a"/>
+        <topic label="getMaxSize" href="classxpcc_1_1_queue.html#accd17c5c21ed7201973b2ff99e9179aa"/>
+        <topic label="get" href="classxpcc_1_1_queue.html#adf6c9fea53aa053c3f377dd861521697"/>
+        <topic label="get" href="classxpcc_1_1_queue.html#a975de4f4684089135fc87aa159403f87"/>
+        <topic label="push" href="classxpcc_1_1_queue.html#a71f8ab3511278b9d1fd8becb2d10b83a"/>
+        <topic label="pop" href="classxpcc_1_1_queue.html#a9c09f7820c051f39f73a8b42653bc700"/>
+        <topic label="c" href="classxpcc_1_1_queue.html#abaabfe78c130c443eb50b1ce7b3de0be"/>
       </topic>
       <topic label="xpcc::rtos::QueueBase" href="classxpcc_1_1rtos_1_1_queue_base.html">
         <topic label="QueueBase" href="classxpcc_1_1rtos_1_1_queue_base.html#a0d65b289773d1c0a54395d256c638685"/>
@@ -4208,14 +4210,14 @@
         <topic label="buffer" href="structxpcc_1_1i2c_1_1_delegate_1_1_reading.html#a1e1ae091ba3567b526d2dfbe15163c51"/>
         <topic label="size" href="structxpcc_1_1i2c_1_1_delegate_1_1_reading.html#adb90a06fc6a878c0ed3fb2a21bd088a7"/>
       </topic>
-      <topic label="xpcc::allocator::Static&lt; T, N &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html">
-        <topic label="other" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html#a4f919a234b77474092bb01f97e7f841c"/>
-      </topic>
       <topic label="xpcc::allocator::Block&lt; T, BLOCKSIZE &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_block_1_1rebind.html">
         <topic label="other" href="structxpcc_1_1allocator_1_1_block_1_1rebind.html#a2c8ce105225973a9a66d9c6b921ce7e0"/>
       </topic>
       <topic label="xpcc::allocator::Dynamic&lt; T &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html">
         <topic label="other" href="structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html#a5a6caffc206b25aea12c0ce4b039048a"/>
+      </topic>
+      <topic label="xpcc::allocator::Static&lt; T, N &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html">
+        <topic label="other" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html#a4f919a234b77474092bb01f97e7f841c"/>
       </topic>
       <topic label="xpcc::CanConnector&lt; Driver &gt;::ReceiveListItem" href="classxpcc_1_1_can_connector_1_1_receive_list_item.html">
         <topic label="ReceiveListItem" href="classxpcc_1_1_can_connector_1_1_receive_list_item.html#a22c699216fe80273836d32e9faac1925"/>
@@ -4296,6 +4298,11 @@
         <topic label="destination" href="classxpcc_1_1_response_handle.html#a7c2dc3e3f60f5a84c7140fb659d696d5"/>
         <topic label="packetIdentifier" href="classxpcc_1_1_response_handle.html#a2a8f020b4f6ce3fbc8115264d492c90a"/>
       </topic>
+      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html">
+        <topic label="red" href="classxpcc_1_1color_1_1_rgb.html#a0f95e1ef9e4456ffe7a776ec57287ef3"/>
+        <topic label="green" href="classxpcc_1_1color_1_1_rgb.html#ae121f3c3dd711591df915cfb74801db7"/>
+        <topic label="blue" href="classxpcc_1_1color_1_1_rgb.html#afe169f989b25c6f0b029e0df76e0f116"/>
+      </topic>
       <topic label="xpcc::led::Rgb&lt; Red, Green, Blue &gt;" href="classxpcc_1_1led_1_1_rgb.html">
         <topic label="Rgb" href="classxpcc_1_1led_1_1_rgb.html#a9592d2724c5d8f87dd1d7a27111d9c74"/>
         <topic label="setBrightness" href="classxpcc_1_1led_1_1_rgb.html#a8ce03b08b12c7f3610ee366fcc15dd60"/>
@@ -4303,11 +4310,6 @@
         <topic label="isFading" href="classxpcc_1_1led_1_1_rgb.html#a3caa67ce03fcc82624a5da6ca3774170"/>
         <topic label="fadeTo" href="classxpcc_1_1led_1_1_rgb.html#a24bbef82c9ee73b8331735211f6ce630"/>
         <topic label="run" href="classxpcc_1_1led_1_1_rgb.html#aab342a40ebfb331f9835a62e05238a4e"/>
-      </topic>
-      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html">
-        <topic label="red" href="classxpcc_1_1color_1_1_rgb.html#a0f95e1ef9e4456ffe7a776ec57287ef3"/>
-        <topic label="green" href="classxpcc_1_1color_1_1_rgb.html#ae121f3c3dd711591df915cfb74801db7"/>
-        <topic label="blue" href="classxpcc_1_1color_1_1_rgb.html#afe169f989b25c6f0b029e0df76e0f116"/>
       </topic>
       <topic label="xpcc::tmp::SameType&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_same_type.html">
       </topic>
@@ -4327,17 +4329,17 @@
         <topic label="operator==" href="classxpcc_1_1_saturated.html#a976457c8ac01a2c7d2c93acb2a9cd4c3"/>
         <topic label="operator!=" href="classxpcc_1_1_saturated.html#aa1f21025d903b7239f9d92c33e0d0af7"/>
       </topic>
+      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html">
+        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
+        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
+        <topic label="getTicks" href="classxpcc_1_1rtos_1_1_scheduler.html#af55936bc84a091b251c8b41e36ea7c6d"/>
+      </topic>
       <topic label="xpcc::Scheduler" href="classxpcc_1_1_scheduler.html">
         <topic label="Priority" href="classxpcc_1_1_scheduler.html#ad87181bd99f0b09ff3a3e3fe29f4f35b"/>
         <topic label="Scheduler" href="classxpcc_1_1_scheduler.html#ab0d844b0ec238ebf83875d450a772d8f"/>
         <topic label="scheduleTask" href="classxpcc_1_1_scheduler.html#ab7f41ccb1d219cc4cfeb7c417e057873"/>
         <topic label="schedule" href="classxpcc_1_1_scheduler.html#a7f068894aec0ac632ee58a9551d175ce"/>
         <topic label="scheduleInterupt" href="classxpcc_1_1_scheduler.html#a8e57f2e7be649cd78da0003b1411b70d"/>
-      </topic>
-      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html">
-        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
-        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
-        <topic label="getTicks" href="classxpcc_1_1rtos_1_1_scheduler.html#af55936bc84a091b251c8b41e36ea7c6d"/>
       </topic>
       <topic label="xpcc::Scp1000&lt; Spi, Cs, Int &gt;" href="classxpcc_1_1_scp1000.html">
         <topic label="initialize" href="classxpcc_1_1_scp1000.html#ad31cb9f20e9eea6eee11dfb6c0583925"/>
@@ -4374,6 +4376,12 @@
       <topic label="xpcc::tmp::Select&lt; false, T, U &gt;" href="structxpcc_1_1tmp_1_1_select_3_01false_00_01_t_00_01_u_01_4.html">
         <topic label="Result" href="structxpcc_1_1tmp_1_1_select_3_01false_00_01_t_00_01_u_01_4.html#a0b8288c3e1d14be4a75e6a90ee0fb0ce"/>
       </topic>
+      <topic label="xpcc::pt::Semaphore" href="classxpcc_1_1pt_1_1_semaphore.html">
+        <topic label="Semaphore" href="classxpcc_1_1pt_1_1_semaphore.html#a01dedd3b63f46875643e2009767f0a7b"/>
+        <topic label="acquire" href="classxpcc_1_1pt_1_1_semaphore.html#a1f6873f28cf4aeac06f642712f62a41d"/>
+        <topic label="release" href="classxpcc_1_1pt_1_1_semaphore.html#ac936a6f743c9ef7f98701818e852193f"/>
+        <topic label="count" href="classxpcc_1_1pt_1_1_semaphore.html#adb40e55514c147cf4c13761c3cce6288"/>
+      </topic>
       <topic label="xpcc::rtos::Semaphore" href="classxpcc_1_1rtos_1_1_semaphore.html">
         <topic label="Semaphore" href="classxpcc_1_1rtos_1_1_semaphore.html#a96912e5e5eae204661ffb07227a0448a"/>
         <topic label="Semaphore" href="classxpcc_1_1rtos_1_1_semaphore.html#a440b58a672def186c4acb22df25205c8"/>
@@ -4382,12 +4390,6 @@
         <topic label="releaseFromInterrupt" href="classxpcc_1_1rtos_1_1_semaphore.html#a85240089ec174f99e138305436f12c89"/>
         <topic label="acquire" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a0b7b068974747e2e8841d2c7c2332bc0"/>
         <topic label="handle" href="classxpcc_1_1rtos_1_1_semaphore_base.html#a766755cdc38e082cd2aeabebdd4a79e7"/>
-      </topic>
-      <topic label="xpcc::pt::Semaphore" href="classxpcc_1_1pt_1_1_semaphore.html">
-        <topic label="Semaphore" href="classxpcc_1_1pt_1_1_semaphore.html#a01dedd3b63f46875643e2009767f0a7b"/>
-        <topic label="acquire" href="classxpcc_1_1pt_1_1_semaphore.html#a1f6873f28cf4aeac06f642712f62a41d"/>
-        <topic label="release" href="classxpcc_1_1pt_1_1_semaphore.html#ac936a6f743c9ef7f98701818e852193f"/>
-        <topic label="count" href="classxpcc_1_1pt_1_1_semaphore.html#adb40e55514c147cf4c13761c3cce6288"/>
       </topic>
       <topic label="xpcc::rtos::SemaphoreBase" href="classxpcc_1_1rtos_1_1_semaphore_base.html">
         <topic label="~SemaphoreBase" href="classxpcc_1_1rtos_1_1_semaphore_base.html#af185ca42794b7e3636c36eba56294dcb"/>
@@ -4461,6 +4463,75 @@
         <topic label="store" href="classxpcc_1_1_shift_register_output.html#ade50e0e65af824b6d5bdde4e12ce72e5"/>
         <topic label="cache" href="classxpcc_1_1_shift_register_output.html#ac2516b35a2c3204648229ad1e3e85d38"/>
       </topic>
+      <topic label="xpcc::SiemensS65&lt; SPI, CS, RS, Reset &gt;" href="classxpcc_1_1_siemens_s65.html">
+        <topic label="initialize" href="classxpcc_1_1_siemens_s65.html#a7fb9a6276e8385084e1cc455762684ed"/>
+        <topic label="update" href="classxpcc_1_1_siemens_s65.html#aaa052442e391a2f08ee8a5c3b1780b53"/>
+        <topic label="getWidth" href="classxpcc_1_1_buffered_graphic_display.html#a1dc9ff827e9f198b4744a35c13d68116"/>
+        <topic label="getHeight" href="classxpcc_1_1_buffered_graphic_display.html#a3efc5c40ecc994796c420487b717ae9e"/>
+        <topic label="clear" href="classxpcc_1_1_buffered_graphic_display.html#a55729a9b5cd313886ca42ad29498c36c"/>
+        <topic label="drawImageRaw" href="classxpcc_1_1_buffered_graphic_display.html#a07129e88f1385dc4b8893dcbcac5da12"/>
+        <topic label="drawHorizontalLine" href="classxpcc_1_1_buffered_graphic_display.html#aa8e7af9bbc057dea83d00e9ab4b54c92"/>
+        <topic label="setPixel" href="classxpcc_1_1_buffered_graphic_display.html#ac04762ddfcae990651ea5834b79607ff"/>
+        <topic label="clearPixel" href="classxpcc_1_1_buffered_graphic_display.html#a3d2b96630cad81a7b5e266060ea37fb0"/>
+        <topic label="getPixel" href="classxpcc_1_1_buffered_graphic_display.html#afe78880626c1efa030ee7fe79a8db0bb"/>
+        <topic label="setColor" href="classxpcc_1_1_graphic_display.html#a1b80c35e041286faafa31ea1f3516b1f"/>
+        <topic label="getColor" href="classxpcc_1_1_graphic_display.html#a69dd019b84b24b98ce45bbfd6c5a2120"/>
+        <topic label="drawPixel" href="classxpcc_1_1_graphic_display.html#a9bba7e142d0f83e6c9cd1f86b85314a0"/>
+        <topic label="drawLine" href="classxpcc_1_1_graphic_display.html#a2e3898fd2582d9e3e14cc4f941b1b19c"/>
+        <topic label="drawLine" href="classxpcc_1_1_graphic_display.html#acbd057888b0a0f369aaac5e11116ad35"/>
+        <topic label="drawRectangle" href="classxpcc_1_1_graphic_display.html#abf9140bb5fde365cdfe3ccea51b9f5a0"/>
+        <topic label="drawRectangle" href="classxpcc_1_1_graphic_display.html#aebea110462c963d7c7529f622fdf3e5a"/>
+        <topic label="drawRoundedRectangle" href="classxpcc_1_1_graphic_display.html#aba53b7ef13d6e6f086df48c83462287f"/>
+        <topic label="drawCircle" href="classxpcc_1_1_graphic_display.html#a3d8a6dbe63653e3449d4ce50257ae157"/>
+        <topic label="drawEllipse" href="classxpcc_1_1_graphic_display.html#a5f40633306039595a852a7231e057b6d"/>
+        <topic label="drawImage" href="classxpcc_1_1_graphic_display.html#ac2d4a9e5884d800e198879a6ab3eab16"/>
+        <topic label="fillRectangle" href="classxpcc_1_1_graphic_display.html#a737b1bd6e6d76f86ceb7a33b60a2b083"/>
+        <topic label="fillRectangle" href="classxpcc_1_1_graphic_display.html#afa243f77140d7ea6151cf61d61b6208f"/>
+        <topic label="fillCircle" href="classxpcc_1_1_graphic_display.html#a08e8688a65c2ce4bb6bbd7756598011e"/>
+        <topic label="setFont" href="classxpcc_1_1_graphic_display.html#ad2399bd0b0cecce12fd1792d0a1e779e"/>
+        <topic label="setCursor" href="classxpcc_1_1_graphic_display.html#ad301bae1251bce5b8a7ff3930c7fae54"/>
+        <topic label="setCursor" href="classxpcc_1_1_graphic_display.html#ac64532dda1867da4d092f97840d70f45"/>
+        <topic label="setCursorX" href="classxpcc_1_1_graphic_display.html#aab8bdb0535bb15c61eefa3621807ffe4"/>
+        <topic label="setCursorY" href="classxpcc_1_1_graphic_display.html#a2bcc50d1d0fde8031a54fd3a2dd59273"/>
+        <topic label="getCursor" href="classxpcc_1_1_graphic_display.html#a743c0111afbb9105ceeae3d3807e1175"/>
+        <topic label="write" href="classxpcc_1_1_graphic_display.html#abb0777c72eafcff4b3a6e2078c170182"/>
+        <topic label="drawCircle4" href="classxpcc_1_1_graphic_display.html#af6f7bb1d68776a1775eec972af61ce63"/>
+        <topic label="drawVerticalLine" href="classxpcc_1_1_graphic_display.html#a605820eefd561e08382b0f3cc74a84ca"/>
+        <topic label="flush" href="classxpcc_1_1_i_o_stream.html#a391fdcd5984ea8c120afc39898da4c7a"/>
+        <topic label="hex" href="classxpcc_1_1_i_o_stream.html#a5fc256c0ac76183a547c40a2cdb0fa93"/>
+        <topic label="ascii" href="classxpcc_1_1_i_o_stream.html#a609d723cea9b8808037135c6f2decba3"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#ac1c87a1f2f7ccd1dda27443493baa60d"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#ace81c47f49bb285a81563ff537351bfd"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a8e145e42c4f7334043749dea78b0a9d1"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#af85a4126e332392de42401c5da33fa16"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#acde5e7a78144c250535091be4e36a3cd"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a48b3362b9669140d729fa9c8d53fad4d"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#acb4266be5210753777f4188421a0ad2d"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#ab257e2ab18a68e9257b76fbbdca71863"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a0be669ed5b624ffbaafa90165de9bfcd"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a656ae82397a12e4d29912ec64a1903dd"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a12aba354f627fd234aebc1ecc5f5de3a"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#a44a300ee68b29f800021979d8aa0e87e"/>
+        <topic label="operator&lt;&lt;" href="classxpcc_1_1_i_o_stream.html#ae45dcaaa44fe34b356c4944136ab4554"/>
+        <topic label="printf" href="classxpcc_1_1_i_o_stream.html#a816bd633537dc65c1aa6935903cdaac9"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#a3870bb7ba565d9e824423ce9cd7b2b1b"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#ac730e6d295f96b34ec779f7d213ba013"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#a2a6d2ab80e788337ad42fee11a5edd7f"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#a6227003ecaa2b175ed7371c088d60204"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#a0392f98a51ba691e1118f2b74b32cdf7"/>
+        <topic label="writeInteger" href="classxpcc_1_1_i_o_stream.html#ae351a10ea4b9f60d3e625cee369e9871"/>
+        <topic label="writeHex" href="classxpcc_1_1_i_o_stream.html#a3b092be8524931f0639174fdb9bf6bb0"/>
+        <topic label="writeHex" href="classxpcc_1_1_i_o_stream.html#aa8eaa077126dead7e69c899a4d1d9fde"/>
+        <topic label="writeHexNibble" href="classxpcc_1_1_i_o_stream.html#a60c90dc83f159864205faf4cea1904f0"/>
+        <topic label="writeFloat" href="classxpcc_1_1_i_o_stream.html#ae044e969897901aa623b334f1110a3e5"/>
+        <topic label="writeDouble" href="classxpcc_1_1_i_o_stream.html#a01b2b1b3f7d48ab0f6f85caf17acd45b"/>
+        <topic label="buffer" href="classxpcc_1_1_buffered_graphic_display.html#a66a0b1039a5e809661d2947da9334419"/>
+        <topic label="writer" href="classxpcc_1_1_graphic_display.html#ac05851329360834084f70e065c22fc04"/>
+        <topic label="draw" href="classxpcc_1_1_graphic_display.html#a48d4b2ff053016c9e582289f54ef67e3"/>
+        <topic label="color" href="classxpcc_1_1_graphic_display.html#a105421dc2d4e8b919fb37c78028e7ffc"/>
+        <topic label="font" href="classxpcc_1_1_graphic_display.html#ac1713568b19395f086eacb645f5f1a0a"/>
+        <topic label="cursor" href="classxpcc_1_1_graphic_display.html#a682cd5f666e4120d55c6be4f2a11e7c0"/>
+      </topic>
       <topic label="xpcc::sab::Slave&lt; Interface &gt;" href="classxpcc_1_1sab_1_1_slave.html">
         <topic label="Slave" href="classxpcc_1_1sab_1_1_slave.html#a625d015025c568888106fe1bc0b92f86"/>
         <topic label="update" href="classxpcc_1_1sab_1_1_slave.html#aed2912303d2975f5b46ff4d374379641"/>
@@ -4470,6 +4541,15 @@
         <topic label="actionCount" href="classxpcc_1_1sab_1_1_slave.html#a87e7254a7ffafb6b6d8c9d8f59de51a9"/>
         <topic label="currentCommand" href="classxpcc_1_1sab_1_1_slave.html#aea81f23f1d87c1e6893bf04c0183e6a5"/>
         <topic label="response" href="classxpcc_1_1sab_1_1_slave.html#acedb116baff43266766af6453de9b838"/>
+      </topic>
+      <topic label="xpcc::Sm130&lt; I2cMaster, Reset &gt;" href="classxpcc_1_1_sm130.html">
+        <topic label="Sm130" href="classxpcc_1_1_sm130.html#a9b65dd507631b014d3cb8e6ea69c5765"/>
+        <topic label="initialize" href="classxpcc_1_1_sm130.html#a27443324033c79c51957db23a2cdca4d"/>
+        <topic label="update" href="classxpcc_1_1_sm130.html#af46083a40396a47f1b544d309af0a42c"/>
+        <topic label="reset" href="classxpcc_1_1_sm130.html#aaa2f1db0423d2e3156eeb74674da4a1a"/>
+        <topic label="selectTag" href="classxpcc_1_1_sm130.html#a84873f95b1a316d4b1e85bfc4492fb35"/>
+        <topic label="seekForTag" href="classxpcc_1_1_sm130.html#ae25c61978a9745b96407895046f54cd6"/>
+        <topic label="enableAntenna" href="classxpcc_1_1_sm130.html#a14203d4a31549fc50cb28165b622ea1a"/>
       </topic>
       <topic label="xpcc::SmartPointer" href="classxpcc_1_1_smart_pointer.html">
         <topic label="SmartPointer" href="classxpcc_1_1_smart_pointer.html#a35642760a27a1adf865f9aff32ad8cd5"/>
@@ -4528,10 +4608,13 @@
         <topic label="romBuffer" href="classxpcc_1_1_software_one_wire.html#af64169b56d3e2e6dea55cd38c1076e21"/>
       </topic>
       <topic label="xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;" href="classxpcc_1_1_software_spi.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1_software_spi.html#a14b4a1290acc9317ddaa27e439e90f59"/>
         <topic label="write" href="classxpcc_1_1_software_spi.html#ad179284b1658b79322fd9f68f11ff122"/>
-        <topic label="setBuffer" href="classxpcc_1_1_software_spi.html#aa694e19f72a3fc1447449c07b013f385"/>
-        <topic label="transfer" href="classxpcc_1_1_software_spi.html#a63c42256c936dafe523d06ed3730b9ae"/>
+        <topic label="setBuffer" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c"/>
+        <topic label="transfer" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c"/>
+        <topic label="transferSync" href="classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb"/>
         <topic label="isFinished" href="classxpcc_1_1_software_spi.html#aaf5dcd3f5c5a294a0580c8341f2d4140"/>
         <topic label="delay" href="classxpcc_1_1_software_spi.html#ab75ba79b9929b2093cf4aa66cfe8f721"/>
         <topic label="delayTime" href="classxpcc_1_1_software_spi.html#add04d8f72584eef524ae4af8283cd9c9"/>
@@ -4546,86 +4629,113 @@
       <topic label="xpcc::at91::Spi0" href="classxpcc_1_1at91_1_1_spi0.html"/>
       <topic label="xpcc::at91::Spi1" href="classxpcc_1_1at91_1_1_spi1.html"/>
       <topic label="xpcc::SpiMaster" href="classxpcc_1_1_spi_master.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="write" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9"/>
-        <topic label="setBuffer" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d"/>
-        <topic label="transfer" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03"/>
+        <topic label="setBuffer" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97"/>
+        <topic label="transfer" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25"/>
+        <topic label="transferSync" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e"/>
         <topic label="isFinished" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d"/>
       </topic>
       <topic label="xpcc::atmega::SpiMaster" href="classxpcc_1_1atmega_1_1_spi_master.html">
         <topic label="Mode" href="classxpcc_1_1atmega_1_1_spi_master.html#a56b0ebb8aa8eef96eeda0ad291291ac7"/>
         <topic label="Prescaler" href="classxpcc_1_1atmega_1_1_spi_master.html#af4a641455fa9e7da30dc52c0d70ab0c4"/>
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atmega_1_1_spi_master.html#a1d4f7bb30f0ecdadae976fc96f3a9e99"/>
         <topic label="write" href="classxpcc_1_1atmega_1_1_spi_master.html#aad9f5725fcc14a9d91a8237081d943ce"/>
-        <topic label="setBuffer" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4"/>
-        <topic label="transfer" href="classxpcc_1_1atmega_1_1_spi_master.html#a8d07611c3fb7f61cbe28addd2dd532d7"/>
+        <topic label="setBuffer" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29"/>
+        <topic label="transfer" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e"/>
+        <topic label="transferSync" href="classxpcc_1_1atmega_1_1_spi_master.html#ab550c77d9e8e26b038bc8198d30e16f1"/>
         <topic label="isFinished" href="classxpcc_1_1atmega_1_1_spi_master.html#a895a2f783e53750f4136c150980d5e8c"/>
       </topic>
       <topic label="xpcc::stm32::SpiMaster1" href="classxpcc_1_1stm32_1_1_spi_master1.html">
         <topic label="Mode" href="classxpcc_1_1stm32_1_1_spi_master1.html#af3f0709d4411ef5ceff9bdd09696af34"/>
         <topic label="Prescaler" href="classxpcc_1_1stm32_1_1_spi_master1.html#a3cd3603808c99fd4d007bf6e6a6c92aa"/>
         <topic label="Mapping" href="classxpcc_1_1stm32_1_1_spi_master1.html#a66b8b2085e67c02ada5bd7581584f715"/>
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="configurePins" href="classxpcc_1_1stm32_1_1_spi_master1.html#a96f9a59b14efb117ac5c52a9dc691305"/>
         <topic label="initialize" href="classxpcc_1_1stm32_1_1_spi_master1.html#af2f396ba8d1e6409068d28b4a425a415"/>
         <topic label="write" href="classxpcc_1_1stm32_1_1_spi_master1.html#a8cc0bcfd3b01a3613cb562ef38b6dacf"/>
-        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master1.html#acef75d23cf77e8b1f2c15c361615066b"/>
-        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master1.html#a900a53167b123f51df88d1d3d118dbec"/>
+        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master1.html#ae2432d8788fac025e3d6e86f5b6b2773"/>
+        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master1.html#a7ef55033ac45af20258a0a161179a561"/>
+        <topic label="transferSync" href="classxpcc_1_1stm32_1_1_spi_master1.html#a961163ab2da5d71025db2474a1baec18"/>
         <topic label="isFinished" href="classxpcc_1_1stm32_1_1_spi_master1.html#a92a21d7756c13d5ecfc0ee0c376d3489"/>
       </topic>
       <topic label="xpcc::stm32::SpiMaster2" href="classxpcc_1_1stm32_1_1_spi_master2.html">
         <topic label="Mode" href="classxpcc_1_1stm32_1_1_spi_master2.html#a9a73d2d5cbe6c76e78b20301f573adf5"/>
         <topic label="Prescaler" href="classxpcc_1_1stm32_1_1_spi_master2.html#ab8ef2b62492c2b8a53ce25e3d06ab722"/>
         <topic label="Mapping" href="classxpcc_1_1stm32_1_1_spi_master2.html#a7630ce98389c157a4ae65859401f3f38"/>
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="configurePins" href="classxpcc_1_1stm32_1_1_spi_master2.html#ad0b774363c2cb3a7e25d9f0e0c32126f"/>
         <topic label="initialize" href="classxpcc_1_1stm32_1_1_spi_master2.html#a55116a3b7d1ab063441214d5d44ad144"/>
         <topic label="write" href="classxpcc_1_1stm32_1_1_spi_master2.html#a954edf00f517e7deed478155405e9d9a"/>
-        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master2.html#a74aca1a9497809dcffcc01632317686b"/>
-        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master2.html#a4c3485005216c8551d2d6522dc00716b"/>
+        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master2.html#a61f264a4d33ec9195bff21267daec085"/>
+        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master2.html#ae8c3525353a609abc54b1071f0e0026e"/>
+        <topic label="transferSync" href="classxpcc_1_1stm32_1_1_spi_master2.html#aee2ef9be610f1b312e45b7f78ad8a4c3"/>
         <topic label="isFinished" href="classxpcc_1_1stm32_1_1_spi_master2.html#abb5505b4c8a535d9184ca279ca682442"/>
       </topic>
       <topic label="xpcc::stm32::SpiMaster3" href="classxpcc_1_1stm32_1_1_spi_master3.html">
         <topic label="Mode" href="classxpcc_1_1stm32_1_1_spi_master3.html#acd75c8285d4e56305ced40b95d087da3"/>
         <topic label="Prescaler" href="classxpcc_1_1stm32_1_1_spi_master3.html#a23db1c1400d6d90fad26b993a57f2fcd"/>
         <topic label="Mapping" href="classxpcc_1_1stm32_1_1_spi_master3.html#a5511df9810c6a7ab0417297059bd0ab4"/>
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="configurePins" href="classxpcc_1_1stm32_1_1_spi_master3.html#ac72d3e5b59b657f90f2c1b4177e80298"/>
         <topic label="initialize" href="classxpcc_1_1stm32_1_1_spi_master3.html#a91c42cc0f1e6fdeb381f262c9402814d"/>
         <topic label="write" href="classxpcc_1_1stm32_1_1_spi_master3.html#af7ef123bf3d9ef69979a794f841cef5b"/>
-        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master3.html#ab208b962bc36802596e5e1b5f8d674f3"/>
-        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master3.html#aef668aee41ed3d455ab471df5532e9d8"/>
+        <topic label="setBuffer" href="classxpcc_1_1stm32_1_1_spi_master3.html#a0c4f1ea3bf34d5c7bdfe40bec85a6be8"/>
+        <topic label="transfer" href="classxpcc_1_1stm32_1_1_spi_master3.html#a8a4c8e0e935009800ed7ad5b3c541be3"/>
+        <topic label="transferSync" href="classxpcc_1_1stm32_1_1_spi_master3.html#a8d38e87c3dd7675154cf2ef9b747e8f5"/>
         <topic label="isFinished" href="classxpcc_1_1stm32_1_1_spi_master3.html#a3456f7623036582fa623422b46f110d4"/>
       </topic>
       <topic label="xpcc::atxmega::SpiMasterC" href="classxpcc_1_1atxmega_1_1_spi_master_c.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a5d41e7efe40bcf146d27a3281c86667d"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#aa14f0e677cad57d34b0a7c37bb408b1a"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a650dc51e73a21239deeae58c9c310631"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a83f59cba1eceb17c0c34b4083e91d9d7"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a532e57f7acb8eea83c625c68bdfcfb08"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a9aae093fe8f35cbcd8a6fdda09bd84cd"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a8b44c38a04fe3c0b942a8c5a9a4c0414"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a49403ccf4328beb360f549ddfc28900f"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#aa91bd3b345885812f129d8859306ec1b"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#af4e5b3d81ab494bfcd7cdc067988a807"/>
       </topic>
       <topic label="xpcc::atxmega::SpiMasterD" href="classxpcc_1_1atxmega_1_1_spi_master_d.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a892a701f933eac5fe4d3c03f62372f22"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a0af14c8aab97c750bf71315051efd316"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#adaed2bf763b5bb7e1f7debf7d98263f2"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a89a8f5151cc95057f570dd46253a10b4"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a43b257c6048bac1641f59f848858dd8f"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a2bd5b231b0cbc452c351662b6b95713d"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#adec9d1d6d36181372bee231a3353dacc"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a79f9aecc488ce025ea34aee67c9207a7"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a1fb6b07f071b6088eb1aab71c1fe8af6"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#adf55028a019874c4096353ad2c4cc309"/>
       </topic>
       <topic label="xpcc::atxmega::SpiMasterE" href="classxpcc_1_1atxmega_1_1_spi_master_e.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#aca2ad79121d5760934ba2364a9a4587f"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#afa4945f18108af30e28cd99f174a22f1"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a6cc2a3020b21c6b598bdeb84f2ecd5d4"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#af6612562c66d334404c7cff5c7087f2e"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#ad38b3be984744cfca99c2fa7493acf91"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a3ad60dc2a935cf637346d23c66328f32"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a3ed5a41f056195f9a373161aed412001"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a7f63244aec87686063ebc48d03b1d6be"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a19747075f780ca8dbdc53b631241fda5"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#ad063977acb7579ddf587f9d24d808a57"/>
       </topic>
       <topic label="xpcc::atxmega::SpiMasterF" href="classxpcc_1_1atxmega_1_1_spi_master_f.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a59559477f20c1640620a687ff296deaa"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a73687f7ab43fa260e725d0aeb045ae82"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#ae3337544d63ea5a11a891715c4ecbee4"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a084b9da64f79a3aaa22efdbbda6a38bb"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a63c656a7fe0162cb6093b7a99bdec82c"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#aadc01c2f82540eba0e28a1b60e884be7"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a3dd617703ebb5c47eb1aaace3b29526f"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a00246c1046c0721ece8db4dc9ae3b381"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#ab0b66589111fdc7376b1206996b18763"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a9f9260b20b179eaad1cc58968c1abb78"/>
       </topic>
@@ -4857,13 +4967,13 @@
         <topic label="attachInterrupt" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html#a2f1a858ea411b1f94131d48d433469aa"/>
         <topic label="detachInterrupt" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html#abfdefc55d333beacadba49ac394d7a59"/>
       </topic>
-      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html">
-        <topic label="run" href="classxpcc_1_1_scheduler_1_1_task.html#ae7b1822261e1eb25baa06045d7de55cc"/>
-      </topic>
       <topic label="xpcc::Task" href="classxpcc_1_1_task.html">
         <topic label="start" href="classxpcc_1_1_task.html#ad16aba6a103d3120fa432936f7d85940"/>
         <topic label="isFinished" href="classxpcc_1_1_task.html#a6084a0f4d6307771136f9b66953f3773"/>
         <topic label="update" href="classxpcc_1_1_task.html#a26bf847d086d18efb62a1b1980622e4e"/>
+      </topic>
+      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html">
+        <topic label="run" href="classxpcc_1_1_scheduler_1_1_task.html#ae7b1822261e1eb25baa06045d7de55cc"/>
       </topic>
       <topic label="xpcc::pc::Terminal" href="classxpcc_1_1pc_1_1_terminal.html">
         <topic label="write" href="classxpcc_1_1pc_1_1_terminal.html#a9cf19dc76f02153c4ea0b3678557ee3d"/>
@@ -4910,6 +5020,11 @@
         <topic label="enable" href="classxpcc_1_1at91_1_1_timer0.html#a58a3d8669927fdae65da9f2fbecae09c"/>
         <topic label="disable" href="classxpcc_1_1at91_1_1_timer0.html#ae9d114790bf43478138e6f16ecee67ef"/>
       </topic>
+      <topic label="xpcc::at91::Timer1" href="classxpcc_1_1at91_1_1_timer1.html">
+        <topic label="Prescaler" href="classxpcc_1_1at91_1_1_timer.html#a6c528220d77f45a1e512bf9ce4e4aa24"/>
+        <topic label="enable" href="classxpcc_1_1at91_1_1_timer1.html#adb5fbfd6d574350387a0fb67cbd479e0"/>
+        <topic label="disable" href="classxpcc_1_1at91_1_1_timer1.html#a7d3d6453f8f28a92862d39d0704ce923"/>
+      </topic>
       <topic label="xpcc::stm32::Timer1" href="classxpcc_1_1stm32_1_1_timer1.html">
         <topic label="Remap" href="classxpcc_1_1stm32_1_1_timer1.html#a274753212a3b9513dded110f644f88f1"/>
         <topic label="SlaveModeTrigger" href="classxpcc_1_1stm32_1_1_timer1.html#a0abf62a0c8d38e5bdac3fde836b198cd"/>
@@ -4950,11 +5065,6 @@
         <topic label="setMode" href="classxpcc_1_1stm32_1_1_basic_timer.html#a0f95704fd0c5a47dcceee0b0e66ffc99"/>
         <topic label="enableInterruptVector" href="classxpcc_1_1stm32_1_1_basic_timer.html#a10d52ab3de123b0309e53c41ee131b03"/>
         <topic label="remapMask" href="classxpcc_1_1stm32_1_1_timer1.html#a21f5f6c67c8eec75e11c31731068cf39"/>
-      </topic>
-      <topic label="xpcc::at91::Timer1" href="classxpcc_1_1at91_1_1_timer1.html">
-        <topic label="Prescaler" href="classxpcc_1_1at91_1_1_timer.html#a6c528220d77f45a1e512bf9ce4e4aa24"/>
-        <topic label="enable" href="classxpcc_1_1at91_1_1_timer1.html#adb5fbfd6d574350387a0fb67cbd479e0"/>
-        <topic label="disable" href="classxpcc_1_1at91_1_1_timer1.html#a7d3d6453f8f28a92862d39d0704ce923"/>
       </topic>
       <topic label="xpcc::stm32::Timer2" href="classxpcc_1_1stm32_1_1_timer2.html">
         <topic label="Value" href="classxpcc_1_1stm32_1_1_timer2.html#ada84632a1d56eb9bc43770c88b258c23"/>
@@ -5814,18 +5924,18 @@
         <topic label="getTemperature" href="classxpcc_1_1_tmp102.html#af5baddf1122d62427ce7646c6bf6433a"/>
         <topic label="update" href="classxpcc_1_1_tmp102.html#a702cadde302da544fa6002d5ac8532d4"/>
       </topic>
-      <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
-        <topic label="send" href="classxpcc_1_1amnb_1_1_transmitter.html#a94f2da9f9ea25285e5fd41e849bfc7da"/>
-      </topic>
-      <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
-        <topic label="send" href="classxpcc_1_1sab_1_1_transmitter.html#a44aff63923edf55b6f30064101ec2a7f"/>
-      </topic>
       <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html">
         <topic label="Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html#a0f773279851eedb93f493d1bb47b49fc"/>
         <topic label="~Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html#aa76bd4ccef9badd6bfc2ce0750f6ecef"/>
         <topic label="transmitRequest" href="classxpcc_1_1tipc_1_1_transmitter.html#ab7f2938dd5aa9625df6c1a8879f2298e"/>
         <topic label="transmitEvent" href="classxpcc_1_1tipc_1_1_transmitter.html#a2ec06b83f7f996d761ca18d9f577a8b4"/>
         <topic label="getPortId" href="classxpcc_1_1tipc_1_1_transmitter.html#a1a242ec94aa81067bc1f27c2294138e6"/>
+      </topic>
+      <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
+        <topic label="send" href="classxpcc_1_1sab_1_1_transmitter.html#a44aff63923edf55b6f30064101ec2a7f"/>
+      </topic>
+      <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
+        <topic label="send" href="classxpcc_1_1amnb_1_1_transmitter.html#a94f2da9f9ea25285e5fd41e849bfc7da"/>
       </topic>
       <topic label="xpcc::tipc::TransmitterSocket" href="classxpcc_1_1tipc_1_1_transmitter_socket.html">
         <topic label="TransmitterSocket" href="classxpcc_1_1tipc_1_1_transmitter_socket.html#a432ca5758d442f9b3358615e28597d82"/>
@@ -5834,18 +5944,18 @@
         <topic label="getPortId" href="classxpcc_1_1tipc_1_1_transmitter_socket.html#ae545daeb42ff10f2b86a21fc08a0c43f"/>
       </topic>
       <topic label="xpcc::at91::Twi" href="classxpcc_1_1at91_1_1_twi.html"/>
-      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html">
-        <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart0.html#a61f5f6c98563159a6196b2f8c0be8b7c"/>
-        <topic label="write" href="classxpcc_1_1lpc2000_1_1_uart0.html#a2a13a983f7d9720166319b36b6e9e367"/>
-        <topic label="isCharacterAvailable" href="classxpcc_1_1lpc2000_1_1_uart0.html#a0980daec9e349865974dafea9134ec8a"/>
-        <topic label="read" href="classxpcc_1_1lpc2000_1_1_uart0.html#a70fd8678e9d283c59b745161dba74fda"/>
-      </topic>
       <topic label="xpcc::at91::Uart0" href="classxpcc_1_1at91_1_1_uart0.html">
         <topic label="Uart0" href="classxpcc_1_1at91_1_1_uart0.html#ac0bf11a2f64c226f9d3e8029859c72da"/>
         <topic label="setBaudrate" href="classxpcc_1_1at91_1_1_uart0.html#a1ab3b07537fa17f2cb248e92cfc858d4"/>
         <topic label="write" href="classxpcc_1_1at91_1_1_uart0.html#a088c3d30fabcaae291f7a66322c3e978"/>
         <topic label="read" href="classxpcc_1_1at91_1_1_uart0.html#af0e4968c78b490aa6f81ae8de1deb3ca"/>
         <topic label="read" href="classxpcc_1_1at91_1_1_uart0.html#a98896e45237ca48750d47cd9fedbd7cb"/>
+      </topic>
+      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html">
+        <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart0.html#a61f5f6c98563159a6196b2f8c0be8b7c"/>
+        <topic label="write" href="classxpcc_1_1lpc2000_1_1_uart0.html#a2a13a983f7d9720166319b36b6e9e367"/>
+        <topic label="isCharacterAvailable" href="classxpcc_1_1lpc2000_1_1_uart0.html#a0980daec9e349865974dafea9134ec8a"/>
+        <topic label="read" href="classxpcc_1_1lpc2000_1_1_uart0.html#a70fd8678e9d283c59b745161dba74fda"/>
       </topic>
       <topic label="xpcc::lpc2000::Uart1" href="classxpcc_1_1lpc2000_1_1_uart1.html">
         <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart1.html#ac7c14b5e8c3c13b1bd732cc8596b5531"/>
@@ -5917,73 +6027,97 @@
         <topic label="read" href="class_uart_interface.html#a889254645b92bf83b8ae8859fee36719"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterC0" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#aeb8f3f3b63e169b6203f34642fa75d0b"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a1b054cb3bf92f36eae72da5f2c737e3f"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a29f3fe30706064b82543ebf728add5ae"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#ac434dc638984dd2b784b1c96f895120f"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a635f44e4e58b53f444de726babab05af"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#aaf5b0719225c2f02522004a553ab2c66"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a8bd8e9643885111aef71318791d20702"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a580cd7564042593646efd45e26e12538"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a6b42fa2251693bdf547e304aa6b8c460"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a6cf1487b001d41cc22c3132aeb68a5a4"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterC1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a10839294e9bc64c81709a41a44891c29"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#abe175878ee5f2a6adde72d55c6e1aee2"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a018cb623ca04a3af6347cbcb057a39ca"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#aa49ece0077ac6040d03ce29e215dfe93"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a785b372faedca4efbab2bf9a36cd7619"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a947c961d8b97e8f7f50f6213482e152c"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#ab00728d427c4474adb94f4572eb83ad5"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a2e7c717360fe22707bdd321ca08d26eb"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#aeea1f072737fbcc00559193f991987c0"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a5bdf85a93586be75adebc95b2f2fe111"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterD0" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a7ed34e0c0f143a2084a89d3d6a5ee4eb"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a115ad3afc508314649cb7cf940644e52"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a11fec016a6be7d65b96f3256f0740294"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a35d7dca88b6a8bd3d869619ecf05ae03"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#acfb7a28ed4e7fa8702ead3c4720aebc8"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#ac8f83d77803d53b7604fbb4bfbbb9d14"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#ac028269f8f7e4a52672b4ab814ac4e24"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a64fcab0871ce9c6685ac2bd33b27bdda"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#ad59ee7a9fa9a244340c4548d1dfdbfd3"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a16ee59bd3a1c1752bd0b97106c547d77"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterD1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a8a520b33a81e1d3dceff1a3a7253463d"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a2abfc0e578b0bced3e43542956d11e27"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ac19911bf2ec2b9a4df47d29089f3892e"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a05c35241ccf1ae881d742f36cd570bcb"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ab86da924b6c159ca0bfa92533483eec1"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a7e3c9407e5777730ae65d62e384f5563"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#af36c885cb5434e4dc5b86fe482b06472"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ad0c95e5703ef67fd572b0f2ffe842951"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a8b16179876c171bcbb53a90cc10cec56"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#a8667a781326c0cc972065ad549b20aa1"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterE0" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#ac3aa5ef54a2cbbf11b00c416c86011f7"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#ae7ad4abe054f6dfe4554754b7bdc12f4"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a861a77d120bb6ea1b713c15973b1561f"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a8723239eb8d21fe0afead1d68499d0ee"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a1642e4b4f021a85bb6b59d66deff79ce"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a2ff069b6e0846e36b3aa7c7cfae86b43"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a25371f3b841763db8886e05ef230f2b4"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a4511fff838f3626b4d921835cb4a205c"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#ad7efc38b76e14f5df2ced6ab97060105"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#abcdc5344588779d9792692f43146c80c"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterE1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a884c1c4274e1e2c66d37ab51f7f8b2c6"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ae3f35e62b969cac3065dcade77601bf5"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ad409529e9331789fd446d6881bc2b0b6"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ab8a9c1dd1f2ade96a21a2670f7cf63ee"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a3d0439482e36c7ae78938443be1240da"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ac29abce9ffecf639a57541b1e8230e29"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#af42a71ff125cdad0725ac801f684ba52"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#af5ec67ce60dd63a6e9fcd477f1cfdd8e"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a22dbcc8b5d5d7acbc841a06f7e30fb0d"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a834b05da1f6f2e03e3a5931903237fb2"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterF0" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#ae23ce1e75ef0ef8d4751e61c7a305914"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a6dafd44ec593d47ada70275e49d4e598"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a5ea522dc515f311f905cf671c75d96b5"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a4b747aa1f79ecf2060769634f42d60a4"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a3d06a85068f7788653fe2dcb1d0e019d"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a176c00c51ac7396acf6ac4524475df42"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#ac8b50279ddd259abc52c77965a3ad1b8"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#ab7f92f4c916a524c5697c5a19ea1b615"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a37ade0034ef899dd5697ab59b4e7b980"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a1f77f263e3a083f8dc85a52554a80ba0"/>
       </topic>
       <topic label="xpcc::atxmega::UartSpiMasterF1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a7c89edd2acbfc9d6e75221059ce12e93"/>
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a8f3cf8e9c07a3f0bf15b5c67c64901c3"/>
-        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a1d13ab071d41ffdff32583d0f008f6cf"/>
-        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a3193da7562382f1ddfb0686e21569070"/>
+        <topic label="setBuffer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a58d9c9158096c003a12665523b928d5d"/>
+        <topic label="transfer" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a94cd9a7862f446b63c3a53e59e9c00be"/>
+        <topic label="transferSync" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a44092c829a0503acf1fc8148ba4af70e"/>
         <topic label="isFinished" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a257ea6d6313da6095b331a493640c316"/>
         <topic label="getModuleBase" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#ac04cb932d27a60f9a659d202ca57eb41"/>
         <topic label="setDataOrder" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a45be47a08525ea5e32218a807b885446"/>
@@ -6400,18 +6534,18 @@
         <topic label="stopped" href="classxpcc_1_1i2c_1_1_write_adapter.html#a16aa05690418e62aa375c8f0340e1c66"/>
         <topic label="event" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a"/>
       </topic>
-      <topic label="xpcc::GraphicDisplay::Writer" href="classxpcc_1_1_graphic_display_1_1_writer.html">
-        <topic label="Writer" href="classxpcc_1_1_graphic_display_1_1_writer.html#ae459703edd121abb7293173ae160c57a"/>
-        <topic label="write" href="classxpcc_1_1_graphic_display_1_1_writer.html#a70c09ba1e43cb7ee698a214d0aa4da38"/>
-        <topic label="flush" href="classxpcc_1_1_graphic_display_1_1_writer.html#a0b4a81a06ef182a33e2bc0780b9962e0"/>
-        <topic label="read" href="classxpcc_1_1_graphic_display_1_1_writer.html#a79d7bf17def1dd612c7a9fba7730d4cc"/>
-        <topic label="write" href="classxpcc_1_1_i_o_device.html#ada9a1c497ff96f02997f389b365ac3a5"/>
-      </topic>
       <topic label="xpcc::CharacterDisplay::Writer" href="classxpcc_1_1_character_display_1_1_writer.html">
         <topic label="Writer" href="classxpcc_1_1_character_display_1_1_writer.html#a46095de6897d013589dea346294e0fc3"/>
         <topic label="write" href="classxpcc_1_1_character_display_1_1_writer.html#aebea58e9cf37dfd59ba7b9845fddd8c6"/>
         <topic label="flush" href="classxpcc_1_1_character_display_1_1_writer.html#a4c02916bc4a8040b1ed8f227aa4e8cde"/>
         <topic label="read" href="classxpcc_1_1_character_display_1_1_writer.html#aee75fc32b674d8970d16714fcd2f64f3"/>
+        <topic label="write" href="classxpcc_1_1_i_o_device.html#ada9a1c497ff96f02997f389b365ac3a5"/>
+      </topic>
+      <topic label="xpcc::GraphicDisplay::Writer" href="classxpcc_1_1_graphic_display_1_1_writer.html">
+        <topic label="Writer" href="classxpcc_1_1_graphic_display_1_1_writer.html#ae459703edd121abb7293173ae160c57a"/>
+        <topic label="write" href="classxpcc_1_1_graphic_display_1_1_writer.html#a70c09ba1e43cb7ee698a214d0aa4da38"/>
+        <topic label="flush" href="classxpcc_1_1_graphic_display_1_1_writer.html#a0b4a81a06ef182a33e2bc0780b9962e0"/>
+        <topic label="read" href="classxpcc_1_1_graphic_display_1_1_writer.html#a79d7bf17def1dd612c7a9fba7730d4cc"/>
         <topic label="write" href="classxpcc_1_1_i_o_device.html#ada9a1c497ff96f02997f389b365ac3a5"/>
       </topic>
       <topic label="xpcc::i2c::WriteReadAdapter" href="classxpcc_1_1i2c_1_1_write_read_adapter.html">
@@ -6537,6 +6671,7 @@
       <topic label="xpcc::Circle2D&lt; T &gt;" href="classxpcc_1_1_circle2_d.html"/>
       <topic label="xpcc::stm32::Clock" href="classxpcc_1_1stm32_1_1_clock.html"/>
       <topic label="xpcc::lpc::Clock" href="classxpcc_1_1lpc_1_1_clock.html"/>
+      <topic label="xpcc::amnb::Clock" href="classxpcc_1_1amnb_1_1_clock.html"/>
       <topic label="xpcc::Clock" href="classxpcc_1_1_clock.html"/>
       <topic label="xpcc::Communicatable" href="classxpcc_1_1_communicatable.html">
         <topic label="xpcc::AbstractComponent" href="classxpcc_1_1_abstract_component.html"/>
@@ -6593,8 +6728,8 @@
       <topic label="xpcc::fat::FileSystem" href="classxpcc_1_1fat_1_1_file_system.html"/>
       <topic label="xpcc::atomic::Flag" href="classxpcc_1_1atomic_1_1_flag.html"/>
       <topic label="xpcc::can::Message::Flags" href="structxpcc_1_1can_1_1_message_1_1_flags.html"/>
-      <topic label="xpcc::accessor::Flash&lt; T &gt;" href="classxpcc_1_1accessor_1_1_flash.html"/>
       <topic label="xpcc::at91::Flash" href="classxpcc_1_1at91_1_1_flash.html"/>
+      <topic label="xpcc::accessor::Flash&lt; T &gt;" href="classxpcc_1_1accessor_1_1_flash.html"/>
       <topic label="xpcc::Ft245&lt; PORT, RD, WR, RXF, TXE &gt;" href="classxpcc_1_1_ft245.html"/>
       <topic label="xpcc::GeometricTraits&lt; T &gt;" href="structxpcc_1_1_geometric_traits.html"/>
       <topic label="xpcc::GeometricTraits&lt; double &gt;" href="structxpcc_1_1_geometric_traits_3_01double_01_4.html"/>
@@ -6645,11 +6780,12 @@
         <topic label="xpcc::Hmc5883l&lt; I2cMaster &gt;" href="classxpcc_1_1_hmc5883l.html"/>
       </topic>
       <topic label="xpcc::color::Hsv" href="classxpcc_1_1color_1_1_hsv.html"/>
+      <topic label="xpcc::I2cEeprom&lt; I2C &gt;" href="classxpcc_1_1_i2c_eeprom.html"/>
       <topic label="xpcc::led::Indicator&lt; LedClass &gt;" href="classxpcc_1_1led_1_1_indicator.html"/>
       <topic label="xpcc::atxmega::InputCapture&lt; TIMER, PIN &gt;" href="classxpcc_1_1atxmega_1_1_input_capture.html"/>
       <topic label="xpcc::InterconnectInterface&lt; T, R &gt;" href="classxpcc_1_1_interconnect_interface.html"/>
       <topic label="xpcc::InterconnectLink" href="structxpcc_1_1_interconnect_link.html"/>
-      <topic label="xpcc::amnb::Interface&lt; Device &gt;" href="classxpcc_1_1amnb_1_1_interface.html"/>
+      <topic label="xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt;" href="classxpcc_1_1amnb_1_1_interface.html"/>
       <topic label="xpcc::sab::Interface&lt; Device &gt;" href="classxpcc_1_1sab_1_1_interface.html"/>
       <topic label="xpcc::sab2::Interface&lt; Device, N &gt;" href="classxpcc_1_1sab2_1_1_interface.html"/>
       <topic label="xpcc::Interface" href="classxpcc_1_1_interface.html">
@@ -6657,7 +6793,6 @@
           <topic label="xpcc::i2c::ReadAdapter" href="classxpcc_1_1i2c_1_1_read_adapter.html"/>
           <topic label="xpcc::i2c::WriteAdapter" href="classxpcc_1_1i2c_1_1_write_adapter.html"/>
           <topic label="xpcc::i2c::WriteReadAdapter" href="classxpcc_1_1i2c_1_1_write_read_adapter.html"/>
-          <topic label="xpcc::I2cEeprom&lt; I2cMaster &gt;" href="classxpcc_1_1_i2c_eeprom.html"/>
         </topic>
         <topic label="xpcc::i2c::Delegate" href="classxpcc_1_1i2c_1_1_delegate.html"/>
         <topic label="xpcc::i2c::Master" href="classxpcc_1_1i2c_1_1_master.html">
@@ -6725,6 +6860,9 @@
           </topic>
           <topic label="xpcc::BufferedGraphicDisplay&lt; 130, 128 &gt;" href="classxpcc_1_1_buffered_graphic_display.html">
             <topic label="xpcc::Nokia6610&lt; SPI, CS, Reset, GE12 &gt;" href="classxpcc_1_1_nokia6610.html"/>
+          </topic>
+          <topic label="xpcc::BufferedGraphicDisplay&lt; 132, 176 &gt;" href="classxpcc_1_1_buffered_graphic_display.html">
+            <topic label="xpcc::SiemensS65&lt; SPI, CS, RS, Reset &gt;" href="classxpcc_1_1_siemens_s65.html"/>
           </topic>
           <topic label="xpcc::BufferedGraphicDisplay&lt; Width, Height &gt;" href="classxpcc_1_1_buffered_graphic_display.html">
             <topic label="xpcc::St7565&lt; SPI, CS, A0, Reset, 102, 64, TopView &gt;" href="classxpcc_1_1_st7565.html">
@@ -6799,10 +6937,10 @@
       <topic label="xpcc::at91::Pwm" href="classxpcc_1_1at91_1_1_pwm.html"/>
       <topic label="xpcc::at91::PwmChannel" href="classxpcc_1_1at91_1_1_pwm_channel.html"/>
       <topic label="xpcc::Quaternion&lt; T &gt;" href="classxpcc_1_1_quaternion.html"/>
+      <topic label="xpcc::atomic::Queue&lt; T, N &gt;" href="classxpcc_1_1atomic_1_1_queue.html"/>
       <topic label="xpcc::Queue&lt; T, Container &gt;" href="classxpcc_1_1_queue.html">
         <topic label="xpcc::BoundedQueue&lt; T, N, Container &gt;" href="classxpcc_1_1_bounded_queue.html"/>
       </topic>
-      <topic label="xpcc::atomic::Queue&lt; T, N &gt;" href="classxpcc_1_1atomic_1_1_queue.html"/>
       <topic label="xpcc::rtos::QueueBase" href="classxpcc_1_1rtos_1_1_queue_base.html">
         <topic label="xpcc::rtos::Queue&lt; T &gt;" href="classxpcc_1_1rtos_1_1_queue.html"/>
       </topic>
@@ -6810,9 +6948,9 @@
       <topic label="xpcc::filter::Ramp&lt; T &gt;" href="classxpcc_1_1filter_1_1_ramp.html"/>
       <topic label="xpcc::stm32::RandomNumberGenerator" href="classxpcc_1_1stm32_1_1_random_number_generator.html"/>
       <topic label="xpcc::i2c::Delegate::Reading" href="structxpcc_1_1i2c_1_1_delegate_1_1_reading.html"/>
-      <topic label="xpcc::allocator::Static&lt; T, N &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html"/>
       <topic label="xpcc::allocator::Block&lt; T, BLOCKSIZE &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_block_1_1rebind.html"/>
       <topic label="xpcc::allocator::Dynamic&lt; T &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html"/>
+      <topic label="xpcc::allocator::Static&lt; T, N &gt;::rebind&lt; U &gt;" href="structxpcc_1_1allocator_1_1_static_1_1rebind.html"/>
       <topic label="xpcc::CanConnector&lt; Driver &gt;::ReceiveListItem" href="classxpcc_1_1_can_connector_1_1_receive_list_item.html"/>
       <topic label="xpcc::tipc::Receiver" href="classxpcc_1_1tipc_1_1_receiver.html"/>
       <topic label="xpcc::tipc::ReceiverSocket" href="classxpcc_1_1tipc_1_1_receiver_socket.html"/>
@@ -6822,13 +6960,13 @@
       <topic label="xpcc::sab::Response" href="classxpcc_1_1sab_1_1_response.html"/>
       <topic label="xpcc::ResponseCallback" href="classxpcc_1_1_response_callback.html"/>
       <topic label="xpcc::ResponseHandle" href="classxpcc_1_1_response_handle.html"/>
-      <topic label="xpcc::led::Rgb&lt; Red, Green, Blue &gt;" href="classxpcc_1_1led_1_1_rgb.html"/>
       <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html"/>
+      <topic label="xpcc::led::Rgb&lt; Red, Green, Blue &gt;" href="classxpcc_1_1led_1_1_rgb.html"/>
       <topic label="xpcc::tmp::SameType&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_same_type.html"/>
       <topic label="xpcc::tmp::SameType&lt; T, T &gt;" href="structxpcc_1_1tmp_1_1_same_type_3_01_t_00_01_t_01_4.html"/>
       <topic label="xpcc::Saturated&lt; T &gt;" href="classxpcc_1_1_saturated.html"/>
-      <topic label="xpcc::Scheduler" href="classxpcc_1_1_scheduler.html"/>
       <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html"/>
+      <topic label="xpcc::Scheduler" href="classxpcc_1_1_scheduler.html"/>
       <topic label="xpcc::Scp1000&lt; Spi, Cs, Int &gt;" href="classxpcc_1_1_scp1000.html"/>
       <topic label="xpcc::SCurveController&lt; T &gt;" href="classxpcc_1_1_s_curve_controller.html"/>
       <topic label="xpcc::SCurveGenerator&lt; T &gt;" href="classxpcc_1_1_s_curve_generator.html"/>
@@ -6844,6 +6982,7 @@
       <topic label="xpcc::CanConnector&lt; Driver &gt;::SendListItem" href="classxpcc_1_1_can_connector_1_1_send_list_item.html"/>
       <topic label="xpcc::ShiftRegisterInput&lt; Spi, Load, N &gt;" href="classxpcc_1_1_shift_register_input.html"/>
       <topic label="xpcc::ShiftRegisterOutput&lt; Spi, Store, N &gt;" href="classxpcc_1_1_shift_register_output.html"/>
+      <topic label="xpcc::Sm130&lt; I2cMaster, Reset &gt;" href="classxpcc_1_1_sm130.html"/>
       <topic label="xpcc::SmartPointer" href="classxpcc_1_1_smart_pointer.html"/>
       <topic label="xpcc::SoftwareOneWire&lt; Pin &gt;" href="classxpcc_1_1_software_one_wire.html"/>
       <topic label="xpcc::at91::Spi0" href="classxpcc_1_1at91_1_1_spi0.html"/>
@@ -6870,10 +7009,10 @@
       <topic label="xpcc::tmp::SuperSubclass&lt; void, void &gt;" href="structxpcc_1_1tmp_1_1_super_subclass_3_01void_00_01void_01_4.html"/>
       <topic label="xpcc::tmp::SuperSubclassStrict&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_super_subclass_strict.html"/>
       <topic label="xpcc::stm32::SysTickTimer" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html"/>
-      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html"/>
       <topic label="xpcc::Task" href="classxpcc_1_1_task.html">
         <topic label="xpcc::CommunicatableTask" href="classxpcc_1_1_communicatable_task.html"/>
       </topic>
+      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html"/>
       <topic label="unittest::TestSuite" href="classunittest_1_1_test_suite.html"/>
       <topic label="xpcc::rtos::Thread" href="classxpcc_1_1rtos_1_1_thread.html"/>
       <topic label="xpcc::Timeout&lt; T &gt;" href="classxpcc_1_1_timeout.html"/>
@@ -6885,17 +7024,17 @@
       <topic label="xpcc::Timestamp" href="classxpcc_1_1_timestamp.html"/>
       <topic label="xpcc::TLC594X&lt; CHANNELS, Spi, Xlat, Vprog, Xerr &gt;" href="classxpcc_1_1_t_l_c594_x.html"/>
       <topic label="xpcc::Tmp102&lt; I2cMaster &gt;" href="classxpcc_1_1_tmp102.html"/>
-      <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
-        <topic label="xpcc::amnb::Node&lt; Interface &gt;" href="classxpcc_1_1amnb_1_1_node.html"/>
-      </topic>
+      <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html"/>
       <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
         <topic label="xpcc::sab::Slave&lt; Interface &gt;" href="classxpcc_1_1sab_1_1_slave.html"/>
       </topic>
-      <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html"/>
+      <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
+        <topic label="xpcc::amnb::Node&lt; Interface &gt;" href="classxpcc_1_1amnb_1_1_node.html"/>
+      </topic>
       <topic label="xpcc::tipc::TransmitterSocket" href="classxpcc_1_1tipc_1_1_transmitter_socket.html"/>
       <topic label="xpcc::at91::Twi" href="classxpcc_1_1at91_1_1_twi.html"/>
-      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html"/>
       <topic label="xpcc::at91::Uart0" href="classxpcc_1_1at91_1_1_uart0.html"/>
+      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html"/>
       <topic label="xpcc::lpc2000::Uart1" href="classxpcc_1_1lpc2000_1_1_uart1.html"/>
       <topic label="xpcc::at91::Uart1" href="classxpcc_1_1at91_1_1_uart1.html"/>
       <topic label="xpcc::lpc2000::Uart2" href="classxpcc_1_1lpc2000_1_1_uart2.html"/>
@@ -7675,9 +7814,11 @@
       <topic label="servo.hpp"/>
       <topic label="shift_register_input.hpp"/>
       <topic label="shift_register_output.hpp"/>
+      <topic label="siemens_s65.hpp"/>
       <topic label="skull_64x64.hpp"/>
       <topic label="architecture/board/cpuboard2/slave.hpp"/>
       <topic label="driver/connectivity/sab/slave.hpp"/>
+      <topic label="sm130.hpp"/>
       <topic label="smart_pointer.hpp"/>
       <topic label="software_i2c.hpp"/>
       <topic label="software_one_wire.hpp"/>
@@ -7974,6 +8115,8 @@
           <topic label="pressure" href="dir_6ec90f2843d457e6d3d892317f5f3088.html">
           </topic>
           <topic label="pwm" href="dir_0060740b3b85bfdec31ec93e21343640.html">
+          </topic>
+          <topic label="rfid" href="dir_2905f0fcab0bbae74659d83b222e83cd.html">
           </topic>
           <topic label="storage" href="dir_d393bc64ef41462d89ea393d3c43133c.html">
           </topic>

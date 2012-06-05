@@ -167,7 +167,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>sendMessage()
 : <a class="el" href="classxpcc_1_1stm32_1_1_can1.html#a16fd1dd803b1aa00e78af64453f9ebfd">xpcc::stm32::Can1</a>
 , <a class="el" href="classxpcc_1_1_can_connector.html#a83db3f5d921e1a45dcd0395e97519b46">xpcc::CanConnector&lt; Driver &gt;</a>
-, <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a2a16d698bdfec3abf061f9bcfc864a75">xpcc::amnb::Interface&lt; Device &gt;</a>
+, <a class="el" href="classxpcc_1_1amnb_1_1_interface.html#a1c7823251df03a4c4adea975a2681dd4">xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt;</a>
 , <a class="el" href="classxpcc_1_1sab_1_1_interface.html#aec3a2b55f9be0645ce10dcc551703573">xpcc::sab::Interface&lt; Device &gt;</a>
 , <a class="el" href="classxpcc_1_1sab2_1_1_interface.html#a43ede9afd0c4a673c0c9da6d5d0b3b7d">xpcc::sab2::Interface&lt; Device, N &gt;</a>
 </li>
@@ -204,9 +204,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>setAutoTriggerSource()
 : <a class="el" href="classxpcc_1_1atmega_1_1_adc.html#a4a8037de3a990bfaf6dc6f889f78ef3d">xpcc::atmega::Adc</a>
 </li>
-<li>setBaudRate()
-: <a class="el" href="classxpcc_1_1pc_1_1_serial_interface.html#acfb3bc16ade3f2885db573f18589e62e">xpcc::pc::SerialInterface</a>
-</li>
 <li>setBaudrate()
 : <a class="el" href="classxpcc_1_1at91_1_1_uart0.html#a1ab3b07537fa17f2cb248e92cfc858d4">xpcc::at91::Uart0</a>
 , <a class="el" href="classxpcc_1_1at91_1_1_uart1.html#a8c663d8763d509100872f3e300e0c3b5">xpcc::at91::Uart1</a>
@@ -228,6 +225,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1stm32_1_1_usart6.html#abdeb73e238beda80a89ae4fc278159b3">xpcc::stm32::Usart6</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_buffered_usart6.html#a65f7a1bbdbd0706236367467557a6b91">xpcc::stm32::BufferedUsart6</a>
 </li>
+<li>setBaudRate()
+: <a class="el" href="classxpcc_1_1pc_1_1_serial_interface.html#acfb3bc16ade3f2885db573f18589e62e">xpcc::pc::SerialInterface</a>
+</li>
 <li>setBlockTransferCount()
 : <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a2f01e8593e85fa7c8bdbba3f583d1655">xpcc::atxmega::DmaChannel3</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a017f913794cf49dd5d421afaeab10494">xpcc::atxmega::DmaChannel0</a>
@@ -239,24 +239,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1led_1_1_t_l_c594_x_led.html#a835aabbae54665572ef01d136a7caf1e">xpcc::led::TLC594XLed&lt; PwmController, CHANNEL, PwmTable, PwmTableSize &gt;</a>
 </li>
 <li>setBuffer()
-: <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#a3ee141d9b3fa64af4ba6d2f0fe26bfc4">xpcc::atmega::SpiMaster</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a83f59cba1eceb17c0c34b4083e91d9d7">xpcc::atxmega::SpiMasterC</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a29f3fe30706064b82543ebf728add5ae">xpcc::atxmega::UartSpiMasterC0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a018cb623ca04a3af6347cbcb057a39ca">xpcc::atxmega::UartSpiMasterC1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a89a8f5151cc95057f570dd46253a10b4">xpcc::atxmega::SpiMasterD</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#a11fec016a6be7d65b96f3256f0740294">xpcc::atxmega::UartSpiMasterD0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ac19911bf2ec2b9a4df47d29089f3892e">xpcc::atxmega::UartSpiMasterD1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#af6612562c66d334404c7cff5c7087f2e">xpcc::atxmega::SpiMasterE</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a861a77d120bb6ea1b713c15973b1561f">xpcc::atxmega::UartSpiMasterE0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ad409529e9331789fd446d6881bc2b0b6">xpcc::atxmega::UartSpiMasterE1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a084b9da64f79a3aaa22efdbbda6a38bb">xpcc::atxmega::SpiMasterF</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a5ea522dc515f311f905cf671c75d96b5">xpcc::atxmega::UartSpiMasterF0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a1d13ab071d41ffdff32583d0f008f6cf">xpcc::atxmega::UartSpiMasterF1</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#acef75d23cf77e8b1f2c15c361615066b">xpcc::stm32::SpiMaster1</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#a74aca1a9497809dcffcc01632317686b">xpcc::stm32::SpiMaster2</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#ab208b962bc36802596e5e1b5f8d674f3">xpcc::stm32::SpiMaster3</a>
-, <a class="el" href="classxpcc_1_1_software_spi.html#aa694e19f72a3fc1447449c07b013f385">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>
-, <a class="el" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d">xpcc::SpiMaster</a>
+: <a class="el" href="classxpcc_1_1atmega_1_1_spi_master.html#afec4afe371675f42fed3fe4f394fdf29">xpcc::atmega::SpiMaster</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_c.html#a9aae093fe8f35cbcd8a6fdda09bd84cd">xpcc::atxmega::SpiMasterC</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c0.html#a635f44e4e58b53f444de726babab05af">xpcc::atxmega::UartSpiMasterC0</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_c1.html#a785b372faedca4efbab2bf9a36cd7619">xpcc::atxmega::UartSpiMasterC1</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_d.html#a2bd5b231b0cbc452c351662b6b95713d">xpcc::atxmega::SpiMasterD</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d0.html#acfb7a28ed4e7fa8702ead3c4720aebc8">xpcc::atxmega::UartSpiMasterD0</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_d1.html#ab86da924b6c159ca0bfa92533483eec1">xpcc::atxmega::UartSpiMasterD1</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_e.html#a3ad60dc2a935cf637346d23c66328f32">xpcc::atxmega::SpiMasterE</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e0.html#a1642e4b4f021a85bb6b59d66deff79ce">xpcc::atxmega::UartSpiMasterE0</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a3d0439482e36c7ae78938443be1240da">xpcc::atxmega::UartSpiMasterE1</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#aadc01c2f82540eba0e28a1b60e884be7">xpcc::atxmega::SpiMasterF</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html#a3d06a85068f7788653fe2dcb1d0e019d">xpcc::atxmega::UartSpiMasterF0</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html#a58d9c9158096c003a12665523b928d5d">xpcc::atxmega::UartSpiMasterF1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master1.html#ae2432d8788fac025e3d6e86f5b6b2773">xpcc::stm32::SpiMaster1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master2.html#a61f264a4d33ec9195bff21267daec085">xpcc::stm32::SpiMaster2</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_spi_master3.html#a0c4f1ea3bf34d5c7bdfe40bec85a6be8">xpcc::stm32::SpiMaster3</a>
+, <a class="el" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c">xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;</a>
+, <a class="el" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97">xpcc::SpiMaster</a>
 </li>
 <li>setChannel()
 : <a class="el" href="classxpcc_1_1atmega_1_1_adc.html#a9c38e3ed1684553e0ff3f34dcadadf05">xpcc::atmega::Adc</a>
@@ -414,8 +414,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1stm32_1_1_general_purpose_timer.html#a639cd7ff7bc4f8511b83bb56057aa075">xpcc::stm32::GeneralPurposeTimer</a>
 </li>
 <li>setMsTimer()
-: <a class="el" href="classxpcc_1_1atxmega_1_1_timer_interrupt_d1.html#a5e6b381e254cbd6dd775d9cb647e10a6">xpcc::atxmega::TimerInterruptD1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_timer_interrupt_f1.html#a3c66467b8b3cab2cb462c19ee63da8e1">xpcc::atxmega::TimerInterruptF1</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_timer_interrupt_f1.html#a3c66467b8b3cab2cb462c19ee63da8e1">xpcc::atxmega::TimerInterruptF1</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_timer_interrupt_d1.html#a5e6b381e254cbd6dd775d9cb647e10a6">xpcc::atxmega::TimerInterruptD1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_c0.html#ac29abf7ff36a6a5238e42c465c0c6c2f">xpcc::atxmega::TimerC0</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_c1.html#a92ea356a3ef35bf91c48698df1dcdebd">xpcc::atxmega::TimerC1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_d0.html#a11f131b573d90075fc442f5e4198bbbc">xpcc::atxmega::TimerD0</a>
@@ -446,8 +446,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a3ffdac5556526b14a4085c89de003fce">xpcc::stm32::BasicTimer</a>
 </li>
 <li>setOverflowInterrupt()
-: <a class="el" href="classxpcc_1_1atxmega_1_1_timer_c1.html#a66f762b060801e7951404ec69fc00632">xpcc::atxmega::TimerC1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_timer_e1.html#accd55f1d69f092f186661472108756c9">xpcc::atxmega::TimerE1</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_timer_e1.html#accd55f1d69f092f186661472108756c9">xpcc::atxmega::TimerE1</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_timer_c1.html#a66f762b060801e7951404ec69fc00632">xpcc::atxmega::TimerC1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_c0.html#a431416e55362e64399ea42a861093cb1">xpcc::atxmega::TimerC0</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_d0.html#a68625edd409f2ae5a0ee26ec21c5d56f">xpcc::atxmega::TimerD0</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_timer_d1.html#a1239dccc232ef5c025dc4a8bc454aaf7">xpcc::atxmega::TimerD1</a>
@@ -459,8 +459,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classxpcc_1_1_pid.html#a8a83d52516d5c66e8144c27d326d9d82">xpcc::Pid&lt; T, ScaleFactor &gt;</a>
 </li>
 <li>setPeriod()
-: <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a869d5494d1f2fc49b58b6b1d7851a66f">xpcc::stm32::BasicTimer</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a9fc79542a2b20a449e19b6f9fb238840">xpcc::stm32::Timer1</a>
+: <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a9fc79542a2b20a449e19b6f9fb238840">xpcc::stm32::Timer1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a869d5494d1f2fc49b58b6b1d7851a66f">xpcc::stm32::BasicTimer</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#a67f31171633ae8aa49638ea05edcb3d3">xpcc::stm32::Timer2</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#a7787eed2387fe3f54da361b29c9132e9">xpcc::stm32::Timer3</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a53d3102b2b848e6d1ce2f0d259ef38a4">xpcc::stm32::Timer4</a>
@@ -487,7 +487,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#ae84aadb53192d3235dc148b69af2fea1">xpcc::stm32::Timer2</a>
 </li>
 <li>setPriority()
-: <a class="el" href="classxpcc_1_1rtos_1_1_thread.html#a2af06f67fed12abd98647ba5632ad760">xpcc::rtos::Thread</a>
+: <a class="el" href="classxpcc_1_1rtos_1_1_thread.html#a59bfb807d8614b19c99a97dc75865821">xpcc::rtos::Thread</a>
 </li>
 <li>setRampDownTime()
 : <a class="el" href="classxpcc_1_1_m_a_x6966.html#aa3ba49e01eedf7cc21108354c0609324">xpcc::MAX6966&lt; Spi, Cs, DRIVERS &gt;</a>
@@ -500,10 +500,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_b.html#aab3ce249f0cd88b9e31da899d8dad30f">xpcc::atxmega::AdcB</a>
 </li>
 <li>setRepeatCount()
-: <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a07e4eb08a2f7ca3fb55d9b42125a85cc">xpcc::atxmega::DmaChannel1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a5c04c9188db827cc562b59609a3ad483">xpcc::atxmega::DmaChannel0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a409ecb9b916d598c3fa60a6407c8b54a">xpcc::atxmega::DmaChannel2</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a409ecb9b916d598c3fa60a6407c8b54a">xpcc::atxmega::DmaChannel2</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#a07e4eb08a2f7ca3fb55d9b42125a85cc">xpcc::atxmega::DmaChannel1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a6f2c747fc4abf33506325495d0702c28">xpcc::atxmega::DmaChannel3</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a5c04c9188db827cc562b59609a3ad483">xpcc::atxmega::DmaChannel0</a>
 </li>
 <li>setReporter()
 : <a class="el" href="classunittest_1_1_controller.html#ac971c08cc6a9543ce617e03914924333">unittest::Controller</a>
@@ -522,8 +522,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>setSingleShotMode()
 : <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel2.html#a065af924b8ffadc929db6ba0fe2b1edb">xpcc::atxmega::DmaChannel2</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel0.html#a2885714a3875e3893f389e036bc14bdb">xpcc::atxmega::DmaChannel0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#ade8a57fee7b9f1491a56bd185fbcbe73">xpcc::atxmega::DmaChannel1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel3.html#a219e6e915b8a0aa5f00f65e35f674c96">xpcc::atxmega::DmaChannel3</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_dma_channel1.html#ade8a57fee7b9f1491a56bd185fbcbe73">xpcc::atxmega::DmaChannel1</a>
 </li>
 <li>setStartConversion()
 : <a class="el" href="classxpcc_1_1atmega_1_1_adc.html#a8838654e8b70117d3f56ad3b238ec900">xpcc::atmega::Adc</a>
@@ -535,16 +535,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classxpcc_1_1_line_segment2_d.html#a706bbadc01672a480f16a8a05f7da1bd">xpcc::LineSegment2D&lt; T &gt;</a>
 </li>
 <li>setValue()
-: <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a51864604ba05861e18604272fbdc7088">xpcc::stm32::BasicTimer</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#aa2db3f3c6dadde2b967968224049b2a9">xpcc::stm32::Timer3</a>
+: <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#aa2db3f3c6dadde2b967968224049b2a9">xpcc::stm32::Timer3</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#aa736647bcd0d10d2aeed2eda02cfe011">xpcc::stm32::Timer4</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a475946453bc3c9cfb3a7a26822f62fe0">xpcc::stm32::Timer7</a>
-, <a class="el" href="classxpcc_1_1_a_d840x.html#a3ded5a84f5cda5947a60cccd6948bef8">xpcc::AD840x&lt; Spi, Cs, Rs, Shdn &gt;</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a2b83e7dd9cd7f868360bde9f3e7f6b4f">xpcc::stm32::Timer1</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a256d25d6861e436615ed31a2b8f0a31a">xpcc::stm32::Timer6</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#aadb03034e70645d06d2691daa0c32620">xpcc::stm32::Timer2</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a2b83e7dd9cd7f868360bde9f3e7f6b4f">xpcc::stm32::Timer1</a>
+, <a class="el" href="classxpcc_1_1_a_d840x.html#a3ded5a84f5cda5947a60cccd6948bef8">xpcc::AD840x&lt; Spi, Cs, Rs, Shdn &gt;</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a256d25d6861e436615ed31a2b8f0a31a">xpcc::stm32::Timer6</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#aba3db9186516233f8097a772100c56b8">xpcc::stm32::Timer5</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#ac4e01bcc8b3d0f0d7fcbe78d928fb5f1">xpcc::stm32::Timer8</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#a51864604ba05861e18604272fbdc7088">xpcc::stm32::BasicTimer</a>
 </li>
 <li>shutdown()
 : <a class="el" href="classxpcc_1_1_a_d840x.html#aab96e6384c48b7ab3c13f0cd6cdc8ece">xpcc::AD840x&lt; Spi, Cs, Rs, Shdn &gt;</a>
@@ -558,49 +558,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classxpcc_1_1sab_1_1_slave.html#a625d015025c568888106fe1bc0b92f86">xpcc::sab::Slave&lt; Interface &gt;</a>
 </li>
 <li>sleep()
-: <a class="el" href="classxpcc_1_1rtos_1_1_thread.html#a8fa7298614ac08af309563e7f15f254a">xpcc::rtos::Thread</a>
+: <a class="el" href="classxpcc_1_1rtos_1_1_thread.html#a2e078b825b2161186fa71426ec2bc532">xpcc::rtos::Thread</a>
+</li>
+<li>Sm130()
+: <a class="el" href="classxpcc_1_1_sm130.html#a9b65dd507631b014d3cb8e6ea69c5765">xpcc::Sm130&lt; I2cMaster, Reset &gt;</a>
 </li>
 <li>SmartPointer()
-: <a class="el" href="classxpcc_1_1_smart_pointer.html#a62893176b2d8e96bb343c218ec333bb0">xpcc::SmartPointer</a>
+: <a class="el" href="classxpcc_1_1_smart_pointer.html#a35642760a27a1adf865f9aff32ad8cd5">xpcc::SmartPointer</a>
 </li>
 <li>St7036()
 : <a class="el" href="classxpcc_1_1_st7036.html#af62d293b7cbd583ec81bbe93354df14e">xpcc::St7036&lt; SPI, CS, RS, Width, Heigth &gt;</a>
 </li>
 <li>start()
-: <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89">xpcc::i2c::Master</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#a303aa2e9ee64bfc95978f84f4b7dcac3">xpcc::stm32::Timer8</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a44a403b2d935c6f32975a01c1fbdc364">xpcc::stm32::Timer5</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#aeaf4347aede5e2808002a1d86ae56267">xpcc::stm32::I2cMaster3</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#a7bde0e5633502b9f65a5b2e924acfc2a">xpcc::atxmega::I2cMasterC</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#a926d3571e3edccdab18aca054aed8d60">xpcc::stm32::I2cMaster1</a>
-, <a class="el" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a8bc3c618f7f0fa128fc4659efc68e71f">xpcc::stm32::Timer1</a>
-, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#a9b604078fb9a03bd4748fc58e5e82192">xpcc::atmega::I2cMaster</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a662a5ea5415e2ab05f8fd97e7043c468">xpcc::stm32::Timer6</a>
-, <a class="el" href="classxpcc_1_1led_1_1_indicator.html#a10c8bd13df0e0c3f53be16b209f3a63f">xpcc::led::Indicator&lt; LedClass &gt;</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a5217dee8e5a1f6c99d8a20aec086e091">xpcc::stm32::Timer4</a>
-, <a class="el" href="classxpcc_1_1at91_1_1_pit.html#a7d995b95fc950fee673b547110be03b5">xpcc::at91::Pit</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#ab40d56ae6b5b6a80be61d01734e7520e">xpcc::atxmega::I2cMasterF</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a8d763882ba7df731c09d83543e56d1d4">xpcc::atxmega::I2cMasterE</a>
-, <a class="el" href="classxpcc_1_1led_1_1_pulse.html#abda57681757da91aee900aeb66e34835">xpcc::led::Pulse&lt; LedClass &gt;</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#af9c9366febc1cad169b4b94b9798e9b3">xpcc::atxmega::I2cMasterD</a>
 , <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#ac7bc44cd8a36c16f1db106a8c99fb956">xpcc::i2c::MockMaster</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#af9c9366febc1cad169b4b94b9798e9b3">xpcc::atxmega::I2cMasterD</a>
-, <a class="el" href="classxpcc_1_1led_1_1_double_indicator.html#a626dc96916104b6ee175dc490183b4c1">xpcc::led::DoubleIndicator&lt; LedClass &gt;</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#abb79a5945b947132f61ab02c198ee592">xpcc::stm32::I2cMaster2</a>
+, <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89">xpcc::i2c::Master</a>
+, <a class="el" href="classxpcc_1_1led_1_1_indicator.html#a10c8bd13df0e0c3f53be16b209f3a63f">xpcc::led::Indicator&lt; LedClass &gt;</a>
+, <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#a9b604078fb9a03bd4748fc58e5e82192">xpcc::atmega::I2cMaster</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#ab40d56ae6b5b6a80be61d01734e7520e">xpcc::atxmega::I2cMasterF</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#a926d3571e3edccdab18aca054aed8d60">xpcc::stm32::I2cMaster1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer5.html#a44a403b2d935c6f32975a01c1fbdc364">xpcc::stm32::Timer5</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_timer7.html#a98adb09de2036f5147d24c21b9debe84">xpcc::stm32::Timer7</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#ac2b301d841acea713fcc9e57e8788041">xpcc::stm32::Timer3</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#ad4d66de38209701b7ab43f52b3f41f29">xpcc::stm32::Timer2</a>
 , <a class="el" href="classxpcc_1_1stm32_1_1_basic_timer.html#aae23bdbbbe86ea014a53e6c56e8478a5">xpcc::stm32::BasicTimer</a>
+, <a class="el" href="classxpcc_1_1led_1_1_double_indicator.html#a626dc96916104b6ee175dc490183b4c1">xpcc::led::DoubleIndicator&lt; LedClass &gt;</a>
+, <a class="el" href="classxpcc_1_1at91_1_1_pit.html#a7d995b95fc950fee673b547110be03b5">xpcc::at91::Pit</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer1.html#a8bc3c618f7f0fa128fc4659efc68e71f">xpcc::stm32::Timer1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#aeaf4347aede5e2808002a1d86ae56267">xpcc::stm32::I2cMaster3</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer3.html#ac2b301d841acea713fcc9e57e8788041">xpcc::stm32::Timer3</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer4.html#a5217dee8e5a1f6c99d8a20aec086e091">xpcc::stm32::Timer4</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a8d763882ba7df731c09d83543e56d1d4">xpcc::atxmega::I2cMasterE</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#a7bde0e5633502b9f65a5b2e924acfc2a">xpcc::atxmega::I2cMasterC</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer6.html#a662a5ea5415e2ab05f8fd97e7043c468">xpcc::stm32::Timer6</a>
+, <a class="el" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>
+, <a class="el" href="classxpcc_1_1led_1_1_pulse.html#abda57681757da91aee900aeb66e34835">xpcc::led::Pulse&lt; LedClass &gt;</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer8.html#a303aa2e9ee64bfc95978f84f4b7dcac3">xpcc::stm32::Timer8</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_timer2.html#ad4d66de38209701b7ab43f52b3f41f29">xpcc::stm32::Timer2</a>
 </li>
 <li>startConversion()
-: <a class="el" href="classxpcc_1_1stm32_1_1_adc2.html#a8784826ef699868bfa09e4bb2c650f73">xpcc::stm32::Adc2</a>
-, <a class="el" href="classxpcc_1_1at91_1_1_adc.html#a2d5b7c47d202ea1fcffbda33c4cecdb0">xpcc::at91::Adc</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_adc3.html#a7e500858e4689a5980941489f618152f">xpcc::stm32::Adc3</a>
-, <a class="el" href="classxpcc_1_1_tmp102.html#a685743d27403bc4c42790b4850c7c360">xpcc::Tmp102&lt; I2cMaster &gt;</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_adc1.html#aa38fcbdb3eda5611b3efc4ebb516aaf9">xpcc::stm32::Adc1</a>
-, <a class="el" href="classxpcc_1_1_ds1631.html#a5052392b189564ae7d00cd76c56fbedd">xpcc::Ds1631&lt; I2cMaster &gt;</a>
+: <a class="el" href="classxpcc_1_1_ds1631.html#a5052392b189564ae7d00cd76c56fbedd">xpcc::Ds1631&lt; I2cMaster &gt;</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_adc2.html#a8784826ef699868bfa09e4bb2c650f73">xpcc::stm32::Adc2</a>
 , <a class="el" href="classxpcc_1_1_ds18b20.html#ad50884d983cfe884ddf1c1fd60819413">xpcc::Ds18b20&lt; OneWire &gt;</a>
+, <a class="el" href="classxpcc_1_1_tmp102.html#a685743d27403bc4c42790b4850c7c360">xpcc::Tmp102&lt; I2cMaster &gt;</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_adc3.html#a7e500858e4689a5980941489f618152f">xpcc::stm32::Adc3</a>
+, <a class="el" href="classxpcc_1_1at91_1_1_adc.html#a2d5b7c47d202ea1fcffbda33c4cecdb0">xpcc::at91::Adc</a>
 , <a class="el" href="classxpcc_1_1atmega_1_1_adc.html#aff4fef035a617ef0473e656a4530f233">xpcc::atmega::Adc</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_adc1.html#aa38fcbdb3eda5611b3efc4ebb516aaf9">xpcc::stm32::Adc1</a>
 </li>
 <li>startConversions()
 : <a class="el" href="classxpcc_1_1_ds18b20.html#a99b70d7ec05487c75ff649561f2b8fc2">xpcc::Ds18b20&lt; OneWire &gt;</a>
@@ -615,27 +618,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classxpcc_1_1_bmp085.html#a4074cb68dba0eada15da8780c88ce10b">xpcc::Bmp085&lt; I2cMaster &gt;</a>
 </li>
 <li>startSingleConversion()
-: <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b1.html#a6abaec00abbb3aafa398a9a383b4e6d5">xpcc::atxmega::AdcChannelB1</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b2.html#a81814940a8882e3a216ce486904280e4">xpcc::atxmega::AdcChannelB2</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_a2.html#ab13a1672e9c1ce0c2a842827404faed2">xpcc::atxmega::AdcChannelA2</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_a1.html#a16f7699876c3c512d7c825c58df9d63c">xpcc::atxmega::AdcChannelA1</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b0.html#a9f52ac9800d1b8a35d07b3e24516f78b">xpcc::atxmega::AdcChannelB0</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b2.html#a81814940a8882e3a216ce486904280e4">xpcc::atxmega::AdcChannelB2</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b3.html#a4dc7da574aa795450a34a48349e5273f">xpcc::atxmega::AdcChannelB3</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b0.html#a9f52ac9800d1b8a35d07b3e24516f78b">xpcc::atxmega::AdcChannelB0</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_b1.html#a6abaec00abbb3aafa398a9a383b4e6d5">xpcc::atxmega::AdcChannelB1</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_a3.html#a9a67390eb29fb00909863ff5caf9add8">xpcc::atxmega::AdcChannelA3</a>
 , <a class="el" href="classxpcc_1_1atxmega_1_1_adc_channel_a0.html#aa3f56206526600c6cf808eae0ec1896e">xpcc::atxmega::AdcChannelA0</a>
 </li>
 <li>startSync()
-: <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a1929e521a0b80f5d1092095ab3819e5f">xpcc::atxmega::I2cMasterE</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#aa5c98449178c61f0a3af2c8b91c1f66b">xpcc::stm32::I2cMaster1</a>
-, <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#a792bf7446e14d9cef60c0128ca2b0a0c">xpcc::i2c::MockMaster</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#a510ccd59721566b33ab7631ba2f14921">xpcc::stm32::I2cMaster2</a>
-, <a class="el" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#aacfbcf7d64954773efcb36ad6b196b4f">xpcc::atxmega::I2cMasterC</a>
-, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#afc61c9cad7bf8f07ff16d024bb84a815">xpcc::stm32::I2cMaster3</a>
+: <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_c.html#aacfbcf7d64954773efcb36ad6b196b4f">xpcc::atxmega::I2cMasterC</a>
 , <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216">xpcc::i2c::Master</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#a4493e9aac48c9848cc6aa10c5c66a9a9">xpcc::atxmega::I2cMasterD</a>
-, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#aafd975e6e97d98d88b85e1e79399ae60">xpcc::atxmega::I2cMasterF</a>
+, <a class="el" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_e.html#a1929e521a0b80f5d1092095ab3819e5f">xpcc::atxmega::I2cMasterE</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master1.html#aa5c98449178c61f0a3af2c8b91c1f66b">xpcc::stm32::I2cMaster1</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master3.html#afc61c9cad7bf8f07ff16d024bb84a815">xpcc::stm32::I2cMaster3</a>
 , <a class="el" href="classxpcc_1_1atmega_1_1_i2c_master.html#adfcb0dddf8c76c1dd126408e298f7742">xpcc::atmega::I2cMaster</a>
+, <a class="el" href="classxpcc_1_1i2c_1_1_mock_master.html#a792bf7446e14d9cef60c0128ca2b0a0c">xpcc::i2c::MockMaster</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_f.html#aafd975e6e97d98d88b85e1e79399ae60">xpcc::atxmega::I2cMasterF</a>
+, <a class="el" href="classxpcc_1_1stm32_1_1_i2c_master2.html#a510ccd59721566b33ab7631ba2f14921">xpcc::stm32::I2cMaster2</a>
+, <a class="el" href="classxpcc_1_1atxmega_1_1_i2c_master_d.html#a4493e9aac48c9848cc6aa10c5c66a9a9">xpcc::atxmega::I2cMasterD</a>
 </li>
 <li>startTemperatureMeasurement()
 : <a class="el" href="classxpcc_1_1_bmp085.html#a4d363bc0db5350522c18559f3f1f7b02">xpcc::Bmp085&lt; I2cMaster &gt;</a>
@@ -644,19 +647,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classxpcc_1_1_spi_ram.html#a349929a82468d3a9b90e354f5dd98c90">xpcc::SpiRam&lt; Spi, Cs, Hold &gt;</a>
 </li>
 <li>stop()
-: <a class="el" href="classxpcc_1_1_timeout.html#a1a1174a27e75a7d4ebb28631e049548a">xpcc::Timeout&lt; T &gt;</a>
-, <a class="el" href="classxpcc_1_1led_1_1_double_indicator.html#ada18e999f11ce154ce3ca5706b7c3b8f">xpcc::led::DoubleIndicator&lt; LedClass &gt;</a>
+: <a class="el" href="classxpcc_1_1led_1_1_double_indicator.html#ada18e999f11ce154ce3ca5706b7c3b8f">xpcc::led::DoubleIndicator&lt; LedClass &gt;</a>
+, <a class="el" href="classxpcc_1_1_timeout.html#a1a1174a27e75a7d4ebb28631e049548a">xpcc::Timeout&lt; T &gt;</a>
 , <a class="el" href="classxpcc_1_1led_1_1_pulse.html#af2ad355bded05ba23de73253022fb10e">xpcc::led::Pulse&lt; LedClass &gt;</a>
 , <a class="el" href="classxpcc_1_1_periodic_timer.html#aa892ff2dab871d0f65b0fd89ffe31e51">xpcc::PeriodicTimer&lt; T &gt;</a>
-, <a class="el" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e">xpcc::pt::Protothread</a>
-, <a class="el" href="classxpcc_1_1at91_1_1_pit.html#a32caed0127b2534f4b8cab4e4fe7c506">xpcc::at91::Pit</a>
 , <a class="el" href="classxpcc_1_1led_1_1_indicator.html#a4e5c4b001930986a1f64a32518ec4b0e">xpcc::led::Indicator&lt; LedClass &gt;</a>
+, <a class="el" href="classxpcc_1_1at91_1_1_pit.html#a32caed0127b2534f4b8cab4e4fe7c506">xpcc::at91::Pit</a>
+, <a class="el" href="classxpcc_1_1pt_1_1_protothread.html#a61c7c84a815782e69d7d0c33d76c4b9e">xpcc::pt::Protothread</a>
 </li>
 <li>stopped()
-: <a class="el" href="classxpcc_1_1i2c_1_1_read_adapter.html#ab68009cb40b72f364ab3fbe2862fe553">xpcc::i2c::ReadAdapter</a>
-, <a class="el" href="classxpcc_1_1i2c_1_1_write_adapter.html#a16aa05690418e62aa375c8f0340e1c66">xpcc::i2c::WriteAdapter</a>
-, <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#aa99ef7b71abfbfd1acde642c6fded6e7">xpcc::i2c::Delegate</a>
+: <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#aa99ef7b71abfbfd1acde642c6fded6e7">xpcc::i2c::Delegate</a>
+, <a class="el" href="classxpcc_1_1i2c_1_1_read_adapter.html#ab68009cb40b72f364ab3fbe2862fe553">xpcc::i2c::ReadAdapter</a>
 , <a class="el" href="classxpcc_1_1i2c_1_1_write_read_adapter.html#a9313d7d005ed141149d2bea797c1d873">xpcc::i2c::WriteReadAdapter</a>
+, <a class="el" href="classxpcc_1_1i2c_1_1_write_adapter.html#a16aa05690418e62aa375c8f0340e1c66">xpcc::i2c::WriteAdapter</a>
 , <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a9773523fc98e8b181ba7c2c272c3f525">xpcc::i2c::Delegate</a>
 </li>
 <li>subMatrix()
@@ -688,7 +691,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:55 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

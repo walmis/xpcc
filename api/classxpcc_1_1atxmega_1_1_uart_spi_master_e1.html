@@ -100,6 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xpcc::atxmega::UartSpiMasterE1 Class Reference<div class="ingroups"><a class="el" href="group__atxmega__spi.html">SPI Module</a></div></div>  </div>
@@ -123,6 +124,18 @@ Inheritance diagram for xpcc::atxmega::UartSpiMasterE1:</div>
 
 <p><a href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BufferIncrease</b> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
+<b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> =  0x01, 
+<b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> =  0x02, 
+<b>BUFFER_INCR_BOTH</b> =  0x03
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TransferOptions</b> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
+<b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> =  0x01, 
+<b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> =  0x02, 
+<b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> =  0x03
+ }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a884c1c4274e1e2c66d37ab51f7f8b2c6">initialize</a> (uint32_t const bitrate=2000000)</td></tr>
@@ -130,10 +143,13 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3f35e62b969cac3065dcade77601bf5"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::write" ref="ae3f35e62b969cac3065dcade77601bf5" args="(uint8_t data)" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ae3f35e62b969cac3065dcade77601bf5">write</a> (uint8_t data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">initiates a SPI transfer and returns the received byte <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ad409529e9331789fd446d6881bc2b0b6">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#ad409529e9331789fd446d6881bc2b0b6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ab8a9c1dd1f2ade96a21a2670f7cf63ee">transfer</a> (bool send=true, bool receive=false, bool wait=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request a transfer, not buffered, blocking if not using DMA.  <a href="#ab8a9c1dd1f2ade96a21a2670f7cf63ee"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a3d0439482e36c7ae78938443be1240da">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#a3d0439482e36c7ae78938443be1240da"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ac29abce9ffecf639a57541b1e8230e29">transfer</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request an asynchronous transfer, synchronous if DMA unavailable.  <a href="#ac29abce9ffecf639a57541b1e8230e29"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af42a71ff125cdad0725ac801f684ba52"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::transferSync" ref="af42a71ff125cdad0725ac801f684ba52" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#af42a71ff125cdad0725ac801f684ba52">transferSync</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">synchronous transfer, even if using DMA <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#af5ec67ce60dd63a6e9fcd477f1cfdd8e">isFinished</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22dbcc8b5d5d7acbc841a06f7e30fb0d"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::getModuleBase" ref="a22dbcc8b5d5d7acbc841a06f7e30fb0d" args="()" -->
 static USART_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getModuleBase</b> ()</td></tr>
@@ -145,7 +161,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
 <p>This module supports DMA transfers between memory (SRAM) and DATA register by defining which DMA channel to use for write/read. (SPI1_TX_DMA_CHANNEL, SPI1_RX_DMA_CHANNEL) In typical use, the DMA channels gets configured once and then several transfers get triggered, without CPU interference.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Niklas Hauser </dd></dl>
 
-<p>Definition at line <a class="el" href="spi__e_8hpp_source.html#l00176">176</a> of file <a class="el" href="spi__e_8hpp_source.html">spi_e.hpp</a>.</p>
+<p>Definition at line <a class="el" href="spi__e_8hpp_source.html#l00183">183</a> of file <a class="el" href="spi__e_8hpp_source.html">spi_e.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a884c1c4274e1e2c66d37ab51f7f8b2c6"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::initialize" ref="a884c1c4274e1e2c66d37ab51f7f8b2c6" args="(uint32_t const bitrate=2000000)" -->
 <div class="memitem">
@@ -172,12 +188,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
 
 </div>
 </div>
-<a class="anchor" id="ad409529e9331789fd446d6881bc2b0b6"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::setBuffer" ref="ad409529e9331789fd446d6881bc2b0b6" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, bool transmitIncr=true, bool receiveIncr=true)" -->
+<a class="anchor" id="a3d0439482e36c7ae78938443be1240da"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::setBuffer" ref="a3d0439482e36c7ae78938443be1240da" args="(uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ad409529e9331789fd446d6881bc2b0b6">xpcc::atxmega::UartSpiMasterE1::setBuffer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#a3d0439482e36c7ae78938443be1240da">xpcc::atxmega::UartSpiMasterE1::setBuffer</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>length</em>, </td>
@@ -197,14 +213,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>transmitIncr</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receiveIncr</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">BufferIncrease&#160;</td>
+          <td class="paramname"><em>bufferIncrease</em> = <code>BUFFER_INCR_BOTH</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,58 +229,39 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
     <tr><td class="paramname">length</td><td>length of buffer or number of dummy bytes to be send </td></tr>
     <tr><td class="paramname">transmit</td><td>pointer to transmit buffer, set to zero to send dummy bytes </td></tr>
     <tr><td class="paramname">receive</td><td>pointer to receive buffer, if set to zero transmit buffer is used </td></tr>
-    <tr><td class="paramname">transmitIncr</td><td>increment or decrement transmit buffer </td></tr>
-    <tr><td class="paramname">receiveIncr</td><td>increment or decrement receive buffer </td></tr>
+    <tr><td class="paramname">bufferIncrease</td><td>increment or decrement buffers </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if buffer has been successfully copied </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#af91773ce943d57777080bff4e68e204d">xpcc::SpiMaster</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97">xpcc::SpiMaster</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab8a9c1dd1f2ade96a21a2670f7cf63ee"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::transfer" ref="ab8a9c1dd1f2ade96a21a2670f7cf63ee" args="(bool send=true, bool receive=false, bool wait=true)" -->
+<a class="anchor" id="ac29abce9ffecf639a57541b1e8230e29"></a><!-- doxytag: member="xpcc::atxmega::UartSpiMasterE1::transfer" ref="ac29abce9ffecf639a57541b1e8230e29" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ab8a9c1dd1f2ade96a21a2670f7cf63ee">xpcc::atxmega::UartSpiMasterE1::transfer</a> </td>
+          <td class="memname">static bool <a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html#ac29abce9ffecf639a57541b1e8230e29">xpcc::atxmega::UartSpiMasterE1::transfer</a> </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>send</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>receive</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>wait</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static]</code></td>
+          <td class="paramtype">TransferOptions&#160;</td>
+          <td class="paramname"><em>options</em> = <code>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</code></td><td>)</td>
+          <td><code> [static]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">send</td><td>set to false to send dummy data (0xff) </td></tr>
-    <tr><td class="paramname">receive</td><td>set to true to write received data back in buffer. </td></tr>
-    <tr><td class="paramname">wait</td><td>set to true to wait until (DMA) operation finished </td></tr>
+    <tr><td class="paramname">options</td><td>TransferOptions </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if request was successfully serviced </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#a14eebce2d61c756496c18a5510721b03">xpcc::SpiMaster</a>.</p>
+<p>Reimplemented from <a class="el" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25">xpcc::SpiMaster</a>.</p>
 
 </div>
 </div>
@@ -318,7 +309,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
       <li class="navelem"><b>atxmega</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html">UartSpiMasterE1</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:41 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

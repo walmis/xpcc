@@ -134,66 +134,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_BOOST__MUTEX_HPP</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_BOOST__MUTEX_HPP</span>
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;boost/thread/mutex.hpp&gt;</span>
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keyword">namespace </span>xpcc
-<a name="l00037"></a>00037 {
-<a name="l00038"></a>00038     <span class="keyword">namespace </span>rtos
-<a name="l00039"></a>00039     {
-<a name="l00040"></a>00040         <span class="comment">// forward declaration</span>
-<a name="l00041"></a>00041         <span class="keyword">class </span>MutexGuard;
-<a name="l00042"></a>00042         
-<a name="l00048"></a><a class="code" href="classxpcc_1_1rtos_1_1_mutex.html">00048</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>
-<a name="l00049"></a>00049         {
-<a name="l00050"></a>00050             <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>;
-<a name="l00051"></a>00051             
-<a name="l00052"></a>00052         <span class="keyword">public</span>:
-<a name="l00053"></a>00053             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>();
-<a name="l00054"></a>00054             
-<a name="l00055"></a>00055             ~<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>();
-<a name="l00056"></a>00056             
-<a name="l00060"></a>00060             <span class="keywordtype">bool</span>
-<a name="l00061"></a>00061             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>(uint32_t timeout);
-<a name="l00062"></a>00062             
-<a name="l00063"></a>00063             <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00064"></a>00064             acquire()
-<a name="l00065"></a>00065             {
-<a name="l00066"></a>00066                 mutex.lock();
-<a name="l00067"></a>00067             }
-<a name="l00068"></a>00068             
-<a name="l00069"></a>00069             <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00070"></a>00070             release()
-<a name="l00071"></a>00071             {
-<a name="l00072"></a>00072                 mutex.unlock();
-<a name="l00073"></a>00073             }
-<a name="l00074"></a>00074             
-<a name="l00075"></a>00075         <span class="keyword">private</span>:
-<a name="l00076"></a>00076             <span class="comment">// disable copy constructor</span>
-<a name="l00077"></a>00077             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; other);
+<a name="l00034"></a>00034 <span class="preprocessor">#ifndef XPCC_RTOS__MUTEX_HPP</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Don&#39;t include this file directly, use &lt;xpcc/workflow/rtos/mutex.hpp&gt;&quot;</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;boost/thread/mutex.hpp&gt;</span>
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">namespace </span>xpcc
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042     <span class="keyword">namespace </span>rtos
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044         <span class="comment">// forward declaration</span>
+<a name="l00045"></a>00045         <span class="keyword">class </span>MutexGuard;
+<a name="l00046"></a>00046         
+<a name="l00052"></a><a class="code" href="classxpcc_1_1rtos_1_1_mutex.html">00052</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>
+<a name="l00053"></a>00053         {
+<a name="l00054"></a>00054             <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>;
+<a name="l00055"></a>00055             
+<a name="l00056"></a>00056         <span class="keyword">public</span>:
+<a name="l00057"></a>00057             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>();
+<a name="l00058"></a>00058             
+<a name="l00059"></a>00059             ~<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>();
+<a name="l00060"></a>00060             
+<a name="l00064"></a>00064             <span class="keywordtype">bool</span>
+<a name="l00065"></a>00065             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html#a6fb6dedd3f3fc9c687d549f986c8e3c5">acquire</a>(uint32_t timeout);
+<a name="l00066"></a>00066             
+<a name="l00067"></a>00067             <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00068"></a>00068             acquire()
+<a name="l00069"></a>00069             {
+<a name="l00070"></a>00070                 mutex.lock();
+<a name="l00071"></a>00071             }
+<a name="l00072"></a>00072             
+<a name="l00073"></a>00073             <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00074"></a>00074             release()
+<a name="l00075"></a>00075             {
+<a name="l00076"></a>00076                 mutex.unlock();
+<a name="l00077"></a>00077             }
 <a name="l00078"></a>00078             
-<a name="l00079"></a>00079             <span class="comment">// disable assignment operator</span>
-<a name="l00080"></a>00080             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp;
-<a name="l00081"></a>00081             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; other);
+<a name="l00079"></a>00079         <span class="keyword">private</span>:
+<a name="l00080"></a>00080             <span class="comment">// disable copy constructor</span>
+<a name="l00081"></a>00081             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; other);
 <a name="l00082"></a>00082             
-<a name="l00083"></a>00083             boost::timed_mutex mutex;
-<a name="l00084"></a>00084         };
-<a name="l00085"></a>00085         
-<a name="l00091"></a><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html">00091</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a> : boost::lock_guard&lt;boost::timed_mutex&gt;
-<a name="l00092"></a>00092         {
-<a name="l00093"></a>00093         <span class="keyword">public</span>:
-<a name="l00094"></a>00094             <a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>(<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; m) :
-<a name="l00095"></a>00095                 boost::lock_guard&lt;boost::timed_mutex&gt;(m.mutex)
-<a name="l00096"></a>00096             {
-<a name="l00097"></a>00097             }
-<a name="l00098"></a>00098             
-<a name="l00099"></a>00099             ~<a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>()
+<a name="l00083"></a>00083             <span class="comment">// disable assignment operator</span>
+<a name="l00084"></a>00084             <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp;
+<a name="l00085"></a>00085             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; other);
+<a name="l00086"></a>00086             
+<a name="l00087"></a>00087             boost::timed_mutex mutex;
+<a name="l00088"></a>00088         };
+<a name="l00089"></a>00089         
+<a name="l00095"></a><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html">00095</a>         <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a> : boost::lock_guard&lt;boost::timed_mutex&gt;
+<a name="l00096"></a>00096         {
+<a name="l00097"></a>00097         <span class="keyword">public</span>:
+<a name="l00098"></a>00098             <a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>(<a class="code" href="classxpcc_1_1rtos_1_1_mutex.html" title="Mutex.">Mutex</a>&amp; m) :
+<a name="l00099"></a>00099                 boost::lock_guard&lt;boost::timed_mutex&gt;(m.mutex)
 <a name="l00100"></a>00100             {
 <a name="l00101"></a>00101             }
-<a name="l00102"></a>00102         };
-<a name="l00103"></a>00103     }
-<a name="l00104"></a>00104 }
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif // XPCC_BOOST__MUTEX_HPP</span>
+<a name="l00102"></a>00102             
+<a name="l00103"></a>00103             ~<a class="code" href="classxpcc_1_1rtos_1_1_mutex_guard.html" title="Implements a RAII-style locking.">MutexGuard</a>()
+<a name="l00104"></a>00104             {
+<a name="l00105"></a>00105             }
+<a name="l00106"></a>00106         };
+<a name="l00107"></a>00107     }
+<a name="l00108"></a>00108 }
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110 <span class="preprocessor">#endif // XPCC_BOOST__MUTEX_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -214,7 +218,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>mutex.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:30 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

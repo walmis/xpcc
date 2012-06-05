@@ -5,9 +5,9 @@ var searchData=
   ['randomnumbergenerator',['RandomNumberGenerator',['../classxpcc_1_1stm32_1_1_random_number_generator.html',1,'xpcc::stm32']]],
   ['readadapter',['ReadAdapter',['../classxpcc_1_1i2c_1_1_read_adapter.html',1,'xpcc::i2c']]],
   ['reading',['Reading',['../structxpcc_1_1i2c_1_1_delegate_1_1_reading.html',1,'xpcc::i2c::Delegate']]],
-  ['rebind',['rebind',['../structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html',1,'xpcc::allocator::Dynamic']]],
   ['rebind',['rebind',['../structxpcc_1_1allocator_1_1_static_1_1rebind.html',1,'xpcc::allocator::Static']]],
   ['rebind',['rebind',['../structxpcc_1_1allocator_1_1_block_1_1rebind.html',1,'xpcc::allocator::Block']]],
+  ['rebind',['rebind',['../structxpcc_1_1allocator_1_1_dynamic_1_1rebind.html',1,'xpcc::allocator::Dynamic']]],
   ['receivelistitem',['ReceiveListItem',['../classxpcc_1_1_can_connector_1_1_receive_list_item.html',1,'xpcc::CanConnector']]],
   ['receiver',['Receiver',['../classxpcc_1_1tipc_1_1_receiver.html',1,'xpcc::tipc']]],
   ['receiversocket',['ReceiverSocket',['../classxpcc_1_1tipc_1_1_receiver_socket.html',1,'xpcc::tipc']]],
@@ -17,6 +17,6 @@ var searchData=
   ['response',['Response',['../classxpcc_1_1amnb_1_1_response.html',1,'xpcc::amnb']]],
   ['responsecallback',['ResponseCallback',['../classxpcc_1_1_response_callback.html',1,'xpcc']]],
   ['responsehandle',['ResponseHandle',['../classxpcc_1_1_response_handle.html',1,'xpcc']]],
-  ['rgb',['Rgb',['../classxpcc_1_1color_1_1_rgb.html',1,'xpcc::color']]],
-  ['rgb',['Rgb',['../classxpcc_1_1led_1_1_rgb.html',1,'xpcc::led']]]
+  ['rgb',['Rgb',['../classxpcc_1_1led_1_1_rgb.html',1,'xpcc::led']]],
+  ['rgb',['Rgb',['../classxpcc_1_1color_1_1_rgb.html',1,'xpcc::color']]]
 ];

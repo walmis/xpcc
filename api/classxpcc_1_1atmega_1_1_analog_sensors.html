@@ -115,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a40242d529db4a088ab84c589e96bd1fb">initialize</a> (uint8_t &amp;sensorMapping)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a49eae010acef25b8717aa5da5b4081c6">initialize</a> (uint8_t *sensorMapping, uint16_t *sensorData)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#aa4ba3036629622472660ff691a940332">readSensors</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the ADC readout routine and buffers the results, sets <a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a9b4f02525c839ac5a04d0cb2482c00a3">isNewDataAvailable()</a> to <code>true</code>.  <a href="#aa4ba3036629622472660ff691a940332"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#aad7d92b8acd3cfd14761d2264af8f019">getData</a> ()</td></tr>
@@ -141,18 +141,28 @@ class xpcc::atmega::AnalogSensors&lt; ADConv, CHANNELS, SAMPLES &gt;</h3>
 
 <p>Definition at line <a class="el" href="analog__sensors_8hpp_source.html#l00068">68</a> of file <a class="el" href="analog__sensors_8hpp_source.html">analog_sensors.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a40242d529db4a088ab84c589e96bd1fb"></a><!-- doxytag: member="xpcc::atmega::AnalogSensors::initialize" ref="a40242d529db4a088ab84c589e96bd1fb" args="(uint8_t &amp;sensorMapping)" -->
+<a class="anchor" id="a49eae010acef25b8717aa5da5b4081c6"></a><!-- doxytag: member="xpcc::atmega::AnalogSensors::initialize" ref="a49eae010acef25b8717aa5da5b4081c6" args="(uint8_t *sensorMapping, uint16_t *sensorData)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename ADConv , uint8_t CHANNELS, uint8_t SAMPLES = 0&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html">xpcc::atmega::AnalogSensors</a>&lt; ADConv, CHANNELS, SAMPLES &gt;::<a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a40242d529db4a088ab84c589e96bd1fb">initialize</a> </td>
+          <td class="memname">static void <a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html">xpcc::atmega::AnalogSensors</a>&lt; ADConv, CHANNELS, SAMPLES &gt;::<a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a49eae010acef25b8717aa5da5b4081c6">initialize</a> </td>
           <td>(</td>
-          <td class="paramtype">uint8_t &amp;&#160;</td>
-          <td class="paramname"><em>sensorMapping</em></td><td>)</td>
-          <td><code> [inline, static]</code></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>sensorMapping</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>sensorData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline, static]</code></td>
         </tr>
       </table>
 </div>
@@ -267,7 +277,7 @@ template&lt;typename ADConv , uint8_t CHANNELS, uint8_t SAMPLES = 0&gt; </div>
       <li class="navelem"><b>atmega</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1atmega_1_1_analog_sensors.html">AnalogSensors</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:41 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

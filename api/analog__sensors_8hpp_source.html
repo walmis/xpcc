@@ -146,7 +146,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00069"></a>00069         {
 <a name="l00070"></a>00070         <span class="keyword">public</span>:
 <a name="l00074"></a>00074             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00075"></a>00075             <a class="code" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a40242d529db4a088ab84c589e96bd1fb">initialize</a>(uint8_t &amp;sensorMapping);
+<a name="l00075"></a>00075             <a class="code" href="classxpcc_1_1atmega_1_1_analog_sensors.html#a49eae010acef25b8717aa5da5b4081c6">initialize</a>(uint8_t* sensorMapping, uint16_t* sensorData);
 <a name="l00076"></a>00076             
 <a name="l00082"></a>00082             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span>
 <a name="l00083"></a>00083             <a class="code" href="classxpcc_1_1atmega_1_1_analog_sensors.html#aa4ba3036629622472660ff691a940332" title="Starts the ADC readout routine and buffers the results, sets isNewDataAvailable() to true...">readSensors</a>();
@@ -168,7 +168,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00110"></a>00110             
 <a name="l00111"></a>00111             <span class="keyword">static</span> <span class="keywordtype">bool</span> newData;
 <a name="l00112"></a>00112             <span class="keyword">static</span> uint8_t* map;
-<a name="l00113"></a>00113             <span class="keyword">static</span> uint16_t data[CHANNELS];
+<a name="l00113"></a>00113             <span class="keyword">static</span> uint16_t *data;
 <a name="l00114"></a>00114             <span class="keyword">static</span> uint16_t numberOfSamples;
 <a name="l00115"></a>00115         };
 <a name="l00116"></a>00116     }   
@@ -197,7 +197,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>analog_sensors.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:28 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

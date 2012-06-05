@@ -134,88 +134,92 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00031"></a>00031 <span class="preprocessor">#ifndef XPCC_FREERTOS__THREAD_HPP</span>
 <a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define XPCC_FREERTOS__THREAD_HPP</span>
 <a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a>00034 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
-<a name="l00035"></a>00035 <span class="preprocessor">#include &lt;freertos/task.h&gt;</span>
-<a name="l00036"></a>00036 
-<a name="l00060"></a><a class="code" href="group__freertos.html#ga70bfba14992c65d4acb1d5e90c6b229f">00060</a> <span class="preprocessor">#define TIME_LOOP(frequency)                                        \</span>
-<a name="l00061"></a>00061 <span class="preprocessor">        for(portTickType lastTime = xTaskGetTickCount() ;           \</span>
-<a name="l00062"></a>00062 <span class="preprocessor">            vTaskDelayUntil(&amp;lastTime,                              \</span>
-<a name="l00063"></a>00063 <span class="preprocessor">                    static_cast&lt;portTickType&gt;(frequency)), true ;   \</span>
-<a name="l00064"></a>00064 <span class="preprocessor">            )</span>
-<a name="l00065"></a>00065 <span class="preprocessor"></span>
-<a name="l00088"></a><a class="code" href="group__freertos.html#ga523f92e3a3a17c1f64110375785270ee">00088</a> <span class="preprocessor">#define MILLISECONDS        (configTICK_RATE_HZ / 1000.0)</span>
-<a name="l00089"></a>00089 <span class="preprocessor"></span>
-<a name="l00090"></a>00090 <span class="keyword">namespace </span>xpcc
-<a name="l00091"></a>00091 {
-<a name="l00092"></a>00092     <span class="keyword">namespace </span>rtos
-<a name="l00093"></a>00093     {
-<a name="l00121"></a>00121         <span class="keyword">class </span>Thread
-<a name="l00122"></a>00122         {
-<a name="l00123"></a>00123             <span class="keyword">static</span> <span class="keyword">const</span> uint16_t minimalStackSize = 200;
-<a name="l00124"></a>00124             
-<a name="l00125"></a>00125         <span class="keyword">public</span>:
-<a name="l00138"></a>00138             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a76a170dedb6db5be245032171548e6bd" title="Create a Thread.">Thread</a>(uint32_t priority = 0,
-<a name="l00139"></a>00139                     uint16_t stackDepth = minimalStackSize,
-<a name="l00140"></a>00140                     <span class="keyword">const</span> <span class="keywordtype">char</span>* name = NULL);
-<a name="l00141"></a>00141             
-<a name="l00143"></a>00143             <span class="keyword">virtual</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a1edf0913203cec0382f8556f7f64ba69" title="Delete the thread.">~Thread</a>();
-<a name="l00144"></a>00144             
-<a name="l00146"></a>00146             uint32_t
-<a name="l00147"></a>00147             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#aef9a60bae973bd13f95f7a4b5a5fc238" title="Obtain the priority of the thread.">getPriority</a>() <span class="keyword">const</span>;
+<a name="l00034"></a>00034 <span class="preprocessor">#ifndef XPCC_RTOS__THREAD_HPP</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#   error &quot;Don&#39;t include this file directly, use &lt;xpcc/workflow/rtos/thread.hpp&gt;&quot;</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span>
+<a name="l00038"></a>00038 <span class="preprocessor">#include &lt;freertos/FreeRTOS.h&gt;</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#include &lt;freertos/task.h&gt;</span>
+<a name="l00040"></a>00040 
+<a name="l00064"></a><a class="code" href="group__freertos.html#ga70bfba14992c65d4acb1d5e90c6b229f">00064</a> <span class="preprocessor">#define TIME_LOOP(frequency)                                        \</span>
+<a name="l00065"></a>00065 <span class="preprocessor">        for(portTickType lastTime = xTaskGetTickCount() ;           \</span>
+<a name="l00066"></a>00066 <span class="preprocessor">            vTaskDelayUntil(&amp;lastTime,                              \</span>
+<a name="l00067"></a>00067 <span class="preprocessor">                    static_cast&lt;portTickType&gt;(frequency)), true ;   \</span>
+<a name="l00068"></a>00068 <span class="preprocessor">            )</span>
+<a name="l00069"></a>00069 <span class="preprocessor"></span>
+<a name="l00092"></a><a class="code" href="group__freertos.html#ga523f92e3a3a17c1f64110375785270ee">00092</a> <span class="preprocessor">#define MILLISECONDS        (configTICK_RATE_HZ / 1000.0)</span>
+<a name="l00093"></a>00093 <span class="preprocessor"></span>
+<a name="l00094"></a>00094 <span class="keyword">namespace </span>xpcc
+<a name="l00095"></a>00095 {
+<a name="l00096"></a>00096     <span class="keyword">namespace </span>rtos
+<a name="l00097"></a>00097     {
+<a name="l00125"></a>00125         <span class="keyword">class </span>Thread
+<a name="l00126"></a>00126         {
+<a name="l00127"></a>00127             <span class="keyword">static</span> <span class="keyword">const</span> uint16_t minimalStackSize = 200;
+<a name="l00128"></a>00128             
+<a name="l00129"></a>00129         <span class="keyword">public</span>:
+<a name="l00142"></a>00142             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a76a170dedb6db5be245032171548e6bd" title="Create a Thread.">Thread</a>(uint32_t priority = 0,
+<a name="l00143"></a>00143                     uint16_t stackDepth = minimalStackSize,
+<a name="l00144"></a>00144                     <span class="keyword">const</span> <span class="keywordtype">char</span>* name = NULL);
+<a name="l00145"></a>00145             
+<a name="l00147"></a>00147             <span class="keyword">virtual</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a1edf0913203cec0382f8556f7f64ba69" title="Delete the thread.">~Thread</a>();
 <a name="l00148"></a>00148             
-<a name="l00155"></a>00155             <span class="keywordtype">void</span>
-<a name="l00156"></a>00156             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a2af06f67fed12abd98647ba5632ad760" title="Set the priority of the thread.">setPriority</a>(uint32_t priority);
-<a name="l00157"></a>00157             
-<a name="l00171"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html">00171</a>             <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>
-<a name="l00172"></a>00172             {
-<a name="l00173"></a>00173             <span class="keyword">public</span>:
-<a name="l00174"></a>00174                 <a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>()
-<a name="l00175"></a>00175                 {
-<a name="l00176"></a>00176                     vTaskSuspendAll();
-<a name="l00177"></a>00177                 }
-<a name="l00178"></a>00178                 
-<a name="l00179"></a>00179                 ~<a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>()
-<a name="l00180"></a>00180                 {
-<a name="l00181"></a>00181                     xTaskResumeAll();
-<a name="l00182"></a>00182                 }
-<a name="l00183"></a>00183             };
-<a name="l00184"></a>00184             
-<a name="l00185"></a>00185         <span class="keyword">protected</span>:
-<a name="l00197"></a>00197             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00198"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a8fa7298614ac08af309563e7f15f254a">00198</a>             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a2e078b825b2161186fa71426ec2bc532" title="Delay for the number of Milliseconds.">sleep</a>(portTickType ticks)
-<a name="l00199"></a>00199             {
-<a name="l00200"></a>00200                 vTaskDelay(ticks);
-<a name="l00201"></a>00201             }
-<a name="l00202"></a>00202             
-<a name="l00203"></a>00203             <span class="comment">// TODO</span>
-<a name="l00204"></a>00204             <span class="comment">//sleepUntil();</span>
-<a name="l00205"></a>00205             
-<a name="l00211"></a>00211             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00212"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a0c245ecde851c7ea67e5f61231d0a192">00212</a>             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a0c245ecde851c7ea67e5f61231d0a192" title="Force a context switch.">yield</a>()
-<a name="l00213"></a>00213             {
-<a name="l00214"></a>00214                 taskYIELD();
-<a name="l00215"></a>00215             }
-<a name="l00216"></a>00216             
-<a name="l00222"></a>00222             <span class="keyword">virtual</span> <span class="keywordtype">void</span>
-<a name="l00223"></a>00223             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#abf41cef53d48cd2293c755dda0ea144b" title="Worker function.">run</a>() = 0;
-<a name="l00224"></a>00224             
-<a name="l00225"></a>00225         <span class="keyword">private</span>:
-<a name="l00226"></a>00226             <span class="keyword">static</span> <span class="keywordtype">void</span>
-<a name="l00227"></a>00227             wrapper(<span class="keywordtype">void</span> *<span class="keywordtype">object</span>);
+<a name="l00150"></a>00150             uint32_t
+<a name="l00151"></a>00151             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#aef9a60bae973bd13f95f7a4b5a5fc238" title="Obtain the priority of the thread.">getPriority</a>() <span class="keyword">const</span>;
+<a name="l00152"></a>00152             
+<a name="l00159"></a>00159             <span class="keywordtype">void</span>
+<a name="l00160"></a>00160             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a2af06f67fed12abd98647ba5632ad760" title="Set the priority of the thread.">setPriority</a>(uint32_t priority);
+<a name="l00161"></a>00161             
+<a name="l00175"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html">00175</a>             <span class="keyword">class </span><a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>
+<a name="l00176"></a>00176             {
+<a name="l00177"></a>00177             <span class="keyword">public</span>:
+<a name="l00178"></a>00178                 <a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>()
+<a name="l00179"></a>00179                 {
+<a name="l00180"></a>00180                     vTaskSuspendAll();
+<a name="l00181"></a>00181                 }
+<a name="l00182"></a>00182                 
+<a name="l00183"></a>00183                 ~<a class="code" href="classxpcc_1_1rtos_1_1_thread_1_1_lock.html" title="When created suspends all real time kernel activity while keeping interrupts (including the kernel ti...">Lock</a>()
+<a name="l00184"></a>00184                 {
+<a name="l00185"></a>00185                     xTaskResumeAll();
+<a name="l00186"></a>00186                 }
+<a name="l00187"></a>00187             };
+<a name="l00188"></a>00188             
+<a name="l00189"></a>00189         <span class="keyword">protected</span>:
+<a name="l00201"></a>00201             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00202"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a8fa7298614ac08af309563e7f15f254a">00202</a>             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a2e078b825b2161186fa71426ec2bc532" title="Delay for the number of Milliseconds.">sleep</a>(portTickType ticks)
+<a name="l00203"></a>00203             {
+<a name="l00204"></a>00204                 vTaskDelay(ticks);
+<a name="l00205"></a>00205             }
+<a name="l00206"></a>00206             
+<a name="l00207"></a>00207             <span class="comment">// TODO</span>
+<a name="l00208"></a>00208             <span class="comment">//sleepUntil();</span>
+<a name="l00209"></a>00209             
+<a name="l00215"></a>00215             <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00216"></a><a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a0c245ecde851c7ea67e5f61231d0a192">00216</a>             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a0c245ecde851c7ea67e5f61231d0a192" title="Force a context switch.">yield</a>()
+<a name="l00217"></a>00217             {
+<a name="l00218"></a>00218                 taskYIELD();
+<a name="l00219"></a>00219             }
+<a name="l00220"></a>00220             
+<a name="l00226"></a>00226             <span class="keyword">virtual</span> <span class="keywordtype">void</span>
+<a name="l00227"></a>00227             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#abf41cef53d48cd2293c755dda0ea144b" title="Worker function.">run</a>() = 0;
 <a name="l00228"></a>00228             
-<a name="l00229"></a>00229             <span class="comment">// disable copy constructor</span>
-<a name="l00230"></a>00230             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a76a170dedb6db5be245032171548e6bd" title="Create a Thread.">Thread</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp; other);
-<a name="l00231"></a>00231             
-<a name="l00232"></a>00232             <span class="comment">// disable assignment operator</span>
-<a name="l00233"></a>00233             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp;
-<a name="l00234"></a>00234             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp; other);
+<a name="l00229"></a>00229         <span class="keyword">private</span>:
+<a name="l00230"></a>00230             <span class="keyword">static</span> <span class="keywordtype">void</span>
+<a name="l00231"></a>00231             wrapper(<span class="keywordtype">void</span> *<span class="keywordtype">object</span>);
+<a name="l00232"></a>00232             
+<a name="l00233"></a>00233             <span class="comment">// disable copy constructor</span>
+<a name="l00234"></a>00234             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html#a76a170dedb6db5be245032171548e6bd" title="Create a Thread.">Thread</a>(<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp; other);
 <a name="l00235"></a>00235             
-<a name="l00236"></a>00236             xTaskHandle handle;
-<a name="l00237"></a>00237         };
-<a name="l00238"></a>00238     }
-<a name="l00239"></a>00239 }
-<a name="l00240"></a>00240 
-<a name="l00241"></a>00241 <span class="preprocessor">#endif // XPCC_FREERTOS__THREAD_HPP</span>
+<a name="l00236"></a>00236             <span class="comment">// disable assignment operator</span>
+<a name="l00237"></a>00237             <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp;
+<a name="l00238"></a>00238             operator = (<span class="keyword">const</span> <a class="code" href="classxpcc_1_1rtos_1_1_thread.html" title="Thread.">Thread</a>&amp; other);
+<a name="l00239"></a>00239             
+<a name="l00240"></a>00240             xTaskHandle handle;
+<a name="l00241"></a>00241         };
+<a name="l00242"></a>00242     }
+<a name="l00243"></a>00243 }
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245 <span class="preprocessor">#endif // XPCC_FREERTOS__THREAD_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -236,7 +240,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>thread.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:30 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

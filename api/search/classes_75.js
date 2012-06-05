@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['uart0',['Uart0',['../classxpcc_1_1lpc2000_1_1_uart0.html',1,'xpcc::lpc2000']]],
   ['uart0',['Uart0',['../classxpcc_1_1at91_1_1_uart0.html',1,'xpcc::at91']]],
+  ['uart0',['Uart0',['../classxpcc_1_1lpc2000_1_1_uart0.html',1,'xpcc::lpc2000']]],
   ['uart1',['Uart1',['../classxpcc_1_1at91_1_1_uart1.html',1,'xpcc::at91']]],
   ['uart1',['Uart1',['../classxpcc_1_1lpc2000_1_1_uart1.html',1,'xpcc::lpc2000']]],
   ['uart2',['Uart2',['../classxpcc_1_1lpc2000_1_1_uart2.html',1,'xpcc::lpc2000']]],

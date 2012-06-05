@@ -8,6 +8,7 @@ var dir_547c20d8d8d2ad175d25ec48447f15d3 =
     [ "other", "dir_9408f3bd6f79d90f7aa7e564c2910724.html", null ],
     [ "pressure", "dir_6ec90f2843d457e6d3d892317f5f3088.html", null ],
     [ "pwm", "dir_0060740b3b85bfdec31ec93e21343640.html", null ],
+    [ "rfid", "dir_2905f0fcab0bbae74659d83b222e83cd.html", null ],
     [ "storage", "dir_d393bc64ef41462d89ea393d3c43133c.html", null ],
     [ "temperature", "dir_229a559b0a07fcbb309dc1887569a47d.html", null ],
     [ "time", "dir_0248e74b419d22288e1b25d3cf5257ef.html", null ],

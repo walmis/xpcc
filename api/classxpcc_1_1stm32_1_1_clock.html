@@ -193,14 +193,16 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
      switchToPll();
  }
 </pre></div><p>For using the internal clock (which is 16MHz) use: </p>
-<div class="fragment"><pre class="fragment"> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7eabc700dc7c257a650d48893b24221ac8c" title="High speed internal clock (16 MHz)">PLL_HSI</a>, 8, 120);    <span class="comment">// for STM32F2xx</span>
- <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7eabc700dc7c257a650d48893b24221ac8c" title="High speed internal clock (16 MHz)">PLL_HSI</a>, 8, 168);    <span class="comment">// for STM32F4xx</span>
+<div class="fragment"><pre class="fragment"> <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html" title="Clock management.">xpcc::stm32::Clock</a> C;
+ <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(C::PllSource::PLL_HSI, 8, 120);  <span class="comment">// for STM32F2xx</span>
+ <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(C::PllSource::PLL_HSI, 8, 168);  <span class="comment">// for STM32F4xx</span>
  switchToPll();
 </pre></div><p>For using an external crystal with 8 MHz use: </p>
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">if</span> (enableHse(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a5f20786733ab16acac26288f5a758ca1a2b2f1dc05f502bf396f88056412fd995" title="Use a crystal to generate a clock.">HSE_CRYSTAL</a>))
+<div class="fragment"><pre class="fragment"> <span class="keyword">typedef</span> <a class="code" href="classxpcc_1_1stm32_1_1_clock.html" title="Clock management.">xpcc::stm32::Clock</a> C;
+ <span class="keywordflow">if</span> (enableHse(C::HseConfig::HSE_CRYSTAL))
  {
-     <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6" title="PLL_HSE.">PLL_HSE</a>, 4, 120);    <span class="comment">// for STM32F2xx</span>
-     <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(<a class="code" href="classxpcc_1_1stm32_1_1_clock.html#a607c3c9819582a8049d177701ebefd7ea9acc5d7520122026e3a972966f76efa6" title="PLL_HSE.">PLL_HSE</a>, 4, 168);    <span class="comment">// for STM32F4xx</span>
+     <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(C::PllSource::PLL_HSE, 4, 120);  <span class="comment">// for STM32F2xx</span>
+     <a class="code" href="classxpcc_1_1stm32_1_1_clock.html#aeed5ebe9e388bf12346066e6dfb9734b" title="Enable PLL.">enablePll</a>(C::PllSource::PLL_HSE, 4, 168);  <span class="comment">// for STM32F4xx</span>
      switchToPll();
  }
 </pre></div><p>For using an external oscillator with 25 MHz use: </p>
@@ -304,7 +306,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00075">75</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00077">77</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -337,7 +339,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00081">81</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
+<p>Definition at line <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html#l00083">83</a> of file <a class="el" href="platform_2cortex__m3_2stm32_2stm32f2__4_2clock_8hpp_source.html">platform/cortex_m3/stm32/stm32f2_4/clock.hpp</a>.</p>
 
 </div>
 </div>
@@ -451,7 +453,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>switchToPll</b
       <li class="navelem"><b>stm32</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1stm32_1_1_clock.html">Clock</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:43 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:51 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

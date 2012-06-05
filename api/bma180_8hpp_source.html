@@ -285,14 +285,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00196"></a>00196         <span class="comment">// MARK: Image Registers</span>
 <a name="l00198"></a>00198 <span class="comment"></span>        <span class="keyword">enum</span> Bandwidth {
 <a name="l00199"></a>00199             BW = 0xF0,
-<a name="l00200"></a>00200             BW_10Hz = 0x00,
-<a name="l00201"></a>00201             BW_20Hz = 0x10,
-<a name="l00202"></a>00202             BW_40Hz = 0x20,
-<a name="l00203"></a>00203             BW_75Hz = 0x30,
-<a name="l00204"></a>00204             BW_150Hz = 0x40,
-<a name="l00205"></a>00205             BW_300Hz = 0x50,
-<a name="l00206"></a>00206             BW_600Hz = 0x60,
-<a name="l00207"></a>00207             BW_1200Hz = 0x70,
+<a name="l00200"></a>00200             BW_10HZ = 0x00,
+<a name="l00201"></a>00201             BW_20HZ = 0x10,
+<a name="l00202"></a>00202             BW_40HZ = 0x20,
+<a name="l00203"></a>00203             BW_75HZ = 0x30,
+<a name="l00204"></a>00204             BW_150HZ = 0x40,
+<a name="l00205"></a>00205             BW_300HZ = 0x50,
+<a name="l00206"></a>00206             BW_600HZ = 0x60,
+<a name="l00207"></a>00207             BW_1200HZ = 0x70,
 <a name="l00208"></a>00208             BW_HP = 0x80,
 <a name="l00209"></a>00209             BW_BP = 0x90
 <a name="l00210"></a>00210         };
@@ -398,10 +398,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00320"></a>00320         <span class="keyword">enum</span> WakeUpDuration {
 <a name="l00321"></a>00321             TCO_Y = (0x3F &lt;&lt; 2),
 <a name="l00322"></a>00322             WAKE_UP_DURATION = 0x03,
-<a name="l00323"></a>00323             WAKE_UP_DURATION_20ms = 0x00,
-<a name="l00324"></a>00324             WAKE_UP_DURATION_80ms = 0x01,
-<a name="l00325"></a>00325             WAKE_UP_DURATION_320ms = 0x02,
-<a name="l00326"></a>00326             WAKE_UP_DURATION_2560ms = 0x03
+<a name="l00323"></a>00323             WAKE_UP_DURATION_20MS = 0x00,
+<a name="l00324"></a>00324             WAKE_UP_DURATION_80MS = 0x01,
+<a name="l00325"></a>00325             WAKE_UP_DURATION_320MS = 0x02,
+<a name="l00326"></a>00326             WAKE_UP_DURATION_2560MS = 0x03
 <a name="l00327"></a>00327         };
 <a name="l00329"></a>00329         <span class="keyword">enum</span> ModeConfig {
 <a name="l00330"></a>00330             TCO_Z = (0x3F &lt;&lt; 2),
@@ -438,13 +438,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00364"></a>00364 <span class="comment"></span>        <span class="keyword">enum</span> Range {
 <a name="l00365"></a>00365             OFFSET_X_LSB = 0xF0,
 <a name="l00366"></a>00366             RANGE = (0x07 &lt;&lt; 1),
-<a name="l00367"></a>00367             RANGE_1g = (0x00 &lt;&lt; 1),
-<a name="l00368"></a>00368             RANGE_1_5g = (0x01 &lt;&lt; 1),
-<a name="l00369"></a>00369             RANGE_2g = (0x02 &lt;&lt; 1),
-<a name="l00370"></a>00370             RANGE_3g = (0x03 &lt;&lt; 1),
-<a name="l00371"></a>00371             RANGE_4g = (0x04 &lt;&lt; 1),
-<a name="l00372"></a>00372             RANGE_8g = (0x05 &lt;&lt; 1),
-<a name="l00373"></a>00373             RANGE_16g = (0x06 &lt;&lt; 1),
+<a name="l00367"></a>00367             RANGE_1G = (0x00 &lt;&lt; 1),
+<a name="l00368"></a>00368             RANGE_1_5G = (0x01 &lt;&lt; 1),
+<a name="l00369"></a>00369             RANGE_2G = (0x02 &lt;&lt; 1),
+<a name="l00370"></a>00370             RANGE_3G = (0x03 &lt;&lt; 1),
+<a name="l00371"></a>00371             RANGE_4G = (0x04 &lt;&lt; 1),
+<a name="l00372"></a>00372             RANGE_8G = (0x05 &lt;&lt; 1),
+<a name="l00373"></a>00373             RANGE_16G = (0x06 &lt;&lt; 1),
 <a name="l00374"></a>00374             SAMPLE_SKIPPING = 0x01
 <a name="l00375"></a>00375         };
 <a name="l00377"></a>00377         <span class="keyword">enum</span> OffsetLsb2 {
@@ -467,7 +467,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00419"></a>00419         <a class="code" href="classxpcc_1_1_bma180.html" title="Basic BMA180 digital accelerometer sensor driver.">Bma180</a>(uint8_t* data, uint8_t address=0x40);
 <a name="l00420"></a>00420         
 <a name="l00428"></a>00428         <span class="keywordtype">bool</span>
-<a name="l00429"></a>00429         initialize(bma180::Range range=bma180::RANGE_3g, bma180::Bandwidth bandwidth=bma180::BW_75Hz, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, <span class="keywordtype">bool</span> interrupt=<span class="keyword">true</span>);
+<a name="l00429"></a>00429         configure(bma180::Range range=bma180::RANGE_3G, bma180::Bandwidth bandwidth=bma180::BW_75HZ, bma180::ModeConfig mode=bma180::MODE_CONFIG_LOW_NOISE, <span class="keywordtype">bool</span> interrupt=<span class="keyword">true</span>);
 <a name="l00430"></a>00430         
 <a name="l00435"></a>00435         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <span class="keywordtype">void</span>
 <a name="l00436"></a>00436         readAccelerometer();
@@ -534,7 +534,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>bma180.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:28 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

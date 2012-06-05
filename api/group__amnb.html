@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface&lt; Device &gt;</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_interface.html">xpcc::amnb::Interface&lt; Device, PROBABILITY, TIMEOUT &gt;</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">AMNB interface.  <a href="classxpcc_1_1amnb_1_1_interface.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1amnb_1_1_response.html">xpcc::amnb::Response</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classxpcc_1_1amnb_1_1_response.html" title="Response object for an action call.">Response</a> object for an action call.  <a href="classxpcc_1_1amnb_1_1_response.html#details">More...</a><br/></td></tr>
@@ -159,13 +159,12 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <h2><a class="anchor" id="amnb_intro"></a>
 Introduction</h2>
 <p>The AMNB (<b>A</b>synchronous <b>M</b>ulti-<b>N</b>ode <b>B</b>us) is a multi-master bus system, using p-persitent CSMA to send messages.</p>
-<p>One bus can be populated with up to 32 nodes. The nodes can be queried for data and they will respond like an SAB Slave, and can query data from other nodes like an SAB Master, or they can just broadcast a message. Each node can listen to all the responses and broadcasts and store that information for its purpose.</p>
-<p>Action callbacks to query requests can be defined as well as universal callbacks to any transmitted messaged (Listener callbacks). As an optional advanced feature, error handling callbacks can also be defined, which fire if messaged have not been able to be sent, or requests timed out or misbehaved in other manners, or other nodes query unavailable information.</p>
+<p>One bus can be populated with up to 64 nodes. The nodes can be queried for data and they will respond like an SAB Slave, and can query data from other nodes like an SAB Master, or they can just broadcast a message. Each node can listen to all the responses and broadcasts and store that information for its purpose.</p>
+<p>Action callbacks to query requests can be defined as well as universal callbacks to any transmitted messaged (Listener callbacks). As an optional advanced feature, error handling callbacks can also be defined, which fire if messages have not been able to be sent, or requests timed out or misbehaved in other manners, or other nodes query unavailable information.</p>
 <h2><a class="anchor" id="amnb_protocol"></a>
 Protocol</h2>
 <p>Features:</p>
 <ul>
-<li>Baudrate is 115200 Baud.</li>
 <li>Maximum payload length is 32 byte.</li>
 <li>CRC8 (1-Wire)</li>
 </ul>
@@ -540,7 +539,7 @@ Niklas Hauser </dd></dl>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Wed May 2 2012 15:17:37 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:32 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">
