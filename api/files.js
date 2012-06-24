@@ -148,6 +148,8 @@ var files =
     [ "architecture/platform/cortex_m3/stm32/stm32f2_4/gpio.hpp", null, null ],
     [ "architecture/platform/hosted/gpio.hpp", null, null ],
     [ "driver/gpio.hpp", null, null ],
+    [ "gpio_lpc21xx.hpp", null, null ],
+    [ "gpio_lpc23_24xx.hpp", null, null ],
     [ "graphic_display.hpp", null, null ],
     [ "harness.hpp", null, null ],
     [ "hcla12x5.hpp", null, null ],

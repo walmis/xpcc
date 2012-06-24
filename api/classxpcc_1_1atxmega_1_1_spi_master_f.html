@@ -126,16 +126,18 @@ Inheritance diagram for xpcc::atxmega::SpiMasterF:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BufferIncrease</b> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
 <b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> =  0x01, 
 <b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> =  0x02, 
 <b>BUFFER_INCR_BOTH</b> =  0x03
  }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TransferOptions</b> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">options to increase or decrease the transmit or receive buffer <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
 <b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> =  0x01, 
 <b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> =  0x02, 
 <b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> =  0x03
  }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">options to send the buffer or dummy bytes, and save or discard the received bytes <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59559477f20c1640620a687ff296deaa"></a><!-- doxytag: member="xpcc::atxmega::SpiMasterF::initialize" ref="a59559477f20c1640620a687ff296deaa" args="(spi::Prescaler prescaler=spi::PRESCALER_16, spi::Mode mode=spi::MODE_0)" -->
@@ -145,12 +147,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setDataOrder</
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3337544d63ea5a11a891715c4ecbee4"></a><!-- doxytag: member="xpcc::atxmega::SpiMasterF::write" ref="ae3337544d63ea5a11a891715c4ecbee4" args="(uint8_t data)" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#ae3337544d63ea5a11a891715c4ecbee4">write</a> (uint8_t data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">initiates a SPI transfer and returns the received byte <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#aadc01c2f82540eba0e28a1b60e884be7">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#aadc01c2f82540eba0e28a1b60e884be7">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, <a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a> bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#aadc01c2f82540eba0e28a1b60e884be7"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a3dd617703ebb5c47eb1aaace3b29526f">transfer</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a3dd617703ebb5c47eb1aaace3b29526f">transfer</a> (<a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request an asynchronous transfer, synchronous if DMA unavailable.  <a href="#a3dd617703ebb5c47eb1aaace3b29526f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00246c1046c0721ece8db4dc9ae3b381"></a><!-- doxytag: member="xpcc::atxmega::SpiMasterF::transferSync" ref="a00246c1046c0721ece8db4dc9ae3b381" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
-static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a00246c1046c0721ece8db4dc9ae3b381">transferSync</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a00246c1046c0721ece8db4dc9ae3b381">transferSync</a> (<a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">synchronous transfer, even if using DMA <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#ab0b66589111fdc7376b1206996b18763">isFinished</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f9260b20b179eaad1cc58968c1abb78"></a><!-- doxytag: member="xpcc::atxmega::SpiMasterF::getModuleBase" ref="a9f9260b20b179eaad1cc58968c1abb78" args="()" -->
@@ -187,7 +189,7 @@ static SPI_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getModu
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">BufferIncrease&#160;</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a>&#160;</td>
           <td class="paramname"><em>bufferIncrease</em> = <code>BUFFER_INCR_BOTH</code>&#160;</td>
         </tr>
         <tr>
@@ -220,7 +222,7 @@ static SPI_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getModu
         <tr>
           <td class="memname">static bool <a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html#a3dd617703ebb5c47eb1aaace3b29526f">xpcc::atxmega::SpiMasterF::transfer</a> </td>
           <td>(</td>
-          <td class="paramtype">TransferOptions&#160;</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a>&#160;</td>
           <td class="paramname"><em>options</em> = <code>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</code></td><td>)</td>
           <td><code> [static]</code></td>
         </tr>
@@ -283,7 +285,7 @@ static SPI_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getModu
       <li class="navelem"><b>atxmega</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1atxmega_1_1_spi_master_f.html">SpiMasterF</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:57 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -87,7 +87,7 @@ var annotated =
     [ "xpcc::CharacterDisplay", "classxpcc_1_1_character_display.html", "classxpcc_1_1_character_display" ],
     [ "xpcc::Circle2D< T >", "classxpcc_1_1_circle2_d.html", "classxpcc_1_1_circle2_d" ],
     [ "xpcc::stm32::Clock", "classxpcc_1_1stm32_1_1_clock.html", "classxpcc_1_1stm32_1_1_clock" ],
-    [ "xpcc::lpc::Clock", "classxpcc_1_1lpc_1_1_clock.html", null ],
+    [ "xpcc::lpc::Clock", "classxpcc_1_1lpc_1_1_clock.html", "classxpcc_1_1lpc_1_1_clock" ],
     [ "xpcc::amnb::Clock", "classxpcc_1_1amnb_1_1_clock.html", "classxpcc_1_1amnb_1_1_clock" ],
     [ "xpcc::Clock", "classxpcc_1_1_clock.html", "classxpcc_1_1_clock" ],
     [ "xpcc::Communicatable", "classxpcc_1_1_communicatable.html", null ],

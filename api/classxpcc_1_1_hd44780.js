@@ -1,7 +1,7 @@
 var classxpcc_1_1_hd44780 =
 [
     [ "Command", "classxpcc_1_1_character_display.html#a0f39ee990503a252e38a2ded7b2febd0", null ],
-    [ "Hd44780", "classxpcc_1_1_hd44780.html#ac4279a35d5531754b2e7c9400beb40b2", null ],
+    [ "Hd44780", "classxpcc_1_1_hd44780.html#a4baecb92f19cdfa0831655904e4fd355", null ],
     [ "initialize", "classxpcc_1_1_hd44780.html#aa0d7424d453f5943384d5b534d1c61ca", null ],
     [ "writeRaw", "classxpcc_1_1_hd44780.html#a73334a42bfabb1f2747368796aec3e34", null ],
     [ "setCursor", "classxpcc_1_1_hd44780.html#adf212da9c251dc1d7d78f2f97ec52f55", null ],

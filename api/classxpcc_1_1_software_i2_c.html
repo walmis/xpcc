@@ -153,41 +153,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <div class="textblock"><h3>template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt;<br/>
 class xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</h3>
 
-<p>Example 1: </p>
-<div class="fragment"><pre class="fragment"> <a class="code" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO</a>(Scl, C, 0);
- <a class="code" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO</a>(Sda, C, 1);
- 
- <a class="code" href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation.">xpcc::SoftwareI2C&lt;Scl, Sda&gt;</a> i2c;
- 
- i2c.<a class="code" href="classxpcc_1_1_software_i2_c.html#ad9fec6d4b03130a8d9c68ae8e6607531" title="Initialize the hardware.">initialize</a>();
- 
- <span class="comment">// start an SRF08 ranging in cm</span>
- <span class="keywordflow">if</span> (i2c.<a class="code" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08" title="Requests bus control and starts the transfer.">start</a>(0xE0 | xpcc::i2c::WRITE))
- {
-     i2c.write(0x00);
-     i2c.write(0x51);
- }
- i2c.stop();
-</pre></div><p>Example 2: </p>
-<div class="fragment"><pre class="fragment"> <a class="code" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO</a>(Scl, C, 0);
- <a class="code" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO</a>(Sda, C, 1);
- 
- <a class="code" href="classxpcc_1_1_software_i2_c.html" title="Software emulation of a I2C master implementation.">xpcc::SoftwareI2C&lt;Scl, Sda&gt;</a> i2c;
- 
- i2c.<a class="code" href="classxpcc_1_1_software_i2_c.html#ad9fec6d4b03130a8d9c68ae8e6607531" title="Initialize the hardware.">initialize</a>();
- 
- <span class="comment">// read the result from a SRF08</span>
- <span class="keywordflow">if</span> (i2c.<a class="code" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08" title="Requests bus control and starts the transfer.">start</a>(0xE0 | xpcc::i2c::WRITE))
- {
-     i2c.write(0x01);
-     
-     i2c.repeatedStart(0xE0 | xpcc::i2c::WRITE);
-     i2c.read(<span class="keyword">true</span>);
-     i2c.read(<span class="keyword">true</span>);
-     i2c.read(<span class="keyword">false</span>);
- }
- i2c.stop();
-</pre></div><dl class=""><dt><b>Template Parameters:</b></dt><dd>
+<dl class=""><dt><b>Template Parameters:</b></dt><dd>
   <table class="">
     <tr><td class="paramname">Scl</td><td>any IO-Pin (see <a class="el" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO()</a>) </td></tr>
     <tr><td class="paramname">Sda</td><td>any IO-Pin (see <a class="el" href="group__gpio.html#ga59b93eac6298dfad78b13a60fdbe2e74" title="Create a input/output pin type.">GPIO__IO()</a>) </td></tr>
@@ -197,13 +163,13 @@ class xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;</h3>
 </dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="namespacexpcc_1_1gpio.html" title="General purpose input and/or output pins.">gpio</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00096">96</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
+<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00056">56</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
 </div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a0191b1b47744a0878c3447d098fd7785"></a><!-- doxytag: member="xpcc::SoftwareI2C::ErrorState" ref="a0191b1b47744a0878c3447d098fd7785" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
+template&lt;typename Scl , typename Sda , int32_t Frequency = 100000&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">enum <a class="el" href="classxpcc_1_1_software_i2_c.html#a0191b1b47744a0878c3447d098fd7785">xpcc::SoftwareI2C::ErrorState</a></td>
@@ -231,7 +197,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00099">99</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
+<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00059">59</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
 
 </div>
 </div>
@@ -240,7 +206,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
+template&lt;typename Scl , typename Sda , int32_t Frequency = 100000&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">static void <a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C</a>&lt; Scl, Sda, Frequency &gt;::<a class="el" href="classxpcc_1_1_software_i2_c.html#a1b76caaeede3205fca07d1601fcc8efc">reset</a> </td>
@@ -268,7 +234,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
+template&lt;typename Scl , typename Sda , int32_t Frequency = 100000&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">static bool <a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C</a>&lt; Scl, Sda, Frequency &gt;::<a class="el" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08">start</a> </td>
@@ -290,7 +256,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 
 <p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89">xpcc::i2c::Master</a>.</p>
 
-<p>Referenced by <a class="el" href="software__i2c_8hpp_source.html#l00122">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;::startSync()</a>.</p>
+<p>Referenced by <a class="el" href="software__i2c_8hpp_source.html#l00082">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;::startSync()</a>.</p>
 
 </div>
 </div>
@@ -298,7 +264,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
+template&lt;typename Scl , typename Sda , int32_t Frequency = 100000&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">static bool <a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C</a>&lt; Scl, Sda, Frequency &gt;::<a class="el" href="classxpcc_1_1_software_i2_c.html#a6c483fd571f6b377cb12a4b2f921d1aa">startSync</a> </td>
@@ -321,7 +287,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 
 <p>Reimplemented from <a class="el" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216">xpcc::i2c::Master</a>.</p>
 
-<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00122">122</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
+<p>Definition at line <a class="el" href="software__i2c_8hpp_source.html#l00082">82</a> of file <a class="el" href="software__i2c_8hpp_source.html">software_i2c.hpp</a>.</p>
 
 <p>References <a class="el" href="classxpcc_1_1_software_i2_c.html#a54232ee001b208dfcafe9a0fe903cb08">xpcc::SoftwareI2C&lt; Scl, Sda, Frequency &gt;::start()</a>.</p>
 
@@ -331,7 +297,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
+template&lt;typename Scl , typename Sda , int32_t Frequency = 100000&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">static uint8_t <a class="el" href="classxpcc_1_1_software_i2_c.html">xpcc::SoftwareI2C</a>&lt; Scl, Sda, Frequency &gt;::<a class="el" href="classxpcc_1_1_software_i2_c.html#a2819453ffc3ea12db34ba2ef5043fd63">getErrorState</a> </td>
@@ -372,7 +338,7 @@ template&lt;typename Scl, typename Sda, int32_t Frequency = 100000&gt; </div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_software_i2_c.html">SoftwareI2C</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:35 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:47 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

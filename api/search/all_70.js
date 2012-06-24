@@ -71,7 +71,7 @@ var searchData=
   ['ptstate',['PtState',['../classxpcc_1_1pt_1_1_protothread.html#aee9771f189d2f3b55901d03be6d22c1c',1,'xpcc::pt::Protothread::PtState()'],['../classxpcc_1_1pt_1_1_protothread.html#ad0f48036333fbcd2ff506988406a6a83',1,'xpcc::pt::Protothread::ptState()']]],
   ['pullup',['PULLUP',['../group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6a366fc80c9a52c8568e8d4ae7ea078927',1,'xpcc::gpio']]],
   ['pulse',['Pulse',['../classxpcc_1_1led_1_1_pulse.html',1,'xpcc::led']]],
-  ['pulse',['pulse',['../classxpcc_1_1led_1_1_pulse.html#a1300888afc5e6c5034b83674eac33c1d',1,'xpcc::led::Pulse::pulse(uint8_t times=1)'],['../classxpcc_1_1led_1_1_pulse.html#ab53924177e8a83af923203c329141572',1,'xpcc::led::Pulse::Pulse(uint16_t const period=1000)']]],
+  ['pulse',['Pulse',['../classxpcc_1_1led_1_1_pulse.html#ab53924177e8a83af923203c329141572',1,'xpcc::led::Pulse::Pulse(uint16_t const period=1000)'],['../classxpcc_1_1led_1_1_pulse.html#a1300888afc5e6c5034b83674eac33c1d',1,'xpcc::led::Pulse::pulse(uint8_t times=1)']]],
   ['pwm',['Pwm',['../classxpcc_1_1at91_1_1_pwm.html',1,'xpcc::at91']]],
   ['pwmchannel',['PwmChannel',['../classxpcc_1_1at91_1_1_pwm_channel.html',1,'xpcc::at91']]],
   ['pwmchannel',['PwmChannel',['../classxpcc_1_1at91_1_1_pwm_channel.html#a42ec80652abed10d88be3a20ba17d4f4',1,'xpcc::at91::PwmChannel']]],

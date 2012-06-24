@@ -1764,6 +1764,8 @@
         <topic label="switchToPll" href="classxpcc_1_1stm32_1_1_clock.html#af9751cd1fe190897be302ae77505a913"/>
       </topic>
       <topic label="xpcc::lpc::Clock" href="classxpcc_1_1lpc_1_1_clock.html">
+        <topic label="initialize" href="classxpcc_1_1lpc_1_1_clock.html#aaf53011712606d619d5051bc20aecb54"/>
+        <topic label="getPllMultiplier" href="classxpcc_1_1lpc_1_1_clock.html#a606b96717f89d9877388adc759df3c55"/>
       </topic>
       <topic label="xpcc::amnb::Clock" href="classxpcc_1_1amnb_1_1_clock.html">
         <topic label="now" href="classxpcc_1_1amnb_1_1_clock.html#abffae3fc98b66a095bc29eca97e935c1"/>
@@ -2916,7 +2918,7 @@
       </topic>
       <topic label="xpcc::Hd44780&lt; E, RW, RS, DATA &gt;" href="classxpcc_1_1_hd44780.html">
         <topic label="Command" href="classxpcc_1_1_character_display.html#a0f39ee990503a252e38a2ded7b2febd0"/>
-        <topic label="Hd44780" href="classxpcc_1_1_hd44780.html#ac4279a35d5531754b2e7c9400beb40b2"/>
+        <topic label="Hd44780" href="classxpcc_1_1_hd44780.html#a4baecb92f19cdfa0831655904e4fd355"/>
         <topic label="initialize" href="classxpcc_1_1_hd44780.html#aa0d7424d453f5943384d5b534d1c61ca"/>
         <topic label="writeRaw" href="classxpcc_1_1_hd44780.html#a73334a42bfabb1f2747368796aec3e34"/>
         <topic label="setCursor" href="classxpcc_1_1_hd44780.html#adf212da9c251dc1d7d78f2f97ec52f55"/>
@@ -3125,7 +3127,7 @@
       </topic>
       <topic label="xpcc::atxmega::InputCapture&lt; TIMER, PIN &gt;" href="classxpcc_1_1atxmega_1_1_input_capture.html">
         <topic label="initialize" href="classxpcc_1_1atxmega_1_1_input_capture.html#a194a4b71feae19aed4706467c34b1357"/>
-        <topic label="isDataAvailable" href="classxpcc_1_1atxmega_1_1_input_capture.html#a2e058476f9baafb76fe81c07cea690fa"/>
+        <topic label="isNewDataAvailable" href="classxpcc_1_1atxmega_1_1_input_capture.html#aad6a8cbcee1f98e486878a92383496fe"/>
         <topic label="getData" href="classxpcc_1_1atxmega_1_1_input_capture.html#a0a58bf35ea390872469e85776f40181c"/>
       </topic>
       <topic label="xpcc::InterconnectInterface&lt; T, R &gt;" href="classxpcc_1_1_interconnect_interface.html">
@@ -4968,6 +4970,7 @@
         <topic label="detachInterrupt" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html#abfdefc55d333beacadba49ac394d7a59"/>
       </topic>
       <topic label="xpcc::Task" href="classxpcc_1_1_task.html">
+        <topic label="~Task" href="classxpcc_1_1_task.html#a52dab0d6749729fb7220b2ff92558282"/>
         <topic label="start" href="classxpcc_1_1_task.html#ad16aba6a103d3120fa432936f7d85940"/>
         <topic label="isFinished" href="classxpcc_1_1_task.html#a6084a0f4d6307771136f9b66953f3773"/>
         <topic label="update" href="classxpcc_1_1_task.html#a26bf847d086d18efb62a1b1980622e4e"/>
@@ -7343,6 +7346,8 @@
       <topic label="architecture/platform/cortex_m3/stm32/stm32f2_4/gpio.hpp"/>
       <topic label="architecture/platform/hosted/gpio.hpp"/>
       <topic label="driver/gpio.hpp"/>
+      <topic label="gpio_lpc21xx.hpp"/>
+      <topic label="gpio_lpc23_24xx.hpp"/>
       <topic label="graphic_display.hpp"/>
       <topic label="harness.hpp"/>
       <topic label="hcla12x5.hpp"/>
@@ -8000,6 +8005,8 @@
               </topic>
               <topic label="lpc" href="dir_25798ce0505181a8709f6ce93079aff7.html">
                 <topic label="device" href="dir_1ba3600905f5a2ecfd810b44e6c313f1.html">
+                </topic>
+                <topic label="gpio" href="dir_09192974a49e20c0171959d3981b4479.html">
                 </topic>
                 <topic label="uart" href="dir_7a80084e7c34da8057ef4adcd7169da1.html">
                 </topic>

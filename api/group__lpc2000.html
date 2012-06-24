@@ -92,12 +92,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#define-members">Defines</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">LPC2xxx</div>  </div>
 <div class="ingroups"><a class="el" href="group__arm7.html">ARM7TDMI</a></div></div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="define-members"></a>
+Defines</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lpc2000.html#ga847688ffd76ce21d6de2c904104b8b68">GPIO__OUTPUT</a>(name, port, pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a output pin type.  <a href="#ga847688ffd76ce21d6de2c904104b8b68"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lpc2000.html#ga117f9a3513826ab5471700b4a37eb89d">GPIO__INPUT</a>(name, port, pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a input type.  <a href="#ga117f9a3513826ab5471700b4a37eb89d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lpc2000.html#ga847688ffd76ce21d6de2c904104b8b68">GPIO__OUTPUT</a>(name, port, pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a output pin type.  <a href="#ga847688ffd76ce21d6de2c904104b8b68"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lpc2000.html#ga117f9a3513826ab5471700b4a37eb89d">GPIO__INPUT</a>(name, port, pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a input type.  <a href="#ga117f9a3513826ab5471700b4a37eb89d"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lpc2000.html#gae0e32f74c42abaf55f3635ba2f2a52f6">xpcc::gpio::Configuration</a> { <br/>
@@ -147,6 +158,203 @@ Enumerations</h2></td></tr>
 <a href="http://ics.nxp.com/products/lpc2000/all/">http://ics.nxp.com/products/lpc2000/all/</a> </dd>
 <dd>
 <a href="http://www.mikrocontroller.net/articles/LPC2000">http://www.mikrocontroller.net/articles/LPC2000</a> </dd></dl>
+<hr/><h2>Define Documentation</h2>
+<a class="anchor" id="ga847688ffd76ce21d6de2c904104b8b68"></a><!-- doxytag: member="gpio_lpc21xx.hpp::GPIO__OUTPUT" ref="ga847688ffd76ce21d6de2c904104b8b68" args="(name, port, pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga847688ffd76ce21d6de2c904104b8b68">GPIO__OUTPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { \
+            CONCAT(IODIR, port) |= (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput(<span class="keywordtype">bool</span> status) { \
+            set(status); \
+            setOutput(); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> <span class="keyword">set</span>() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(IOSET, port) = (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> reset() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(IOCLR, port) = (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> toggle() { \
+            if (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(IOSET, port) &amp; (1 &lt;&lt; pin)) { reset(); } <span class="keywordflow">else</span> { <span class="keyword">set</span>(); } } \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        set(<span class="keywordtype">bool</span> status) { \
+            if (status) { \
+                set(); \
+            } \
+            else { \
+                reset(); \
+            } \
+        } \
+    }
+</pre></div>
+<p>Definition at line <a class="el" href="gpio__lpc21xx_8hpp_source.html#l00076">76</a> of file <a class="el" href="gpio__lpc21xx_8hpp_source.html">gpio_lpc21xx.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga117f9a3513826ab5471700b4a37eb89d"></a><!-- doxytag: member="gpio_lpc21xx.hpp::GPIO__INPUT" ref="ga117f9a3513826ab5471700b4a37eb89d" args="(name, port, pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga117f9a3513826ab5471700b4a37eb89d">GPIO__INPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        configure(::<a class="code" href="group__gpio.html#gae0e32f74c42abaf55f3635ba2f2a52f6" title="Configuration possibilities of a general purpose pin.">xpcc::gpio::Configuration</a> config = ::<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">xpcc::gpio::NORMAL</a>) { \
+            setInput(); \
+        } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(IODIR, port) &amp;= ~(1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">bool</span> read() { <span class="keywordflow">return</span> (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(IOPIN, port) &amp; (1 &lt;&lt; pin)); } \
+    }
+</pre></div>
+<p>Definition at line <a class="el" href="gpio__lpc21xx_8hpp_source.html#l00104">104</a> of file <a class="el" href="gpio__lpc21xx_8hpp_source.html">gpio_lpc21xx.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga847688ffd76ce21d6de2c904104b8b68"></a><!-- doxytag: member="gpio_lpc23_24xx.hpp::GPIO__OUTPUT" ref="ga847688ffd76ce21d6de2c904104b8b68" args="(name, port, pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga847688ffd76ce21d6de2c904104b8b68">GPIO__OUTPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { \
+            CONCAT3(FIO, port, DIR) |= (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput(<span class="keywordtype">bool</span> status) { \
+            set(status); \
+            setOutput(); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> <span class="keyword">set</span>()   { CONCAT3(FIO, port, SET) = (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> reset() { CONCAT3(FIO, port, CLR) = (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> toggle() { \
+            if (CONCAT3(FIO, port, SET) &amp; (1 &lt;&lt; pin)) { reset(); } <span class="keywordflow">else</span> { <span class="keyword">set</span>(); } } \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        set(<span class="keywordtype">bool</span> status) { \
+            if (status) { \
+                set(); \
+            } \
+            else { \
+                reset(); \
+            } \
+        } \
+    }
+</pre></div>
+<p>Definition at line <a class="el" href="gpio__lpc23__24xx_8hpp_source.html#l00085">85</a> of file <a class="el" href="gpio__lpc23__24xx_8hpp_source.html">gpio_lpc23_24xx.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga117f9a3513826ab5471700b4a37eb89d"></a><!-- doxytag: member="gpio_lpc23_24xx.hpp::GPIO__INPUT" ref="ga117f9a3513826ab5471700b4a37eb89d" args="(name, port, pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga117f9a3513826ab5471700b4a37eb89d">GPIO__INPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        configure(::<a class="code" href="group__gpio.html#gae0e32f74c42abaf55f3635ba2f2a52f6" title="Configuration possibilities of a general purpose pin.">xpcc::gpio::Configuration</a> config = ::<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6afb56b70309f8a46b021462577ab829e8" title="standard operation (floating input, external signal needed!)">xpcc::gpio::NORMAL</a>) { \
+            setInput(); \
+        } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { CONCAT3(FIO, port, DIR) &amp;= ~(1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">bool</span> read() { <span class="keywordflow">return</span> (CONCAT3(FIO, port, PIN) &amp; (1 &lt;&lt; pin)); } \
+    }
+</pre></div>
+<p>Definition at line <a class="el" href="gpio__lpc23__24xx_8hpp_source.html#l00113">113</a> of file <a class="el" href="gpio__lpc23__24xx_8hpp_source.html">gpio_lpc23_24xx.hpp</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Enumeration Type Documentation</h2>
 <a class="anchor" id="gae0e32f74c42abaf55f3635ba2f2a52f6"></a><!-- doxytag: member="xpcc::gpio::Configuration" ref="gae0e32f74c42abaf55f3635ba2f2a52f6" args="" -->
 <div class="memitem">
@@ -201,7 +409,7 @@ Enumerations</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:32 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

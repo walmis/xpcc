@@ -156,13 +156,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00064"></a>00064         <span class="keyword">static</span> <span class="keywordtype">bool</span>
 <a name="l00065"></a>00065         <a class="code" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
 <a name="l00066"></a>00066                   uint8_t* transmit=0, uint8_t* receive=0,
-<a name="l00067"></a>00067                   BufferIncrease bufferIncrease=BUFFER_INCR_BOTH);
+<a name="l00067"></a>00067                   <a class="code" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522" title="options to increase or decrease the transmit or receive buffer">BufferIncrease</a> bufferIncrease=BUFFER_INCR_BOTH);
 <a name="l00068"></a>00068         
 <a name="l00069"></a>00069         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00070"></a>00070         <a class="code" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c" title="Request an asynchronous transfer, synchronous if DMA unavailable.">transfer</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+<a name="l00070"></a>00070         <a class="code" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c" title="Request an asynchronous transfer, synchronous if DMA unavailable.">transfer</a>(<a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7" title="options to send the buffer or dummy bytes, and save or discard the received bytes">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
 <a name="l00071"></a>00071         
 <a name="l00072"></a>00072         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00073"></a>00073         <a class="code" href="classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb" title="synchronous transfer, even if using DMA">transferSync</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+<a name="l00073"></a>00073         <a class="code" href="classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb" title="synchronous transfer, even if using DMA">transferSync</a>(<a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7" title="options to send the buffer or dummy bytes, and save or discard the received bytes">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
 <a name="l00074"></a>00074         
 <a name="l00075"></a>00075         <span class="keyword">static</span> <span class="keywordtype">bool</span>
 <a name="l00076"></a>00076         <a class="code" href="classxpcc_1_1_software_spi.html#aaf5dcd3f5c5a294a0580c8341f2d4140">isFinished</a>();
@@ -218,7 +218,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>software_spi.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:30 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:44 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

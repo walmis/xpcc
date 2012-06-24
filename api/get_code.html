@@ -95,23 +95,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">1. Get the Code </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Use any SVN client like <b>svn</b> or <b>TortoiseSVN</b> to download the code from our subversion repository.</p>
-<p>Anonymous read access is enabled.</p>
-<p>You can either get the latest version from</p>
+<div class="textblock"><p>Use any GIT client like <b>git</b> or <b>TortoiseGIT</b> to download the code from our GitHub repository.</p>
+<p>You can also download the repository as a zipped file, but you won't be able to get updates via git pull.</p>
 <ul>
-<li><a href="https://xpcc.svn.sourceforge.net/svnroot/xpcc/trunk">https://xpcc.svn.sourceforge.net/svnroot/xpcc/trunk</a></li>
+<li><a href="https://github.com/roboterclubaachen/xpcc/zipball/master">https://github.com/roboterclubaachen/xpcc/zipball/master</a></li>
+</ul>
+<p>Get the latest version here:</p>
+<ul>
+<li><a href="https://github.com/roboterclubaachen/xpcc/">https://github.com/roboterclubaachen/xpcc/</a></li>
 </ul>
 <p>But be aware, as this is the current development tree, it might change without any notice. The documentation is generated from this version.</p>
-<p>To get the stable versions look at</p>
-<ul>
-<li><a href="https://xpcc.svn.sourceforge.net/svnroot/xpcc/tags">https://xpcc.svn.sourceforge.net/svnroot/xpcc/tags</a></li>
-</ul>
 <h2><a class="anchor" id="linux"></a>
-Linux</h2>
+Linux and OS X</h2>
 <ol type="1">
-<li>Pick a directory for the sources. We will call this directory <code>xpcc</code>.</li>
-<li>Check out XPCC: <div class="fragment"><pre class="fragment">
-svn co https://xpcc.svn.sourceforge.net/svnroot/xpcc/trunk xpcc
+<li>Pick a directory for the sources, something like 'development'.</li>
+<li>Clone XPCC, which will create a folder 'xpcc' in that directory: <div class="fragment"><pre class="fragment">
+git clone git://github.com/roboterclubaachen/xpcc.git
 </pre></div> </li>
 </ol>
 </div></div><!-- contents -->
@@ -134,7 +133,7 @@ svn co https://xpcc.svn.sourceforge.net/svnroot/xpcc/trunk xpcc
     <ul>
       <li class="navelem"><a class="el" href="index.html">Cross Platform Component Communication</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:32 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

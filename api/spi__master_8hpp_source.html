@@ -142,43 +142,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00065"></a><a class="code" href="classxpcc_1_1_spi_master.html">00065</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_spi_master.html" title="Interface of SPI Master.">SpiMaster</a> : <span class="keyword">public</span> <a class="code" href="classxpcc_1_1_interface.html" title="Interface class.">Interface</a>
 <a name="l00066"></a>00066     {
 <a name="l00067"></a>00067     <span class="keyword">public</span>:
-<a name="l00068"></a>00068         <span class="keyword">enum</span> BufferIncrease
-<a name="l00069"></a>00069         {
-<a name="l00070"></a>00070             BUFFER_DECR_BOTH = 0x00,
-<a name="l00071"></a>00071             BUFFER_INCR_TRANSMIT_DECR_RECEIVE = 0x01,
-<a name="l00072"></a>00072             BUFFER_DECR_TRANSMIT_INCR_RECEIVE = 0x02,
-<a name="l00073"></a>00073             BUFFER_INCR_BOTH = 0x03,
-<a name="l00074"></a>00074         };
-<a name="l00075"></a>00075         
-<a name="l00076"></a>00076         <span class="keyword">enum</span> TransferOptions
-<a name="l00077"></a>00077         {
-<a name="l00078"></a>00078             TRANSFER_SEND_DUMMY_DISCARD_RECEIVE = 0x00,
-<a name="l00079"></a>00079             TRANSFER_SEND_BUFFER_DISCARD_RECEIVE = 0x01,
-<a name="l00080"></a>00080             TRANSFER_SEND_DUMMY_SAVE_RECEIVE = 0x02,
-<a name="l00081"></a>00081             TRANSFER_SEND_BUFFER_SAVE_RECEIVE = 0x03,
-<a name="l00082"></a>00082         };
-<a name="l00083"></a>00083         
-<a name="l00084"></a>00084     <span class="keyword">public</span>: 
-<a name="l00086"></a>00086         <span class="keyword">static</span> uint8_t
-<a name="l00087"></a>00087         <a class="code" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9" title="initiates a SPI transfer and returns the received byte">write</a>(uint8_t data);
-<a name="l00088"></a>00088         
-<a name="l00098"></a>00098         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00099"></a>00099         <a class="code" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
-<a name="l00100"></a>00100                   uint8_t* transmit=0, uint8_t* receive=0,
-<a name="l00101"></a>00101                   BufferIncrease bufferIncrease=BUFFER_INCR_BOTH);
-<a name="l00102"></a>00102         
-<a name="l00109"></a>00109         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00110"></a>00110         <a class="code" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25" title="Request an asynchronous transfer, synchronous if DMA unavailable.">transfer</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
-<a name="l00111"></a>00111         
-<a name="l00113"></a>00113         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00114"></a>00114         <a class="code" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e" title="synchronous transfer, even if using DMA">transferSync</a>(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
-<a name="l00115"></a>00115         
-<a name="l00117"></a>00117         <span class="keyword">static</span> <span class="keywordtype">bool</span>
-<a name="l00118"></a>00118         <a class="code" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d">isFinished</a>();
-<a name="l00119"></a>00119     };
-<a name="l00120"></a>00120 }
-<a name="l00121"></a>00121 
-<a name="l00122"></a>00122 <span class="preprocessor">#endif // XPCC_SPI__MASTER_HPP</span>
+<a name="l00069"></a><a class="code" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">00069</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522" title="options to increase or decrease the transmit or receive buffer">BufferIncrease</a>
+<a name="l00070"></a>00070         {
+<a name="l00071"></a>00071             BUFFER_DECR_BOTH = 0x00,
+<a name="l00072"></a>00072             BUFFER_INCR_TRANSMIT_DECR_RECEIVE = 0x01,
+<a name="l00073"></a>00073             BUFFER_DECR_TRANSMIT_INCR_RECEIVE = 0x02,
+<a name="l00074"></a>00074             BUFFER_INCR_BOTH = 0x03,
+<a name="l00075"></a>00075         };
+<a name="l00076"></a>00076         
+<a name="l00078"></a><a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">00078</a>         <span class="keyword">enum</span> <a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7" title="options to send the buffer or dummy bytes, and save or discard the received bytes">TransferOptions</a>
+<a name="l00079"></a>00079         {
+<a name="l00080"></a>00080             TRANSFER_SEND_DUMMY_DISCARD_RECEIVE = 0x00,
+<a name="l00081"></a>00081             TRANSFER_SEND_BUFFER_DISCARD_RECEIVE = 0x01,
+<a name="l00082"></a>00082             TRANSFER_SEND_DUMMY_SAVE_RECEIVE = 0x02,
+<a name="l00083"></a>00083             TRANSFER_SEND_BUFFER_SAVE_RECEIVE = 0x03,
+<a name="l00084"></a>00084         };
+<a name="l00085"></a>00085         
+<a name="l00086"></a>00086     <span class="keyword">public</span>: 
+<a name="l00088"></a>00088         <span class="keyword">static</span> uint8_t
+<a name="l00089"></a>00089         <a class="code" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9" title="initiates a SPI transfer and returns the received byte">write</a>(uint8_t data);
+<a name="l00090"></a>00090         
+<a name="l00100"></a>00100         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00101"></a>00101         <a class="code" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97" title="Set the data buffers and data length.">setBuffer</a>(uint16_t length,
+<a name="l00102"></a>00102                   uint8_t* transmit=0, uint8_t* receive=0,
+<a name="l00103"></a>00103                   <a class="code" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522" title="options to increase or decrease the transmit or receive buffer">BufferIncrease</a> bufferIncrease=BUFFER_INCR_BOTH);
+<a name="l00104"></a>00104         
+<a name="l00111"></a>00111         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00112"></a>00112         <a class="code" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25" title="Request an asynchronous transfer, synchronous if DMA unavailable.">transfer</a>(<a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7" title="options to send the buffer or dummy bytes, and save or discard the received bytes">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+<a name="l00113"></a>00113         
+<a name="l00115"></a>00115         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00116"></a>00116         <a class="code" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e" title="synchronous transfer, even if using DMA">transferSync</a>(<a class="code" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7" title="options to send the buffer or dummy bytes, and save or discard the received bytes">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+<a name="l00117"></a>00117         
+<a name="l00119"></a>00119         <span class="keyword">static</span> <span class="keywordtype">bool</span>
+<a name="l00120"></a>00120         <a class="code" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d">isFinished</a>();
+<a name="l00121"></a>00121     };
+<a name="l00122"></a>00122 }
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124 <span class="preprocessor">#endif // XPCC_SPI__MASTER_HPP</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -199,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>spi_master.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:30 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:44 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

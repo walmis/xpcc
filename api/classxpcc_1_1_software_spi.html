@@ -129,16 +129,18 @@ Inheritance diagram for xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;:</
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BufferIncrease</b> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a> { <b>BUFFER_DECR_BOTH</b> =  0x00, 
 <b>BUFFER_INCR_TRANSMIT_DECR_RECEIVE</b> =  0x01, 
 <b>BUFFER_DECR_TRANSMIT_INCR_RECEIVE</b> =  0x02, 
 <b>BUFFER_INCR_BOTH</b> =  0x03
  }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TransferOptions</b> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">options to increase or decrease the transmit or receive buffer <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> { <b>TRANSFER_SEND_DUMMY_DISCARD_RECEIVE</b> =  0x00, 
 <b>TRANSFER_SEND_BUFFER_DISCARD_RECEIVE</b> =  0x01, 
 <b>TRANSFER_SEND_DUMMY_SAVE_RECEIVE</b> =  0x02, 
 <b>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</b> =  0x03
  }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">options to send the buffer or dummy bytes, and save or discard the received bytes <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14b4a1290acc9317ddaa27e439e90f59"></a><!-- doxytag: member="xpcc::SoftwareSpi::initialize" ref="a14b4a1290acc9317ddaa27e439e90f59" args="()" -->
@@ -146,12 +148,12 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize</b>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad179284b1658b79322fd9f68f11ff122"></a><!-- doxytag: member="xpcc::SoftwareSpi::write" ref="ad179284b1658b79322fd9f68f11ff122" args="(uint8_t data)" -->
 static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#ad179284b1658b79322fd9f68f11ff122">write</a> (uint8_t data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">initiates a SPI transfer and returns the received byte <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, BufferIncrease bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#aed01f7f2ccd8ed85b6ac24f4188e196c">setBuffer</a> (uint16_t length, uint8_t *transmit=0, uint8_t *receive=0, <a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a> bufferIncrease=BUFFER_INCR_BOTH)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data buffers and data length.  <a href="#aed01f7f2ccd8ed85b6ac24f4188e196c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c">transfer</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c">transfer</a> (<a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Request an asynchronous transfer, synchronous if DMA unavailable.  <a href="#a6bb0e40c8f7b3952713530bc8418df6c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e17376a33cf5e1cdb6f82c971da6cbb"></a><!-- doxytag: member="xpcc::SoftwareSpi::transferSync" ref="a2e17376a33cf5e1cdb6f82c971da6cbb" args="(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)" -->
-static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb">transferSync</a> (TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#a2e17376a33cf5e1cdb6f82c971da6cbb">transferSync</a> (<a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a> options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">synchronous transfer, even if using DMA <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_software_spi.html#aaf5dcd3f5c5a294a0580c8341f2d4140">isFinished</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-types"></a>
@@ -233,7 +235,7 @@ template&lt;typename Clk , typename Mosi , typename Miso , int32_t Frequency = 2
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">BufferIncrease&#160;</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522">BufferIncrease</a>&#160;</td>
           <td class="paramname"><em>bufferIncrease</em> = <code>BUFFER_INCR_BOTH</code>&#160;</td>
         </tr>
         <tr>
@@ -268,7 +270,7 @@ template&lt;typename Clk , typename Mosi , typename Miso , int32_t Frequency = 2
         <tr>
           <td class="memname">static bool <a class="el" href="classxpcc_1_1_software_spi.html">xpcc::SoftwareSpi</a>&lt; Clk, Mosi, Miso, Frequency &gt;::<a class="el" href="classxpcc_1_1_software_spi.html#a6bb0e40c8f7b3952713530bc8418df6c">transfer</a> </td>
           <td>(</td>
-          <td class="paramtype">TransferOptions&#160;</td>
+          <td class="paramtype"><a class="el" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7">TransferOptions</a>&#160;</td>
           <td class="paramname"><em>options</em> = <code>TRANSFER_SEND_BUFFER_SAVE_RECEIVE</code></td><td>)</td>
           <td><code> [static]</code></td>
         </tr>
@@ -332,7 +334,7 @@ template&lt;typename Clk , typename Mosi , typename Miso , int32_t Frequency = 2
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_software_spi.html">SoftwareSpi</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 5 2012 21:41:36 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:48 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">
