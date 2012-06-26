@@ -3,6 +3,7 @@ var classxpcc_1_1sab_1_1_master =
     [ "QueryStatus", "classxpcc_1_1sab_1_1_master.html#ab36ad33c0275c1de893982e1e2bfe19e", null ],
     [ "initialize", "classxpcc_1_1sab_1_1_master.html#aa49cc54632c0c92ca1c9fdecae151e1a", null ],
     [ "query", "classxpcc_1_1sab_1_1_master.html#a8399d16fa1b888fd590db0f7d93d6635", null ],
+    [ "query", "classxpcc_1_1sab_1_1_master.html#a5b88e44c10823c6f84bd526f7def4e5f", null ],
     [ "query", "classxpcc_1_1sab_1_1_master.html#abaded5bc118da6f22657b44c54f7529a", null ],
     [ "isQueryCompleted", "classxpcc_1_1sab_1_1_master.html#a5d82797ffcc011d08ce5bab009e94321", null ],
     [ "isSuccess", "classxpcc_1_1sab_1_1_master.html#a45065707b5dfde347313a6c78f430bf8", null ],

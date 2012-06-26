@@ -3175,8 +3175,6 @@
         <topic label="getPayloadLength" href="classxpcc_1_1amnb_1_1_interface.html#a4889bb6ff7aa3e7ecf6b746f8ff2c778"/>
         <topic label="dropMessage" href="classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7"/>
         <topic label="update" href="classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff"/>
-        <topic label="latency" href="classxpcc_1_1amnb_1_1_interface.html#add85a0aaccd437bbb8317446186338f2"/>
-        <topic label="collisions" href="classxpcc_1_1amnb_1_1_interface.html#aaf2bf0ff56f3a21cb432969f299588ad"/>
       </topic>
       <topic label="xpcc::sab::Interface&lt; Device &gt;" href="classxpcc_1_1sab_1_1_interface.html">
         <topic label="initialize" href="classxpcc_1_1sab_1_1_interface.html#a6937f58c44f6ee2296eca203716ab230"/>
@@ -3586,6 +3584,7 @@
         <topic label="QueryStatus" href="classxpcc_1_1sab_1_1_master.html#ab36ad33c0275c1de893982e1e2bfe19e"/>
         <topic label="initialize" href="classxpcc_1_1sab_1_1_master.html#aa49cc54632c0c92ca1c9fdecae151e1a"/>
         <topic label="query" href="classxpcc_1_1sab_1_1_master.html#a8399d16fa1b888fd590db0f7d93d6635"/>
+        <topic label="query" href="classxpcc_1_1sab_1_1_master.html#a5b88e44c10823c6f84bd526f7def4e5f"/>
         <topic label="query" href="classxpcc_1_1sab_1_1_master.html#abaded5bc118da6f22657b44c54f7529a"/>
         <topic label="isQueryCompleted" href="classxpcc_1_1sab_1_1_master.html#a5d82797ffcc011d08ce5bab009e94321"/>
         <topic label="isSuccess" href="classxpcc_1_1sab_1_1_master.html#a45065707b5dfde347313a6c78f430bf8"/>

@@ -121,8 +121,8 @@ $ sudo apt-get install gcc-avr binutils-avr avr-libc avrdude
 Optimisations</h2>
 <p>You should tell SCons the location of the xpcc folder, so you can use XPCC without having to provide its location in every project. To use more than one CPU you might want to add the following to the end of your '.bashrc' file (adjust the '4' to the number of CPUs in your system):</p>
 <div class="fragment"><pre class="fragment">
-export XPCC_HOME = "path/to/the/xpcc/root/folder"
-export SCONSFLAGS="-Q -j4 --site-tools=${XPCC_HOME}/scons/"
+export XPCC_HOME="path/to/the/xpcc/root/folder/"
+export SCONSFLAGS="-Q -j4 --site-dir=${XPCC_HOME}/scons/"
 </pre></div><p>For more information on the parameter this read the chapter about <a class="el" href="build_system.html">SCons</a>.</p>
 <h2><a class="anchor" id="avrdude"></a>
 avrdude and USB programmers</h2>
@@ -163,7 +163,7 @@ sudo /etc/init.d/udev restart
       <li class="navelem"><a class="el" href="index.html">Cross Platform Component Communication</a>      </li>
       <li class="navelem"><a class="el" href="installation.html">2. Install the build environment</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Sun Jun 24 2012 03:39:45 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Tue Jun 26 2012 15:48:01 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

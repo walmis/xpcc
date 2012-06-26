@@ -17,7 +17,5 @@ var classxpcc_1_1amnb_1_1_interface =
     [ "getPayload", "classxpcc_1_1amnb_1_1_interface.html#a820a4bd723ecde3484970e732581a68d", null ],
     [ "getPayloadLength", "classxpcc_1_1amnb_1_1_interface.html#a4889bb6ff7aa3e7ecf6b746f8ff2c778", null ],
     [ "dropMessage", "classxpcc_1_1amnb_1_1_interface.html#a9582810fb4f902b36d42749698aeeab7", null ],
-    [ "update", "classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff", null ],
-    [ "latency", "classxpcc_1_1amnb_1_1_interface.html#add85a0aaccd437bbb8317446186338f2", null ],
-    [ "collisions", "classxpcc_1_1amnb_1_1_interface.html#aaf2bf0ff56f3a21cb432969f299588ad", null ]
+    [ "update", "classxpcc_1_1amnb_1_1_interface.html#a6e1364a2c18a4856eb6ba7028bfdf5ff", null ]
 ];

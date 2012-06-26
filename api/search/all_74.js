@@ -10,7 +10,7 @@ var searchData=
   ['thread',['Thread',['../classxpcc_1_1rtos_1_1_thread.html',1,'xpcc::rtos']]],
   ['thread',['Thread',['../classxpcc_1_1rtos_1_1_thread.html#a76a170dedb6db5be245032171548e6bd',1,'xpcc::rtos::Thread::Thread(uint32_t priority=0, uint16_t stackDepth=0, const char *name=NULL)'],['../classxpcc_1_1rtos_1_1_thread.html#aa596af82866c0eb46412ca5ff87bb1db',1,'xpcc::rtos::Thread::Thread(uint32_t priority=0, uint16_t stackDepth=minimalStackSize, const char *name=NULL)']]],
   ['timeout',['Timeout',['../classxpcc_1_1_timeout.html',1,'xpcc']]],
-  ['timeout',['Timeout',['../classxpcc_1_1_timeout.html#a473a4de59f92f84fe8b660cc1bc8abc1',1,'xpcc::Timeout::Timeout()'],['../classxpcc_1_1amnb_1_1_node.html#a68cfb7c81b855e4727ee753cb951cbf2',1,'xpcc::amnb::Node::timeout()'],['../classxpcc_1_1sab_1_1_master.html#ae08c96ca0a573d4b76154ef7bccde857',1,'xpcc::sab::Master::timeout()']]],
+  ['timeout',['timeout',['../classxpcc_1_1amnb_1_1_node.html#a68cfb7c81b855e4727ee753cb951cbf2',1,'xpcc::amnb::Node::timeout()'],['../classxpcc_1_1sab_1_1_master.html#ae08c96ca0a573d4b76154ef7bccde857',1,'xpcc::sab::Master::timeout()'],['../classxpcc_1_1_timeout.html#a473a4de59f92f84fe8b660cc1bc8abc1',1,'xpcc::Timeout::Timeout()']]],
   ['timeout_3c_20xpcc_3a_3aamnb_3a_3aclock_20_3e',['Timeout< xpcc::amnb::Clock >',['../classxpcc_1_1_timeout.html',1,'xpcc']]],
   ['timer',['Timer',['../classxpcc_1_1at91_1_1_timer.html',1,'xpcc::at91']]],
   ['timer0',['Timer0',['../classxpcc_1_1at91_1_1_timer0.html',1,'xpcc::at91']]],
