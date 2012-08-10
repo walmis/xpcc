@@ -100,18 +100,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">xpcc::I2cEeprom&lt; I2C &gt; Member List</div>  </div>
+<div class="title">xpcc::I2cEeprom&lt; I2cMaster &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
-This is the complete list of members for <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>I2cEeprom</b>(uint8_t address) (defined in <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a>)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae168fe4de2103b46f9b7d4c07db84886">isAvailable</a>() const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20">read</a>(uint16_t address, uint8_t *data, uint8_t bytes) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#aa06774c3a70b3eb3be820631ff3fe6f9">read</a>(uint16_t address, T &amp;data) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a73cb5c223f96e92313d5d23bd5b20b4f">readByte</a>(uint16_t address, uint8_t &amp;data) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a">write</a>(uint16_t address, const uint8_t *data, uint8_t bytes) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a1a35b57101198bfe55198b5f65eee760">write</a>(uint16_t address, const T &amp;data) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a88a608ad3b8f8ddb91e6d48a80811598">writeByte</a>(uint16_t address, uint8_t data) const </td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2C &gt;</a></td><td></td></tr>
+This is the complete list of members for <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>DetachCause</b> enum name (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>DetachCause</b> enum name (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>ERROR_CONDITION</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a">event</a>(uint8_t code)=0</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td><code> [pure virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>I2cEeprom</b>(uint8_t address) (defined in <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a>)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>isAvailable</b>() (defined in <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a>)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1">NextOperation</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1">NextOperation</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607">NextOperationAfterRead</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607">NextOperationAfterRead</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e">NextOperationAfterWrite</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e">NextOperationAfterWrite</a> enum name</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>NORMAL_STOP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a497ea9b27a2d5b7b17469359041f4657">read</a>(uint16_t address, uint8_t *data, uint8_t bytes)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a32d5d1107962a60cbdcc2ca3c3535e86">read</a>(uint16_t address, T &amp;data)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>READ</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>READ_OP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>READ_RESTART</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>READ_STOP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#af89746e4864eb7c90af073d4edeeb17e">readByte</a>(uint16_t address, uint8_t &amp;data)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>RESTART</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>RESTART_OP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>SOFTWARE_RESET</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>STOP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>STOP_OP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>WRITE</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c">write</a>(uint16_t address, const uint8_t *data, uint8_t bytes)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a7d301e963c8f3deea6b2954fdb05114b">write</a>(uint16_t address, const T &amp;data)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>WRITE_OP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>WRITE_RESTART</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>WRITE_STOP</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>WRITE_WRITE</b> enum value (defined in <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a>)</td><td><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html">xpcc::i2c::Delegate</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html#acb83edc2a1b0ddd2f16e7e6c3b1b59fb">writeByte</a>(uint16_t address, uint8_t data)</td><td><a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom&lt; I2cMaster &gt;</a></td><td></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -131,7 +156,7 @@ This is the complete list of members for <a class="el" href="classxpcc_1_1_i2c_e
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 26 2012 15:48:05 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Fri Aug 10 2012 22:27:00 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

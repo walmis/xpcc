@@ -5,6 +5,7 @@ var classxpcc_1_1amnb_1_1_node =
     [ "Node", "classxpcc_1_1amnb_1_1_node.html#abfd5792cb23b8986d605bb29060f1438", null ],
     [ "Node", "classxpcc_1_1amnb_1_1_node.html#aa1909d5d561d55216dbd00420f9a7096", null ],
     [ "query", "classxpcc_1_1amnb_1_1_node.html#ad345c91a18be6e7f5e00aec211c525b9", null ],
+    [ "query", "classxpcc_1_1amnb_1_1_node.html#af196220f90cbc3bb31d64565789ea112", null ],
     [ "query", "classxpcc_1_1amnb_1_1_node.html#ae55496ee36f53fb7c4fedde5febf80b0", null ],
     [ "broadcast", "classxpcc_1_1amnb_1_1_node.html#a57e8841891b14af9210d0e01012fe8de", null ],
     [ "broadcast", "classxpcc_1_1amnb_1_1_node.html#ac76d10594603b70104f9f2d3895acede", null ],

@@ -2,6 +2,7 @@ var searchData=
 [
   ['callable',['Callable',['../structxpcc_1_1amnb_1_1_callable.html',1,'xpcc::amnb']]],
   ['callable',['Callable',['../structxpcc_1_1sab_1_1_callable.html',1,'xpcc::sab']]],
+  ['can',['Can',['../classxpcc_1_1lpc_1_1_can.html',1,'xpcc::lpc']]],
   ['can1',['Can1',['../classxpcc_1_1stm32_1_1_can1.html',1,'xpcc::stm32']]],
   ['canconnector',['CanConnector',['../classxpcc_1_1_can_connector.html',1,'xpcc']]],
   ['canconnectorbase',['CanConnectorBase',['../classxpcc_1_1_can_connector_base.html',1,'xpcc']]],
@@ -10,6 +11,7 @@ var searchData=
   ['canusb',['CanUsb',['../classxpcc_1_1_can_usb.html',1,'xpcc']]],
   ['characterdisplay',['CharacterDisplay',['../classxpcc_1_1_character_display.html',1,'xpcc']]],
   ['circle2d',['Circle2D',['../classxpcc_1_1_circle2_d.html',1,'xpcc']]],
+  ['clock',['Clock',['../classxpcc_1_1avr32_1_1_clock.html',1,'xpcc::avr32']]],
   ['clock',['Clock',['../classxpcc_1_1stm32_1_1_clock.html',1,'xpcc::stm32']]],
   ['clock',['Clock',['../classxpcc_1_1lpc_1_1_clock.html',1,'xpcc::lpc']]],
   ['clock',['Clock',['../classxpcc_1_1amnb_1_1_clock.html',1,'xpcc::amnb']]],

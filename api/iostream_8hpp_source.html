@@ -141,19 +141,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039 <span class="keyword">namespace </span>xpcc
 <a name="l00040"></a>00040 {
-<a name="l00049"></a><a class="code" href="classxpcc_1_1_i_o_stream.html">00049</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>
+<a name="l00049"></a><a class="code" href="classxpcc_1_1_i_o_stream.html">00049</a>     <span class="keyword">class </span><a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>
 <a name="l00050"></a>00050     {
 <a name="l00051"></a>00051     <span class="keyword">public</span> :
 <a name="l00062"></a>00062         <a class="code" href="classxpcc_1_1_i_o_stream.html#a956dc0ee22d9a1193fe565f1c8746e64" title="Constructor.">IOStream</a>(<a class="code" href="classxpcc_1_1_i_o_device.html" title="Abstract calls of io-devices.">IODevice</a>&amp; device);
 <a name="l00063"></a>00063 
-<a name="l00064"></a>00064         <span class="keyword">inline</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00064"></a>00064         <span class="keyword">inline</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp;
 <a name="l00065"></a>00065         write(<span class="keywordtype">char</span> c)
 <a name="l00066"></a>00066         {
 <a name="l00067"></a>00067             this-&gt;device-&gt;<a class="code" href="classxpcc_1_1_i_o_device.html#a1cf77f9920038b7f68d95d8c7e1d34fb" title="Write a single character.">write</a>(c);
 <a name="l00068"></a>00068             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00069"></a>00069         }
 <a name="l00070"></a>00070         
-<a name="l00071"></a>00071         <span class="keyword">inline</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00071"></a>00071         <span class="keyword">inline</span> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp;
 <a name="l00072"></a>00072         flush()
 <a name="l00073"></a>00073         {
 <a name="l00074"></a>00074             this-&gt;device-&gt;flush();
@@ -161,14 +161,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00076"></a>00076             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00077"></a>00077         }
 <a name="l00078"></a>00078         
-<a name="l00080"></a>00080         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00080"></a>00080         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp;
 <a name="l00081"></a><a class="code" href="classxpcc_1_1_i_o_stream.html#a5fc256c0ac76183a547c40a2cdb0fa93">00081</a>         <a class="code" href="classxpcc_1_1_i_o_stream.html#a5fc256c0ac76183a547c40a2cdb0fa93" title="set the output mode to HEX style for char and char* ">hex</a>()
 <a name="l00082"></a>00082         {
 <a name="l00083"></a>00083             this-&gt;mode = HEX;
 <a name="l00084"></a>00084             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00085"></a>00085         }
 <a name="l00086"></a>00086 
-<a name="l00088"></a>00088         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00088"></a>00088         <a class="code" href="group__platform.html#gaa1dec568e79152c892dcf63f445cbd7a" title="Force inlining.">ALWAYS_INLINE</a> <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp;
 <a name="l00089"></a><a class="code" href="classxpcc_1_1_i_o_stream.html#a609d723cea9b8808037135c6f2decba3">00089</a>         <a class="code" href="classxpcc_1_1_i_o_stream.html#a609d723cea9b8808037135c6f2decba3" title="set the output mode to ASCII style for char and char* ">ascii</a>()
 <a name="l00090"></a>00090         {
 <a name="l00091"></a>00091             this-&gt;mode = ASCII;
@@ -176,7 +176,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00093"></a>00093         }
 <a name="l00094"></a>00094         
 <a name="l00095"></a>00095         
-<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp;
+<a name="l00096"></a>00096         <a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp;
 <a name="l00097"></a>00097         operator &lt;&lt; (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>&amp; v)
 <a name="l00098"></a>00098         {
 <a name="l00099"></a>00099             <span class="keywordflow">if</span> (this-&gt;mode == ASCII) {
@@ -275,7 +275,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00192"></a>00192         }
 <a name="l00193"></a>00193 <span class="preprocessor">#endif</span>
 <a name="l00194"></a>00194 <span class="preprocessor"></span>        
-<a name="l00195"></a>00195 <span class="preprocessor">#if defined(XPCC__CPU_ARM)</span>
+<a name="l00195"></a>00195 <span class="preprocessor">#if defined(XPCC__CPU_ARM) || defined(XPCC__CPU_AVR32)</span>
 <a name="l00196"></a>00196 <span class="preprocessor"></span>        <span class="comment">// For ARM &#39;int32_t&#39; is of type &#39;long&#39;. Therefore there is no</span>
 <a name="l00197"></a>00197         <span class="comment">// function here for the default type &#39;int&#39;. As &#39;int&#39; has the same</span>
 <a name="l00198"></a>00198         <span class="comment">// width as &#39;int32_t&#39; we just use a typedef here.</span>
@@ -409,31 +409,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00405"></a>00405     };
 <a name="l00406"></a>00406     
 <a name="l00413"></a>00413     <span class="keyword">inline</span> IOStream&amp;
-<a name="l00414"></a><a class="code" href="group__io.html#gad904310cb0e9d63393ab5720d5726f9a">00414</a>     <a class="code" href="group__io.html#gad904310cb0e9d63393ab5720d5726f9a" title="Flushes the output stream.">flush</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp; ios)
+<a name="l00414"></a><a class="code" href="group__io.html#gad904310cb0e9d63393ab5720d5726f9a">00414</a>     <a class="code" href="group__io.html#gad904310cb0e9d63393ab5720d5726f9a" title="Flushes the output stream.">flush</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp; ios)
 <a name="l00415"></a>00415     {
 <a name="l00416"></a>00416         <span class="keywordflow">return</span> ios.flush();
 <a name="l00417"></a>00417     }
 <a name="l00418"></a>00418     
 <a name="l00424"></a>00424     <span class="keyword">inline</span> IOStream&amp;
-<a name="l00425"></a><a class="code" href="group__io.html#ga60df96dcfa5efe2fc97c184cba798b94">00425</a>     <a class="code" href="group__io.html#ga60df96dcfa5efe2fc97c184cba798b94" title="Write a newline and flush the stream.">endl</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp; ios)
+<a name="l00425"></a><a class="code" href="group__io.html#ga60df96dcfa5efe2fc97c184cba798b94">00425</a>     <a class="code" href="group__io.html#ga60df96dcfa5efe2fc97c184cba798b94" title="Write a newline and flush the stream.">endl</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp; ios)
 <a name="l00426"></a>00426     {
 <a name="l00427"></a>00427         <span class="keywordflow">return</span> <a class="code" href="group__io.html#gad904310cb0e9d63393ab5720d5726f9a" title="Flushes the output stream.">flush</a>(ios.write(<span class="charliteral">&#39;\n&#39;</span>));
 <a name="l00428"></a>00428     }
 <a name="l00429"></a>00429 
 <a name="l00435"></a>00435     <span class="keyword">inline</span> IOStream&amp;
-<a name="l00436"></a><a class="code" href="group__io.html#gaaa5119b077c35c3dad513dd3dab71596">00436</a>     <a class="code" href="group__io.html#gaaa5119b077c35c3dad513dd3dab71596" title="set the output mode to HEX style for char and char* ">hex</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp; ios)
+<a name="l00436"></a><a class="code" href="group__io.html#gaaa5119b077c35c3dad513dd3dab71596">00436</a>     <a class="code" href="group__io.html#gaaa5119b077c35c3dad513dd3dab71596" title="set the output mode to HEX style for char and char* ">hex</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp; ios)
 <a name="l00437"></a>00437     {
 <a name="l00438"></a>00438         <span class="keywordflow">return</span> ios.<a class="code" href="classxpcc_1_1_i_o_stream.html#a5fc256c0ac76183a547c40a2cdb0fa93" title="set the output mode to HEX style for char and char* ">hex</a>();
 <a name="l00439"></a>00439     }
 <a name="l00440"></a>00440 
 <a name="l00446"></a>00446     <span class="keyword">inline</span> IOStream&amp;
-<a name="l00447"></a><a class="code" href="group__io.html#ga9527a9e1d877c2106a762ca4998348d6">00447</a>     <a class="code" href="group__io.html#ga9527a9e1d877c2106a762ca4998348d6" title="set the output mode to ASCII style for char and char* ">ascii</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp; ios)
+<a name="l00447"></a><a class="code" href="group__io.html#ga9527a9e1d877c2106a762ca4998348d6">00447</a>     <a class="code" href="group__io.html#ga9527a9e1d877c2106a762ca4998348d6" title="set the output mode to ASCII style for char and char* ">ascii</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp; ios)
 <a name="l00448"></a>00448     {
 <a name="l00449"></a>00449         <span class="keywordflow">return</span> ios.<a class="code" href="classxpcc_1_1_i_o_stream.html#a609d723cea9b8808037135c6f2decba3" title="set the output mode to ASCII style for char and char* ">ascii</a>();
 <a name="l00450"></a>00450     }
 <a name="l00451"></a>00451 
 <a name="l00457"></a>00457     <span class="keyword">inline</span> IOStream&amp;
-<a name="l00458"></a><a class="code" href="group__io.html#ga3cbb9ff2ad67a6ef8a2b55fcad5c2e61">00458</a>     <a class="code" href="group__io.html#ga3cbb9ff2ad67a6ef8a2b55fcad5c2e61" title="Set the foreground colour on ANSI terminals.">black</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary typs into a string stream for output or it reads values from a input and con...">IOStream</a>&amp; ios)
+<a name="l00458"></a><a class="code" href="group__io.html#ga3cbb9ff2ad67a6ef8a2b55fcad5c2e61">00458</a>     <a class="code" href="group__io.html#ga3cbb9ff2ad67a6ef8a2b55fcad5c2e61" title="Set the foreground colour on ANSI terminals.">black</a>(<a class="code" href="classxpcc_1_1_i_o_stream.html" title="This Formats all primary types into a string stream for output or it reads values from a input and co...">IOStream</a>&amp; ios)
 <a name="l00459"></a>00459     {
 <a name="l00460"></a>00460         ios.write(<span class="charliteral">&#39;\033&#39;</span>);
 <a name="l00461"></a>00461         ios.write(<span class="charliteral">&#39;[&#39;</span>);
@@ -544,7 +544,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>iostream.hpp</b>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 26 2012 15:47:59 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Fri Aug 10 2012 22:26:54 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['range',['Range',['../classxpcc_1_1avr32_1_1_clock.html#a046369dbcf577f4adb4958fc2aa1a106',1,'xpcc::avr32::Clock']]],
   ['receptionstate',['ReceptionState',['../structxpcc_1_1_interconnect_link.html#a0cc500c619b08444ec89002beeeec8e4',1,'xpcc::InterconnectLink']]],
   ['reference',['Reference',['../namespacexpcc_1_1atxmega_1_1adc.html#a9619e95e7d9e0d7522c13bd649023d4a',1,'xpcc::atxmega::adc']]],
   ['register',['Register',['../classxpcc_1_1_mcp4922.html#a57f88db5fdae273b35abed4a6d3bc096',1,'xpcc::Mcp4922']]],

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>xpcc: xpcc::I2cEeprom&lt; I2C &gt; Class Template Reference</title>
+<title>xpcc: xpcc::I2cEeprom&lt; I2cMaster &gt; Class Template Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -100,62 +100,157 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">xpcc::I2cEeprom&lt; I2C &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
+<div class="title">xpcc::I2cEeprom&lt; I2cMaster &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="xpcc::I2cEeprom" -->
+<!-- doxytag: class="xpcc::I2cEeprom" --><!-- doxytag: inherits="xpcc::i2c::Delegate" -->
 <p>I2C Eeprom.  
  <a href="classxpcc_1_1_i2c_eeprom.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="i2c__eeprom_8hpp_source.html">xpcc/driver/storage/i2c_eeprom.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for xpcc::I2cEeprom&lt; I2cMaster &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classxpcc_1_1_i2c_eeprom.png" usemap="#xpcc::I2cEeprom&lt; I2cMaster &gt;_map" alt=""/>
+  <map id="xpcc::I2cEeprom&lt; I2cMaster &gt;_map" name="xpcc::I2cEeprom&lt; I2cMaster &gt;_map">
+<area href="classxpcc_1_1i2c_1_1_delegate.html" title="Abstract class for delegation." alt="xpcc::i2c::Delegate" shape="rect" coords="97,56,282,80"/>
+<area href="classxpcc_1_1_interface.html" title="Interface class." alt="xpcc::Interface" shape="rect" coords="0,0,185,24"/>
+<area href="classxpcc_1_1_interface.html" title="Interface class." alt="xpcc::Interface" shape="rect" coords="195,0,380,24"/>
+</map>
+ </div></div>
 
 <p><a href="classxpcc_1_1_i2c_eeprom-members.html">List of all members.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1">NextOperation</a> { <br/>
+&#160;&#160;<b>STOP_OP</b>, 
+<b>RESTART_OP</b>, 
+<b>WRITE_OP</b>, 
+<b>READ_OP</b>, 
+<br/>
+&#160;&#160;<b>WRITE</b>, 
+<b>READ</b>, 
+<b>STOP</b>, 
+<b>RESTART</b>
+<br/>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after start or restart. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1">NextOperation</a> { <br/>
+&#160;&#160;<b>STOP_OP</b>, 
+<b>RESTART_OP</b>, 
+<b>WRITE_OP</b>, 
+<b>READ_OP</b>, 
+<br/>
+&#160;&#160;<b>WRITE</b>, 
+<b>READ</b>, 
+<b>STOP</b>, 
+<b>RESTART</b>
+<br/>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after start or restart. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e">NextOperationAfterWrite</a> { <br/>
+&#160;&#160;<b>WRITE_STOP</b>, 
+<b>WRITE_RESTART</b>, 
+<b>WRITE_WRITE</b>, 
+<b>WRITE_STOP</b>, 
+<br/>
+&#160;&#160;<b>WRITE_RESTART</b>, 
+<b>WRITE_WRITE</b>
+<br/>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after write. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e">NextOperationAfterWrite</a> { <br/>
+&#160;&#160;<b>WRITE_STOP</b>, 
+<b>WRITE_RESTART</b>, 
+<b>WRITE_WRITE</b>, 
+<b>WRITE_STOP</b>, 
+<br/>
+&#160;&#160;<b>WRITE_RESTART</b>, 
+<b>WRITE_WRITE</b>
+<br/>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after write. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607">NextOperationAfterRead</a> { <b>READ_STOP</b>, 
+<b>READ_RESTART</b>, 
+<b>READ_STOP</b>, 
+<b>READ_RESTART</b>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after read. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607">NextOperationAfterRead</a> { <b>READ_STOP</b>, 
+<b>READ_RESTART</b>, 
+<b>READ_STOP</b>, 
+<b>READ_RESTART</b>
+ }</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible operations after read. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>DetachCause</b> { <br/>
+&#160;&#160;<b>NORMAL_STOP</b>, 
+<b>ERROR_CONDITION</b>, 
+<b>SOFTWARE_RESET</b>, 
+<b>NORMAL_STOP</b>, 
+<br/>
+&#160;&#160;<b>ERROR_CONDITION</b>, 
+<b>SOFTWARE_RESET</b>
+<br/>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>DetachCause</b> { <br/>
+&#160;&#160;<b>NORMAL_STOP</b>, 
+<b>ERROR_CONDITION</b>, 
+<b>SOFTWARE_RESET</b>, 
+<b>NORMAL_STOP</b>, 
+<br/>
+&#160;&#160;<b>ERROR_CONDITION</b>, 
+<b>SOFTWARE_RESET</b>
+<br/>
+ }</td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac6db6f4ddb3fa2b8d834eff0a6a71bd"></a><!-- doxytag: member="xpcc::I2cEeprom::I2cEeprom" ref="aac6db6f4ddb3fa2b8d834eff0a6a71bd" args="(uint8_t address)" -->
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46662c70d9c90e0deb0b028ac73ab67a"></a><!-- doxytag: member="xpcc::I2cEeprom::I2cEeprom" ref="a46662c70d9c90e0deb0b028ac73ab67a" args="(uint8_t address)" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>I2cEeprom</b> (uint8_t address)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a88a608ad3b8f8ddb91e6d48a80811598">writeByte</a> (uint16_t address, uint8_t data) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write byte.  <a href="#a88a608ad3b8f8ddb91e6d48a80811598"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a">write</a> (uint16_t address, const uint8_t *data, uint8_t bytes) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write block.  <a href="#a045951f321c9deb1e7841b01405b958a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#acb83edc2a1b0ddd2f16e7e6c3b1b59fb">writeByte</a> (uint16_t address, uint8_t data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write byte.  <a href="#acb83edc2a1b0ddd2f16e7e6c3b1b59fb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c">write</a> (uint16_t address, const uint8_t *data, uint8_t bytes)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Write block.  <a href="#a19bf21839709fc2e7250d1cf27f58c3c"></a><br/></td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a1a35b57101198bfe55198b5f65eee760">write</a> (uint16_t address, const T &amp;data) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function.  <a href="#a1a35b57101198bfe55198b5f65eee760"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73cb5c223f96e92313d5d23bd5b20b4f"></a><!-- doxytag: member="xpcc::I2cEeprom::readByte" ref="a73cb5c223f96e92313d5d23bd5b20b4f" args="(uint16_t address, uint8_t &amp;data) const " -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a73cb5c223f96e92313d5d23bd5b20b4f">readByte</a> (uint16_t address, uint8_t &amp;data) const </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a7d301e963c8f3deea6b2954fdb05114b">write</a> (uint16_t address, const T &amp;data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function.  <a href="#a7d301e963c8f3deea6b2954fdb05114b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af89746e4864eb7c90af073d4edeeb17e"></a><!-- doxytag: member="xpcc::I2cEeprom::readByte" ref="af89746e4864eb7c90af073d4edeeb17e" args="(uint16_t address, uint8_t &amp;data)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#af89746e4864eb7c90af073d4edeeb17e">readByte</a> (uint16_t address, uint8_t &amp;data)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read byte. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae13ee848dc4112b6592b85ede1bacb20"></a><!-- doxytag: member="xpcc::I2cEeprom::read" ref="ae13ee848dc4112b6592b85ede1bacb20" args="(uint16_t address, uint8_t *data, uint8_t bytes) const " -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20">read</a> (uint16_t address, uint8_t *data, uint8_t bytes) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a497ea9b27a2d5b7b17469359041f4657"></a><!-- doxytag: member="xpcc::I2cEeprom::read" ref="a497ea9b27a2d5b7b17469359041f4657" args="(uint16_t address, uint8_t *data, uint8_t bytes)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a497ea9b27a2d5b7b17469359041f4657">read</a> (uint16_t address, uint8_t *data, uint8_t bytes)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Read block. <br/></td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#aa06774c3a70b3eb3be820631ff3fe6f9">read</a> (uint16_t address, T &amp;data) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function.  <a href="#aa06774c3a70b3eb3be820631ff3fe6f9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae168fe4de2103b46f9b7d4c07db84886">isAvailable</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the device is accessable.  <a href="#ae168fe4de2103b46f9b7d4c07db84886"></a><br/></td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classxpcc_1_1_i2c_eeprom.html#a32d5d1107962a60cbdcc2ca3c3535e86">read</a> (uint16_t address, T &amp;data)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function.  <a href="#a32d5d1107962a60cbdcc2ca3c3535e86"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b85067228ae6397b1845776ac6160a1"></a><!-- doxytag: member="xpcc::I2cEeprom::isAvailable" ref="a0b85067228ae6397b1845776ac6160a1" args="()" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isAvailable</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a">event</a> (uint8_t code)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Is called during an internal event.  <a href="#ab3cbce9bb9f315fb8143e8c47bc9c49a"></a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename I2C&gt;<br/>
-class xpcc::I2cEeprom&lt; I2C &gt;</h3>
+<div class="textblock"><h3>template&lt;typename I2cMaster&gt;<br/>
+class xpcc::I2cEeprom&lt; I2cMaster &gt;</h3>
 
-<p>Compatible with the 24C256 family and other I2C eeprom with an 16-bit address pointer.</p>
-<p>For example: </p>
-<div class="fragment"><pre class="fragment">
-24xx256	- base address 0xA0
-</pre></div><dl class="author"><dt><b>Author:</b></dt><dd>Fabian Greif </dd></dl>
+<p>Compatible with the 24C256 (ST) and 24FC1025 (Microchip) family and other I2C eeprom with an 16-bit address pointer. Base address for most <a class="el" href="namespacexpcc_1_1i2c.html" title="I2C Interface.">i2c</a> eeproms is 0xA0.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Fabian Greif </dd>
+<dd>
+Niklas Hauser </dd></dl>
 
-<p>Definition at line <a class="el" href="i2c__eeprom_8hpp_source.html#l00053">53</a> of file <a class="el" href="i2c__eeprom_8hpp_source.html">i2c_eeprom.hpp</a>.</p>
+<p>Definition at line <a class="el" href="i2c__eeprom_8hpp_source.html#l00050">50</a> of file <a class="el" href="i2c__eeprom_8hpp_source.html">i2c_eeprom.hpp</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a88a608ad3b8f8ddb91e6d48a80811598"></a><!-- doxytag: member="xpcc::I2cEeprom::writeByte" ref="a88a608ad3b8f8ddb91e6d48a80811598" args="(uint16_t address, uint8_t data) const " -->
+<a class="anchor" id="acb83edc2a1b0ddd2f16e7e6c3b1b59fb"></a><!-- doxytag: member="xpcc::I2cEeprom::writeByte" ref="acb83edc2a1b0ddd2f16e7e6c3b1b59fb" args="(uint16_t address, uint8_t data)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I2C &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2C &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a88a608ad3b8f8ddb91e6d48a80811598">writeByte</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#acb83edc2a1b0ddd2f16e7e6c3b1b59fb">writeByte</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -169,7 +264,7 @@ template&lt;typename I2C &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -185,14 +280,14 @@ template&lt;typename I2C &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a045951f321c9deb1e7841b01405b958a"></a><!-- doxytag: member="xpcc::I2cEeprom::write" ref="a045951f321c9deb1e7841b01405b958a" args="(uint16_t address, const uint8_t *data, uint8_t bytes) const " -->
+<a class="anchor" id="a19bf21839709fc2e7250d1cf27f58c3c"></a><!-- doxytag: member="xpcc::I2cEeprom::write" ref="a19bf21839709fc2e7250d1cf27f58c3c" args="(uint16_t address, const uint8_t *data, uint8_t bytes)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I2C &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2C &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a">write</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c">write</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -212,7 +307,7 @@ template&lt;typename I2C &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -229,16 +324,16 @@ template&lt;typename I2C &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a1a35b57101198bfe55198b5f65eee760"></a><!-- doxytag: member="xpcc::I2cEeprom::write" ref="a1a35b57101198bfe55198b5f65eee760" args="(uint16_t address, const T &amp;data) const " -->
+<a class="anchor" id="a7d301e963c8f3deea6b2954fdb05114b"></a><!-- doxytag: member="xpcc::I2cEeprom::write" ref="a7d301e963c8f3deea6b2954fdb05114b" args="(uint16_t address, const T &amp;data)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I2C &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2C &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a">write</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c">write</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -252,26 +347,26 @@ template&lt;typename T &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const<code> [inline]</code></td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Shortcut for: </p>
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">return</span> <a class="code" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a" title="Write block.">write</a>(address, static_cast&lt;const uint8_t *&gt;(&amp;data), <span class="keyword">sizeof</span>(T));
+<div class="fragment"><pre class="fragment"> <span class="keywordflow">return</span> <a class="code" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c" title="Write block.">write</a>(address, static_cast&lt;const uint8_t *&gt;(&amp;data), <span class="keyword">sizeof</span>(T));
 </pre></div> 
 </div>
 </div>
-<a class="anchor" id="aa06774c3a70b3eb3be820631ff3fe6f9"></a><!-- doxytag: member="xpcc::I2cEeprom::read" ref="aa06774c3a70b3eb3be820631ff3fe6f9" args="(uint16_t address, T &amp;data) const " -->
+<a class="anchor" id="a32d5d1107962a60cbdcc2ca3c3535e86"></a><!-- doxytag: member="xpcc::I2cEeprom::read" ref="a32d5d1107962a60cbdcc2ca3c3535e86" args="(uint16_t address, T &amp;data)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I2C &gt; </div>
+template&lt;typename I2cMaster &gt; </div>
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2C &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20">read</a> </td>
+          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2cMaster &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#a497ea9b27a2d5b7b17469359041f4657">read</a> </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -285,32 +380,31 @@ template&lt;typename T &gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const<code> [inline]</code></td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Shortcut for: </p>
-<div class="fragment"><pre class="fragment"> <span class="keywordflow">return</span> <a class="code" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20" title="Read block.">read</a>(address, static_cast&lt;uint8_t *&gt;(&amp;data), <span class="keyword">sizeof</span>(T));
+<div class="fragment"><pre class="fragment"> <span class="keywordflow">return</span> <a class="code" href="classxpcc_1_1_i2c_eeprom.html#a497ea9b27a2d5b7b17469359041f4657" title="Read block.">read</a>(address, static_cast&lt;uint8_t *&gt;(&amp;data), <span class="keyword">sizeof</span>(T));
 </pre></div> 
 </div>
 </div>
-<a class="anchor" id="ae168fe4de2103b46f9b7d4c07db84886"></a><!-- doxytag: member="xpcc::I2cEeprom::isAvailable" ref="ae168fe4de2103b46f9b7d4c07db84886" args="() const " -->
+<a class="anchor" id="ab3cbce9bb9f315fb8143e8c47bc9c49a"></a><!-- doxytag: member="xpcc::I2cEeprom::event" ref="ab3cbce9bb9f315fb8143e8c47bc9c49a" args="(uint8_t code)=0" -->
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename I2C &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classxpcc_1_1_i2c_eeprom.html">xpcc::I2cEeprom</a>&lt; I2C &gt;::<a class="el" href="classxpcc_1_1_i2c_eeprom.html#ae168fe4de2103b46f9b7d4c07db84886">isAvailable</a> </td>
+          <td class="memname">virtual void <a class="el" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a">xpcc::i2c::Delegate::event</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>code</em></td><td>)</td>
+          <td><code> [pure virtual, inherited]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> the device responds to its address, <code>false</code> otherwise, i.a. if bus was not free, statrcondition failed or device did not responded. </dd></dl>
+<p>The code is hardware and architecture dependent. </p>
 
 </div>
 </div>
@@ -338,7 +432,7 @@ template&lt;typename I2C &gt; </div>
       <li class="navelem"><b>xpcc</b>      </li>
       <li class="navelem"><a class="el" href="classxpcc_1_1_i2c_eeprom.html">I2cEeprom</a>      </li>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 26 2012 15:48:05 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Fri Aug 10 2012 22:27:00 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

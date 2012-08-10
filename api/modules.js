@@ -1,6 +1,7 @@
 var modules =
 [
     [ "Unit tests", "group__unittest.html", null ],
+    [ "UC3B", "group__ucb3.html", null ],
     [ "Architecture", "group__architecture.html", "group__architecture" ],
     [ "Communication", "group__communication.html", "group__communication" ],
     [ "Containers", "group__container.html", null ],

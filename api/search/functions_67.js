@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['gcenable',['gcEnable',['../classxpcc_1_1avr32_1_1_clock.html#af2dc813f6362683ca732def5b5695d1d',1,'xpcc::avr32::Clock']]],
+  ['gcsetup',['gcSetup',['../classxpcc_1_1avr32_1_1_clock.html#aa365a0053ba08993b9c047ce06cca32e',1,'xpcc::avr32::Clock']]],
   ['get',['get',['../classxpcc_1_1_queue.html#adf6c9fea53aa053c3f377dd861521697',1,'xpcc::Queue::get()'],['../classxpcc_1_1_queue.html#a975de4f4684089135fc87aa159403f87',1,'xpcc::Queue::get() const '],['../classxpcc_1_1_smart_pointer.html#a0911da2b2ee98b67c49c3bd7b96e9e05',1,'xpcc::SmartPointer::get() const '],['../classxpcc_1_1_smart_pointer.html#ad2cbd072d3e1ebbc32c2021359c0594e',1,'xpcc::SmartPointer::get(T &amp;value) const ']]],
   ['getangle',['getAngle',['../classxpcc_1_1_vector_3_01_t_00_012_01_4.html#ac4d80c4a714d7c51a86de109a615bb21',1,'xpcc::Vector&lt; T, 2 &gt;']]],
   ['getback',['getBack',['../classxpcc_1_1_doubly_linked_list.html#ad5c4eb9e9f0b055dcf4bab7d8e761313',1,'xpcc::DoublyLinkedList::getBack()'],['../classxpcc_1_1_linked_list.html#a2a5d9b57a6f975ae81394c510d7bed34',1,'xpcc::LinkedList::getBack()']]],

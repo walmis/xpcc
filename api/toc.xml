@@ -86,6 +86,8 @@
   <topic label="Modules" href="modules.html">
     <topic label="Unit tests" href="group__unittest.html">
     </topic>
+    <topic label="UC3B" href="group__ucb3.html">
+    </topic>
     <topic label="Architecture" href="group__architecture.html">
       <topic label="Predefined boards" href="group__board.html">
       </topic>
@@ -1401,6 +1403,78 @@
         <topic label="pop" href="classxpcc_1_1_stack.html#a170739384306575a1888929d2acf5d6a"/>
         <topic label="c" href="classxpcc_1_1_stack.html#ac050d548462c218e76d27c831d90523d"/>
       </topic>
+      <topic label="xpcc::stm32::BufferedFlowUart4" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a0337590f47f2dfc1ee7a26a682f7ee6d"/>
+        <topic label="BufferedFlowUart4" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a510b7c19ab29ccceeee23e9cbc5247ab"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#ab8903889961b755a35b952dcae71a4a4"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a98258d0c701d2cc8c74deb77653db8c9"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a70fbc2520f298f5a4158615f82a59e7a"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a0e9123fbc9040f1c9c17ec722982f5b0"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a3265c3bfb74c579e250cbf01c27af861"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a91dc919d335a93d909f42715318c1a42"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html#a8b0eaff9520b954646b78cc03b183d2a"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
+      <topic label="xpcc::stm32::BufferedFlowUart5" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a864e23c223fba059443a9564b8bf6b5b"/>
+        <topic label="BufferedFlowUart5" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#ad6dc9b7a4dc705c5a030c2fdfe589672"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a88f967898198fffc41641fd2643493ce"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a13b9f93af7018dccdabc209f2b4f6c8d"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a9c72269fe667d0fe2a29aa12eefae20a"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a9544b923784945c4a210336fa4df66d2"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#ae7ee3f23a449c4bfae03d40eb3f8f46c"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#af4c96bef63d2402aca3324e3c2648172"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html#a7305c0c98eba4d3da74c08354c82841a"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
+      <topic label="xpcc::stm32::BufferedFlowUsart1" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a6ab695e07745536f47b1f614a198fb8a"/>
+        <topic label="BufferedFlowUsart1" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a0d30cb9b0b2b85948a1fc8a5258c2e3a"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a104a2dae2404d01f80d821348f30af47"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#aec443ebeb54aa8a728f99599820976db"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#ab2662b4c232cb985e3ec6221b3744766"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a5c07def62276cda79feec95b9f3611cd"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a40661896180bd5678624accdfd08b90f"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#a7ecff77726a501d22e6ef07d48c3b6b2"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html#abcc8152eaf01dfda509264e2ab026442"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
+      <topic label="xpcc::stm32::BufferedFlowUsart2" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#af0c82e23a05771def99e9b0f0578eece"/>
+        <topic label="BufferedFlowUsart2" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a69b08384d21b6b902a759064f71eb72d"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a48fa8c458b9789262808538a64dc0202"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a1209ce65a3b03162e2ab3497b665c718"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#ab7e43d8e49119912dcd79b63214ab156"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#afe023dfeff6dba1b8c503abecee7b221"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a4eb16d307f6e0758510ac1de286f2f3e"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a22a4d87ff1931d527de55afd2d24d27f"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html#a4e3c12c162a79fa1af31b4775c68ff22"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
+      <topic label="xpcc::stm32::BufferedFlowUsart3" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#afdb016e9972ed02fccf5ed5d7dccd58d"/>
+        <topic label="BufferedFlowUsart3" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#ad094262b0b44bf2660360ec91fa5bea8"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#aa7bef3c8dce338cf31d5c3d46953a417"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#a8b6f0c66cf8ad9ef5d9f118b4b314784"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#a35c54803ff599f0d885cdd63ad1c3549"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#a98b782045d583f32c55330ff8fbc5351"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#a6fc7237c4827bf559bde5e15e176daa2"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#af3cdb6de60fed5b2be574ebae8c53759"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html#abefd287b88c518e7cf0ba8f273fee679"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
+      <topic label="xpcc::stm32::BufferedFlowUsart6" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html">
+        <topic label="Mapping" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a20716ca08ede557018a3d1ab31418f35"/>
+        <topic label="BufferedFlowUsart6" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a89995ac97c117ed4de7566661f881383"/>
+        <topic label="configurePins" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a9947450d51c744dd591e43a1226c6281"/>
+        <topic label="setBaudrate" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a28943152b8e60ac6c9da50cf1298b7ce"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a2e9da029c760df90c51bb4072f87c9dd"/>
+        <topic label="write" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a49c5b7c1b727fd93d511c636cdd5b03e"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a347b34be4aa02d655ea0f1e51a5c449c"/>
+        <topic label="read" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#abde31752a78fc10de22b2c7a50d20451"/>
+        <topic label="flushReceiveBuffer" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html#a046d2351afe6faed76bbb563620118f6"/>
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      </topic>
       <topic label="xpcc::BufferedGraphicDisplay&lt; Width, Height &gt;" href="classxpcc_1_1_buffered_graphic_display.html">
         <topic label="~BufferedGraphicDisplay" href="classxpcc_1_1_buffered_graphic_display.html#a471c0ebc52c59887c46477098522f3c8"/>
         <topic label="getWidth" href="classxpcc_1_1_buffered_graphic_display.html#a1dc9ff827e9f198b4744a35c13d68116"/>
@@ -1491,6 +1565,14 @@
         <topic label="flushReceiveBuffer" href="classxpcc_1_1atmega_1_1_buffered_uart1.html#a3c63826e4fee1376a650dd32a87e4251"/>
         <topic label="read" href="classxpcc_1_1atmega_1_1_buffered_uart1.html#a499b4f034361ee89965ec01d18ac1fd1"/>
         <topic label="setBaudrateRegister" href="classxpcc_1_1atmega_1_1_buffered_uart1.html#a65bde0c8925c8502c855c26c95742af4"/>
+      </topic>
+      <topic label="xpcc::lpc::BufferedUart1" href="classxpcc_1_1lpc_1_1_buffered_uart1.html">
+        <topic label="BufferedUart1" href="classxpcc_1_1lpc_1_1_buffered_uart1.html#a8e6802fcd8993e3c62964409e5b6cd93"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_buffered_uart1.html#a99c44647c6e489bde3b2e45605bdee09"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_buffered_uart1.html#acad883b8b41fc556c96c9349cf2cc242"/>
+        <topic label="read" href="classxpcc_1_1lpc_1_1_buffered_uart1.html#a72ee2c8fadb000649032d9280b6b6a2f"/>
+        <topic label="read" href="classxpcc_1_1lpc_1_1_buffered_uart1.html#a04a2f6c8069056b2cadbbb74db08e77e"/>
+        <topic label="setBaudrate" href="classxpcc_1_1lpc_1_1_uart_base.html#ac628678393353fd977aaeb8d3da16c98"/>
       </topic>
       <topic label="xpcc::atmega::BufferedUart2" href="classxpcc_1_1atmega_1_1_buffered_uart2.html">
         <topic label="BufferedUart2" href="classxpcc_1_1atmega_1_1_buffered_uart2.html#a45fb572263b036aaf8adbc8c34883594"/>
@@ -1613,6 +1695,17 @@
       </topic>
       <topic label="xpcc::amnb::Callable" href="structxpcc_1_1amnb_1_1_callable.html"/>
       <topic label="xpcc::sab::Callable" href="structxpcc_1_1sab_1_1_callable.html"/>
+      <topic label="xpcc::lpc::Can" href="classxpcc_1_1lpc_1_1_can.html">
+        <topic label="initialize" href="classxpcc_1_1lpc_1_1_can.html#a675afdf9bb90f4888e466df4d287fd16"/>
+        <topic label="isMessageAvailable" href="classxpcc_1_1lpc_1_1_can.html#ad2acfaafe247f8ce98f7178dd1b51243"/>
+        <topic label="getMessage" href="classxpcc_1_1lpc_1_1_can.html#a28d6dca5a664bf060a16b22868bde7aa"/>
+        <topic label="isReadyToSend" href="classxpcc_1_1lpc_1_1_can.html#ae9ddcfad707245ffcce5f89b9efdd61e"/>
+        <topic label="sendMessage" href="classxpcc_1_1lpc_1_1_can.html#a9a8c7094a2a84b2a12162ba0433ec131"/>
+        <topic label="CAN_rx" href="classxpcc_1_1lpc_1_1_can.html#abc320189e75e2bc8b4f904b85bf3a999"/>
+        <topic label="CAN_tx" href="classxpcc_1_1lpc_1_1_can.html#a1eb22db231045a2d60595a6a4f76c5c4"/>
+        <topic label="CAN_error" href="classxpcc_1_1lpc_1_1_can.html#a629c9fa0d0430fc741019ec5deaa7462"/>
+        <topic label="rom" href="classxpcc_1_1lpc_1_1_can.html#a626264a93f8cc7bc25093285b0992b91"/>
+      </topic>
       <topic label="xpcc::stm32::Can1" href="classxpcc_1_1stm32_1_1_can1.html">
         <topic label="Mapping" href="classxpcc_1_1stm32_1_1_can1.html#abcd7dfb5030eff8a22ea9068d830fe6a"/>
         <topic label="configurePins" href="classxpcc_1_1stm32_1_1_can1.html#a57c918b94d3e3b78aa0860c7de7a9348"/>
@@ -1776,6 +1869,28 @@
         <topic label="now" href="classxpcc_1_1_clock.html#af53c13944a7ad95f3a9b9237031f7af0"/>
         <topic label="increment" href="classxpcc_1_1_clock.html#a2ef7b9b05734029b96924d5bef77d0e8"/>
         <topic label="time" href="classxpcc_1_1_clock.html#a10ffe0aec8d9ebfa28b27b8531d83329"/>
+      </topic>
+      <topic label="xpcc::avr32::Clock" href="classxpcc_1_1avr32_1_1_clock.html">
+        <topic label="OscConfig" href="classxpcc_1_1avr32_1_1_clock.html#a2c0359169a152d6d844149702c165555"/>
+        <topic label="StartupConfig" href="classxpcc_1_1avr32_1_1_clock.html#af0d943bfce0071ef6dd7c78b51bb1ae3"/>
+        <topic label="ClockSource" href="classxpcc_1_1avr32_1_1_clock.html#a7bc33476965d70e840a0609e435dceb6"/>
+        <topic label="Pll" href="classxpcc_1_1avr32_1_1_clock.html#af6c152e5336318369c6ff37e6e9820c2"/>
+        <topic label="Osc" href="classxpcc_1_1avr32_1_1_clock.html#a4027e7fce537c1d1c6827519c0186bb7"/>
+        <topic label="Mul" href="classxpcc_1_1avr32_1_1_clock.html#a682bf8bfd9279b25b701366fac6643bb"/>
+        <topic label="Div" href="classxpcc_1_1avr32_1_1_clock.html#a26c7a8f838772b78e91fa93e9190c005"/>
+        <topic label="Range" href="classxpcc_1_1avr32_1_1_clock.html#a046369dbcf577f4adb4958fc2aa1a106"/>
+        <topic label="OutputDivider" href="classxpcc_1_1avr32_1_1_clock.html#aed7a280e77a3c21fce17552dd0997224"/>
+        <topic label="GenericClock" href="classxpcc_1_1avr32_1_1_clock.html#a821f9f5e032cdf9e48cd53b63483bdad"/>
+        <topic label="GenericClockSource" href="classxpcc_1_1avr32_1_1_clock.html#a5c06361dc6a60835b77b7dfed548909d"/>
+        <topic label="enableOsc" href="classxpcc_1_1avr32_1_1_clock.html#aa8268eddb659b6289fd4da71722cf5e5"/>
+        <topic label="startOsc" href="classxpcc_1_1avr32_1_1_clock.html#ac2de9014fc763f50faae9f44c6b772c5"/>
+        <topic label="switchToClock" href="classxpcc_1_1avr32_1_1_clock.html#ac79398956690b4c2b49dbf77fd389b14"/>
+        <topic label="pllSetup" href="classxpcc_1_1avr32_1_1_clock.html#a2a10c20cb40766671c8aac4e6c458a85"/>
+        <topic label="pllEnable" href="classxpcc_1_1avr32_1_1_clock.html#a36175b8b3182e44bae4be530045bca13"/>
+        <topic label="selectClock" href="classxpcc_1_1avr32_1_1_clock.html#a51c2c622c20fb5ef4fdc73d6d98f733c"/>
+        <topic label="gcSetup" href="classxpcc_1_1avr32_1_1_clock.html#aa365a0053ba08993b9c047ce06cca32e"/>
+        <topic label="gcEnable" href="classxpcc_1_1avr32_1_1_clock.html#af2dc813f6362683ca732def5b5695d1d"/>
+        <topic label="enableUsbClock" href="classxpcc_1_1avr32_1_1_clock.html#ace7eb719ed93f57ac7816feb180b9210"/>
       </topic>
       <topic label="xpcc::Communicatable" href="classxpcc_1_1_communicatable.html"/>
       <topic label="xpcc::CommunicatableTask" href="classxpcc_1_1_communicatable_task.html">
@@ -3035,15 +3150,24 @@
         <topic label="saturation" href="classxpcc_1_1color_1_1_hsv.html#aad584d77bd5aa1a3d6687d416f74eaaa"/>
         <topic label="value" href="classxpcc_1_1color_1_1_hsv.html#af35be1f5db46680d08c6123707dcb91f"/>
       </topic>
-      <topic label="xpcc::I2cEeprom&lt; I2C &gt;" href="classxpcc_1_1_i2c_eeprom.html">
-        <topic label="I2cEeprom" href="classxpcc_1_1_i2c_eeprom.html#aac6db6f4ddb3fa2b8d834eff0a6a71bd"/>
-        <topic label="writeByte" href="classxpcc_1_1_i2c_eeprom.html#a88a608ad3b8f8ddb91e6d48a80811598"/>
-        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a045951f321c9deb1e7841b01405b958a"/>
-        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a1a35b57101198bfe55198b5f65eee760"/>
-        <topic label="readByte" href="classxpcc_1_1_i2c_eeprom.html#a73cb5c223f96e92313d5d23bd5b20b4f"/>
-        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#ae13ee848dc4112b6592b85ede1bacb20"/>
-        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#aa06774c3a70b3eb3be820631ff3fe6f9"/>
-        <topic label="isAvailable" href="classxpcc_1_1_i2c_eeprom.html#ae168fe4de2103b46f9b7d4c07db84886"/>
+      <topic label="xpcc::I2cEeprom&lt; I2cMaster &gt;" href="classxpcc_1_1_i2c_eeprom.html">
+        <topic label="NextOperation" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1"/>
+        <topic label="NextOperation" href="classxpcc_1_1i2c_1_1_delegate.html#a159da80d32c70d01ff169f3ac99a37f1"/>
+        <topic label="NextOperationAfterWrite" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e"/>
+        <topic label="NextOperationAfterWrite" href="classxpcc_1_1i2c_1_1_delegate.html#af4d18277012b8fbf93d314435db8525e"/>
+        <topic label="NextOperationAfterRead" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607"/>
+        <topic label="NextOperationAfterRead" href="classxpcc_1_1i2c_1_1_delegate.html#a73c74363ce43496b5c3d66767fe56607"/>
+        <topic label="DetachCause" href="classxpcc_1_1i2c_1_1_delegate.html#a1948c1e100fbbce948c2e0e05839e8bb"/>
+        <topic label="DetachCause" href="classxpcc_1_1i2c_1_1_delegate.html#a1948c1e100fbbce948c2e0e05839e8bb"/>
+        <topic label="I2cEeprom" href="classxpcc_1_1_i2c_eeprom.html#a46662c70d9c90e0deb0b028ac73ab67a"/>
+        <topic label="writeByte" href="classxpcc_1_1_i2c_eeprom.html#acb83edc2a1b0ddd2f16e7e6c3b1b59fb"/>
+        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a19bf21839709fc2e7250d1cf27f58c3c"/>
+        <topic label="write" href="classxpcc_1_1_i2c_eeprom.html#a7d301e963c8f3deea6b2954fdb05114b"/>
+        <topic label="readByte" href="classxpcc_1_1_i2c_eeprom.html#af89746e4864eb7c90af073d4edeeb17e"/>
+        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#a497ea9b27a2d5b7b17469359041f4657"/>
+        <topic label="read" href="classxpcc_1_1_i2c_eeprom.html#a32d5d1107962a60cbdcc2ca3c3535e86"/>
+        <topic label="isAvailable" href="classxpcc_1_1_i2c_eeprom.html#a0b85067228ae6397b1845776ac6160a1"/>
+        <topic label="event" href="classxpcc_1_1i2c_1_1_delegate.html#ab3cbce9bb9f315fb8143e8c47bc9c49a"/>
       </topic>
       <topic label="xpcc::atmega::I2cMaster" href="classxpcc_1_1atmega_1_1_i2c_master.html">
         <topic label="ErrorState" href="classxpcc_1_1atmega_1_1_i2c_master.html#a181e2feeb342aa71bf4723d1755f2abf"/>
@@ -3208,6 +3332,16 @@
         <topic label="update" href="classxpcc_1_1sab2_1_1_interface.html#a996939036e299a07f2980353bdcee176"/>
       </topic>
       <topic label="xpcc::Interface" href="classxpcc_1_1_interface.html"/>
+      <topic label="xpcc::avr32::timer::interrupt" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html">
+        <topic label="etrgs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#a6c449d6ff5186894bb382bd32fcd9cee"/>
+        <topic label="ldrbs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#a33d3a5b86fea414804c28d5ce6423d07"/>
+        <topic label="ldras" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#ae49acb79e85d9c2b5a3da381dc659104"/>
+        <topic label="cpcs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#a5ea1a02a0ed179c62a11840bd9df4b44"/>
+        <topic label="cpbs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#aca18c93d3a5dc0130208272babec8116"/>
+        <topic label="cpas" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#a7c7a836d4b5035b11dc205e24cc5aa05"/>
+        <topic label="lovrs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#a7bfe6feba978e3641464c3ec691ca22d"/>
+        <topic label="covfs" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html#af36665726a5b2fc7675899bdc9487cfd"/>
+      </topic>
       <topic label="xpcc::gpio::Invert&lt; Pin &gt;" href="classxpcc_1_1gpio_1_1_invert.html">
         <topic label="setOutput" href="classxpcc_1_1gpio_1_1_invert.html#a1356077ec096eb936c358012075d1397"/>
         <topic label="setOutput" href="classxpcc_1_1gpio_1_1_invert.html#af59200138124272201fdf862f4e0293f"/>
@@ -3494,8 +3628,8 @@
         <topic label="back" href="classxpcc_1_1_linked_list.html#ab15cd9c61a5a1f80898173b23d615c2b"/>
       </topic>
       <topic label="xpcc::amnb::Listener" href="structxpcc_1_1amnb_1_1_listener.html">
-        <topic label="Callback" href="structxpcc_1_1amnb_1_1_listener.html#a645a7283825eba1cbca54ee84f3ca99a"/>
-        <topic label="call" href="structxpcc_1_1amnb_1_1_listener.html#a154577e58bb79626430972b6834f693f"/>
+        <topic label="Callback" href="structxpcc_1_1amnb_1_1_listener.html#ad10e1eb031c1e1fff80f04b8e9e806f1"/>
+        <topic label="call" href="structxpcc_1_1amnb_1_1_listener.html#aed65c4ebe84992f33685685c7792a112"/>
         <topic label="address" href="structxpcc_1_1amnb_1_1_listener.html#abb63d4297ee9d136be90da134f26ba0d"/>
         <topic label="command" href="structxpcc_1_1amnb_1_1_listener.html#a4bb3471a63ba80a6b3fe0aaf7d179cda"/>
         <topic label="object" href="structxpcc_1_1amnb_1_1_listener.html#ae05f145b43e3958206b6177c8a35393c"/>
@@ -3574,12 +3708,6 @@
         <topic label="decompose" href="classxpcc_1_1_l_u_decomposition.html#ac595163b2d8f8a59461fac8633ac8dc4"/>
         <topic label="solve" href="classxpcc_1_1_l_u_decomposition.html#a4627c304a8eacb580c8f0780b7337ec4"/>
       </topic>
-      <topic label="xpcc::i2c::Master" href="classxpcc_1_1i2c_1_1_master.html">
-        <topic label="start" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89"/>
-        <topic label="startSync" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216"/>
-        <topic label="reset" href="classxpcc_1_1i2c_1_1_master.html#a48ee37397780944e1048a54b613c180a"/>
-        <topic label="getErrorState" href="classxpcc_1_1i2c_1_1_master.html#a85d3628c184fa4140b9c29528837beca"/>
-      </topic>
       <topic label="xpcc::sab::Master&lt; Interface &gt;" href="classxpcc_1_1sab_1_1_master.html">
         <topic label="QueryStatus" href="classxpcc_1_1sab_1_1_master.html#ab36ad33c0275c1de893982e1e2bfe19e"/>
         <topic label="initialize" href="classxpcc_1_1sab_1_1_master.html#aa49cc54632c0c92ca1c9fdecae151e1a"/>
@@ -3590,13 +3718,19 @@
         <topic label="isSuccess" href="classxpcc_1_1sab_1_1_master.html#a45065707b5dfde347313a6c78f430bf8"/>
         <topic label="getErrorCode" href="classxpcc_1_1sab_1_1_master.html#a26b784501e87ce256395182b0ab9ae50"/>
         <topic label="getResponse" href="classxpcc_1_1sab_1_1_master.html#a0e70e607c041cce7a9e8a84823e2e33c"/>
-        <topic label="getResponse" href="classxpcc_1_1sab_1_1_master.html#a837c1f1968953321036fa39834f6ad09"/>
+        <topic label="getResponse" href="classxpcc_1_1sab_1_1_master.html#a98bf8d230429b5bfc09a022fda655d71"/>
         <topic label="update" href="classxpcc_1_1sab_1_1_master.html#a1baf471aff7e6cbd890a06e92972eead"/>
         <topic label="interface" href="classxpcc_1_1sab_1_1_master.html#a5540b5fccf9b5feba8eb03a1aa9d3d94"/>
         <topic label="queryStatus" href="classxpcc_1_1sab_1_1_master.html#abaa7b9ba72bd0295f220f8a32450d7b0"/>
         <topic label="expectedResponseLength" href="classxpcc_1_1sab_1_1_master.html#a3e89375adbd0b6c35f542c52d34cf299"/>
         <topic label="timer" href="classxpcc_1_1sab_1_1_master.html#ac632ba49eb3a2f55e474e1316e330286"/>
         <topic label="timeout" href="classxpcc_1_1sab_1_1_master.html#ae08c96ca0a573d4b76154ef7bccde857"/>
+      </topic>
+      <topic label="xpcc::i2c::Master" href="classxpcc_1_1i2c_1_1_master.html">
+        <topic label="start" href="classxpcc_1_1i2c_1_1_master.html#a6c72a92b7b7cd271136a4f810c576b89"/>
+        <topic label="startSync" href="classxpcc_1_1i2c_1_1_master.html#a928247e0e15c1f5f701d574197d05216"/>
+        <topic label="reset" href="classxpcc_1_1i2c_1_1_master.html#a48ee37397780944e1048a54b613c180a"/>
+        <topic label="getErrorState" href="classxpcc_1_1i2c_1_1_master.html#a85d3628c184fa4140b9c29528837beca"/>
       </topic>
       <topic label="xpcc::Matrix&lt; T, ROWS, COLUMNS &gt;" href="classxpcc_1_1_matrix.html">
         <topic label="Matrix" href="classxpcc_1_1_matrix.html#a1f8cc9e92303444d7b5acf3fc08c56c9"/>
@@ -3776,14 +3910,14 @@
         <topic label="read" href="classxpcc_1_1gpio_1_1_nibble.html#ab70ea57c6644d2a0394c775fe9d502dd"/>
         <topic label="write" href="classxpcc_1_1gpio_1_1_nibble.html#a7f1c8ac42307ff65c2aec7550fdcb1d3"/>
       </topic>
-      <topic label="xpcc::LinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_linked_list_1_1_node.html">
-        <topic label="value" href="structxpcc_1_1_linked_list_1_1_node.html#a9daec409fe008e9accddcce3084ca923"/>
-        <topic label="next" href="structxpcc_1_1_linked_list_1_1_node.html#a5d62cff41a20abc9ca2ac6991652f7a6"/>
-      </topic>
       <topic label="xpcc::DoublyLinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_doubly_linked_list_1_1_node.html">
         <topic label="value" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a81520a31188c2a7fcdae67a329fdf830"/>
         <topic label="previous" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a737bffabe85c9901949c42035200d605"/>
         <topic label="next" href="structxpcc_1_1_doubly_linked_list_1_1_node.html#a44658487886ea776bcaaa848d600ce15"/>
+      </topic>
+      <topic label="xpcc::LinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_linked_list_1_1_node.html">
+        <topic label="value" href="structxpcc_1_1_linked_list_1_1_node.html#a9daec409fe008e9accddcce3084ca923"/>
+        <topic label="next" href="structxpcc_1_1_linked_list_1_1_node.html#a5d62cff41a20abc9ca2ac6991652f7a6"/>
       </topic>
       <topic label="xpcc::amnb::Node&lt; Interface &gt;" href="classxpcc_1_1amnb_1_1_node.html">
         <topic label="QueryStatus" href="classxpcc_1_1amnb_1_1_node.html#ae7e9e6652ebadb03487fd0274224c333"/>
@@ -3791,6 +3925,7 @@
         <topic label="Node" href="classxpcc_1_1amnb_1_1_node.html#abfd5792cb23b8986d605bb29060f1438"/>
         <topic label="Node" href="classxpcc_1_1amnb_1_1_node.html#aa1909d5d561d55216dbd00420f9a7096"/>
         <topic label="query" href="classxpcc_1_1amnb_1_1_node.html#ad345c91a18be6e7f5e00aec211c525b9"/>
+        <topic label="query" href="classxpcc_1_1amnb_1_1_node.html#af196220f90cbc3bb31d64565789ea112"/>
         <topic label="query" href="classxpcc_1_1amnb_1_1_node.html#ae55496ee36f53fb7c4fedde5febf80b0"/>
         <topic label="broadcast" href="classxpcc_1_1amnb_1_1_node.html#a57e8841891b14af9210d0e01012fe8de"/>
         <topic label="broadcast" href="classxpcc_1_1amnb_1_1_node.html#ac76d10594603b70104f9f2d3895acede"/>
@@ -4103,6 +4238,18 @@
         <topic label="y" href="classxpcc_1_1_quaternion.html#a77f630663bd37c43fa4d897dc8c0c177"/>
         <topic label="z" href="classxpcc_1_1_quaternion.html#aab0cb0a9de66ed5d75e69214b19e79d6"/>
       </topic>
+      <topic label="xpcc::atomic::Queue&lt; T, N &gt;" href="classxpcc_1_1atomic_1_1_queue.html">
+        <topic label="Size" href="classxpcc_1_1atomic_1_1_queue.html#a330cf801491d3a6675041e2987145d53"/>
+        <topic label="Queue" href="classxpcc_1_1atomic_1_1_queue.html#a9fa2bc4ecf3c021b80e387fc2a9bb6d7"/>
+        <topic label="isFull" href="classxpcc_1_1atomic_1_1_queue.html#a7d6920f9581cd6c0603c383b69ea26b0"/>
+        <topic label="isNearlyFull" href="classxpcc_1_1atomic_1_1_queue.html#af0a0f1b60302573bd5e2c2ff29748bf2"/>
+        <topic label="isEmpty" href="classxpcc_1_1atomic_1_1_queue.html#a460c93733a2a92545d468ab4a2d35da3"/>
+        <topic label="isNearlyEmpty" href="classxpcc_1_1atomic_1_1_queue.html#a97354223a7edacb6cb9c501985d63917"/>
+        <topic label="getMaxSize" href="classxpcc_1_1atomic_1_1_queue.html#a04322d78e08a1a9d15db52ea757f2d39"/>
+        <topic label="get" href="classxpcc_1_1atomic_1_1_queue.html#a873da6c8c54f30bcc229417f049eccc8"/>
+        <topic label="push" href="classxpcc_1_1atomic_1_1_queue.html#a2e3ae55c3528d48ee8c48b3a971b3ec9"/>
+        <topic label="pop" href="classxpcc_1_1atomic_1_1_queue.html#ad393604167ad689e417e257794483fb2"/>
+      </topic>
       <topic label="xpcc::rtos::Queue&lt; T &gt;" href="classxpcc_1_1rtos_1_1_queue.html">
         <topic label="Queue" href="classxpcc_1_1rtos_1_1_queue.html#a49e3bb75c6a7ba82a07c0dcf357c0633"/>
         <topic label="~Queue" href="classxpcc_1_1rtos_1_1_queue.html#afda319461c42c3f214beb6d16b8b4efd"/>
@@ -4122,18 +4269,6 @@
         <topic label="appendFromInterrupt" href="classxpcc_1_1rtos_1_1_queue.html#a08f7891dabf3228896a1ab5e4e9127b2"/>
         <topic label="prependFromInterrupt" href="classxpcc_1_1rtos_1_1_queue.html#a8a5e76293b9088da7ead7232b60e8ecf"/>
         <topic label="getFromInterrupt" href="classxpcc_1_1rtos_1_1_queue.html#a023dcede9080877aa31501c2087309e3"/>
-      </topic>
-      <topic label="xpcc::atomic::Queue&lt; T, N &gt;" href="classxpcc_1_1atomic_1_1_queue.html">
-        <topic label="Size" href="classxpcc_1_1atomic_1_1_queue.html#a330cf801491d3a6675041e2987145d53"/>
-        <topic label="Queue" href="classxpcc_1_1atomic_1_1_queue.html#a9fa2bc4ecf3c021b80e387fc2a9bb6d7"/>
-        <topic label="isFull" href="classxpcc_1_1atomic_1_1_queue.html#a7d6920f9581cd6c0603c383b69ea26b0"/>
-        <topic label="isNearlyFull" href="classxpcc_1_1atomic_1_1_queue.html#af0a0f1b60302573bd5e2c2ff29748bf2"/>
-        <topic label="isEmpty" href="classxpcc_1_1atomic_1_1_queue.html#a460c93733a2a92545d468ab4a2d35da3"/>
-        <topic label="isNearlyEmpty" href="classxpcc_1_1atomic_1_1_queue.html#a97354223a7edacb6cb9c501985d63917"/>
-        <topic label="getMaxSize" href="classxpcc_1_1atomic_1_1_queue.html#a04322d78e08a1a9d15db52ea757f2d39"/>
-        <topic label="get" href="classxpcc_1_1atomic_1_1_queue.html#a873da6c8c54f30bcc229417f049eccc8"/>
-        <topic label="push" href="classxpcc_1_1atomic_1_1_queue.html#a2e3ae55c3528d48ee8c48b3a971b3ec9"/>
-        <topic label="pop" href="classxpcc_1_1atomic_1_1_queue.html#ad393604167ad689e417e257794483fb2"/>
       </topic>
       <topic label="xpcc::Queue&lt; T, Container &gt;" href="classxpcc_1_1_queue.html">
         <topic label="Size" href="classxpcc_1_1_queue.html#a22b626c9cea492425dee0907fb84c5b6"/>
@@ -4299,11 +4434,6 @@
         <topic label="destination" href="classxpcc_1_1_response_handle.html#a7c2dc3e3f60f5a84c7140fb659d696d5"/>
         <topic label="packetIdentifier" href="classxpcc_1_1_response_handle.html#a2a8f020b4f6ce3fbc8115264d492c90a"/>
       </topic>
-      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html">
-        <topic label="red" href="classxpcc_1_1color_1_1_rgb.html#a0f95e1ef9e4456ffe7a776ec57287ef3"/>
-        <topic label="green" href="classxpcc_1_1color_1_1_rgb.html#ae121f3c3dd711591df915cfb74801db7"/>
-        <topic label="blue" href="classxpcc_1_1color_1_1_rgb.html#afe169f989b25c6f0b029e0df76e0f116"/>
-      </topic>
       <topic label="xpcc::led::Rgb&lt; Red, Green, Blue &gt;" href="classxpcc_1_1led_1_1_rgb.html">
         <topic label="Rgb" href="classxpcc_1_1led_1_1_rgb.html#a9592d2724c5d8f87dd1d7a27111d9c74"/>
         <topic label="setBrightness" href="classxpcc_1_1led_1_1_rgb.html#a8ce03b08b12c7f3610ee366fcc15dd60"/>
@@ -4311,6 +4441,11 @@
         <topic label="isFading" href="classxpcc_1_1led_1_1_rgb.html#a3caa67ce03fcc82624a5da6ca3774170"/>
         <topic label="fadeTo" href="classxpcc_1_1led_1_1_rgb.html#a24bbef82c9ee73b8331735211f6ce630"/>
         <topic label="run" href="classxpcc_1_1led_1_1_rgb.html#aab342a40ebfb331f9835a62e05238a4e"/>
+      </topic>
+      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html">
+        <topic label="red" href="classxpcc_1_1color_1_1_rgb.html#a0f95e1ef9e4456ffe7a776ec57287ef3"/>
+        <topic label="green" href="classxpcc_1_1color_1_1_rgb.html#ae121f3c3dd711591df915cfb74801db7"/>
+        <topic label="blue" href="classxpcc_1_1color_1_1_rgb.html#afe169f989b25c6f0b029e0df76e0f116"/>
       </topic>
       <topic label="xpcc::tmp::SameType&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_same_type.html">
       </topic>
@@ -4330,17 +4465,17 @@
         <topic label="operator==" href="classxpcc_1_1_saturated.html#a976457c8ac01a2c7d2c93acb2a9cd4c3"/>
         <topic label="operator!=" href="classxpcc_1_1_saturated.html#aa1f21025d903b7239f9d92c33e0d0af7"/>
       </topic>
-      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html">
-        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
-        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
-        <topic label="getTicks" href="classxpcc_1_1rtos_1_1_scheduler.html#af55936bc84a091b251c8b41e36ea7c6d"/>
-      </topic>
       <topic label="xpcc::Scheduler" href="classxpcc_1_1_scheduler.html">
         <topic label="Priority" href="classxpcc_1_1_scheduler.html#ad87181bd99f0b09ff3a3e3fe29f4f35b"/>
         <topic label="Scheduler" href="classxpcc_1_1_scheduler.html#ab0d844b0ec238ebf83875d450a772d8f"/>
         <topic label="scheduleTask" href="classxpcc_1_1_scheduler.html#ab7f41ccb1d219cc4cfeb7c417e057873"/>
         <topic label="schedule" href="classxpcc_1_1_scheduler.html#a7f068894aec0ac632ee58a9551d175ce"/>
         <topic label="scheduleInterupt" href="classxpcc_1_1_scheduler.html#a8e57f2e7be649cd78da0003b1411b70d"/>
+      </topic>
+      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html">
+        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
+        <topic label="schedule" href="classxpcc_1_1rtos_1_1_scheduler.html#ae44e3110a984a2638b17d38fbf0a4c02"/>
+        <topic label="getTicks" href="classxpcc_1_1rtos_1_1_scheduler.html#af55936bc84a091b251c8b41e36ea7c6d"/>
       </topic>
       <topic label="xpcc::Scp1000&lt; Spi, Cs, Int &gt;" href="classxpcc_1_1_scp1000.html">
         <topic label="initialize" href="classxpcc_1_1_scp1000.html#ad31cb9f20e9eea6eee11dfb6c0583925"/>
@@ -4629,15 +4764,6 @@
       </topic>
       <topic label="xpcc::at91::Spi0" href="classxpcc_1_1at91_1_1_spi0.html"/>
       <topic label="xpcc::at91::Spi1" href="classxpcc_1_1at91_1_1_spi1.html"/>
-      <topic label="xpcc::SpiMaster" href="classxpcc_1_1_spi_master.html">
-        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
-        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
-        <topic label="write" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9"/>
-        <topic label="setBuffer" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97"/>
-        <topic label="transfer" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25"/>
-        <topic label="transferSync" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e"/>
-        <topic label="isFinished" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d"/>
-      </topic>
       <topic label="xpcc::atmega::SpiMaster" href="classxpcc_1_1atmega_1_1_spi_master.html">
         <topic label="Mode" href="classxpcc_1_1atmega_1_1_spi_master.html#a56b0ebb8aa8eef96eeda0ad291291ac7"/>
         <topic label="Prescaler" href="classxpcc_1_1atmega_1_1_spi_master.html#af4a641455fa9e7da30dc52c0d70ab0c4"/>
@@ -4649,6 +4775,34 @@
         <topic label="transfer" href="classxpcc_1_1atmega_1_1_spi_master.html#aee1a8d563334c495470721b74cafbd5e"/>
         <topic label="transferSync" href="classxpcc_1_1atmega_1_1_spi_master.html#ab550c77d9e8e26b038bc8198d30e16f1"/>
         <topic label="isFinished" href="classxpcc_1_1atmega_1_1_spi_master.html#a895a2f783e53750f4136c150980d5e8c"/>
+      </topic>
+      <topic label="xpcc::SpiMaster" href="classxpcc_1_1_spi_master.html">
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
+        <topic label="write" href="classxpcc_1_1_spi_master.html#aeb6a462a56bf3ddf2546428803ce40e9"/>
+        <topic label="setBuffer" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97"/>
+        <topic label="transfer" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25"/>
+        <topic label="transferSync" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e"/>
+        <topic label="isFinished" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d"/>
+      </topic>
+      <topic label="xpcc::lpc::SpiMaster0" href="classxpcc_1_1lpc_1_1_spi_master0.html">
+        <topic label="TransferSize" href="classxpcc_1_1lpc_1_1_spi_master0.html#a3ca2bcb51ea23862bba820ef8492ddde"/>
+        <topic label="FrameFormat" href="classxpcc_1_1lpc_1_1_spi_master0.html#a4c34008f90de165703f45fad2775f98c"/>
+        <topic label="Mode" href="classxpcc_1_1lpc_1_1_spi_master0.html#ae1a9ec74b374ae8519b1d78661b5b9cd"/>
+        <topic label="Presacler" href="classxpcc_1_1lpc_1_1_spi_master0.html#ac0cdafac67a24d3d07dd93914ce3006a"/>
+        <topic label="MappingSck" href="classxpcc_1_1lpc_1_1_spi_master0.html#aceb57373de8b1d5b8f35b516c7a62e89"/>
+        <topic label="BufferIncrease" href="classxpcc_1_1_spi_master.html#a07d424e3d2281205c38088ea9883e522"/>
+        <topic label="TransferOptions" href="classxpcc_1_1_spi_master.html#a66a0e5b5e392e489c361a63099180fe7"/>
+        <topic label="configurePins" href="classxpcc_1_1lpc_1_1_spi_master0.html#a37f897a8e7a3132ab0acff020b4bf70c"/>
+        <topic label="initialize" href="classxpcc_1_1lpc_1_1_spi_master0.html#a13286fb652881f0c59164b8f6efdacaf"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_spi_master0.html#a37b749d0b45f3dd7ad768e8757a00a78"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_spi_master0.html#af3c1999f9e4881c15fccd408eb9489f3"/>
+        <topic label="isBusy" href="classxpcc_1_1lpc_1_1_spi_master0.html#a336e0bef0278be610f860dbab431874a"/>
+        <topic label="setBuffer" href="classxpcc_1_1_spi_master.html#acbd3eb615c3a983475f04749fbbf7f97"/>
+        <topic label="transfer" href="classxpcc_1_1_spi_master.html#a8c954ae714f4481cc8dc23a0e7057b25"/>
+        <topic label="transferSync" href="classxpcc_1_1_spi_master.html#ac0f87516c345051d9334385b0cf7f15e"/>
+        <topic label="isFinished" href="classxpcc_1_1_spi_master.html#a5b58085054eb85b52ce2c294dd20225d"/>
+        <topic label="fifoSize" href="classxpcc_1_1lpc_1_1_spi_master0.html#acf462d21ca99ab7e5b525cb04ed314fe"/>
       </topic>
       <topic label="xpcc::stm32::SpiMaster1" href="classxpcc_1_1stm32_1_1_spi_master1.html">
         <topic label="Mode" href="classxpcc_1_1stm32_1_1_spi_master1.html#af3f0709d4411ef5ceff9bdd09696af34"/>
@@ -4968,14 +5122,14 @@
         <topic label="attachInterrupt" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html#a2f1a858ea411b1f94131d48d433469aa"/>
         <topic label="detachInterrupt" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html#abfdefc55d333beacadba49ac394d7a59"/>
       </topic>
+      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html">
+        <topic label="run" href="classxpcc_1_1_scheduler_1_1_task.html#ae7b1822261e1eb25baa06045d7de55cc"/>
+      </topic>
       <topic label="xpcc::Task" href="classxpcc_1_1_task.html">
         <topic label="~Task" href="classxpcc_1_1_task.html#a52dab0d6749729fb7220b2ff92558282"/>
         <topic label="start" href="classxpcc_1_1_task.html#ad16aba6a103d3120fa432936f7d85940"/>
         <topic label="isFinished" href="classxpcc_1_1_task.html#a6084a0f4d6307771136f9b66953f3773"/>
         <topic label="update" href="classxpcc_1_1_task.html#a26bf847d086d18efb62a1b1980622e4e"/>
-      </topic>
-      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html">
-        <topic label="run" href="classxpcc_1_1_scheduler_1_1_task.html#ae7b1822261e1eb25baa06045d7de55cc"/>
       </topic>
       <topic label="xpcc::pc::Terminal" href="classxpcc_1_1pc_1_1_terminal.html">
         <topic label="write" href="classxpcc_1_1pc_1_1_terminal.html#a9cf19dc76f02153c4ea0b3678557ee3d"/>
@@ -5013,9 +5167,24 @@
         <topic label="isActive" href="classxpcc_1_1_timeout.html#a3e47ce819c41402e60fa4b70e0dec04f"/>
         <topic label="stop" href="classxpcc_1_1_timeout.html#a1a1174a27e75a7d4ebb28631e049548a"/>
         <topic label="restart" href="classxpcc_1_1_timeout.html#ac81c5274545f4195f8ba8b95d41f3ba0"/>
+        <topic label="remaining" href="classxpcc_1_1_timeout.html#abb1b1f25c62ac688bc6e6a40d648adee"/>
       </topic>
       <topic label="xpcc::at91::Timer" href="classxpcc_1_1at91_1_1_timer.html">
         <topic label="Prescaler" href="classxpcc_1_1at91_1_1_timer.html#a6c528220d77f45a1e512bf9ce4e4aa24"/>
+      </topic>
+      <topic label="xpcc::avr32::Timer0" href="classxpcc_1_1avr32_1_1_timer0.html">
+        <topic label="Value" href="classxpcc_1_1avr32_1_1_timer0.html#aefa9f900e555475d3db82dbee1df5ca3"/>
+        <topic label="start" href="classxpcc_1_1avr32_1_1_timer0.html#aeceb9bbc9d2b21d46608c3bcb926306f"/>
+        <topic label="stop" href="classxpcc_1_1avr32_1_1_timer0.html#aab419e00f69032af3e191954ca62e651"/>
+        <topic label="initWaveform" href="classxpcc_1_1avr32_1_1_timer0.html#a4ceade583b5e7429f437fb976421f2e7"/>
+        <topic label="configureInterrupts" href="classxpcc_1_1avr32_1_1_timer0.html#a012949f7afddca6638fd9ac9c9426109"/>
+        <topic label="getValue" href="classxpcc_1_1avr32_1_1_timer0.html#a4ac04804b67ef07e4c0690bf2107a32d"/>
+        <topic label="getRa" href="classxpcc_1_1avr32_1_1_timer0.html#a4c48263589a285239119fcdd35169e35"/>
+        <topic label="getRb" href="classxpcc_1_1avr32_1_1_timer0.html#a9e8a7210c99f163757b3c90084248e0b"/>
+        <topic label="getRc" href="classxpcc_1_1avr32_1_1_timer0.html#a5e1866a9ef6b064617092dbaf9666ab1"/>
+        <topic label="setRa" href="classxpcc_1_1avr32_1_1_timer0.html#a3ca250ec0ebc8957bec43f5df2122fc7"/>
+        <topic label="setRb" href="classxpcc_1_1avr32_1_1_timer0.html#a28ed73b6c388e798157c6910e234bd5d"/>
+        <topic label="setRc" href="classxpcc_1_1avr32_1_1_timer0.html#a154331159f7959445f9d98d48b48a193"/>
       </topic>
       <topic label="xpcc::at91::Timer0" href="classxpcc_1_1at91_1_1_timer0.html">
         <topic label="Prescaler" href="classxpcc_1_1at91_1_1_timer.html#a6c528220d77f45a1e512bf9ce4e4aa24"/>
@@ -5926,15 +6095,15 @@
         <topic label="getTemperature" href="classxpcc_1_1_tmp102.html#af5baddf1122d62427ce7646c6bf6433a"/>
         <topic label="update" href="classxpcc_1_1_tmp102.html#a702cadde302da544fa6002d5ac8532d4"/>
       </topic>
+      <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
+        <topic label="send" href="classxpcc_1_1sab_1_1_transmitter.html#a44aff63923edf55b6f30064101ec2a7f"/>
+      </topic>
       <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html">
         <topic label="Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html#a0f773279851eedb93f493d1bb47b49fc"/>
         <topic label="~Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html#aa76bd4ccef9badd6bfc2ce0750f6ecef"/>
         <topic label="transmitRequest" href="classxpcc_1_1tipc_1_1_transmitter.html#ab7f2938dd5aa9625df6c1a8879f2298e"/>
         <topic label="transmitEvent" href="classxpcc_1_1tipc_1_1_transmitter.html#a2ec06b83f7f996d761ca18d9f577a8b4"/>
         <topic label="getPortId" href="classxpcc_1_1tipc_1_1_transmitter.html#a1a242ec94aa81067bc1f27c2294138e6"/>
-      </topic>
-      <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
-        <topic label="send" href="classxpcc_1_1sab_1_1_transmitter.html#a44aff63923edf55b6f30064101ec2a7f"/>
       </topic>
       <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
         <topic label="send" href="classxpcc_1_1amnb_1_1_transmitter.html#a94f2da9f9ea25285e5fd41e849bfc7da"/>
@@ -5946,6 +6115,12 @@
         <topic label="getPortId" href="classxpcc_1_1tipc_1_1_transmitter_socket.html#ae545daeb42ff10f2b86a21fc08a0c43f"/>
       </topic>
       <topic label="xpcc::at91::Twi" href="classxpcc_1_1at91_1_1_twi.html"/>
+      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html">
+        <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart0.html#a61f5f6c98563159a6196b2f8c0be8b7c"/>
+        <topic label="write" href="classxpcc_1_1lpc2000_1_1_uart0.html#a2a13a983f7d9720166319b36b6e9e367"/>
+        <topic label="isCharacterAvailable" href="classxpcc_1_1lpc2000_1_1_uart0.html#a0980daec9e349865974dafea9134ec8a"/>
+        <topic label="read" href="classxpcc_1_1lpc2000_1_1_uart0.html#a70fd8678e9d283c59b745161dba74fda"/>
+      </topic>
       <topic label="xpcc::at91::Uart0" href="classxpcc_1_1at91_1_1_uart0.html">
         <topic label="Uart0" href="classxpcc_1_1at91_1_1_uart0.html#ac0bf11a2f64c226f9d3e8029859c72da"/>
         <topic label="setBaudrate" href="classxpcc_1_1at91_1_1_uart0.html#a1ab3b07537fa17f2cb248e92cfc858d4"/>
@@ -5953,17 +6128,20 @@
         <topic label="read" href="classxpcc_1_1at91_1_1_uart0.html#af0e4968c78b490aa6f81ae8de1deb3ca"/>
         <topic label="read" href="classxpcc_1_1at91_1_1_uart0.html#a98896e45237ca48750d47cd9fedbd7cb"/>
       </topic>
-      <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html">
-        <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart0.html#a61f5f6c98563159a6196b2f8c0be8b7c"/>
-        <topic label="write" href="classxpcc_1_1lpc2000_1_1_uart0.html#a2a13a983f7d9720166319b36b6e9e367"/>
-        <topic label="isCharacterAvailable" href="classxpcc_1_1lpc2000_1_1_uart0.html#a0980daec9e349865974dafea9134ec8a"/>
-        <topic label="read" href="classxpcc_1_1lpc2000_1_1_uart0.html#a70fd8678e9d283c59b745161dba74fda"/>
-      </topic>
       <topic label="xpcc::lpc2000::Uart1" href="classxpcc_1_1lpc2000_1_1_uart1.html">
         <topic label="initialize" href="classxpcc_1_1lpc2000_1_1_uart1.html#ac7c14b5e8c3c13b1bd732cc8596b5531"/>
         <topic label="write" href="classxpcc_1_1lpc2000_1_1_uart1.html#afc773a88b978f2c325c77c7a541e460d"/>
         <topic label="isCharacterAvailable" href="classxpcc_1_1lpc2000_1_1_uart1.html#a81dd2995e32df8b5d55ab95ee8b706d6"/>
         <topic label="read" href="classxpcc_1_1lpc2000_1_1_uart1.html#af834de41a8091ac0fdc8457809747284"/>
+      </topic>
+      <topic label="xpcc::lpc::Uart1" href="classxpcc_1_1lpc_1_1_uart1.html">
+        <topic label="Uart1" href="classxpcc_1_1lpc_1_1_uart1.html#addac0ef31b4e91572363a00b1a829e94"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_uart1.html#a72b3f12d2574158f1885a1b4c3de74f4"/>
+        <topic label="write" href="classxpcc_1_1lpc_1_1_uart1.html#a1126a5730f1663c212399738ecd851f1"/>
+        <topic label="read" href="classxpcc_1_1lpc_1_1_uart1.html#ac798fe623463c44fb442b2726f4af661"/>
+        <topic label="read" href="classxpcc_1_1lpc_1_1_uart1.html#ad39b4767b80e06a2401bb04d5de4eb3b"/>
+        <topic label="configurePins" href="classxpcc_1_1lpc_1_1_uart1.html#ab105a654ed3caed07392d5eea83d5464"/>
+        <topic label="setBaudrate" href="classxpcc_1_1lpc_1_1_uart_base.html#ac628678393353fd977aaeb8d3da16c98"/>
       </topic>
       <topic label="xpcc::at91::Uart1" href="classxpcc_1_1at91_1_1_uart1.html">
         <topic label="Uart1" href="classxpcc_1_1at91_1_1_uart1.html#a608dad7b5c9fcff83e6e57c048c133c6"/>
@@ -6006,8 +6184,8 @@
         <topic label="read" href="classxpcc_1_1stm32_1_1_uart5.html#a285e6c05939fc3dd9746a04c098644f3"/>
         <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
       </topic>
-      <topic label="xpcc::stm32::UartBase" href="classxpcc_1_1stm32_1_1_uart_base.html">
-        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
+      <topic label="xpcc::lpc::UartBase" href="classxpcc_1_1lpc_1_1_uart_base.html">
+        <topic label="setBaudrate" href="classxpcc_1_1lpc_1_1_uart_base.html#ac628678393353fd977aaeb8d3da16c98"/>
       </topic>
       <topic label="xpcc::atxmega::UartBase" href="classxpcc_1_1atxmega_1_1_uart_base.html">
         <topic label="write" href="classxpcc_1_1atxmega_1_1_uart_base.html#ab7bab292c59123e219f5cbc08fdafb2d"/>
@@ -6021,6 +6199,9 @@
         <topic label="bScale" href="classxpcc_1_1atxmega_1_1_uart_base.html#a497d4f73415a3c790bbcbab73334250b"/>
         <topic label="bScaleUnsigned" href="classxpcc_1_1atxmega_1_1_uart_base.html#a32d7e3581699672c8ca2028563c81d28"/>
         <topic label="bSel" href="classxpcc_1_1atxmega_1_1_uart_base.html#a3de42b6ebb6fccf3b6375ae3b8874faf"/>
+      </topic>
+      <topic label="xpcc::stm32::UartBase" href="classxpcc_1_1stm32_1_1_uart_base.html">
+        <topic label="calculateBaudrateSettings" href="classxpcc_1_1stm32_1_1_uart_base.html#a43db8c9b1f1324ae17e53e728805c9fe"/>
       </topic>
       <topic label="UartInterface" href="class_uart_interface.html">
         <topic label="initialize" href="class_uart_interface.html#af55e3753ca07a6f06399669645aeef4c"/>
@@ -6488,6 +6669,26 @@
       <topic label="xpcc::lpc::Vic" href="classxpcc_1_1lpc_1_1_vic.html">
       </topic>
       <topic label="xpcc::at91::Watchdog" href="classxpcc_1_1at91_1_1_watchdog.html"/>
+      <topic label="xpcc::avr32::timer::waveform" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html">
+        <topic label="bswtrg" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a6b1cc519f01083876dfec741d1b9e886"/>
+        <topic label="beevt" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a86a102d764c5d07982d94c4964fac201"/>
+        <topic label="bcpc" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#afcfe9f413e02cfc8e6aa87976e6cd21c"/>
+        <topic label="bcpb" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a15d42e9132dd6997f07f76b0ce9dddb6"/>
+        <topic label="aswtrg" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a27f963962683d5d17b2ecf1eeeb43d5d"/>
+        <topic label="aeevt" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a2330415eb8bbdd0c77cba1250d182288"/>
+        <topic label="acpc" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a6ce089a4fd5385cd4ae530e499f422f5"/>
+        <topic label="acpa" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#abafa412fb5edf01e89abb7ddc75fd6d6"/>
+        <topic label="int" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#aad0a56bcd54ed4593a76972cdb03157c"/>
+        <topic label="wavsel" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a04e8e440e6106bd4b1bbcd4b55487884"/>
+        <topic label="enetrg" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#ad44e323db22e769f4178a0b6da66116a"/>
+        <topic label="eevt" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a8bcef7280491b2898eb2b8e139b4a9a8"/>
+        <topic label="eevtedg" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#af925f09bc5e550c06a623bf371ba78e9"/>
+        <topic label="cpcdis" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a92059ae665305b5ada4f937430ebfeec"/>
+        <topic label="cpcstop" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a9b8be8686617a8eab0985acf296cc3a8"/>
+        <topic label="burst" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#af4ceeb04170d0acd24bb6caa1a2c2b8c"/>
+        <topic label="clki" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a1077da38d6a91632e7eab9c631c08238"/>
+        <topic label="tcclks" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html#a9cdcaab5e696a514a2978424934ec043"/>
+      </topic>
       <topic label="xpcc::atxmega::WaveformC" href="classxpcc_1_1atxmega_1_1_waveform_c.html">
         <topic label="getWaveformBase" href="classxpcc_1_1atxmega_1_1_waveform_c.html#a88b5ce9f034bd45107ed9ef5a6c982fe"/>
         <topic label="setAWEXMode" href="classxpcc_1_1atxmega_1_1_waveform_c.html#a8273985d3b178f4281d7dc20a1a2d9e8"/>
@@ -6663,6 +6864,7 @@
       <topic label="xpcc::ButtonGroup&lt; T &gt;" href="classxpcc_1_1_button_group.html"/>
       <topic label="xpcc::amnb::Callable" href="structxpcc_1_1amnb_1_1_callable.html"/>
       <topic label="xpcc::sab::Callable" href="structxpcc_1_1sab_1_1_callable.html"/>
+      <topic label="xpcc::lpc::Can" href="classxpcc_1_1lpc_1_1_can.html"/>
       <topic label="xpcc::stm32::Can1" href="classxpcc_1_1stm32_1_1_can1.html"/>
       <topic label="xpcc::CanConnectorBase" href="classxpcc_1_1_can_connector_base.html">
         <topic label="xpcc::CanConnector&lt; Driver &gt;" href="classxpcc_1_1_can_connector.html"/>
@@ -6675,6 +6877,7 @@
       <topic label="xpcc::lpc::Clock" href="classxpcc_1_1lpc_1_1_clock.html"/>
       <topic label="xpcc::amnb::Clock" href="classxpcc_1_1amnb_1_1_clock.html"/>
       <topic label="xpcc::Clock" href="classxpcc_1_1_clock.html"/>
+      <topic label="xpcc::avr32::Clock" href="classxpcc_1_1avr32_1_1_clock.html"/>
       <topic label="xpcc::Communicatable" href="classxpcc_1_1_communicatable.html">
         <topic label="xpcc::AbstractComponent" href="classxpcc_1_1_abstract_component.html"/>
         <topic label="xpcc::CommunicatableTask" href="classxpcc_1_1_communicatable_task.html"/>
@@ -6782,7 +6985,6 @@
         <topic label="xpcc::Hmc5883l&lt; I2cMaster &gt;" href="classxpcc_1_1_hmc5883l.html"/>
       </topic>
       <topic label="xpcc::color::Hsv" href="classxpcc_1_1color_1_1_hsv.html"/>
-      <topic label="xpcc::I2cEeprom&lt; I2C &gt;" href="classxpcc_1_1_i2c_eeprom.html"/>
       <topic label="xpcc::led::Indicator&lt; LedClass &gt;" href="classxpcc_1_1led_1_1_indicator.html"/>
       <topic label="xpcc::atxmega::InputCapture&lt; TIMER, PIN &gt;" href="classxpcc_1_1atxmega_1_1_input_capture.html"/>
       <topic label="xpcc::InterconnectInterface&lt; T, R &gt;" href="classxpcc_1_1_interconnect_interface.html"/>
@@ -6795,6 +6997,7 @@
           <topic label="xpcc::i2c::ReadAdapter" href="classxpcc_1_1i2c_1_1_read_adapter.html"/>
           <topic label="xpcc::i2c::WriteAdapter" href="classxpcc_1_1i2c_1_1_write_adapter.html"/>
           <topic label="xpcc::i2c::WriteReadAdapter" href="classxpcc_1_1i2c_1_1_write_read_adapter.html"/>
+          <topic label="xpcc::I2cEeprom&lt; I2cMaster &gt;" href="classxpcc_1_1_i2c_eeprom.html"/>
         </topic>
         <topic label="xpcc::i2c::Delegate" href="classxpcc_1_1i2c_1_1_delegate.html"/>
         <topic label="xpcc::i2c::Master" href="classxpcc_1_1i2c_1_1_master.html">
@@ -6823,6 +7026,7 @@
           <topic label="xpcc::atxmega::UartSpiMasterE1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_e1.html"/>
           <topic label="xpcc::atxmega::UartSpiMasterF0" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f0.html"/>
           <topic label="xpcc::atxmega::UartSpiMasterF1" href="classxpcc_1_1atxmega_1_1_uart_spi_master_f1.html"/>
+          <topic label="xpcc::lpc::SpiMaster0" href="classxpcc_1_1lpc_1_1_spi_master0.html"/>
           <topic label="xpcc::SoftwareSpi&lt; Clk, Mosi, Miso, Frequency &gt;" href="classxpcc_1_1_software_spi.html"/>
           <topic label="xpcc::stm32::SpiMaster1" href="classxpcc_1_1stm32_1_1_spi_master1.html"/>
           <topic label="xpcc::stm32::SpiMaster2" href="classxpcc_1_1stm32_1_1_spi_master2.html"/>
@@ -6832,6 +7036,7 @@
         <topic label="xpcc::stm32::Adc2" href="classxpcc_1_1stm32_1_1_adc2.html"/>
         <topic label="xpcc::stm32::Adc3" href="classxpcc_1_1stm32_1_1_adc3.html"/>
       </topic>
+      <topic label="xpcc::avr32::timer::interrupt" href="structxpcc_1_1avr32_1_1timer_1_1interrupt.html"/>
       <topic label="xpcc::gpio::Invert&lt; Pin &gt;" href="classxpcc_1_1gpio_1_1_invert.html"/>
       <topic label="xpcc::IODevice" href="classxpcc_1_1_i_o_device.html">
         <topic label="xpcc::CharacterDisplay::Writer" href="classxpcc_1_1_character_display_1_1_writer.html"/>
@@ -6914,8 +7119,8 @@
       <topic label="xpcc::rtos::MutexGuard" href="classxpcc_1_1rtos_1_1_mutex_guard.html"/>
       <topic label="my_namespace::MyClass" href="classmy__namespace_1_1_my_class.html"/>
       <topic label="xpcc::gpio::Nibble&lt; T3, T2, T1, T0 &gt;" href="classxpcc_1_1gpio_1_1_nibble.html"/>
-      <topic label="xpcc::LinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_linked_list_1_1_node.html"/>
       <topic label="xpcc::DoublyLinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_doubly_linked_list_1_1_node.html"/>
+      <topic label="xpcc::LinkedList&lt; T, Allocator &gt;::Node" href="structxpcc_1_1_linked_list_1_1_node.html"/>
       <topic label="xpcc::tmp::NullType" href="classxpcc_1_1tmp_1_1_null_type.html"/>
       <topic label="xpcc::Pair&lt; T1, T2 &gt;" href="classxpcc_1_1_pair.html"/>
       <topic label="xpcc::Pid&lt; T, ScaleFactor &gt;::Parameter" href="structxpcc_1_1_pid_1_1_parameter.html"/>
@@ -6962,13 +7167,13 @@
       <topic label="xpcc::sab::Response" href="classxpcc_1_1sab_1_1_response.html"/>
       <topic label="xpcc::ResponseCallback" href="classxpcc_1_1_response_callback.html"/>
       <topic label="xpcc::ResponseHandle" href="classxpcc_1_1_response_handle.html"/>
-      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html"/>
       <topic label="xpcc::led::Rgb&lt; Red, Green, Blue &gt;" href="classxpcc_1_1led_1_1_rgb.html"/>
+      <topic label="xpcc::color::Rgb" href="classxpcc_1_1color_1_1_rgb.html"/>
       <topic label="xpcc::tmp::SameType&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_same_type.html"/>
       <topic label="xpcc::tmp::SameType&lt; T, T &gt;" href="structxpcc_1_1tmp_1_1_same_type_3_01_t_00_01_t_01_4.html"/>
       <topic label="xpcc::Saturated&lt; T &gt;" href="classxpcc_1_1_saturated.html"/>
-      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html"/>
       <topic label="xpcc::Scheduler" href="classxpcc_1_1_scheduler.html"/>
+      <topic label="xpcc::rtos::Scheduler" href="classxpcc_1_1rtos_1_1_scheduler.html"/>
       <topic label="xpcc::Scp1000&lt; Spi, Cs, Int &gt;" href="classxpcc_1_1_scp1000.html"/>
       <topic label="xpcc::SCurveController&lt; T &gt;" href="classxpcc_1_1_s_curve_controller.html"/>
       <topic label="xpcc::SCurveGenerator&lt; T &gt;" href="classxpcc_1_1_s_curve_generator.html"/>
@@ -7011,10 +7216,10 @@
       <topic label="xpcc::tmp::SuperSubclass&lt; void, void &gt;" href="structxpcc_1_1tmp_1_1_super_subclass_3_01void_00_01void_01_4.html"/>
       <topic label="xpcc::tmp::SuperSubclassStrict&lt; T, U &gt;" href="structxpcc_1_1tmp_1_1_super_subclass_strict.html"/>
       <topic label="xpcc::stm32::SysTickTimer" href="classxpcc_1_1stm32_1_1_sys_tick_timer.html"/>
+      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html"/>
       <topic label="xpcc::Task" href="classxpcc_1_1_task.html">
         <topic label="xpcc::CommunicatableTask" href="classxpcc_1_1_communicatable_task.html"/>
       </topic>
-      <topic label="xpcc::Scheduler::Task" href="classxpcc_1_1_scheduler_1_1_task.html"/>
       <topic label="unittest::TestSuite" href="classunittest_1_1_test_suite.html"/>
       <topic label="xpcc::rtos::Thread" href="classxpcc_1_1rtos_1_1_thread.html"/>
       <topic label="xpcc::Timeout&lt; T &gt;" href="classxpcc_1_1_timeout.html"/>
@@ -7023,25 +7228,37 @@
         <topic label="xpcc::at91::Timer1" href="classxpcc_1_1at91_1_1_timer1.html"/>
         <topic label="xpcc::at91::Timer2" href="classxpcc_1_1at91_1_1_timer2.html"/>
       </topic>
+      <topic label="xpcc::avr32::Timer0" href="classxpcc_1_1avr32_1_1_timer0.html"/>
       <topic label="xpcc::Timestamp" href="classxpcc_1_1_timestamp.html"/>
       <topic label="xpcc::TLC594X&lt; CHANNELS, Spi, Xlat, Vprog, Xerr &gt;" href="classxpcc_1_1_t_l_c594_x.html"/>
       <topic label="xpcc::Tmp102&lt; I2cMaster &gt;" href="classxpcc_1_1_tmp102.html"/>
-      <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html"/>
       <topic label="xpcc::sab::Transmitter" href="classxpcc_1_1sab_1_1_transmitter.html">
         <topic label="xpcc::sab::Slave&lt; Interface &gt;" href="classxpcc_1_1sab_1_1_slave.html"/>
       </topic>
+      <topic label="xpcc::tipc::Transmitter" href="classxpcc_1_1tipc_1_1_transmitter.html"/>
       <topic label="xpcc::amnb::Transmitter" href="classxpcc_1_1amnb_1_1_transmitter.html">
         <topic label="xpcc::amnb::Node&lt; Interface &gt;" href="classxpcc_1_1amnb_1_1_node.html"/>
       </topic>
       <topic label="xpcc::tipc::TransmitterSocket" href="classxpcc_1_1tipc_1_1_transmitter_socket.html"/>
       <topic label="xpcc::at91::Twi" href="classxpcc_1_1at91_1_1_twi.html"/>
-      <topic label="xpcc::at91::Uart0" href="classxpcc_1_1at91_1_1_uart0.html"/>
       <topic label="xpcc::lpc2000::Uart0" href="classxpcc_1_1lpc2000_1_1_uart0.html"/>
+      <topic label="xpcc::at91::Uart0" href="classxpcc_1_1at91_1_1_uart0.html"/>
       <topic label="xpcc::lpc2000::Uart1" href="classxpcc_1_1lpc2000_1_1_uart1.html"/>
       <topic label="xpcc::at91::Uart1" href="classxpcc_1_1at91_1_1_uart1.html"/>
       <topic label="xpcc::lpc2000::Uart2" href="classxpcc_1_1lpc2000_1_1_uart2.html"/>
       <topic label="xpcc::lpc2000::Uart3" href="classxpcc_1_1lpc2000_1_1_uart3.html"/>
+      <topic label="xpcc::lpc::UartBase" href="classxpcc_1_1lpc_1_1_uart_base.html">
+        <topic label="xpcc::lpc::BufferedUart1" href="classxpcc_1_1lpc_1_1_buffered_uart1.html"/>
+        <topic label="xpcc::lpc::Uart1" href="classxpcc_1_1lpc_1_1_uart1.html"/>
+      </topic>
+      <topic label="xpcc::atxmega::UartBase" href="classxpcc_1_1atxmega_1_1_uart_base.html"/>
       <topic label="xpcc::stm32::UartBase" href="classxpcc_1_1stm32_1_1_uart_base.html">
+        <topic label="xpcc::stm32::BufferedFlowUart4" href="classxpcc_1_1stm32_1_1_buffered_flow_uart4.html"/>
+        <topic label="xpcc::stm32::BufferedFlowUart5" href="classxpcc_1_1stm32_1_1_buffered_flow_uart5.html"/>
+        <topic label="xpcc::stm32::BufferedFlowUsart1" href="classxpcc_1_1stm32_1_1_buffered_flow_usart1.html"/>
+        <topic label="xpcc::stm32::BufferedFlowUsart2" href="classxpcc_1_1stm32_1_1_buffered_flow_usart2.html"/>
+        <topic label="xpcc::stm32::BufferedFlowUsart3" href="classxpcc_1_1stm32_1_1_buffered_flow_usart3.html"/>
+        <topic label="xpcc::stm32::BufferedFlowUsart6" href="classxpcc_1_1stm32_1_1_buffered_flow_usart6.html"/>
         <topic label="xpcc::stm32::BufferedUart4" href="classxpcc_1_1stm32_1_1_buffered_uart4.html"/>
         <topic label="xpcc::stm32::BufferedUart5" href="classxpcc_1_1stm32_1_1_buffered_uart5.html"/>
         <topic label="xpcc::stm32::BufferedUsart1" href="classxpcc_1_1stm32_1_1_buffered_usart1.html"/>
@@ -7055,7 +7272,6 @@
         <topic label="xpcc::stm32::Usart3" href="classxpcc_1_1stm32_1_1_usart3.html"/>
         <topic label="xpcc::stm32::Usart6" href="classxpcc_1_1stm32_1_1_usart6.html"/>
       </topic>
-      <topic label="xpcc::atxmega::UartBase" href="classxpcc_1_1atxmega_1_1_uart_base.html"/>
       <topic label="UartInterface" href="class_uart_interface.html"/>
       <topic label="xpcc::UnixTime" href="classxpcc_1_1_unix_time.html"/>
       <topic label="xpcc::atomic::Unlock" href="classxpcc_1_1atomic_1_1_unlock.html"/>
@@ -7068,6 +7284,7 @@
       <topic label="xpcc::Vector&lt; T, 4 &gt;" href="classxpcc_1_1_vector_3_01_t_00_014_01_4.html"/>
       <topic label="xpcc::lpc::Vic" href="classxpcc_1_1lpc_1_1_vic.html"/>
       <topic label="xpcc::at91::Watchdog" href="classxpcc_1_1at91_1_1_watchdog.html"/>
+      <topic label="xpcc::avr32::timer::waveform" href="structxpcc_1_1avr32_1_1timer_1_1waveform.html"/>
       <topic label="xpcc::atxmega::WaveformC" href="classxpcc_1_1atxmega_1_1_waveform_c.html">
         <topic label="xpcc::atxmega::TimerC0" href="classxpcc_1_1atxmega_1_1_timer_c0.html"/>
         <topic label="xpcc::atxmega::TimerC1" href="classxpcc_1_1atxmega_1_1_timer_c1.html"/>
@@ -7222,6 +7439,7 @@
       <topic label="attiny.hpp"/>
       <topic label="atxmega.hpp"/>
       <topic label="avr.hpp"/>
+      <topic label="avr32.hpp"/>
       <topic label="awex_c.hpp"/>
       <topic label="awex_d.hpp"/>
       <topic label="awex_e.hpp"/>
@@ -7235,6 +7453,7 @@
       <topic label="buffered_graphic_display.hpp"/>
       <topic label="button.hpp"/>
       <topic label="button_group.hpp"/>
+      <topic label="c_can.hpp"/>
       <topic label="can.hpp"/>
       <topic label="can_1.hpp"/>
       <topic label="can_2.hpp"/>
@@ -7247,6 +7466,7 @@
       <topic label="driver/clock.hpp"/>
       <topic label="platform/arm7/lpc/clock.hpp"/>
       <topic label="platform/avr/atxmega/clock.hpp"/>
+      <topic label="platform/avr32/uc3b/clock.hpp"/>
       <topic label="platform/cortex_m3/stm32/clock.hpp"/>
       <topic label="platform/cortex_m3/stm32/stm32f1/clock.hpp"/>
       <topic label="platform/cortex_m3/stm32/stm32f2_4/clock.hpp"/>
@@ -7338,6 +7558,7 @@
       <topic label="architecture/platform/arm7/lpc/gpio.hpp"/>
       <topic label="architecture/platform/avr/atmega/gpio.hpp"/>
       <topic label="architecture/platform/avr/atxmega/gpio.hpp"/>
+      <topic label="architecture/platform/avr32/uc3b/gpio.hpp"/>
       <topic label="architecture/platform/cortex_m0/lpc/gpio.hpp"/>
       <topic label="architecture/platform/cortex_m3/lpc/gpio.hpp"/>
       <topic label="architecture/platform/cortex_m3/stm32/gpio.hpp"/>
@@ -7411,6 +7632,7 @@
       <topic label="arm7/lpc.hpp"/>
       <topic label="cortex_m0/lpc.hpp"/>
       <topic label="cortex_m3/lpc.hpp"/>
+      <topic label="lpc11_uart_registers.hpp"/>
       <topic label="lpc11xx.hpp"/>
       <topic label="lpc17xx.hpp"/>
       <topic label="lpc213x.h"/>
@@ -7478,6 +7700,7 @@
         <topic label="IOSET3" href="lpc21xx_8h.html#a4608b267363a134b6b5f4b0883a43d7c"/>
         <topic label="IODIR3" href="lpc21xx_8h.html#a41b8fabcce3ecbc540786cef0cb422af"/>
         <topic label="IOCLR3" href="lpc21xx_8h.html#ae4ac14c6fdbe11794a347cd11b3a1f48"/>
+        <topic label="SCB_BASE_ADDR" href="lpc21xx_8h.html#a0dc0277ed0f4115611ee82a60b5114a8"/>
         <topic label="MAMCR" href="lpc21xx_8h.html#a5f8241693e932c71cda127e11d38184f"/>
         <topic label="MAMTIM" href="lpc21xx_8h.html#ac1227157e9ba57d2fe6d024b859bdae2"/>
         <topic label="MEMMAP" href="lpc21xx_8h.html#a1faec0e736c4b1230adfb1722e82706f"/>
@@ -7485,9 +7708,10 @@
         <topic label="PLLCFG" href="lpc21xx_8h.html#a86a96d4f7bbd5859efb50d95e843a453"/>
         <topic label="PLLSTAT" href="lpc21xx_8h.html#ae729ecec265b8f3cc14218bf2811c725"/>
         <topic label="PLLFEED" href="lpc21xx_8h.html#a8df6957082139d54e86014261f88a76f"/>
-        <topic label="VPBDIV" href="lpc21xx_8h.html#a88438a1bf4f6b60ce42a6385b172ca4d"/>
         <topic label="PCON" href="lpc21xx_8h.html#abb1322d5f790b9bea8376c697a5c9ef0"/>
         <topic label="PCONP" href="lpc21xx_8h.html#aca7c245b2477a5abdec386b73bda1d15"/>
+        <topic label="APBDIV" href="lpc21xx_8h.html#af0b9e6f62114d079d466c40db2b080e2"/>
+        <topic label="SCS" href="lpc21xx_8h.html#a57d06a9e6a8f5abc296f987d4552894c"/>
         <topic label="EXTINT" href="lpc21xx_8h.html#a8cc44522d2f5b706b3af5b839c0ba3ff"/>
         <topic label="EXTWAKE" href="lpc21xx_8h.html#afbd68c79c7bbdfacfc15b6e537a7a1ab"/>
         <topic label="EXTMODE" href="lpc21xx_8h.html#a6b7d1399a94b686e878b95b16b46ff4a"/>
@@ -7735,7 +7959,1034 @@
         <topic label="WDFEED" href="lpc21xx_8h.html#a02d688463660c741e72dc905582805e9"/>
         <topic label="WDTV" href="lpc21xx_8h.html#ab558486d90264fa951c0cb12f09e328a"/>
       </topic>
-      <topic label="lpc23xx_24xx.h"/>
+      <topic label="lpc23xx_24xx.h" href="lpc23xx__24xx_8h.html">
+        <topic label="VIC_BASE_ADDR" href="lpc23xx__24xx_8h.html#aedb90f2fcd42eef8780d28659fbdf3ce"/>
+        <topic label="VICIRQStatus" href="lpc23xx__24xx_8h.html#a0b5f296231f7e211bddb891e7ee2d9d0"/>
+        <topic label="VICFIQStatus" href="lpc23xx__24xx_8h.html#aed6e6e2e1a790d696d8aed8960214271"/>
+        <topic label="VICRawIntr" href="lpc23xx__24xx_8h.html#a203c9a566caee3fb243e45e1dee0aee5"/>
+        <topic label="VICIntSelect" href="lpc23xx__24xx_8h.html#a87f793a1b9254ca2dec755c61184a715"/>
+        <topic label="VICIntEnable" href="lpc23xx__24xx_8h.html#a280555cbadcb52f8ba9cb51a19410fbc"/>
+        <topic label="VICIntEnClear" href="lpc23xx__24xx_8h.html#a75334e1776d0256993226c5a5430a58c"/>
+        <topic label="VICSoftInt" href="lpc23xx__24xx_8h.html#af9c817ab549e08440ad18a4bf117a321"/>
+        <topic label="VICSoftIntClear" href="lpc23xx__24xx_8h.html#a3aeedfcf987d6d9394a1351b16ee335b"/>
+        <topic label="VICProtection" href="lpc23xx__24xx_8h.html#a90c4ee6fd15e5853fcea07b093301531"/>
+        <topic label="VICSWPrioMask" href="lpc23xx__24xx_8h.html#a685c962e0d90e61a510a2de1f2c85748"/>
+        <topic label="VICVectAddr0" href="lpc23xx__24xx_8h.html#a85e25e831bb24ac9ce421e68abb6a6ed"/>
+        <topic label="VICVectAddr1" href="lpc23xx__24xx_8h.html#a91b399987809e91fa1a0d93dc8e2e680"/>
+        <topic label="VICVectAddr2" href="lpc23xx__24xx_8h.html#aef69ec5e987e5037ba5085f79f2c2b06"/>
+        <topic label="VICVectAddr3" href="lpc23xx__24xx_8h.html#a84e7299ab92f39cd939911e6c0bdd237"/>
+        <topic label="VICVectAddr4" href="lpc23xx__24xx_8h.html#aaed00aa5190e457cecf1dba76db581e5"/>
+        <topic label="VICVectAddr5" href="lpc23xx__24xx_8h.html#ac91b56fa64c1df1ee10d3f16f9759b03"/>
+        <topic label="VICVectAddr6" href="lpc23xx__24xx_8h.html#a4eb76fd8bd712b5a509de4b6346906e0"/>
+        <topic label="VICVectAddr7" href="lpc23xx__24xx_8h.html#a54c71fa6073afd8e01c8284049ee1b30"/>
+        <topic label="VICVectAddr8" href="lpc23xx__24xx_8h.html#a35dd7bc378e38d32531c13b659f2635c"/>
+        <topic label="VICVectAddr9" href="lpc23xx__24xx_8h.html#a87a152c7325c92e2dfda4345a47df90f"/>
+        <topic label="VICVectAddr10" href="lpc23xx__24xx_8h.html#abdb80dc27da98460a7ecd37f86bae79b"/>
+        <topic label="VICVectAddr11" href="lpc23xx__24xx_8h.html#a248f13b37d0ff6933c5df70a7f4d97a5"/>
+        <topic label="VICVectAddr12" href="lpc23xx__24xx_8h.html#a8320e9fafd212820fa231355ef3560d7"/>
+        <topic label="VICVectAddr13" href="lpc23xx__24xx_8h.html#a31c626ea441d4118c78ed6493a586d2a"/>
+        <topic label="VICVectAddr14" href="lpc23xx__24xx_8h.html#a37bc90e0836e00ed1a3e0b4c543cfc0e"/>
+        <topic label="VICVectAddr15" href="lpc23xx__24xx_8h.html#af638016eb18c545b198b4cfa387b16d8"/>
+        <topic label="VICVectAddr16" href="lpc23xx__24xx_8h.html#a6e97ec095f58cc4d5df581755d7c3e31"/>
+        <topic label="VICVectAddr17" href="lpc23xx__24xx_8h.html#a8c5eaff0305eb6e4cfd27b827c87e99e"/>
+        <topic label="VICVectAddr18" href="lpc23xx__24xx_8h.html#af39b3bd1a84e35f274b0d5664b080459"/>
+        <topic label="VICVectAddr19" href="lpc23xx__24xx_8h.html#a9ac18dabe66a0657ed4de95d09c57d35"/>
+        <topic label="VICVectAddr20" href="lpc23xx__24xx_8h.html#a557042fbfea44babfb02f1fa92551f66"/>
+        <topic label="VICVectAddr21" href="lpc23xx__24xx_8h.html#a2d3c87a6813b8eb0f73f506b8b95e96f"/>
+        <topic label="VICVectAddr22" href="lpc23xx__24xx_8h.html#aa29860ba98ed39eddebd69fbfa97fa02"/>
+        <topic label="VICVectAddr23" href="lpc23xx__24xx_8h.html#a9e01fa22d6cbf6cb0b7f9980d9c041b0"/>
+        <topic label="VICVectAddr24" href="lpc23xx__24xx_8h.html#a801a680006e01bb97dc4aa4e413396f6"/>
+        <topic label="VICVectAddr25" href="lpc23xx__24xx_8h.html#a1ab788269b348588e55e04015397c4dd"/>
+        <topic label="VICVectAddr26" href="lpc23xx__24xx_8h.html#a93a9f7f63ff85a943af27d36c601e517"/>
+        <topic label="VICVectAddr27" href="lpc23xx__24xx_8h.html#afc8880f1c35f1da42fbc52b3cb3d16a9"/>
+        <topic label="VICVectAddr28" href="lpc23xx__24xx_8h.html#a688d705b146ef3c8f0f962e4c6675fd0"/>
+        <topic label="VICVectAddr29" href="lpc23xx__24xx_8h.html#af153a9c71a96b501a092a51e512f35f6"/>
+        <topic label="VICVectAddr30" href="lpc23xx__24xx_8h.html#a89fd6004b8053d203d7876e9f6189ca8"/>
+        <topic label="VICVectAddr31" href="lpc23xx__24xx_8h.html#a00d717151504cf263dcb2ebb52d869e5"/>
+        <topic label="VICVectCntl0" href="lpc23xx__24xx_8h.html#ae961eb169504c288c6dde700cb22ad9d"/>
+        <topic label="VICVectCntl1" href="lpc23xx__24xx_8h.html#af980f3940ea754ed55a5fc4c03ef0cfc"/>
+        <topic label="VICVectCntl2" href="lpc23xx__24xx_8h.html#a68559aeb6c616c21cf0a7ca2b45e6d86"/>
+        <topic label="VICVectCntl3" href="lpc23xx__24xx_8h.html#a4648491c1ec088cce9ceea645e3d37e4"/>
+        <topic label="VICVectCntl4" href="lpc23xx__24xx_8h.html#ad0adf6ad032d15c0037847ae75566ec0"/>
+        <topic label="VICVectCntl5" href="lpc23xx__24xx_8h.html#a9f116183d40b4a9585cca57bd9d09840"/>
+        <topic label="VICVectCntl6" href="lpc23xx__24xx_8h.html#aece37c162ea5f92ff264ef2196a52cec"/>
+        <topic label="VICVectCntl7" href="lpc23xx__24xx_8h.html#a40a8f847b0850756329c300ce44bbaa8"/>
+        <topic label="VICVectCntl8" href="lpc23xx__24xx_8h.html#a55088be1796d8867bccefa3bbc96cc19"/>
+        <topic label="VICVectCntl9" href="lpc23xx__24xx_8h.html#a98376ab4397e2e74e3bfbba47c31fd09"/>
+        <topic label="VICVectCntl10" href="lpc23xx__24xx_8h.html#a44df4b336fdff59ae4f295bc868ad772"/>
+        <topic label="VICVectCntl11" href="lpc23xx__24xx_8h.html#a67335d6c6e9f14623c5a64affaae1f23"/>
+        <topic label="VICVectCntl12" href="lpc23xx__24xx_8h.html#afb76fc13097f1af464cf7331d65f47d1"/>
+        <topic label="VICVectCntl13" href="lpc23xx__24xx_8h.html#a580f2266da12ca1dde894210d889aa9c"/>
+        <topic label="VICVectCntl14" href="lpc23xx__24xx_8h.html#a60b77dd5c21c12eac25a4499c0e24a12"/>
+        <topic label="VICVectCntl15" href="lpc23xx__24xx_8h.html#a2a928833f763b758dd09edabc7982bc5"/>
+        <topic label="VICVectCntl16" href="lpc23xx__24xx_8h.html#aa069d0a454ae6cdb6e953c06b8e91ba6"/>
+        <topic label="VICVectCntl17" href="lpc23xx__24xx_8h.html#a840b97a4eb92ee88c488aecdcd4869a8"/>
+        <topic label="VICVectCntl18" href="lpc23xx__24xx_8h.html#a3734ba9ce1ede5ba56b4801730ad0e91"/>
+        <topic label="VICVectCntl19" href="lpc23xx__24xx_8h.html#af5a364627437ba4cd47b6c6abaf3f50e"/>
+        <topic label="VICVectCntl20" href="lpc23xx__24xx_8h.html#a4117958218819728fca13af23cf643c7"/>
+        <topic label="VICVectCntl21" href="lpc23xx__24xx_8h.html#aabac54920ca9f129e3c436971ff8e1fb"/>
+        <topic label="VICVectCntl22" href="lpc23xx__24xx_8h.html#a1dd81b39a355d22324145b375661503c"/>
+        <topic label="VICVectCntl23" href="lpc23xx__24xx_8h.html#afdb8c66f7b6a812ba777d55d92bd2a66"/>
+        <topic label="VICVectCntl24" href="lpc23xx__24xx_8h.html#a1f033a2b9494597a9dd94234090f62ba"/>
+        <topic label="VICVectCntl25" href="lpc23xx__24xx_8h.html#a96c3194124e377fd2410e993ac057608"/>
+        <topic label="VICVectCntl26" href="lpc23xx__24xx_8h.html#a97c123856c44a9f9d2ce123334961e39"/>
+        <topic label="VICVectCntl27" href="lpc23xx__24xx_8h.html#a730f5b186a94f8f5075e79bdeabce93a"/>
+        <topic label="VICVectCntl28" href="lpc23xx__24xx_8h.html#a40ae9eeb6c1afae5806d8ac93a74855b"/>
+        <topic label="VICVectCntl29" href="lpc23xx__24xx_8h.html#a0518ef9cd784ebb911accae5e594c3e7"/>
+        <topic label="VICVectCntl30" href="lpc23xx__24xx_8h.html#ad14fd2d492c383a04c95ea1b22933afa"/>
+        <topic label="VICVectCntl31" href="lpc23xx__24xx_8h.html#a595875835ba7047a99e0d1d8dff6f66d"/>
+        <topic label="VICVectPriority0" href="lpc23xx__24xx_8h.html#a54104c6b21fb073501ef551c5cd87039"/>
+        <topic label="VICVectPriority1" href="lpc23xx__24xx_8h.html#ac742121477a1b32ecdddf8843ae6d770"/>
+        <topic label="VICVectPriority2" href="lpc23xx__24xx_8h.html#a803bf86a5eb441f622982ac0908497bc"/>
+        <topic label="VICVectPriority3" href="lpc23xx__24xx_8h.html#aba59e61e6bc43cc408a04e181b76cf3f"/>
+        <topic label="VICVectPriority4" href="lpc23xx__24xx_8h.html#a52a7f5d9d2a2bafa224b5237addbb940"/>
+        <topic label="VICVectPriority5" href="lpc23xx__24xx_8h.html#a69653dc62eb65ec51d3bc702e81f23ad"/>
+        <topic label="VICVectPriority6" href="lpc23xx__24xx_8h.html#ab1ddc6ee5a4838342b570fe60f575b84"/>
+        <topic label="VICVectPriority7" href="lpc23xx__24xx_8h.html#ae976fa42d85566316ae7db161481f553"/>
+        <topic label="VICVectPriority8" href="lpc23xx__24xx_8h.html#a47b69918c7c6b39c5001f3ce5679ff98"/>
+        <topic label="VICVectPriority9" href="lpc23xx__24xx_8h.html#ad8538a3a570436d2bf41ba8fe16c1ab2"/>
+        <topic label="VICVectPriority10" href="lpc23xx__24xx_8h.html#aba920ff109e2a3a18fa180dc5da50a82"/>
+        <topic label="VICVectPriority11" href="lpc23xx__24xx_8h.html#ad4fc617f9fd332b742acf56da61a0962"/>
+        <topic label="VICVectPriority12" href="lpc23xx__24xx_8h.html#a82662e507bde4cbc1611603e9121467a"/>
+        <topic label="VICVectPriority13" href="lpc23xx__24xx_8h.html#a82cb2c48ab06464464a6d141a1ab8a10"/>
+        <topic label="VICVectPriority14" href="lpc23xx__24xx_8h.html#a8359b2b3eb6c2b4f1f378a3455d22d84"/>
+        <topic label="VICVectPriority15" href="lpc23xx__24xx_8h.html#a8c193c62762f56b7378f0ebf2148b3b2"/>
+        <topic label="VICVectPriority16" href="lpc23xx__24xx_8h.html#a56f16d659b74674e284ae053622b9df8"/>
+        <topic label="VICVectPriority17" href="lpc23xx__24xx_8h.html#a23e41cefe1cc1aa91d7de9d35bdd4848"/>
+        <topic label="VICVectPriority18" href="lpc23xx__24xx_8h.html#a3ced2adc46534fa8b6036776fba77b69"/>
+        <topic label="VICVectPriority19" href="lpc23xx__24xx_8h.html#abb298922637fefae3db431fa86a91f2b"/>
+        <topic label="VICVectPriority20" href="lpc23xx__24xx_8h.html#a6bd2f4b952afc15adc69bcbb2934dac5"/>
+        <topic label="VICVectPriority21" href="lpc23xx__24xx_8h.html#a823fb5039934d5e20ce5c09b235da6da"/>
+        <topic label="VICVectPriority22" href="lpc23xx__24xx_8h.html#afb0e2ef9108c4d29c1d44797115b9310"/>
+        <topic label="VICVectPriority23" href="lpc23xx__24xx_8h.html#a6a58a88005d0c102ca58ff5f00f8e03b"/>
+        <topic label="VICVectPriority24" href="lpc23xx__24xx_8h.html#a640d760e41274e5ad8b4f4dd5cb19259"/>
+        <topic label="VICVectPriority25" href="lpc23xx__24xx_8h.html#a1831d26fd5edd45ca86705d1fcb8fa75"/>
+        <topic label="VICVectPriority26" href="lpc23xx__24xx_8h.html#afab72836f7853eaedf0ed00a660e72b2"/>
+        <topic label="VICVectPriority27" href="lpc23xx__24xx_8h.html#a918edfc042ce4506ccfe89243dbb9dda"/>
+        <topic label="VICVectPriority28" href="lpc23xx__24xx_8h.html#a3e727f8302546d175b3f28c11e54ecc1"/>
+        <topic label="VICVectPriority29" href="lpc23xx__24xx_8h.html#a95bc9efc023fc0524d1e9c15c0bc0d85"/>
+        <topic label="VICVectPriority30" href="lpc23xx__24xx_8h.html#af9b9541f80eef9ee708126279a681bd8"/>
+        <topic label="VICVectPriority31" href="lpc23xx__24xx_8h.html#a99912f49ed8389a029e3fa0bbe1d71a2"/>
+        <topic label="VICVectAddr" href="lpc23xx__24xx_8h.html#aa11babfb092f15d15765591e9d4c8df2"/>
+        <topic label="PINSEL_BASE_ADDR" href="lpc23xx__24xx_8h.html#a268889045f30d5285d20a97336e72ee6"/>
+        <topic label="PINSEL0" href="lpc23xx__24xx_8h.html#aff215b5e0d11d5a47354ecfad12a8902"/>
+        <topic label="PINSEL1" href="lpc23xx__24xx_8h.html#a030997bacf62a695152879b6be44c84c"/>
+        <topic label="PINSEL2" href="lpc23xx__24xx_8h.html#ac43539e28c63bbab43998e0fde66a96f"/>
+        <topic label="PINSEL3" href="lpc23xx__24xx_8h.html#a4f3826d0ca626fa50121b165841ece9e"/>
+        <topic label="PINSEL4" href="lpc23xx__24xx_8h.html#a4f66e285e1b0ae7dbed4910861054c9e"/>
+        <topic label="PINSEL5" href="lpc23xx__24xx_8h.html#a18b6991e5ddafcacf3d1e1bcbae85376"/>
+        <topic label="PINSEL6" href="lpc23xx__24xx_8h.html#aa39cd7997821dceab9766644b7cea17d"/>
+        <topic label="PINSEL7" href="lpc23xx__24xx_8h.html#a3802e1e7e5b5f02dbdbe1a45024c9c4b"/>
+        <topic label="PINSEL8" href="lpc23xx__24xx_8h.html#ace0afbbeb6f1b02f248d18495c29f8e3"/>
+        <topic label="PINSEL9" href="lpc23xx__24xx_8h.html#a1b77a28a614a6cde822e2b44421d1e1d"/>
+        <topic label="PINSEL10" href="lpc23xx__24xx_8h.html#a5cd1476b3d8d84a10c46adc7a8feacb0"/>
+        <topic label="PINMODE0" href="lpc23xx__24xx_8h.html#a38059134b0adaf25bb64ab021edfd5f4"/>
+        <topic label="PINMODE1" href="lpc23xx__24xx_8h.html#a289acb166f43c92d5a506cd01ecdfbc7"/>
+        <topic label="PINMODE2" href="lpc23xx__24xx_8h.html#a1e102735ca34f2a7ad80d4057ca63e8f"/>
+        <topic label="PINMODE3" href="lpc23xx__24xx_8h.html#a69d534398605c600c32cda2def1a8f3a"/>
+        <topic label="PINMODE4" href="lpc23xx__24xx_8h.html#a8c91299d8c6d1fb5a20d2177ecfd710b"/>
+        <topic label="PINMODE5" href="lpc23xx__24xx_8h.html#a5b545bfce7db8fd8bff1c273fd7d600e"/>
+        <topic label="PINMODE6" href="lpc23xx__24xx_8h.html#a15392f94e9172cb6001a9b54daada614"/>
+        <topic label="PINMODE7" href="lpc23xx__24xx_8h.html#ad37cfb0eec829077f70eb760b3c6ccfd"/>
+        <topic label="PINMODE8" href="lpc23xx__24xx_8h.html#ab7df7007a47ee536c0d1d14efff86333"/>
+        <topic label="PINMODE9" href="lpc23xx__24xx_8h.html#a0a3b528e1f404977b12768942447edd0"/>
+        <topic label="GPIO_BASE_ADDR" href="lpc23xx__24xx_8h.html#a45d36b41a075f38c101d52a2224aede5"/>
+        <topic label="IOPIN0" href="lpc23xx__24xx_8h.html#a38dd0b36089ddc91a9a8d160a14deef0"/>
+        <topic label="IOSET0" href="lpc23xx__24xx_8h.html#a79680f9f3b6f1f765ceb5849fe3e520d"/>
+        <topic label="IODIR0" href="lpc23xx__24xx_8h.html#a70f12b6d0574a6a3d095821f4d73de9d"/>
+        <topic label="IOCLR0" href="lpc23xx__24xx_8h.html#a8e6cb3bf6e92bcdbc07735e17e072cf2"/>
+        <topic label="IOPIN1" href="lpc23xx__24xx_8h.html#aee913e602697110f987df4de4d0df5f8"/>
+        <topic label="IOSET1" href="lpc23xx__24xx_8h.html#a099509e8cdef2dd5640479b951473b0a"/>
+        <topic label="IODIR1" href="lpc23xx__24xx_8h.html#a44e84c559a5497e4711e141d5a8e937c"/>
+        <topic label="IOCLR1" href="lpc23xx__24xx_8h.html#a23d17def1b57a0912085f27bbce2b330"/>
+        <topic label="IO0_INT_EN_R" href="lpc23xx__24xx_8h.html#ac2b14f92eab4bbacd775af479d7cfdd3"/>
+        <topic label="IO0_INT_EN_F" href="lpc23xx__24xx_8h.html#a2208381949194e24420c9d584eea88e4"/>
+        <topic label="IO0_INT_STAT_R" href="lpc23xx__24xx_8h.html#a313880e4c3cede17ff2015ab2220ad5e"/>
+        <topic label="IO0_INT_STAT_F" href="lpc23xx__24xx_8h.html#a08c3000f2dc23099e6ab9c6bb57376a7"/>
+        <topic label="IO0_INT_CLR" href="lpc23xx__24xx_8h.html#a1fddaca6d2c33db9df5cf5843e24ff6b"/>
+        <topic label="IO2_INT_EN_R" href="lpc23xx__24xx_8h.html#a366c6c71bcd778d269d488f611d90ac1"/>
+        <topic label="IO2_INT_EN_F" href="lpc23xx__24xx_8h.html#a6797ac769fb9313a0ca4b0e83424800a"/>
+        <topic label="IO2_INT_STAT_R" href="lpc23xx__24xx_8h.html#aab00d66e6b869ddbc2d337b9f59d5fb8"/>
+        <topic label="IO2_INT_STAT_F" href="lpc23xx__24xx_8h.html#a4ae5188d05b923d9d11b52b08300fd60"/>
+        <topic label="IO2_INT_CLR" href="lpc23xx__24xx_8h.html#abfd5d9af00cd97db6b054d78f4fe866b"/>
+        <topic label="IO_INT_STAT" href="lpc23xx__24xx_8h.html#a200fc46de858bb2357b2fd9879bede0b"/>
+        <topic label="PARTCFG_BASE_ADDR" href="lpc23xx__24xx_8h.html#a60a0e564a0f3d5f16c39e84a262650e1"/>
+        <topic label="PARTCFG" href="lpc23xx__24xx_8h.html#a2b789c9fbacae63df8f5366cbb11bc01"/>
+        <topic label="FIO_BASE_ADDR" href="lpc23xx__24xx_8h.html#a3fbba921d157c2d51789d17deb312173"/>
+        <topic label="FIO0DIR" href="lpc23xx__24xx_8h.html#a5ecdb9b0bd11b7dfefb4decf8337ccbd"/>
+        <topic label="FIO0MASK" href="lpc23xx__24xx_8h.html#a0af2c8f6a95a766b32d8709fafac6baa"/>
+        <topic label="FIO0PIN" href="lpc23xx__24xx_8h.html#aafe04ef1d09547bd16547b800b4df5a1"/>
+        <topic label="FIO0SET" href="lpc23xx__24xx_8h.html#aeb77ecb736828882a0b80e33a7adf644"/>
+        <topic label="FIO0CLR" href="lpc23xx__24xx_8h.html#a32e958c8a285f756cd11f3f340f6494c"/>
+        <topic label="FIO1DIR" href="lpc23xx__24xx_8h.html#aae81a3484deff18fa81de0ac8de3ab40"/>
+        <topic label="FIO1MASK" href="lpc23xx__24xx_8h.html#a13f214cea0d3f874820bd4548c46a7f0"/>
+        <topic label="FIO1PIN" href="lpc23xx__24xx_8h.html#ab97ddb2da2dd1db899d7b4750548f798"/>
+        <topic label="FIO1SET" href="lpc23xx__24xx_8h.html#aa94d97e600385d0fde769e11f302cd1c"/>
+        <topic label="FIO1CLR" href="lpc23xx__24xx_8h.html#abcc77d889363cff115e5a530fa76625f"/>
+        <topic label="FIO2DIR" href="lpc23xx__24xx_8h.html#a75b59afafb28de1fa7107c3db1cbfc0a"/>
+        <topic label="FIO2MASK" href="lpc23xx__24xx_8h.html#ad27e95ce6805c27eef26ea73ceb023bd"/>
+        <topic label="FIO2PIN" href="lpc23xx__24xx_8h.html#a3231320a27b790a99f2d28fc5d32b33c"/>
+        <topic label="FIO2SET" href="lpc23xx__24xx_8h.html#aeb2827cc8f7918902c58cdc9960e840d"/>
+        <topic label="FIO2CLR" href="lpc23xx__24xx_8h.html#a1195f7a120c7cb4f8fbb23b72e8ec037"/>
+        <topic label="FIO3DIR" href="lpc23xx__24xx_8h.html#a1083e6b4f9db146360ddd0dcd0a9dd39"/>
+        <topic label="FIO3MASK" href="lpc23xx__24xx_8h.html#a9f4d031bd0cbecf049e020fbd3b85944"/>
+        <topic label="FIO3PIN" href="lpc23xx__24xx_8h.html#a3656d6446be846bded1ddf3bbb1f069c"/>
+        <topic label="FIO3SET" href="lpc23xx__24xx_8h.html#a7b26871215344e5a9df44d7093240432"/>
+        <topic label="FIO3CLR" href="lpc23xx__24xx_8h.html#ab64a776a181a354a850222009357a294"/>
+        <topic label="FIO4DIR" href="lpc23xx__24xx_8h.html#af2517ae60d5d5039a5218bcd6a4ca3d1"/>
+        <topic label="FIO4MASK" href="lpc23xx__24xx_8h.html#a58bbc88f8e37e7c69525a3ed50b13647"/>
+        <topic label="FIO4PIN" href="lpc23xx__24xx_8h.html#aeaa168fd9ed723f7755daeb0ada32477"/>
+        <topic label="FIO4SET" href="lpc23xx__24xx_8h.html#a3ea2ecaf667403aca71e0fee158e7e4a"/>
+        <topic label="FIO4CLR" href="lpc23xx__24xx_8h.html#a6a284339302a53d41530effeafb6663d"/>
+        <topic label="FIO0DIR0" href="lpc23xx__24xx_8h.html#a6024dedde806219cdc13ac2448e517f7"/>
+        <topic label="FIO1DIR0" href="lpc23xx__24xx_8h.html#a1a942184d612559007652f84d7fcc00d"/>
+        <topic label="FIO2DIR0" href="lpc23xx__24xx_8h.html#a8371e85b27106e24eed2eec806e7572e"/>
+        <topic label="FIO3DIR0" href="lpc23xx__24xx_8h.html#a5f205c99308d4ac53c7e8f9f704c22d9"/>
+        <topic label="FIO4DIR0" href="lpc23xx__24xx_8h.html#a473fa5dff65f2dce6df3dec0df12e50b"/>
+        <topic label="FIO0DIR1" href="lpc23xx__24xx_8h.html#a0dfe53d7d7743664b3661fb5c888172a"/>
+        <topic label="FIO1DIR1" href="lpc23xx__24xx_8h.html#a159bb9da759f2f36aeef50fada446657"/>
+        <topic label="FIO2DIR1" href="lpc23xx__24xx_8h.html#ae43619d20b6cccbf77b38cb51974afe1"/>
+        <topic label="FIO3DIR1" href="lpc23xx__24xx_8h.html#afa11b3434e555dbce7d5aa9df45566fc"/>
+        <topic label="FIO4DIR1" href="lpc23xx__24xx_8h.html#aa521f372891546d25444f54a4043d7aa"/>
+        <topic label="FIO0DIR2" href="lpc23xx__24xx_8h.html#a5e3ec787332d7951da3cab7d423546c8"/>
+        <topic label="FIO1DIR2" href="lpc23xx__24xx_8h.html#ad4cbd7ccd3a8071640f1aa70e1b84a7f"/>
+        <topic label="FIO2DIR2" href="lpc23xx__24xx_8h.html#a8ea51f180c8cb3805e3c90044ed347d9"/>
+        <topic label="FIO3DIR2" href="lpc23xx__24xx_8h.html#a1a2e932c711dcc7ecb0184960fe6f347"/>
+        <topic label="FIO4DIR2" href="lpc23xx__24xx_8h.html#a0822392d43703e9465dca05f0ec1e15e"/>
+        <topic label="FIO0DIR3" href="lpc23xx__24xx_8h.html#a8c8521bfec602f183efe5b47b2ed3a15"/>
+        <topic label="FIO1DIR3" href="lpc23xx__24xx_8h.html#a6db1499e58ca946b6eff6ce343e67db4"/>
+        <topic label="FIO2DIR3" href="lpc23xx__24xx_8h.html#ad7b5dc8c40c055c156ce404bc0107618"/>
+        <topic label="FIO3DIR3" href="lpc23xx__24xx_8h.html#a6874a477197f78f8c2cc972504c0e048"/>
+        <topic label="FIO4DIR3" href="lpc23xx__24xx_8h.html#a7cacd6b16884af9f0d85a723d8770f40"/>
+        <topic label="FIO0DIRL" href="lpc23xx__24xx_8h.html#ae46f211e46ed9a330348610e6f701f5d"/>
+        <topic label="FIO1DIRL" href="lpc23xx__24xx_8h.html#a11c9b313fe29cafb60b35be032da8258"/>
+        <topic label="FIO2DIRL" href="lpc23xx__24xx_8h.html#a30dfe33bb4f437db23a506fa25c8b6a2"/>
+        <topic label="FIO3DIRL" href="lpc23xx__24xx_8h.html#a2c0860fd431e8f93de0789cb5d8c0031"/>
+        <topic label="FIO4DIRL" href="lpc23xx__24xx_8h.html#ab8f76a61eae7f51bec492981fd9cd538"/>
+        <topic label="FIO0DIRU" href="lpc23xx__24xx_8h.html#a5ab399175bcc80582dee4c2ade4692b4"/>
+        <topic label="FIO1DIRU" href="lpc23xx__24xx_8h.html#a8fe45ace67d60ccfaa65df5efc476ab4"/>
+        <topic label="FIO2DIRU" href="lpc23xx__24xx_8h.html#a4ee4e0d9bb8165572c77a3378bffd977"/>
+        <topic label="FIO3DIRU" href="lpc23xx__24xx_8h.html#ad10fae6c925cf5be068b8673e6abbaaa"/>
+        <topic label="FIO4DIRU" href="lpc23xx__24xx_8h.html#a49b2d3face4748f3d72da9ba73d787d7"/>
+        <topic label="FIO0MASK0" href="lpc23xx__24xx_8h.html#ad35d1ee2bef886f2842bf4e98a3f4d9c"/>
+        <topic label="FIO1MASK0" href="lpc23xx__24xx_8h.html#a494315aaa4ca12914bf9e48c178165a4"/>
+        <topic label="FIO2MASK0" href="lpc23xx__24xx_8h.html#ae462d5441867fc184e7d1ef60fab6fe1"/>
+        <topic label="FIO3MASK0" href="lpc23xx__24xx_8h.html#a3ee71b2112fef0e268adb0ab2ea267f2"/>
+        <topic label="FIO4MASK0" href="lpc23xx__24xx_8h.html#a142ac54bc7ffd35f5f211bfe69248342"/>
+        <topic label="FIO0MASK1" href="lpc23xx__24xx_8h.html#a4ea9f0226332072fe73814da39048f77"/>
+        <topic label="FIO1MASK1" href="lpc23xx__24xx_8h.html#a23d8ecf9a2e3242c6361700dbde85590"/>
+        <topic label="FIO2MASK1" href="lpc23xx__24xx_8h.html#a01d4487de6b22ebb191d67ee5b0b7e58"/>
+        <topic label="FIO3MASK1" href="lpc23xx__24xx_8h.html#ab139db94fa56f733dae4803b012d1e9c"/>
+        <topic label="FIO4MASK1" href="lpc23xx__24xx_8h.html#aeaea4bf025e563b208ba6e22c2188d9a"/>
+        <topic label="FIO0MASK2" href="lpc23xx__24xx_8h.html#a69c1024c4f3dcb64fe5f83d50f9b5497"/>
+        <topic label="FIO1MASK2" href="lpc23xx__24xx_8h.html#a4bceb523c4218fd7f93935a858a4335e"/>
+        <topic label="FIO2MASK2" href="lpc23xx__24xx_8h.html#a631fa02329d50bf9185b874558bad783"/>
+        <topic label="FIO3MASK2" href="lpc23xx__24xx_8h.html#a11920cb2a2e2e4234f171dcd702339a5"/>
+        <topic label="FIO4MASK2" href="lpc23xx__24xx_8h.html#a9f1f533a290a880070795d7da78e2c2b"/>
+        <topic label="FIO0MASK3" href="lpc23xx__24xx_8h.html#a72e1bcc80ce43e9541ee5086b196881c"/>
+        <topic label="FIO1MASK3" href="lpc23xx__24xx_8h.html#aac1512ad6a6fe8ebbec3514a3df2283c"/>
+        <topic label="FIO2MASK3" href="lpc23xx__24xx_8h.html#a0369667e6edce91f0fa7358386107d1a"/>
+        <topic label="FIO3MASK3" href="lpc23xx__24xx_8h.html#a443186f6820d1df3087bb54379eb64de"/>
+        <topic label="FIO4MASK3" href="lpc23xx__24xx_8h.html#a52cb51a91afbd14d9a3c493073b8e7a2"/>
+        <topic label="FIO0MASKL" href="lpc23xx__24xx_8h.html#a2db09bd45262c4b0f82b228661fd520f"/>
+        <topic label="FIO1MASKL" href="lpc23xx__24xx_8h.html#abb6985eaf64b5c6f725139de681014fb"/>
+        <topic label="FIO2MASKL" href="lpc23xx__24xx_8h.html#a9f3d1f6a875fa031efc1f4bab47330c2"/>
+        <topic label="FIO3MASKL" href="lpc23xx__24xx_8h.html#adca51b0d62b6b4fb0f91f7172babb516"/>
+        <topic label="FIO4MASKL" href="lpc23xx__24xx_8h.html#acf67278600b239c3841be08d1ce56286"/>
+        <topic label="FIO0MASKU" href="lpc23xx__24xx_8h.html#a099712b2e0a8661f3fd06310ca74313f"/>
+        <topic label="FIO1MASKU" href="lpc23xx__24xx_8h.html#a15ed1c7f79c21c0c9db2dc71da3f8b3b"/>
+        <topic label="FIO2MASKU" href="lpc23xx__24xx_8h.html#a5078582ad6743fcbded1bf4537f937b8"/>
+        <topic label="FIO3MASKU" href="lpc23xx__24xx_8h.html#a29b027901c8512e37e771d871834bbb6"/>
+        <topic label="FIO4MASKU" href="lpc23xx__24xx_8h.html#abd33338c48984ab9b9292dc3ff7ecc3f"/>
+        <topic label="FIO0PIN0" href="lpc23xx__24xx_8h.html#aa3e502e416ce05215b358f63a6350458"/>
+        <topic label="FIO1PIN0" href="lpc23xx__24xx_8h.html#adeaf8820052fbb192564488b179bca1d"/>
+        <topic label="FIO2PIN0" href="lpc23xx__24xx_8h.html#aa9dc80dbdb8986b4658c50fc2f5eb44e"/>
+        <topic label="FIO3PIN0" href="lpc23xx__24xx_8h.html#af8a80d168e3d5cedcb57c0069b7a88f4"/>
+        <topic label="FIO4PIN0" href="lpc23xx__24xx_8h.html#a2fd9321de6912e95044c750b46d3b0f1"/>
+        <topic label="FIO0PIN1" href="lpc23xx__24xx_8h.html#aec3cbb4aadad5e839c46a88e79235def"/>
+        <topic label="FIO1PIN1" href="lpc23xx__24xx_8h.html#a4b0692dc48bc4d3a16033328b52e906f"/>
+        <topic label="FIO2PIN1" href="lpc23xx__24xx_8h.html#a0819125e85bf212e84588420e5667771"/>
+        <topic label="FIO3PIN1" href="lpc23xx__24xx_8h.html#a08654d096e88cbe138ec2183a85bddce"/>
+        <topic label="FIO4PIN1" href="lpc23xx__24xx_8h.html#ac6f041092aecda637317194e20a58012"/>
+        <topic label="FIO0PIN2" href="lpc23xx__24xx_8h.html#ae4a9055080bd8a0dd9fef4f84655eb1c"/>
+        <topic label="FIO1PIN2" href="lpc23xx__24xx_8h.html#ab21e0d511fd82e21c2b735ad6ec4557f"/>
+        <topic label="FIO2PIN2" href="lpc23xx__24xx_8h.html#a86df478762c1956caf2a13ca6834a4f3"/>
+        <topic label="FIO3PIN2" href="lpc23xx__24xx_8h.html#a1d07d582c228fd1a9a59db4ff7a802e9"/>
+        <topic label="FIO4PIN2" href="lpc23xx__24xx_8h.html#af28f4e832a2e032c5c33beede185f7d3"/>
+        <topic label="FIO0PIN3" href="lpc23xx__24xx_8h.html#aac74bc09bb6be50be5a92f37bfaf368d"/>
+        <topic label="FIO1PIN3" href="lpc23xx__24xx_8h.html#a2909af469021aec1dedf401fb5e897dc"/>
+        <topic label="FIO2PIN3" href="lpc23xx__24xx_8h.html#ab355443de507ee270e170e1638be91a5"/>
+        <topic label="FIO3PIN3" href="lpc23xx__24xx_8h.html#a47e49a99283060d2e2d3edd8dc7e6632"/>
+        <topic label="FIO4PIN3" href="lpc23xx__24xx_8h.html#a3c14758ee7e3f31e93bc2a22a5bce3a0"/>
+        <topic label="FIO0PINL" href="lpc23xx__24xx_8h.html#aa1161c502a00e178f8c24181a0e103ba"/>
+        <topic label="FIO1PINL" href="lpc23xx__24xx_8h.html#a9372ee64b6e789f742e129da9e42612a"/>
+        <topic label="FIO2PINL" href="lpc23xx__24xx_8h.html#a18cc1c96af692fd97fa400f184e9f88e"/>
+        <topic label="FIO3PINL" href="lpc23xx__24xx_8h.html#a352387e998a9c63b15a0872ca6605015"/>
+        <topic label="FIO4PINL" href="lpc23xx__24xx_8h.html#a3b6aaa6cdfb258ee7687dbf060a068e5"/>
+        <topic label="FIO0PINU" href="lpc23xx__24xx_8h.html#a1a9929a7e790d5b40f0a5dc6be66ff05"/>
+        <topic label="FIO1PINU" href="lpc23xx__24xx_8h.html#a22a77fea5e7e96aeba1babd4b03bafc3"/>
+        <topic label="FIO2PINU" href="lpc23xx__24xx_8h.html#a17b04e8eb448c0cbe2640ce4be2178e2"/>
+        <topic label="FIO3PINU" href="lpc23xx__24xx_8h.html#a3285eb90bb2c9c421ef5ced4ec9d0b8c"/>
+        <topic label="FIO4PINU" href="lpc23xx__24xx_8h.html#a74bd3f9fe632ef9509e61872910eef8c"/>
+        <topic label="FIO0SET0" href="lpc23xx__24xx_8h.html#abc5a21271607dc1426ccb7235f0ab03a"/>
+        <topic label="FIO1SET0" href="lpc23xx__24xx_8h.html#a2269431a4845fe3cb6706c7a5b8e6b0b"/>
+        <topic label="FIO2SET0" href="lpc23xx__24xx_8h.html#a482b39dd84e6efeb9feda4b2cbee04ef"/>
+        <topic label="FIO3SET0" href="lpc23xx__24xx_8h.html#ae82aff10fb020c5d4038a538837bb254"/>
+        <topic label="FIO4SET0" href="lpc23xx__24xx_8h.html#a95ff75140197f58af3d150612c5cff4f"/>
+        <topic label="FIO0SET1" href="lpc23xx__24xx_8h.html#a18db7dcbbab1a6844772427d400c2b51"/>
+        <topic label="FIO1SET1" href="lpc23xx__24xx_8h.html#a456179014bc2a33838948af72631e49d"/>
+        <topic label="FIO2SET1" href="lpc23xx__24xx_8h.html#a10067222b27fd3a51cc2a25ec26766ef"/>
+        <topic label="FIO3SET1" href="lpc23xx__24xx_8h.html#af3de86493c7ff6d89f773b9f2ab212cb"/>
+        <topic label="FIO4SET1" href="lpc23xx__24xx_8h.html#ad2972c8bcbd8365c08bd608622486003"/>
+        <topic label="FIO0SET2" href="lpc23xx__24xx_8h.html#ad55cb0e8ba1c48ebd940bc881439ac0d"/>
+        <topic label="FIO1SET2" href="lpc23xx__24xx_8h.html#a36c1507b935d9d1f3bbd9eb467d41a5a"/>
+        <topic label="FIO2SET2" href="lpc23xx__24xx_8h.html#a87a87b4e77d7624c626f601ff0089df6"/>
+        <topic label="FIO3SET2" href="lpc23xx__24xx_8h.html#a10cb1e7dd2d40d8a6befeaf26e611abe"/>
+        <topic label="FIO4SET2" href="lpc23xx__24xx_8h.html#a6acfbf77608921bc4741f1090e50d7d3"/>
+        <topic label="FIO0SET3" href="lpc23xx__24xx_8h.html#a221919559cdc8c3496dfc395d9d59eb0"/>
+        <topic label="FIO1SET3" href="lpc23xx__24xx_8h.html#ae1630e2e767466cec068e8e7f3e5049e"/>
+        <topic label="FIO2SET3" href="lpc23xx__24xx_8h.html#a14e0ffc79949128f0d199d058a426835"/>
+        <topic label="FIO3SET3" href="lpc23xx__24xx_8h.html#a2dfc3b8d33a84bb50b012a4533b97351"/>
+        <topic label="FIO4SET3" href="lpc23xx__24xx_8h.html#ab1fe21c07c16ed88b3ede7efe76e861b"/>
+        <topic label="FIO0SETL" href="lpc23xx__24xx_8h.html#a0c81f5d08ab384fa3f2e65773352788a"/>
+        <topic label="FIO1SETL" href="lpc23xx__24xx_8h.html#ad9952e2dc15a66ece9e7225406dde19c"/>
+        <topic label="FIO2SETL" href="lpc23xx__24xx_8h.html#a840aa85de19531e7c47bc0ee5e4644de"/>
+        <topic label="FIO3SETL" href="lpc23xx__24xx_8h.html#a364fdcf0bcb079b2f435990518a7ae5c"/>
+        <topic label="FIO4SETL" href="lpc23xx__24xx_8h.html#a233be106289eb89c3fcf6a1518fea702"/>
+        <topic label="FIO0SETU" href="lpc23xx__24xx_8h.html#a92e5572cceb6757704b53729547db273"/>
+        <topic label="FIO1SETU" href="lpc23xx__24xx_8h.html#a4fff0fd5c35a6e1874d71088d625e9c5"/>
+        <topic label="FIO2SETU" href="lpc23xx__24xx_8h.html#aece476bc2b739e0a58231cc29d320da6"/>
+        <topic label="FIO3SETU" href="lpc23xx__24xx_8h.html#adaa0b534b773dc8f552cffd4be06e800"/>
+        <topic label="FIO4SETU" href="lpc23xx__24xx_8h.html#a6314e5dcf627a67811002f769bcbd5ea"/>
+        <topic label="FIO0CLR0" href="lpc23xx__24xx_8h.html#a8e5a3e053cf6f429163e4a686c39ef38"/>
+        <topic label="FIO1CLR0" href="lpc23xx__24xx_8h.html#a55e55a2be93af5b11321cabe30a381b7"/>
+        <topic label="FIO2CLR0" href="lpc23xx__24xx_8h.html#a83bf7bd4995713a22faccfc68a0ca6ec"/>
+        <topic label="FIO3CLR0" href="lpc23xx__24xx_8h.html#a354af6b5289fe44eebe7504af0299bda"/>
+        <topic label="FIO4CLR0" href="lpc23xx__24xx_8h.html#aeff7f43c2485b9d6e0e3a8fd32757683"/>
+        <topic label="FIO0CLR1" href="lpc23xx__24xx_8h.html#aadcb3254afec1ba262a4c248858b34a6"/>
+        <topic label="FIO1CLR1" href="lpc23xx__24xx_8h.html#afb74195a3c53c3674d394d510efb689e"/>
+        <topic label="FIO2CLR1" href="lpc23xx__24xx_8h.html#a2bc6a545f5e1616207c7ea610e938998"/>
+        <topic label="FIO3CLR1" href="lpc23xx__24xx_8h.html#a9ccc3b12b3c0ba26a63c6ebc75757021"/>
+        <topic label="FIO4CLR1" href="lpc23xx__24xx_8h.html#a09951ad749690934178cc9d9753bed84"/>
+        <topic label="FIO0CLR2" href="lpc23xx__24xx_8h.html#a5f7e5efeba8bde2cba999e2c01fa6ced"/>
+        <topic label="FIO1CLR2" href="lpc23xx__24xx_8h.html#a2930364287237b9c9648772985332a93"/>
+        <topic label="FIO2CLR2" href="lpc23xx__24xx_8h.html#ae474c25bb08ce82cd92410b6019a75f2"/>
+        <topic label="FIO3CLR2" href="lpc23xx__24xx_8h.html#a1a7a4d8573cebcfb227ddc3fe1a63858"/>
+        <topic label="FIO4CLR2" href="lpc23xx__24xx_8h.html#a7bb00c4a2515fd900ea50f0bf9cf3143"/>
+        <topic label="FIO0CLR3" href="lpc23xx__24xx_8h.html#aa93da6ddf56c52b2a669aaa5abd331e3"/>
+        <topic label="FIO1CLR3" href="lpc23xx__24xx_8h.html#a80790e434457c23ef3b83121b2d44cb9"/>
+        <topic label="FIO2CLR3" href="lpc23xx__24xx_8h.html#a6c862f58302d1e265297b023bf1b1c61"/>
+        <topic label="FIO3CLR3" href="lpc23xx__24xx_8h.html#a28f99a4bca9ba138e3b99d81ea37bab9"/>
+        <topic label="FIO4CLR3" href="lpc23xx__24xx_8h.html#a54ed30afd4c65f4f707157ed7319f2ed"/>
+        <topic label="FIO0CLRL" href="lpc23xx__24xx_8h.html#ae6eeb467744a7b35125c07bbae950517"/>
+        <topic label="FIO1CLRL" href="lpc23xx__24xx_8h.html#ae872d43c905b3ba9d7e69cc79b8e5b9f"/>
+        <topic label="FIO2CLRL" href="lpc23xx__24xx_8h.html#a792108b016dcfc87694dc668c004d408"/>
+        <topic label="FIO3CLRL" href="lpc23xx__24xx_8h.html#a5eede7ce337f9b6d752b843fac97e103"/>
+        <topic label="FIO4CLRL" href="lpc23xx__24xx_8h.html#a7fa8669bacf724783b23650cc2b05fea"/>
+        <topic label="FIO0CLRU" href="lpc23xx__24xx_8h.html#a495687da44a467aa43994a1637b800d3"/>
+        <topic label="FIO1CLRU" href="lpc23xx__24xx_8h.html#ad823c094a473b08ecab428d19496b143"/>
+        <topic label="FIO2CLRU" href="lpc23xx__24xx_8h.html#a42aa185aba0147616e65fea1d4a4143a"/>
+        <topic label="FIO3CLRU" href="lpc23xx__24xx_8h.html#ac5cbd019dd9f2b972ef4ba7cd2d72a76"/>
+        <topic label="FIO4CLRU" href="lpc23xx__24xx_8h.html#a4b4c7048ecc54896e2633e1682f44074"/>
+        <topic label="SCB_BASE_ADDR" href="lpc23xx__24xx_8h.html#a0dc0277ed0f4115611ee82a60b5114a8"/>
+        <topic label="MAMCR" href="lpc23xx__24xx_8h.html#a5f8241693e932c71cda127e11d38184f"/>
+        <topic label="MAMTIM" href="lpc23xx__24xx_8h.html#ac1227157e9ba57d2fe6d024b859bdae2"/>
+        <topic label="MEMMAP" href="lpc23xx__24xx_8h.html#a1faec0e736c4b1230adfb1722e82706f"/>
+        <topic label="PLLCON" href="lpc23xx__24xx_8h.html#a82f48e2691d53458741663e593cf7e43"/>
+        <topic label="PLLCFG" href="lpc23xx__24xx_8h.html#a86a96d4f7bbd5859efb50d95e843a453"/>
+        <topic label="PLLSTAT" href="lpc23xx__24xx_8h.html#ae729ecec265b8f3cc14218bf2811c725"/>
+        <topic label="PLLFEED" href="lpc23xx__24xx_8h.html#a8df6957082139d54e86014261f88a76f"/>
+        <topic label="PCON" href="lpc23xx__24xx_8h.html#abb1322d5f790b9bea8376c697a5c9ef0"/>
+        <topic label="PCONP" href="lpc23xx__24xx_8h.html#aca7c245b2477a5abdec386b73bda1d15"/>
+        <topic label="CCLKCFG" href="lpc23xx__24xx_8h.html#aee8a2a7239bf63337907dc502353af1e"/>
+        <topic label="USBCLKCFG" href="lpc23xx__24xx_8h.html#a8c4499c94daa261f5eed0a6e056961c2"/>
+        <topic label="CLKSRCSEL" href="lpc23xx__24xx_8h.html#a18eab6dd489f80a89116833d4414dc48"/>
+        <topic label="PCLKSEL0" href="lpc23xx__24xx_8h.html#a49def446e302ba44f9fa2af86e7e00f5"/>
+        <topic label="PCLKSEL1" href="lpc23xx__24xx_8h.html#ae99d1dda9b3051054ac019a697495268"/>
+        <topic label="EXTINT" href="lpc23xx__24xx_8h.html#a8cc44522d2f5b706b3af5b839c0ba3ff"/>
+        <topic label="INTWAKE" href="lpc23xx__24xx_8h.html#a426c0653be664fad1f2f048880a434a2"/>
+        <topic label="EXTMODE" href="lpc23xx__24xx_8h.html#a6b7d1399a94b686e878b95b16b46ff4a"/>
+        <topic label="EXTPOLAR" href="lpc23xx__24xx_8h.html#ac9d407f43c17d5499f0d9ccd9acbf256"/>
+        <topic label="RSIR" href="lpc23xx__24xx_8h.html#a9a1f1399ce8c6359561c1b6e75ee8282"/>
+        <topic label="CSPR" href="lpc23xx__24xx_8h.html#ab4785286c511d7976b72eef326a03116"/>
+        <topic label="AHBCFG1" href="lpc23xx__24xx_8h.html#aaa2b8e5ff78dd0f63577ef5130ab9222"/>
+        <topic label="AHBCFG2" href="lpc23xx__24xx_8h.html#ace5e0e389a80569dbb9d98926a8d9a32"/>
+        <topic label="SCS" href="lpc23xx__24xx_8h.html#a57d06a9e6a8f5abc296f987d4552894c"/>
+        <topic label="EMC_BASE_ADDR" href="lpc23xx__24xx_8h.html#ab001a5ecd9b443f598529d69687500d5"/>
+        <topic label="EMC_CTRL" href="lpc23xx__24xx_8h.html#a0ee4542f655dbe2d13a52dfe57f78fc1"/>
+        <topic label="EMC_STAT" href="lpc23xx__24xx_8h.html#a4603ffb9899622ffcf7c5ac9131da819"/>
+        <topic label="EMC_CONFIG" href="lpc23xx__24xx_8h.html#aa7028917f44454d49d10c870e61055ec"/>
+        <topic label="EMC_DYN_CTRL" href="lpc23xx__24xx_8h.html#a3f985ac1f7965950ffef598c1643a21f"/>
+        <topic label="EMC_DYN_RFSH" href="lpc23xx__24xx_8h.html#ae441eb1fc82a2d0b3f2bbb097d75c640"/>
+        <topic label="EMC_DYN_RD_CFG" href="lpc23xx__24xx_8h.html#ad31cb7cb5f91f9777b39d9e27799bc14"/>
+        <topic label="EMC_DYN_RP" href="lpc23xx__24xx_8h.html#a7f83bba422d4a53c21941b890db10b64"/>
+        <topic label="EMC_DYN_RAS" href="lpc23xx__24xx_8h.html#a78b5951e6c3beec47fe3c0912521c458"/>
+        <topic label="EMC_DYN_SREX" href="lpc23xx__24xx_8h.html#aa3f4ef64841a6e98b0e9733c354f7a14"/>
+        <topic label="EMC_DYN_APR" href="lpc23xx__24xx_8h.html#af03e6f28c7e2d9d341ea956728cc6fe4"/>
+        <topic label="EMC_DYN_DAL" href="lpc23xx__24xx_8h.html#a84e14c1b610f9bf413d37ba339879da9"/>
+        <topic label="EMC_DYN_WR" href="lpc23xx__24xx_8h.html#abef06c16a9efcdf4765e5b2dd40637f6"/>
+        <topic label="EMC_DYN_RC" href="lpc23xx__24xx_8h.html#a28e2be038bceabb034266c66ac9f57fc"/>
+        <topic label="EMC_DYN_RFC" href="lpc23xx__24xx_8h.html#a1b7204cbc3783f01ed351591bd703cbc"/>
+        <topic label="EMC_DYN_XSR" href="lpc23xx__24xx_8h.html#a65d07637723dad6c4bfa32ca80498da5"/>
+        <topic label="EMC_DYN_RRD" href="lpc23xx__24xx_8h.html#a7cd5b1acc11e51b2f8c626a68a31fef7"/>
+        <topic label="EMC_DYN_MRD" href="lpc23xx__24xx_8h.html#a6df89e2d2d9b7bf3a9c2795c878eb876"/>
+        <topic label="EMC_DYN_CFG0" href="lpc23xx__24xx_8h.html#ae616731877ae05dafce9414f57a91209"/>
+        <topic label="EMC_DYN_RASCAS0" href="lpc23xx__24xx_8h.html#a054b22d98d309b3f6339bec6707c520a"/>
+        <topic label="EMC_DYN_CFG1" href="lpc23xx__24xx_8h.html#ac4e129a5d784bd6991920ab516034c07"/>
+        <topic label="EMC_DYN_RASCAS1" href="lpc23xx__24xx_8h.html#ae99cb0679de45433b9314134e78aa375"/>
+        <topic label="EMC_DYN_CFG2" href="lpc23xx__24xx_8h.html#af5d7d23e178da56aa9d88a5adaf181d3"/>
+        <topic label="EMC_DYN_RASCAS2" href="lpc23xx__24xx_8h.html#a1cb01916f73ec6e7589c7b092942957d"/>
+        <topic label="EMC_DYN_CFG3" href="lpc23xx__24xx_8h.html#a53a9b70a04c2fa6c692457c61daa80af"/>
+        <topic label="EMC_DYN_RASCAS3" href="lpc23xx__24xx_8h.html#aec9ab0fb5541e15b84ae1a1f5f5a91d1"/>
+        <topic label="EMC_STA_CFG0" href="lpc23xx__24xx_8h.html#a23681fc95a3888c5f3381d9bb4a5aad5"/>
+        <topic label="EMC_STA_WAITWEN0" href="lpc23xx__24xx_8h.html#a1ddeddff0b6a9c83b821b8baf69b3ca8"/>
+        <topic label="EMC_STA_WAITOEN0" href="lpc23xx__24xx_8h.html#a9ed72e9e02298c132847c1bbc43afecf"/>
+        <topic label="EMC_STA_WAITRD0" href="lpc23xx__24xx_8h.html#ae27cb519a2ab23933ed175ab80ff1e5e"/>
+        <topic label="EMC_STA_WAITPAGE0" href="lpc23xx__24xx_8h.html#a0c8b7999161fe96a7ae9a5e2d212a175"/>
+        <topic label="EMC_STA_WAITWR0" href="lpc23xx__24xx_8h.html#ac82315156c8f7474fb21827cc6269962"/>
+        <topic label="EMC_STA_WAITTURN0" href="lpc23xx__24xx_8h.html#a725242583d6225e1c94aa5f414de41b2"/>
+        <topic label="EMC_STA_CFG1" href="lpc23xx__24xx_8h.html#a3d5743d7619fa807bc4eaac5183ecd2d"/>
+        <topic label="EMC_STA_WAITWEN1" href="lpc23xx__24xx_8h.html#a63bdab97abf2c635ae9ea83751f85244"/>
+        <topic label="EMC_STA_WAITOEN1" href="lpc23xx__24xx_8h.html#aa4807be8fc2a57229646a376afb5da6a"/>
+        <topic label="EMC_STA_WAITRD1" href="lpc23xx__24xx_8h.html#ae7aaab1ae42ccd7fc27c3927b863e032"/>
+        <topic label="EMC_STA_WAITPAGE1" href="lpc23xx__24xx_8h.html#a6cd605c69b3456bd150a6be61bfaaeda"/>
+        <topic label="EMC_STA_WAITWR1" href="lpc23xx__24xx_8h.html#af6c45caf882f27237aef691be08bfa68"/>
+        <topic label="EMC_STA_WAITTURN1" href="lpc23xx__24xx_8h.html#a3b79de329b9ee7c064240b18b49f4d48"/>
+        <topic label="EMC_STA_CFG2" href="lpc23xx__24xx_8h.html#a6bbcd624a457ea27c8a1a6a0b6eafdc0"/>
+        <topic label="EMC_STA_WAITWEN2" href="lpc23xx__24xx_8h.html#acce5de0c5f47da6df90b89f5bf407f75"/>
+        <topic label="EMC_STA_WAITOEN2" href="lpc23xx__24xx_8h.html#a65c69024df60132bb8d7866be8738f23"/>
+        <topic label="EMC_STA_WAITRD2" href="lpc23xx__24xx_8h.html#ada13bb6f1c3cd92ff28285c9004164f7"/>
+        <topic label="EMC_STA_WAITPAGE2" href="lpc23xx__24xx_8h.html#aa8605aa063649e965eabb6af138c6a3b"/>
+        <topic label="EMC_STA_WAITWR2" href="lpc23xx__24xx_8h.html#ac71482aafbb09e23724be7d37688e83d"/>
+        <topic label="EMC_STA_WAITTURN2" href="lpc23xx__24xx_8h.html#a01ec470f6b7c9d62ab301f0636bae411"/>
+        <topic label="EMC_STA_CFG3" href="lpc23xx__24xx_8h.html#aa2016c196af5a059d01a7946014d264e"/>
+        <topic label="EMC_STA_WAITWEN3" href="lpc23xx__24xx_8h.html#a99d571bddf2dc56afd79e74d67edf4e1"/>
+        <topic label="EMC_STA_WAITOEN3" href="lpc23xx__24xx_8h.html#a13748f71e2f32b5f4a3e411356a7a2ef"/>
+        <topic label="EMC_STA_WAITRD3" href="lpc23xx__24xx_8h.html#acd3d543cc6f0489f531db7331f3ae944"/>
+        <topic label="EMC_STA_WAITPAGE3" href="lpc23xx__24xx_8h.html#a4af412695b082e2546e05675190bdb24"/>
+        <topic label="EMC_STA_WAITWR3" href="lpc23xx__24xx_8h.html#a909cb7a6e4f2857e24dabc27cc8b7564"/>
+        <topic label="EMC_STA_WAITTURN3" href="lpc23xx__24xx_8h.html#ac6f02e788c97b6da2da4493705d0a81e"/>
+        <topic label="EMC_STA_EXT_WAIT" href="lpc23xx__24xx_8h.html#a7f024cfa3979cd3c4c0432e4c981fc59"/>
+        <topic label="TMR0_BASE_ADDR" href="lpc23xx__24xx_8h.html#af7bc92a27446332c063a696f34146ba6"/>
+        <topic label="T0IR" href="lpc23xx__24xx_8h.html#ae669c80390f9475369f2c4f48f7630b3"/>
+        <topic label="T0TCR" href="lpc23xx__24xx_8h.html#a0f7a4e745f989cba7121a2a089400243"/>
+        <topic label="T0TC" href="lpc23xx__24xx_8h.html#acc99e4d315de652060365cb4a634d071"/>
+        <topic label="T0PR" href="lpc23xx__24xx_8h.html#af0820bf2601acb2528db5ca569a67baf"/>
+        <topic label="T0PC" href="lpc23xx__24xx_8h.html#a5f5b19ff825c0d2d71a088a5189a0db1"/>
+        <topic label="T0MCR" href="lpc23xx__24xx_8h.html#a301ebbd28f97690cab064ef6ca985e01"/>
+        <topic label="T0MR0" href="lpc23xx__24xx_8h.html#a8bee2a36f8e241b9db3c9c7f87143a99"/>
+        <topic label="T0MR1" href="lpc23xx__24xx_8h.html#afcda6dd57c1f5114f0574f9a8c668636"/>
+        <topic label="T0MR2" href="lpc23xx__24xx_8h.html#af37e7fe881f158029616b5fe699dcd0b"/>
+        <topic label="T0MR3" href="lpc23xx__24xx_8h.html#a91b36df698ef061e7a6a21226a4903f4"/>
+        <topic label="T0CCR" href="lpc23xx__24xx_8h.html#a5a2498c5217384197c415a4f860d7b7d"/>
+        <topic label="T0CR0" href="lpc23xx__24xx_8h.html#a30e040cd93a01687d0444ebe8528cc96"/>
+        <topic label="T0CR1" href="lpc23xx__24xx_8h.html#a2b8c430359234e8f74d0ff7270a73d31"/>
+        <topic label="T0CR2" href="lpc23xx__24xx_8h.html#aa76826c11cd21e377f06125859f81e24"/>
+        <topic label="T0CR3" href="lpc23xx__24xx_8h.html#aeb9360d2d372c19653020c3b2bfc0cc0"/>
+        <topic label="T0EMR" href="lpc23xx__24xx_8h.html#a3f7bfa7a4ec72334b5628f6f0b2276fa"/>
+        <topic label="T0CTCR" href="lpc23xx__24xx_8h.html#a1dfe6470ef76d008806fc8b9f7428af9"/>
+        <topic label="TMR1_BASE_ADDR" href="lpc23xx__24xx_8h.html#aad3dc650b516f248d2a5cd3073d4e461"/>
+        <topic label="T1IR" href="lpc23xx__24xx_8h.html#adb98681e25a22c370f83fe86a093de94"/>
+        <topic label="T1TCR" href="lpc23xx__24xx_8h.html#a10ed50586274919ac0318a280d09ab30"/>
+        <topic label="T1TC" href="lpc23xx__24xx_8h.html#a17688b0757c26205ffffdd5549d9970f"/>
+        <topic label="T1PR" href="lpc23xx__24xx_8h.html#a8f87cbff71173b0b6fc0494bc7e4a019"/>
+        <topic label="T1PC" href="lpc23xx__24xx_8h.html#a9f3a3649d53d672c4345687f87167760"/>
+        <topic label="T1MCR" href="lpc23xx__24xx_8h.html#a205889a7afd857ad3eb141308850f3f5"/>
+        <topic label="T1MR0" href="lpc23xx__24xx_8h.html#af5ba753d0f5e3768bf5ffef897b9c409"/>
+        <topic label="T1MR1" href="lpc23xx__24xx_8h.html#a7edccdd1ca49c9cf4bdd1b2992ce1583"/>
+        <topic label="T1MR2" href="lpc23xx__24xx_8h.html#a8ea913f8ea4a5c82d24c9746ccb667bf"/>
+        <topic label="T1MR3" href="lpc23xx__24xx_8h.html#a7fea7562f22aa7455803cf9b33ecce5a"/>
+        <topic label="T1CCR" href="lpc23xx__24xx_8h.html#a737ee7b9cfbee8d3bbb0abf66a34b9b5"/>
+        <topic label="T1CR0" href="lpc23xx__24xx_8h.html#aada37f1a99a649cc0b1b7cba92119cec"/>
+        <topic label="T1CR1" href="lpc23xx__24xx_8h.html#ad8140e19bb354413b32f222d2d6ac6dd"/>
+        <topic label="T1CR2" href="lpc23xx__24xx_8h.html#addb430d719c637f754d70783953986a7"/>
+        <topic label="T1CR3" href="lpc23xx__24xx_8h.html#af6fcbf287e379c69b205ce6278519b17"/>
+        <topic label="T1EMR" href="lpc23xx__24xx_8h.html#ae67acb233642e3c0cf37c6599af4969f"/>
+        <topic label="T1CTCR" href="lpc23xx__24xx_8h.html#af5f4dd02c0c0835d84ed174f7c83d80b"/>
+        <topic label="TMR2_BASE_ADDR" href="lpc23xx__24xx_8h.html#aa2cce130a875918cc633a38c65720654"/>
+        <topic label="T2IR" href="lpc23xx__24xx_8h.html#aa11666ae9e802f9b9dd84518f52f7cfb"/>
+        <topic label="T2TCR" href="lpc23xx__24xx_8h.html#a9eb3294a66cb96acaa94e5849576b20d"/>
+        <topic label="T2TC" href="lpc23xx__24xx_8h.html#ad2968c558b55fa74142b31d9264fc7b6"/>
+        <topic label="T2PR" href="lpc23xx__24xx_8h.html#a2ce4e3cc8aa3ef6da5e0d5066153c81f"/>
+        <topic label="T2PC" href="lpc23xx__24xx_8h.html#ab0478579f7ce128c43a93b68a4974852"/>
+        <topic label="T2MCR" href="lpc23xx__24xx_8h.html#a8e86cc7926b1a34ccf96183f272ec8fc"/>
+        <topic label="T2MR0" href="lpc23xx__24xx_8h.html#ae9af312f9edd6c3e609484f9f6019456"/>
+        <topic label="T2MR1" href="lpc23xx__24xx_8h.html#a94663f1f26d3d364e58e6d4908d4aa2c"/>
+        <topic label="T2MR2" href="lpc23xx__24xx_8h.html#a197b1f31bb466d13777cb3ec482420b8"/>
+        <topic label="T2MR3" href="lpc23xx__24xx_8h.html#acce9129f30e5cef222f427e5b95caeb7"/>
+        <topic label="T2CCR" href="lpc23xx__24xx_8h.html#a286928a67dcaa1d1e63bd9e75e49c7a8"/>
+        <topic label="T2CR0" href="lpc23xx__24xx_8h.html#a8d54720a92350e4009551922372ccd4a"/>
+        <topic label="T2CR1" href="lpc23xx__24xx_8h.html#abf86f1bc7710b60615b29e1fb8ea09e1"/>
+        <topic label="T2CR2" href="lpc23xx__24xx_8h.html#a778d31dad9026f21c8784986d2780aa5"/>
+        <topic label="T2CR3" href="lpc23xx__24xx_8h.html#af8daeccac48fe581400d86d04a181f4f"/>
+        <topic label="T2EMR" href="lpc23xx__24xx_8h.html#a9f155806d28261afb245e1ce07fcd580"/>
+        <topic label="T2CTCR" href="lpc23xx__24xx_8h.html#a7d75e4234732204b090372849006e957"/>
+        <topic label="TMR3_BASE_ADDR" href="lpc23xx__24xx_8h.html#a0e9ee4d08133b83515d22c65b068476e"/>
+        <topic label="T3IR" href="lpc23xx__24xx_8h.html#a51402235821cfc688c6288de994d041e"/>
+        <topic label="T3TCR" href="lpc23xx__24xx_8h.html#a5b0db852baba1f4c6b0f0b7b0d8f1472"/>
+        <topic label="T3TC" href="lpc23xx__24xx_8h.html#a2503b3cb841e48de7d1b5aa3250d9734"/>
+        <topic label="T3PR" href="lpc23xx__24xx_8h.html#a1a5224e7e44e661c88f54c0f0748a343"/>
+        <topic label="T3PC" href="lpc23xx__24xx_8h.html#ae8ea56af6d9b5e20d9aea98dd89b36c0"/>
+        <topic label="T3MCR" href="lpc23xx__24xx_8h.html#a5ec450412c081623167f56ac65b5ae22"/>
+        <topic label="T3MR0" href="lpc23xx__24xx_8h.html#a7c97ed581cb06e06f90da62ecc31c041"/>
+        <topic label="T3MR1" href="lpc23xx__24xx_8h.html#a183ed578c64a75184d299d65f69946d5"/>
+        <topic label="T3MR2" href="lpc23xx__24xx_8h.html#a50e861e40701e3f61246b8d153d8032e"/>
+        <topic label="T3MR3" href="lpc23xx__24xx_8h.html#ad9af1b25701a333f7be063bbaea897fe"/>
+        <topic label="T3CCR" href="lpc23xx__24xx_8h.html#ab8a63499aacfc0b50be4d44f88d14176"/>
+        <topic label="T3CR0" href="lpc23xx__24xx_8h.html#aa4ecae7602d7383a802c419d824f1c44"/>
+        <topic label="T3CR1" href="lpc23xx__24xx_8h.html#a1f051c4cda65617798e6d9031f101aa5"/>
+        <topic label="T3CR2" href="lpc23xx__24xx_8h.html#a74f0ac5fbb3fde6e9407bade0cf27203"/>
+        <topic label="T3CR3" href="lpc23xx__24xx_8h.html#ad6eaa329ae59efcbf1af8a98dc34d43e"/>
+        <topic label="T3EMR" href="lpc23xx__24xx_8h.html#a294ebf9b5083cac0bf4cbcb40fd4108e"/>
+        <topic label="T3CTCR" href="lpc23xx__24xx_8h.html#ab6e5c6db01307c185d12f0624f1831f4"/>
+        <topic label="PWM0_BASE_ADDR" href="lpc23xx__24xx_8h.html#a7f045a579f769a95960885379c6d2403"/>
+        <topic label="PWM0IR" href="lpc23xx__24xx_8h.html#afb4d07cba08019d8391b62d01475d4d2"/>
+        <topic label="PWM0TCR" href="lpc23xx__24xx_8h.html#aebfa692ee2fbdc6fb80546e098d32700"/>
+        <topic label="PWM0TC" href="lpc23xx__24xx_8h.html#a25bd2915982ec7b01799d05d0ef54572"/>
+        <topic label="PWM0PR" href="lpc23xx__24xx_8h.html#aa17b3467999643b9d8def3ecb375cb78"/>
+        <topic label="PWM0PC" href="lpc23xx__24xx_8h.html#ac706e173dca8a1b4a611ee043a2a8fa2"/>
+        <topic label="PWM0MCR" href="lpc23xx__24xx_8h.html#afad545f2443694b49657b4c6d12cd0fa"/>
+        <topic label="PWM0MR0" href="lpc23xx__24xx_8h.html#a49fa4cd7e435f042b977339102a6d6e9"/>
+        <topic label="PWM0MR1" href="lpc23xx__24xx_8h.html#a384f0d5fabd92e21c742f1a71891729a"/>
+        <topic label="PWM0MR2" href="lpc23xx__24xx_8h.html#a4b22d6f480ffba217402af5a236e3d78"/>
+        <topic label="PWM0MR3" href="lpc23xx__24xx_8h.html#a12a1e0d552900aa9e7d250c4c212bde3"/>
+        <topic label="PWM0CCR" href="lpc23xx__24xx_8h.html#a9b0bbb492f048b4e862c4cf9dab6326c"/>
+        <topic label="PWM0CR0" href="lpc23xx__24xx_8h.html#a15f8541c5bbede9ff26a132ade4d4c72"/>
+        <topic label="PWM0CR1" href="lpc23xx__24xx_8h.html#a5cf008cbe5d4ca620968c0bdfb7ab9fd"/>
+        <topic label="PWM0CR2" href="lpc23xx__24xx_8h.html#af091cfaa51bf890b312608df5d49287a"/>
+        <topic label="PWM0CR3" href="lpc23xx__24xx_8h.html#ae1aeb66783d50978640b4b590bbed597"/>
+        <topic label="PWM0EMR" href="lpc23xx__24xx_8h.html#ad8cd406737c9e84fb2483fa400634c86"/>
+        <topic label="PWM0MR4" href="lpc23xx__24xx_8h.html#abbcf506211ab6ab1b2c5c1f38780ea1c"/>
+        <topic label="PWM0MR5" href="lpc23xx__24xx_8h.html#ac2f16ed00cfd73ecea8bd57266fa12bf"/>
+        <topic label="PWM0MR6" href="lpc23xx__24xx_8h.html#abbdda6279c621cc44c2fe204b37b17ce"/>
+        <topic label="PWM0PCR" href="lpc23xx__24xx_8h.html#ac7e239089765b3003891d7d32a3bc912"/>
+        <topic label="PWM0LER" href="lpc23xx__24xx_8h.html#a9ec80d88d0ca9f70f15a0d2ce07892ed"/>
+        <topic label="PWM0CTCR" href="lpc23xx__24xx_8h.html#aa6ea274745d37a9bfd50f99d82203c82"/>
+        <topic label="PWM1_BASE_ADDR" href="lpc23xx__24xx_8h.html#aa7b965a863210c6c32c0d349d35809b7"/>
+        <topic label="PWM1IR" href="lpc23xx__24xx_8h.html#ad4ec4390d18476c11ed41dd1c83f807e"/>
+        <topic label="PWM1TCR" href="lpc23xx__24xx_8h.html#a28c6d847018403ec9ba8df40e3c58943"/>
+        <topic label="PWM1TC" href="lpc23xx__24xx_8h.html#ad58fea8768250165672ee7da3d15f8f5"/>
+        <topic label="PWM1PR" href="lpc23xx__24xx_8h.html#aa7f831dfbad7be2667ef1129d679a404"/>
+        <topic label="PWM1PC" href="lpc23xx__24xx_8h.html#ab18496b632150bed47a02eff3130f13a"/>
+        <topic label="PWM1MCR" href="lpc23xx__24xx_8h.html#adf9cc55190adab8b9514ddf98ddb92e0"/>
+        <topic label="PWM1MR0" href="lpc23xx__24xx_8h.html#a5e3c7ed6a93a33a2ff421ab506dbbafb"/>
+        <topic label="PWM1MR1" href="lpc23xx__24xx_8h.html#a3dc224468163b553a2162b33750c715f"/>
+        <topic label="PWM1MR2" href="lpc23xx__24xx_8h.html#a98743d9f558a3fae8390507608c4cc9c"/>
+        <topic label="PWM1MR3" href="lpc23xx__24xx_8h.html#af8b53ed3ef205b54401b4449b143ad97"/>
+        <topic label="PWM1CCR" href="lpc23xx__24xx_8h.html#a0592322a5e3106eae339150942ad0849"/>
+        <topic label="PWM1CR0" href="lpc23xx__24xx_8h.html#a0adfdfeca7f74c317066718115cd9993"/>
+        <topic label="PWM1CR1" href="lpc23xx__24xx_8h.html#aaa495456c7c8bcddbdadf1755d7252a7"/>
+        <topic label="PWM1CR2" href="lpc23xx__24xx_8h.html#a72319c34fab87dd5c993dfaa11496ccf"/>
+        <topic label="PWM1CR3" href="lpc23xx__24xx_8h.html#ac3c69b776f9d73862a3f9b1b2e8b958a"/>
+        <topic label="PWM1EMR" href="lpc23xx__24xx_8h.html#aed7d788a31d0125b61035e29fe222e2b"/>
+        <topic label="PWM1MR4" href="lpc23xx__24xx_8h.html#acdb17b6472b0b4b2cdc21ada7430ae24"/>
+        <topic label="PWM1MR5" href="lpc23xx__24xx_8h.html#a791a666f7373a4e3f43c3c0439c36f5c"/>
+        <topic label="PWM1MR6" href="lpc23xx__24xx_8h.html#a0d2feca139bbc158a17f67d19d7b3a36"/>
+        <topic label="PWM1PCR" href="lpc23xx__24xx_8h.html#ae0a51932c27868a0c09e465063ab7112"/>
+        <topic label="PWM1LER" href="lpc23xx__24xx_8h.html#aab6c010139cf54626f69a5ad4bfd9fe7"/>
+        <topic label="PWM1CTCR" href="lpc23xx__24xx_8h.html#abfb6e114090010f05da8a986ae474b44"/>
+        <topic label="UART0_BASE_ADDR" href="lpc23xx__24xx_8h.html#ac1b34f5487c2e7f4905a1aeba9ba885b"/>
+        <topic label="U0RBR" href="lpc23xx__24xx_8h.html#a2551368ffe3c25f7f7e902296e9c92c9"/>
+        <topic label="U0THR" href="lpc23xx__24xx_8h.html#aa521905280aa0a96627769b804b8c51a"/>
+        <topic label="U0DLL" href="lpc23xx__24xx_8h.html#a2cbc2d5592327ef6365580a4e3add7f4"/>
+        <topic label="U0DLM" href="lpc23xx__24xx_8h.html#a0c1e0ad22e8f1f03914b31d64a3fed7d"/>
+        <topic label="U0IER" href="lpc23xx__24xx_8h.html#ad85c49db4d38e9a7a6ed2dc27ef57754"/>
+        <topic label="U0IIR" href="lpc23xx__24xx_8h.html#a31ceeca933d9ad729ee9d2bbd511a15f"/>
+        <topic label="U0FCR" href="lpc23xx__24xx_8h.html#a865a057f689e5260dd49f983f2e6554d"/>
+        <topic label="U0LCR" href="lpc23xx__24xx_8h.html#ac04af46e5aa3dc369e089dac159536d6"/>
+        <topic label="U0LSR" href="lpc23xx__24xx_8h.html#a0c5b9c7227b17edfd6ed7a178bf2156d"/>
+        <topic label="U0SCR" href="lpc23xx__24xx_8h.html#a7e11c4fdfcb713228362394ecdb4e79a"/>
+        <topic label="U0ACR" href="lpc23xx__24xx_8h.html#a0cca0e8af5562309318d79b9363d9296"/>
+        <topic label="U0FDR" href="lpc23xx__24xx_8h.html#a8e39253af4ebfaf05755c939464c6f5c"/>
+        <topic label="U0TER" href="lpc23xx__24xx_8h.html#aacbe1c1acc2a2dbfdee9d6979c245cdb"/>
+        <topic label="UART1_BASE_ADDR" href="lpc23xx__24xx_8h.html#a529a3a887b9327d5f47c86cd2d3d5f20"/>
+        <topic label="U1RBR" href="lpc23xx__24xx_8h.html#a29687c0a6ff8551214281273c15171ca"/>
+        <topic label="U1THR" href="lpc23xx__24xx_8h.html#a4a778151f5bc729297e22a04beaa2871"/>
+        <topic label="U1DLL" href="lpc23xx__24xx_8h.html#aa17272c4fef5bc599e67cbff87278bb2"/>
+        <topic label="U1DLM" href="lpc23xx__24xx_8h.html#abe4a266871f6a8000cf8596527411bc4"/>
+        <topic label="U1IER" href="lpc23xx__24xx_8h.html#aa7aca02025c2f7989b49f00235a6f975"/>
+        <topic label="U1IIR" href="lpc23xx__24xx_8h.html#a0a289e01382049b15e762fec3acd92a9"/>
+        <topic label="U1FCR" href="lpc23xx__24xx_8h.html#ae00eb09874ca2de7c69d6e68a1c39b78"/>
+        <topic label="U1LCR" href="lpc23xx__24xx_8h.html#ade2179d0137cbfe52c8195000c501b64"/>
+        <topic label="U1MCR" href="lpc23xx__24xx_8h.html#acd62207fa924ac33cff783dc4795472f"/>
+        <topic label="U1LSR" href="lpc23xx__24xx_8h.html#a2e8279488652c2ee02996bce1707a317"/>
+        <topic label="U1MSR" href="lpc23xx__24xx_8h.html#a06b03163db31d7c0b561376d1ff2e0c1"/>
+        <topic label="U1SCR" href="lpc23xx__24xx_8h.html#aab43408d276c938324f4bf6ebefc83d2"/>
+        <topic label="U1ACR" href="lpc23xx__24xx_8h.html#a35dc834b87112f37f445e9b9c1a75e10"/>
+        <topic label="U1FDR" href="lpc23xx__24xx_8h.html#aab141ab2a704bd49956d424b5ca25e33"/>
+        <topic label="U1TER" href="lpc23xx__24xx_8h.html#a71598b464e2c60582b2511097528b417"/>
+        <topic label="UART2_BASE_ADDR" href="lpc23xx__24xx_8h.html#ab98cfeb5bce374d602f85bc3535b81f1"/>
+        <topic label="U2RBR" href="lpc23xx__24xx_8h.html#a3217ab15a4742277c2c5d02041b18f9e"/>
+        <topic label="U2THR" href="lpc23xx__24xx_8h.html#a70fdd49f450383eab8c9470d5c573ba7"/>
+        <topic label="U2DLL" href="lpc23xx__24xx_8h.html#a4c12c688405bf62127516b45384c4793"/>
+        <topic label="U2DLM" href="lpc23xx__24xx_8h.html#aa90f827d34f6aa819098aaa5039bde0e"/>
+        <topic label="U2IER" href="lpc23xx__24xx_8h.html#ac258c7989c6983815701f5dd47399956"/>
+        <topic label="U2IIR" href="lpc23xx__24xx_8h.html#a039e475d893e2e7181236cb4ad8c5e40"/>
+        <topic label="U2FCR" href="lpc23xx__24xx_8h.html#af1bcda29d2ae3000ba65e186ea156236"/>
+        <topic label="U2LCR" href="lpc23xx__24xx_8h.html#aac0f1ec20a9f12ae03e59b091e50e794"/>
+        <topic label="U2LSR" href="lpc23xx__24xx_8h.html#af3a0674d97031835dabc003c2980c6f2"/>
+        <topic label="U2SCR" href="lpc23xx__24xx_8h.html#aa97a7ff9576352323249b78eda727c91"/>
+        <topic label="U2ACR" href="lpc23xx__24xx_8h.html#a51622692387ac00b8c7d31eeffbd0066"/>
+        <topic label="U2ICR" href="lpc23xx__24xx_8h.html#a6b5b3441ccc5212def461d49052d615b"/>
+        <topic label="U2FDR" href="lpc23xx__24xx_8h.html#ae8f848930120e1049c445643c54355e3"/>
+        <topic label="U2TER" href="lpc23xx__24xx_8h.html#a954edc55c936d73884c34228e13b5ceb"/>
+        <topic label="UART3_BASE_ADDR" href="lpc23xx__24xx_8h.html#acf5180b61294d939aead776031994b32"/>
+        <topic label="U3RBR" href="lpc23xx__24xx_8h.html#af27de47d3595f2d410da893a867aff4b"/>
+        <topic label="U3THR" href="lpc23xx__24xx_8h.html#ae158c57af4994ff05ba8d11e32e00ba2"/>
+        <topic label="U3DLL" href="lpc23xx__24xx_8h.html#a6d74748d1c7950f26f6f4de67f6b4e4e"/>
+        <topic label="U3DLM" href="lpc23xx__24xx_8h.html#a077c9c54c152e861978afbaf2f6cee49"/>
+        <topic label="U3IER" href="lpc23xx__24xx_8h.html#aa47e28445b2880d9af074a1b760a1bda"/>
+        <topic label="U3IIR" href="lpc23xx__24xx_8h.html#a711fa9ccc09097da604981ca39da9713"/>
+        <topic label="U3FCR" href="lpc23xx__24xx_8h.html#a45baee27af392ba026b80b0dea3b8000"/>
+        <topic label="U3LCR" href="lpc23xx__24xx_8h.html#ac72d3bbaccc4015017322aa7c8679a9d"/>
+        <topic label="U3LSR" href="lpc23xx__24xx_8h.html#ae390f9197ac4478cdadcf348061b1025"/>
+        <topic label="U3SCR" href="lpc23xx__24xx_8h.html#a0a656ba5f9f0597f4e0f3e4ed4826d89"/>
+        <topic label="U3ACR" href="lpc23xx__24xx_8h.html#ac46bae7d649e92e19f364e1f15722dcf"/>
+        <topic label="U3ICR" href="lpc23xx__24xx_8h.html#aa3f6aa46c34e9a05e79ab9f31554369f"/>
+        <topic label="U3FDR" href="lpc23xx__24xx_8h.html#af6ba17d223a4a63bbfd90f484ae07ca1"/>
+        <topic label="U3TER" href="lpc23xx__24xx_8h.html#a47d631a5b4579f94d442f6d59620bd0b"/>
+        <topic label="I2C0_BASE_ADDR" href="lpc23xx__24xx_8h.html#af92536fd2e82cc12a5193ade75b4f23c"/>
+        <topic label="I20CONSET" href="lpc23xx__24xx_8h.html#ad263e73ddc458addf152dda00ddb3185"/>
+        <topic label="I20STAT" href="lpc23xx__24xx_8h.html#a00a995ae21d5d65b8bb630570a3be7c7"/>
+        <topic label="I20DAT" href="lpc23xx__24xx_8h.html#a1f4c7c137f5f855a4a9f539c59f839a1"/>
+        <topic label="I20ADR" href="lpc23xx__24xx_8h.html#ad5232ba68adf5387493064170c646871"/>
+        <topic label="I20SCLH" href="lpc23xx__24xx_8h.html#ae20dac34511f86fb2255f6f2cdefb608"/>
+        <topic label="I20SCLL" href="lpc23xx__24xx_8h.html#abc17e67260e18929e24416a46b0b1d04"/>
+        <topic label="I20CONCLR" href="lpc23xx__24xx_8h.html#a6e0b0e63d0f7699f0ff3be29483604dd"/>
+        <topic label="I2C1_BASE_ADDR" href="lpc23xx__24xx_8h.html#a1ee2ead8ad06cf308542ac7d8d4be581"/>
+        <topic label="I21CONSET" href="lpc23xx__24xx_8h.html#aa77d71a046661afcd36d0fed44897b4a"/>
+        <topic label="I21STAT" href="lpc23xx__24xx_8h.html#af8ad3be4776b7c72e40152629c8dfb84"/>
+        <topic label="I21DAT" href="lpc23xx__24xx_8h.html#a25ee5eeb2e9a66c4cd60ed0db2677e12"/>
+        <topic label="I21ADR" href="lpc23xx__24xx_8h.html#a487f130a95aa32fc361b570f1698a94b"/>
+        <topic label="I21SCLH" href="lpc23xx__24xx_8h.html#a64bd322e12afaad507d8b26f63b44339"/>
+        <topic label="I21SCLL" href="lpc23xx__24xx_8h.html#a3c58f4c42bdbed43705d432f38d034c1"/>
+        <topic label="I21CONCLR" href="lpc23xx__24xx_8h.html#ad9861a20f818155f560adf4df72ed80a"/>
+        <topic label="I2C2_BASE_ADDR" href="lpc23xx__24xx_8h.html#ac2fed30a475b0e622158afa3f93c4cba"/>
+        <topic label="I22CONSET" href="lpc23xx__24xx_8h.html#a3a20ab5b3b453a593c10833ddd46d5c3"/>
+        <topic label="I22STAT" href="lpc23xx__24xx_8h.html#a2639ce31daaaaf9a8cacdad8d81fe475"/>
+        <topic label="I22DAT" href="lpc23xx__24xx_8h.html#a9c0f71a1a956975b0225622a127ca875"/>
+        <topic label="I22ADR" href="lpc23xx__24xx_8h.html#a370e6d6030c804494d075bcf13e3e87b"/>
+        <topic label="I22SCLH" href="lpc23xx__24xx_8h.html#ab6e02d65ea2eb5ec39c21dce641b90bc"/>
+        <topic label="I22SCLL" href="lpc23xx__24xx_8h.html#abb9398e218ad4b3782200053f545c055"/>
+        <topic label="I22CONCLR" href="lpc23xx__24xx_8h.html#aadeac5f547736533d0459f74b18db020"/>
+        <topic label="SPI0_BASE_ADDR" href="lpc23xx__24xx_8h.html#ab01c0bf45f92131c444196eb762c49c0"/>
+        <topic label="S0SPCR" href="lpc23xx__24xx_8h.html#a3ddecf939b21cd44d3ac4da904babd74"/>
+        <topic label="S0SPSR" href="lpc23xx__24xx_8h.html#a0b0d1de79372d1c997a49481b33eb142"/>
+        <topic label="S0SPDR" href="lpc23xx__24xx_8h.html#ac1dcfdef505b8a51bfe8897d5f7cfea2"/>
+        <topic label="S0SPCCR" href="lpc23xx__24xx_8h.html#a042490d4a2ce295d0bc8c31bd56ce4c6"/>
+        <topic label="S0SPINT" href="lpc23xx__24xx_8h.html#ab9db240a5132df781fd0aa8d2b7972ee"/>
+        <topic label="SSP0_BASE_ADDR" href="lpc23xx__24xx_8h.html#ae32072ca2d22139ef114673961671064"/>
+        <topic label="SSP0CR0" href="lpc23xx__24xx_8h.html#acac3fbd962af29e483293f49f5a4d489"/>
+        <topic label="SSP0CR1" href="lpc23xx__24xx_8h.html#a3808bb825f6b60e52c2a85d5d1144b17"/>
+        <topic label="SSP0DR" href="lpc23xx__24xx_8h.html#aa2d0cfacb7d31fc5d8900fb8fd56a5d8"/>
+        <topic label="SSP0SR" href="lpc23xx__24xx_8h.html#a99763ac6d05808a6a24e8ad528014b85"/>
+        <topic label="SSP0CPSR" href="lpc23xx__24xx_8h.html#acb95c5b194a35e74e664f3fa15d9a6d0"/>
+        <topic label="SSP0IMSC" href="lpc23xx__24xx_8h.html#a48bd57aefd7177bf7841061e7a3107d9"/>
+        <topic label="SSP0RIS" href="lpc23xx__24xx_8h.html#a61a7f913486366713699472524c234b8"/>
+        <topic label="SSP0MIS" href="lpc23xx__24xx_8h.html#a90a7f06d9b3ff9752fa3c3f5e57be06e"/>
+        <topic label="SSP0ICR" href="lpc23xx__24xx_8h.html#a8054b085e34d7ee292b0444acbef589b"/>
+        <topic label="SSP0DMACR" href="lpc23xx__24xx_8h.html#a0fb4b46d2318de8fe99b0b08372c0ee4"/>
+        <topic label="SSP1_BASE_ADDR" href="lpc23xx__24xx_8h.html#a412646742b338f8d774f21b8c016adeb"/>
+        <topic label="SSP1CR0" href="lpc23xx__24xx_8h.html#a0dd2f12ced738e84672fe19b1c0f13d2"/>
+        <topic label="SSP1CR1" href="lpc23xx__24xx_8h.html#a07ec57baa0581a21b7dce1c24e4222b8"/>
+        <topic label="SSP1DR" href="lpc23xx__24xx_8h.html#aceb33b7fc340bfd45932acf8d2da06ce"/>
+        <topic label="SSP1SR" href="lpc23xx__24xx_8h.html#a84f1918ddb556e2d68952ff6e6047a49"/>
+        <topic label="SSP1CPSR" href="lpc23xx__24xx_8h.html#aff7a3b4b2db9031d48fc1748be4d50de"/>
+        <topic label="SSP1IMSC" href="lpc23xx__24xx_8h.html#a58edb9011bd8a76113ffd5fcf55413db"/>
+        <topic label="SSP1RIS" href="lpc23xx__24xx_8h.html#a8a1cd6e5114cb6e81b1661ce02127124"/>
+        <topic label="SSP1MIS" href="lpc23xx__24xx_8h.html#ac0b175a58e07fe4a0e092642c783f778"/>
+        <topic label="SSP1ICR" href="lpc23xx__24xx_8h.html#af86860e9818da75a93859cc1b2bb8ced"/>
+        <topic label="SSP1DMACR" href="lpc23xx__24xx_8h.html#adc43e1084fa48f3175dffcd8344bdfea"/>
+        <topic label="RTC_BASE_ADDR" href="lpc23xx__24xx_8h.html#a33283243f681a8ae4a78650b57ae2ca5"/>
+        <topic label="RTC_ILR" href="lpc23xx__24xx_8h.html#a198969e920bdbe81eeb0b9994365bed2"/>
+        <topic label="RTC_CTC" href="lpc23xx__24xx_8h.html#ae9a199544f3888c9789277caddc1be92"/>
+        <topic label="RTC_CCR" href="lpc23xx__24xx_8h.html#a5aa0f9eb9a40d760e4123632e169b4b2"/>
+        <topic label="RTC_CIIR" href="lpc23xx__24xx_8h.html#aae56933f264cafed754709883e239806"/>
+        <topic label="RTC_AMR" href="lpc23xx__24xx_8h.html#a7c84d5e4cc9be1e3a2c40c4d1407d6d7"/>
+        <topic label="RTC_CTIME0" href="lpc23xx__24xx_8h.html#a89830979584d5211afebed1fffa4f26b"/>
+        <topic label="RTC_CTIME1" href="lpc23xx__24xx_8h.html#a5b5b420362d3d8573f13b5a99c378be7"/>
+        <topic label="RTC_CTIME2" href="lpc23xx__24xx_8h.html#aa5dd5f757aff1f88bc8ebd4fa1188afc"/>
+        <topic label="RTC_SEC" href="lpc23xx__24xx_8h.html#a2507e650d4ccc8a2bdf3001800a3e743"/>
+        <topic label="RTC_MIN" href="lpc23xx__24xx_8h.html#a34fc4e7c0e5db231217aa3174e394c72"/>
+        <topic label="RTC_HOUR" href="lpc23xx__24xx_8h.html#a7264eac87ffc91cbdea1239d346a0ea4"/>
+        <topic label="RTC_DOM" href="lpc23xx__24xx_8h.html#a13fe5c7a2fcd0e19ebfa0dec6effae15"/>
+        <topic label="RTC_DOW" href="lpc23xx__24xx_8h.html#ae55d2c94800cef20cab58b193e7ddb40"/>
+        <topic label="RTC_DOY" href="lpc23xx__24xx_8h.html#a3bf57b4b5c9fe44d9dbd145a7bc57def"/>
+        <topic label="RTC_MONTH" href="lpc23xx__24xx_8h.html#abda0c877ee1a02b8351c0cfe72838088"/>
+        <topic label="RTC_YEAR" href="lpc23xx__24xx_8h.html#a1df5568e6774b73aa4c6e59fc40e9147"/>
+        <topic label="RTC_CISS" href="lpc23xx__24xx_8h.html#a7028a923d0410bcb9bca6040700524f1"/>
+        <topic label="RTC_ALSEC" href="lpc23xx__24xx_8h.html#ae58b5bdb1c99567d1685d4676aa35427"/>
+        <topic label="RTC_ALMIN" href="lpc23xx__24xx_8h.html#a8323b667e3224ab270526bbace0c1715"/>
+        <topic label="RTC_ALHOUR" href="lpc23xx__24xx_8h.html#ad7f01dadf6e47ff12ff257657c58208d"/>
+        <topic label="RTC_ALDOM" href="lpc23xx__24xx_8h.html#a0ad48d0ace638fa30d44618095757820"/>
+        <topic label="RTC_ALDOW" href="lpc23xx__24xx_8h.html#ac042f6395814397b28e2682f899e0646"/>
+        <topic label="RTC_ALDOY" href="lpc23xx__24xx_8h.html#a26830345067fee75f13598f6209991c7"/>
+        <topic label="RTC_ALMON" href="lpc23xx__24xx_8h.html#a881bade284f5e592494b1c61aaec7ce0"/>
+        <topic label="RTC_ALYEAR" href="lpc23xx__24xx_8h.html#a13dce75fb8b965e708f1d82b18fd787f"/>
+        <topic label="RTC_PREINT" href="lpc23xx__24xx_8h.html#a49d9de46ffd09c6bb431d4b23eb89fa0"/>
+        <topic label="RTC_PREFRAC" href="lpc23xx__24xx_8h.html#a468312de8a59df522a9d74fc9563134f"/>
+        <topic label="AD0_BASE_ADDR" href="lpc23xx__24xx_8h.html#acea72a246c6a7e09ffdbd4442148e0d0"/>
+        <topic label="AD0CR" href="lpc23xx__24xx_8h.html#a1d72c55d1ed959fe28600b4a521cefbd"/>
+        <topic label="AD0GDR" href="lpc23xx__24xx_8h.html#a614757380a519dbcbf297343f4868663"/>
+        <topic label="AD0INTEN" href="lpc23xx__24xx_8h.html#aa0368cdd37b3e1eab9b03bcb1c4d632c"/>
+        <topic label="AD0DR0" href="lpc23xx__24xx_8h.html#ab6342538ad695dc28352682dbb7bdd98"/>
+        <topic label="AD0DR1" href="lpc23xx__24xx_8h.html#a45a02f068ff994318718348fe595e38a"/>
+        <topic label="AD0DR2" href="lpc23xx__24xx_8h.html#a81287109d3e46b7948070914506ae1ff"/>
+        <topic label="AD0DR3" href="lpc23xx__24xx_8h.html#ab3b6b3411fad87830caec8689ae890ba"/>
+        <topic label="AD0DR4" href="lpc23xx__24xx_8h.html#a2c3d9599d0d11579c7d4b02463757e61"/>
+        <topic label="AD0DR5" href="lpc23xx__24xx_8h.html#ac3ba1edf68765fb536e00f303e12a9a5"/>
+        <topic label="AD0DR6" href="lpc23xx__24xx_8h.html#a3509c30f0942504fe4c79c2bc8a4d3de"/>
+        <topic label="AD0DR7" href="lpc23xx__24xx_8h.html#afc45e343d5d496100a943d79d3a42249"/>
+        <topic label="AD0STAT" href="lpc23xx__24xx_8h.html#a131707c7ef9f31c045d7bb9be431ae10"/>
+        <topic label="DAC_BASE_ADDR" href="lpc23xx__24xx_8h.html#ac105318d5f9ffb075caed0a56711f3a4"/>
+        <topic label="DACR" href="lpc23xx__24xx_8h.html#af8a4c578c83b8420c7ec010f84f3f0eb"/>
+        <topic label="WDG_BASE_ADDR" href="lpc23xx__24xx_8h.html#ae8844752ed71e6be59c8527185465038"/>
+        <topic label="WDMOD" href="lpc23xx__24xx_8h.html#a37c4add55fd2c30091f3e4d796feeca8"/>
+        <topic label="WDTC" href="lpc23xx__24xx_8h.html#a3e307aaee495eda03358a2ee3bf88c94"/>
+        <topic label="WDFEED" href="lpc23xx__24xx_8h.html#a02d688463660c741e72dc905582805e9"/>
+        <topic label="WDTV" href="lpc23xx__24xx_8h.html#ab558486d90264fa951c0cb12f09e328a"/>
+        <topic label="WDCLKSEL" href="lpc23xx__24xx_8h.html#a3e8a3bb108e9d8c0389e4e715f097be0"/>
+        <topic label="CAN_ACCEPT_BASE_ADDR" href="lpc23xx__24xx_8h.html#a551b07be3174f148c975a19fafe8d1cb"/>
+        <topic label="CAN_AFMR" href="lpc23xx__24xx_8h.html#a9bd4eb329cd2d0b75e21615122a0701a"/>
+        <topic label="CAN_SFF_SA" href="lpc23xx__24xx_8h.html#a57ee3c32325903c2cfc48981d7c42149"/>
+        <topic label="CAN_SFF_GRP_SA" href="lpc23xx__24xx_8h.html#ada43fe02cbbbdec6cd50171a5bc4d3a1"/>
+        <topic label="CAN_EFF_SA" href="lpc23xx__24xx_8h.html#a05ce77afb49b9b8f1e8596de6607466c"/>
+        <topic label="CAN_EFF_GRP_SA" href="lpc23xx__24xx_8h.html#aa9d157f2ed54b277860001ab5375aad7"/>
+        <topic label="CAN_EOT" href="lpc23xx__24xx_8h.html#a25a760484deef63d7d5ae093304ee210"/>
+        <topic label="CAN_LUT_ERR_ADR" href="lpc23xx__24xx_8h.html#a8fa7a368ce77533d6d1371aa2d381efc"/>
+        <topic label="CAN_LUT_ERR" href="lpc23xx__24xx_8h.html#a095d08b305b7b51a9bf625c9cb78dc11"/>
+        <topic label="CAN_CENTRAL_BASE_ADDR" href="lpc23xx__24xx_8h.html#a90d78085df864aa837ec05157b688191"/>
+        <topic label="CAN_TX_SR" href="lpc23xx__24xx_8h.html#aabdb40de57b21a5feca2ce0efbdecb13"/>
+        <topic label="CAN_RX_SR" href="lpc23xx__24xx_8h.html#ad04297df7b39b8b19b5498a46fd156ed"/>
+        <topic label="CAN_MSR" href="lpc23xx__24xx_8h.html#a716170f2e3d40418e1fe844a808db138"/>
+        <topic label="CAN1_BASE_ADDR" href="lpc23xx__24xx_8h.html#a3bcddabab65750a963da37f3d6b86c05"/>
+        <topic label="CAN1MOD" href="lpc23xx__24xx_8h.html#a38f8437047c7c1e2caafc0061f965864"/>
+        <topic label="CAN1CMR" href="lpc23xx__24xx_8h.html#ab95ed7a71e1cb3af07e30dcb2c7034af"/>
+        <topic label="CAN1GSR" href="lpc23xx__24xx_8h.html#a37612beb9f7fd8e42b43416a2fedcc92"/>
+        <topic label="CAN1ICR" href="lpc23xx__24xx_8h.html#a9d898bf486894841622eee888988d09a"/>
+        <topic label="CAN1IER" href="lpc23xx__24xx_8h.html#acce25ce507a7c30638d805aeda891246"/>
+        <topic label="CAN1BTR" href="lpc23xx__24xx_8h.html#a72c6e6ba6feb2e823e4e70a2a3686066"/>
+        <topic label="CAN1EWL" href="lpc23xx__24xx_8h.html#ab20a457fb4657c2f711ab5181230eeae"/>
+        <topic label="CAN1SR" href="lpc23xx__24xx_8h.html#a8ddbbf283c93c7efdfa3a3f18f27ba32"/>
+        <topic label="CAN1RFS" href="lpc23xx__24xx_8h.html#ac300bdbceacd0b9a7213fa01160ede7c"/>
+        <topic label="CAN1RID" href="lpc23xx__24xx_8h.html#a135719b2cee06c3a8cd2d940d5e6dd4e"/>
+        <topic label="CAN1RDA" href="lpc23xx__24xx_8h.html#a985037c68b423691a79c99bd98b3c14c"/>
+        <topic label="CAN1RDB" href="lpc23xx__24xx_8h.html#a5db7175ec9a3ff6197b36b6e8e8fc8e8"/>
+        <topic label="CAN1TFI1" href="lpc23xx__24xx_8h.html#a3bc3b781b112b9c401048513b22f6794"/>
+        <topic label="CAN1TID1" href="lpc23xx__24xx_8h.html#a84bce3c4d946adefddf7fd2f53039099"/>
+        <topic label="CAN1TDA1" href="lpc23xx__24xx_8h.html#a1c8986ef45e105cf11df5dfafda8fa99"/>
+        <topic label="CAN1TDB1" href="lpc23xx__24xx_8h.html#aea7e5217be766a28333909cfd9cd4b6d"/>
+        <topic label="CAN1TFI2" href="lpc23xx__24xx_8h.html#a5f3fe1ce24cb553257b16a820cf4c0f2"/>
+        <topic label="CAN1TID2" href="lpc23xx__24xx_8h.html#aee1aadcf3e9d1b0c31af6105fcac4c17"/>
+        <topic label="CAN1TDA2" href="lpc23xx__24xx_8h.html#a0e21f039f822d200e48f377bac76cf20"/>
+        <topic label="CAN1TDB2" href="lpc23xx__24xx_8h.html#a8e8cc20934af3c8b0698a3b531327d76"/>
+        <topic label="CAN1TFI3" href="lpc23xx__24xx_8h.html#af6fc125bff259f47cbf2844720554c99"/>
+        <topic label="CAN1TID3" href="lpc23xx__24xx_8h.html#abb48f486de5976e8782e3d2bb98c2f91"/>
+        <topic label="CAN1TDA3" href="lpc23xx__24xx_8h.html#a33c86c155815cf9e4e96dcd9f8925a1c"/>
+        <topic label="CAN1TDB3" href="lpc23xx__24xx_8h.html#a55ecfc8031b62ed37371b4949a0f7954"/>
+        <topic label="CAN2_BASE_ADDR" href="lpc23xx__24xx_8h.html#a6e8917334a8169aca752577ba0c27b8b"/>
+        <topic label="CAN2MOD" href="lpc23xx__24xx_8h.html#a2abc61e5c8a37e1ddca5490e1e3fb149"/>
+        <topic label="CAN2CMR" href="lpc23xx__24xx_8h.html#ade2e60da875c96b0e65087ed452283ca"/>
+        <topic label="CAN2GSR" href="lpc23xx__24xx_8h.html#aaa1e489054a831e3810988f64a482eed"/>
+        <topic label="CAN2ICR" href="lpc23xx__24xx_8h.html#a08b64239e6c900c4c312afe510d610c3"/>
+        <topic label="CAN2IER" href="lpc23xx__24xx_8h.html#af450c07b9f55536135ace52ff0073bc2"/>
+        <topic label="CAN2BTR" href="lpc23xx__24xx_8h.html#aa8a52390ef63be2a18c43783ac34c859"/>
+        <topic label="CAN2EWL" href="lpc23xx__24xx_8h.html#a2495fd16f537ce3541d6a247d38f860c"/>
+        <topic label="CAN2SR" href="lpc23xx__24xx_8h.html#a4bb3d70f1d74200a218d77b6a8bfaf0b"/>
+        <topic label="CAN2RFS" href="lpc23xx__24xx_8h.html#a7084af7dbe11f724f40345b42faf051e"/>
+        <topic label="CAN2RID" href="lpc23xx__24xx_8h.html#a273d274ca05365a160a9bcabe1416cbb"/>
+        <topic label="CAN2RDA" href="lpc23xx__24xx_8h.html#ab81a0a53731ad2b0f7ca24c57fd878db"/>
+        <topic label="CAN2RDB" href="lpc23xx__24xx_8h.html#afbd806e79a209e476ffa42e182511d67"/>
+        <topic label="CAN2TFI1" href="lpc23xx__24xx_8h.html#a1be70c105bcb52b5970336b5ecbb4c70"/>
+        <topic label="CAN2TID1" href="lpc23xx__24xx_8h.html#a6ae3aac6dffe23b3fe56dfe6df392d4d"/>
+        <topic label="CAN2TDA1" href="lpc23xx__24xx_8h.html#a0e3a70b5f1816ef57fc327d759bef67c"/>
+        <topic label="CAN2TDB1" href="lpc23xx__24xx_8h.html#a0e4ae7eb59f318a67df003bb83532d42"/>
+        <topic label="CAN2TFI2" href="lpc23xx__24xx_8h.html#afd562ee58b6aded2fe1287a58f2e4547"/>
+        <topic label="CAN2TID2" href="lpc23xx__24xx_8h.html#aa450cd8b94c199f456f13168edea2efb"/>
+        <topic label="CAN2TDA2" href="lpc23xx__24xx_8h.html#a8acb428174a844a335891f3fdda9055e"/>
+        <topic label="CAN2TDB2" href="lpc23xx__24xx_8h.html#a029de0a7619a1c7571827a28ab1a2c57"/>
+        <topic label="CAN2TFI3" href="lpc23xx__24xx_8h.html#a625c98b24e14132c724c571a813d0321"/>
+        <topic label="CAN2TID3" href="lpc23xx__24xx_8h.html#a4389a61fed25c290ecb3b0b901bd2567"/>
+        <topic label="CAN2TDA3" href="lpc23xx__24xx_8h.html#aa635a36c2025ce0fecd1dfca15c0fc26"/>
+        <topic label="CAN2TDB3" href="lpc23xx__24xx_8h.html#ad89870813a6b5e10609700abc27077d3"/>
+        <topic label="MCI_BASE_ADDR" href="lpc23xx__24xx_8h.html#a3eaa1133c73ec24549c7109051b7d561"/>
+        <topic label="MCI_POWER" href="lpc23xx__24xx_8h.html#abb94916a0c9833cff9ba76999745b92e"/>
+        <topic label="MCI_CLOCK" href="lpc23xx__24xx_8h.html#a2be4c26ae4c3e91a79ff0d3feec65c27"/>
+        <topic label="MCI_ARGUMENT" href="lpc23xx__24xx_8h.html#a3601f39e62013944b96bf2a09fb9cb82"/>
+        <topic label="MCI_COMMAND" href="lpc23xx__24xx_8h.html#a54ac6141113d0d51c1d6e9af3cec1217"/>
+        <topic label="MCI_RESP_CMD" href="lpc23xx__24xx_8h.html#aced0f1b4d5a3065ce9bf5e6579f1ffbd"/>
+        <topic label="MCI_RESP0" href="lpc23xx__24xx_8h.html#a8596dabfec8cf8c689956d282fd819ff"/>
+        <topic label="MCI_RESP1" href="lpc23xx__24xx_8h.html#a30dd54ee3b147f1c3b9fa5ddaf83eb4b"/>
+        <topic label="MCI_RESP2" href="lpc23xx__24xx_8h.html#aa7958ba21370ed742290f5a961bb2de4"/>
+        <topic label="MCI_RESP3" href="lpc23xx__24xx_8h.html#a348cc29a8e8665388dbc815f0551af0c"/>
+        <topic label="MCI_DATA_TMR" href="lpc23xx__24xx_8h.html#af98729f3594c985e678f2863c1f6479d"/>
+        <topic label="MCI_DATA_LEN" href="lpc23xx__24xx_8h.html#a99a039689d99c83eb0b21b7194b56136"/>
+        <topic label="MCI_DATA_CTRL" href="lpc23xx__24xx_8h.html#a4f78b8217df9aefd504bedba8343e54e"/>
+        <topic label="MCI_DATA_CNT" href="lpc23xx__24xx_8h.html#add48d8f5510106dfa4581c52dc9165cc"/>
+        <topic label="MCI_STATUS" href="lpc23xx__24xx_8h.html#a4a04c8f2f9d2c7746623911ed7b85e01"/>
+        <topic label="MCI_CLEAR" href="lpc23xx__24xx_8h.html#a3d589ab9ce9b6d04204c6d9fbcb0b2c3"/>
+        <topic label="MCI_MASK0" href="lpc23xx__24xx_8h.html#a25165d14d8d681ad4d3dc5dff1dd2f89"/>
+        <topic label="MCI_MASK1" href="lpc23xx__24xx_8h.html#a43010f455ebf6442b306915c14b356bb"/>
+        <topic label="MCI_FIFO_CNT" href="lpc23xx__24xx_8h.html#aebd250577f90667fa300df358fc19a5d"/>
+        <topic label="MCI_FIFO" href="lpc23xx__24xx_8h.html#a216bbb50d1e801d721b3f97512ab2b1b"/>
+        <topic label="I2S_BASE_ADDR" href="lpc23xx__24xx_8h.html#a5813eeeeed993b9c42ffeeae1d919d63"/>
+        <topic label="I2S_DAO" href="lpc23xx__24xx_8h.html#ae348c2a2fbb511afde54e64b8d6039a7"/>
+        <topic label="I2S_DAI" href="lpc23xx__24xx_8h.html#aa5f1f1aa1ee4b91a244322d9489375c1"/>
+        <topic label="I2S_TX_FIFO" href="lpc23xx__24xx_8h.html#a463a445671402bd6d05f49c2fe83cf7d"/>
+        <topic label="I2S_RX_FIFO" href="lpc23xx__24xx_8h.html#a94236bb9b29a41852be49c7d8ab4ab86"/>
+        <topic label="I2S_STATE" href="lpc23xx__24xx_8h.html#a48c1c51f31d33865579535357079de85"/>
+        <topic label="I2S_DMA1" href="lpc23xx__24xx_8h.html#a4675790a80f5baa97a96e32a61252ae2"/>
+        <topic label="I2S_DMA2" href="lpc23xx__24xx_8h.html#a10ade59017149a53a56d2007b2e0992a"/>
+        <topic label="I2S_IRQ" href="lpc23xx__24xx_8h.html#ad976ba11a99acd1a594ea0062b058641"/>
+        <topic label="I2S_TXRATE" href="lpc23xx__24xx_8h.html#af5033b62b35f216b1dcef051c576432c"/>
+        <topic label="I2S_RXRATE" href="lpc23xx__24xx_8h.html#a182c48a306ab18548f3f3c107c5b3a1e"/>
+        <topic label="DMA_BASE_ADDR" href="lpc23xx__24xx_8h.html#a201c775905e9f952b24eab2e2d74cc30"/>
+        <topic label="GPDMA_INT_STAT" href="lpc23xx__24xx_8h.html#a9b2edef4fba6f1e806b16e6f5f3ec427"/>
+        <topic label="GPDMA_INT_TCSTAT" href="lpc23xx__24xx_8h.html#a4899f3e99ab39a92645e479e2f045458"/>
+        <topic label="GPDMA_INT_TCCLR" href="lpc23xx__24xx_8h.html#a34cb032650bb6c4398cdaf6b236a34be"/>
+        <topic label="GPDMA_INT_ERR_STAT" href="lpc23xx__24xx_8h.html#a44fe71cbcdeebc2ea98c2b07f1f92243"/>
+        <topic label="GPDMA_INT_ERR_CLR" href="lpc23xx__24xx_8h.html#acfa49cc225cdb3fbc5aa0811306eec91"/>
+        <topic label="GPDMA_RAW_INT_TCSTAT" href="lpc23xx__24xx_8h.html#ae788c5c8f64e5df6e7916689489b9afa"/>
+        <topic label="GPDMA_RAW_INT_ERR_STAT" href="lpc23xx__24xx_8h.html#a878f4640315d4a419cad8c44b3e29523"/>
+        <topic label="GPDMA_ENABLED_CHNS" href="lpc23xx__24xx_8h.html#a8c0936663c8754bfdb663d99ce851b56"/>
+        <topic label="GPDMA_SOFT_BREQ" href="lpc23xx__24xx_8h.html#a58522bd0b4dee763737015d6932924ff"/>
+        <topic label="GPDMA_SOFT_SREQ" href="lpc23xx__24xx_8h.html#a8a1a5faefcf27ebcb1390c8cbed98643"/>
+        <topic label="GPDMA_SOFT_LBREQ" href="lpc23xx__24xx_8h.html#a3a59d43853c1c68577b202a3a0fbedbc"/>
+        <topic label="GPDMA_SOFT_LSREQ" href="lpc23xx__24xx_8h.html#ac71dbd809178835703144c30849f12eb"/>
+        <topic label="GPDMA_CONFIG" href="lpc23xx__24xx_8h.html#a060a120f1510c33fa7de14f8d7cd3580"/>
+        <topic label="GPDMA_SYNC" href="lpc23xx__24xx_8h.html#abd5fb14c1c74036e59d29c5649e97de6"/>
+        <topic label="GPDMA_CH0_SRC" href="lpc23xx__24xx_8h.html#a4e020664fe1e52294ced053613c30600"/>
+        <topic label="GPDMA_CH0_DEST" href="lpc23xx__24xx_8h.html#a761c9bc05da6355261472176a6c77223"/>
+        <topic label="GPDMA_CH0_LLI" href="lpc23xx__24xx_8h.html#a6cd2f82d6d0906827fc593931d6a860c"/>
+        <topic label="GPDMA_CH0_CTRL" href="lpc23xx__24xx_8h.html#ad3f65318f78197a210d40f1e8098b015"/>
+        <topic label="GPDMA_CH0_CFG" href="lpc23xx__24xx_8h.html#a4c195ee7ad377ee478b4dcae144215df"/>
+        <topic label="GPDMA_CH1_SRC" href="lpc23xx__24xx_8h.html#a55a241f44798b4d7689cb8eda7cfed2b"/>
+        <topic label="GPDMA_CH1_DEST" href="lpc23xx__24xx_8h.html#aa5452d1d30d9ad6dfb0de13610542241"/>
+        <topic label="GPDMA_CH1_LLI" href="lpc23xx__24xx_8h.html#a62874f970b9a5ac381d2eff755ecdcca"/>
+        <topic label="GPDMA_CH1_CTRL" href="lpc23xx__24xx_8h.html#abd2d297640c59a8c16816c34d9efac3b"/>
+        <topic label="GPDMA_CH1_CFG" href="lpc23xx__24xx_8h.html#af8c841ee078009780c64007aaa94bfde"/>
+        <topic label="USB_INT_BASE_ADDR" href="lpc23xx__24xx_8h.html#a440a41938a33d63a7f589e141e526c1c"/>
+        <topic label="USB_BASE_ADDR" href="lpc23xx__24xx_8h.html#ac4a0aaeb144366d66f6a9f937e090f79"/>
+        <topic label="USB_INT_STAT" href="lpc23xx__24xx_8h.html#a3f71dda0c54b4515a69b141211ca7789"/>
+        <topic label="DEV_INT_STAT" href="lpc23xx__24xx_8h.html#a0b22893868cac9fe1ebec9e277af6dda"/>
+        <topic label="DEV_INT_EN" href="lpc23xx__24xx_8h.html#a5cfcbf267f741f81fded5a5db4170878"/>
+        <topic label="DEV_INT_CLR" href="lpc23xx__24xx_8h.html#aab3308f395f5b9027ce79ff8c0b51d33"/>
+        <topic label="DEV_INT_SET" href="lpc23xx__24xx_8h.html#ab3c27fe79244d35e511570f0a95c68b6"/>
+        <topic label="DEV_INT_PRIO" href="lpc23xx__24xx_8h.html#ad9594a4fbfa0cec7b6af43f4fc3b51a9"/>
+        <topic label="EP_INT_STAT" href="lpc23xx__24xx_8h.html#a7ac92c467ebfcf341e70f9dc0240cb16"/>
+        <topic label="EP_INT_EN" href="lpc23xx__24xx_8h.html#a3f936a37044781bd124826b4d7b1f5ac"/>
+        <topic label="EP_INT_CLR" href="lpc23xx__24xx_8h.html#a9999d0a30843fc88933c4cd1a347f8f0"/>
+        <topic label="EP_INT_SET" href="lpc23xx__24xx_8h.html#a8ea955904a86de84a896d3c1fc4a1e57"/>
+        <topic label="EP_INT_PRIO" href="lpc23xx__24xx_8h.html#a6da4bab1ee8ba5ddaf10c251dc9903bc"/>
+        <topic label="REALIZE_EP" href="lpc23xx__24xx_8h.html#aabc58a2521289512b17610c0dc885b03"/>
+        <topic label="EP_INDEX" href="lpc23xx__24xx_8h.html#a1d97408bdaeec043c109be49e070f946"/>
+        <topic label="MAXPACKET_SIZE" href="lpc23xx__24xx_8h.html#a23ce8dbb5cc493bb188afa039ed966d6"/>
+        <topic label="CMD_CODE" href="lpc23xx__24xx_8h.html#a26004032d7c8d515ace0a9d0b335803a"/>
+        <topic label="CMD_DATA" href="lpc23xx__24xx_8h.html#a472710fa35c93cfacb7937657acfb7bd"/>
+        <topic label="RX_DATA" href="lpc23xx__24xx_8h.html#a90b21c450cfc5c88ba50c5049177f0d2"/>
+        <topic label="TX_DATA" href="lpc23xx__24xx_8h.html#ab7aa78c51c5c51bbfd493bf42bef0de3"/>
+        <topic label="RX_PLENGTH" href="lpc23xx__24xx_8h.html#ae668ee95fe0745255f5bfa0308c8b3db"/>
+        <topic label="TX_PLENGTH" href="lpc23xx__24xx_8h.html#a63a2a022475066b0ae072996c5056e4b"/>
+        <topic label="USB_CTRL" href="lpc23xx__24xx_8h.html#ab7bdc25df3717d2745df3eebec6fad57"/>
+        <topic label="DMA_REQ_STAT" href="lpc23xx__24xx_8h.html#a863b30fbbd61bf5fee46a92cfe7c5752"/>
+        <topic label="DMA_REQ_CLR" href="lpc23xx__24xx_8h.html#a1831db54b9f28fc5a38f131c8194250e"/>
+        <topic label="DMA_REQ_SET" href="lpc23xx__24xx_8h.html#ac0c92edce81c96089cdcad7863904d7f"/>
+        <topic label="UDCA_HEAD" href="lpc23xx__24xx_8h.html#a032486c794ec5177f8798c52cd668f06"/>
+        <topic label="EP_DMA_STAT" href="lpc23xx__24xx_8h.html#a27824852fe89c5316589c925f4e1b5da"/>
+        <topic label="EP_DMA_EN" href="lpc23xx__24xx_8h.html#aca707e6ffdc202147005652a1b544193"/>
+        <topic label="EP_DMA_DIS" href="lpc23xx__24xx_8h.html#a973e11abfa4de0e431d8312c0a383707"/>
+        <topic label="DMA_INT_STAT" href="lpc23xx__24xx_8h.html#aa5cff2a6f8869e960806889e2e50e4fb"/>
+        <topic label="DMA_INT_EN" href="lpc23xx__24xx_8h.html#af95b52bf77789e823ab2ff8791272ed0"/>
+        <topic label="EOT_INT_STAT" href="lpc23xx__24xx_8h.html#a08e3e93c616fe5cf100681df8734c68a"/>
+        <topic label="EOT_INT_CLR" href="lpc23xx__24xx_8h.html#a8d15366d00bf92d475edc4d801a48623"/>
+        <topic label="EOT_INT_SET" href="lpc23xx__24xx_8h.html#a42491e34a60716bca0a0dd80b0a391cc"/>
+        <topic label="NDD_REQ_INT_STAT" href="lpc23xx__24xx_8h.html#a8e09ea95499bfbb4e25f557f46acc366"/>
+        <topic label="NDD_REQ_INT_CLR" href="lpc23xx__24xx_8h.html#a35477d374d9432873059fef85a0e035d"/>
+        <topic label="NDD_REQ_INT_SET" href="lpc23xx__24xx_8h.html#a77232f1bf7672444326bee92c14ce640"/>
+        <topic label="SYS_ERR_INT_STAT" href="lpc23xx__24xx_8h.html#a26c05baea79134a23e2827ed7c2bebf8"/>
+        <topic label="SYS_ERR_INT_CLR" href="lpc23xx__24xx_8h.html#a7bd45d408caa98a8e779be37eda4f20f"/>
+        <topic label="SYS_ERR_INT_SET" href="lpc23xx__24xx_8h.html#adefd8d07b69284b49b763500856577ab"/>
+        <topic label="USBHC_BASE_ADDR" href="lpc23xx__24xx_8h.html#aeb9d87450cc34e835e9f5bdf0b12f5a8"/>
+        <topic label="HC_REVISION" href="lpc23xx__24xx_8h.html#ab167a401da3b2ee5c76f0431c97cdcc3"/>
+        <topic label="HC_CONTROL" href="lpc23xx__24xx_8h.html#af04f8301478bc1dbecbfd34497f78b27"/>
+        <topic label="HC_CMD_STAT" href="lpc23xx__24xx_8h.html#a5e3462752efcb007a4504d55ab8e8c83"/>
+        <topic label="HC_INT_STAT" href="lpc23xx__24xx_8h.html#a4c5bfbcc74247f640f7cf2103b59ee29"/>
+        <topic label="HC_INT_EN" href="lpc23xx__24xx_8h.html#af90fe716ba1d555cfa464bc87a7d069c"/>
+        <topic label="HC_INT_DIS" href="lpc23xx__24xx_8h.html#a0ecf71d10be64448aa448d0d2f4dc9b5"/>
+        <topic label="HC_HCCA" href="lpc23xx__24xx_8h.html#a92e57fa05f3ad6bad2d3f84c293d88b5"/>
+        <topic label="HC_PERIOD_CUR_ED" href="lpc23xx__24xx_8h.html#a7054ee7f0cae76b946f2b3ba3dd884a1"/>
+        <topic label="HC_CTRL_HEAD_ED" href="lpc23xx__24xx_8h.html#a5ca6f0a8b17a6165e355858e117e9d55"/>
+        <topic label="HC_CTRL_CUR_ED" href="lpc23xx__24xx_8h.html#ade35cb1383e75a90f3b04ec394e1f459"/>
+        <topic label="HC_BULK_HEAD_ED" href="lpc23xx__24xx_8h.html#a2730eb9a656e98c7d8137e4e42ad88b2"/>
+        <topic label="HC_BULK_CUR_ED" href="lpc23xx__24xx_8h.html#a21d84c65d6911bd30459264f0db8a923"/>
+        <topic label="HC_DONE_HEAD" href="lpc23xx__24xx_8h.html#ad6a0e8bb77c4fd391973c8e8a539aa64"/>
+        <topic label="HC_FM_INTERVAL" href="lpc23xx__24xx_8h.html#a3d0451f115b53bf24fea39dd00a96a26"/>
+        <topic label="HC_FM_REMAINING" href="lpc23xx__24xx_8h.html#a92231e127584724b39a14ea50a259916"/>
+        <topic label="HC_FM_NUMBER" href="lpc23xx__24xx_8h.html#a26789045ef7c87e11dd52e1574326690"/>
+        <topic label="HC_PERIOD_START" href="lpc23xx__24xx_8h.html#a5e8ec24805635d17e2cb9aaffa316b0e"/>
+        <topic label="HC_LS_THRHLD" href="lpc23xx__24xx_8h.html#aa3ddba5bab8ba134ef95313e86d59c9a"/>
+        <topic label="HC_RH_DESCA" href="lpc23xx__24xx_8h.html#a418b8bc5917bf4c475a9e66597ab04e0"/>
+        <topic label="HC_RH_DESCB" href="lpc23xx__24xx_8h.html#aa477ef67b4b2488aa9191e0b7f50179b"/>
+        <topic label="HC_RH_STAT" href="lpc23xx__24xx_8h.html#ab3c04e8b3462cda7c9e52e50914fa681"/>
+        <topic label="HC_RH_PORT_STAT1" href="lpc23xx__24xx_8h.html#a409581a3cb3f8fb1e1e01e9945a3fee7"/>
+        <topic label="HC_RH_PORT_STAT2" href="lpc23xx__24xx_8h.html#ab48910b294559f991d796902a7c15d03"/>
+        <topic label="USBOTG_BASE_ADDR" href="lpc23xx__24xx_8h.html#a981e20c217de8ee858544795b021731c"/>
+        <topic label="OTG_INT_STAT" href="lpc23xx__24xx_8h.html#a3ec9cd4028d4d8d795e44a79edef9105"/>
+        <topic label="OTG_INT_EN" href="lpc23xx__24xx_8h.html#ab2eed48f8e0acf217541da7ec00c19de"/>
+        <topic label="OTG_INT_SET" href="lpc23xx__24xx_8h.html#a5b11a04230dcb96401b2e6c3f7795e77"/>
+        <topic label="OTG_INT_CLR" href="lpc23xx__24xx_8h.html#a72a0017456bd99076be2727c3e5335fe"/>
+        <topic label="OTG_STAT_CTRL" href="lpc23xx__24xx_8h.html#a6d71dd8601a823f740bb221f2402abd8"/>
+        <topic label="OTG_TIMER" href="lpc23xx__24xx_8h.html#a0759d44e1190ea7b1c8d1e33ba02dfbc"/>
+        <topic label="USBOTG_I2C_BASE_ADDR" href="lpc23xx__24xx_8h.html#ac17b9a6ab01cfca6a5870ad951084b10"/>
+        <topic label="OTG_I2C_RX" href="lpc23xx__24xx_8h.html#a95439ab33ec79ec76058d766adce6594"/>
+        <topic label="OTG_I2C_TX" href="lpc23xx__24xx_8h.html#ac9c1c39fde39e56e77785ddfaf923d48"/>
+        <topic label="OTG_I2C_STS" href="lpc23xx__24xx_8h.html#af9bc045f908e139fff92881dd05fdf72"/>
+        <topic label="OTG_I2C_CTL" href="lpc23xx__24xx_8h.html#ae93dee948c7e3158fa03ba0fde03f4d2"/>
+        <topic label="OTG_I2C_CLKHI" href="lpc23xx__24xx_8h.html#a35a710024cd93ae2c9e7f362ebcbcd9e"/>
+        <topic label="OTG_I2C_CLKLO" href="lpc23xx__24xx_8h.html#a9ae9e9d0aedc4bef5564a61b476c2be9"/>
+        <topic label="USBOTG_CLK_BASE_ADDR" href="lpc23xx__24xx_8h.html#a33a08ea9b04679bbcc1d2b77c07d8989"/>
+        <topic label="OTG_CLK_CTRL" href="lpc23xx__24xx_8h.html#a61ca077f166a9fa01c8b799298f821a6"/>
+        <topic label="OTG_CLK_STAT" href="lpc23xx__24xx_8h.html#aa3a9cf9a453efd9a84c048186dd7bcb3"/>
+        <topic label="USBPortSel" href="lpc23xx__24xx_8h.html#a7c14672b06716d61acc33fe1f548c3cf"/>
+        <topic label="USBClkCtrl" href="lpc23xx__24xx_8h.html#a159be961960e673420953c440cbf38dd"/>
+        <topic label="USBClkSt" href="lpc23xx__24xx_8h.html#adf86e6bd3f7691c85478f2e1f224e8e8"/>
+        <topic label="MAC_BASE_ADDR" href="lpc23xx__24xx_8h.html#a0031d640eb298dd1c9264ad1dd78e37b"/>
+        <topic label="MAC_MAC1" href="lpc23xx__24xx_8h.html#ac134948eb1f75ed5754dff8f087b7a22"/>
+        <topic label="MAC_MAC2" href="lpc23xx__24xx_8h.html#a0ee126b81edcb6a7a9b028c3f53e5cd8"/>
+        <topic label="MAC_IPGT" href="lpc23xx__24xx_8h.html#acc26685c317f27cdee5d359a9b2918f6"/>
+        <topic label="MAC_IPGR" href="lpc23xx__24xx_8h.html#a0ca403c47c575c7df5026ede206fab62"/>
+        <topic label="MAC_CLRT" href="lpc23xx__24xx_8h.html#a3b9948538ffbc2eedc6cf2fae791d684"/>
+        <topic label="MAC_MAXF" href="lpc23xx__24xx_8h.html#ac80b20a2c78b997770997f4682f7a1e0"/>
+        <topic label="MAC_SUPP" href="lpc23xx__24xx_8h.html#ae0b795db2052057148f046377f1b954f"/>
+        <topic label="MAC_TEST" href="lpc23xx__24xx_8h.html#ab229d3ef2ae755bb581c567d6e28b6ab"/>
+        <topic label="MAC_MCFG" href="lpc23xx__24xx_8h.html#aafab2ae92f88fc1db9797271a55ffeed"/>
+        <topic label="MAC_MCMD" href="lpc23xx__24xx_8h.html#a4d7a9517d59e8a14c0541ed6fb2c0149"/>
+        <topic label="MAC_MADR" href="lpc23xx__24xx_8h.html#ace13d839acb863126a084b80082e0f72"/>
+        <topic label="MAC_MWTD" href="lpc23xx__24xx_8h.html#a9a456119d71c75f1ef7803b25b9d0a3c"/>
+        <topic label="MAC_MRDD" href="lpc23xx__24xx_8h.html#aaad83a8b092ba90b535bf26af4294479"/>
+        <topic label="MAC_MIND" href="lpc23xx__24xx_8h.html#a1f43ed6ed5a8740f2f75340c75313f90"/>
+        <topic label="MAC_SA0" href="lpc23xx__24xx_8h.html#a36eb45727a65852e985897b250e7f635"/>
+        <topic label="MAC_SA1" href="lpc23xx__24xx_8h.html#abd16768b59166ae3013139b946cfa942"/>
+        <topic label="MAC_SA2" href="lpc23xx__24xx_8h.html#ad433c0d7fea91fb6b4df3c391790b5de"/>
+        <topic label="MAC_COMMAND" href="lpc23xx__24xx_8h.html#a1dd1f5f6c5879b380a286ddb33e1a5d8"/>
+        <topic label="MAC_STATUS" href="lpc23xx__24xx_8h.html#ad85b4055a46617cdba06841ba5ee5b4b"/>
+        <topic label="MAC_RXDESCRIPTOR" href="lpc23xx__24xx_8h.html#a1710e13b487e9832d98a492577d5dc2d"/>
+        <topic label="MAC_RXSTATUS" href="lpc23xx__24xx_8h.html#a88042adce51911fcb3a4654bd19eeff0"/>
+        <topic label="MAC_RXDESCRIPTORNUM" href="lpc23xx__24xx_8h.html#aeac15724ffb42399147e0d6adb81a6b9"/>
+        <topic label="MAC_RXPRODUCEINDEX" href="lpc23xx__24xx_8h.html#a6824a71c7c59f344bc934cec82095d10"/>
+        <topic label="MAC_RXCONSUMEINDEX" href="lpc23xx__24xx_8h.html#a9511e6d210d37dd7aa4d967972c07ab6"/>
+        <topic label="MAC_TXDESCRIPTOR" href="lpc23xx__24xx_8h.html#ab2146d57230ee0847c7b0fca82c29d4b"/>
+        <topic label="MAC_TXSTATUS" href="lpc23xx__24xx_8h.html#a2a2cab341d9bce8427b3c7cf6ea648e0"/>
+        <topic label="MAC_TXDESCRIPTORNUM" href="lpc23xx__24xx_8h.html#ad10276bd30e8431e7034ea6ad517e55c"/>
+        <topic label="MAC_TXPRODUCEINDEX" href="lpc23xx__24xx_8h.html#a44cfb603f50fbf1ddb2d0f9254ad2fe5"/>
+        <topic label="MAC_TXCONSUMEINDEX" href="lpc23xx__24xx_8h.html#a97618bf0a2545f9f6ac5b43ac1ee5f04"/>
+        <topic label="MAC_TSV0" href="lpc23xx__24xx_8h.html#a9ced14d5dc63ca6c1903ed333a327c44"/>
+        <topic label="MAC_TSV1" href="lpc23xx__24xx_8h.html#a644ab6784b3347e1713263f0723eb826"/>
+        <topic label="MAC_RSV" href="lpc23xx__24xx_8h.html#a1aea8be577f7b2bf106010d9438d2680"/>
+        <topic label="MAC_FLOWCONTROLCNT" href="lpc23xx__24xx_8h.html#a6ce222ef4e1bb570a21361206cf27db4"/>
+        <topic label="MAC_FLOWCONTROLSTS" href="lpc23xx__24xx_8h.html#a5b713da427a1969317fc8ff752427b67"/>
+        <topic label="MAC_RXFILTERCTRL" href="lpc23xx__24xx_8h.html#af63f725247aa569ecc3e6badb1d87519"/>
+        <topic label="MAC_RXFILTERWOLSTS" href="lpc23xx__24xx_8h.html#a2d4e48c0ab0ddf6f5cafaea016593436"/>
+        <topic label="MAC_RXFILTERWOLCLR" href="lpc23xx__24xx_8h.html#a36dad4d0feda09627d41947e778b0c1e"/>
+        <topic label="MAC_HASHFILTERL" href="lpc23xx__24xx_8h.html#abb3544f86cb278f9edeb83cebc2d49a5"/>
+        <topic label="MAC_HASHFILTERH" href="lpc23xx__24xx_8h.html#a66929f01392793f19cad01c2b82d6cef"/>
+        <topic label="MAC_INTSTATUS" href="lpc23xx__24xx_8h.html#a60e6a02716dc33cef5e68895e6d7be15"/>
+        <topic label="MAC_INTENABLE" href="lpc23xx__24xx_8h.html#aff03d247522a967fa8475953e0ffb337"/>
+        <topic label="MAC_INTCLEAR" href="lpc23xx__24xx_8h.html#a6ebb89573a521a7ae45503fefc58d876"/>
+        <topic label="MAC_INTSET" href="lpc23xx__24xx_8h.html#a162f95c6e1fea9faee21d3a0c2b51519"/>
+        <topic label="MAC_POWERDOWN" href="lpc23xx__24xx_8h.html#a3a311b6eb0e16467ab95568cb4f7fc8a"/>
+        <topic label="MAC_MODULEID" href="lpc23xx__24xx_8h.html#a6d67b520e160d20ea59bdba377ab4048"/>
+        <topic label="TxIR_MR0_Interrupt" href="lpc23xx__24xx_8h.html#a0d922a2afc9c711ba4daafa76e51c830"/>
+        <topic label="TxIR_MR1_Interrupt" href="lpc23xx__24xx_8h.html#a682a98a5de43773db9946e3fad716009"/>
+        <topic label="TxIR_MR2_Interrupt" href="lpc23xx__24xx_8h.html#aa2021c072207e3d5f41af9f135c8ee11"/>
+        <topic label="TxIR_MR3_Interrupt" href="lpc23xx__24xx_8h.html#aef184c28b9438c858c4e90d58b50100c"/>
+        <topic label="TxIR_CR0_Interrupt" href="lpc23xx__24xx_8h.html#a4517c2ee6d8b21aaf85d8579a8623a31"/>
+        <topic label="TxIR_CR1_Interrupt" href="lpc23xx__24xx_8h.html#a1b3c7135f9c0766f54d10c09ad7bf61d"/>
+        <topic label="TxIR_CR2_Interrupt" href="lpc23xx__24xx_8h.html#a5092815b3617bc3a25d2abf8392b2b60"/>
+        <topic label="TxIR_CR3_Interrupt" href="lpc23xx__24xx_8h.html#a1f4601cae1bfeea277a7641e17b597ae"/>
+        <topic label="TxTCR_Counter_Enable" href="lpc23xx__24xx_8h.html#aec983b5a780701307b9a35a9a5bffce0"/>
+        <topic label="TxTCR_Counter_Reset" href="lpc23xx__24xx_8h.html#ae5c5f16586b6365aec111e8ad52722a7"/>
+        <topic label="TxMCR_MR0I" href="lpc23xx__24xx_8h.html#a7f3184af27524f9c13b5787b2dc77e20"/>
+        <topic label="TxMCR_MR0R" href="lpc23xx__24xx_8h.html#a52fb9f55dc201b2e6efba1bc8cd54366"/>
+        <topic label="TxMCR_MR0S" href="lpc23xx__24xx_8h.html#a735cd0c1a88694bebd4be91b251fe4e9"/>
+        <topic label="TxMCR_MR1I" href="lpc23xx__24xx_8h.html#a9d96eab25b54030f4d114fdcda17a0dd"/>
+        <topic label="TxMCR_MR1R" href="lpc23xx__24xx_8h.html#a0ea16526bed307ebf10420fcf1ec0b59"/>
+        <topic label="TxMCR_MR1S" href="lpc23xx__24xx_8h.html#aa9dde4ed7c6878e6c5354a905b5a39f6"/>
+        <topic label="TxMCR_MR2I" href="lpc23xx__24xx_8h.html#aa93796deb4d2fc3806890f3c4b4c4ae5"/>
+        <topic label="TxMCR_MR2R" href="lpc23xx__24xx_8h.html#af46333ed72c756637a9f3c4fa6dc442a"/>
+        <topic label="TxMCR_MR2S" href="lpc23xx__24xx_8h.html#a61ecf0ef6801e527d737e0d2f458c4db"/>
+        <topic label="TxMCR_MR3I" href="lpc23xx__24xx_8h.html#aeff75769069a9fdeb1f5fa6d0153e82b"/>
+        <topic label="TxMCR_MR3R" href="lpc23xx__24xx_8h.html#a27913da29a1bde7a2dfc9f3e3f3fb5e6"/>
+        <topic label="TxMCR_MR3S" href="lpc23xx__24xx_8h.html#ae16f6aad350b465923c1e1e785ac0353"/>
+        <topic label="VIC_CHAN_NUM_WDT" href="lpc23xx__24xx_8h.html#ab3e9e703ca4c85964b0b04aa20e963bf"/>
+        <topic label="VIC_CHAN_NUM_UNUSED" href="lpc23xx__24xx_8h.html#a0c07c9b5d6c53f7baadde048a9e9d811"/>
+        <topic label="VIC_CHAN_NUM_ARM_Core_DgbCommRX" href="lpc23xx__24xx_8h.html#aec7793969c85ac8128ebfb11119cba2e"/>
+        <topic label="VIC_CHAN_NUM_ARM_Core_DbgCommTX" href="lpc23xx__24xx_8h.html#a5d32384fc95ca279bb3419378b5b890c"/>
+        <topic label="VIC_CHAN_NUM_Timer0" href="lpc23xx__24xx_8h.html#ab1c8bdaefced3e43b61884a6c12cde19"/>
+        <topic label="VIC_CHAN_NUM_Timer1" href="lpc23xx__24xx_8h.html#ae2702e6aa5bb19c0633a8e393fe63b35"/>
+        <topic label="VIC_CHAN_NUM_UART0" href="lpc23xx__24xx_8h.html#ab343037f653d80f4fc9c0a57aeae91b0"/>
+        <topic label="VIC_CHAN_NUM_UART1" href="lpc23xx__24xx_8h.html#afc2760733d221a586244b63fd7e71e0f"/>
+        <topic label="VIC_CHAN_NUM_PWM1" href="lpc23xx__24xx_8h.html#abc46945f4bcecdd13a1fb44a63187287"/>
+        <topic label="VIC_CHAN_NUM_I2C0" href="lpc23xx__24xx_8h.html#accee831cb1663a45e7ae2bbb70ed095a"/>
+        <topic label="VIC_CHAN_NUM_SPI" href="lpc23xx__24xx_8h.html#a3af7105211801979d1d2f0473e28175d"/>
+        <topic label="VIC_CHAN_NUM_SSP0" href="lpc23xx__24xx_8h.html#a9101b5ec42cdd763feba783e0ea9cefb"/>
+        <topic label="VIC_CHAN_NUM_SSP1" href="lpc23xx__24xx_8h.html#a4c10ffd05c3015624726783a3fd0e253"/>
+        <topic label="VIC_CHAN_NUM_PLL" href="lpc23xx__24xx_8h.html#a03f9bd965b3f425a15c2653948543ab5"/>
+        <topic label="VIC_CHAN_NUM_RTC" href="lpc23xx__24xx_8h.html#a3c7a526246de27619bf8eb158bccc632"/>
+        <topic label="VIC_CHAN_NUM_EINT0" href="lpc23xx__24xx_8h.html#af24bb3ba54bfe3aab3bb757b86332ffb"/>
+        <topic label="VIC_CHAN_NUM_EINT1" href="lpc23xx__24xx_8h.html#a0202d349fd0340fbdb109ed19a4621c7"/>
+        <topic label="VIC_CHAN_NUM_EINT2" href="lpc23xx__24xx_8h.html#aa0499046569e8824950f2a980e81c12f"/>
+        <topic label="VIC_CHAN_NUM_EINT3" href="lpc23xx__24xx_8h.html#ae3f1a9f4fbfced17c5022377db6b3365"/>
+        <topic label="VIC_CHAN_NUM_ADC0" href="lpc23xx__24xx_8h.html#af971975a4ff6cd8ff9cd6f6b8ed181ad"/>
+        <topic label="VIC_CHAN_NUM_I2C1" href="lpc23xx__24xx_8h.html#aab4af0d2146b4a0daa488dfb43f0de39"/>
+        <topic label="VIC_CHAN_NUM_BOD" href="lpc23xx__24xx_8h.html#ab7d866fa5031a50a6a4b1c2573496a74"/>
+        <topic label="VIC_CHAN_NUM_Ethernet" href="lpc23xx__24xx_8h.html#a18beb25ffb3d0211a84cd21bb7cd12d5"/>
+        <topic label="VIC_CHAN_NUM_USB" href="lpc23xx__24xx_8h.html#acce6adc5d53eec14cc7e96c29f95c177"/>
+        <topic label="VIC_CHAN_NUM_CAN" href="lpc23xx__24xx_8h.html#a5100e0629a94e85c32592a7aa48f2e11"/>
+        <topic label="VIC_CHAN_NUM_SD_MMC" href="lpc23xx__24xx_8h.html#a283916dd6d563278bb4accb4170608a6"/>
+        <topic label="VIC_CHAN_NUM_GP_DMA" href="lpc23xx__24xx_8h.html#a524832f5f31c74c11ca544b4fe16cc7b"/>
+        <topic label="VIC_CHAN_NUM_Timer2" href="lpc23xx__24xx_8h.html#a25d99b2e7f5bdfac3c3e997b4475b985"/>
+        <topic label="VIC_CHAN_NUM_Timer3" href="lpc23xx__24xx_8h.html#af007bfa622d65c16e170459f0adc2bef"/>
+        <topic label="VIC_CHAN_NUM_UART2" href="lpc23xx__24xx_8h.html#a6793879ddbf75bd82669e197795d8426"/>
+        <topic label="VIC_CHAN_NUM_UART3" href="lpc23xx__24xx_8h.html#a3dabedbfadabbbfd296944321cacf413"/>
+        <topic label="VIC_CHAN_NUM_I2C2" href="lpc23xx__24xx_8h.html#a49eafa68d0d47ee073ea30681c61d9a2"/>
+        <topic label="VIC_CHAN_NUM_I2S" href="lpc23xx__24xx_8h.html#a7032bff3989f0dd1c26caedd74baaa93"/>
+        <topic label="VIC_CHAN_TO_MASK" href="lpc23xx__24xx_8h.html#a4fe68bdd7a2657670fe9475752327c58"/>
+        <topic label="TimMod" href="lpc23xx__24xx_8h.html#a4b0d50ccf6a946a9915c2d3d6de09efe"/>
+        <topic label="risCount" href="lpc23xx__24xx_8h.html#adfa00f835e855f067331b359336b0c3c"/>
+        <topic label="fallCount" href="lpc23xx__24xx_8h.html#a291ea29fe2ee1c8cda7f8151fd3d56a6"/>
+        <topic label="bothCount" href="lpc23xx__24xx_8h.html#a17b1607d72a50a5e0e6e55999f97a074"/>
+        <topic label="CAP0" href="lpc23xx__24xx_8h.html#a35881fe9c74b85cd1b36327af47db0f8"/>
+        <topic label="CAP1" href="lpc23xx__24xx_8h.html#a90bb758cdaec3961a321ed404044451e"/>
+        <topic label="T0MCR_p" href="lpc23xx__24xx_8h.html#a6cc9a858e184a589b6755b6f85291819"/>
+        <topic label="T1MCR_p" href="lpc23xx__24xx_8h.html#a4e788703381fa67e70116657d38559da"/>
+        <topic label="T2MCR_p" href="lpc23xx__24xx_8h.html#aefc1a68156fdd8b645cd83cc36ea7a6d"/>
+        <topic label="T3MCR_p" href="lpc23xx__24xx_8h.html#a83ae12d4b092e9ee4cebe77974f2e48e"/>
+        <topic label="T0TCR_p" href="lpc23xx__24xx_8h.html#a1448760d50ffd47ee597ca759ee578fe"/>
+        <topic label="T1TCR_p" href="lpc23xx__24xx_8h.html#a6be5fc786b8e598a38ecb3c92eb42e3d"/>
+        <topic label="T2TCR_p" href="lpc23xx__24xx_8h.html#a1a092fc5ea9c089a3f6afa5c8ec54a34"/>
+        <topic label="T3TCR_p" href="lpc23xx__24xx_8h.html#a50086131155d879558a967c517427f41"/>
+        <topic label="T0CTCR_p" href="lpc23xx__24xx_8h.html#ab766a0a716ec91e8d9d630684c788617"/>
+        <topic label="T1CTCR_p" href="lpc23xx__24xx_8h.html#a5147b59187f2a64016e13954561da844"/>
+        <topic label="T2CTCR_p" href="lpc23xx__24xx_8h.html#abc17f0e868ba3f0d64c9a9ad79a92994"/>
+        <topic label="T3CTCR_p" href="lpc23xx__24xx_8h.html#a23ace4bcc1f945534900beeaead0041a"/>
+        <topic label="T0CCR_p" href="lpc23xx__24xx_8h.html#a5ba5d3e53716c16bae54c71c1b284d44"/>
+        <topic label="T1CCR_p" href="lpc23xx__24xx_8h.html#a6526a041378031f18cc7795d28eb8c59"/>
+        <topic label="T2CCR_p" href="lpc23xx__24xx_8h.html#a05d78a58ea838326568db06a2d9fbc38"/>
+        <topic label="T3CCR_p" href="lpc23xx__24xx_8h.html#ad9c48efb7d2d6a42bfada52af8092296"/>
+        <topic label="T0IR_p" href="lpc23xx__24xx_8h.html#a61fcb08de6786d35bcf35e78bc050961"/>
+        <topic label="T1IR_p" href="lpc23xx__24xx_8h.html#a50e728e58fe3a768ac1a1f54fc5256b0"/>
+        <topic label="T2IR_p" href="lpc23xx__24xx_8h.html#af13344a3d39085e4de215003d6279b0e"/>
+        <topic label="T3IR_p" href="lpc23xx__24xx_8h.html#ae31f53a509066d41df3f232694a58669"/>
+        <topic label="PCONP_p" href="lpc23xx__24xx_8h.html#a5991444893b4dd065baeb81f342b8034"/>
+        <topic label="PCLKSEL0_p" href="lpc23xx__24xx_8h.html#a61f700c0fe43c9f9050f8f29f32619d3"/>
+        <topic label="PCLKSEL1_p" href="lpc23xx__24xx_8h.html#a9ac567e1241c94ddb2b73332b0596f65"/>
+        <topic label="setCCLK" href="lpc23xx__24xx_8h.html#a79f4d93f51388490ab0d14f85ff6d799"/>
+        <topic label="setCCLKD2" href="lpc23xx__24xx_8h.html#aa49c54da433a9758b9ea74ca77c3f704"/>
+        <topic label="setCCLKD4" href="lpc23xx__24xx_8h.html#a4950488f3fdbd976b4c6a934b6c61a9b"/>
+        <topic label="setCCLKD8" href="lpc23xx__24xx_8h.html#a9a242d8b76a49edcea7a63fef5284ac2"/>
+        <topic label="setCCLKD6" href="lpc23xx__24xx_8h.html#ad2aae72860e9bde8b516eb95d2cdf073"/>
+      </topic>
       <topic label="lu_decomposition.hpp"/>
       <topic label="macros.hpp"/>
       <topic label="architecture/board/cpuboard2/master.hpp"/>
@@ -7833,7 +9084,8 @@
       <topic label="architecture/platform/avr/atxmega/spi/spi.hpp"/>
       <topic label="architecture/platform/avr/atxmega/spi.hpp"/>
       <topic label="driver/connectivity/spi.hpp"/>
-      <topic label="spi_0.hpp"/>
+      <topic label="arm7/at91/spi/spi_0.hpp"/>
+      <topic label="cortex_m0/lpc/spi/spi_0.hpp"/>
       <topic label="arm7/at91/spi/spi_1.hpp"/>
       <topic label="cortex_m3/stm32/spi/spi_1.hpp"/>
       <topic label="spi_2.hpp"/>
@@ -7869,11 +9121,15 @@
       <topic label="arm7/at91/timer.hpp"/>
       <topic label="avr/atxmega/timer/timer.hpp"/>
       <topic label="avr/atxmega/timer.hpp"/>
+      <topic label="avr32/uc3b/timer.hpp"/>
       <topic label="cortex_m3/stm32/timer.hpp"/>
-      <topic label="timer_0.hpp"/>
+      <topic label="arm7/at91/timer/timer_0.hpp"/>
+      <topic label="avr32/uc3b/timer/timer_0.hpp"/>
       <topic label="arm7/at91/timer/timer_1.hpp"/>
+      <topic label="avr32/uc3b/timer/timer_1.hpp"/>
       <topic label="cortex_m3/stm32/timer/timer_1.hpp"/>
       <topic label="arm7/at91/timer/timer_2.hpp"/>
+      <topic label="avr32/uc3b/timer/timer_2.hpp"/>
       <topic label="cortex_m3/stm32/timer/timer_2.hpp"/>
       <topic label="timer_3.hpp"/>
       <topic label="timer_4.hpp"/>
@@ -7923,10 +9179,12 @@
       <topic label="arm7/lpc/uart/uart3.hpp"/>
       <topic label="avr/atmega/uart/uart3.hpp"/>
       <topic label="uart_0.hpp"/>
-      <topic label="uart_1.hpp"/>
+      <topic label="arm7/at91/uart/uart_1.hpp"/>
+      <topic label="cortex_m0/lpc/uart/uart_1.hpp"/>
       <topic label="uart_4.hpp"/>
       <topic label="uart_5.hpp"/>
-      <topic label="uart_base.hpp"/>
+      <topic label="cortex_m0/lpc/uart/uart_base.hpp"/>
+      <topic label="cortex_m3/stm32/uart/uart_base.hpp"/>
       <topic label="uart_c0.hpp"/>
       <topic label="uart_c1.hpp"/>
       <topic label="uart_d0.hpp"/>
@@ -7937,6 +9195,7 @@
       <topic label="uart_f0.hpp"/>
       <topic label="uart_f1.hpp"/>
       <topic label="uart_settings.h"/>
+      <topic label="uc3b.hpp"/>
       <topic label="unittest.hpp"/>
       <topic label="unix.hpp"/>
       <topic label="usart_1.hpp"/>
@@ -8031,8 +9290,20 @@
                 </topic>
               </topic>
             </topic>
+            <topic label="avr32" href="dir_af93a5c6de0511ba524554f10c15464f.html">
+              <topic label="uc3b" href="dir_85956b5362f18075147e3b561d0c66c6.html">
+                <topic label="timer" href="dir_a17db3671c1ae464daa17aa853ab7943.html">
+                </topic>
+              </topic>
+            </topic>
             <topic label="cortex_m0" href="dir_d22c0794fb9893804db5f89baddb39b3.html">
               <topic label="lpc" href="dir_cc399d9b090ead3715dd4fc2396b9207.html">
+                <topic label="c_can" href="dir_ac74939d81f7fcd24c47b008c3a1e10f.html">
+                </topic>
+                <topic label="spi" href="dir_21159735a0e0cc233669d7d5d6d74dff.html">
+                </topic>
+                <topic label="uart" href="dir_2ef9173e3b426cdd086fc5f29fbc9e1c.html">
+                </topic>
               </topic>
             </topic>
             <topic label="cortex_m3" href="dir_a4adf0d976e11a8283b4de5de205afbb.html">

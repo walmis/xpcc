@@ -134,6 +134,10 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect the higher four bits to a nibble (P4..7)  <a href="#gafb08cd1c291deee4cc1c9469aff10fa9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__atmega.html#ga7b3fe61d992498a7518074ea3809cbf1">GPIO__PORT</a>(name, port)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a full 8-Bit port.  <a href="#ga7b3fe61d992498a7518074ea3809cbf1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__atmega.html#ga88dea0223c6db8fabb6b1c3b7f400813">GPIO__OUTPUT</a>(name, g_port, gpio_pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a input/output pin type.  <a href="#ga88dea0223c6db8fabb6b1c3b7f400813"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__atmega.html#gae8cb732426b0aea0592357eddf646f69">GPIO__INPUT</a>(name, g_port, gpio_pin)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a input type.  <a href="#gae8cb732426b0aea0592357eddf646f69"></a><br/></td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="ga847688ffd76ce21d6de2c904104b8b68"></a><!-- doxytag: member="architecture/platform/avr/atmega/gpio.hpp::GPIO__OUTPUT" ref="ga847688ffd76ce21d6de2c904104b8b68" args="(name, port, pin)" -->
@@ -167,13 +171,13 @@ Defines</h2></td></tr>
 </div>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { DDR ## port |= (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(DDR, port) |= (1 &lt;&lt; pin); } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput(<span class="keywordtype">bool</span> status) { \
             set(status); \
             setOutput(); } \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> <span class="keyword">set</span>() { PORT ## port |= (1 &lt;&lt; pin); } \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> reset() { PORT ## port &amp;= ~(1 &lt;&lt; pin); } \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> toggle() { PORT ## port ^= (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> <span class="keyword">set</span>()    { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PORT, port) |=  (1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> reset()  { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PORT, port) &amp;= ~(1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> toggle() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PORT, port) ^=  (1 &lt;&lt; pin); } \
         \
         ALWAYS_INLINE <span class="keyword">static</span> void \
         set(<span class="keywordtype">bool</span> status) { \
@@ -225,15 +229,15 @@ Defines</h2></td></tr>
         setInput(::xpcc::atmega::Configuration config) { \
             setInput(); \
             if (config == ::<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6a366fc80c9a52c8568e8d4ae7ea078927" title="enable the internal pull-up resistor">xpcc::atmega::PULLUP</a>) { \
-                PORT ## port |= (1 &lt;&lt; pin); \
+                CONCAT(PORT, port) |= (1 &lt;&lt; pin); \
             } \
             else { \
-                PORT ## port &amp;= ~(1 &lt;&lt; pin); \
+                CONCAT(PORT, port) &amp;= ~(1 &lt;&lt; pin); \
             } \
         } \
         \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { DDR ## port &amp;= ~(1 &lt;&lt; pin); } \
-        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">bool</span> read() { <span class="keywordflow">return</span> (PIN ## port &amp; (1 &lt;&lt; pin)); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(DDR, port) &amp;= ~(1 &lt;&lt; pin); } \
+        ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">bool</span> read() { <span class="keywordflow">return</span> (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PIN, port) &amp; (1 &lt;&lt; pin)); } \
     }
 </pre></div>
 <p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2gpio_8hpp_source.html#l00125">125</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2gpio_8hpp_source.html">architecture/platform/avr/atmega/gpio.hpp</a>.</p>
@@ -266,16 +270,16 @@ Defines</h2></td></tr>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { \
-            DDR ## port |= 0x0f; \
+            CONCAT(DDR, port) |= 0x0f; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { \
-            DDR ## port &amp;= ~0x0f; \
+            CONCAT(DDR, port) &amp;= ~0x0f; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> uint8_t read() { \
-            return (PIN ## port &amp; 0x0f); \
+            return (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PIN, port) &amp; 0x0f); \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> write(uint8_t data) { \
-            PORT ## port = (data &amp; 0x0f) | (PORT ## port &amp; 0xf0); \
+            CONCAT(PORT, port) = (data &amp; 0x0f) | (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PORT, port) &amp; 0xf0); \
         } \
     }
 </pre></div><dl class="see"><dt><b>See also:</b></dt><dd>xpcc::gpio::Nibble() </dd></dl>
@@ -310,18 +314,18 @@ Defines</h2></td></tr>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { \
-            DDR ## port |= 0xf0; \
+            CONCAT(DDR, port) |= 0xf0; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { \
-            DDR ## port &amp;= ~0xf0; \
+            CONCAT(DDR, port) &amp;= ~0xf0; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> uint8_t read() { \
-            uint8_t data = PIN ## port; \
+            uint8_t data = <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PIN, port); \
             return (data &gt;&gt; 4); \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> write(uint8_t data) { \
             data = <a class="code" href="group__math.html#ga70d3f6d9574cfbe69cad407cb5da6b22" title="Exchange the two nibbles of a byte.">::xpcc::swap</a>(data); \
-            PORT ## port = (data &amp; 0xf0) | (PORT ## port &amp; 0x0f); \
+            CONCAT(PORT, port) = (data &amp; 0xf0) | (<a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PORT, port) &amp; 0x0f); \
         } \
     }
 </pre></div><dl class="see"><dt><b>See also:</b></dt><dd>xpcc::gpio::Nibble() </dd></dl>
@@ -356,21 +360,117 @@ Defines</h2></td></tr>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setOutput() { \
-            DDR ## port = 0xff; \
+            CONCAT(DDR, port) = 0xff; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> setInput() { \
-            DDR ## port = 0; \
+            CONCAT(DDR, port) = 0; \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> uint8_t read() { \
-            return PIN ## port; \
+            return <a class="code" href="group__platform.html#ga88fa737059e67b4b17ec980e5877361e" title="Concatenate the two arguments.">CONCAT</a>(PIN, port); \
         } \
         ALWAYS_INLINE <span class="keyword">static</span> <span class="keywordtype">void</span> write(uint8_t data) { \
-            PORT ## port = data; \
+            CONCAT(PORT, port) = data; \
         } \
     }
 </pre></div><dl class="see"><dt><b>See also:</b></dt><dd>xpcc::gpio::Port() </dd></dl>
 
 <p>Definition at line <a class="el" href="architecture_2platform_2avr_2atmega_2gpio_8hpp_source.html#l00200">200</a> of file <a class="el" href="architecture_2platform_2avr_2atmega_2gpio_8hpp_source.html">architecture/platform/avr/atmega/gpio.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga88dea0223c6db8fabb6b1c3b7f400813"></a><!-- doxytag: member="architecture/platform/avr32/uc3b/gpio.hpp::GPIO__OUTPUT" ref="ga88dea0223c6db8fabb6b1c3b7f400813" args="(name, g_port, gpio_pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga847688ffd76ce21d6de2c904104b8b68">GPIO__OUTPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">g_port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">gpio_pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Create a output pin type </p>
+
+<p>Definition at line <a class="el" href="architecture_2platform_2avr32_2uc3b_2gpio_8hpp_source.html#l00125">125</a> of file <a class="el" href="architecture_2platform_2avr32_2uc3b_2gpio_8hpp_source.html">architecture/platform/avr32/uc3b/gpio.hpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gae8cb732426b0aea0592357eddf646f69"></a><!-- doxytag: member="architecture/platform/avr32/uc3b/gpio.hpp::GPIO__INPUT" ref="gae8cb732426b0aea0592357eddf646f69" args="(name, g_port, gpio_pin)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="group__stm32.html#ga117f9a3513826ab5471700b4a37eb89d">GPIO__INPUT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">g_port, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">gpio_pin&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">struct </span>name { \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        setInput(::xpcc::avr32::Configuration config) { \
+            setInput(); \
+            volatile avr32_gpio_port_t *gpio_port = &amp;AVR32_GPIO.port[CONCAT3(AVR32_PIN_P, g_port, gpio_pin) &gt;&gt; 5]; \
+            if (config == ::<a class="code" href="group__lpc2000.html#ggae0e32f74c42abaf55f3635ba2f2a52f6a366fc80c9a52c8568e8d4ae7ea078927" title="enable the internal pull-up resistor">xpcc::avr32::PULLUP</a>) { \
+                gpio_port-&gt;puers = 1 &lt;&lt; (gpio_pin &amp; 0x1F); <span class="comment">/* The pull-up is enabled for that pin. */</span> \
+            } \
+            else { \
+                gpio_port-&gt;puerc = 1 &lt;&lt; (gpio_pin &amp; 0x1F); <span class="comment">/* The pull-up is disabled for that pin. */</span> \
+            } \
+        } \
+        ALWAYS_INLINE <span class="keyword">static</span> void \
+        setInput() { \
+            volatile avr32_gpio_port_t *gpio_port = &amp;AVR32_GPIO.port[CONCAT3(AVR32_PIN_P, g_port, gpio_pin) &gt;&gt; 5]; \
+            gpio_port-&gt;oderc = 1 &lt;&lt; (gpio_pin &amp; 0x1F); <span class="comment">/* The GPIO output driver is disabled for that pin. */</span> \
+            gpio_port-&gt;gpers = 1 &lt;&lt; (gpio_pin &amp; 0x1F); <span class="comment">/* The GPIO module controls that pin. */</span> \
+        } \
+        ALWAYS_INLINE <span class="keyword">static</span> bool \
+        read() { \
+            volatile avr32_gpio_port_t *gpio_port = &amp;AVR32_GPIO.port[CONCAT3(AVR32_PIN_P, g_port, gpio_pin) &gt;&gt; 5]; \
+            return (gpio_port-&gt;pvr &amp; (1 &lt;&lt; (gpio_pin &amp; 0x1f))); \
+        } \
+    }
+</pre></div><p>read: PVR config: </p>
+
+<p>Definition at line <a class="el" href="architecture_2platform_2avr32_2uc3b_2gpio_8hpp_source.html#l00195">195</a> of file <a class="el" href="architecture_2platform_2avr32_2uc3b_2gpio_8hpp_source.html">architecture/platform/avr32/uc3b/gpio.hpp</a>.</p>
 
 </div>
 </div>
@@ -393,7 +493,7 @@ Defines</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 26 2012 15:48:02 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Fri Aug 10 2012 22:26:57 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

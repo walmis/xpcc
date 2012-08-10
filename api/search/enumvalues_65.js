@@ -19,5 +19,6 @@ var searchData=
   ['event_5fchannel_5f4567',['EVENT_CHANNEL_4567',['../namespacexpcc_1_1atxmega_1_1adc.html#afbde8691974126a3530b1fab2057696cafdd49a8aafca9ca95073c6a97eac7f8c',1,'xpcc::atxmega::adc']]],
   ['event_5fchannel_5f567',['EVENT_CHANNEL_567',['../namespacexpcc_1_1atxmega_1_1adc.html#afbde8691974126a3530b1fab2057696caf5bf1bfb18560f3924d4c78e8a871675',1,'xpcc::atxmega::adc']]],
   ['event_5fchannel_5f67',['EVENT_CHANNEL_67',['../namespacexpcc_1_1atxmega_1_1adc.html#afbde8691974126a3530b1fab2057696ca96959cc8912af55a04e862b992ca744c',1,'xpcc::atxmega::adc']]],
-  ['event_5fchannel_5f7',['EVENT_CHANNEL_7',['../namespacexpcc_1_1atxmega_1_1adc.html#afbde8691974126a3530b1fab2057696ca8243b577d4eb1a75b63fae3462458352',1,'xpcc::atxmega::adc']]]
+  ['event_5fchannel_5f7',['EVENT_CHANNEL_7',['../namespacexpcc_1_1atxmega_1_1adc.html#afbde8691974126a3530b1fab2057696ca8243b577d4eb1a75b63fae3462458352',1,'xpcc::atxmega::adc']]],
+  ['external_5fclock',['EXTERNAL_CLOCK',['../classxpcc_1_1avr32_1_1_clock.html#a2c0359169a152d6d844149702c165555a7fad3c45507b445a10d8c3b95d178b48',1,'xpcc::avr32::Clock']]]
 ];

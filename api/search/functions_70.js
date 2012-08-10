@@ -9,12 +9,14 @@ var searchData=
   ['periodictimer',['PeriodicTimer',['../classxpcc_1_1_periodic_timer.html#ad99585987431303cfce4758b868e0217',1,'xpcc::PeriodicTimer']]],
   ['perpendicular',['perpendicular',['../classxpcc_1_1_angle.html#a8ff6441a1908a56525d0a963d3038746',1,'xpcc::Angle']]],
   ['pid',['Pid',['../classxpcc_1_1_pid.html#a01002e02163cabe5d5540cd7c0051b09',1,'xpcc::Pid::Pid(const float &amp;kp=0, const float &amp;ki=0, const float &amp;kd=0, const T &amp;maxErrorSum=0, const T &amp;maxOutput=0)'],['../classxpcc_1_1_pid.html#a02dc1f6185871c70b2c97d3e2e72b2a7',1,'xpcc::Pid::Pid(Parameter &amp;parameter)']]],
+  ['pllenable',['pllEnable',['../classxpcc_1_1avr32_1_1_clock.html#a36175b8b3182e44bae4be530045bca13',1,'xpcc::avr32::Clock']]],
+  ['pllsetup',['pllSetup',['../classxpcc_1_1avr32_1_1_clock.html#a2a10c20cb40766671c8aac4e6c458a85',1,'xpcc::avr32::Clock']]],
   ['pointset2d',['PointSet2D',['../classxpcc_1_1_point_set2_d.html#ae0e62e776fdb965c88bbc0b3a6152fba',1,'xpcc::PointSet2D']]],
   ['polygon2d',['Polygon2D',['../classxpcc_1_1_polygon2_d.html#abe922fd771cc46cb58f353b0045d44fa',1,'xpcc::Polygon2D']]],
   ['prepend',['prepend',['../classxpcc_1_1_doubly_linked_list.html#a0426f041ad12dfc2ab4ee347197911c7',1,'xpcc::DoublyLinkedList::prepend()'],['../classxpcc_1_1_linked_list.html#a2a16b34e53976a662ea84d7605cc87fb',1,'xpcc::LinkedList::prepend()']]],
   ['printf',['printf',['../classxpcc_1_1_i_o_stream.html#a816bd633537dc65c1aa6935903cdaac9',1,'xpcc::IOStream']]],
   ['printsummary',['printSummary',['../classunittest_1_1_reporter.html#abfb3fd9e27bbbc84daebbfa46ce9fee6',1,'unittest::Reporter']]],
   ['protothread',['Protothread',['../classxpcc_1_1pt_1_1_protothread.html#a60c9acd2c0f6fe5cfe8f04c4c08b78f4',1,'xpcc::pt::Protothread']]],
-  ['pulse',['Pulse',['../classxpcc_1_1led_1_1_pulse.html#ab53924177e8a83af923203c329141572',1,'xpcc::led::Pulse::Pulse(uint16_t const period=1000)'],['../classxpcc_1_1led_1_1_pulse.html#a1300888afc5e6c5034b83674eac33c1d',1,'xpcc::led::Pulse::pulse(uint8_t times=1)']]],
+  ['pulse',['pulse',['../classxpcc_1_1led_1_1_pulse.html#a1300888afc5e6c5034b83674eac33c1d',1,'xpcc::led::Pulse::pulse(uint8_t times=1)'],['../classxpcc_1_1led_1_1_pulse.html#ab53924177e8a83af923203c329141572',1,'xpcc::led::Pulse::Pulse(uint16_t const period=1000)']]],
   ['pwmchannel',['PwmChannel',['../classxpcc_1_1at91_1_1_pwm_channel.html#a42ec80652abed10d88be3a20ba17d4f4',1,'xpcc::at91::PwmChannel']]]
 ];

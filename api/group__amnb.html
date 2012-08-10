@@ -287,7 +287,7 @@ Niklas Hauser </dd></dl>
 </dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="structxpcc_1_1amnb_1_1_action.html" title="Possible Action.">xpcc::amnb::Action</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="node_8hpp_source.html#l00470">470</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
+<p>Definition at line <a class="el" href="node_8hpp_source.html#l00475">475</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
 
 </div>
 </div>
@@ -332,7 +332,14 @@ Niklas Hauser </dd></dl>
  {
  <span class="keyword">public</span>:
      <span class="keywordtype">void</span>
-     listenToCommand(uint8_t *payload, <span class="keyword">const</span> uint8_t length)
+     listenToCommand(uint8_t *payload, <span class="keyword">const</span> uint8_t length, uint8_t sender)
+     {
+         <span class="comment">// ... do something useful ...</span>
+         
+     }
+
+     <span class="keywordtype">void</span>
+     listenToCommandWithOutCaringForSender(uint8_t *payload, <span class="keyword">const</span> uint8_t length)
      {
          <span class="comment">// ... do something useful ...</span>
          
@@ -359,7 +366,7 @@ Niklas Hauser </dd></dl>
 </dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="structxpcc_1_1amnb_1_1_listener.html" title="Possible Listener.">xpcc::amnb::Listener</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="node_8hpp_source.html#l00518">518</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
+<p>Definition at line <a class="el" href="node_8hpp_source.html#l00530">530</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
 
 </div>
 </div>
@@ -431,7 +438,7 @@ Niklas Hauser </dd></dl>
 </dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="structxpcc_1_1amnb_1_1_error_handler.html" title="Possible Error.">xpcc::amnb::ErrorHandler</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="node_8hpp_source.html#l00565">565</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
+<p>Definition at line <a class="el" href="node_8hpp_source.html#l00577">577</a> of file <a class="el" href="node_8hpp_source.html">node.hpp</a>.</p>
 
 </div>
 </div>
@@ -539,7 +546,7 @@ Niklas Hauser </dd></dl>
   <div id="nav-path" class="navpath">
     <ul>
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jun 26 2012 15:48:02 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
+<address class="footer"><small>Generated on Fri Aug 10 2012 22:26:57 for xpcc by&nbsp;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.png" alt="doxygen" border="0" /></a> 1.7.6.1</small></address>
 
 <!-- Piwik -->
 <script type="text/javascript">

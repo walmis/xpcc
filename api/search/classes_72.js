@@ -17,6 +17,6 @@ var searchData=
   ['response',['Response',['../classxpcc_1_1amnb_1_1_response.html',1,'xpcc::amnb']]],
   ['responsecallback',['ResponseCallback',['../classxpcc_1_1_response_callback.html',1,'xpcc']]],
   ['responsehandle',['ResponseHandle',['../classxpcc_1_1_response_handle.html',1,'xpcc']]],
-  ['rgb',['Rgb',['../classxpcc_1_1led_1_1_rgb.html',1,'xpcc::led']]],
-  ['rgb',['Rgb',['../classxpcc_1_1color_1_1_rgb.html',1,'xpcc::color']]]
+  ['rgb',['Rgb',['../classxpcc_1_1color_1_1_rgb.html',1,'xpcc::color']]],
+  ['rgb',['Rgb',['../classxpcc_1_1led_1_1_rgb.html',1,'xpcc::led']]]
 ];
