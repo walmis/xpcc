@@ -48,7 +48,7 @@
 // Doxygen hierarchy
 
 /**
- * \defgroup	lpc11		LPC11xx
+ * \defgroup	lpc		LPC11xx
  * \ingroup		lpc
  */
 

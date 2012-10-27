@@ -10,7 +10,7 @@
 
 namespace xpcc
 {
-	namespace lpc11
+	namespace lpc
 	{
 		class Timer16_0
 		{
