@@ -50,8 +50,8 @@ def generate(env, **kw):
 		
 		# in OS X use never gcc
 		if platform.system() == 'Darwin':
-			env['CC'] = "gcc-4.6"
-			env['CXX'] = "g++-4.6"
+			env['CC'] = "gcc"
+			env['CXX'] = "g++"
 		
 		# build messages
 		if ARGUMENTS.get('verbose') != '1':
