@@ -28,31 +28,83 @@
  */
 // ----------------------------------------------------------------------------
 
-#ifndef XPCC_RTOS_BOOST__SCHEDULER_HPP
-#define XPCC_RTOS_BOOST__SCHEDULER_HPP
+#ifndef XPCC_BOOST__MUTEX_HPP
+#define XPCC_BOOST__MUTEX_HPP
 
-#ifndef XPCC_RTOS__SCHEDULER_HPP
-#	error "Don't include this file directly, use <xpcc/workflow/rtos/scheduler.hpp>"
+#ifndef XPCC_RTOS__MUTEX_HPP
+#	error "Don't include this file directly, use <xpcc/processing/rtos/mutex.hpp>"
 #endif
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/mutex.hpp>
 
 namespace xpcc
 {
 	namespace rtos
 	{
-		class Scheduler
+		// forward declaration
+		class MutexGuard;
+		
+		/**
+		 * \brief	Mutex
+		 * 
+		 * \ingroup	boost_rtos
+		 */
+		class Mutex
+		{
+			friend class MutexGuard;
+			
+		public:
+			Mutex();
+			
+			~Mutex();
+			
+			/**
+			 * \param	timeout		Timeout in Milliseconds
+			 */
+			bool
+			acquire(uint32_t timeout);
+			
+			inline void
+			acquire()
+			{
+				mutex.lock();
+			}
+			
+			inline void
+			release()
+			{
+				mutex.unlock();
+			}
+			
+		private:
+			// disable copy constructor
+			Mutex(const Mutex& other);
+			
+			// disable assignment operator
+			Mutex&
+			operator = (const Mutex& other);
+			
+			boost::timed_mutex mutex;
+		};
+		
+		/**
+		 * Implements a RAII-style locking.
+		 * 
+		 * Locks the Mutex when created and unlocks it on destruction.
+		 */
+		class MutexGuard : boost::lock_guard<boost::timed_mutex>
 		{
 		public:
-			/**
-			 * \brief	Starts the real time kernel
-			 * 
-			 * \warning	This function will never return.
-			 */
-			static void
-			schedule();
+			MutexGuard(Mutex& m) :
+				boost::lock_guard<boost::timed_mutex>(m.mutex)
+			{
+			}
+			
+			~MutexGuard()
+			{
+			}
 		};
 	}
 }
 
-#endif // XPCC_RTOS_BOOST__SCHEDULER_HPP
+#endif // XPCC_BOOST__MUTEX_HPP

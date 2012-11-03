@@ -27,99 +27,23 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 // ----------------------------------------------------------------------------
+/**
+ * \defgroup 	processing Processing
+ * \brief 		processing
+ * 
+ */
 
-#include <xpcc/workflow/periodic_timer.hpp>
+#ifndef XPCC__PROCESSING_HPP
+#define	XPCC__PROCESSING_HPP
 
-#include "periodic_timer_test.hpp"
+#include "processing/task.hpp"
+#include "processing/communicatable_task.hpp"
+#include "processing/protothread.hpp"
 
-// ----------------------------------------------------------------------------
-// dummy implementation to control the time
+#include "processing/scheduler/scheduler.hpp"
 
-namespace
-{
-	class DummyClock
-	{
-	public:
-		static xpcc::Timestamp
-		now()
-		{
-			return time;
-		}
-		
-		static void
-		setTime(uint16_t time)
-		{
-			DummyClock::time = time;
-		}
-		
-	private:
-		static uint16_t time;
-	};
-	
-	uint16_t DummyClock::time = 0;
-}
+#include "processing/timestamp.hpp"
+#include "processing/timeout.hpp"
+#include "processing/periodic_timer.hpp"
 
-// ----------------------------------------------------------------------------
-
-void
-PeriodicTimerTest::setUp()
-{
-	DummyClock::setTime(0);
-}
-
-void
-PeriodicTimerTest::testConstructor()
-{
-	xpcc::PeriodicTimer<DummyClock> timer(10);
-	
-	TEST_ASSERT_TRUE(timer.isRunning());
-	TEST_ASSERT_FALSE(timer.isExpired());
-}
-
-void
-PeriodicTimerTest::testTimer()
-{
-	xpcc::PeriodicTimer<DummyClock> timer(10);
-	
-	TEST_ASSERT_FALSE(timer.isExpired());
-	
-	int i;
-	for (i = 0; i < 9; ++i) {
-		DummyClock::setTime(i);
-		TEST_ASSERT_FALSE(timer.isExpired());
-	}
-	
-	DummyClock::setTime(10);
-	TEST_ASSERT_TRUE(timer.isExpired());
-	TEST_ASSERT_FALSE(timer.isExpired());
-	
-	DummyClock::setTime(20);
-	TEST_ASSERT_TRUE(timer.isExpired());
-	TEST_ASSERT_FALSE(timer.isExpired());
-	
-	DummyClock::setTime(100);
-	TEST_ASSERT_TRUE(timer.isExpired());
-	TEST_ASSERT_FALSE(timer.isExpired());
-}
-
-void
-PeriodicTimerTest::testRestart()
-{
-	xpcc::PeriodicTimer<DummyClock> timer(10);
-	
-	TEST_ASSERT_TRUE(timer.isRunning());
-	TEST_ASSERT_FALSE(timer.isExpired());
-	
-	timer.stop();
-	
-	TEST_ASSERT_FALSE(timer.isRunning());
-	
-	timer.restart(5);
-	
-	TEST_ASSERT_TRUE(timer.isRunning());
-	TEST_ASSERT_FALSE(timer.isExpired());
-	
-	DummyClock::setTime(5);
-	TEST_ASSERT_TRUE(timer.isExpired());
-	TEST_ASSERT_FALSE(timer.isExpired());
-}
+#endif	// XPCC__PROCESSING_HPP

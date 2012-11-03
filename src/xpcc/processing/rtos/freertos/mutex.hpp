@@ -28,53 +28,45 @@
  */
 // ----------------------------------------------------------------------------
 
-#ifndef XPCC_BOOST__MUTEX_HPP
-#define XPCC_BOOST__MUTEX_HPP
+#ifndef XPCC_FREERTOS__MUTEX_HPP
+#define XPCC_FREERTOS__MUTEX_HPP
 
 #ifndef XPCC_RTOS__MUTEX_HPP
-#	error "Don't include this file directly, use <xpcc/workflow/rtos/mutex.hpp>"
+#	error "Don't include this file directly, use <xpcc/processing/rtos/mutex.hpp>"
 #endif
 
-#include <boost/thread/mutex.hpp>
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
 
 namespace xpcc
 {
 	namespace rtos
 	{
-		// forward declaration
-		class MutexGuard;
-		
 		/**
 		 * \brief	Mutex
 		 * 
-		 * \ingroup	boost_rtos
+		 * Mutexes and binary semaphores are very similar but have some subtle
+		 * differences: Mutexes include a priority inheritance mechanism,
+		 * binary semaphores do not.
+		 * 
+		 * This makes binary semaphores the better choice for implementing
+		 * synchronisation (between threads or between threads and an interrupt),
+		 * and mutexes the better choice for implementing simple mutual exclusion.
+		 * 
+		 * \ingroup	freertos
 		 */
 		class Mutex
 		{
-			friend class MutexGuard;
-			
 		public:
 			Mutex();
 			
 			~Mutex();
 			
-			/**
-			 * \param	timeout		Timeout in Milliseconds
-			 */
 			bool
-			acquire(uint32_t timeout);
+			acquire(portTickType timeout = portMAX_DELAY);
 			
-			inline void
-			acquire()
-			{
-				mutex.lock();
-			}
-			
-			inline void
-			release()
-			{
-				mutex.unlock();
-			}
+			void
+			release();
 			
 		private:
 			// disable copy constructor
@@ -84,7 +76,7 @@ namespace xpcc
 			Mutex&
 			operator = (const Mutex& other);
 			
-			boost::timed_mutex mutex;
+			xSemaphoreHandle handle;
 		};
 		
 		/**
@@ -92,19 +84,24 @@ namespace xpcc
 		 * 
 		 * Locks the Mutex when created and unlocks it on destruction.
 		 */
-		class MutexGuard : boost::lock_guard<boost::timed_mutex>
+		class MutexGuard
 		{
 		public:
 			MutexGuard(Mutex& m) :
-				boost::lock_guard<boost::timed_mutex>(m.mutex)
+				mutex(m)
 			{
+				mutex.acquire();
 			}
 			
 			~MutexGuard()
 			{
+				mutex.release();
 			}
+			
+		private:
+			Mutex& mutex;
 		};
 	}
 }
 
-#endif // XPCC_BOOST__MUTEX_HPP
+#endif // XPCC_FREERTOS__MUTEX_HPP

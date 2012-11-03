@@ -36,11 +36,11 @@
 #include <cstddef>
 #include <stdint.h>
 #include <xpcc/architecture/utils.hpp>
-#include <xpcc/workflow/timeout.hpp>
+#include <xpcc/processing/timeout.hpp>
 #include <xpcc/architecture/driver/delay.hpp>
 #include <stdlib.h>
 #include <xpcc/architecture/driver/clock.hpp>
-#include <xpcc/workflow/timestamp.hpp>
+#include <xpcc/processing/timestamp.hpp>
 
 #include "constants.hpp"
 

@@ -28,9 +28,9 @@
  */
 // ----------------------------------------------------------------------------
 
-#include <xpcc/workflow/timeout.hpp>
+#include <xpcc/processing/periodic_timer.hpp>
 
-#include "timeout_test.hpp"
+#include "periodic_timer_test.hpp"
 
 // ----------------------------------------------------------------------------
 // dummy implementation to control the time
@@ -47,88 +47,79 @@ namespace
 		}
 		
 		static void
-		setTime(xpcc::Timestamp time)
+		setTime(uint16_t time)
 		{
 			DummyClock::time = time;
 		}
 		
 	private:
-		static xpcc::Timestamp time;
+		static uint16_t time;
 	};
 	
-	xpcc::Timestamp DummyClock::time = 0;
+	uint16_t DummyClock::time = 0;
 }
 
 // ----------------------------------------------------------------------------
+
 void
-TimeoutTest::setUp()
+PeriodicTimerTest::setUp()
 {
 	DummyClock::setTime(0);
 }
 
 void
-TimeoutTest::testBasics()
+PeriodicTimerTest::testConstructor()
 {
-	xpcc::Timeout<DummyClock> timeout(10);
+	xpcc::PeriodicTimer<DummyClock> timer(10);
 	
-	TEST_ASSERT_FALSE(timeout.isExpired());
+	TEST_ASSERT_TRUE(timer.isRunning());
+	TEST_ASSERT_FALSE(timer.isExpired());
+}
+
+void
+PeriodicTimerTest::testTimer()
+{
+	xpcc::PeriodicTimer<DummyClock> timer(10);
+	
+	TEST_ASSERT_FALSE(timer.isExpired());
 	
 	int i;
 	for (i = 0; i < 9; ++i) {
 		DummyClock::setTime(i);
-		TEST_ASSERT_FALSE(timeout.isExpired());
+		TEST_ASSERT_FALSE(timer.isExpired());
 	}
 	
 	DummyClock::setTime(10);
-	TEST_ASSERT_TRUE(timeout.isExpired());
+	TEST_ASSERT_TRUE(timer.isExpired());
+	TEST_ASSERT_FALSE(timer.isExpired());
 	
-	// check if the class holds the state
-	DummyClock::setTime(9);
-	TEST_ASSERT_TRUE(timeout.isExpired());
-}
-
-void
-TimeoutTest::testDefaultConstructor()
-{
-	xpcc::Timeout<DummyClock> timeout;
-	TEST_ASSERT_TRUE(timeout.isExpired());
-}
-
-void
-TimeoutTest::testTimeOverflow()
-{
-	xpcc::Timestamp::Type time = xpcc::ArithmeticTraits<xpcc::Timestamp::Type>::max();
+	DummyClock::setTime(20);
+	TEST_ASSERT_TRUE(timer.isExpired());
+	TEST_ASSERT_FALSE(timer.isExpired());
 	
-	// overflow after 65535 for uint16_t => 32767+100 = 32867
-	DummyClock::setTime(time / 2 + 100);
-	
-	xpcc::Timeout<DummyClock> timeout(time / 2 - 1);	//=> 32867 + 32767 = 65634 - 65535 = 99
-	
-	TEST_ASSERT_FALSE(timeout.isExpired());
-	
-	DummyClock::setTime(time);
-	TEST_ASSERT_FALSE(timeout.isExpired());
-	
-	DummyClock::setTime(0);
-	TEST_ASSERT_FALSE(timeout.isExpired());
-	
-	// Overflow happened. This needs to be avoided by the user!
 	DummyClock::setTime(100);
-	TEST_ASSERT_TRUE(timeout.isExpired());
+	TEST_ASSERT_TRUE(timer.isExpired());
+	TEST_ASSERT_FALSE(timer.isExpired());
 }
 
 void
-TimeoutTest::testRestart()
+PeriodicTimerTest::testRestart()
 {
-	xpcc::Timeout<DummyClock> timeout;
-	TEST_ASSERT_TRUE(timeout.isExpired());
+	xpcc::PeriodicTimer<DummyClock> timer(10);
 	
-	timeout.restart(42);
-	TEST_ASSERT_FALSE(timeout.isExpired());
+	TEST_ASSERT_TRUE(timer.isRunning());
+	TEST_ASSERT_FALSE(timer.isExpired());
 	
-	DummyClock::setTime(10);
-	TEST_ASSERT_FALSE(timeout.isExpired());
+	timer.stop();
 	
-	DummyClock::setTime(600);
-	TEST_ASSERT_TRUE(timeout.isExpired());
+	TEST_ASSERT_FALSE(timer.isRunning());
+	
+	timer.restart(5);
+	
+	TEST_ASSERT_TRUE(timer.isRunning());
+	TEST_ASSERT_FALSE(timer.isExpired());
+	
+	DummyClock::setTime(5);
+	TEST_ASSERT_TRUE(timer.isExpired());
+	TEST_ASSERT_FALSE(timer.isExpired());
 }
