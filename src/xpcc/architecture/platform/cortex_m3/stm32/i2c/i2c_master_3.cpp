@@ -179,7 +179,7 @@ I2C3_EV_IRQHandler(void)
 		writeFinished = WRITE_NOT_FINISHED;
 		I2C3->CR2 |= I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN | I2C_CR2_ITERREN;
 
-		xpcc::i2c::Delegate::Starting s = delegate->started();
+		xpcc::i2c::Delegate::Starting s = delegate->starting();
 		uint8_t address;
 		switch (s.next){
 			case xpcc::i2c::Delegate::READ_OP:
