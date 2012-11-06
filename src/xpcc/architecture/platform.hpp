@@ -43,6 +43,8 @@
 #include "detect.hpp"		// sets XPCC__CPU_xx etc. macros
 #include "utils.hpp"
 
+#include "interface.hpp"
+
 #if defined XPCC__CPU_AVR
 #	include "platform/avr.hpp"
 #elif defined XPCC__CPU_ARM7TDMI
