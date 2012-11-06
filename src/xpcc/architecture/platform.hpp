@@ -43,7 +43,7 @@
 #include "detect.hpp"		// sets XPCC__CPU_xx etc. macros
 #include "utils.hpp"
 
-#include "interface.hpp"
+#include "peripheral.hpp"
 
 #if defined XPCC__CPU_AVR
 #	include "platform/avr.hpp"
