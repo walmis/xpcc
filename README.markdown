@@ -1,3 +1,8 @@
+
+WARNING: This instructions are outdated!
+========================================
+
+
 The GitHub Pages branch includes the project main page and the documentation.
 
 To update the documentation or main page, you need to checkout the gh-pages branch, update the files you need and push to that branch.
