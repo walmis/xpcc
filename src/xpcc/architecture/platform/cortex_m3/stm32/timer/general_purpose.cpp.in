@@ -67,7 +67,7 @@ xpcc::stm32::Timer{{ id }}::disable()
 // ----------------------------------------------------------------------------
 void
 xpcc::stm32::Timer{{ id }}::setMode(Mode mode, SlaveMode slaveMode,
-		SlaveModeTrigger slaveModeTrigger)
+		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode)
 {
 	// disable timer
 	TIM{{ id }}->CR1 = 0;
@@ -83,6 +83,7 @@ xpcc::stm32::Timer{{ id }}::setMode(Mode mode, SlaveMode slaveMode,
 	
 	// ARR Register is buffered, only Under/Overflow generates update interrupt
 	TIM{{ id }}->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | mode;
+	TIM{{ id }}->CR2 = masterMode;
 	TIM{{ id }}->SMCR = slaveMode | slaveModeTrigger;
 }
 
