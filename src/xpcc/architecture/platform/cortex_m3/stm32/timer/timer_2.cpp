@@ -115,13 +115,14 @@ xpcc::stm32::Timer2::setPeriod(uint32_t microseconds, bool autoApply)
 void
 xpcc::stm32::Timer2::configureInputChannel(uint32_t channel,
 		InputCaptureMapping input, InputCapturePrescaler prescaler,
-		InputCapturePolarity polarity, uint8_t filter)
+		InputCapturePolarity polarity, uint8_t filter,
+		bool xor_ch1_3=false)
 {
 	channel -= 1;	// 1..4 -> 0..3
-	
+
 	// disable channel
 	TIM2->CCER &= ~((TIM_CCER_CC1NP | TIM_CCER_CC1P | TIM_CCER_CC1E) << (channel * 4));
-	
+
 	uint32_t flags = input;
 	flags |= ((uint32_t)prescaler) << 2;
 	flags |= ((uint32_t)(filter&0xf)) << 4;
@@ -129,18 +130,25 @@ xpcc::stm32::Timer2::configureInputChannel(uint32_t channel,
 	if (channel <= 1)
 	{
 		uint32_t offset = 8 * channel;
-		
+
 		flags <<= offset;
 		flags |= TIM2->CCMR1 & ~(0xff << offset);
-		
+
 		TIM2->CCMR1 = flags;
+
+		if(channel == 0)
+			if(xor_ch1_3)
+				TIM2->CR2 |= TIM_CR2_TI1S;
+			else
+				TIM2->CR2 &= ~TIM_CR2_TI1S;
+		}
 	}
 	else {
 		uint32_t offset = 8 * (channel - 2);
-		
+
 		flags <<= offset;
 		flags |= TIM2->CCMR2 & ~(0xff << offset);
-		
+
 		TIM2->CCMR2 = flags; 
 	}
 	
