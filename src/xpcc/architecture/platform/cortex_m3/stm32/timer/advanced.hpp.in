@@ -129,6 +129,7 @@ namespace xpcc
 														| TIM_CR2_MMS_0,
 			};
 
+#if defined(STM32F3XX)
 			enum MasterMode2
 			{
 				MASTER2_RESET			= 0,							//0b0000
@@ -148,6 +149,7 @@ namespace xpcc
 										| TIM_CR2_MMS2_0,
 				// TODO: Add other Master Modes
 			};
+#endif /* defined(STM32F3XX) */
 
 			enum SlaveModeTrigger
 			{
@@ -196,8 +198,11 @@ namespace xpcc
 			setMode(Mode mode,
 					SlaveMode slaveMode = SLAVE_DISABLED,
 					SlaveModeTrigger slaveModeTrigger = TRIGGER_INTERNAL_0,
-					MasterMode masterMode = MASTER_RESET,
-					MasterMode2 masterMode2 = MASTER2_RESET);
+					MasterMode masterMode = MASTER_RESET
+#if defined(STM32F3XX)
+					, MasterMode2 masterMode2 = MASTER2_RESET
+#endif /* defined(STM32F3XX) */
+					);
 			
 			static inline void
 			setPrescaler(uint16_t prescaler)
