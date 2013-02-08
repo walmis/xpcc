@@ -69,7 +69,7 @@ xpcc::stm32::Timer4::disable()
 // ----------------------------------------------------------------------------
 void
 xpcc::stm32::Timer4::setMode(Mode mode, SlaveMode slaveMode,
-		SlaveModeTrigger slaveModeTrigger)
+		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode)
 {
 	// disable timer
 	TIM4->CR1 = 0;
@@ -85,6 +85,7 @@ xpcc::stm32::Timer4::setMode(Mode mode, SlaveMode slaveMode,
 	
 	// ARR Register is buffered, only Under/Overflow generates update interrupt
 	TIM4->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | mode;
+	TIM4->CR2 = masterMode;
 	TIM4->SMCR = slaveMode | slaveModeTrigger;
 }
 
