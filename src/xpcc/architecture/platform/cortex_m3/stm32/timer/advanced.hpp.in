@@ -129,6 +129,12 @@ namespace xpcc
 														| TIM_CR2_MMS_0,
 			};
 
+			enum CCControlUpdate
+			{
+				SET_COMG = 0,
+				SET_COMG_OR_TRGI_RIDING_EDGE = TIM_CR2_CCUS
+			};
+
 #if defined(STM32F3XX)
 			enum MasterMode2
 			{
@@ -203,6 +209,34 @@ namespace xpcc
 					, MasterMode2 masterMode2 = MASTER2_RESET
 #endif /* defined(STM32F3XX) */
 					);
+
+			static inline void
+			setCCControlUpdate(CCControlUpdate update)
+			{
+				TIM{{ id }}->CR1 =  (TIM{{ id }}->CR1 & ~TIM_CR2_CCUS)
+									| update;
+			};
+
+
+			/*
+			 * Enables Capture/Compare preloaded control
+			 *
+			 * If enabled CCxE, CCxNE and OCxM bits are preloaded and only
+			 * updated when the COMG bit is set or on a rising edge on TRGI
+			 * This is determined by the CCControlUpdate setting.
+			 */
+			static inline void
+			enableCCPreloadedControl(CCControlUpdate update = SET_COMG)
+			{
+				TIM{{ id }}->CR1 = (TIM{{ id }}->CR1 & ~TIM_CR2_CCUS)
+									| update | TIM_CR2_CCPC;
+			}
+
+			static inline void
+			disableCCPreloadedControl()
+			{
+				TIM{{ id }}->CR1 &= ~TIM_CR2_CCPC;
+			}
 			
 			static inline void
 			setPrescaler(uint16_t prescaler)
