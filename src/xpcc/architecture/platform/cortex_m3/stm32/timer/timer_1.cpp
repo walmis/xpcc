@@ -77,8 +77,11 @@ xpcc::stm32::Timer1::disable()
 // ----------------------------------------------------------------------------
 void
 xpcc::stm32::Timer1::setMode(Mode mode, SlaveMode slaveMode,
-		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode = MASTER_RESET,
-		MasterMode2 masterMode2 = MASTER2_RESET)
+		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode
+#if defined(STM32F3XX)
+		, MasterMode2 masterMode2
+#endif /* defined(STM32F3XX) */
+		)
 {
 	// disable timer
 	TIM1->CR1 = 0;
@@ -91,7 +94,11 @@ xpcc::stm32::Timer1::setMode(Mode mode, SlaveMode slaveMode,
 	
 	// ARR Register is buffered, only Under/Overflow generates update interrupt
 	TIM1->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | mode;
+#if defined(STM32F3XX)
 	TIM1->CR2 = masterMode | masterMode2;
+#else
+	TIM1->CR2 = masterMode;
+#endif
 	TIM1->SMCR = slaveMode|slaveModeTrigger;
 }
 
@@ -125,7 +132,7 @@ void
 xpcc::stm32::Timer1::configureInputChannel(uint32_t channel,
 		InputCaptureMapping input, InputCapturePrescaler prescaler,
 		InputCapturePolarity polarity, uint8_t filter,
-		bool xor_ch1_3=false)
+		bool xor_ch1_3)
 {
 	channel -= 1;	// 1..4 -> 0..3
 	
@@ -145,11 +152,12 @@ xpcc::stm32::Timer1::configureInputChannel(uint32_t channel,
 
 		TIM1->CCMR1 = flags;
 
-		if(channel == 0)
+		if(channel == 0) {
 			if(xor_ch1_3)
 				TIM1->CR2 |= TIM_CR2_TI1S;
 			else
 				TIM1->CR2 &= ~TIM_CR2_TI1S;
+		}
 	}
 	else {
 		uint32_t offset = 8 * (channel - 2);

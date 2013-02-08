@@ -117,7 +117,7 @@ void
 xpcc::stm32::Timer2::configureInputChannel(uint32_t channel,
 		InputCaptureMapping input, InputCapturePrescaler prescaler,
 		InputCapturePolarity polarity, uint8_t filter,
-		bool xor_ch1_3=false)
+		bool xor_ch1_3)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
@@ -137,7 +137,7 @@ xpcc::stm32::Timer2::configureInputChannel(uint32_t channel,
 
 		TIM2->CCMR1 = flags;
 
-		if(channel == 0)
+		if(channel == 0) {
 			if(xor_ch1_3)
 				TIM2->CR2 |= TIM_CR2_TI1S;
 			else

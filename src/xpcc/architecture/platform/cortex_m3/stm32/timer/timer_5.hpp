@@ -96,11 +96,11 @@ namespace xpcc
 				MASTER_RESET 			= 0,							// 0b000
 				MASTER_ENABLE 			= TIM_CR2_MMS_0,				// 0b001
 				MASTER_UPDATE 			= TIM_CR2_MMS_1,				// 0b010
-				MASTER_COMPARE_PULSE 	= IM_CR2_MMS_1 | TIM_CR2_MMS_0,	// 0b011
+				MASTER_COMPARE_PULSE 	= TIM_CR2_MMS_1 | TIM_CR2_MMS_0,// 0b011
 				MASTER_COMPARE_OC1REF 	= TIM_CR2_MMS_2,				// 0b100
 				MASTER_COMPARE_OC2REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_0,// 0b101
 			
-			}
+			};
 
 			enum SlaveModeTrigger
 			{

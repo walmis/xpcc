@@ -111,14 +111,15 @@ namespace xpcc
 				MASTER_RESET 			= 0,							// 0b000
 				MASTER_ENABLE 			= TIM_CR2_MMS_0,				// 0b001
 				MASTER_UPDATE 			= TIM_CR2_MMS_1,				// 0b010
-				MASTER_COMPARE_PULSE 	= IM_CR2_MMS_1 | TIM_CR2_MMS_0,	// 0b011
+				MASTER_COMPARE_PULSE 	= TIM_CR2_MMS_1 | TIM_CR2_MMS_0,// 0b011
 				MASTER_COMPARE_OC1REF 	= TIM_CR2_MMS_2,				// 0b100
 				MASTER_COMPARE_OC2REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_0,// 0b101
 				MASTER_COMPARE_OC3REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_1,// 0b110
 				MASTER_COMPARE_OC4REF 	= TIM_CR2_MMS_2 | TIM_CR2_MMS_1	// 0b111
 														| TIM_CR2_MMS_0,
-			}
+			};
 
+#if defined(STM32F3XX)
 			enum MasterMode2
 			{
 				MASTER2_RESET			= 0,							//0b0000
@@ -137,7 +138,8 @@ namespace xpcc
 				MASTER2_COMPARE_OC6REF	= TIM_CR2_MMS2_3				//0b1001
 										| TIM_CR2_MMS2_0,
 				// TODO: Add other Master Modes
-			}
+			};
+#endif /* defined(STM32F3XX) */
 
 			enum SlaveModeTrigger
 			{
@@ -163,7 +165,6 @@ namespace xpcc
 				SLAVE_EXTERNAL_CLOCK = TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Rising edges of the selected trigger (TRGI) clock the counter.
 			};
 
-			enu
 			
 			static void
 			enable();
@@ -187,8 +188,11 @@ namespace xpcc
 			setMode(Mode mode,
 					SlaveMode slaveMode = SLAVE_DISABLED,
 					SlaveModeTrigger slaveModeTrigger = TRIGGER_INTERNAL_0,
-					MasterMode masterMode = MASTER_RESET,
-					MasterMode2 masterMode2 = MASTER2_RESET);
+					MasterMode masterMode = MASTER_RESET
+#if defined(STM32F3XX)
+					, MasterMode2 masterMode2 = MASTER2_RESET
+#endif /* defined(STM32F3XX) */
+					);
 			
 			static inline void
 			setPrescaler(uint16_t prescaler)
