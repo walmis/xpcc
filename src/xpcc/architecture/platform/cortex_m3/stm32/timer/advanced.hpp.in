@@ -306,9 +306,9 @@ namespace xpcc
 			 * without sacrificing code readability.
 			 */
 			static void inline
-			configureOutputChannel(uint32_t channel,
-					OutputCompareMode mode, OutputComparePolarity polarity,
-					OutputCompareMode mode_n = OUTPUT_INACTIVE,
+			configureOutputChannel(uint32_t channel, OutputCompareMode mode,
+					PinState out, OutputComparePolarity polarity,
+					PinState out_n,
 					OutputComparePolarity polarity_n = OUTPUT_ACTIVE_HIGH);
 
 			static inline void

@@ -212,8 +212,9 @@ xpcc::stm32::Timer{{ id }}::configureOutputChannel(uint32_t channel,
 
 static void inline
 xpcc::stm32::Timer{{ id }}::configureOutputChannel(uint32_t channel,
-OutputCompareMode mode, OutputComparePolarity polarity,
-OutputCompareMode mode_n , OutputComparePolarity polarity_n)
+OutputCompareMode mode,
+PinState out, OutputComparePolarity polarity,
+PinState out_n, OutputComparePolarity polarity_n)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
@@ -244,15 +245,7 @@ OutputCompareMode mode_n , OutputComparePolarity polarity_n)
 	TIM{{ id }}->RCR = 0;
 
 	// CCER Flags (Enable/Polarity)
-	flags = 0;
-
-	if (mode != OUTPUT_INACTIVE) {
-		flags |= polarity | TIM_CCER_CC1E;
-	}
-
-	if (mode_n != OUTPUT_INACTIVE) {
-		flags | = (polarity_n<<2) | TIM_CCER_CC1NE;
-	}
+	flags = (polarity_n<<2) | (out_n<<2) | polarity | out;
 
 	TIM{{ id }}->CCER |= flags << (channel * 4);
 }
