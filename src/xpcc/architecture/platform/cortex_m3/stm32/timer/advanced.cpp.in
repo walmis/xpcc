@@ -210,7 +210,7 @@ xpcc::stm32::Timer{{ id }}::configureOutputChannel(uint32_t channel,
 	}
 }
 
-static void inline
+void
 xpcc::stm32::Timer{{ id }}::configureOutputChannel(uint32_t channel,
 OutputCompareMode mode,
 PinState out, OutputComparePolarity polarity,
@@ -250,7 +250,7 @@ PinState out_n, OutputComparePolarity polarity_n)
 	TIM{{ id }}->CCER |= flags << (channel * 4);
 }
 
-static void inline
+void
 configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts)
 {
 	channel -= 1;	// 1..4 -> 0..3

@@ -305,7 +305,7 @@ namespace xpcc
 			 * Therefore it aims aims to provide the best performance possible
 			 * without sacrificing code readability.
 			 */
-			static void inline
+			static void
 			configureOutputChannel(uint32_t channel, OutputCompareMode mode,
 					PinState out, OutputComparePolarity polarity,
 					PinState out_n,
@@ -331,7 +331,7 @@ namespace xpcc
 			 * which is just an OutputCompareMode constant ored with the
 			 * port output quadruple specified above.
 			 */
-			static void inline
+			static void
 			configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts);
 
 			static inline void
