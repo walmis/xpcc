@@ -79,7 +79,7 @@ namespace xpcc
 		 */
 		class Timer1 : public AdvancedControlTimer
 		{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 		public:
 			
 #else
@@ -169,6 +169,18 @@ namespace xpcc
 				SLAVE_GATED		= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_0, // The counter clock is enabled when the trigger input (TRGI) is high. The counter stops (but is not reset) as soon as the trigger becomes low. Both start and stop of the counter are controlled.
 				SLAVE_TRIGGER	= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1, // The counter starts at a rising edge of the trigger TRGI (but it is not reset). Only the start of the counter is controlled.
 				SLAVE_EXTERNAL_CLOCK = TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Rising edges of the selected trigger (TRGI) clock the counter.
+			};
+
+			enum OffStateForRunMode
+			{
+				OSSR_DISABLE = 0,
+				OSSR_ENABLE = TIM_BDTR_OSSR,
+			};
+
+			enum OffStateForIdleMode
+			{
+				OSSI_DISABLE = 0,
+				OSSI_ENABLE = TIM_BDTR_OSSI,
 			};
 
 			
@@ -269,22 +281,92 @@ namespace xpcc
 			{
 				TIM1->BDTR |= TIM_BDTR_MOE;
 			}
-			
+
+			/*
+			 * Enable/Disable automatic set of MOE bit at the next update event
+			 */
+			static inline void
+			setAutomaticUpdate(bool enable)
+			{
+				if(enable)
+					TIM1->BDTR |= TIM_BDTR_AOE;
+				else
+					TIM1->BDTR &= ~TIM_BDTR_AOE;
+			}
+
+			static inline void
+			setOffState(OffStateForRunMode runMode, OffStateForIdleMode idleMode)
+			{
+				uint32_t flags = TIM1->BDTR;
+				flags &= ~(TIM_BDTR_OSSR | TIM_BDTR_OSSI);
+				flags |= runMode | idleMode;
+				TIM1->BDTR = flags;
+			}
+
+			static inline void
+			setDeadTime()
+			{
+				
+			}
+
 		public:
 			static void
 			configureInputChannel(uint32_t channel, InputCaptureMapping input,
 					InputCapturePrescaler prescaler,
 					InputCapturePolarity polarity, uint8_t filter,
 					bool xor_ch1_3=false);
-			
+
 			static void
 			configureOutputChannel(uint32_t channel, OutputCompareMode mode,
 					uint16_t compareValue);
-			
+			// TODO: Maybe add some functionality from the configureOutput
+			//       function below...
+
+			/*
+			 * Configure Output Channel without changing the Compare Value
+			 *
+			 * Normally used to REconfigure the Output channel without touching
+			 * the compare value. This can e.g. be useful for commutation of a
+			 * bldc motor.
+			 *
+			 * This function probably won't be used for a one time setup but
+			 * rather for adjusting the output setting periodically.
+			 * Therefore it aims aims to provide the best performance possible
+			 * without sacrificing code readability.
+			 */
+			static void
+			configureOutputChannel(uint32_t channel, OutputCompareMode mode,
+					PinState out, OutputComparePolarity polarity,
+					PinState out_n,
+					OutputComparePolarity polarity_n = OUTPUT_ACTIVE_HIGH);
+
+			/*
+			 * Configure Output Channel width Mode/OutputPort uint
+			 *
+			 * This is the least typsafe way of doing this and should only
+			 * be done if it provides a necessary performance
+			 * (or more or less) lazyness benefit.
+			 * i.e. if you have specific mode/output uints precalculated and
+			 * just want to load them as fast as possible.
+			 *
+			 * The "mode/output" uint contains four bits
+			 * that describe the intended output setting:
+			 * Bit0: Output Enabled/Disabled
+			 * Bit1: Output Polarity
+			 * Bit2: Complementary Output Enable/Disable
+			 * Bit3: Complementary Output Polarity
+			 *
+			 * As well as Mode Information (Bit6-Bit4)
+			 * which is just an OutputCompareMode constant ored with the
+			 * port output quadruple specified above.
+			 */
+			static void
+			configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts);
+
 			static inline void
 			setCompareValue(uint32_t channel, uint16_t value)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				*(&TIM1->CCR1 + (channel - 1)) = value;
 #else
 				*(&TIM1->CCR1 + ((channel - 1) * 2)) = value;
@@ -294,7 +376,7 @@ namespace xpcc
 			static inline uint16_t
 			getCompareValue(uint32_t channel)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				return *(&TIM1->CCR1 + (channel - 1));
 #else
 				return *(&TIM1->CCR1 + ((channel - 1) * 2));

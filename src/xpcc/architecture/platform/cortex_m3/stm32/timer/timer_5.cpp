@@ -40,7 +40,7 @@
 
 #include <xpcc_config.hpp>
 
-#if !defined (STM32F10X_LD) && !defined (STM32F10X_MD) 
+#if !defined (STM32F10X_LD) && !defined (STM32F10X_MD) && !defined(STM32F3XX)
 
 
 // ----------------------------------------------------------------------------

@@ -36,7 +36,10 @@
 #ifndef XPCC_STM32__TIMER_3_HPP
 #define XPCC_STM32__TIMER_3_HPP
 
+
 #include "timer_base.hpp"
+
+
 
 namespace xpcc
 {
@@ -66,7 +69,7 @@ namespace xpcc
 		class Timer3 : public GeneralPurposeTimer
 		{
 		public:
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 
 #else
 			enum Remap
@@ -211,7 +214,7 @@ namespace xpcc
 			static inline void
 			setCompareValue(uint32_t channel, Value value)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				*(&TIM3->CCR1 + (channel - 1)) = value;
 #else
 				*(&TIM3->CCR1 + ((channel - 1) * 2)) = value;
@@ -221,7 +224,7 @@ namespace xpcc
 			static inline Value
 			getCompareValue(uint32_t channel)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				return *(&TIM3->CCR1 + (channel - 1));
 #else
 				return *(&TIM3->CCR1 + ((channel - 1) * 2));
@@ -272,5 +275,7 @@ namespace xpcc
 		};
 	}
 }
+
+
 
 #endif // XPCC_STM32__TIMER_3_HPP

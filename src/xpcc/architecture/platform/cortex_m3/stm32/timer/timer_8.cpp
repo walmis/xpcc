@@ -40,7 +40,8 @@
 
 #include <xpcc_config.hpp>
 
-#if defined (STM32F10X_HD) || defined (STM32F10X_XL) || defined(STM32F2XX) || defined(STM32F4XX)
+#if defined (STM32F10X_HD) || defined (STM32F10X_XL) || defined(STM32F2XX) \
+							   || defined(STM32F3XX) || defined(STM32F4XX)
 
 
 #if defined(STM32F10X_XL) || defined(STM32F2XX) || defined(STM32F4XX)
@@ -51,6 +52,10 @@
 #	define TIM8_BRK_IRQn		TIM8_BRK_TIM12_IRQn
 #	define TIM8_UP_IRQn			TIM8_UP_TIM13_IRQn
 #	define TIM8_TRG_COM_IRQn	TIM8_TRG_COM_TIM14_IRQn
+#elif defined(STM32F3XX)
+#	define TIM1_BRK_IRQn		TIM1_BRK_TIM15_IRQn
+#	define TIM1_UP_IRQn			TIM1_UP_TIM16_IRQn
+#	define TIM1_TRG_COM_IRQn	TIM1_TRG_COM_TIM17_IRQn
 #endif
 
 // ----------------------------------------------------------------------------
@@ -212,6 +217,80 @@ xpcc::stm32::Timer8::configureOutputChannel(uint32_t channel,
 	if (mode != OUTPUT_INACTIVE) {
 		TIM8->CCER |= (TIM_CCER_CC1E) << (channel * 4);
 	}
+}
+
+void
+xpcc::stm32::Timer8::configureOutputChannel(uint32_t channel,
+OutputCompareMode mode,
+PinState out, OutputComparePolarity polarity,
+PinState out_n, OutputComparePolarity polarity_n)
+{
+	channel -= 1;	// 1..4 -> 0..3
+
+	// disable output
+	TIM8->CCER &= ~(0xf << (channel * 4));
+
+	uint32_t flags = mode;
+
+	if (channel <= 1)
+	{
+		uint32_t offset = 8 * channel;
+
+		flags <<= offset;
+		flags |= TIM8->CCMR1 & ~(0xff << offset);
+
+		TIM8->CCMR1 = flags;
+	}
+	else {
+		uint32_t offset = 8 * (channel - 2);
+
+		flags <<= offset;
+		flags |= TIM8->CCMR2 & ~(0xff << offset);
+
+		TIM8->CCMR2 = flags; 
+	}
+
+	// Disable Repetition Counter (FIXME has to be done here for some unknown reason)
+	TIM8->RCR = 0;
+
+	// CCER Flags (Enable/Polarity)
+	flags = (polarity_n<<2) | (out_n<<2) | polarity | out;
+
+	TIM8->CCER |= flags << (channel * 4);
+}
+
+void
+configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts)
+{
+	channel -= 1;	// 1..4 -> 0..3
+
+	// disable output
+	TIM8->CCER &= ~(0xf << (channel * 4));
+
+	uint32_t flags = modeOutputPorts & (0x70);
+
+	if (channel <= 1)
+	{
+		uint32_t offset = 8 * channel;
+
+		flags <<= offset;
+		flags |= TIM8->CCMR1 & ~(0xff << offset);
+
+		TIM8->CCMR1 = flags;
+	}
+	else {
+		uint32_t offset = 8 * (channel - 2);
+
+		flags <<= offset;
+		flags |= TIM8->CCMR2 & ~(0xff << offset);
+
+		TIM8->CCMR2 = flags; 
+	}
+
+	// Disable Repetition Counter (FIXME has to be done here for some unknown reason)
+	TIM8->RCR = 0;
+
+	TIM8->CCER |= (modeOutputPorts & (0xf)) << (channel * 4);
 }
 
 // ----------------------------------------------------------------------------

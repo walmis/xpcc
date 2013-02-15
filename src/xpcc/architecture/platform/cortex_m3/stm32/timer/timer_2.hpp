@@ -36,7 +36,10 @@
 #ifndef XPCC_STM32__TIMER_2_HPP
 #define XPCC_STM32__TIMER_2_HPP
 
+
 #include "timer_base.hpp"
+
+
 
 namespace xpcc
 {
@@ -66,7 +69,7 @@ namespace xpcc
 		class Timer2 : public GeneralPurposeTimer
 		{
 		public:
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 
 #else
 			enum Remap
@@ -137,7 +140,7 @@ namespace xpcc
 			// This type is the internal size of the counter.
 			// Timer 2 and 5 are the only one which have the size of 32 bit and
 			// only on st32f2 and st32f4
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 			typedef uint32_t Value;
 #else
 			typedef uint16_t Value;
@@ -216,7 +219,7 @@ namespace xpcc
 			static inline void
 			setCompareValue(uint32_t channel, Value value)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				*(&TIM2->CCR1 + (channel - 1)) = value;
 #else
 				*(&TIM2->CCR1 + ((channel - 1) * 2)) = value;
@@ -226,7 +229,7 @@ namespace xpcc
 			static inline Value
 			getCompareValue(uint32_t channel)
 			{
-#if defined(STM32F2XX) || defined(STM32F4XX)
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 				return *(&TIM2->CCR1 + (channel - 1));
 #else
 				return *(&TIM2->CCR1 + ((channel - 1) * 2));
@@ -277,5 +280,7 @@ namespace xpcc
 		};
 	}
 }
+
+
 
 #endif // XPCC_STM32__TIMER_2_HPP
