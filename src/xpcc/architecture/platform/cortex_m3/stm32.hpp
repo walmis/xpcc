@@ -95,6 +95,9 @@
 #include "stm32/uart/usart_3.hpp"
 #include "stm32/uart/uart_4.hpp"
 #include "stm32/uart/uart_5.hpp"
+
+// for testing
+#include "stm32/timer.hpp"
 #endif
 
 // COMP1-7 only available on STM32F3 series
@@ -128,6 +131,6 @@
 #include "stm32/i2c/i2c_master_3.hpp"
 
 #include "stm32/systick_timer.hpp"
-#include "stm32/timer.hpp"
+
 
 #endif
