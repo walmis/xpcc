@@ -303,10 +303,22 @@ namespace xpcc
 				TIM1->BDTR = flags;
 			}
 
+			/*
+			 * Set Dead Time Value
+			 *
+			 * Different Resolution Depending on DeadTime[7:5]:
+			 *     0xx =>  DeadTime[6:0]            * T(DTS)
+			 *     10x => (DeadTime[5:0] + 32) *  2 * T(DTS)
+			 *     110 => (DeadTime[4:0] + 4)  *  8 * T(DTS)
+			 *     111 => (DeadTime[4:0] + 2)  * 16 * T(DTS)
+			 */
 			static inline void
-			setDeadTime()
+			setDeadTime(uint8_t deadTime)
 			{
-				
+				uint32_t flags = TIM1->BDTR;
+				flags &= TIM_BDTR_DTG;
+				flags |= deadTime;
+				TIM1->BDTR = flags;
 			}
 
 		public:

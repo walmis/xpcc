@@ -257,7 +257,8 @@ PinState out_n, OutputComparePolarity polarity_n)
 }
 
 void
-configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts)
+xpcc::stm32::Timer1::configureOutputChannel(uint32_t channel,
+uint32_t modeOutputPorts)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
