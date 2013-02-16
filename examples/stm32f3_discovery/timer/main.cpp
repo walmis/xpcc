@@ -48,11 +48,14 @@ MAIN_FUNCTION
 	Timer1::setMode(Timer1::UP_COUNTER);
 	Timer1::setPrescaler(2);
 	Timer1::setOverflow(0xff);
-
-	LedNorth::setAlternateFunction(AF_2, PUSH_PULL);
-	Timer1::configureOutputChannel(1, Timer1::OUTPUT_PWM, 0x80);
 	Timer1::applyAndReset();
 
+
+	LedNorth::setAlternateFunction(AF_2, PUSH_PULL);		// TIM1_CH1
+	LedNorthWest::setAlternateFunction(AF_2, PUSH_PULL);	// TIM1_CH1N
+	Timer1::configureOutputChannel(1, Timer1::OUTPUT_PWM, 0x80);
+	Timer1::configureOutputChannel(1, Timer1::OUTPUT_PWM | 0b0101);
+	Timer1::setDeadTime(0b10000000 | 7);
 	Timer1::start();
 
 
