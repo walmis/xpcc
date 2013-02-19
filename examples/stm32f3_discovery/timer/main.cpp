@@ -55,7 +55,7 @@ MAIN_FUNCTION
 	LedNorthWest::setAlternateFunction(AF_2, PUSH_PULL);	// TIM1_CH1N
 	Timer1::setCompareValue(1, 0x80);
 	Timer1::configureOutputChannel(1, Timer1::OUTPUT_PWM | 0b0101);
-	Timer1::setDeadTime(0b10000000 | 7);
+	Timer1::setDeadTime(Timer1::FROM_16US_250NS_STEP, 7);
 
 
 
