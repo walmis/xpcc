@@ -219,8 +219,8 @@ void
 xpcc::stm32::Timer{{ id }}::configureOutputChannel(uint32_t channel,
 OutputCompareMode mode,
 PinState out, OutputComparePolarity polarity,
-PinState out_n, OutputComparePolarity polarity_n
-OutputComparePreload preload);
+PinState out_n, OutputComparePolarity polarity_n,
+OutputComparePreload preload)
 {
 	channel -= 1;	// 1..4 -> 0..3
 

@@ -129,7 +129,7 @@ namespace xpcc
 														| TIM_CR2_MMS_0,
 			};
 
-			enum CCControlUpdate
+			enum CaptureCompareControlUpdate
 			{
 				SET_COMG = 0,
 				SET_COMG_OR_TRGI_RIDING_EDGE = TIM_CR2_CCUS
@@ -223,7 +223,7 @@ namespace xpcc
 					);
 
 			static inline void
-			setCCControlUpdate(CCControlUpdate update)
+			setCaptureCompareControlUpdate(CaptureCompareControlUpdate update)
 			{
 				TIM{{ id }}->CR1 =  (TIM{{ id }}->CR1 & ~TIM_CR2_CCUS)
 									| update;
@@ -235,17 +235,18 @@ namespace xpcc
 			 *
 			 * If enabled CCxE, CCxNE and OCxM bits are preloaded and only
 			 * updated when the COMG bit is set or on a rising edge on TRGI
-			 * This is determined by the CCControlUpdate setting.
+			 * This is determined by the CaptureCompareControlUpdate setting.
 			 */
 			static inline void
-			enableCCPreloadedControl(CCControlUpdate update = SET_COMG)
+			enableCaptureComparePreloadedControl
+			(CaptureCompareControlUpdate update = SET_COMG)
 			{
 				TIM{{ id }}->CR1 = (TIM{{ id }}->CR1 & ~TIM_CR2_CCUS)
 									| update | TIM_CR2_CCPC;
 			}
 
 			static inline void
-			disableCCPreloadedControl()
+			disableCaptureCcomparePreloadedControl()
 			{
 				TIM{{ id }}->CR1 &= ~TIM_CR2_CCPC;
 			}
