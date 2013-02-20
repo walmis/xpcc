@@ -100,7 +100,7 @@ namespace xpcc
 														| TIM_CR2_MMS_0,
 			};
 
-			enum CCControlUpdate
+			enum CaptureCompareControlUpdate
 			{
 				SET_COMG = 0,
 				SET_COMG_OR_TRGI_RIDING_EDGE = TIM_CR2_CCUS
@@ -164,6 +164,12 @@ namespace xpcc
 				OSSI_ENABLE = TIM_BDTR_OSSI,
 			};
 
+			enum OutputIdleState
+			{
+				IDLE_STATE_RESET = 0,
+				IDLE_STATE_SET = TIM_CR2_OIS1,
+			};
+
 			
 			static void
 			enable();
@@ -194,7 +200,7 @@ namespace xpcc
 					);
 
 			static inline void
-			setCCControlUpdate(CCControlUpdate update)
+			setCaptureCompareControlUpdate(CaptureCompareControlUpdate update)
 			{
 				TIM8->CR1 =  (TIM8->CR1 & ~TIM_CR2_CCUS)
 									| update;
@@ -206,17 +212,18 @@ namespace xpcc
 			 *
 			 * If enabled CCxE, CCxNE and OCxM bits are preloaded and only
 			 * updated when the COMG bit is set or on a rising edge on TRGI
-			 * This is determined by the CCControlUpdate setting.
+			 * This is determined by the CaptureCompareControlUpdate setting.
 			 */
 			static inline void
-			enableCCPreloadedControl(CCControlUpdate update = SET_COMG)
+			enableCaptureComparePreloadedControl
+			(CaptureCompareControlUpdate update = SET_COMG)
 			{
 				TIM8->CR1 = (TIM8->CR1 & ~TIM_CR2_CCUS)
 									| update | TIM_CR2_CCPC;
 			}
 
 			static inline void
-			disableCCPreloadedControl()
+			disableCaptureComparePreloadedControl()
 			{
 				TIM8->CR1 &= ~TIM_CR2_CCPC;
 			}
@@ -284,6 +291,19 @@ namespace xpcc
 				TIM8->BDTR = flags;
 			}
 
+			static inline void
+			setOutputIdleState(uint32_t channel, OutputIdleState idle,
+									OutputIdleState idle_n = IDLE_STATE_RESET)
+			{
+				uint32_t flags = TIM8->CR2;
+				channel -= 1;
+				flags &=  (IDLE_STATE_SET << (channel * 2))
+						| (IDLE_STATE_SET << (channel * 2 + 1));
+				flags |= (idle   << (channel * 2));
+				flags |= (idle_n << (channel * 2 + 1));
+				TIM8->CR2 = flags;
+			}
+
 			/*
 			 * Set Dead Time Value
 			 *
@@ -299,6 +319,40 @@ namespace xpcc
 				uint32_t flags = TIM8->BDTR;
 				flags &= TIM_BDTR_DTG;
 				flags |= deadTime;
+				TIM8->BDTR = flags;
+			}
+
+			/*
+			 * Set Dead Time Value
+			 *
+			 * Different Resolution Depending on DeadTime[7:5]:
+			 *     0xx =>  DeadTime[6:0]            * T(DTS)
+			 *     10x => (DeadTime[5:0] + 32) *  2 * T(DTS)
+			 *     110 => (DeadTime[4:0] + 4)  *  8 * T(DTS)
+			 *     111 => (DeadTime[4:0] + 2)  * 16 * T(DTS)
+			 */
+			static inline void
+			setDeadTime(DeadTimeResolution resolution, uint8_t deadTime)
+			{
+				uint8_t bitmask;
+				switch(resolution){
+					case FROM_0_125NS_STEP:
+						bitmask = 0b01111111;
+						break;
+					case FROM_16US_250NS_STEP:
+						bitmask = 0b00111111;
+						break;
+					case FROM_32US_1US_STEP:
+					case FROM_64US_2US_STEP:
+						bitmask = 0b00011111;
+						break;
+					default:
+						bitmask = 0x00;
+						break;
+				}
+				uint32_t flags = TIM8->BDTR;
+				flags &= TIM_BDTR_DTG;
+				flags |= (deadTime & bitmask) | resolution;
 				TIM8->BDTR = flags;
 			}
 
@@ -331,7 +385,8 @@ namespace xpcc
 			configureOutputChannel(uint32_t channel, OutputCompareMode mode,
 					PinState out, OutputComparePolarity polarity,
 					PinState out_n,
-					OutputComparePolarity polarity_n = OUTPUT_ACTIVE_HIGH);
+					OutputComparePolarity polarity_n = OUTPUT_ACTIVE_HIGH,
+					OutputComparePreload preload = PRELOAD_REGISTER_DISABLED);
 
 			/*
 			 * Configure Output Channel width Mode/OutputPort uint
@@ -354,7 +409,8 @@ namespace xpcc
 			 * port output quadruple specified above.
 			 */
 			static void
-			configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts);
+			configureOutputChannel(uint32_t channel, uint32_t modeOutputPorts,
+					OutputComparePreload preload = PRELOAD_REGISTER_DISABLED);
 
 			static inline void
 			setCompareValue(uint32_t channel, uint16_t value)

@@ -220,14 +220,15 @@ void
 xpcc::stm32::Timer1::configureOutputChannel(uint32_t channel,
 OutputCompareMode mode,
 PinState out, OutputComparePolarity polarity,
-PinState out_n, OutputComparePolarity polarity_n)
+PinState out_n, OutputComparePolarity polarity_n,
+OutputComparePreload preload)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
 	// disable output
 	TIM1->CCER &= ~(0xf << (channel * 4));
 
-	uint32_t flags = mode;
+	uint32_t flags = mode | preload;
 
 	if (channel <= 1)
 	{
@@ -258,7 +259,7 @@ PinState out_n, OutputComparePolarity polarity_n)
 
 void
 xpcc::stm32::Timer1::configureOutputChannel(uint32_t channel,
-uint32_t modeOutputPorts)
+uint32_t modeOutputPorts, OutputComparePreload preload)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
@@ -266,6 +267,7 @@ uint32_t modeOutputPorts)
 	TIM1->CCER &= ~(0xf << (channel * 4));
 
 	uint32_t flags = modeOutputPorts & (0x70);
+	flags |= preload;
 
 	if (channel <= 1)
 	{
