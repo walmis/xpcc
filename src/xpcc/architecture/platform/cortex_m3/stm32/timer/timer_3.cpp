@@ -159,7 +159,7 @@ xpcc::stm32::Timer3::configureInputChannel(uint32_t channel,
 // ----------------------------------------------------------------------------
 void
 xpcc::stm32::Timer3::configureOutputChannel(uint32_t channel,
-		OutputCompareMode mode, Value compareValue)
+		OutputCompareMode mode, Value compareValue, PinState out)
 {
 	channel -= 1;	// 1..4 -> 0..3
 	
@@ -189,7 +189,7 @@ xpcc::stm32::Timer3::configureOutputChannel(uint32_t channel,
 		TIM3->CCMR2 = flags; 
 	}
 	
-	if (mode != OUTPUT_INACTIVE) {
+	if (mode != OUTPUT_INACTIVE && out == ENABLE) {
 		TIM3->CCER |= (TIM_CCER_CC1E) << (channel * 4);
 	}
 }
