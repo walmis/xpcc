@@ -60,9 +60,6 @@ namespace
 void
 xpcc::stm32::Uart4::configurePins(Mapping mapping)
 {
-	// Enable clock
-	RCC->APB1ENR |= RCC_APB1ENR_UART4EN;
-	
 	// Initialize IO pins
 #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 	#if defined(STM32F3XX)
@@ -90,11 +87,14 @@ xpcc::stm32::Uart4::configurePins(Mapping mapping)
 void
 xpcc::stm32::Uart4::setBaudrate(uint32_t baudrate)
 {
-	// Enable clock
 	// FIXME: there seems to be a bug in the stm32f3xxlib which does not provide
 	//        the necessary RCC_APB1ENR_UART5EN define and probably defines
 	//        RCC_APB1ENR_UART4EN incorrectly (0x00100000 instead of 0x00080000)
+	// enable clock
 	RCC->APB1ENR |= RCC_APB1ENR_UART4EN;
+	// reset timer
+	RCC->APB1RSTR |=  RCC_APB1RSTR_UART4RST;
+	RCC->APB1RSTR &= ~RCC_APB1RSTR_UART4RST;
 	
 	UART4->CR1 = 0;
 	

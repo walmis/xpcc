@@ -82,9 +82,6 @@ namespace
 void
 xpcc::stm32::BufferedFlowUart4::configurePins(Mapping mapping)
 {
-	// Enable clock
-	RCC->APB1ENR |= RCC_APB1ENR_UART4EN;
-	
 	// Initialize IO pins
 #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 	#if defined(STM32F3XX)

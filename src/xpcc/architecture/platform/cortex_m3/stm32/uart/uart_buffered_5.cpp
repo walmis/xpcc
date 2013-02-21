@@ -66,9 +66,6 @@ namespace
 void
 xpcc::stm32::BufferedUart5::configurePins(Mapping mapping)
 {
-	// Enable clock
-	RCC->APB1ENR |= RCC_APB1ENR_UART5EN;
-	
 	// Initialize IO pins
 #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 	(void) mapping;		// avoid compiler warning
