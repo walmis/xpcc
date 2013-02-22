@@ -221,7 +221,7 @@ namespace xpcc
 			static inline void
 			setCaptureCompareControlUpdate(CaptureCompareControlUpdate update)
 			{
-				TIM1->CR2 =  (TIM1->CR1 & ~TIM_CR2_CCUS)
+				TIM1->CR2 =  (TIM1->CR2 & ~TIM_CR2_CCUS)
 									| update;
 			};
 
@@ -237,7 +237,7 @@ namespace xpcc
 			enableCaptureComparePreloadedControl
 			(CaptureCompareControlUpdate update = SET_COMG)
 			{
-				TIM1->CR2 = (TIM1->CR1 & ~TIM_CR2_CCUS)
+				TIM1->CR2 = (TIM1->CR2 & ~TIM_CR2_CCUS)
 									| update | TIM_CR2_CCPC;
 			}
 
