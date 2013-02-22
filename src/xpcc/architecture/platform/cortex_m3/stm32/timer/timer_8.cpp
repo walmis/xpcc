@@ -262,7 +262,7 @@ OutputComparePreload preload)
 
 void
 xpcc::stm32::Timer8::configureOutputChannel(uint32_t channel,
-uint32_t modeOutputPorts, OutputComparePreload preload)
+uint32_t modeOutputPorts)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
@@ -270,22 +270,20 @@ uint32_t modeOutputPorts, OutputComparePreload preload)
 	TIM8->CCER &= ~(0xf << (channel * 4));
 
 	uint32_t flags = modeOutputPorts & (0x70);
-	flags |= preload;
 
 	if (channel <= 1)
 	{
 		uint32_t offset = 8 * channel;
 
 		flags <<= offset;
-		flags |= TIM8->CCMR1 & ~(0xff << offset);
-
+		flags |= TIM8->CCMR1 & ~(TIM_CCMR1_OC1M << offset);
 		TIM8->CCMR1 = flags;
 	}
 	else {
 		uint32_t offset = 8 * (channel - 2);
 
 		flags <<= offset;
-		flags |= TIM8->CCMR2 & ~(0xff << offset);
+		flags |= TIM8->CCMR2 & ~(TIM_CCMR1_OC1M << offset);
 
 		TIM8->CCMR2 = flags; 
 	}
