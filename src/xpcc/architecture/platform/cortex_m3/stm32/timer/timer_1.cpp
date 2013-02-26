@@ -263,9 +263,6 @@ uint32_t modeOutputPorts)
 {
 	channel -= 1;	// 1..4 -> 0..3
 
-	// disable output
-	TIM1->CCER &= ~(0xf << (channel * 4));
-
 	uint32_t flags = modeOutputPorts & (0x70);
 
 	if (channel <= 1)
@@ -285,10 +282,10 @@ uint32_t modeOutputPorts)
 		TIM1->CCMR2 = flags; 
 	}
 
-	// Disable Repetition Counter (FIXME has to be done here for some unknown reason)
-	TIM1->RCR = 0;
+	flags =  (TIM1->CCER & ~(0xf << (channel * 4)));
+	flags |= (modeOutputPorts & (0xf)) << (channel * 4);
 
-	TIM1->CCER |= (modeOutputPorts & (0xf)) << (channel * 4);
+	TIM1->CCER = flags;
 }
 
 // ----------------------------------------------------------------------------
