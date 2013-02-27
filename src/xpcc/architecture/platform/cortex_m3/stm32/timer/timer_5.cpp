@@ -69,7 +69,8 @@ xpcc::stm32::Timer5::disable()
 // ----------------------------------------------------------------------------
 void
 xpcc::stm32::Timer5::setMode(Mode mode, SlaveMode slaveMode,
-		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode)
+		SlaveModeTrigger slaveModeTrigger, MasterMode masterMode,
+		bool enableOnePulseMode)
 {
 	// disable timer
 	TIM5->CR1 = 0;
@@ -84,7 +85,10 @@ xpcc::stm32::Timer5::setMode(Mode mode, SlaveMode slaveMode,
 	}
 	
 	// ARR Register is buffered, only Under/Overflow generates update interrupt
-	TIM5->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | mode;
+	if(enableOnePulseMode)
+		TIM5->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | TIM_CR1_OPM | mode;
+	else
+		TIM5->CR1 = TIM_CR1_ARPE | TIM_CR1_URS | mode;
 	TIM5->CR2 = masterMode;
 	TIM5->SMCR = slaveMode | slaveModeTrigger;
 }

@@ -134,6 +134,11 @@ namespace xpcc
 				SLAVE_GATED		= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_0, // The counter clock is enabled when the trigger input (TRGI) is high. The counter stops (but is not reset) as soon as the trigger becomes low. Both start and stop of the counter are controlled.
 				SLAVE_TRIGGER	= TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1, // The counter starts at a rising edge of the trigger TRGI (but it is not reset). Only the start of the counter is controlled.
 				SLAVE_EXTERNAL_CLOCK = TIM_SMCR_SMS_2 | TIM_SMCR_SMS_1 | TIM_SMCR_SMS_0, // Rising edges of the selected trigger (TRGI) clock the counter.
+				
+				#if defined(STM32F3XX)
+				SLAVE_RESET_TRIGGER	= TIM_SMCR_SMS_3,	// reinitialize and start counter
+				#endif
+				
 			};
 			
 			// This type is the internal size of the counter.
@@ -162,7 +167,8 @@ namespace xpcc
 			static void
 			setMode(Mode mode, SlaveMode slaveMode = SLAVE_DISABLED,
 					SlaveModeTrigger slaveModeTrigger = (SlaveModeTrigger) 0,
-					MasterMode masterMode = MASTER_RESET);
+					MasterMode masterMode = MASTER_RESET,
+					bool enableOnePulseMode = false);
 			
 			static inline void
 			setPrescaler(uint16_t prescaler)
@@ -199,7 +205,7 @@ namespace xpcc
 			{
 				TIM3->CNT = value;
 			}
-			
+
 		public:
 			static void
 			configureInputChannel(uint32_t channel, InputCaptureMapping input,
