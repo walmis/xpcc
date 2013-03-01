@@ -33,6 +33,7 @@
 
 #include <xpcc/architecture/utils.hpp>
 #include <xpcc/io/iostream.hpp>
+#include <ctype.h>
 
 #include "level.hpp"
 #include "style.hpp"
@@ -94,6 +95,28 @@ namespace xpcc
 				{
 					*(xpcc::IOStream *) this << msg;
 					return *this;
+				}
+
+				void dump_buffer(uint8_t* buf, uint8_t len) {
+
+					int on_this_line = 0;
+					while (len-- > 0) {
+						printf("%02x ", *buf++);
+						on_this_line += 1;
+						if (on_this_line == 16 || len == 0) {
+							int i;
+							write(' ');
+							for (i = on_this_line; i < 16; i++) {
+								printf("   ");
+							}
+
+							for (i = on_this_line; i > 0; i--)
+								write(isprint(buf[-i]) ? buf[-i] : '.');
+							write('\n');
+							on_this_line = 0;
+						}
+					}
+
 				}
 
 			private:

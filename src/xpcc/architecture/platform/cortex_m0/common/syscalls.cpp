@@ -162,3 +162,16 @@ void free(void *p)
 {
 	allocator.free(p);
 }
+
+static uint32_t lfsr = 1;
+extern "C"
+void srand(unsigned int seed) {
+	if(!seed) seed = 1;
+	lfsr = seed;
+}
+
+extern "C"
+int rand() {
+	lfsr = (lfsr >> 1) ^ (-(lfsr & 1u) & 0xD0000001u);
+	return lfsr;
+}

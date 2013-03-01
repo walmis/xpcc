@@ -53,6 +53,8 @@
 // Chapter 13: UART
 #include "uart/uart_1.hpp"
 
+#include "gpio_interrupt.h"
+
 // Chapter 14: SPI0/1 with SSP
 #include "spi/spi_0.hpp"
 #include "spi/spi_1.hpp"
@@ -111,8 +113,11 @@
 
 // Chapter 26: LPC111x/LPC11Cxx Flash programming firmware
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
-// TODO
+#include "rand.hpp"
 #endif
+
+
+
 
 extern "C"
 {

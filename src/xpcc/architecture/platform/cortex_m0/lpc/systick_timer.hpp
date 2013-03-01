@@ -62,7 +62,7 @@ namespace xpcc
 			 * system clock but it is changed to system clock here.
 			 */
 			static void
-			enable(uint32_t reload = ((F_CPU / 1000) - 1));
+			enable(uint32_t reload = ((SystemCoreClock / 1000) - 1));
 
 			/**
 			 * Disables SysTick Timer.
