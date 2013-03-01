@@ -25,8 +25,6 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * $hello please remove me$
  */
 // ----------------------------------------------------------------------------
 
@@ -167,6 +165,7 @@ extern uint32_t __bss_end;
 
 // Application's main function
 extern int main(void);
+extern void __xpcc_initialize_memory(void);
 extern void __libc_init_array(void);
 extern void exit(int) __attribute__ ((noreturn, weak));
 
@@ -210,6 +209,8 @@ Reset_Handler(void)
 	
 	// Enable AHB clock to the GPIO domain.
 	LPC_SYSCON->SYSAHBCLKCTRL |= (1 << 6);
+	
+	__xpcc_initialize_memory();
 	
 	// Call C++ library initialization
 	__libc_init_array();

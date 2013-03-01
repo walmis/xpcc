@@ -75,6 +75,9 @@ namespace xpcc
 			// get rid of the warning about an unused parameter
 			(void) device;
 		}
+		IODeviceWrapper()
+		{
+		}
 		
 		virtual void
 		write(char c)
@@ -99,15 +102,7 @@ namespace xpcc
 		virtual bool
 		read(char& c)
 		{
-			// FIXME
-			uint8_t t;
-			if (T::read(t)) {
-				c = t;
-				return true;
-			}
-			else {
-				return false;
-			}
+			return T::read((uint8_t&)c);
 		}
 	};
 }

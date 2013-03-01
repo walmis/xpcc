@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 
 import os
@@ -35,8 +33,17 @@ import builder_base
 import filter.java as filter
 
 class JavaIdentifierBuilder(builder_base.Builder):
+	"""
+	Generate the Identifiers. The Output is a Java Class named Identifier.java,
+	which contains as subclasses three enums called Component, Action and Event.
+	Each contains a get by id method. Events have a possibility to create a
+	Packet from bytebuffer.
 	
-	VERSION = "$Id$"
+	A common call would be like:
+	$python java_identifier.py  --outpath source/rca/robot --package rca.robot robot.xml;
+	"""
+	
+	VERSION = "0.1"
 	
 	def setup(self, optparser):
 		optparser.add_option(

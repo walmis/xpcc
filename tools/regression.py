@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 
 import os
@@ -154,10 +152,6 @@ def update_files():
 	rename = [("regression.2.txt", "regression.txt")]
 	
 	for path, directories, files in os.walk('regression'):
-		# exclude the SVN-directories
-		if '.svn' in directories:
-			directories.remove('.svn')
-		
 		for file in files:
 			if file.endswith(".2.txt"):
 				# *.2.txt -> *.txt
@@ -202,10 +196,6 @@ if __name__ == '__main__':
 
 	#for path, directories, files in os.walk('../examples'):
 	for path, directories, files in os.walk(dir):
-		# exclude the SVN-directories
-		if '.svn' in directories:
-			directories.remove('.svn')
-		
 		if 'SConstruct' in files:
 			cmd = ['scons', '-C%s' % path, 'size']
 			p = subprocess.Popen(cmd, stdout=subprocess.PIPE)

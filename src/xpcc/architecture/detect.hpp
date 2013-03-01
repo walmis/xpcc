@@ -89,6 +89,8 @@
 
 #define	XPCC__CPU_HOSTED
 #define	XPCC__CPU_HOSTED_64
+
+#define XPCC__ALIGNMENT
 //@}
 
 /**
@@ -103,6 +105,20 @@
 
 // ----------------------------------------------------------------------------
 // Determine compilation environment
+
+/**
+ * This relies on the predefined defines of the compiler.
+ * To display the defines run:
+ * $your-gcc-compiler -dM -E - < /dev/null | sort | less
+ *
+ * e.g.
+ * $arm-none-eabi-g++ -dM -E - < /dev/null | sort | less
+ *
+ * Be aware that the defines change when you set options
+ * for a specific compiler at compile time:
+ *
+ * $arm-none-eabi-g++ -dM -E -mcpu=cortex-m0 -mthumb -D__ARM_LPC1114_301__ -D__ARM_LPC11XX__ - < /dev/null
+ */
 
 #if defined __GNUC__
 #	define XPCC__COMPILER_STRING	"Gnu GCC"
@@ -155,7 +171,8 @@
 // Determine CPU type
 
 #if defined __AVR__
-#	define	XPCC__CPU_AVR 1
+#	define	XPCC__CPU_AVR	1
+#	define XPCC__ALIGNMENT	1
 #	if defined __AVR_XMEGA__
 #		define XPCC__CPU_ATXMEGA	1
 #		define XPCC__CPU_STRING		"Atmel XMEGA"
@@ -174,6 +191,7 @@
 #if defined __AVR32__
 #	define XPCC__CPU_AVR32 		1
 #	define XPCC__CPU_STRING		"AVR32"
+#	define XPCC__ALIGNMENT	4
 #endif
 
 #if defined __X86__ || defined __i386__ || defined i386 || defined _M_IX86 || defined __386__ || defined __x86_64__ || defined _M_X64
@@ -181,17 +199,20 @@
 #	if defined __x86_64__ || defined _M_X64
 #		define XPCC__CPU_HOSTED_64	1
 #		define XPCC__CPU_STRING		"AMD x86-64"
+#		define XPCC__ALIGNMENT	8
 #	else
 #		define XPCC__CPU_STRING		"Intel 386+"
+#		define XPCC__ALIGNMENT	4
 #	endif
 #endif
 
-#if defined __arm__
-#	define XPCC__CPU_ARM 1
+#if defined __arm__ || defined __ARM_EABI__
+#	define XPCC__CPU_ARM	1
+#	define XPCC__ALIGNMENT	4
 #	if defined __ARM_ARCH_4T__
 #		define XPCC__CPU_ARM7TDMI	1
 #		define XPCC__CPU_STRING		"ARM7TDMI"
-#	elif defined __ARM_ARCH_6SM__
+#	elif defined __ARM_ARCH_6SM__ || defined __ARM_ARCH_6M__
 #		define XPCC__CPU_CORTEX_M0	1
 #		define XPCC__CPU_STRING		"Cortex M0"
 #	elif defined __ARM_ARCH_7M__

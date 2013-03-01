@@ -31,7 +31,7 @@
 #include "uart_base.hpp"
 #include "lpc11_uart_registers.hpp"
 
-#include <xpcc/architecture.hpp>
+#include "../device.h"
 
 void
 xpcc::lpc::UartBase::setBaudrate(uint32_t baudrate)
@@ -41,6 +41,8 @@ xpcc::lpc::UartBase::setBaudrate(uint32_t baudrate)
 	uint32_t   Fdiv = (((SystemCoreClock * LPC_SYSCON->SYSAHBCLKDIV)/regVal)/16)/baudrate ;	/*baud rate */
 	LPC_UART->DLM = Fdiv >>    8;
 	LPC_UART->DLL = Fdiv  & 0xff;
+
+	LPC_UART->FDR = 0b00010000;
 
 	LPC_UART->LCR = LCR_WLS_8_BIT;		/* 8 bits, no Parity, 1 Stop bit, DLAB = 0 */
 }

@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 
 import time
@@ -209,7 +207,7 @@ class Builder(object):
 		except BuilderException as e:
 			sys.stderr.write("Builder Error: %s\n" % str(e))
 			sys.exit(1)
-		except jinja2.excepetions.TemplateSyntaxError as e:
+		except jinja2.exceptions.TemplateSyntaxError as e:
 			sys.stderr.write("Error in Template: %s\n" % str(e))
 			sys.exit(1)
 		#except Exception as e:

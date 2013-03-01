@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 
 import os
@@ -37,10 +35,6 @@ Import('env')
 # regenerate SConstruct files for the tests and examples
 for dir in ['tests', 'examples']:
 	for path, directories, files in os.walk(dir):
-		# exclude the SVN-directories
-		if '.svn' in directories:
-			directories.remove('.svn')
-		
 		if 'project.cfg' in files:
 			parser = env.ConfigParser()
 			parser.read(os.path.join(path, 'project.cfg'))

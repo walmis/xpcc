@@ -32,7 +32,6 @@
 #define XPCC_LPC11XX__GPIO_HPP
 
 #include <xpcc/architecture/driver/gpio.hpp>
-#include <lpc11xx/cmsis/LPC11xx.h>
 
 // All these pins are not GPIOs as default.
 // Some special handling is necessary.
@@ -90,7 +89,18 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = type; \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			if(port == 1) { \
+				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			if(port == 0) { \
+				if(pin == 0 || pin == 10 || pin == 11) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
 		} \
 		ALWAYS_INLINE static void \
@@ -134,7 +144,18 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = type; \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			if(port == 1) { \
+				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			if(port == 0) { \
+				if(pin == 0 || pin == 10 || pin == 11) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
 		} \
 		ALWAYS_INLINE static void set()            { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
@@ -171,7 +192,18 @@ namespace xpcc
 	struct name { \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin)  =       type ; \
+		LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			if(port == 1) { \
+				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			if(port == 0) { \
+				if(pin == 0 || pin == 10 || pin == 11) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				}\
+			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
 		} \
 		ALWAYS_INLINE static bool \

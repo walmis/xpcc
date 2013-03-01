@@ -25,8 +25,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id: avr.py 607 2011-09-13 19:51:03Z dergraaf $
 # -----------------------------------------------------------------------------
 # 
 # DESCRIPTION
@@ -97,7 +95,10 @@ class TempFileMungeWindows(object):
         output = " ".join(args).replace("\\", "\\\\")
         os.write(fd, output + "\n")
         os.close(fd)
-        return [cmd[0], '@' + native_tmp + '\nrm', native_tmp]
+        if SCons.Action.print_actions:
+            print("TempFileMungeWindows: Using tempfile "+native_tmp+" for command line:\n"+
+                  str(cmd[0]) + " " + " ".join(args))
+        return [cmd[0], '@"' + native_tmp + '"\ndel', '"' + native_tmp + '"']
 
 # -----------------------------------------------------------------------------
 def generate(env, **kw):

@@ -24,8 +24,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id: hosted.py 653 2011-11-29 15:51:20Z dergraaf $
 
 import os
 import platform
@@ -49,11 +47,6 @@ def generate(env, **kw):
 	
 		env['NM'] = "nm"
 		env['SIZE'] = "du -s -h"
-		
-		# in OS X use never gcc
-		if platform.system() == 'Darwin':
-			env['CC'] = "gcc-4.6"
-			env['CXX'] = "g++-4.6"
 		
 		# build messages
 		if ARGUMENTS.get('verbose') != '1':

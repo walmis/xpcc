@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 Help("""
 DESCRIPTION
@@ -105,12 +103,12 @@ env.SConscript('SConscript.check', exports='env')
 
 # Generate the doxygen documentation
 env.Doxygen('doc/doxyfile')
-env.Alias('doxygen', 'homepage/api')
+env.Alias('doxygen', 'build/api')
 env.Alias('doc', 'doxygen')
 
 env.Alias('templates', 'template')
 
-env.Phony(show='@firefox doc/homepage/api/index.html &')
+env.Phony(show='@firefox doc/build/api/index.html &')
 env.Phony(unittest='@scons -Q -C src/')
 
 env.Alias('all', ['doc', 'update', 'templates', 'unittest'])

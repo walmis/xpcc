@@ -25,8 +25,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id: configfile.py 633 2011-11-18 20:23:55Z georgi-g $
 
 import os
 import sys
@@ -146,10 +144,6 @@ class Scanner:
 		
 		for basepath in pathlist:
 			for path, directories, files in os.walk(basepath):
-				# exclude the SVN-directories
-				if '.svn' in directories:
-					directories.remove('.svn')
-				
 				if os.path.normpath(path) in ignoreList:
 					directories = self._excludeDirectories(directories)
 					continue
@@ -236,6 +230,30 @@ class Scanner:
 		# All other platforms: check for same pathname.
 		return (os.path.normcase(os.path.abspath(src)) ==
 				os.path.normcase(os.path.abspath(dst)))
+		
+	def __str__(self):
+		string = "Source files: "
+		if self.sources:
+			for s in self.sources:
+				 string += "\n  " + str(s)
+		else:
+			string += "None"
+
+		string += "\nHeader files: "
+		if self.header:
+			string += "\nHeader files:"
+			for h in self.header:
+				 string += "\n  " + str(h)	 
+		else:
+			string += "None"
+
+		string += "\nDefines: "
+		if self.defines:
+	 		for d in self.defines:
+				 string += "\n  " + str(d)
+		else:
+			string += "None"
+		return string
 
 # -----------------------------------------------------------------------------
 def generate(env, **kw):

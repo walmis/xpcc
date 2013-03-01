@@ -26,8 +26,6 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# $Id$
 # -----------------------------------------------------------------------------
 
 import os
@@ -35,8 +33,15 @@ import builder_base
 import filter.java as filter
 
 class JavaGeneratorBuilder(builder_base.Builder):
+	"""
+	Generate one Static method which is able to retrieve a Package from bytebuffer in
+	a typesafe manner based on xml communication definitions.
 	
-	VERSION = "$Id$"
+	A common call would be like:
+	$python java_generator.py --outpath source/rca/robot --package rca.robot robot.xml;
+	"""
+
+	VERSION = "0.1"
 	
 	def setup(self, optparser):
 		optparser.add_option(
