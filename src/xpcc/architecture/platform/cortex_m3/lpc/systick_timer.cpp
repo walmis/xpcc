@@ -1,6 +1,6 @@
 // coding: utf-8
 // ----------------------------------------------------------------------------
-/* Copyright (c) 2011, Roboterclub Aachen e.V.
+/* Copyright (c) 2013, Valmantas Palikša
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
