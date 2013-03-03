@@ -69,6 +69,9 @@ bool USBCDC::USBCallback_request(void) {
     return success;
 }
 
+bool xpcc::lpc17::USBCDC::isAttached() {
+	return terminal_connected;
+}
 
 // Called in ISR context
 // Set configuration. Return false if the

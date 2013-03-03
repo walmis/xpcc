@@ -336,36 +336,36 @@ USBHAL::USBHAL(void) {
     NVIC_DisableIRQ(USB_IRQn);
     
     // fill in callback array
-    epCallback[0] = &USBHAL::EP1_OUT_callback;
-    epCallback[1] = &USBHAL::EP1_IN_callback;
-    epCallback[2] = &USBHAL::EP2_OUT_callback;
-    epCallback[3] = &USBHAL::EP2_IN_callback;
-    epCallback[4] = &USBHAL::EP3_OUT_callback;
-    epCallback[5] = &USBHAL::EP3_IN_callback;
-    epCallback[6] = &USBHAL::EP4_OUT_callback;
-    epCallback[7] = &USBHAL::EP4_IN_callback;
-    epCallback[8] = &USBHAL::EP5_OUT_callback;
-    epCallback[9] = &USBHAL::EP5_IN_callback;
-    epCallback[10] = &USBHAL::EP6_OUT_callback;
-    epCallback[11] = &USBHAL::EP6_IN_callback;
-    epCallback[12] = &USBHAL::EP7_OUT_callback;
-    epCallback[13] = &USBHAL::EP7_IN_callback;
-    epCallback[14] = &USBHAL::EP8_OUT_callback;
-    epCallback[15] = &USBHAL::EP8_IN_callback;
-    epCallback[16] = &USBHAL::EP9_OUT_callback;
-    epCallback[17] = &USBHAL::EP9_IN_callback;
-    epCallback[18] = &USBHAL::EP10_OUT_callback;
-    epCallback[19] = &USBHAL::EP10_IN_callback;
-    epCallback[20] = &USBHAL::EP11_OUT_callback;
-    epCallback[21] = &USBHAL::EP11_IN_callback;
-    epCallback[22] = &USBHAL::EP12_OUT_callback;
-    epCallback[23] = &USBHAL::EP12_IN_callback;
-    epCallback[24] = &USBHAL::EP13_OUT_callback;
-    epCallback[25] = &USBHAL::EP13_IN_callback;
-    epCallback[26] = &USBHAL::EP14_OUT_callback;
-    epCallback[27] = &USBHAL::EP14_IN_callback;
-    epCallback[28] = &USBHAL::EP15_OUT_callback;
-    epCallback[29] = &USBHAL::EP15_IN_callback;
+//    epCallback[0] = &USBHAL::EP1_OUT_callback;
+//    epCallback[1] = &USBHAL::EP1_IN_callback;
+//    epCallback[2] = &USBHAL::EP2_OUT_callback;
+//    epCallback[3] = &USBHAL::EP2_IN_callback;
+//    epCallback[4] = &USBHAL::EP3_OUT_callback;
+//    epCallback[5] = &USBHAL::EP3_IN_callback;
+//    epCallback[6] = &USBHAL::EP4_OUT_callback;
+//    epCallback[7] = &USBHAL::EP4_IN_callback;
+//    epCallback[8] = &USBHAL::EP5_OUT_callback;
+//    epCallback[9] = &USBHAL::EP5_IN_callback;
+//    epCallback[10] = &USBHAL::EP6_OUT_callback;
+//    epCallback[11] = &USBHAL::EP6_IN_callback;
+//    epCallback[12] = &USBHAL::EP7_OUT_callback;
+//    epCallback[13] = &USBHAL::EP7_IN_callback;
+//    epCallback[14] = &USBHAL::EP8_OUT_callback;
+//    epCallback[15] = &USBHAL::EP8_IN_callback;
+//    epCallback[16] = &USBHAL::EP9_OUT_callback;
+//    epCallback[17] = &USBHAL::EP9_IN_callback;
+//    epCallback[18] = &USBHAL::EP10_OUT_callback;
+//    epCallback[19] = &USBHAL::EP10_IN_callback;
+//    epCallback[20] = &USBHAL::EP11_OUT_callback;
+//    epCallback[21] = &USBHAL::EP11_IN_callback;
+//    epCallback[22] = &USBHAL::EP12_OUT_callback;
+//    epCallback[23] = &USBHAL::EP12_IN_callback;
+//    epCallback[24] = &USBHAL::EP13_OUT_callback;
+//    epCallback[25] = &USBHAL::EP13_IN_callback;
+//    epCallback[26] = &USBHAL::EP14_OUT_callback;
+//    epCallback[27] = &USBHAL::EP14_IN_callback;
+//    epCallback[28] = &USBHAL::EP15_OUT_callback;
+//    epCallback[29] = &USBHAL::EP15_IN_callback;
 
     // Enable power to USB device controller
     LPC_SC->PCONP |= PCUSB;
@@ -559,6 +559,23 @@ void USBHAL::_usbisr(void) {
     instance->usbisr();
 }
 
+//a little bit of magic
+//return a virtual function from the vtable with index=index
+//offset from some other virtual function
+template <typename F, class T>
+ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
+	int* cVtablePtr = (int*)((int*)instance)[0];
+	union see_bits {
+		F p;
+		int i;
+	};
+	see_bits a;
+	a.p = offset;
+	uint32_t *t = (uint32_t*)((uint8_t*)cVtablePtr + a.i) + index;
+	F func;
+	*reinterpret_cast<void**>(&func) = (void*)*t;
+	return func;
+}
 
 void USBHAL::usbisr(void) {
     uint8_t devStat;
@@ -620,7 +637,16 @@ void USBHAL::usbisr(void) {
                 selectEndpointClearInterrupt(num);
                 epComplete |= EP(num);
                 LPC_USB->USBDevIntClr = EP_SLOW;
-                if ((instance->*(epCallback[num - 2]))()) {
+
+                //call virtual ep handlers from vtable directly
+                //this saves ram space
+                typedef bool (USBHAL::*fptr)(void);
+                fptr handler = getVirtual<fptr, USBHAL>(instance, &USBHAL::EP1_OUT_callback, num-2);
+
+                if((instance->*handler)()) {
+                //if ((instance->*(epCallback[num - 2]))()) {
+                //if(fptr()) {
+                //if((instance->*fptr)()) {
                     epComplete &= ~EP(num);
                 }
             }

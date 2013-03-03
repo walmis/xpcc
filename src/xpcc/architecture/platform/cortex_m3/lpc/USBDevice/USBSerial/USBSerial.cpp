@@ -20,14 +20,14 @@
 #include "USBSerial.h"
 
 using namespace xpcc::lpc17;
-
+#include <LPC17xx.h>
 void xpcc::lpc17::USBSerial::write(char c) {
 
 	tx_buffer.push(c);
 
 	if (tx_buffer.isNearlyFull()) {
 		uint8_t buf[64];
-		int size;
+		int size = 0;
 
 		for (int i = 0; i < 64; i++) {
 			buf[i] = tx_buffer.get();
@@ -37,8 +37,8 @@ void xpcc::lpc17::USBSerial::write(char c) {
 			if (tx_buffer.isEmpty())
 				break;
 		}
-
 		send(buf, size);
+
 	}
 
 }
@@ -58,14 +58,14 @@ bool USBSerial::EP2_OUT_callback() {
 		return true;
 	}
 	data_waiting = true;
-	return false;
+	return true;
 
 }
 
 uint8_t USBSerial::available() {
 	return rx_buffer.stored();
 }
-#include <LPC17xx.h>
+
 
 bool xpcc::lpc17::USBSerial::read(char& c) {
 
@@ -75,11 +75,17 @@ bool xpcc::lpc17::USBSerial::read(char& c) {
 	return true;
 }
 
+bool xpcc::lpc17::USBSerial::EP2_IN_callback() {
+	in_request = true;
+
+	return false;
+}
+
 void xpcc::lpc17::USBSerial::SOF(int frameNumber) {
 	uint8_t buf[64];
 	uint32_t size = 0;
-	if(!tx_buffer.isEmpty()) {
 
+	if(!tx_buffer.isEmpty() && in_request) {
 
 		for(int i=0; i<64; i++) {
 			buf[i] = tx_buffer.get();
@@ -90,6 +96,7 @@ void xpcc::lpc17::USBSerial::SOF(int frameNumber) {
 		}
 
 		writeNB(EPBULK_IN, buf, size, 64);
+		in_request = false;
 	}
 
 	if(data_waiting && rx_buffer.free() >= 64) {

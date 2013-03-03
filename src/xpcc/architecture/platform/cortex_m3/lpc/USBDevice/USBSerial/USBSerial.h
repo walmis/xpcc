@@ -65,6 +65,8 @@ public:
 	USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012,
 			uint16_t product_release = 0x0001) :
 			USBCDC(vendor_id, product_id, product_release) {
+
+		in_request = false;
 	};
 
     void
@@ -90,6 +92,7 @@ public:
 
 protected:
     bool EP2_OUT_callback();
+    bool EP2_IN_callback();
 	void SOF(int frameNumber);
 
 private:
@@ -97,6 +100,8 @@ private:
 
 	xpcc::atomic::Queue<uint8_t, 128> rx_buffer;
 	xpcc::atomic::Queue<uint8_t, 128> tx_buffer;
+
+	volatile bool in_request;
 };
 
 }
