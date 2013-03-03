@@ -1,9 +1,4 @@
 
-/*
- * WARNING: This file is generated automatically, do not edit!
- * Please modify the corresponding *.in file instead and rebuild this file. 
- */
-// ----------------------------------------------------------------------------
 
 #include <xpcc/architecture.hpp>
 #include "spi_0.hpp"
