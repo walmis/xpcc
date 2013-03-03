@@ -39,3 +39,6 @@
 #include "USBDevice/USBDevice/USBDevice.h"
 #include "USBDevice/USBSerial/USBSerial.h"
 
+#include "spi/spi_0.hpp"
+#include "spi/spi_1.hpp"
+
