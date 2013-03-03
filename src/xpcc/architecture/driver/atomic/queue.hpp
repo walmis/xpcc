@@ -102,7 +102,9 @@ namespace xpcc
 			
 			void
 			pop();
-	
+
+			Size free() const;
+			Size stored() const;
 		private:
 			Index head;
 			Index tail;

@@ -134,6 +134,42 @@ xpcc::atomic::Queue<T, N>::push(const T& value)
 	}
 }
 
+
+template<typename T, std::size_t N>
+typename xpcc::atomic::Queue<T, N>::Size
+xpcc::atomic::Queue<T, N>::free() const
+{
+	Index tmphead = xpcc::accessor::asVolatile(this->head);
+	Index tmptail = xpcc::accessor::asVolatile(this->tail);
+
+	Index free;
+	if (tmphead >= tmptail) {
+		free = (N + 1) - tmphead + tmptail;
+	}
+	else {
+		free = tmptail - tmphead;
+	}
+	return free;
+}
+
+template<typename T, std::size_t N>
+typename xpcc::atomic::Queue<T, N>::Size
+xpcc::atomic::Queue<T, N>::stored() const
+{
+	uint8_t tmphead = xpcc::accessor::asVolatile(this->head);
+	uint8_t tmptail = xpcc::accessor::asVolatile(this->tail);
+
+	Index stored;
+	if (tmphead >= tmptail) {
+		stored = tmphead - tmptail;
+	}
+	else {
+		stored = (N + 1) - tmptail + tmphead;
+	}
+
+	return stored;
+}
+
 template<typename T, std::size_t N>
 ALWAYS_INLINE void
 xpcc::atomic::Queue<T, N>::pop()
