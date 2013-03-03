@@ -1,6 +1,6 @@
 // coding: utf-8
 // ----------------------------------------------------------------------------
-/* Copyright (c) 2012, Roboterclub Aachen e.V.
+/* Copyright (c) 2011, Roboterclub Aachen e.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,14 +28,34 @@
  */
 // ----------------------------------------------------------------------------
 
-#include <lpc17xx/cmsis/LPC17xx.h>
-#include <lpc17xx/cmsis/core_cm3.h>
-#include <lpc17xx/cmsis/system_LPC17xx.h>
+#ifndef XPCC_LPC11__CORE_HPP
+#define XPCC_LPC11__CORE_HPP
 
-#include "gpio.hpp"
+#include <stdint.h>
 
-#include "systick_timer.hpp"
+namespace xpcc
+{
+	namespace lpc17
+	{
+		typedef void (*InterruptHandler)(void);
+		
+		class Core
+		{
+		public:
+			/**
+			 * Get unique device id (96-bits)
+			 * 
+			 * @param offset	0..2
+			 * @return	32-bit of the unique id
+			 */
+//			uint32_t
+//			getUniqueId(uint8_t offset)
+//			{
+//				uint32_t *baseaddress = (uint32_t*) 0x1FFFF7E8;
+//				return *(baseaddress + offset);
+//			}
+		};
+	}
+}
 
-#include "USBDevice/USBDevice/USBDevice.h"
-#include "USBDevice/USBSerial/USBSerial.h"
-
+#endif	// XPCC_LPC11__CORE_HPP

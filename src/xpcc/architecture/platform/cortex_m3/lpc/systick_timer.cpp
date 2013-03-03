@@ -1,6 +1,6 @@
 // coding: utf-8
 // ----------------------------------------------------------------------------
-/* Copyright (c) 2012, Roboterclub Aachen e.V.
+/* Copyright (c) 2011, Roboterclub Aachen e.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,14 +28,53 @@
  */
 // ----------------------------------------------------------------------------
 
-#include <lpc17xx/cmsis/LPC17xx.h>
-#include <lpc17xx/cmsis/core_cm3.h>
-#include <lpc17xx/cmsis/system_LPC17xx.h>
-
-#include "gpio.hpp"
+#include <xpcc/architecture/driver/atomic/lock.hpp>
+#include <xpcc/architecture/driver/clock.hpp>
+#include <xpcc/utils/dummy.hpp>
+#include "lpc17xx.hpp"
 
 #include "systick_timer.hpp"
 
-#include "USBDevice/USBDevice/USBDevice.h"
-#include "USBDevice/USBSerial/USBSerial.h"
+static xpcc::lpc17::InterruptHandler sysTickHandler __attribute__((unused)) = &xpcc::dummy;
 
+extern "C" void
+SysTick_Handler(void)
+{
+	xpcc::Clock::increment();
+	sysTickHandler();
+}
+
+// ----------------------------------------------------------------------------
+void
+xpcc::lpc17::SysTickTimer::enable(uint32_t reload)
+{
+	// Lower systick interrupt priority to lowest level
+	NVIC_SetPriority(SysTick_IRQn, 0xf);
+	
+	SysTick->LOAD = reload;
+	SysTick->CTRL =
+			SysTick_CTRL_CLKSOURCE_Msk |
+			SysTick_CTRL_ENABLE_Msk |
+			SysTick_CTRL_TICKINT_Msk;
+}
+
+void
+xpcc::lpc17::SysTickTimer::disable()
+{
+	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk;
+}
+
+// ----------------------------------------------------------------------------
+void
+xpcc::lpc17::SysTickTimer::attachInterrupt(InterruptHandler handler)
+{
+	atomic::Lock lock;
+	sysTickHandler = handler;
+}
+
+void
+xpcc::lpc17::SysTickTimer::detachInterrupt()
+{
+	atomic::Lock lock;
+	sysTickHandler = &xpcc::dummy;
+}
