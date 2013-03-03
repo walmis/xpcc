@@ -66,7 +66,7 @@ public:
 			uint16_t product_release = 0x0001) :
 			USBCDC(vendor_id, product_id, product_release) {
 
-		in_request = false;
+		in_request = true;
 	};
 
     void
