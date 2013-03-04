@@ -42,3 +42,7 @@
 #include "spi/spi_0.hpp"
 #include "spi/spi_1.hpp"
 
+#include "rand.hpp"
+#include "debug.hpp"
+
+#include "gpio_interrupt.h"
