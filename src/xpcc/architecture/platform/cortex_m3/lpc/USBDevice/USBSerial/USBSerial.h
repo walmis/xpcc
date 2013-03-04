@@ -72,10 +72,7 @@ public:
     void
 	write(char c);
 
-	/// Write a C-string
-	void
-	write(const char* str){};
-
+    //TODO: implement flush
 	void flush(){};
 
 	/// Read a single character
@@ -96,11 +93,10 @@ protected:
 	void SOF(int frameNumber);
 
 private:
-	volatile bool data_waiting;
-
 	xpcc::atomic::Queue<uint8_t, 128> rx_buffer;
 	xpcc::atomic::Queue<uint8_t, 128> tx_buffer;
 
+	volatile bool data_waiting;
 	volatile bool in_request;
 };
 
