@@ -21,25 +21,6 @@
 #define NUM_RETRIES 12
 #define NODE_TIMEOUT 10000 //10s timeout
 
-//enum class RadioStatus
-//	: uint8_t {
-//		SUCCESS = 0x40, /**< The requested service was performed successfully. */
-//		UNSUPPORTED_DEVICE, /**< The connected device is not an Atmel AT86RF230. */
-//		INVALID_ARGUMENT, /**< One or more of the supplied function arguments are invalid. */
-//		TIMED_OUT, /**< The requested service timed out. */
-//		WRONG_STATE, /**< The end-user tried to do an invalid state transition. */
-//		BUSY_STATE, /**< The radio transceiver is busy receiving or transmitting. */
-//		STATE_TRANSITION_FAILED, /**< The requested state transition could not be completed. */
-//		CCA_IDLE, /**< Channel is clear, available to transmit a new frame. */
-//		CCA_BUSY, /**< Channel busy. */
-//		TRX_BUSY, /**< Transceiver is busy receiving or transmitting data. */
-//		BAT_LOW, /**< Measured battery voltage is lower than voltage threshold. */
-//		BAT_OK, /**< Measured battery voltage is above the voltage threshold. */
-//		CRC_FAILED, /**< The CRC failed for the actual frame. */
-//		CHANNEL_ACCESS_FAILURE, /**< The channel access failed during the auto mode. */
-//		NO_ACK /**< No acknowledge frame was received. */
-//};
-
 namespace stdResponses {
 
 struct AssocResp {
@@ -222,10 +203,9 @@ public:
 			prepareFrame(f, 0xFFFF, 0);
 
 			f.addData((uint8_t*)&bcn, sizeof(BeaconFrame));
-
-			driver->sendFrame(frame, true);
-			//XPCC_LOG_DEBUG << "BeaconTX " << (int)res << xpcc::endl;
-			XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
+			RadioStatus res = driver->sendFrame(frame, true);
+			//XPCC_LOG_DEBUG << "\nBeaconTX " << (int)res << xpcc::endl;
+			//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
 			beacon_tm.restart(BEACON_INTERVAL);
 		}
 
@@ -367,7 +347,7 @@ protected:
 private:
 
 	void processFrame();
-	StaticFrame test;
+
 	static void rxHandler() {
 		//XPCC_LOG_DEBUG << "Handle rx" << xpcc::endl;
 		//self->driver->readFrame(self->test);

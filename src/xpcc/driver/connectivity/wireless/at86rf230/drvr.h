@@ -213,6 +213,12 @@ public:
 			HAL::frameWrite(frame.data, frame.data_len);
 			stats.tx_bytes += frame.data_len;
 
+			//uint8_t buf[60];
+			//HAL::sramRead(0, 60, buf);
+			//XPCC_LOG_DEBUG .printf("dump buffer -00000\n");
+			//XPCC_LOG_DEBUG .dump_buffer(buf, frame.data_len);
+			//XPCC_LOG_DEBUG .printf("status %d", (int)getTRXState());
+
 			if(blocking)
 				return checkTxStatus(true);
 			else
@@ -277,6 +283,8 @@ void Driver<Spi, rst, cs, slp_tr>::init() {
 	}
 
 	HAL::setTrxState(TRXState::TRX_OFF);
+
+	HAL::Reg::TX_AUTO_CRC_ON = 1;
 
 	HAL::Reg::CSMA_SEED_0 = xpcc::Random::random();
 	HAL::Reg::CSMA_SEED_1 = xpcc::Random::random();
