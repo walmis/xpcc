@@ -43,19 +43,19 @@ inline uint32_t getDword(uint8_t* address) {
 }
 
 inline void putWord(uint8_t* address, uint16_t word) {
-	*(address) = word >> 8;
-	*(address+1) = word;
+	*(address+1) = word >> 8;
+	*(address) = word;
 }
 
 inline uint16_t getWord(uint8_t* address) {
-	return (uint16_t)((*address << 8) | *(address+1));
+	return (uint16_t)((*address+1 << 8) | *(address));
 }
 
 class Frame {
 public:
 
 	Frame(uint8_t size = 0) {
-		data = nullptr;
+		data = 0;
 		rx_flag = 0;
 		data_len = 0;
 		lqi = 0;
@@ -111,7 +111,7 @@ public:
 	}
 
 	~StaticFrame() {
-		data = nullptr;
+		data = 0;
 	}
 	uint8_t _data[127];
 };

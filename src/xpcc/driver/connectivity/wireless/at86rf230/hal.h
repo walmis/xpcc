@@ -339,7 +339,7 @@ inline TRXState Hal<Spi, rst, cs, slp_tr>::getTrxState() {
 template<typename Spi, typename rst, typename cs, typename slp_tr>
 uint8_t Hal<Spi, rst, cs, slp_tr>::frameRead(Frame& frame) {
 	uint8_t i, len;
-
+	//XPCC_LOG_DEBUG .printf("Hal::read Frame %x\n", &frame);
 	xpcc::atomic::Lock lock;
 	cs::set(0);
 	/*Send frame read command and read the length.*/

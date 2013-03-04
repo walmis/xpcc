@@ -81,67 +81,66 @@ public:
 		TRXState state;
 
 		intp_src = HAL::Reg::IRQ_STATUS;
+		//XPCC_LOG_DEBUG .printf("Interrupt Status: %02x\n", intp_src);
 
-	    while (intp_src)
-	    {
-	        /*Handle the incoming interrupt. Prioritized.*/
-	        if ((intp_src & IRQStatus::IRQ_RX_START_MASK))
-	        {
-	            intp_src &= ~IRQStatus::IRQ_RX_START_MASK;
-	        }
-	        else if (intp_src & IRQStatus::IRQ_TRX_END_MASK)
-	        {
-	            state = HAL::getTrxState();
 
-	            if ((state == TRXState::RX_ON) || (state == TRXState::RX_AACK_ON) || (state == TRXState::BUSY_RX_AACK))
-	            {
-	                // get the ed measurement
-	                //pcb->ed = chb_reg_read(PHY_ED_LEVEL);
-	                // if the crc is not valid, then do not read the frame and set the rx flag
-	                if (HAL::Reg::RX_CRC_VALID)
-	                {
-	                	rx_pending = true;
-	                	//XPCC_LOG_DEBUG << "RX" << xpcc::endl;
-	                    if(frmHandler)
-	                    	frmHandler();
+		/*Handle the incoming interrupt. Prioritized.*/
+		if ((intp_src & IRQStatus::IRQ_RX_START_MASK))
+		{
+			//intp_src &= ~IRQStatus::IRQ_RX_START_MASK;
+		}
+		if (intp_src & IRQStatus::IRQ_TRX_END_MASK)
+		{
+			state = HAL::getTrxState();
 
-	                	// get the data
-	                    //chb_frame_read();
-	                    //pcb->rcvd_xfers++;
-	                    //pcb->data_rcv = true;
-	                }
-	            }
-	            else
-	            {
-	                //pcb->tx_end = true;
-	            	tx_busy = false;
-	            }
-	            intp_src &= ~IRQStatus::IRQ_TRX_END_MASK;
+			if ((state == TRXState::RX_ON) || (state == TRXState::RX_AACK_ON) || (state == TRXState::BUSY_RX_AACK))
+			{
+				// get the ed measurement
+				//pcb->ed = chb_reg_read(PHY_ED_LEVEL);
+				// if the crc is not valid, then do not read the frame and set the rx flag
+				if (HAL::Reg::RX_CRC_VALID)
+				{
+					rx_pending = true;
+					//XPCC_LOG_DEBUG << "RX" << xpcc::endl;
+					if(frmHandler)
+						frmHandler();
 
-	            HAL::setTrxState(TRXState::RX_AACK_ON);
-	        }
-	        else if (intp_src & IRQStatus::IRQ_TRX_UR_MASK)
-	        {
-	            intp_src &= ~IRQStatus::IRQ_TRX_UR_MASK;
-	            //pcb->underrun++;
-	        }
-	        else if (intp_src & IRQStatus::IRQ_PLL_UNLOCK_MASK)
-	        {
-	            intp_src &= ~IRQStatus::IRQ_PLL_UNLOCK_MASK;
-	        }
-	        else if (intp_src & IRQStatus::IRQ_PLL_LOCK_MASK)
-	        {
-	            intp_src &= ~IRQStatus::IRQ_PLL_LOCK_MASK;
-	        }
-	        else if (intp_src & IRQStatus::IRQ_BAT_LOW_MASK)
-	        {
-	            intp_src &= ~IRQStatus::IRQ_BAT_LOW_MASK;
-	            //pcb->battlow++;
-	        }
-	        else
-	        {
-	        }
-	    }
+					// get the data
+					//chb_frame_read();
+					//pcb->rcvd_xfers++;
+					//pcb->data_rcv = true;
+				}
+			}
+			else
+			{
+				//pcb->tx_end = true;
+				tx_busy = false;
+			}
+			//intp_src &= ~IRQStatus::IRQ_TRX_END_MASK;
+
+			HAL::setTrxState(TRXState::RX_AACK_ON);
+		}
+		if (intp_src & IRQStatus::IRQ_TRX_UR_MASK)
+		{
+			//intp_src &= ~IRQStatus::IRQ_TRX_UR_MASK;
+			//pcb->underrun++;
+		}
+		if (intp_src & IRQStatus::IRQ_PLL_UNLOCK_MASK)
+		{
+			//intp_src &= ~IRQStatus::IRQ_PLL_UNLOCK_MASK;
+		}
+		if (intp_src & IRQStatus::IRQ_PLL_LOCK_MASK)
+		{
+			//intp_src &= ~IRQStatus::IRQ_PLL_LOCK_MASK;
+		}
+		if (intp_src & IRQStatus::IRQ_BAT_LOW_MASK)
+		{
+			//intp_src &= ~IRQStatus::IRQ_BAT_LOW_MASK;
+			//pcb->battlow++;
+		}
+		else
+		{
+		}
 	}
 
 	RadioStatus getTxStatus();
@@ -258,7 +257,7 @@ private:
 
 template<typename Spi, typename rst, typename cs, typename slp_tr>
 void Driver<Spi, rst, cs, slp_tr>::init() {
-	frmHandler = nullptr;
+	frmHandler = 0;
 
 	XPCC_LOG_DEBUG << "Initializing AT86RF230 Driver\n";
 
