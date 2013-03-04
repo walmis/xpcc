@@ -33,6 +33,7 @@ enum class IntEvent {
 
 
 
+
 class GpioInterrupt {
 public:
 	static void registerPortHandler(uint8_t port, GpioIntHandler func);
@@ -152,6 +153,7 @@ public:
 
 
 };
+
 
 } /* namespace lpc */
 } /* namespace xpcc */

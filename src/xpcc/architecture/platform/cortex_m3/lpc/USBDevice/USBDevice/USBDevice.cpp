@@ -24,7 +24,7 @@
 
 using namespace xpcc::lpc17;
 
-#define NULL nullptr
+#define NULL 0
 //#define DEBUG
 
 /* Device status */

@@ -9,7 +9,7 @@
 #define GPIO_INTERRUPT_H_
 
 #include <xpcc/architecture.hpp>
-#include <LPC17xx.h>
+
 
 namespace xpcc {
 namespace lpc17 {
