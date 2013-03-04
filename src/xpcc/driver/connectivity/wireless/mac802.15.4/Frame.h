@@ -48,7 +48,7 @@ inline void putWord(uint8_t* address, uint16_t word) {
 }
 
 inline uint16_t getWord(uint8_t* address) {
-	return (uint16_t)((*address+1 << 8) | *(address));
+	return (uint16_t)((*(address) | *(address+1) << 8));
 }
 
 class Frame {
