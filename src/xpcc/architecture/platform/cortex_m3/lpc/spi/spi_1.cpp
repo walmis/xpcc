@@ -45,7 +45,7 @@ xpcc::lpc::SpiMaster1::configurePins(MappingSck mapping, bool useSsel)
 void
 xpcc::lpc::SpiMaster1::initialize(
 		Mode mode,
-		Presacler prescaler,
+		Prescaler prescaler,
 		uint8_t serialClockRate,
 		TransferSize transferSize,
 		FrameFormat frameFormat)

@@ -66,7 +66,7 @@ namespace xpcc
 			 *
 			 * Must be an even number between 2 and 252
 			 */
-			enum class Presacler
+			enum class Prescaler
 			{
 				DIV002 =   2,
 				DIV004 =   4,
@@ -214,7 +214,7 @@ namespace xpcc
 			static void
 			initialize(
 					Mode mode = Mode::MODE_0,
-					Presacler prescaler = Presacler::DIV002,
+					Prescaler prescaler = Prescaler::DIV002,
 					uint8_t serialClockRate = 7,
 					TransferSize transferSize = TransferSize::BIT_08,
 					FrameFormat frameFormat = FrameFormat::SPI);
