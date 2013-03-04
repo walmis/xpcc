@@ -3,8 +3,7 @@
 #include <xpcc/architecture.hpp>
 #include "spi_0.hpp"
 
-namespace
-{
+
 	static uint8_t* transmitBuffer(0);
 	static uint8_t* receiveBuffer(0);
 	static uint16_t bufferLength(0);
@@ -18,7 +17,7 @@ namespace
 		BUFFER_IS_BUSY_SYNC_bm = 0x20
 	};
 	static uint8_t status(0);
-}
+
 
 void
 xpcc::lpc::SpiMaster0::configurePins(MappingSck mapping, bool useSsel)

@@ -58,8 +58,6 @@ namespace xpcc
 			 * 			You must not increment the xpcc::Clock
 			 * 			additionally somewhere else.
 			 *
-			 * In LPC11 the SysTick timer is normally fed with half of the
-			 * system clock but it is changed to system clock here.
 			 */
 			static void
 			enable(uint32_t reload = ((SystemCoreClock / 1000) - 1));
