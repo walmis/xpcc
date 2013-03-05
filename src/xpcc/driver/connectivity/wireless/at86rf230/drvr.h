@@ -100,7 +100,7 @@ public:
 				// if the crc is not valid, then do not read the frame and set the rx flag
 				if (HAL::Reg::RX_CRC_VALID)
 				{
-					rx_pending = true;
+					rx_pending = HAL::frameLength();
 					//XPCC_LOG_DEBUG << "RX" << xpcc::endl;
 					if(frmHandler)
 						frmHandler();
@@ -227,9 +227,13 @@ public:
 		return status;
 	}
 
+	uint8_t getFrameLength() {
+		return rx_pending;
+	}
+
 	bool readFrame(Frame& frame) {
 		if(rx_pending) {
-			uint8_t len = HAL::frameLength();
+			uint8_t len = rx_pending;
 
 			stats.rx_frames++;
 			stats.rx_bytes += len;
@@ -238,7 +242,7 @@ public:
 				return false;
 			}
 			if(HAL::frameRead(frame) == len) {
-				rx_pending = false;
+				rx_pending = 0;
 				return true;
 			}
 		}
@@ -254,7 +258,7 @@ private:
 	FrameHandler frmHandler;
 
 	volatile bool tx_busy;
-	volatile bool rx_pending;
+	volatile uint8_t rx_pending;
 
 	Stats stats;
 

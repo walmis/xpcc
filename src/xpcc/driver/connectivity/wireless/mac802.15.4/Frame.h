@@ -60,17 +60,33 @@ public:
 		data_len = 0;
 		lqi = 0;
 		buffer_size = 0;
+	}
+
+	uint8_t lqi;
+	uint8_t buffer_size;
+	uint8_t data_len;
+	uint8_t rx_flag;
+
+	uint8_t *data;
+};
+
+class HeapFrame : public Frame {
+public:
+	HeapFrame(uint8_t size = 0) {
 		if(size)
 			allocate(size);
 	}
 
-	virtual ~Frame() {
+	~HeapFrame() {
 		if(data) {
 			delete[] data;
 		}
 	}
 
 	bool allocate(uint8_t len = 127) {
+		if(len > 127) {
+			len = 127;
+		}
 		if(data)
 			delete[] data;
 
@@ -85,16 +101,7 @@ public:
 			return false;
 		}
 	}
-
-	uint8_t lqi;
-	uint8_t buffer_size;
-	uint8_t data_len;
-	uint8_t rx_flag;
-
-	uint8_t *data;
 };
-
-
 
 
 class StaticFrame : public Frame {
@@ -106,13 +113,6 @@ public:
 		memset(_data, 0, 127);
 	}
 
-	bool allocate(uint8_t len) {
-		return false;
-	}
-
-	~StaticFrame() {
-		data = 0;
-	}
 	uint8_t _data[127];
 };
 

@@ -8,6 +8,7 @@
 #ifndef RADIO_H_
 #define RADIO_H_
 
+#include <memory>
 #include <xpcc/workflow.hpp>
 #include <xpcc/debug.hpp>
 #include <xpcc/container.hpp>
@@ -20,6 +21,7 @@
 #define REQUEST_TIMEOUT 500
 #define NUM_RETRIES 12
 #define NODE_TIMEOUT 10000 //10s timeout
+#define FRAME_HEAP 5
 
 namespace stdResponses {
 
@@ -190,8 +192,14 @@ public:
 	}
 
 	void poll() {
+
 		if(rx_flag) {
-			processFrame();
+			while(!rxFrames.isEmpty()) {
+				auto frame = rxFrames.getFront();
+				processFrame(*frame);
+				rxFrames.removeFront();
+			}
+
 			rx_flag = false;
 		}
 
@@ -312,7 +320,7 @@ protected:
 
 	}
 
-	virtual bool frameHandler() {
+	virtual bool frameHandler(Frame& rxFrame) {
 		return true;
 	}
 
@@ -332,6 +340,8 @@ protected:
 
 	Driver* driver;
 
+	xpcc::LinkedList<std::shared_ptr<HeapFrame>> rxFrames;
+
 	Request current_request;
 	StaticFrame frame;
 	xpcc::Timeout<> beacon_tm;
@@ -346,12 +356,27 @@ protected:
 
 private:
 
-	void processFrame();
+	void processFrame(Frame& rxFrame);
 
 	static void rxHandler() {
-		//XPCC_LOG_DEBUG << "Handle rx" << xpcc::endl;
-		//self->driver->readFrame(self->test);
-		self->driver->readFrame(self->frame);
+
+#ifdef FRAME_HEAP
+		std::shared_ptr<HeapFrame> frm( new HeapFrame );
+//TODO: limit number of frames
+		if(frm->allocate(self->driver->getFrameLength())) {
+			self->rxFrames.append(frm);
+			self->driver->readFrame(*frm);
+			self->rx_flag = true;
+		}
+
+#else
+		if(!self->rx_flag) {
+			self->driver->readFrame(self->frame);
+			self->rx_flag = true;
+		}
+#endif
+
+		//XPCC_LOG_DEBUG .printf("%x %x\n", &f, &self->rxFrames.getBack());
 
 		self->rx_flag = true;
 	}
@@ -365,9 +390,9 @@ private:
 };
 
 template<class Driver, class Security>
-inline void TinyRadioProtocol<Driver, Security>::processFrame() {
-
-	SecureFrame<Security> frm(frame);
+inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
+	XPCC_LOG_DEBUG .printf("Frame %x\n", &rxFrame);
+	SecureFrame<Security> frm(rxFrame);
 
 	if(frm.getSeq() == last_seq && prev_src_addr == frm.getSrcAddress()) {
 		XPCC_LOG_DEBUG .printf("Discard duplicate frame\n");
@@ -417,7 +442,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame() {
 		node->last_activity = xpcc::Clock::now();
 	}
 
-	if (!frameHandler()) {
+	if (!frameHandler(rxFrame)) {
 		//drop frame
 		return;
 	}
