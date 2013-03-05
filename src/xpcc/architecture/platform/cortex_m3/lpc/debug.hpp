@@ -11,7 +11,7 @@
 #include <xpcc/debug.hpp>
 #include <LPC17xx.h>
 
-#define PROFILE() xpcc::Profiler __profiler__(__PRETTY_FUNCTION__)
+#define PROFILE() xpcc::Profiler __profiler__(__FUNCTION__)
 
 namespace xpcc {
 class Profiler {
@@ -29,7 +29,7 @@ public:
 				tick*(1000000000/SystemCoreClock)
 				- etick*(1000000000/SystemCoreClock);
 
-		XPCC_LOG_DEBUG .printf("%s\n-- Time %d.%03d us\n", n, t/1000, t % 1000);
+		XPCC_LOG_DEBUG .printf("%s() Took %d.%03d us\n", n, t/1000, t % 1000);
 	}
 	uint32_t tick;
 	xpcc::Timestamp time;
