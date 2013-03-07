@@ -1,10 +1,6 @@
 *~
 *.pyc
 .sconsign.dblite
-.project
-.cproject
-.pydevproject
-.settings/
 build/
 /LPC11xx
 /LPC17xx
