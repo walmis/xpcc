@@ -18,21 +18,23 @@
 					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.cross.exe.release.735040115" name="LPC11xx" parent="cdt.managedbuild.config.gnu.cross.exe.release" postbuildStep="size ${ProjName} &amp;&amp; objcopy -O ihex ${ProjName} ${ProjName}.hex">
+				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.cross.exe.release.735040115" name="LPC11xx" parent="cdt.managedbuild.config.gnu.cross.exe.release" postbuildStep="">
 					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.release.735040115." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.release.1326684249" name="Cross GCC" nonInternalBuilderId="cdt.managedbuild.builder.gnu.cross" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.release">
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1091853966" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.1428574869" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-2012.09/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.2138753135" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder autoBuildTarget="all" buildPath="${workspace_loc:/xpcc/LPC11xx}" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.1512175519" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/xpcc/LPC11xx}" id="cdt.managedbuild.builder.gnu.cross.614189661" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1244265047" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.47322113" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.628506288" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.542182815" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -mthumb -ffunction-sections -fdata-sections  -mcpu=${targetCpu} -finline-functions" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.151681972" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.c.compiler.option.include.paths.151681972" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.728177189" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${targetDefine}"/>
 								</option>
@@ -103,6 +105,8 @@
 					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -112,12 +116,12 @@
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.39887373" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.282434552" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-2012.09/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1700951379" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder autoBuildTarget="all" buildPath="${workspace_loc:/xpcc/LPC17xx}" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.286803656" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/xpcc/LPC17xx}" id="cdt.managedbuild.builder.gnu.cross.936464753" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.274500030" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.324551989" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1309388832" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.12597738" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -mthumb -ffunction-sections -fdata-sections  -mcpu=${targetCpu} -finline-functions" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.1969268716" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.c.compiler.option.include.paths.1969268716" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.665501853" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${targetDefine}"/>
 								</option>
