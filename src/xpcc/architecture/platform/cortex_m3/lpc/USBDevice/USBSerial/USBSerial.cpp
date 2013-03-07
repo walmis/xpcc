@@ -20,7 +20,7 @@
 #include "USBSerial.h"
 
 using namespace xpcc::lpc17;
-#include <LPC17xx.h>
+#include <lpc17xx/cmsis/LPC17xx.h>
 void xpcc::lpc17::USBSerial::write(char c) {
 
 	tx_buffer.push(c);

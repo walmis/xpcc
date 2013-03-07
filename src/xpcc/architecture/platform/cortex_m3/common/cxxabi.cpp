@@ -72,7 +72,7 @@ extern "C"
 		return 0;
 	}
 }
-
+#include "../lpc/lpc17xx.hpp"
 // ----------------------------------------------------------------------------
 void *
 operator new(size_t size) throw ()

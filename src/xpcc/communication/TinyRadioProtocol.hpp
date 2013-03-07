@@ -362,11 +362,14 @@ private:
 
 #ifdef FRAME_HEAP
 		std::shared_ptr<HeapFrame> frm( new HeapFrame );
-//TODO: limit number of frames
-		if(frm->allocate(self->driver->getFrameLength())) {
-			self->rxFrames.append(frm);
-			self->driver->readFrame(*frm);
-			self->rx_flag = true;
+		if(frm != 0) {
+			//TODO: limit number of frames
+			if(frm->allocate(self->driver->getFrameLength())) {
+				if(self->rxFrames.append(frm)) {
+					self->driver->readFrame(*frm);
+					self->rx_flag = true;
+				}
+			}
 		}
 
 #else

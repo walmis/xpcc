@@ -6,3 +6,6 @@
 .pydevproject
 .settings/
 build/
+/LPC11xx
+/LPC17xx
+/Release

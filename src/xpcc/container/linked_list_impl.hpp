@@ -77,6 +77,7 @@ xpcc::LinkedList<T, Allocator>::prepend(const T& value)
 {
 	// allocate memory for the new node and copy the value into it
 	Node *node = this->nodeAllocator.allocate(1);
+	if(!node) return false;
 	Allocator::construct(&node->value, value);
 	
 	// hook the node into the list
@@ -92,11 +93,12 @@ xpcc::LinkedList<T, Allocator>::prepend(const T& value)
 }
 
 template <typename T, typename Allocator>
-void
+bool
 xpcc::LinkedList<T, Allocator>::append(const T& value)
 {
 	// allocate memory for the new node and copy the value into it
 	Node *node = this->nodeAllocator.allocate(1);
+	if(!node) return false;
 	Allocator::construct(&node->value, value);
 	
 	// hook the node into the list
@@ -110,6 +112,7 @@ xpcc::LinkedList<T, Allocator>::append(const T& value)
 		this->back->next = node;
 	}
 	this->back = node;
+	return true;
 }
 
 // ----------------------------------------------------------------------------
