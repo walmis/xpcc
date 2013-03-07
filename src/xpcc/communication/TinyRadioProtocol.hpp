@@ -353,7 +353,6 @@ protected:
 	uint8_t last_seq;
 	uint16_t prev_src_addr;
 
-
 private:
 
 	void processFrame(Frame& rxFrame);
@@ -365,12 +364,12 @@ private:
 		if(frm != 0) {
 			//TODO: limit number of frames
 			if(frm->allocate(self->driver->getFrameLength())) {
-				if(self->rxFrames.append(frm)) {
-					self->driver->readFrame(*frm);
-					self->rx_flag = true;
-				}
+				self->rxFrames.append(frm);
+				self->driver->readFrame(*frm);
+				self->rx_flag = true;
 			}
 		}
+
 
 #else
 		if(!self->rx_flag) {
