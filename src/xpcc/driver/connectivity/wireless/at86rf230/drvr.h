@@ -35,18 +35,18 @@ namespace rf230 {
 
 typedef void (*FrameHandler)();
 
+struct Stats {
+	uint32_t tx_bytes;
+	uint32_t rx_bytes;
+	uint32_t tx_frames;
+	uint32_t rx_frames;
+};
+
 template<typename Spi, typename rst, typename cs, typename slp_tr>
 class Driver {
 typedef Hal<Spi, rst, cs, slp_tr> HAL;
 public:
 	void init();
-
-	struct Stats {
-		uint32_t tx_bytes;
-		uint32_t rx_bytes;
-		uint32_t tx_frames;
-		uint32_t rx_frames;
-	};
 
 	RadioStatus setChannel(uint8_t channel);
 	uint8_t getChannel();
