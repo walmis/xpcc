@@ -29,7 +29,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-
+#include <xpcc/architecture.hpp>
 
 
 void AES_CCM_32::encrypt(SecureFrame<AES_CCM_32>& frame) {
@@ -50,7 +50,7 @@ void AES_CCM_32::encrypt(SecureFrame<AES_CCM_32>& frame) {
 
 	buf = frame.getPayload();
 	Frame *fr = frame.getFrame();
-	calc_mic(fr->data, fr->data_len - 4, buf + len, nonce);
+	calc_mic(fr->data, (buf + len) - fr->data, buf + len, nonce);
 
 
 	encrypt(buf, len, nonce);
@@ -95,7 +95,7 @@ bool AES_CCM_32::decrypt(SecureFrame<AES_CCM_32>& frame) {
 	uint8_t mic[4];
 
 	Frame *fr = frame.getFrame();
-	calc_mic(fr->data, fr->data_len - 4, mic, nonce);
+	calc_mic(fr->data, (buf + len) - fr->data, mic, nonce);
 	//XPCC_LOG_DEBUG .printf("len %d\n", frame.getPayloadSize());
 	//XPCC_LOG_DEBUG .dump_buffer(mic, 4);
 	//XPCC_LOG_DEBUG .dump_buffer(buf + len, 4);
@@ -167,8 +167,11 @@ void AES_CCM_32::calc_mic(const uint8_t* buf, uint16_t len, uint8_t* mic,
 void AES_CCM_32::block_xor(const uint8_t* a, uint8_t* bo,
 		uint_fast16_t len) {
 	//modulus operation
-	if ((len & (4 - 1)) == 0) {
-		//use 32bit words
+	//PROFILE();
+
+	//check alignment and length is divisible by 4
+	if ((len & (4 - 1)) == 0 && (((int)a & 3) | ((int)bo & 3)) == 0) {
+		//use 32bit words for speed
 		for (int i = 0; i < (len >> 2); i++) {
 			((uint32_t*) (bo))[i] = ((uint32_t*) (a))[i]
 					^ ((uint32_t*) (bo))[i];

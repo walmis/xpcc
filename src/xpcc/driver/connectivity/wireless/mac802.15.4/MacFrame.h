@@ -75,7 +75,7 @@ public :
 		if(frame->rx_flag) {
 			//payload_len = frame->data_len - (getPayload() - frame->data);
 		} else {
-			frame->data_len = header_sz;
+			frame->data_len = header_sz + fcs_sz;
 			frame->data[0] = 0; //clear FCF header
 			frame->data[1] = 0;
 			setType();
@@ -137,7 +137,7 @@ public :
 	}
 
 	virtual uint8_t getPayloadSize() {
-		int16_t s = frame->data_len - (getPayload() - frame->data);
+		int16_t s = frame->data_len - (getPayload() - frame->data) - fcs_sz;
 		if(s < 0) return 0;
 		return s;
 	}

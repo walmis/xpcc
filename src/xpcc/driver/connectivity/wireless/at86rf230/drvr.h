@@ -118,7 +118,7 @@ public:
 			}
 			//intp_src &= ~IRQStatus::IRQ_TRX_END_MASK;
 
-			HAL::setTrxState(TRXState::RX_AACK_ON);
+			rxOn();
 		}
 		if (intp_src & IRQStatus::IRQ_TRX_UR_MASK)
 		{
@@ -307,7 +307,7 @@ RadioStatus rf230::Driver<Spi, rst, cs, slp_tr>::setChannel(
         return RadioStatus::INVALID_ARGUMENT;
     }
 
-    if (HAL::is_sleeping()){
+    if (HAL::isSleeping()){
         return RadioStatus::WRONG_STATE;
     }
 
@@ -320,7 +320,7 @@ RadioStatus rf230::Driver<Spi, rst, cs, slp_tr>::setChannel(
 
     /* Read current state and wait for the PLL_LOCK interrupt if the */
     /* radio transceiver is in either RX_ON or PLL_ON. */
-    TRXState trx_state = HAL::get_state();
+    TRXState trx_state = HAL::getTrxState();
 
     if ((trx_state == TRXState::RX_ON) ||
         (trx_state == TRXState::PLL_ON)){
