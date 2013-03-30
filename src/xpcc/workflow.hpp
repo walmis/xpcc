@@ -45,5 +45,6 @@
 #include "workflow/timestamp.hpp"
 #include "workflow/timeout.hpp"
 #include "workflow/periodic_timer.hpp"
+#include "workflow/ticker_task.hpp"
 
 #endif	// XPCC__WORKFLOW_HPP

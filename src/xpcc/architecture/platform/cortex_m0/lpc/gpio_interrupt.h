@@ -72,7 +72,7 @@ public:
 					LPC_GPIO0 ->IBE |= (pin_msk);
 			} else
 				LPC_GPIO0 ->IS |= (pin_msk);
-			if (event == IntEvent::RISING_EDGE)
+			if (event == IntEvent::FALLING_EDGE)
 				LPC_GPIO0 ->IEV &= ~(pin_msk);
 			else
 				LPC_GPIO0 ->IEV |= (pin_msk);
@@ -88,7 +88,7 @@ public:
 					LPC_GPIO1 ->IBE |= (pin_msk);
 			} else
 				LPC_GPIO1 ->IS |= (pin_msk);
-			if (event == IntEvent::RISING_EDGE)
+			if (event == IntEvent::FALLING_EDGE)
 				LPC_GPIO1 ->IEV &= ~(pin_msk);
 			else
 				LPC_GPIO1 ->IEV |= (pin_msk);
@@ -104,7 +104,7 @@ public:
 					LPC_GPIO2 ->IBE |= (pin_msk);
 			} else
 				LPC_GPIO2 ->IS |= (pin_msk);
-			if (event == IntEvent::RISING_EDGE)
+			if (event == IntEvent::FALLING_EDGE)
 				LPC_GPIO2 ->IEV &= ~(pin_msk);
 			else
 				LPC_GPIO2 ->IEV |= (pin_msk);
@@ -120,7 +120,7 @@ public:
 					LPC_GPIO3 ->IBE |= (pin_msk);
 			} else
 				LPC_GPIO3 ->IS |= (pin_msk);
-			if (event == IntEvent::RISING_EDGE)
+			if (event == IntEvent::FALLING_EDGE)
 				LPC_GPIO3 ->IEV &= ~(pin_msk);
 			else
 				LPC_GPIO3 ->IEV |= (pin_msk);

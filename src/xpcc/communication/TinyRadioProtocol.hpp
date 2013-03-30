@@ -218,7 +218,13 @@ public:
 
 			f.addData((uint8_t*)&bcn, sizeof(BeaconFrame));
 			RadioStatus res = driver->sendFrame(tmpFrame, true);
-			//XPCC_LOG_DEBUG << "\nBeaconTX " << (int)res << xpcc::endl;
+			if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
+				if(res != RadioStatus::SUCCESS) {
+					XPCC_LOG_DEBUG << "BeaconTX failure " << (int)res << xpcc::endl;
+				}
+
+			}
+
 			//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
 			beacon_tm.restart(BEACON_INTERVAL);
 		}
