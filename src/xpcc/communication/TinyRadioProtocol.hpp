@@ -193,25 +193,31 @@ public:
 
 	void poll() {
 
-		if(rx_flag) {
-			while(!rxFrames.isEmpty()) {
-				auto frame = rxFrames.getFront();
-				processFrame(*frame);
-				rxFrames.removeFront();
-			}
+		//if(rx_flag) {
 
-			rx_flag = false;
+		while(!rxFrames.isEmpty()) {
+			auto frame = rxFrames.get();
+			rxFrames.pop();
+
+			processedFrame = frame;
+			processFrame(*frame);
+			delete frame;
+			processedFrame = 0;
+
 		}
+
+			//rx_flag = false;
+		//}
 
 		if(beacon_tm.isExpired()) {
 			BeaconFrame bcn;
 			prepareBeacon(bcn);
 
-			MacFrame f(frame);
+			MacFrame f(tmpFrame);
 			prepareFrame(f, 0xFFFF, 0);
 
 			f.addData((uint8_t*)&bcn, sizeof(BeaconFrame));
-			RadioStatus res = driver->sendFrame(frame, true);
+			RadioStatus res = driver->sendFrame(tmpFrame, true);
 			//XPCC_LOG_DEBUG << "\nBeaconTX " << (int)res << xpcc::endl;
 			//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
 			beacon_tm.restart(BEACON_INTERVAL);
@@ -340,13 +346,18 @@ protected:
 
 	Driver* driver;
 
-	xpcc::LinkedList<std::shared_ptr<HeapFrame>> rxFrames;
+	//xpcc::LinkedList<std::shared_ptr<HeapFrame>> rxFrames;
+
+	xpcc::atomic::Queue<HeapFrame*, FRAME_HEAP> rxFrames;
 
 	Request current_request;
-	StaticFrame frame;
+	StaticFrame tmpFrame;
 	xpcc::Timeout<> beacon_tm;
 
 	xpcc::LinkedList<NodeACL*> connectedNodes;
+
+	//pointer to currently processed frame
+	Frame* processedFrame;
 
 	bool rx_flag;
 
@@ -360,16 +371,15 @@ private:
 	static void rxHandler() {
 
 #ifdef FRAME_HEAP
-		std::shared_ptr<HeapFrame> frm( new HeapFrame );
-		if(frm != 0) {
-			//TODO: limit number of frames
-			if(frm->allocate(self->driver->getFrameLength())) {
-				self->rxFrames.append(frm);
+		//XPCC_LOG_DEBUG << "+\n";
+		if(!self->rxFrames.isFull()) {
+			HeapFrame* frm = new HeapFrame;
+			if(frm && frm->allocate(self->driver->getFrameLength())) {
 				self->driver->readFrame(*frm);
-				self->rx_flag = true;
+				self->rxFrames.push(frm);
+				//self->rx_flag = true;
 			}
 		}
-
 
 #else
 		if(!self->rx_flag) {
@@ -379,8 +389,6 @@ private:
 #endif
 
 		//XPCC_LOG_DEBUG .printf("%x %x\n", &f, &self->rxFrames.getBack());
-
-		self->rx_flag = true;
 	}
 
 	void prepareFrame(MacFrame& frame, uint16_t dst_addr, uint8_t flags =
@@ -393,11 +401,11 @@ private:
 
 template<class Driver, class Security>
 inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
-	XPCC_LOG_DEBUG .printf("Frame %x\n", &rxFrame);
+	//XPCC_LOG_DEBUG .printf("Frame %x\n", &rxFrame);
 	SecureFrame<Security> frm(rxFrame);
 
 	if(frm.getSeq() == last_seq && prev_src_addr == frm.getSrcAddress()) {
-		XPCC_LOG_DEBUG .printf("Discard duplicate frame\n");
+		XPCC_LOG_DEBUG .printf("Discard duplicate Frame\n");
 		return;
 	} else {
 		last_seq = frm.getSeq();
@@ -408,7 +416,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 	uint8_t* payload = frm.getPayload();
 
 	uint8_t size = frm.getPayloadSize();
-	//XPCC_LOG_DEBUG .dump_buffer(payload, size);
+
 
 	NodeACL* node = findNode(frm.getSrcAddress());
 
@@ -417,17 +425,22 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 	if (frm.isSecure()) {
 		if (!frm.decrypt()) {
 
-			XPCC_LOG_DEBUG << "Decryption failed" << xpcc::endl;
-			XPCC_LOG_DEBUG.dump_buffer(frame.data, frame.data_len);
+			XPCC_LOG_DEBUG << "Decryption failed >>>" << xpcc::endl;
+			XPCC_LOG_DEBUG.dump_buffer(rxFrame.data, rxFrame.data_len);
+
+			//XPCC_LOG_DEBUG.dump_buffer(frm.getPayload(), frm.getPayloadSize());
+			XPCC_LOG_DEBUG << "<<<\n";
 			return;
 		}
-		//XPCC_LOG_DEBUG << "Decrypt frame\n";
+		//XPCC_LOG_DEBUG << "Decrypt Frame\n";
 		if (node) {
 			uint32_t count = frm.getFrameCounter();
 			if (count > node->frame_counter) {
 				node->frame_counter = count;
 			} else {
-				XPCC_LOG_DEBUG .printf("Replay attack prevention\n n:%d expected > %d", count, node->frame_counter);
+
+				XPCC_LOG_DEBUG .printf("Replay attack prevention\n n:%d expected > %d\n", count, node->frame_counter);
+				//XPCC_LOG_DEBUG.dump_buffer(rxFrame.data, rxFrame.data_len);
 
 				if (fr->req_id != ASSOCIATE_REQ
 						&& fr->type != FrameType::DISSASOC) {
@@ -439,13 +452,18 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 			}
 		}
 	}
+	//XPCC_LOG_DEBUG << "Frame >>> \n";
+	//XPCC_LOG_DEBUG .dump_buffer(rxFrame.data, rxFrame.data_len);
+	//XPCC_LOG_DEBUG << "<<< \n";
 
+	//XPCC_LOG_DEBUG.dump_buffer(frm.getPayload(), frm.getPayloadSize());
+	//XPCC_LOG_DEBUG << "<<<\n";
 	if(node) {
 		node->last_activity = xpcc::Clock::now();
 	}
 
 	if (!frameHandler(rxFrame)) {
-		//drop frame
+		//drop Frame
 		return;
 	}
 //
@@ -463,7 +481,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 
 	if (fr->proto_header != PROTO_HEADER || !fr->check()) {
 		XPCC_LOG_DEBUG << "Unknown frm" << xpcc::endl;
-		XPCC_LOG_DEBUG.dump_buffer(frame.data, frame.data_len);
+		XPCC_LOG_DEBUG.dump_buffer(rxFrame.data, rxFrame.data_len);
 	} else {
 
 		if (fr->type == BEACON) {
@@ -614,9 +632,9 @@ inline uint16_t TinyRadioProtocol<Driver, Security>::send(uint16_t address, uint
 
 	while (len > 0) {
 send:
-		SecureFrame<Security> f(frame);
+		SecureFrame<Security> f(tmpFrame);
 		prepareFrame(f, address, flags);
-		//XPCC_LOG_DEBUG.dump_buffer(frame.data, frame.data_len);
+		//XPCC_LOG_DEBUG.dump_buffer(tmpFrame.data, tmpFrame.data_len);
 
 		FrameHdr hdr;
 
@@ -640,12 +658,12 @@ send:
 
 		if (flags & TX_ENCRYPT)
 			f.encrypt();
-		//printf("send %d %d\n", len, sz);
+		XPCC_LOG_DEBUG. printf("send() %d %d\n", len, sz);
 		//XPCC_LOG_DEBUG << "send() \n";
-		//XPCC_LOG_DEBUG.dump_buffer(frame.data, frame.data_len);
+		//XPCC_LOG_DEBUG.dump_buffer(tmpFrame.data, tmpFrame.data_len);
 
 		RadioStatus res = RadioStatus::TIMED_OUT;
-		if ((res = driver->sendFrame(frame, true)) != RadioStatus::SUCCESS) {
+		if ((res = driver->sendFrame(tmpFrame, true)) != RadioStatus::SUCCESS) {
 			XPCC_LOG_DEBUG .printf("send failed, res (%d) retrying\n", res);
 			for (int i = 0; i < NUM_RETRIES; i++) {
 				//resend frame
@@ -654,9 +672,11 @@ send:
 					XPCC_LOG_DEBUG .printf("Retry successful\n");
 					break;
 				} else {
-					XPCC_LOG_DEBUG .printf("Retry %d failed res (%d)\n", i, res);
+					XPCC_LOG_DEBUG .printf("%d .. ", res);
 				}
+
 			}
+			XPCC_LOG_DEBUG .printf("Fail\n");
 		}
 
 		if (res != RadioStatus::SUCCESS) {
@@ -674,7 +694,7 @@ send:
 template<class Driver, class Security>
 inline bool TinyRadioProtocol<Driver, Security>::sendResponse(uint8_t* data, uint8_t len,
 		uint8_t flags) {
-	SecureFrame<Security> f(frame);
+	SecureFrame<Security> f(*processedFrame);
 	FrameHdr* hdr = (FrameHdr*) (f.getPayload());
 	return send(f.getSrcAddress(), data, len, hdr->req_id, FrameType::RESPONSE,
 			flags);
@@ -810,7 +830,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 		uint8_t request_id, uint8_t* data, uint8_t len, uint8_t flags) {
 	if (!current_request.timer.isActive()) {
 
-		SecureFrame<Security> f(frame);
+		SecureFrame<Security> f(tmpFrame);
 		//requests don't need ack,
 		//protocol responses are there anyway
 		prepareFrame(f, address, flags);
@@ -831,7 +851,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 
 		//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
 
-		RadioStatus res = driver->sendFrame(frame, true);
+		RadioStatus res = driver->sendFrame(tmpFrame, true);
 
 		if (res == RadioStatus::SUCCESS) {
 			current_request.address = address;

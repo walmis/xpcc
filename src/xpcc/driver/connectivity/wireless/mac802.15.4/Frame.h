@@ -31,6 +31,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <xpcc/debug.hpp>
+#include <xpcc/architecture/driver/atomic.hpp>
 
 inline void putDword(uint8_t* address, uint32_t dword) {
 	memcpy(address, (void*)&dword, sizeof(uint32_t));
@@ -54,7 +55,7 @@ inline uint16_t getWord(uint8_t* address) {
 class Frame {
 public:
 
-	Frame(uint8_t size = 0) {
+	Frame() {
 		data = 0;
 		rx_flag = 0;
 		data_len = 0;
@@ -73,25 +74,24 @@ public:
 class HeapFrame : public Frame {
 public:
 	HeapFrame(uint8_t size = 0) {
-		if(size)
+		if(size) {
 			allocate(size);
+		}
 	}
 
 	~HeapFrame() {
-		if(data) {
-			delete[] data;
-		}
+		free();
 	}
 
 	bool allocate(uint8_t len = 127) {
+
 		if(len > 127) {
 			len = 127;
 		}
-		if(data)
-			delete[] data;
-
+		free();
+		xpcc::atomic::Lock lock;
 		data = new uint8_t[len];
-
+		//XPCC_LOG_DEBUG .printf("Alloc frame %x\n", data);
 		if(data) {
 			memset(data, 0, len);
 			buffer_size = len;
@@ -99,6 +99,15 @@ public:
 		} else {
 			buffer_size = 0;
 			return false;
+		}
+	}
+
+	void free() {
+		xpcc::atomic::Lock lock;
+		if(data) {
+			//XPCC_LOG_DEBUG .printf("Destroy frame %x\n", data);
+			delete[] data;
+			data = 0;
 		}
 	}
 };

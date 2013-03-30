@@ -46,6 +46,7 @@
 #include <sys/stat.h>
 
 #include <xpcc/architecture/driver/heap/block_allocator.hpp>
+#include <xpcc/architecture/driver/atomic.hpp>
 // ----------------------------------------------------------------------------
 // __heap_start is set in the linker command file and is the end of
 // statically allocated data (thus start of heap).
@@ -167,24 +168,31 @@ _sbrk_r(struct _reent *,  ptrdiff_t)
 extern uint8_t __heap_start;
 extern uint8_t __heap_end;
 
-static xpcc::BlockAllocator<uint16_t, 8> allocator;
+//static xpcc::BlockAllocator<uint16_t, 8> allocator;
 
 extern "C"
 void __xpcc_initialize_memory(void)
 {
-	allocator.initialize(&__heap_start, &__heap_end);
+	//allocator.initialize(&__heap_start, &__heap_end);
 }
+
+extern "C" void *pvPortMalloc( size_t xWantedSize );
+extern "C" void vPortFree( void *pv );
 
 extern "C"
 void *malloc(size_t size)
 {
-	return allocator.allocate(size);
+	//return allocator.allocate(size);
+	xpcc::atomic::Lock lock;
+	return pvPortMalloc(size);
 }
 
 extern "C"
 void free(void *p)
 {
-	allocator.free(p);
+	xpcc::atomic::Lock lock;
+	//allocator.free(p);
+	vPortFree(p);
 }
 
 static uint32_t lfsr = 1;

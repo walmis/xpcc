@@ -515,7 +515,7 @@ RadioStatus rf230::Hal<Spi, rst, cs, slp_tr>::setTrxState(TRXState state) {
 	if (getTrxState() == state) {
 		return RadioStatus::SUCCESS;
 	}
-	XPCC_LOG_DEBUG << "State transition to " << (int)state << " failed\n";
+	XPCC_LOG_DEBUG .printf("State transition to %d failed (%d)\n", state, getTrxState());
 	return RadioStatus::TIMED_OUT;
 }
 
