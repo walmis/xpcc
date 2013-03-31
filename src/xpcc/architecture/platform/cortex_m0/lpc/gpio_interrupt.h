@@ -12,9 +12,6 @@
 #include <lpc11xx/cmsis/LPC11xx.h>
 
 namespace xpcc {
-namespace lpc {
-
-typedef void (*GpioIntHandler)(uint8_t pin);
 
 enum class IntSense {
 	EDGE = 0,
@@ -32,12 +29,36 @@ enum class IntEvent {
 };
 
 
-
-
 class GpioInterrupt {
 public:
-	static void registerPortHandler(uint8_t port, GpioIntHandler func);
+	// call from interrupt context, returns true if interrupt source
+	// contains all provided predicates
+	static ALWAYS_INLINE
+	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEvent edge) {
 
+		if(port == 0 && irqn == EINT0_IRQn) {
+			if(LPC_GPIO0->MIS & (1 << pin)) {
+				LPC_GPIO0->IC |= (1<<pin);
+				return true;
+			}
+		} else if(port == 1 && irqn ==  EINT1_IRQn) {
+			if(LPC_GPIO1->MIS & (1 << pin)) {
+				LPC_GPIO1->IC |= (1<<pin);
+				return true;
+			}
+		} else if(port == 2 && irqn == EINT2_IRQn) {
+			if(LPC_GPIO2->MIS & (1 << pin)) {
+				LPC_GPIO2->IC |= (1<<pin);
+				return true;
+			}
+		} else if(port == 3 && irqn == EINT3_IRQn) {
+			if(LPC_GPIO3->MIS & (1 << pin)) {
+				LPC_GPIO3->IC |= (1<<pin);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	static void enableGlobalInterrupts() {
 		NVIC_EnableIRQ(EINT0_IRQn);
@@ -154,7 +175,5 @@ public:
 
 };
 
-
-} /* namespace lpc */
 } /* namespace xpcc */
 #endif /* GPIO_INTERRUPT_H_ */

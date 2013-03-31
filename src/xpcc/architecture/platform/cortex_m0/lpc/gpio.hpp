@@ -82,6 +82,8 @@ namespace xpcc
  */
 #define	GPIO__IO(name, port, pin) \
 	struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setOutput(bool status) { \
 			setOutput(); \
@@ -137,6 +139,8 @@ namespace xpcc
  */
 #define	GPIO__OUTPUT(name, port, pin) \
 	struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setOutput(bool status) { \
 			setOutput(); \
@@ -190,6 +194,8 @@ namespace xpcc
  */
 #define GPIO__INPUT(name, port, pin) \
 	struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
 		LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\

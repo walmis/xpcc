@@ -151,7 +151,7 @@ struct BeaconFrame {
 } __attribute__((packed));
 
 template <class Driver, class Security>
-class TinyRadioProtocol {
+class TinyRadioProtocol : xpcc::TickerTask {
 
 public:
 
@@ -191,9 +191,7 @@ public:
 		return address;
 	}
 
-	void poll() {
-
-		//if(rx_flag) {
+	void handleTick() override {
 
 		while(!rxFrames.isEmpty()) {
 			auto frame = rxFrames.get();
@@ -205,9 +203,6 @@ public:
 			processedFrame = 0;
 
 		}
-
-			//rx_flag = false;
-		//}
 
 		if(beacon_tm.isExpired()) {
 			BeaconFrame bcn;

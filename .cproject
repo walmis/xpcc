@@ -34,7 +34,9 @@
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.47322113" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.628506288" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.542182815" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -mthumb -ffunction-sections -fdata-sections  -mcpu=${targetCpu} -finline-functions" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.151681972" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
+								<option id="gnu.c.compiler.option.include.paths.151681972" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ext}&quot;"/>
+								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.728177189" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${targetDefine}"/>
 								</option>
@@ -81,7 +83,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/xpcc/architecture/platform/cortex_m0/common/heap.c|src/xpcc/debug/logger/hosted|src/xpcc/driver/connectivity/interconnect|src/xpcc/driver/connectivity/can|ext/lpc17xx|ext/lpc13xx|ext/lpc11xx|ext/stm32f4xx_lib|ext/stm32f2xx_lib|ext/stm32f10x_lib|ext/freertos|ext/fatfs|ext/at91lib|ext/asf|src/xpcc/architecture/platform/cortex_m3|src/xpcc/architecture/platform/avr|src/xpcc/architecture/platform/cortex_m3/common|src/xpcc/architecture/platform/cortex_m3/lpc|src/xpcc/architecture/platform/cortex_m3/stm32|src/xpcc/architecture/platform/avr32|Release|src/xpcc/architecture/platform/cortex_m0/lpc/c_can|scons|doc|src/xpcc/architecture/platform/arm7|src/xpcc/driver/connectivity/can/canusb|src/xpcc/driver/connectivity/can/mcp2515|tools|src/xpcc/workflow/rtos|src/xpcc/architecture/platform/hosted|src/xpcc/communication/backend/can|templates|sys/syscalls.c|tests|src/xpcc/architecture/platform/cortex_m0/lpc/startup|examples|src/xpcc/communication/backend/tipc|hid_test.c|src/xpcc/driver/ui/display/st7036.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/xpcc/architecture/platform/cortex_m0/common/heap.c|src/xpcc/debug/logger/hosted|src/xpcc/driver/connectivity/interconnect|src/xpcc/driver/connectivity/can|ext/lpc17xx|ext/lpc13xx|ext/stm32f4xx_lib|ext/stm32f2xx_lib|ext/stm32f10x_lib|ext/freertos|ext/fatfs|ext/at91lib|ext/asf|src/xpcc/architecture/platform/cortex_m3|src/xpcc/architecture/platform/avr|src/xpcc/architecture/platform/cortex_m3/common|src/xpcc/architecture/platform/cortex_m3/lpc|src/xpcc/architecture/platform/cortex_m3/stm32|src/xpcc/architecture/platform/avr32|Release|src/xpcc/architecture/platform/cortex_m0/lpc/c_can|scons|doc|src/xpcc/architecture/platform/arm7|src/xpcc/driver/connectivity/can/canusb|src/xpcc/driver/connectivity/can/mcp2515|tools|src/xpcc/workflow/rtos|src/xpcc/architecture/platform/hosted|src/xpcc/communication/backend/can|templates|sys/syscalls.c|tests|src/xpcc/architecture/platform/cortex_m0/lpc/startup|examples|src/xpcc/communication/backend/tipc|hid_test.c|src/xpcc/driver/ui/display/st7036.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -114,14 +116,17 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.release.735040115.1597797067." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.release.1858762026" name="Cross GCC" nonInternalBuilderId="cdt.managedbuild.builder.gnu.cross" resourceTypeBasedDiscovery="true" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.release">
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.39887373" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="cdt.managedbuild.option.gnu.cross.path.282434552" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-none-eabi/bin" valueType="string"/>
+							<option id="cdt.managedbuild.option.gnu.cross.path.282434552" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/${HOME}/arm-none-eabi/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1700951379" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
 							<builder buildPath="${workspace_loc:/xpcc/LPC17xx}" id="cdt.managedbuild.builder.gnu.cross.936464753" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.274500030" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.324551989" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" value="gnu.c.optimization.level.size" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1309388832" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.12597738" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -mthumb -ffunction-sections -fdata-sections  -mcpu=${targetCpu} -finline-functions" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.1969268716" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
+								<option id="gnu.c.compiler.option.include.paths.1969268716" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ext/lpc17xx/driver/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ext/lpc17xx/cmsis}&quot;"/>
+								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.665501853" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${targetDefine}"/>
 								</option>
@@ -168,7 +173,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/xpcc/debug/logger/hosted|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBMSD|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBMIDI|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBHID|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBAudio|src/xpcc/architecture/platform/cortex_m3/lpc/startup|src/xpcc/architecture/platform/cortex_m3/common/memory_sections.ld|src/xpcc/architecture/platform/cortex_m3/common/hard_fault.sx|src/xpcc/architecture/platform/cortex_m3/common/delay.sx|src/xpcc/architecture/platform/cortex_m3/common/default_handler.sx|src/xpcc/architecture/platform/cortex_m3/common/build.cfg|src/xpcc/architecture/platform/cortex_m3/common/hard_fault_handler.cpp|src/xpcc/driver/connectivity/can|ext/lpc17xx|ext/lpc13xx|ext/lpc11xx|ext/stm32f4xx_lib|ext/stm32f2xx_lib|ext/stm32f10x_lib|ext/freertos|ext/fatfs|ext/at91lib|ext/asf|src/xpcc/architecture/platform/cortex_m0|src/xpcc/architecture/platform/cortex_m3/stm32|src/xpcc/architecture/platform/avr32|Release|src/xpcc/architecture/platform/cortex_m0/lpc/c_can|scons|doc|src/xpcc/architecture/platform/arm7|src/xpcc/driver/connectivity/can/canusb|src/xpcc/driver/connectivity/can/mcp2515|tools|src/xpcc/workflow/rtos|src/xpcc/architecture/platform/hosted|src/xpcc/communication/backend/can|tests|examples|release|src/xpcc/architecture/platform/avr|src/xpcc/driver/connectivity/interconnect|src/xpcc/communication/backend/tipc|hid_test.c|src/xpcc/driver/ui/display/st7036.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/xpcc/debug/logger/hosted|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBMSD|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBMIDI|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBHID|src/xpcc/architecture/platform/cortex_m3/lpc/USBDevice/USBAudio|src/xpcc/architecture/platform/cortex_m3/lpc/startup|src/xpcc/architecture/platform/cortex_m3/common/memory_sections.ld|src/xpcc/architecture/platform/cortex_m3/common/hard_fault.sx|src/xpcc/architecture/platform/cortex_m3/common/delay.sx|src/xpcc/architecture/platform/cortex_m3/common/default_handler.sx|src/xpcc/architecture/platform/cortex_m3/common/build.cfg|src/xpcc/architecture/platform/cortex_m3/common/hard_fault_handler.cpp|src/xpcc/driver/connectivity/can|ext/lpc13xx|ext/lpc11xx|ext/stm32f4xx_lib|ext/stm32f2xx_lib|ext/stm32f10x_lib|ext/freertos|ext/fatfs|ext/at91lib|ext/asf|src/xpcc/architecture/platform/cortex_m0|src/xpcc/architecture/platform/cortex_m3/stm32|src/xpcc/architecture/platform/avr32|Release|src/xpcc/architecture/platform/cortex_m0/lpc/c_can|scons|doc|src/xpcc/architecture/platform/arm7|src/xpcc/driver/connectivity/can/canusb|src/xpcc/driver/connectivity/can/mcp2515|tools|src/xpcc/workflow/rtos|src/xpcc/architecture/platform/hosted|src/xpcc/communication/backend/can|tests|examples|release|src/xpcc/architecture/platform/avr|src/xpcc/driver/connectivity/interconnect|src/xpcc/communication/backend/tipc|hid_test.c|src/xpcc/driver/ui/display/st7036.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -208,14 +213,14 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ext}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.1551497194" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.1551497194" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 								<option id="gnu.cpp.compiler.option.optimization.level.1472393617" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1754772620" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.1645576943" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -std=gnu++11" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.660529781" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.102749503" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1021829726" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols"/>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1021829726" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols"/>
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.586092706" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1425098197" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.877012437" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

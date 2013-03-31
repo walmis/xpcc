@@ -115,9 +115,6 @@ using namespace xpcc::lpc17;
 #define SIE_SES_RF_MO   (1<<6)
 #define SIE_SES_CND_ST  (1<<7)
 
-
-USBHAL * USBHAL::instance;
-
 static volatile int epComplete;
 static uint32_t endpointStallState;
 
@@ -326,9 +323,11 @@ static void endpointWritecore(uint8_t endpoint, uint8_t *buffer, uint32_t size) 
     SIEvalidateBuffer();
 }
 
-//extern "C" void USB_IRQHandler(void) __attribute__((weak));
-extern "C" void USB_IRQHandler() {
-	USBHAL::_usbisr();
+
+void USBHAL::handleInterrupt(int irqn) {
+	if(irqn == USB_IRQn) {
+		usbisr();
+	}
 }
 
 USBHAL::USBHAL(void) {
@@ -393,9 +392,6 @@ USBHAL::USBHAL(void) {
     realiseEndpoint(EP0IN, MAX_PACKET_SIZE_EP0, 0);
     realiseEndpoint(EP0OUT, MAX_PACKET_SIZE_EP0, 0);
 
-    // Attach IRQ
-    instance = this;
-   //NVIC_SetVector(USB_IRQn, (uint32_t)&_usbisr);
 
     // Enable interrupts for device events and EP0
     LPC_USB->USBDevIntEn = EP_SLOW | DEV_STAT | FRAME;
@@ -555,10 +551,6 @@ void USBHAL::remoteWakeup(void) {
     SIEsetDeviceStatus(status & ~SIE_DS_SUS);
 }
 
-void USBHAL::_usbisr(void) {
-    instance->usbisr();
-}
-
 //a little bit of magic
 //return a virtual function from the vtable with index=index
 //offset from some other virtual function
@@ -641,9 +633,9 @@ void USBHAL::usbisr(void) {
                 //call virtual ep handlers from vtable directly
                 //this saves ram space
                 typedef bool (USBHAL::*fptr)(void);
-                fptr handler = getVirtual<fptr, USBHAL>(instance, &USBHAL::EP1_OUT_callback, num-2);
+                fptr handler = getVirtual<fptr, USBHAL>(this, &USBHAL::EP1_OUT_callback, num-2);
 
-                if((instance->*handler)()) {
+                if((this->*handler)()) {
                 //if ((instance->*(epCallback[num - 2]))()) {
                 //if(fptr()) {
                 //if((instance->*fptr)()) {

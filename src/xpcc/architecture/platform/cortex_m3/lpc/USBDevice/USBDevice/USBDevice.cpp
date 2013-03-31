@@ -24,7 +24,6 @@
 
 using namespace xpcc::lpc17;
 
-#define NULL 0
 //#define DEBUG
 
 /* Device status */
@@ -761,7 +760,7 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
     if (wTotalLength <= (CONFIGURATION_DESCRIPTOR_LENGTH+2))
     /* +2 is for bLength and bDescriptorType of next descriptor */
     {
-        return false;
+        return NULL;
     }
 
     /* Start at first descriptor after the configuration descriptor */

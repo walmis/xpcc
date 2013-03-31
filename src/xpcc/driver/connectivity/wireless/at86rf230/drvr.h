@@ -42,8 +42,8 @@ struct Stats {
 	uint32_t rx_frames;
 };
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-class Driver {
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+class Driver : xpcc::TickerTask {
 typedef Hal<Spi, rst, cs, slp_tr> HAL;
 public:
 	void init();
@@ -262,12 +262,21 @@ private:
 
 	Stats stats;
 
+	void handleInterrupt(int irqn) override {
+		if(GpioInterrupt::checkInterrupt(irqn, irq::Port, irq::Pin, IntEvent::RISING_EDGE)) {
+			IRQHandler();
+		}
+	}
+
 
 };
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-void Driver<Spi, rst, cs, slp_tr>::init() {
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+void Driver<Spi, rst, cs, slp_tr, irq>::init() {
 	frmHandler = 0;
+
+	GpioInterrupt::enableInterrupt(irq::Port, irq::Pin, IntSense::EDGE,
+			IntEdge::SINGLE, IntEvent::RISING_EDGE);
 
 	XPCC_LOG_DEBUG << "Initializing AT86RF230 Driver\n";
 
@@ -284,6 +293,7 @@ void Driver<Spi, rst, cs, slp_tr>::init() {
 
 	if(partnum != 2) {
 		XPCC_LOG_DEBUG << "AT86RF230 Initialization Failed" << xpcc::endl;
+		return;
 	}
 
 	HAL::setTrxState(TRXState::TRX_OFF);
@@ -298,8 +308,8 @@ void Driver<Spi, rst, cs, slp_tr>::init() {
 }
 
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-RadioStatus rf230::Driver<Spi, rst, cs, slp_tr>::setChannel(
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+RadioStatus rf230::Driver<Spi, rst, cs, slp_tr, irq>::setChannel(
 	uint8_t channel)	{
     /*Do function parameter and state check.*/
     if ((channel < RF230_MIN_CHANNEL) ||
@@ -337,23 +347,23 @@ RadioStatus rf230::Driver<Spi, rst, cs, slp_tr>::setChannel(
     return channel_set_status;
 }
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-inline uint8_t Driver<Spi, rst, cs, slp_tr>::getChannel() {
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+inline uint8_t Driver<Spi, rst, cs, slp_tr, irq>::getChannel() {
 
 	return HAL::Reg::CHANNEL;
 
 }
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-inline uint16_t Driver<Spi, rst, cs, slp_tr>::getShortAddress() {
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+inline uint16_t Driver<Spi, rst, cs, slp_tr, irq>::getShortAddress() {
 
 	uint16_t short_address = ((uint16_t) (HAL::Reg::SHORT_ADDR_1 << 8)) | HAL::Reg::SHORT_ADDR_0;
 	return short_address;
 
 }
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-inline void Driver<Spi, rst, cs, slp_tr>::setShortAddress(
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+inline void Driver<Spi, rst, cs, slp_tr, irq>::setShortAddress(
 		uint16_t new_short_address) {
 
 	HAL::Reg::SHORT_ADDR_0 = new_short_address & 0xFF;
@@ -361,8 +371,8 @@ inline void Driver<Spi, rst, cs, slp_tr>::setShortAddress(
 
 }
 
-template<typename Spi, typename rst, typename cs, typename slp_tr>
-inline RadioStatus Driver<Spi, rst, cs, slp_tr>::getTxStatus() {
+template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
+inline RadioStatus Driver<Spi, rst, cs, slp_tr, irq>::getTxStatus() {
 	TracStatus status = HAL::getTracStatus();
 	if(status == TracStatus::NO_ACK) {
 		return RadioStatus::NO_ACK;

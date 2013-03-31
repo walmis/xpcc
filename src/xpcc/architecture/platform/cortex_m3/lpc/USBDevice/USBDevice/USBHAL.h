@@ -19,14 +19,13 @@
 #pragma once
 
 #include "USBEndpoints.h"
-
-extern "C" void USB_IRQHandler();
+#include <xpcc/workflow.hpp>
 
 namespace xpcc {
 namespace lpc17 {
 
 
-class USBHAL {
+class USBHAL : xpcc::TickerTask {
 public:
     /* Configuration */
     USBHAL();
@@ -105,8 +104,9 @@ protected:
     
 private:
     void usbisr(void);
-    static void _usbisr(void);
-    static USBHAL * instance;
+    void handleInterrupt(int irqn) override;
+    //static void _usbisr(void);
+    //static USBHAL * instance;
 
 #if defined(TARGET_LPC11U24)
         //const bool (USBHAL::*epCallback[10 - 2])(void);
@@ -114,7 +114,6 @@ private:
         //bool (USBHAL::*epCallback[30])(void);
 #endif
 
-	friend void ::USB_IRQHandler();
 };
 
 }

@@ -80,6 +80,8 @@ namespace xpcc
  */
 #define	GPIO__IO(name, port, pin) \
 	struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setOutput(bool status) { \
 			set(status); \
@@ -126,6 +128,8 @@ namespace xpcc
  */
 #define	GPIO__OUTPUT(name, port, pin) \
 	struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void setOutput(bool status) { \
 			set(status); \
 			setOutput(); } \
@@ -166,7 +170,9 @@ namespace xpcc
  * \ingroup	lpc11xx
  */
 #define GPIO__INPUT(name, port, pin) \
-	struct name { \
+		struct name { \
+		static const int Port = port; \
+		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setInput() { \
 			CONCAT(LPC_GPIO, port)->FIODIR &= ~(1 << pin); \

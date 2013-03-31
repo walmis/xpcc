@@ -8,61 +8,42 @@
 #ifndef TASK_H_
 #define TASK_H_
 
-#include <xpcc/architecture/driver/atomic.hpp>
-
 namespace xpcc {
 
 class TickerTask {
 protected:
-	TickerTask() {
-		xpcc::atomic::Lock lock;
-		next = 0;
-		if(base == 0) {
-			base = this;
-		} else {
-			TickerTask* t = base;
-			while(t) {
-				if(t->next == 0) {
-					t->next = this;
-					break;
-				}
-				t = t->next;
-			}
-		}
-	}
+	TickerTask();
 
-	virtual ~TickerTask() {
-		xpcc::atomic::Lock lock;
-		if(base == this) {
-			base = next;
-		} else {
-			TickerTask* t = base;
-			while(t) {
-				if(t->next == this) {
-					t->next = next;
-					break;
-				}
-				t = t->next;
-			}
-		}
-	}
+	virtual ~TickerTask();
 
-	virtual void run() = 0;
+	//system tick handler
+	virtual void handleTick() {};
+
+	//interrupt handler
+	virtual void handleInterrupt(int irqn) {
+	}
 
 	TickerTask *next;
+
+private:
 	static TickerTask* base;
 
 public:
-	static void tick() {
-		TickerTask* task = base;
-		while(task) {
-			task->run();
-			task = task->next;
+	static void tick();
+
+	//called from IRQ handler
+	static void interrupt(int irqN);
+
+	static void tasksRun(void (*idleFunc)() = 0) {
+		while(1) {
+			tick();
+			if(idleFunc)
+				idleFunc();
 		}
 	}
 };
 
-TickerTask* TickerTask::base = 0;
+
 
 }
 

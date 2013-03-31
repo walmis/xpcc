@@ -12,7 +12,6 @@
 
 
 namespace xpcc {
-namespace lpc17 {
 
 enum class IntSense {
 	EDGE = 0,
@@ -28,11 +27,43 @@ enum class IntEvent {
 	FALLING_EDGE = 1
 };
 
-typedef void (*GpioIntHandler)(uint8_t pin, IntEvent edge);
-
 class GpioInterrupt {
 public:
-	static void registerPortHandler(uint8_t port, GpioIntHandler func);
+
+	static ALWAYS_INLINE
+	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEvent edge) {
+		bool result = false;
+		if(irqn == EINT3_IRQn) {
+			if(port == 0 && (LPC_GPIOINT->IntStatus & 1)) {
+
+				if(LPC_GPIOINT->IO0IntStatR & (1<<pin)) {
+					if(edge == IntEvent::RISING_EDGE)
+						result = true;
+
+				}
+				if(LPC_GPIOINT->IO0IntStatF & (1<<pin)) {
+					if(edge == IntEvent::FALLING_EDGE)
+						result = true;
+				}
+
+				LPC_GPIOINT->IO0IntClr = 1<<pin;
+
+			}
+			else if(port == 2 && (LPC_GPIOINT->IntStatus & 4)) {
+
+					if(LPC_GPIOINT->IO2IntStatR & (1<<pin)) {
+						if(edge == IntEvent::RISING_EDGE)
+							result = true;
+					}
+					if(LPC_GPIOINT->IO2IntStatF & (1<<pin)) {
+						if(edge == IntEvent::FALLING_EDGE)
+							result = true;
+					}
+					LPC_GPIOINT->IO2IntClr = (1<<pin);
+			}
+		}
+		return result;
+	}
 
 
 	static void enableGlobalInterrupts() {
@@ -71,7 +102,8 @@ public:
 		}
 	}
 
-	static ALWAYS_INLINE void disableInterrupt(uint8_t port, uint8_t pin) {
+	static ALWAYS_INLINE
+	void disableInterrupt(uint8_t port, uint8_t pin) {
 		uint32_t mask = 1<<pin;
 		if(port == 0) {
 			LPC_GPIOINT->IO0IntEnR &= ~mask;
@@ -84,6 +116,5 @@ public:
 	}
 };
 
-} /* namespace lpc */
 } /* namespace xpcc */
 #endif /* GPIO_INTERRUPT_H_ */
