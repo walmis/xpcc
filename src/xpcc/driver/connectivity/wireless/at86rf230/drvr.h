@@ -278,6 +278,8 @@ void Driver<Spi, rst, cs, slp_tr, irq>::init() {
 	GpioInterrupt::enableInterrupt(irq::Port, irq::Pin, IntSense::EDGE,
 			IntEdge::SINGLE, IntEvent::RISING_EDGE);
 
+	GpioInterrupt::enableGlobalInterrupts();
+
 	XPCC_LOG_DEBUG << "Initializing AT86RF230 Driver\n";
 
 	hal.init();
