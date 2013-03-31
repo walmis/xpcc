@@ -27,7 +27,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.release.735040115." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.release.1326684249" name="Cross GCC" nonInternalBuilderId="cdt.managedbuild.builder.gnu.cross" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.release">
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.1091853966" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="cdt.managedbuild.option.gnu.cross.path.1428574869" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-2012.09/bin" valueType="string"/>
+							<option id="cdt.managedbuild.option.gnu.cross.path.1428574869" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-none-eabi/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.2138753135" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
 							<builder buildPath="${workspace_loc:/xpcc/LPC11xx}" id="cdt.managedbuild.builder.gnu.cross.614189661" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1244265047" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
@@ -114,7 +114,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.cross.exe.release.735040115.1597797067." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.release.1858762026" name="Cross GCC" nonInternalBuilderId="cdt.managedbuild.builder.gnu.cross" resourceTypeBasedDiscovery="true" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.release">
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.39887373" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix" value="arm-none-eabi-" valueType="string"/>
-							<option id="cdt.managedbuild.option.gnu.cross.path.282434552" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-2012.09/bin" valueType="string"/>
+							<option id="cdt.managedbuild.option.gnu.cross.path.282434552" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path" value="/home/walmis/arm-none-eabi/bin" valueType="string"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1700951379" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
 							<builder buildPath="${workspace_loc:/xpcc/LPC17xx}" id="cdt.managedbuild.builder.gnu.cross.936464753" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.274500030" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
