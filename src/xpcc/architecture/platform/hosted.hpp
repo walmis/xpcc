@@ -60,5 +60,6 @@ namespace xpcc
 
 #include "hosted/terminal.hpp"
 #include "hosted/gpio.hpp"
+#include "hosted/rand.hpp"
 
 #endif // XPCC__HOSTED_HPP

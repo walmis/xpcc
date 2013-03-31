@@ -170,7 +170,7 @@ void AES_CCM_32::block_xor(const uint8_t* a, uint8_t* bo,
 	//PROFILE();
 
 	//check alignment and length is divisible by 4
-	if ((len & (4 - 1)) == 0 && (((int)a & 3) | ((int)bo & 3)) == 0) {
+	if ((len & (4 - 1)) == 0 && (((long)a & 3) | ((long)bo & 3)) == 0) {
 		//use 32bit words for speed
 		for (int i = 0; i < (len >> 2); i++) {
 			((uint32_t*) (bo))[i] = ((uint32_t*) (a))[i]
