@@ -71,12 +71,18 @@ xpcc::lpc::Uart1::read(uint8_t & c)
 // ----------------------------------------------------------------------------
 
 uint8_t
-xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n)
+xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n, bool blocking)
 {
 	uint8_t ret = 0;
 
-	while ((n != 0) && (LPC_UART->LSR & LSR_RDR))
+	while ((n != 0))
 	{
+		if(blocking && !(LPC_UART->LSR & LSR_RDR)) {
+			while(!(LPC_UART->LSR & LSR_RDR));
+		} else {
+			return ret;
+		}
+
 		// Receive data available and space in buffer left
 		*buffer = LPC_UART->RBR;
 		--n; ++buffer; ++ret;
@@ -84,6 +90,7 @@ xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n)
 
 	return ret;
 }
+
 
 // ----------------------------------------------------------------------------
 

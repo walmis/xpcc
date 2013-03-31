@@ -55,7 +55,7 @@ namespace xpcc
 			 * \return	Number of bytes which could be read, maximal \a n
 			 */
 			static uint8_t
-			read(uint8_t *buffer, uint8_t n);
+			read(uint8_t *buffer, uint8_t n, bool blocking = false);
 
 		protected:
 //			static void inline
