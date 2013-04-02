@@ -8,6 +8,8 @@
 #ifndef TASK_H_
 #define TASK_H_
 
+#include <functional>
+
 namespace xpcc {
 
 class TickerTask {
@@ -34,7 +36,7 @@ public:
 	//called from IRQ handler
 	static void interrupt(int irqN);
 
-	static void tasksRun(void (*idleFunc)() = 0) {
+	static void tasksRun(std::function<void()> idleFunc = 0) {
 		while(1) {
 			tick();
 			if(idleFunc)
