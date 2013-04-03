@@ -77,18 +77,7 @@
 
 // Chapter 18: LPC1100/LPC1100C/LPC1100L series 16-bit counter/timer CT16B0/1
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__) || defined(__ARM_LPC11XXL__)
-#include "timer/timer_registers.hpp"
-#include "timer/timer16_0.hpp"
-#endif
-
-// Chapter 19: LPC1100XL series: 16-bit counter/timer CT16B0/1
-#if defined(__ARM_LPC1100XL__)
-// TODO
-#endif
-
-// Chapter 20: LPC1100/LPC1100C/LPC1100L series: 32-bit counter/timer CT32B0/1
-#if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__) || defined(__ARM_LPC11XXL__)
-// TODO
+#include "timer/timer.hpp"
 #endif
 
 // Chapter 21: LPC1100XL series: 32-bit counter/timer CT32B0/1
