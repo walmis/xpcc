@@ -113,30 +113,8 @@
  * Timer device enumeration
 **********************************************************************/
 /** @brief interrupt  type */
-typedef enum
-{
-	TIM_MR0_INT =0, /*!< interrupt for Match channel 0*/
-	TIM_MR1_INT =1, /*!< interrupt for Match channel 1*/
-	TIM_MR2_INT =2, /*!< interrupt for Match channel 2*/
-	TIM_MR3_INT =3, /*!< interrupt for Match channel 3*/
-	TIM_CR0_INT =4, /*!< interrupt for Capture channel 0*/
-}TIM_INT_TYPE;
 
 
-
-/** @brief Timer/Counter prescale option */
-typedef enum
-{
-	TIM_PRESCALE_TICKVAL = 0,		/*!< Prescale in absolute value */
-	TIM_PRESCALE_USVAL				/*!< Prescale in microsecond value */
-} TIM_PRESCALE_OPT;
-
-/** @brief Counter input option */
-typedef enum
-{
-	TIM_COUNTER_INCAP0 = 0,			/*!< CAPn.0 input pin for TIMERn */
-	TIM_COUNTER_INCAP1,				/*!< CAPn.1 input pin for TIMERn */
-} TIM_COUNTER_INPUT_OPT;
 
 /** @brief Timer/Counter external match option */
 typedef enum
@@ -157,57 +135,6 @@ typedef enum {
 
 
 
-
-
-/** @brief Configuration structure in TIMER mode */
-typedef struct
-{
-
-	uint8_t PrescaleOption;		/**< Timer Prescale option, should be:
-									- TIM_PRESCALE_TICKVAL: Prescale in absolute value
-									- TIM_PRESCALE_USVAL: Prescale in microsecond value
-									*/
-	uint8_t Reserved[3];		/**< Reserved */
-	uint32_t PrescaleValue;		/**< Prescale value */
-} TIM_TIMERCFG_Type;
-
-/** @brief Configuration structure in COUNTER mode */
-typedef struct {
-
-	uint8_t CounterOption;		/**< Counter Option, should be:
-								- TIM_COUNTER_INCAP0: CAPn.0 input pin for TIMERn
-								- TIM_COUNTER_INCAP1: CAPn.1 input pin for TIMERn
-								*/
-	uint8_t CountInputSelect;
-	uint8_t Reserved[2];
-} TIM_COUNTERCFG_Type;
-
-/** @brief Match channel configuration structure */
-typedef struct {
-	uint8_t MatchChannel;	/**< Match channel, should be in range
-							from 0..3 */
-	uint8_t IntOnMatch;		/**< Interrupt On match, should be:
-							- ENABLE: Enable this function.
-							- DISABLE: Disable this function.
-							*/
-	uint8_t StopOnMatch;	/**< Stop On match, should be:
-							- ENABLE: Enable this function.
-							- DISABLE: Disable this function.
-							*/
-	uint8_t ResetOnMatch;	/**< Reset On match, should be:
-							- ENABLE: Enable this function.
-							- DISABLE: Disable this function.
-							*/
-
-	uint8_t ExtMatchOutputType;	/**< External Match Output type, should be:
-							 -	 0:	Do nothing for external output pin if match
-							 -   1:	Force external output pin to low if match
-							 - 	 2: Force external output pin to high if match
-							 -   3: Toggle external output pin if match.
-							*/
-	uint8_t Reserved[3];	/** Reserved */
-	uint32_t MatchValue;	/** Match value */
-} TIM_MATCHCFG_Type;
 
 
 /**

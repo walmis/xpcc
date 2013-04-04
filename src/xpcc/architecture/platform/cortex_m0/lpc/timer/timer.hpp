@@ -63,6 +63,14 @@ enum class ExtMatchOpt
 	EXTMATCH_TOGGLE				/*!< Toggle external output pin if match */
 };
 
+enum class TmrIntType
+{
+	MR0_INT =0, /*!< interrupt for Match channel 0*/
+	MR1_INT =1, /*!< interrupt for Match channel 1*/
+	MR2_INT =2, /*!< interrupt for Match channel 2*/
+	MR3_INT =3, /*!< interrupt for Match channel 3*/
+	CR0_INT =4, /*!< interrupt for Capture channel 0*/
+};
 
 
 template <int timerptr>
@@ -100,17 +108,6 @@ public:
 		 *                   - TIM_PINS_MAT3 : External Match Output 3
 		 * @return 		None
 		 **********************************************************************/
-		static uint32_t TIM_ConverUSecToVal (uint32_t usec)
-		{
-			uint64_t clkdlycnt;
-
-			// Get Pclock of timer
-			clkdlycnt = SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV;
-
-			clkdlycnt = (clkdlycnt * usec) / 1000000;
-			return (uint32_t) clkdlycnt;
-		}
-
 
 		static void
 		ALWAYS_INLINE
@@ -173,13 +170,17 @@ public:
 		}
 
 
-		static void initPWM(uint32_t match_value, uint8_t main_channel = 3) {
+		static void
+		ALWAYS_INLINE
+		initPWM(uint32_t match_value, uint8_t main_channel = 3) {
 			//set pwm match channel
 			configureMatch(main_channel, match_value);
 
 		}
 
-		static void initPWMChannel(uint8_t channel) {
+		static void
+		ALWAYS_INLINE
+		initPWMChannel(uint8_t channel) {
 			//enable pwm channel
 			TIMER->PWMC |= 1<<channel;
 
@@ -188,7 +189,9 @@ public:
 
 		}
 
-		static void setPWM(uint8_t channel, uint32_t value) {
+		static void
+		ALWAYS_INLINE
+		setPWM(uint8_t channel, uint32_t value) {
 			switch(channel)
 			{
 			case 0:
@@ -215,10 +218,12 @@ public:
 		 * 				- SET : interrupt
 		 * 				- RESET : no interrupt
 		 **********************************************************************/
-		static bool getIntStatus(uint8_t IntFlag)
+		static bool
+		ALWAYS_INLINE
+		getIntStatus(TmrIntType IntFlag)
 		{
 
-			if ((TIMER->IR)& TIM_IR_CLR(IntFlag)) {
+			if ((TIMER->IR)& TIM_IR_CLR((int)IntFlag)) {
 		        return true;
 		    }
 
@@ -299,10 +304,10 @@ public:
 		 **********************************************************************/
 		static void
 		ALWAYS_INLINE
-		clearIntPending(uint8_t IntFlag)
+		clearIntPending(TmrIntType IntFlag)
 		{
 
-			TIMER->IR = TIM_IR_CLR(IntFlag);
+			TIMER->IR = TIM_IR_CLR((int)IntFlag);
 		}
 
 		/*********************************************************************//**
@@ -316,7 +321,7 @@ public:
 		 **********************************************************************/
 		static void
 		ALWAYS_INLINE
-		activate(bool enable)
+		activate(bool enable = true)
 		{
 			if (enable) {
 				TIMER->TCR	|=  TIM_ENABLE;
@@ -365,6 +370,12 @@ public:
 		    }
 		}
 
+		static uint32_t
+		ALWAYS_INLINE
+		getCounterValue() {
+			return TIMER->TC;
+		}
+
 
 
 		/*********************************************************************//**
@@ -379,9 +390,10 @@ public:
 		 *                    specified Timer peripheral.
 		 * @return 		None
 		 **********************************************************************/
-		static void init(TimerMode TimerCounterMode, uint32_t prescale_value,
-				PrescaleMode prescMode = PrescaleMode::PRESCALE_TICKVAL,
-				CapInput captureInput = CapInput::COUNTER_INCAP0)
+		static void
+		ALWAYS_INLINE
+		init(TimerMode TimerCounterMode, uint32_t prescale_value,
+				PrescaleMode prescMode = PrescaleMode::PRESCALE_TICKVAL)
 		{
 		    uint32_t val;
 
@@ -400,32 +412,25 @@ public:
 		    	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<10);
 		    }
 
-			TIMER->CCR &= ~TIM_CTCR_MODE_MASK;
-			TIMER->CCR |= (int)TimerCounterMode;
+			TIMER->CTCR &= ~TIM_CTCR_MODE_MASK;
+			TIMER->CTCR |= (int)TimerCounterMode;
+
 
 			TIMER->TC =0;
 			TIMER->PC =0;
 			TIMER->PR =0;
 
-			if (TimerCounterMode == TimerMode::TIMER_MODE )
-			{
-
-				if (prescMode  == PrescaleMode::PRESCALE_TICKVAL) {
-					val = prescale_value -1  ;
-				} else {
-		            val = TIM_ConverUSecToVal (prescale_value)-1;
-				}
-
-		        if ((TIMER == LPC_TMR16B0) || (TIMER == LPC_TMR16B1)) {
-		            val &= 0xFFFF;
-		        }
-
-		        TIMER->PR = val;
+			if (prescMode  == PrescaleMode::PRESCALE_TICKVAL ||
+					TimerCounterMode != TimerMode::TIMER_MODE) {
+				val = prescale_value -1  ;
 			} else {
-				TIMER->CCR  &= ~TIM_CTCR_INPUT_MASK;
-				if (captureInput == CapInput::COUNTER_INCAP1)
-					TIMER->CCR |= _BIT(2);
+				val = TIM_ConverUSecToVal (prescale_value)-1;
 			}
+
+			if ((TIMER == LPC_TMR16B0) || (TIMER == LPC_TMR16B1)) {
+				val &= 0xFFFF;
+			}
+			TIMER->PR = val;
 
 			// Clear interrupt pending
 			TIMER->IR = 0x3F;
@@ -433,7 +438,7 @@ public:
 
 		static void
 		ALWAYS_INLINE
-		configCapture(uint8_t flags)
+		configCapture(CaptureFlags flags)
 		{
 
 			TIMER->CCR &= ~TIM_CCR_CHANNEL_MASKBIT(0);
@@ -457,7 +462,7 @@ public:
 		 *                   LPC_TMR16B1, LPC_TMR32B0, LPC_TMR32B1
 		 * @return 		Value of capture register
 		 **********************************************************************/
-		uint32_t
+		static uint32_t
 		ALWAYS_INLINE
 		getCaptureValue()
 		{
@@ -481,7 +486,7 @@ public:
 		 *                   LPC_TMR16B1, LPC_TMR32B0, LPC_TMR32B1
 		 * @return 		None
 		 **********************************************************************/
-		void
+		static void
 		ALWAYS_INLINE
 		enableCapturePins()
 		{
@@ -498,6 +503,17 @@ public:
 		    } else if (TIMER == LPC_TMR32B1) {  /** CT32B1_CAP0 */
 		        IOCon::setPinFunc(IOCON_PIO1_0, PIO1_0_FUN_CT32B1_CAP0);
 		    }
+		}
+private:
+		static uint32_t TIM_ConverUSecToVal (uint32_t usec)
+		{
+			uint64_t clkdlycnt;
+
+			// Get Pclock of timer
+			clkdlycnt = SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV;
+
+			clkdlycnt = (clkdlycnt * usec) / 1000000;
+			return (uint32_t) clkdlycnt;
 		}
 
 
