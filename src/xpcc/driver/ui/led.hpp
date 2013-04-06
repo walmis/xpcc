@@ -43,4 +43,5 @@
 #include "led/indicator.hpp"
 #include "led/pulse.hpp"
 #include "led/rgb.hpp"
+#include "led/blinker.hpp"
 

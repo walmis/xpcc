@@ -46,6 +46,10 @@ template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
 class Driver : xpcc::TickerTask {
 typedef Hal<Spi, rst, cs, slp_tr> HAL;
 public:
+	Driver() {
+		frmHandler = 0;
+	}
+
 	void init();
 
 	RadioStatus setChannel(uint8_t channel);
@@ -243,6 +247,7 @@ public:
 			}
 			if(HAL::frameRead(frame) == len) {
 				rx_pending = 0;
+				frame.rx_flag = true;
 				return true;
 			}
 		}
@@ -273,8 +278,6 @@ private:
 
 template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
 void Driver<Spi, rst, cs, slp_tr, irq>::init() {
-	frmHandler = 0;
-
 	GpioInterrupt::enableInterrupt(irq::Port, irq::Pin, IntSense::EDGE,
 			IntEdge::SINGLE, IntEvent::RISING_EDGE);
 

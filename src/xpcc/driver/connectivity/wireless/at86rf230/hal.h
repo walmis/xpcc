@@ -346,7 +346,6 @@ uint8_t Hal<Spi, rst, cs, slp_tr>::frameRead(Frame& frame) {
 	Spi::write(TRX_CMD_FR);
 	len = Spi::write(0);
 
-	frame.rx_flag = true;
 	uint8_t* frm_data = frame.data;
 
 	uint8_t read = 0;
