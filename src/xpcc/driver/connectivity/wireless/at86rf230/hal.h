@@ -359,10 +359,9 @@ uint8_t Hal<Spi, rst, cs, slp_tr>::frameRead(Frame& frame) {
 			read++;
 		}
 
-		frame.data_len = len;
+		frame.data_len = len-2; // subtract 2, the last two bytes that hold the CRC value
 		//LQI byte
 		frame.lqi = Spi::write(0);
-		//fifo_put(&frame_buf, data);
 
 	}
 	cs::set(1);

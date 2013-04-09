@@ -19,7 +19,7 @@ public:
 	}
 
 	void handleTick() override {
-		if(t.isExpired()) {
+		if(t.isExpired() && t.isActive()) {
 			Pin::set(0);
 		}
 	}

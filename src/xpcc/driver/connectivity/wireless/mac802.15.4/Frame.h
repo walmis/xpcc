@@ -61,9 +61,12 @@ public:
 		data_len = 0;
 		lqi = 0;
 		buffer_size = 0;
+		rssi = 0;
 	}
 
 	uint8_t lqi;
+	uint8_t rssi;
+
 	uint8_t buffer_size;
 	uint8_t data_len;
 	uint8_t rx_flag;
@@ -80,6 +83,7 @@ public:
 	}
 
 	~HeapFrame() {
+		//XPCC_LOG_DEBUG .printf("destroy\n");
 		free();
 	}
 
