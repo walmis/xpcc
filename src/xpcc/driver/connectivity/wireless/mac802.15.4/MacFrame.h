@@ -83,6 +83,10 @@ public :
 
 	}
 
+	inline bool isSecure() {
+		return getFCF()->securityEnabled;
+	}
+
 	void setType(FcfFrameType type = FcfFrameType::DATA) {
 		FcfHeader* hdr = (FcfHeader*)frame->data;
 		hdr->frame_type = type;

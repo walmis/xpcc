@@ -236,7 +236,7 @@ namespace xpcc
 		friend class const_iterator;
 		friend class iterator;		
 		
-		LinkedList(const LinkedList& other);
+		//LinkedList(const LinkedList& other);
 		
 		LinkedList&
 		operator = (const LinkedList& other);

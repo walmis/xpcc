@@ -56,10 +56,6 @@ struct NodeACL {
 	}
 };
 
-//struct Request;
-//typedef void (*response_callback)(Request &request, bool result, uint8_t* data,
-//		uint8_t len, bool data_pending);
-
 struct Request {
 	uint16_t address;
 	uint8_t request_id;
@@ -298,10 +294,10 @@ protected:
 		return (T*)data;
 	}
 
-	virtual void stdResponseHandler(SecureFrame<Security>& frm,
+	virtual void stdResponseHandler(MacFrame& frm,
 			Request& request, uint8_t* data, uint8_t len);
 
-	virtual void stdRequestHandler(SecureFrame<Security>& frm,
+	virtual void stdRequestHandler(MacFrame& frm,
 			uint16_t src_address, uint8_t requestId, uint8_t* data, uint8_t len);
 
 	NodeACL* findNode(uint16_t address);
@@ -312,17 +308,17 @@ protected:
 		XPCC_LOG_DEBUG .printf("eventHandler(%04x, %d)\n", address, event);
 	}
 
-	virtual void requestHandler(SecureFrame<Security> &frm, uint16_t address,
+	virtual void requestHandler(MacFrame &frm, uint16_t address,
 			uint8_t request_type, uint8_t* data, uint8_t len) {
 
 	}
 
-	virtual void responseHandler(SecureFrame<Security> &frm, Request& request,
+	virtual void responseHandler(MacFrame &frm, Request& request,
 			uint8_t *data, uint8_t len) {
 
 	}
 
-	virtual void dataHandler(SecureFrame<Security> &frm, FrameHdr& hdr, uint16_t address,
+	virtual void dataHandler(MacFrame &frm, FrameHdr& hdr, uint16_t address,
 			uint8_t *data, uint8_t len) {
 
 	}
@@ -365,7 +361,7 @@ protected:
 	uint8_t last_seq;
 	uint16_t prev_src_addr;
 
-private:
+
 
 	void processFrame(Frame& rxFrame);
 
@@ -720,7 +716,7 @@ inline bool TinyRadioProtocol<Driver, Security>::associate(uint16_t address) {
 
 template<class Driver, class Security>
 inline void TinyRadioProtocol<Driver, Security>::stdRequestHandler(
-		SecureFrame<Security>& frm, uint16_t src_address, uint8_t requestId,
+		MacFrame& frm, uint16_t src_address, uint8_t requestId,
 		uint8_t* data, uint8_t len) {
 	switch (requestId) {
 	case PING_REQ: {
@@ -793,7 +789,7 @@ inline void TinyRadioProtocol<Driver, Security>::stdRequestHandler(
 
 template<class Driver, class Security>
 inline void TinyRadioProtocol<Driver, Security>::stdResponseHandler(
-		SecureFrame<Security>& frm, Request& request, uint8_t* data,
+		MacFrame& frm, Request& request, uint8_t* data,
 		uint8_t len) {
 	switch (request.request_id) {
 	case ASSOCIATE_REQ: {

@@ -82,10 +82,6 @@ public:
 		MacFrame::clear();
 	}
 
-	inline bool isSecure() {
-		return getFCF()->securityEnabled;
-	}
-
 	void setSecure(bool secure) {
 		if(secure) {
 			if(!isSecure()) {
