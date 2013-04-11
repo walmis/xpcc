@@ -136,6 +136,15 @@ struct BeaconFrame {
 	uint8_t device_type;
 	char name[16];
 	char data[8];
+
+	char* getName() {
+		return name;
+	}
+
+	char* getData() {
+		return data;
+	}
+
 	BeaconFrame() {
 		hdr.type = BEACON;
 		memset(name, 0, sizeof(name));
@@ -276,6 +285,7 @@ public:
 	void disassociate(uint16_t address, bool send_packet = true);
 	bool isAssociated(uint16_t address);
 
+	NodeACL* findNode(uint16_t address);
 
 protected:
 
@@ -300,7 +310,7 @@ protected:
 	virtual void stdRequestHandler(MacFrame& frm,
 			uint16_t src_address, uint8_t requestId, uint8_t* data, uint8_t len);
 
-	NodeACL* findNode(uint16_t address);
+
 	void removeNode(NodeACL* node);
 	NodeACL* createNode();
 
