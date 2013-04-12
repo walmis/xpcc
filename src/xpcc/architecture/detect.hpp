@@ -224,6 +224,8 @@
 #	elif defined __ARM_ARCH_6__
 #		define XPCC__CPU_ARM6	1
 #		define XPCC__CPU_STRING		"ARM6"
+#		define XPCC__ALIGNMENT	4
+#		define XPCC__CPU_HOSTED 1
 #	endif
 #endif
 
