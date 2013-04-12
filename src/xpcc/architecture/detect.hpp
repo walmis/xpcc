@@ -221,6 +221,9 @@
 #	elif defined __ARM_ARCH_7EM__
 #		define XPCC__CPU_CORTEX_M4	1
 #		define XPCC__CPU_STRING		"Cortex M4"
+#	elif defined __ARM_ARCH_6__
+#		define XPCC__CPU_ARM6	1
+#		define XPCC__CPU_STRING		"ARM6"
 #	endif
 #endif
 
