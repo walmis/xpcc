@@ -623,6 +623,10 @@ inline void TinyRadioProtocol<Driver, Security>::disassociate(uint16_t address,
 
 		eventHandler(node->address, DISASSOCIATION_EVENT);
 		removeNode(node);
+
+	} else if(send_packet) {
+		send(address, NULL, 0, DISSASOCIATE_REQ, FrameType::DISSASOC,
+				TX_ENCRYPT);
 	}
 }
 

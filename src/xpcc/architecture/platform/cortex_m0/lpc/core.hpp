@@ -32,6 +32,7 @@
 #define XPCC_LPC11__CORE_HPP
 
 #include <stdint.h>
+#include "iap.hpp"
 
 namespace xpcc
 {
@@ -48,12 +49,14 @@ namespace xpcc
 			 * @param offset	0..2
 			 * @return	32-bit of the unique id
 			 */
-//			uint32_t
-//			getUniqueId(uint8_t offset)
-//			{
-//				uint32_t *baseaddress = (uint32_t*) 0x1FFFF7E8;
-//				return *(baseaddress + offset);
-//			}
+			static void
+			getUniqueId(uint32_t result[5])
+			{
+				uint32_t params[5];
+				params[0] = 58; //IAP command
+
+				IAP::call(params, result);
+			}
 		};
 	}
 }

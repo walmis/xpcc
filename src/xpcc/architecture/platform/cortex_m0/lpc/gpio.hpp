@@ -112,10 +112,24 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
-			uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-			temp &= ~0x18; \
-			temp |= type; \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
+			if(port == 1) { \
+				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
+					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
+					temp &= ~0x7; \
+					temp |= 1; \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
+				}\
+			}\
+			if(port == 0) { \
+				if(pin == 0 || pin == 10 || pin == 11) { \
+					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
+					temp &= ~0x7; \
+					temp |= 1; \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
+				}\
+			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
 		} \
 		ALWAYS_INLINE static void set()    { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
@@ -206,7 +220,7 @@ namespace xpcc
 		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
-		LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
 			if(port == 1) { \
 				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
