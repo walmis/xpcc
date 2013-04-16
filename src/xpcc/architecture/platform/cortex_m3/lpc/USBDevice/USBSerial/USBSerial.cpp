@@ -25,7 +25,8 @@ void xpcc::lpc17::USBSerial::write(char c) {
 
 	tx_buffer.push(c);
 
-	if (tx_buffer.isNearlyFull()) {
+	//check that we are in thread mode
+	if (tx_buffer.isNearlyFull() && __get_IPSR() == 0) {
 		uint8_t buf[64];
 		int size = 0;
 
@@ -39,6 +40,8 @@ void xpcc::lpc17::USBSerial::write(char c) {
 		}
 		send(buf, size);
 
+	} else {
+		in_request = true;
 	}
 
 }
