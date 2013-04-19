@@ -69,6 +69,19 @@ namespace xpcc
 	private :
 		IODevice(const IODevice&);
 	};
+
+	class NullIODevice : public IODevice {
+
+		void write(char c) override {
+		}
+
+		void flush() override {}
+
+		bool read(char& c) override {
+			return false;
+		}
+
+	};
 }
 
 #endif // XPCC__IODEVICE_HPP

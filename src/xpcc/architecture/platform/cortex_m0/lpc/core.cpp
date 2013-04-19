@@ -58,7 +58,7 @@ void debug_irqs(int irqn) {
 
 extern "C" void default_irq_handler() {
 	int irqn = __get_IPSR() - 16;
-	if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
+	if (XPCC_LOG_LEVEL <= xpcc::log::DEBUG) {
 		debug_irqs(irqn);
 	}
 	xpcc::TickerTask::interrupt(irqn);

@@ -20,7 +20,11 @@
 #define PROTO_HEADER 0x5
 #define REQUEST_TIMEOUT 500
 #define NUM_RETRIES 12
-#define NODE_TIMEOUT 10000 //10s timeout
+
+#ifndef NODE_TIMEOUT
+#define NODE_TIMEOUT 5000 //5s timeout
+#endif
+
 #define FRAME_HEAP 5
 
 namespace stdResponses {
@@ -287,6 +291,8 @@ public:
 
 	NodeACL* findNode(uint16_t address);
 
+	xpcc::LinkedList<NodeACL*> connectedNodes;
+
 protected:
 
 	template <typename T>
@@ -361,7 +367,7 @@ protected:
 	StaticFrame tmpFrame;
 	xpcc::Timeout<> beacon_tm;
 
-	xpcc::LinkedList<NodeACL*> connectedNodes;
+
 
 	//pointer to currently processed frame
 	Frame* processedFrame;

@@ -21,12 +21,17 @@
 
 using namespace xpcc::lpc17;
 #include <lpc17xx/cmsis/LPC17xx.h>
+
+#define LATENCY 32
+xpcc::Timeout<> latency_timer(LATENCY);
+
+
 void xpcc::lpc17::USBSerial::write(char c) {
 
 	tx_buffer.push(c);
 
 	//check that we are in thread mode
-	if (tx_buffer.isNearlyFull() && __get_IPSR() == 0) {
+	if (tx_buffer.stored() >= 64 && __get_IPSR() == 0) {
 		uint8_t buf[64];
 		int size = 0;
 
@@ -39,11 +44,10 @@ void xpcc::lpc17::USBSerial::write(char c) {
 				break;
 		}
 		send(buf, size);
+		latency_timer.restart(LATENCY);
+		//in_request = true;
 
-	} else {
-		in_request = true;
 	}
-
 }
 
 
@@ -88,7 +92,7 @@ void xpcc::lpc17::USBSerial::SOF(int frameNumber) {
 	uint8_t buf[64];
 	uint32_t size = 0;
 
-	if(!tx_buffer.isEmpty() && in_request) {
+	if(!tx_buffer.isEmpty() && (in_request || latency_timer.isExpired())) {
 
 		for(int i=0; i<64; i++) {
 			buf[i] = tx_buffer.get();
@@ -97,6 +101,7 @@ void xpcc::lpc17::USBSerial::SOF(int frameNumber) {
 			tx_buffer.pop();
 			if(tx_buffer.isEmpty()) break;
 		}
+		latency_timer.restart(LATENCY);
 
 		writeNB(EPBULK_IN, buf, size, 64);
 		in_request = false;
