@@ -34,6 +34,7 @@ typedef enum {
     EP_PENDING,     /* Transfer in progress */
     EP_INVALID,     /* Invalid parameter */
     EP_STALLED,     /* Endpoint stalled */
+    EP_TIMEOUT
 } EP_STATUS;
 
 /* Include configuration for specific target */

@@ -248,6 +248,10 @@ public:
 			if(HAL::frameRead(frame) == len) {
 				rx_pending = 0;
 				frame.rx_flag = true;
+
+				//read rssi value
+				frame.rssi = HAL::Reg::ED_LEVEL;
+
 				return true;
 			}
 		}

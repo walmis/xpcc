@@ -809,8 +809,9 @@ bool USBDevice::readStart(uint8_t endpoint, uint32_t maxSize)
 }
 
 
-bool USBDevice::write(uint8_t endpoint, uint8_t * buffer, uint32_t size, uint32_t maxSize)
-{
+bool USBDevice::write(uint8_t endpoint, uint8_t * buffer, uint32_t size,
+		uint32_t maxSize, uint32_t timeout) {
+
     EP_STATUS result;
 
     if (size > maxSize)
@@ -832,8 +833,12 @@ bool USBDevice::write(uint8_t endpoint, uint8_t * buffer, uint32_t size, uint32_
     }
 
     /* Wait for completion */
+    xpcc::Timeout<> t(timeout);
     do {
         result = endpointWriteResult(endpoint);
+        if(timeout > 0 && t.isExpired()) {
+        	return EP_TIMEOUT;
+        }
     } while ((result == EP_PENDING) && configured());
 
     return (result == EP_COMPLETED);

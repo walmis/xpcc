@@ -63,6 +63,7 @@ public:
 		buffer_size = 0;
 		rssi = 0;
 	}
+	virtual ~Frame() {};
 
 	uint8_t lqi;
 	uint8_t rssi;
@@ -82,7 +83,7 @@ public:
 		}
 	}
 
-	~HeapFrame() {
+	virtual ~HeapFrame() {
 		//XPCC_LOG_DEBUG .printf("destroy\n");
 		free();
 	}

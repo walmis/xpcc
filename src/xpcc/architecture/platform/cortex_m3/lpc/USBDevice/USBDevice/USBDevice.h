@@ -106,7 +106,8 @@ public:
     * @param size the number of bytes to write
     * @param maxSize the maximum length that can be written on this endpoint
     */
-    bool write(uint8_t endpoint, uint8_t * buffer, uint32_t size, uint32_t maxSize);
+	bool write(uint8_t endpoint, uint8_t * buffer, uint32_t size,
+			uint32_t maxSize, uint32_t timeout = 0);
     
     
     /*
