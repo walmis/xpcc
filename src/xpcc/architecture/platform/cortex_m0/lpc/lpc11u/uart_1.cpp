@@ -1,9 +1,9 @@
-#include "uart_1.hpp"
+#include "../uart/uart_1.hpp"
 
 #include <xpcc/architecture/driver/atomic.hpp>
 
 #include <lpc11xx/cmsis/LPC11xx.h>
-#include "lpc11_uart_registers.hpp"
+#include "../uart/lpc11_uart_registers.hpp"
 
 #include <xpcc_config.hpp>
 

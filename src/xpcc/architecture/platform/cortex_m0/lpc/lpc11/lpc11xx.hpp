@@ -92,7 +92,7 @@
 
 // Chapter 24: LPC111x/LPC11Cxx System tick timer (SysTick)
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
-#include "systick_timer.hpp"
+#include "../systick_timer.hpp"
 #endif
 
 // Chapter 25: LPC111x/LPC11Cxx ADC
@@ -102,7 +102,7 @@
 
 // Chapter 26: LPC111x/LPC11Cxx Flash programming firmware
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
-#include "rand.hpp"
+#include "../rand.hpp"
 #endif
 
 

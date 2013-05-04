@@ -41,7 +41,7 @@
  * "Sourcery CodeBench Lite Edition").
  */
 
-#if defined __ARM_LPC11XX__
+#if defined( __ARM_LPC11XX__) || defined (__ARM_LPC11UXX__)
 #	include "cortex_m0/lpc.hpp"
 #endif
 

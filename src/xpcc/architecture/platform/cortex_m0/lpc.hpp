@@ -48,5 +48,9 @@
  */
 
 #if defined __ARM_LPC11XX__
-#	include "lpc/lpc11xx.hpp"
+#	include "lpc/lpc11/lpc11xx.hpp"
+#endif
+
+#if defined __ARM_LPC11UXX__
+#include "lpc/lpc11u/lpc11uxx.hpp"
 #endif
