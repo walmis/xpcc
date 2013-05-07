@@ -9,454 +9,206 @@
 #define IOCON_HPP_
 
 #include <xpcc/architecture.hpp>
-#include <lpc11xx/cmsis/LPC11xx.h>
+#include "device.h"
+
+#if defined(__ARM_LPC11UXX__)
+typedef struct {						/*!< LPC11AXX/LPC11UXX/LPC11EXX IOCON Structure */
+	__IO uint32_t  PIO0[24];
+	__IO uint32_t  PIO1[32];
+} LPC_IOCON_T;
+
+enum CHIP_IOCON_PIN_LOC_T {
+};
+
+#else
+/**
+ * @brief LPC11XX I/O Configuration register offset
+ */
+
+const uint16_t iocon_offsets0[] = { 0x00C, 0x010, 0x01C, 0x02C, 0x030, 0x034,
+		0x04C, 0x050, 0x060, 0x064, 0x074, };
+
+const uint16_t iocon_offsets1[] = { 0x078, 0x07C, 0x080, 0x090, 0x094, 0x0A0,
+		0x0A4, 0x0A8, 0x014, 0x038, 0x06C, 0x098, };
+
+const uint16_t iocon_offsets2[] = { 0x008, 0x028, 0x05C, 0x08C, 0x040, 0x044,
+		0x000, 0x020, 0x024, 0x054, 0x058, 0x070, };
+
+const uint16_t iocon_offsets3[] = { 0x084, 0x088, 0x09C, 0x0AC, 0x03C, 0x048, };
 
 /**
- * @brief Pin Connect Block structure
+ * @brief LPC11XX Pin location select
  */
+typedef enum CHIP_IOCON_PIN_LOC {
+	IOCON_SCKLOC_PIO0_10        = ((0xB0 << 2)),		/*!< Selects SCK0 function in pin location PIO0_10 */
+	IOCON_SCKLOC_PIO2_11        = ((0xB0 << 2) | 1),	/*!< Selects SCK0 function in pin location PIO2_11 */
+	IOCON_SCKLOC_PIO0_6         = ((0xB0 << 2) | 2),	/*!< Selects SCK0 function in pin location PIO0_6 */
+	IOCON_DSRLOC_PIO2_1         = ((0xB4 << 2)),		/*!< Selects DSR function in pin location PIO2_1 */
+	IOCON_DSRLOC_PIO3_1         = ((0xB4 << 2) | 1),	/*!< Selects DSR function in pin location PIO3_1 */
+	IOCON_DCDLOC_PIO2_2         = ((0xB8 << 2)),		/*!< Selects DCD function in pin location PIO2_2 */
+	IOCON_DCDLOC_PIO3_2         = ((0xB8 << 2) | 1),	/*!< Selects DCD function in pin location PIO3_2 */
+	IOCON_RILOC_PIO2_3          = ((0xBC << 2)),		/*!< Selects RI function in pin location PIO2_3 */
+	IOCON_RILOC_PIO3_3          = ((0xBC << 2) | 1),	/*!< Selects Ri function in pin location PIO3_3 */
+} CHIP_IOCON_PIN_LOC_T;
 
-#define  offsetof(TYPE, MEMBER)  ((uint32_t)&((TYPE*)0)->MEMBER)
+typedef struct {						/*!< LPC11XX/LPC11XXLV/LPC11UXX IOCON Structure */
+	__IO uint32_t  REG[48];
+} LPC_IOCON_T;
+#endif
 
-#define IOCON_PIO0_0      offsetof(LPC_IOCON_TypeDef, PIO0_0)
-#define IOCON_PIO0_1      offsetof(LPC_IOCON_TypeDef, PIO0_1)
-#define IOCON_PIO0_2      offsetof(LPC_IOCON_TypeDef, PIO0_2)
-#define IOCON_PIO0_3      offsetof(LPC_IOCON_TypeDef, PIO0_3)
-#define IOCON_PIO0_4      offsetof(LPC_IOCON_TypeDef, PIO0_4)
-#define IOCON_PIO0_5      offsetof(LPC_IOCON_TypeDef, PIO0_5)
-#define IOCON_PIO0_6      offsetof(LPC_IOCON_TypeDef, PIO0_6)
-#define IOCON_PIO0_7      offsetof(LPC_IOCON_TypeDef, PIO0_7)
-#define IOCON_PIO0_8      offsetof(LPC_IOCON_TypeDef, PIO0_8)
-#define IOCON_PIO0_9      offsetof(LPC_IOCON_TypeDef, PIO0_9)
-#define IOCON_PIO0_10     offsetof(LPC_IOCON_TypeDef, SWCLK_PIO0_10)
-#define IOCON_PIO0_11     offsetof(LPC_IOCON_TypeDef, R_PIO0_11)
+/** Disable pull-down and pull-up resistor at resistor at pad */
+#define MD_PUP  (0x0 << 3)
 
-#define IOCON_PIO1_0      offsetof(LPC_IOCON_TypeDef, R_PIO1_0)
-#define IOCON_PIO1_1      offsetof(LPC_IOCON_TypeDef, R_PIO1_1)
-#define IOCON_PIO1_2      offsetof(LPC_IOCON_TypeDef, R_PIO1_2)
-#define IOCON_PIO1_3      offsetof(LPC_IOCON_TypeDef, SWDIO_PIO1_3)
-#define IOCON_PIO1_4      offsetof(LPC_IOCON_TypeDef, PIO1_4)
-#define IOCON_PIO1_5      offsetof(LPC_IOCON_TypeDef, PIO1_5)
-#define IOCON_PIO1_6      offsetof(LPC_IOCON_TypeDef, PIO1_6)
-#define IOCON_PIO1_7      offsetof(LPC_IOCON_TypeDef, PIO1_7)
-#define IOCON_PIO1_8      offsetof(LPC_IOCON_TypeDef, PIO1_8)
-#define IOCON_PIO1_9      offsetof(LPC_IOCON_TypeDef, PIO1_9)
-#define IOCON_PIO1_10     offsetof(LPC_IOCON_TypeDef, PIO1_10)
-#define IOCON_PIO1_11     offsetof(LPC_IOCON_TypeDef, PIO1_11)
+/** Enable pull-down resistor at pad */
+#define MD_BUK  (0x1 << 3)
 
-#define IOCON_PIO2_0      offsetof(LPC_IOCON_TypeDef, PIO2_0)
-#define IOCON_PIO2_1      offsetof(LPC_IOCON_TypeDef, PIO2_1)
-#define IOCON_PIO2_2      offsetof(LPC_IOCON_TypeDef, PIO2_2)
-#define IOCON_PIO2_3      offsetof(LPC_IOCON_TypeDef, PIO2_3)
-#define IOCON_PIO2_4      offsetof(LPC_IOCON_TypeDef, PIO2_4)
-#define IOCON_PIO2_5      offsetof(LPC_IOCON_TypeDef, PIO2_5)
-#define IOCON_PIO2_6      offsetof(LPC_IOCON_TypeDef, PIO2_6)
-#define IOCON_PIO2_7      offsetof(LPC_IOCON_TypeDef, PIO2_7)
-#define IOCON_PIO2_8      offsetof(LPC_IOCON_TypeDef, PIO2_8)
-#define IOCON_PIO2_9      offsetof(LPC_IOCON_TypeDef, PIO2_9)
-#define IOCON_PIO2_10     offsetof(LPC_IOCON_TypeDef, PIO2_10)
-#define IOCON_PIO2_11     offsetof(LPC_IOCON_TypeDef, PIO2_11)
+/** Enable pull-up resistor at pad */
+#define MD_PLN  (0x2 << 3)
 
-#define IOCON_PIO3_0      offsetof(LPC_IOCON_TypeDef, PIO3_0)
-#define IOCON_PIO3_1      offsetof(LPC_IOCON_TypeDef, PIO3_1)
-#define IOCON_PIO3_2      offsetof(LPC_IOCON_TypeDef, PIO3_2)
-#define IOCON_PIO3_3      offsetof(LPC_IOCON_TypeDef, PIO3_3)
-#define IOCON_PIO3_4      offsetof(LPC_IOCON_TypeDef, PIO3_4)
-#define IOCON_PIO3_5      offsetof(LPC_IOCON_TypeDef, PIO3_5)
+/** Enable pull-down and pull-up resistor at resistor at pad (repeater mode) */
+#define MD_PDN  (0x3 << 3)
 
-/* Public Macros -------------------------------------------------------------- */
-/** @defgroup IOCON_Public_Macros
- * @{
- */
+/** Enable hysteresis */
+#define MD_HYS  (0x1 << 5)
 
-/************************************PORT0****************************************/
-#define PIO0_0_FUN_RESET           0     /** Selects function PIO */
-#define PIO0_0_FUN_PIO             1     /** Selects function RESET */
+/** Invert enable */
+#define MD_INV  (0x1 << 6)
 
-#define PIO0_1_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_1_FUN_CLKOUT          1     /** Selects function CLKOUT */
-#define PIO0_1_FUN_CT32B0_MAT2     2     /** Selects function CT32B0_MAT2 */
+/** Select analog mode */
+#define MD_ADMODE (0x0 << 7)
 
-#define PIO0_2_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_2_FUN_SSEL0           1     /** Selects function SSEL0 */
-#define PIO0_2_FUN_CT16B0_CAP0     2     /** Selects function CT16B0_CAP0 */
+/** Select digitial mode */
+#define MD_DIGMODE (0x1 << 7)
 
-#define PIO0_3_FUN_PIO             0     /** Selects function PIO */
+/** Disable 10nS input glitch filter */
+#define MD_DISFIL (0x0 << 8)
 
-#define PIO0_4_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_4_FUN_SCL             1     /** Selects function SCL */
+/** Enable 10nS input glitch filter */
+#define MD_ENFIL (0x1 << 8)
 
-#define PIO0_5_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_5_FUN_SDA             1     /** Selects function SDA */
+/** I2C standard mode/fast-mode */
+#define MD_SFI2C (0x0 << 8)
 
-#define PIO0_6_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_6_FUN_SCK0            2     /** Selects function SCK0 */
+/** I2C standard I/O functionality */
+#define MD_STDI2C (0x1 << 8)
 
-#define PIO0_7_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_7_FUN_CTS             1     /** Selects function CTS */
+/** I2C Fast-mode Plus */
+#define MD_FASTI2C (0x2 << 8)
 
-#define PIO0_8_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_8_FUN_MISO0           1     /** Selects function MISO0 */
-#define PIO0_8_FUN_CT16B0_MAT0     2     /** Selects function CT16B0_MAT0 */
+/** Open drain mode bit */
+#define MD_OPENDRAIN (0x1 << 10)
 
-#define PIO0_9_FUN_PIO             0     /** Selects function PIO */
-#define PIO0_9_FUN_MOSI0           1     /** Selects function MOSI0 */
-#define PIO0_9_FUN_CT16B0_MAT1     2     /** Selects function CT16B0_MAT1 */
-
-#define PIO0_10_FUN_SWCLK          0     /** Selects function SWCLK */
-#define PIO0_10_FUN_PIO            1     /** Selects function PIO */
-#define PIO0_10_FUN_SCK0           2     /** Selects function SCK0 */
-#define PIO0_10_FUN_CT16B0_MAT2    3     /** Selects function MAT2 */
-
-#define PIO0_11_FUN_TDI            0     /** Selects function TDI */
-#define PIO0_11_FUN_PIO            1     /** Selects function PIO */
-#define PIO0_11_FUN_AD0            2     /** Selects function AD0 */
-#define PIO0_11_FUN_CT32B0_MAT3    3     /** Selects function CT32B0_MAT3 */
-
-/************************************PORT1****************************************/
-#define PIO1_0_FUN_TMS             0     /** Selects function TMS */
-#define PIO1_0_FUN_PIO             1     /** Selects function PIO */
-#define PIO1_0_FUN_AD1             2     /** Selects function AD1 */
-#define PIO1_0_FUN_CT32B1_CAP0     3     /** Selects function CT32B1_CAP0 */
-
-#define PIO1_1_FUN_TDO             0     /** Selects function TDO */
-#define PIO1_1_FUN_PIO             1     /** Selects function PIO */
-#define PIO1_1_FUN_AD2             2     /** Selects function AD2 */
-#define PIO1_1_FUN_CT32B1_MAT0     3     /** Selects function CT32B1_MAT0 */
-
-#define PIO1_2_FUN_TRST            0     /** Selects function TRST */
-#define PIO1_2_FUN_PIO             1     /** Selects function PIO */
-#define PIO1_2_FUN_AD3             2     /** Selects function AD3 */
-#define PIO1_2_FUN_CT32B1_MAT1     3     /** Selects function CT32B1_MAT1 */
-
-#define PIO1_3_FUN_SWDIO           0     /** Selects function SWDIO */
-#define PIO1_3_FUN_PIO             1     /** Selects function PIO */
-#define PIO1_3_FUN_AD4             2     /** Selects function AD4 */
-#define PIO1_3_FUN_CT32B1_MAT2     3     /** Selects function CT32B1_MAT2 */
-
-#define PIO1_4_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_4_FUN_AD5             1     /** Selects function AD5 */
-#define PIO1_4_FUN_CT32B1_MAT3     2     /** Selects function CT32B1_MAT3 */
-
-#define PIO1_5_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_5_FUN_RTS             1     /** Selects function RTS */
-#define PIO1_5_FUN_CT32B0_CAP0     2     /** Selects function CT32B0_CAP0 */
-
-#define PIO1_6_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_6_FUN_RXD             1     /** Selects function RXD */
-#define PIO1_6_FUN_CT32B0_MAT0     2     /** Selects function CT32B0_MAT0 */
-
-#define PIO1_7_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_7_FUN_TXD             1     /** Selects function TXD */
-#define PIO1_7_FUN_CT32B0_MAT1     2     /** Selects function MAT1 */
-
-#define PIO1_8_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_8_FUN_CT16B1_CAP0     1     /** Selects function CT16B1_CAP0 */
-
-#define PIO1_9_FUN_PIO             0     /** Selects function PIO */
-#define PIO1_9_FUN_CT16B1_MAT0     1     /** Selects function MAT0 */
-
-#define PIO1_10_FUN_PIO            0     /** Selects function PIO */
-#define PIO1_10_FUN_AD6            1     /** Selects function AD6 */
-#define PIO1_10_FUN_CT16B1_MAT1    2     /** Selects function CT16B1_MAT1 */
-
-#define PIO1_11_FUN_PIO            0     /** Selects function PIO */
-#define PIO1_11_FUN_AD7            1     /** Selects function AD7 */
-
-/************************************PORT2****************************************/
-#define PIO2_0_FUN_PIO             0     /** Selects function PIO */
-#define PIO2_0_FUN_DTR             1     /** Select function DTR */
-#define PIO2_0_FUN_SSEL1           2     /** Select function SSEL1 */
-
-#define PIO2_1_FUN_PIO             0     /** Selects function PIO */
-#define PIO2_1_FUN_DSR             1     /** Selects function DSR */
-#define PIO2_1_FUN_SCK1            2     /** Selects function SCK1 */
-
-#define PIO2_2_FUN_PIO             0     /** Selects function PIO */
-#define PIO2_2_FUN_DCD             1
-#define PIO2_2_FUN_MISO1           2
-
-#define PIO2_3_FUN_PIO_MOSI1       0     /** Selects function PIO */
-#define PIO2_3_FUN_RI              1
-
-#define PIO2_4_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO2_5_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO2_6_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO2_7_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO_2_8_FUN_PIO
-
-#define PIO2_9_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO2_10_FUN_PIO            0     /** Selects function PIO */
-
-#define PIO2_11_FUN_PIO            0     /** Selects function PIO */
-#define PIO2_11_FUN_SCK0           1     /** Selects function SCK0 */
-
-/************************************PORT3****************************************/
-#define PIO3_0_FUN_PIO             0     /** Selects function PIO */
-#define PIO3_0_FUN_DTR             1     /** Selects function DTR */
-
-#define PIO3_1_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO3_2_FUN_PIO             0     /** Selects function PIO */
-#define PIO3_2_FUN_DCD             1     /** Selects function DCD */
-
-
-#define PIO3_3_FUN_PIO             0     /** Selects function PIO */
-#define PIO3_3_FUN_RI              1     /** Selects function RI */
-
-#define PIO3_4_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO3_5_FUN_PIO             0     /** Selects function PIO */
-
-#define PIO_FUN_MASK               0x7
-
-
-#define IOCON_PIN_HYS_MASK         ((uint32_t)1<<5)
+#define FUNC0 0x0
+#define FUNC1 0x1
+#define FUNC2 0x2
+#define FUNC3 0x3
+#define FUNC4 0x4
+#define FUNC5 0x5
+#define FUNC6 0x6
+#define FUNC7 0x7
 
 namespace xpcc {
 namespace lpc11 {
 
 
-
-
-
-enum SCK0Position
-{
-    SCK0_PIO0_10 = 0,     /** Selects SCK0 function in pin location
-                              SWCLK/PIO0_10/SCK0/CT16B0_MAT2        */
-    SCK0_PIO2_11,         /** Selects SCK0 function in pin location PIO2_11/SCK0 */
-    SCK0_PIO0_6,          /** Selects SCK0 function in pin location PIO0_6/SCK0 */
-};
-
-/**
- * @brief DSR pin location enumeration
- */
-enum DSRPosition
-{
-    DSR_PIO2_1 = 0,      /** Selects DSR function in pin location PIO2_1/DSR/SCK1 */
-    DSR_PIO3_1,          /** Selects DSR function in pin location PIO3_1/DSR */
-};
-
-/**
- * @brief DCD pin location enumeration
- */
-enum DCDPosition
-{
-    DCD_PIO2_2 = 0,      /** Selects DCD function in pin location PIO2_2/DCD/MISO1 */
-    DCD_PIO3_2,          /** Selects DCD function in pin location PIO3_2/DCD */
-};
-
-/**
- * @brief RI pin location enumeration
- */
-enum RIPosition
-{
-    RI_PIO2_3 = 0,       /** Selects RI function in pin location PIO2_3/RI/MOSI1 */
-    RI_PIO3_3,           /** Selects RI function in pin location PIO3_3/RI */
-};
-
-/**
- * @brief Pin function mode enumeration (on-chip pull-up/pull-down resistor control)
- */
-enum PinMode
-{
-    PIN_MODE_Inactive = 0,    /** No pull-down/pull-up resistor enabled */
-    PIN_MODE_PullDown,        /** Pull-down resistor enabled */
-    PIN_MODE_PullUp,          /** Pull-up resistor enabled */
-    PIN_MODE_Repeater,        /** Repeater mode */
-};
-
-
-#define IOCON_PIN_MODE_MASK  ((uint32_t)3<<3)
-
-/**
- * @brief Pin function I2C mode
- */
-enum I2CMode
-{
-    I2CMODE_SF = 0,      /** Standard mode/ Fast-mode I2C  with input glitch filter
-                             (this includes an open-drain output according to the I
-                              2C-bus specification)*/
-
-    I2CMODE_SIO,         /** Standard open-drain I/O functionality without input filter */
-
-    I2CMODE_FP,          /** Fast-mode Plus with input glitch filter (this
-                             includes an open-drain output according to the I2C-bus
-                             specification). In this mode, the pins function as
-                             high-current sinks. */
-};
-
-#define IOCON_I2CMODE_MASK     ((uint32_t)0x3<<8)
-
-
 class IOCon {
 public:
-	/*********************************************************************//**
-	 * @brief 		Selects pin location for SCK0 pin
-	 * @param[in]	sck SCK0 pin position, it can be :
-	 *                -SCK_PIO0_10 : SWCLK/PIO0_10/SCK0/CT16B0_MAT2
-	 *                -SCK_PIO2_11 : PIO2_11/SCK0
-	 *                -SCK_PIO0_6  : PIO0_6/SCK0
-	 * @param[in]	None
-	 * @return 		None
-	 **********************************************************************/
+
+#if defined(__ARM_LPC11UXX__)
 	static void
 	ALWAYS_INLINE
-	SCK0Locate(SCK0Position sck)
+	setPinFunc(uint8_t port, uint8_t pin, uint8_t func)
 	{
-	    LPC_IOCON->SCK_LOC = sck;
+		uint32_t tmp;
+		if (port == 0) {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin];
+			tmp &= ~0b111;
+			tmp |= func;
+			((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin] = tmp;
+		}
+		else {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin];
+			tmp &= ~0b111;
+			tmp |= func;
+			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
+		}
 	}
 
-	/*********************************************************************//**
-	 * @brief 		Selects pin location for DSR pin
-	 * @param[in]	sck SCK0 pin position, it can be :
-	 *                -DSR_PIO2_1 : PIO2_1/DSR/SCK1
-	 *                -DSR_PIO3_1 : PIO3_1/DSR
-	 * @param[in]	None
-	 * @return 		None
-	 **********************************************************************/
 	static void
 	ALWAYS_INLINE
-	DSRLocate(DSRPosition dsr)
+	setPinMode(uint8_t port, uint8_t pin, uint8_t mode)
 	{
-
-	    LPC_IOCON->DSR_LOC = dsr;
+		uint32_t tmp;
+		if (port == 0) {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin];
+			tmp &= 0b111;
+			tmp |= mode;
+			((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin] = tmp;
+		}
+		else {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin];
+			tmp &= 0b111;
+			tmp |= mode;
+			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
+		}
 	}
-
-
-	/*********************************************************************//**
-	 * @brief 		Selects pin location for DCD pin
-	 * @param[in]	sck SCK0 pin position, it can be :
-	 *                -DCD_PIO2_2 : PIO2_2/DCD/MISO1
-	 *                -DCD_PIO3_2 : PIO3_2/DCD
-	 * @param[in]	None
-	 * @return 		None
-	 **********************************************************************/
-	static void ALWAYS_INLINE
-	IOCON_DCDLocate(DCDPosition dcd)
-	{
-	    LPC_IOCON->DCD_LOC = dcd;
-	}
-
-
-	/*********************************************************************//**
-	 * @brief 		Selects pin location for RI pin
-	 * @param[in]	sck RI pin position, it can be :
-	 *                -RI_PIO2_3 : PIO2_3/RI/MOSI1
-	 *                -RI_PIO3_3 : PIO3_3/RI
-	 * @param[in]	None
-	 * @return 		None
-	 **********************************************************************/
 	static void
 	ALWAYS_INLINE
-	IOCON_RILocate(RIPosition ri)
-	{
-	    LPC_IOCON->RI_LOC = ri;
+	setPinLoc(CHIP_IOCON_PIN_LOC_T sel)	{
 	}
-
-
-	/********************************************************************//**
-	 * @brief 		Enable or Disable the port interrupt in NVIC
-	 * @param[in]	pin specifies the pin, it can be
-	 *              IOCON_PIO0_0 - IOCON_PIO3_5
-	 * @param[in]	func, Selects pin function, it can be
-	 *              PIOx_x_FUN_xxx
-	 * @return		None
-	 *********************************************************************/
+#else
 	static void
 	ALWAYS_INLINE
-	setPinFunc(uint32_t pin, uint8_t func)
+	setPinFunc(uint8_t port, uint8_t pin, uint8_t func)
 	{
-	    uint32_t tmp;
-	    tmp = *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin);
-	    tmp &= ~PIO_FUN_MASK;
-	    tmp |= func & PIO_FUN_MASK;
-	    *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin) = tmp;
+		uint32_t tmp;
+
+		int offset=0;
+		if(port == 0) {
+			offset = iocon_offsets0[pin];
+		} else if(port == 1) {
+			offset = iocon_offsets1[pin];
+		} else if(port == 2) {
+			offset = iocon_offsets2[pin];
+		} else if(port == 3) {
+			offset = iocon_offsets3[pin];
+		}
+
+		tmp = *((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
+		tmp &= ~0b111;
+		tmp |= func;
+		*((uint32_t *) (((uint32_t) LPC_IOCON) + offset)) = tmp;
 	}
 
-
-	/********************************************************************//**
-	 * @brief 		Selects function mode (on-chip pull-up/pull-down resistor
-	 *               control).
-	 * @param[in]	pin specifies the pin, it can be
-	 *              IOCON_PIO0_0 - IOCON_PIO3_5
-	 * @param[in]	mod, Selects function mode, it can be
-	 *               -PIN_MODE_Inactive : No pull-down/pull-up resistor enabled
-	 *               -PIN_MODE_PullDown : Pull-down resistor enabled
-	 *               -PIN_MODE_PullUp   : Pull-up resistor enabled
-	 *               -PIN_MODE_Repeater : Repeater mode
-	 * @return		None
-	 *********************************************************************/
 	static void
 	ALWAYS_INLINE
-	setPinMode(uint32_t pin, PinMode mod)
+	setPinMode(uint8_t port, uint8_t pin, uint8_t mode)
 	{
-	    uint32_t tmp;
+		uint32_t tmp;
 
-	    tmp = *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin);
-	    tmp &= ~IOCON_PIN_MODE_MASK;
-	    tmp |= (mod<<3) & PIO_FUN_MASK;
-	    *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin) = tmp;
+		int offset=0;
+		if(port == 0) {
+			offset = iocon_offsets0[pin];
+		} else if(port == 1) {
+			offset = iocon_offsets1[pin];
+		} else if(port == 2) {
+			offset = iocon_offsets2[pin];
+		} else if(port == 3) {
+			offset = iocon_offsets3[pin];
+		}
+
+		tmp = *((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
+		tmp &= 0b111;
+		tmp |= mode;
+		*((uint32_t *) (((uint32_t) LPC_IOCON) + offset)) = tmp;
 	}
-
-
-	/********************************************************************//**
-	 * @brief 		Selects function mode (on-chip pull-up/pull-down resistor
-	 *               control).
-	 * @param[in]	pin specifies the pin, it can be
-	 *              IOCON_PIO0_0 - IOCON_PIO3_5
-	 * @param[in]	hys, Enable or Disable hysteresis
-	 *               -ENABLE
-	 *               -DISABLE
-	 * @return		None
-	 *********************************************************************/
 	static void
 	ALWAYS_INLINE
-	setPinHys(uint32_t pin, bool hys)
-	{
-	    uint32_t tmp;
-
-	    tmp = *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin);
-
-	    if(hys) {
-	        tmp &= ~IOCON_PIN_HYS_MASK;
-	    } else {
-	        tmp |= IOCON_PIN_HYS_MASK;
-	    }
-
-	    *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin) = tmp;
+	setPinLoc(CHIP_IOCON_PIN_LOC_T sel)	{
+		*((uint32_t *) (((uint32_t) LPC_IOCON) + (sel >> 2))) = sel & 0x03;
 	}
+#endif
 
-
-	/********************************************************************//**
-	 * @brief 		Selects I2C mode , only for pins SDA and SCL
-	 * @param[in]	pin specifies the pin, it can be
-	 *              IOCON_PIO0_0 - IOCON_PIO3_5
-	 * @param[in]	mod, i2c mode, it can be
-	 *               -I2CMODE_SF  : Standard mode/ Fast-mode I2C
-	 *               -I2CMODE_SIO : Standard I/O functionality
-	 *               -I2CMODE_FP  : Fast-mode Plus I2C
-	 * @return		None
-	 *********************************************************************/
-	static void
-	ALWAYS_INLINE
-	setI2CMode(uint32_t pin, I2CMode mod)
-	{
-	    uint32_t tmp;
-
-
-	    tmp = *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin);
-
-	    tmp &= ~IOCON_I2CMODE_MASK;
-
-	    tmp |=  ((uint32_t)mod<<8) & IOCON_I2CMODE_MASK;
-
-	    *(uint32_t *)((uint32_t)&(LPC_IOCON->PIO2_6) + pin) = tmp;
-	}
 
 
 };

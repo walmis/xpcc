@@ -9,6 +9,7 @@
 #define DEBUG_HPP_
 
 #include <xpcc/debug.hpp>
+#include <xpcc/workflow.hpp>
 #include <lpc17xx/cmsis/LPC17xx.h>
 
 #define PROFILE() xpcc::Profiler __profiler__(__FUNCTION__)

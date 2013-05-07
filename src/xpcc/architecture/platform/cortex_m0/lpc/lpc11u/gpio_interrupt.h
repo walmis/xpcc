@@ -9,7 +9,7 @@
 #define GPIO_INTERRUPT_H_
 
 #include <xpcc/architecture.hpp>
-#include <lpc11xx/cmsis/LPC11xx.h>
+#include <xpcc/debug.hpp>
 
 namespace xpcc {
 
@@ -25,9 +25,10 @@ enum class IntEdge {
 
 enum class IntEvent {
 	RISING_EDGE = 0,
-	FALLING_EDGE = 1
+	FALLING_EDGE = 1,
+	LEVEL_HIGH = 0,
+	LEVEL_LOW = 1
 };
-
 
 class GpioInterrupt {
 public:
@@ -35,43 +36,34 @@ public:
 	// contains all provided predicates
 	static ALWAYS_INLINE
 	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEvent edge) {
+		if(irqn >= FLEX_INT0_IRQn && irqn <= FLEX_INT7_IRQn) {
+			uint8_t num = (port == 1) ? 24 + pin : pin;
 
-		if(port == 0 && irqn == EINT0_IRQn) {
-			if(LPC_GPIO0->MIS & (1 << pin)) {
-				LPC_GPIO0->IC |= (1<<pin);
+			if(LPC_SYSCON->PINTSEL[irqn] == num) {
+
+				LPC_GPIO_PIN_INT->IST |= 1<<irqn;
 				return true;
 			}
-		} else if(port == 1 && irqn ==  EINT1_IRQn) {
-			if(LPC_GPIO1->MIS & (1 << pin)) {
-				LPC_GPIO1->IC |= (1<<pin);
-				return true;
-			}
-		} else if(port == 2 && irqn == EINT2_IRQn) {
-			if(LPC_GPIO2->MIS & (1 << pin)) {
-				LPC_GPIO2->IC |= (1<<pin);
-				return true;
-			}
-		} else if(port == 3 && irqn == EINT3_IRQn) {
-			if(LPC_GPIO3->MIS & (1 << pin)) {
-				LPC_GPIO3->IC |= (1<<pin);
-				return true;
-			}
+
 		}
+
 		return false;
 	}
 
 	static void enableGlobalInterrupts() {
-		NVIC_EnableIRQ(EINT0_IRQn);
-		NVIC_EnableIRQ(EINT1_IRQn);
-		NVIC_EnableIRQ(EINT2_IRQn);
-		NVIC_EnableIRQ(EINT3_IRQn);
+		for(int pinNum = 0; pinNum < 8; pinNum++) {
+			if(LPC_SYSCON->PINTSEL[pinNum] != 0) {
+				//XPCC_LOG_DEBUG .printf("gpio irq en %d\n", pinNum);
+				NVIC_EnableIRQ((IRQn_Type)(FLEX_INT0_IRQn + pinNum));
+
+			}
+		}
 	}
 
 	static void disableGlobalInterrupts() {
-		NVIC_DisableIRQ(EINT0_IRQn);
-		NVIC_DisableIRQ(EINT1_IRQn);
-		NVIC_DisableIRQ(EINT2_IRQn);
-		NVIC_DisableIRQ(EINT3_IRQn);
+		for(int pinNum = 0; pinNum < 8; pinNum++) {
+			NVIC_DisableIRQ((IRQn_Type)(FLEX_INT0_IRQn + pinNum));
+		}
 	}
 
 	static ALWAYS_INLINE
@@ -79,96 +71,79 @@ public:
 			IntSense::EDGE, IntEdge edge = IntEdge::SINGLE, IntEvent event =
 			IntEvent::RISING_EDGE) {
 
-		uint32_t pin_msk = 1 << pin;
-		switch (port) {
-		case 0:
-			LPC_GPIO0->IE |= pin_msk;
+		LPC_SYSCON->SYSAHBCLKCTRL |= (1<<19); //enable clock to GPIOINT block
 
-			if (sense == IntSense::EDGE) {
-				LPC_GPIO0 ->IS &= ~(pin_msk);
-				/* edge or double only applies when sense is 0(edge trigger). */
-				if (edge == IntEdge::SINGLE)
-					LPC_GPIO0 ->IBE &= ~(pin_msk);
-				else
-					LPC_GPIO0 ->IBE |= (pin_msk);
-			} else
-				LPC_GPIO0 ->IS |= (pin_msk);
-			if (event == IntEvent::FALLING_EDGE)
-				LPC_GPIO0 ->IEV &= ~(pin_msk);
-			else
-				LPC_GPIO0 ->IEV |= (pin_msk);
-			break;
-		case 1:
-			LPC_GPIO1->IE |= pin_msk;
-			if (sense == IntSense::EDGE) {
-				LPC_GPIO1 ->IS &= ~(pin_msk);
-				/* edge or double only applies when sense is 0(edge trigger). */
-				if (edge == IntEdge::SINGLE)
-					LPC_GPIO1 ->IBE &= ~(pin_msk);
-				else
-					LPC_GPIO1 ->IBE |= (pin_msk);
-			} else
-				LPC_GPIO1 ->IS |= (pin_msk);
-			if (event == IntEvent::FALLING_EDGE)
-				LPC_GPIO1 ->IEV &= ~(pin_msk);
-			else
-				LPC_GPIO1 ->IEV |= (pin_msk);
-			break;
-		case 2:
-			LPC_GPIO2->IE |= pin_msk;
-			if (sense == IntSense::EDGE) {
-				LPC_GPIO2 ->IS &= ~(pin_msk);
-				/* edge or double only applies when sense is 0(edge trigger). */
-				if (edge == IntEdge::SINGLE)
-					LPC_GPIO2 ->IBE &= ~(pin_msk);
-				else
-					LPC_GPIO2 ->IBE |= (pin_msk);
-			} else
-				LPC_GPIO2 ->IS |= (pin_msk);
-			if (event == IntEvent::FALLING_EDGE)
-				LPC_GPIO2 ->IEV &= ~(pin_msk);
-			else
-				LPC_GPIO2 ->IEV |= (pin_msk);
-			break;
-		case 3:
-			LPC_GPIO3->IE |= pin_msk;
-			if (sense == IntSense::EDGE) {
-				LPC_GPIO3 ->IS &= ~(pin_msk);
-				/* edge or double only applies when sense is 0(edge trigger). */
-				if (edge == IntEdge::SINGLE)
-					LPC_GPIO3 ->IBE &= ~(pin_msk);
-				else
-					LPC_GPIO3 ->IBE |= (pin_msk);
-			} else
-				LPC_GPIO3 ->IS |= (pin_msk);
-			if (event == IntEvent::FALLING_EDGE)
-				LPC_GPIO3 ->IEV &= ~(pin_msk);
-			else
-				LPC_GPIO3 ->IEV |= (pin_msk);
-			break;
-		default:
-			break;
+		uint8_t pinIdx = 24*port + pin;
+		int irqNum = 0;
+
+		for(irqNum = 0; irqNum < 8; irqNum++) {
+			if(LPC_SYSCON->PINTSEL[irqNum] == pinIdx) {
+				disableInterrupt(port, pin);
+				break;
+			}
 		}
+
+		for(irqNum = 0; irqNum < 8; irqNum++) {
+			if(LPC_SYSCON->PINTSEL[irqNum] == 0) {
+				break;
+			}
+		}
+
+		//XPCC_LOG_DEBUG .printf("gpio pinnum irqNum:%d pin:%d\n", irqNum, pinIdx);
+
+		LPC_SYSCON->PINTSEL[irqNum] = pinIdx;
+
+		if(sense == IntSense::LEVEL) {
+			LPC_GPIO_PIN_INT->ISEL |= 1<<irqNum;
+
+			if(event == IntEvent::LEVEL_HIGH) {
+				LPC_GPIO_PIN_INT->IENF |= 1<<irqNum;
+				LPC_GPIO_PIN_INT->IENR |= 1<<irqNum;
+				LPC_GPIO_PIN_INT->SIENF |= 1<<irqNum;
+			} else {
+				LPC_GPIO_PIN_INT->IENF &= ~(1<<irqNum);
+				LPC_GPIO_PIN_INT->IENR |= 1<<irqNum;
+				LPC_GPIO_PIN_INT->CIENF |= 1<<irqNum;
+			}
+
+		} else {
+			LPC_GPIO_PIN_INT->ISEL &= ~(1<<irqNum);
+
+			if(edge == IntEdge::DOUBLE) {
+				//XPCC_LOG_DEBUG .printf("double edge\n");
+				LPC_GPIO_PIN_INT->IENR |= 1<<irqNum;
+				LPC_GPIO_PIN_INT->IENF |= 1<<irqNum;
+			} else {
+				if(event == IntEvent::RISING_EDGE) {
+					LPC_GPIO_PIN_INT->IENR |= 1<<irqNum;
+					//XPCC_LOG_DEBUG .printf("rising enable %x\n", LPC_GPIO_PIN_INT->IENR);
+				} else {
+					XPCC_LOG_DEBUG .printf("falling enable\n");
+					LPC_GPIO_PIN_INT->IENF |= 1<<irqNum;
+				}
+			}
+		}
+
 	}
 
-	static ALWAYS_INLINE void disableInterrupt(uint8_t port, uint8_t pin) {
-		switch (port) {
-		case 0:
-			LPC_GPIO0 ->IE &= ~(0x1 << pin);
-			break;
-		case 1:
-			LPC_GPIO1 ->IE &= ~(0x1 << pin);
-			break;
-		case 2:
-			LPC_GPIO2 ->IE &= ~(0x1 << pin);
-			break;
-		case 3:
-			LPC_GPIO3 ->IE &= ~(0x1 << pin);
-			break;
-		default:
-			break;
+	static ALWAYS_INLINE
+	void disableInterrupt(uint8_t port, uint8_t pin) {
+
+		uint8_t PinIdx = 24*port + pin;
+		for(int irqNum = 0; irqNum < 8; irqNum++) {
+
+			if(LPC_SYSCON->PINTSEL[irqNum] == PinIdx) {
+				NVIC_DisableIRQ((IRQn_Type)(FLEX_INT0_IRQn + irqNum));
+
+				LPC_SYSCON->PINTSEL[irqNum] = 0;
+
+				LPC_GPIO_PIN_INT->IENR &= ~(1<<irqNum);
+				LPC_GPIO_PIN_INT->IENF &= ~(1<<irqNum);
+				LPC_GPIO_PIN_INT->ISEL &= ~(1<<irqNum);
+
+				return;
+			}
 		}
-		return;
 	}
 
 

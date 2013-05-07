@@ -36,18 +36,18 @@
 // All these pins are not GPIOs as default.
 // Some special handling is necessary.
 // To use them as GPIO the LPC_IOCON register must be set.
-#define PIO0_0		RESET_PIO0_0
-#define PIO0_10		SWCLK_PIO0_10
-#define PIO0_11		R_PIO0_11
+#define PIO0_0	   RESET_PIO0_0
+#define PIO0_10    SWCLK_PIO0_10
+#define PIO0_11    TDI_PIO0_11
+#define PIO0_12    TMS_PIO0_12
+#define PIO0_13    TDO_PIO0_13
+#define PIO0_14    TRST_PIO0_14
+#define PIO0_15    SWDIO_PIO0_15
 
-#define PIO1_0		R_PIO1_0
-#define PIO1_1		R_PIO1_1
-#define PIO1_2		R_PIO1_2
-#define PIO1_3		SWDIO_PIO1_3
-
-#define SWITCH_PINS_PORT0  (pin == 0 || pin == 10 || pin == 11 || \
+#define SWITCH_PINS_PORT0(pin)  (pin == 0 || pin == 10 || pin == 11 || \
 							pin == 12 || pin == 13 || pin == 14 || pin == 15)
-#define SWITCH_PINS_PORT1  (0)
+
+#define SWITCH_PINS_PORT1(pin)  0
 
 /*
  * 12-bit ports.
@@ -95,29 +95,24 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
 			if(port == 1) { \
-				if(SWITCH_PINS_PORT1) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
+				if(SWITCH_PINS_PORT1(pin)) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
 			if(port == 0) { \
-				if(SWITCH_PINS_PORT0) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
+				if(SWITCH_PINS_PORT0(pin)) { \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
+			LPC_GPIO->DIR[port] |= 1 << pin;\
 		} \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
 			if(port == 1) { \
-				if(SWITCH_PINS_PORT1) { \
+				if(SWITCH_PINS_PORT1(pin)) { \
 					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
 					temp &= ~0x7; \
 					temp |= 1; \
@@ -125,7 +120,7 @@ namespace xpcc
 				}\
 			}\
 			if(port == 0) { \
-				if(SWITCH_PINS_PORT0) { \
+				if(SWITCH_PINS_PORT0(pin)) { \
 					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
 					temp &= ~0x7; \
 					temp |= 1; \
@@ -134,13 +129,13 @@ namespace xpcc
 			}\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
+			LPC_GPIO->DIR[port] &= ~(1 << pin); \
 		} \
-		ALWAYS_INLINE static void set()    { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
-		ALWAYS_INLINE static void reset()  { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = 0;          } \
-		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } } \
+		ALWAYS_INLINE static void set()            { LPC_GPIO->SET[port] = 1 << pin; } \
+		ALWAYS_INLINE static void reset()          { LPC_GPIO->CLR[port] = 1 << pin; } \
+		ALWAYS_INLINE static void toggle()         { LPC_GPIO->NOT[port] = 1 << pin; } \
 		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } } \
-		ALWAYS_INLINE static bool read()           { return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; } \
+		ALWAYS_INLINE static bool read()           { return (LPC_GPIO->PIN[port] >> pin) & 1; } \
 	}
 
 /**
@@ -176,26 +171,26 @@ namespace xpcc
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
 			if(port == 1) { \
-				if(SWITCH_PINS_PORT1) { \
+				if(SWITCH_PINS_PORT1(pin)) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
 			if(port == 0) { \
-				if(SWITCH_PINS_PORT0) { \
+				if(SWITCH_PINS_PORT0(pin)) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
+			LPC_GPIO->DIR[port] |= 1 << pin;\
 		} \
-		ALWAYS_INLINE static void set()            { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
-		ALWAYS_INLINE static void reset()          { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = 0;          } \
-		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } } \
+		ALWAYS_INLINE static void set()            { LPC_GPIO->SET[port] = 1 << pin; } \
+		ALWAYS_INLINE static void reset()          { LPC_GPIO->CLR[port] = 1 << pin; } \
+		ALWAYS_INLINE static void toggle()         { LPC_GPIO->NOT[port] = 1 << pin;  } \
 		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } } \
 	protected: \
 		ALWAYS_INLINE static bool \
 		read() { \
-			return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; \
+			return (LPC_GPIO->PIN[port] >> pin) & 1; \
 		} \
 	}
 
@@ -224,23 +219,29 @@ namespace xpcc
 		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
 			if(port == 1) { \
-				if(SWITCH_PINS_PORT1) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				if(SWITCH_PINS_PORT1(pin)) { \
+					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
+					temp &= ~0x7; \
+					temp |= 1; \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
 				}\
 			}\
 			if(port == 0) { \
-				if(SWITCH_PINS_PORT0) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
+				if(SWITCH_PINS_PORT0(pin)) { \
+					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
+					temp &= ~0x7; \
+					temp |= 1; \
+					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
 				}\
 			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
+			LPC_GPIO->DIR[port] &= ~(1 << pin); \
 		} \
 		ALWAYS_INLINE static bool \
 		read() { \
-			return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; \
+			return (LPC_GPIO->PIN[port] >> pin) & 1;\
 		} \
 	}
 
@@ -315,4 +316,5 @@ namespace xpcc
 	} // gpio namespace
 } // xpcc namespace
 
+#undef PIO0_10
 #endif // XPCC_LPC11XX__GPIO_HPP

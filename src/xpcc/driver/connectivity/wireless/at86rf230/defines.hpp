@@ -61,7 +61,7 @@ enum class TracStatus
 enum Timings
 	: uint32_t {
 		TIME_TO_ENTER_P_ON = 510, /**<  Transition time from VCC is applied to P_ON. */
-		TIME_P_ON_TO_TRX_OFF = 510, /**<  Transition time from P_ON to TRX_OFF. */
+		TIME_P_ON_TO_TRX_OFF = 880, /**<  Transition time from P_ON to TRX_OFF. */
 		TIME_SLEEP_TO_TRX_OFF = 880, /**<  Transition time from SLEEP to TRX_OFF. */
 		TIME_RESET = 6, /**<  Time to hold the RST pin low during reset */
 		TIME_ED_MEASUREMENT = 140, /**<  Time it takes to do a ED measurement. */

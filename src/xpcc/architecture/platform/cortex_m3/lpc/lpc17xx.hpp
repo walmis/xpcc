@@ -36,8 +36,8 @@
 
 #include "systick_timer.hpp"
 
-#include "USBDevice/USBDevice/USBDevice.h"
-#include "USBDevice/USBSerial/USBSerial.h"
+#include "usb/USBEndpoints_LPC17_LPC23.h"
+
 
 #include "spi/spi_0.hpp"
 #include "spi/spi_1.hpp"

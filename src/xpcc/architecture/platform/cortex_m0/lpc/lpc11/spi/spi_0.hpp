@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <xpcc/driver/connectivity/spi/spi_master.hpp>
 
-#include "spi_registers.h"
+#include "../../spi_registers.h"
 namespace xpcc
 {
 	namespace lpc

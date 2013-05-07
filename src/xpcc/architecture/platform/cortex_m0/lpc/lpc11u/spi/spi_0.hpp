@@ -5,8 +5,8 @@
  */
 // ----------------------------------------------------------------------------
 
-#ifndef XPCC_LPC11__SPI_1_HPP
-#define XPCC_LPC11__SPI_1_HPP
+#ifndef XPCC_LPC11__SPI_0_HPP
+#define XPCC_LPC11__SPI_0_HPP
 
 #include <stdint.h>
 #include <xpcc/driver/connectivity/spi/spi_master.hpp>
@@ -17,7 +17,7 @@ namespace xpcc
 	namespace lpc
 	{
 		/**
-		 * \brief	Serial peripheral interface (SPI1)
+		 * \brief	Serial peripheral interface (SPI0)
 		 *
 		 * As the NXP peripherals provide a hardware buffer, this
 		 * implementation is already bufferd.
@@ -33,7 +33,7 @@ namespace xpcc
 		 * \ingroup	lpc1100
 		 *
 		 */
-		class SpiMaster1 : public xpcc::SpiMaster
+		class SpiMaster0 : public xpcc::SpiMaster
 		{
 		public:
 			enum class TransferSize
@@ -205,25 +205,85 @@ namespace xpcc
 
 			enum class MappingSck
 			{
-			PIO2_1 = 0,			///< Selects SCK1 function in PIO2_1. No choice possible.
+				PIO0_6  = 0,
+				PIO0_10 = 1,
+				PIO1_29 = 2,
 			};
 
 			static void
+			ALWAYS_INLINE
 			configurePins(
-					MappingSck mapping = xpcc::lpc::SpiMaster1::MappingSck::PIO2_1,
-					bool useSsel = false);
+					MappingSck mapping = xpcc::lpc::SpiMaster0::MappingSck::PIO0_6,
+					bool useSsel = false) {
+
+				// Deassert Reset
+				LPC_SYSCON->PRESETCTRL 		|= PRESETCTRL_SSP0_RST_N;
+
+				// Enable peripheral clock
+				LPC_SYSCON->SYSAHBCLKCTRL	|= SYSAHBCLKCTRL_SSP0;
+
+				// Divide peripheral clock by 1
+				LPC_SYSCON->SSP0CLKDIV = 0x01;
+
+				// MISO at PIO0_8 and MOSI at PIO0_9
+				xpcc::lpc11::IOCon::setPinFunc(0, 8, 1);
+				xpcc::lpc11::IOCon::setPinFunc(0, 9, 1);
+
+				// For SPI0 SCK0 can be at PIO0_6, PIO0_10 or PIO2_11
+				switch (mapping)
+				{
+				case MappingSck::PIO0_6:
+					xpcc::lpc11::IOCon::setPinFunc(0, 6, 2);
+					break;
+				case MappingSck::PIO0_10:
+					xpcc::lpc11::IOCon::setPinFunc(0, 10, 2);
+					break;
+				case MappingSck::PIO1_29:
+					xpcc::lpc11::IOCon::setPinFunc(1, 29, 1);
+					break;
+				}
+
+				if (useSsel) {
+					xpcc::lpc11::IOCon::setPinFunc(0, 2, 1);
+				}
+
+
+			}
 
 		public:
 			/**
 			 * @brief	Initialize SPI module
 			 */
 			static void
+			ALWAYS_INLINE
 			initialize(
 					Mode mode = Mode::MODE_0,
 					Presacler prescaler = Presacler::DIV002,
 					uint8_t serialClockRate = 7,
 					TransferSize transferSize = TransferSize::BIT_08,
-					FrameFormat frameFormat = FrameFormat::SPI);
+					FrameFormat frameFormat = FrameFormat::SPI) {
+
+				// Control register 0
+				LPC_SSP0->CR0 = (serialClockRate << 8) |
+						 (static_cast<uint16_t>(mode)) |
+						((static_cast<uint16_t>(frameFormat)) << 4) |
+						((static_cast<uint16_t>(transferSize)) << 0);
+
+				// Clock prescale register
+				LPC_SSP0->CPSR = static_cast<uint8_t>(prescaler);
+
+				for (uint8_t ii = 0; ii < fifoSize; ++ii)
+				{
+				  uint16_t Dummy = LPC_SSP0->DR;		/* clear the RxFIFO */
+				  (void)Dummy; // unused
+				}
+
+				/* TODO Enable the SSP Interrupt */
+
+				// Enable SPI0 in master mode
+				LPC_SSP0->CR1 = SPI_CR1_SSE;
+
+			}
 
 			/**
 			 * \brief	Write a single byte with the SPI.
@@ -257,4 +317,4 @@ namespace xpcc
 		};
 	} // lpc namespace
 } // xpcc namespace
-#endif // XPCC_LPC11__SPI_1_HPP
+#endif // XPCC_LPC11__SPI_0_HPP

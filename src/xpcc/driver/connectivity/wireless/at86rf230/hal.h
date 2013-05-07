@@ -30,7 +30,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <xpcc/architecture.hpp>
-
+#include <xpcc/workflow.hpp>
 #include <xpcc/driver/connectivity/wireless/mac802.15.4/mac.hpp>
 
 #include "defines.hpp"
@@ -256,6 +256,13 @@ public:
 
 	static RadioStatus setTrxState(TRXState state);
 
+	static void setCLKM(CLKMClkCmd cmd, bool immediate = true) {
+		if(immediate)
+			Reg::CLKM_SHA_SEL = 0;
+		Reg::CLKM_CTRL = (int)cmd;
+		Reg::CLKM_SHA_SEL = 1;
+	}
+
 };
 
 //#include "hal_impl.hpp"
@@ -386,10 +393,12 @@ inline void Hal<Spi, rst, cs, slp_tr>::subregisterWrite(uint8_t address,
 /**< Mask for the PLL_LOCK interrupt. */
 template<typename Spi, typename rst, typename cs, typename slp_tr>
 inline void Hal<Spi, rst, cs, slp_tr>::reset() {
+	cs::set(1);
 	rst::set(0);
 	slp_tr::set(0);
 	xpcc::delay_us(Timings::TIME_RESET);
 	rst::set(1);
+	xpcc::delay_us(100);
 }
 
 /**< Mask for the PLL_LOCK interrupt. */
@@ -510,9 +519,17 @@ RadioStatus rf230::Hal<Spi, rst, cs, slp_tr>::setTrxState(TRXState state) {
 
 	xpcc::delay_us(delay);
 
+
 	if (getTrxState() == state) {
-		return RadioStatus::SUCCESS;
+			return RadioStatus::SUCCESS;
 	}
+	xpcc::Timeout<> t(10);
+	while(!t.isExpired()) {
+		if (getTrxState() == state) {
+			return RadioStatus::SUCCESS;
+		}
+	}
+
 	XPCC_LOG_DEBUG .printf("State transition to %d failed (%d)\n", state, getTrxState());
 	return RadioStatus::TIMED_OUT;
 }

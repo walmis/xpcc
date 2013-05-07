@@ -203,6 +203,10 @@ public:
 
 	}
 
+	void setCLKM(CLKMClkCmd cmd, bool immediate = true) {
+		HAL::setCLKM(cmd, immediate);
+	}
+
 	//upload a frame and transfer it, if blocking is true block until frame
 	//is transferred and return status
 	RadioStatus sendFrame(const Frame &frame, bool blocking = false) {
@@ -290,9 +294,10 @@ void Driver<Spi, rst, cs, slp_tr, irq>::init() {
 	XPCC_LOG_DEBUG << "Initializing AT86RF230 Driver\n";
 
 	hal.init();
+
 	hal.reset();
 
-	delay_us(500);
+	delay_us(1000);
 
 	uint8_t partnum = (int)HAL::Reg::PART_NUM;
 

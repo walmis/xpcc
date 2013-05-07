@@ -25,8 +25,6 @@
 
 namespace xpcc {
 
-namespace lpc17 {
-
 
 class USBDevice: public USBHAL
 {
@@ -271,7 +269,6 @@ private:
     uint8_t currentAlternate;
 };
 
-}
 }
 
 #endif

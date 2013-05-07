@@ -14,6 +14,14 @@
 
 // Chapter 12: General Purpose I/O (GPIO)
 #include "gpio.hpp"
+#include "../iocon.hpp"
+
+#include "spi/spi_0.hpp"
+#include "spi/spi_1.hpp"
+
+#include "usb/USBEndpoints_LPC11U.h"
+
+#include "gpio_interrupt.h"
 
 // Chapter 13: UART
 #include "../uart/uart_1.hpp"

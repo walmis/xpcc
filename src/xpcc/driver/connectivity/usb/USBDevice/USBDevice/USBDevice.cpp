@@ -18,11 +18,13 @@
 
 #include "stdint.h"
 
+#include <xpcc/architecture.hpp>
+
 #include "USBEndpoints.h"
 #include "USBDevice.h"
 #include "USBDescriptor.h"
 
-using namespace xpcc::lpc17;
+using namespace xpcc;
 
 //#define DEBUG
 
@@ -710,7 +712,7 @@ void USBDevice::connect(void)
     /* Connect device */
     USBHAL::connect();
     /* Block if not configured */
-    while (!configured());
+    //while (!configured());
 }
 
 void USBDevice::disconnect(void)

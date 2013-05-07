@@ -12,7 +12,7 @@
 #include <lpc11xx/cmsis/LPC11xx.h>
 
 #include "timer_defs.hpp"
-#include "../iocon.hpp"
+#include "iocon.hpp"
 
 
 #define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
@@ -111,63 +111,7 @@ public:
 
 		static void
 		ALWAYS_INLINE
-		assignMatchPins(MatchPins matchPins)	{
-
-		    // 16-bit counter/timer 0 external Match Output
-		    if (TIMER == LPC_TMR16B0) {
-		        switch(matchPins) {
-		        case MatchPins::PINS_MAT0:
-		            IOCon::setPinFunc(IOCON_PIO0_8, PIO0_8_FUN_CT16B0_MAT0); break;
-		        case MatchPins::PINS_MAT1:
-		            IOCon::setPinFunc(IOCON_PIO0_9, PIO0_9_FUN_CT16B0_MAT1); break;
-		        case MatchPins::PINS_MAT2:
-		            IOCon::setPinFunc(IOCON_PIO0_10, PIO0_10_FUN_CT16B0_MAT2); break;
-		        case MatchPins::PINS_MAT3:
-		            break;
-		        }
-
-		    // 16-bit counter/timer 1 external Match Output
-		    } else
-		    if (TIMER == LPC_TMR16B1) {
-		        switch(matchPins) {
-		        case MatchPins::PINS_MAT0:
-		            IOCon::setPinFunc(IOCON_PIO1_9, PIO1_9_FUN_CT16B1_MAT0); break;
-		        case MatchPins::PINS_MAT1:
-		            IOCon::setPinFunc(IOCON_PIO1_10, PIO1_10_FUN_CT16B1_MAT1); break;
-		        case MatchPins::PINS_MAT2:
-		        case MatchPins::PINS_MAT3:
-		            break;
-		        }
-
-		    // 32-bit counter/timer 0 external Match Output
-		    } else
-		    if (TIMER == LPC_TMR32B0) {
-		        switch(matchPins) {
-		        case MatchPins::PINS_MAT0:
-		            IOCon::setPinFunc(IOCON_PIO1_6, PIO1_6_FUN_CT32B0_MAT0); break;
-		        case MatchPins::PINS_MAT1:
-		            IOCon::setPinFunc(IOCON_PIO1_7, PIO1_7_FUN_CT32B0_MAT1); break;
-		        case MatchPins::PINS_MAT2:
-		            IOCon::setPinFunc(IOCON_PIO0_1, PIO0_1_FUN_CT32B0_MAT2); break;
-		        case MatchPins::PINS_MAT3:
-		            IOCon::setPinFunc(IOCON_PIO0_11, PIO0_11_FUN_CT32B0_MAT3); break;
-		       }
-
-		    // 32-bit counter/timer 1 external Match Output
-		    } else
-		    if (TIMER == LPC_TMR32B1) {
-		        switch(matchPins) {
-		        case MatchPins::PINS_MAT0:
-		            IOCon::setPinFunc(IOCON_PIO1_1, PIO1_1_FUN_CT32B1_MAT0); break;
-		        case MatchPins::PINS_MAT1:
-		            IOCon::setPinFunc(IOCON_PIO1_2, PIO1_2_FUN_CT32B1_MAT1); break;
-		        case MatchPins::PINS_MAT2:
-		            IOCon::setPinFunc(IOCON_PIO1_3, PIO1_3_FUN_CT32B1_MAT2); break;
-		        case MatchPins::PINS_MAT3:
-		            IOCon::setPinFunc(IOCON_PIO1_4, PIO1_4_FUN_CT32B1_MAT3); break;
-		       }
-		    }
-		}
+		assignMatchPins(MatchPins matchPins);
 
 
 		static void
@@ -488,22 +432,8 @@ public:
 		 **********************************************************************/
 		static void
 		ALWAYS_INLINE
-		enableCapturePins()
-		{
+		enableCapturePins();
 
-		    if (TIMER == LPC_TMR16B0) {  /** CT16B0_CAP0 */
-		        IOCon::setPinFunc(IOCON_PIO0_2, PIO0_2_FUN_CT16B0_CAP0);
-
-		    } else if (TIMER == LPC_TMR16B1) {  /** CT16B1_CAP0 */
-		        IOCon::setPinFunc(IOCON_PIO1_8, PIO1_8_FUN_CT16B1_CAP0);
-
-		    } else if (TIMER == LPC_TMR32B0) {  /** CT32B0_CAP0 */
-		        IOCon::setPinFunc(IOCON_PIO1_5, PIO1_5_FUN_CT32B0_CAP0);
-
-		    } else if (TIMER == LPC_TMR32B1) {  /** CT32B1_CAP0 */
-		        IOCon::setPinFunc(IOCON_PIO1_0, PIO1_0_FUN_CT32B1_CAP0);
-		    }
-		}
 private:
 		static uint32_t TIM_ConverUSecToVal (uint32_t usec)
 		{
@@ -523,6 +453,7 @@ typedef Timer<(int)LPC_TMR16B0> Timer16B0;
 typedef Timer<(int)LPC_TMR16B1> Timer16B1;
 typedef Timer<(int)LPC_TMR32B0> Timer32B0;
 typedef Timer<(int)LPC_TMR32B1> Timer32B1;
+
 
 }
 }

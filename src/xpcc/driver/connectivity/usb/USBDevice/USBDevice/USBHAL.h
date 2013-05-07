@@ -22,8 +22,6 @@
 #include <xpcc/workflow.hpp>
 
 namespace xpcc {
-namespace lpc17 {
-
 
 class USBHAL : xpcc::TickerTask {
 public:
@@ -77,7 +75,7 @@ protected:
     virtual bool EP4_OUT_callback(){return false;};
     virtual bool EP4_IN_callback(){return false;};
     
-#if !defined(TARGET_LPC11U24)
+#ifndef __ARM_LPC11UXX__
     virtual bool EP5_OUT_callback(){return false;};
     virtual bool EP5_IN_callback(){return false;};
     virtual bool EP6_OUT_callback(){return false;};
@@ -105,17 +103,9 @@ protected:
 private:
     void usbisr(void);
     void handleInterrupt(int irqn) override;
-    //static void _usbisr(void);
-    //static USBHAL * instance;
 
-#if defined(TARGET_LPC11U24)
-        //const bool (USBHAL::*epCallback[10 - 2])(void);
-#else
-        //bool (USBHAL::*epCallback[30])(void);
-#endif
 
 };
 
-}
 }
 

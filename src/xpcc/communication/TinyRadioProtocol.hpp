@@ -18,7 +18,7 @@
 
 #define BEACON_INTERVAL 1000
 #define PROTO_HEADER 0x5
-#define REQUEST_TIMEOUT 500
+#define REQUEST_TIMEOUT 150
 #define NUM_RETRIES 12
 
 #ifndef NODE_TIMEOUT
@@ -529,6 +529,8 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 //							payload + sizeof(FrameHdr), size - sizeof(FrameHdr),
 //							fr->data_pending);
 
+			} else {
+				XPCC_LOG_DEBUG .printf("Got response for unknown request\n");
 			}
 		}
 
@@ -867,14 +869,19 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 			f.encrypt();
 
 		//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
-
-		RadioStatus res = driver->sendFrame(tmpFrame, true);
+		RadioStatus res;
+		for(int i = 0; i < NUM_RETRIES; i++) {
+			res = driver->sendFrame(tmpFrame, true);
+			if(res == RadioStatus::SUCCESS) break;
+			XPCC_LOG_DEBUG .printf("Request send retry (%d)\n", res);
+		}
 
 		if (res == RadioStatus::SUCCESS) {
 			current_request.address = address;
 			current_request.request_id = request_id;
 			current_request.timer.restart(REQUEST_TIMEOUT);
 		} else {
+			XPCC_LOG_DEBUG .printf("Request send failed status:%d\n", res);
 			return false;
 		}
 		return true;

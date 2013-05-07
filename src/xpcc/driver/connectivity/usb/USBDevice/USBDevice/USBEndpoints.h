@@ -37,15 +37,5 @@ typedef enum {
     EP_TIMEOUT
 } EP_STATUS;
 
-/* Include configuration for specific target */
-#if defined(__ARM_LPC17XX__) || defined(TARGET_LPC2368)
-#include "USBEndpoints_LPC17_LPC23.h"
-#elif defined(TARGET_LPC11U24)
-#include "USBEndpoints_LPC11U.h"
-#elif defined(TARGET_KL25Z)
-#include "USBEndpoints_KL25Z.h"
-#else
-#error "Unknown target type"
-#endif
 
 #endif

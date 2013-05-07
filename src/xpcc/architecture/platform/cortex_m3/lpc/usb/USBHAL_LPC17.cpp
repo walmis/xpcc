@@ -19,9 +19,11 @@
 #if defined(__ARM_LPC17XX__)
 
 #include <xpcc/architecture.hpp>
-#include "USBHAL.h"
+#include <xpcc/driver/connectivity/usb/USBDevice.hpp>
+#include "USBEndpoints_LPC17_LPC23.h"
 
-using namespace xpcc::lpc17;
+
+using namespace xpcc;
 
 // Get endpoint direction
 #define IN_EP(endpoint)     ((endpoint) & 1U ? true : false)

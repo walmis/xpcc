@@ -5,3 +5,7 @@ build/
 /LPC11xx
 /LPC17xx
 /Release
+/LPC11Uxx
+/LPC11xxDebug
+/LPC11UxxDebug
+/Linux

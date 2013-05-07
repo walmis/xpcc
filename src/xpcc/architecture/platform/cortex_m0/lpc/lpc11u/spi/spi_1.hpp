@@ -205,13 +205,44 @@ namespace xpcc
 
 			enum class MappingSck
 			{
-			PIO2_1 = 0,			///< Selects SCK1 function in PIO2_1. No choice possible.
+					PIO1_15 = 0,
+					PIO1_20 = 1,
 			};
 
 			static void
 			configurePins(
-					MappingSck mapping = xpcc::lpc::SpiMaster1::MappingSck::PIO2_1,
-					bool useSsel = false);
+					MappingSck mapping = xpcc::lpc::SpiMaster1::MappingSck::PIO1_15,
+					bool useSsel = false) {
+
+				// Deassert Reset
+				LPC_SYSCON->PRESETCTRL 		|= PRESETCTRL_SSP1_RST_N;
+
+				// Enable peripheral clock
+				LPC_SYSCON->SYSAHBCLKCTRL	|= SYSAHBCLKCTRL_SSP1;
+
+				// Divide peripheral clock by 1
+				LPC_SYSCON->SSP1CLKDIV = 0x01;
+
+
+				xpcc::lpc11::IOCon::setPinFunc(0, 21, 1); //MOSI1
+				xpcc::lpc11::IOCon::setPinFunc(0, 22, 1); //MISO1
+
+
+				switch(mapping) {
+				case MappingSck::PIO1_15:
+					xpcc::lpc11::IOCon::setPinFunc(1, 15, 3);
+					break;
+
+				case MappingSck::PIO1_20:
+					xpcc::lpc11::IOCon::setPinFunc(1, 20, 2);
+					break;
+				}
+
+				if (useSsel) {
+					xpcc::lpc11::IOCon::setPinFunc(1, 19, 2);
+				}
+
+			}
 
 		public:
 			/**
@@ -223,7 +254,30 @@ namespace xpcc
 					Presacler prescaler = Presacler::DIV002,
 					uint8_t serialClockRate = 7,
 					TransferSize transferSize = TransferSize::BIT_08,
-					FrameFormat frameFormat = FrameFormat::SPI);
+					FrameFormat frameFormat = FrameFormat::SPI) {
+
+
+				// Control register 0
+				LPC_SSP1->CR0 = (serialClockRate << 8) |
+						 (static_cast<uint16_t>(mode)) |
+						((static_cast<uint16_t>(frameFormat)) << 4) |
+						((static_cast<uint16_t>(transferSize)) << 0);
+
+				// Clock prescale register
+				LPC_SSP1->CPSR = static_cast<uint8_t>(prescaler);
+
+				for (uint8_t ii = 0; ii < fifoSize; ++ii)
+				{
+				  uint16_t Dummy = LPC_SSP1->DR;		/* clear the RxFIFO */
+				  (void)Dummy; // unused
+				}
+
+				/* TODO Enable the SSP Interrupt */
+
+				// Enable SPI1 in master mode
+				LPC_SSP1->CR1 = SPI_CR1_SSE;
+
+			}
 
 			/**
 			 * \brief	Write a single byte with the SPI.

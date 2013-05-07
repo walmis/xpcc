@@ -15,12 +15,16 @@
 * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
+#define TARGET_LPC11U24
 #ifdef TARGET_LPC11U24
 
-#include "USBHAL.h"
+#include <xpcc/driver/connectivity/usb/USBDevice/USBDevice/USBHAL.h>
+#include <xpcc/architecture.hpp>
 
-USBHAL * USBHAL::instance;
+#define __packed __attribute__((packed))
+
+namespace xpcc {
+//USBHAL * USBHAL::instance;
 
 // Valid physical endpoint numbers are 0 to (NUMBER_OF_PHYSICAL_ENDPOINTS-1)
 #define LAST_PHYSICAL_ENDPOINT (NUMBER_OF_PHYSICAL_ENDPOINTS-1)
@@ -81,22 +85,22 @@ static volatile int epComplete = 0;
 // One entry for a double-buffered logical endpoint in the endpoint
 // command/status list. Endpoint 0 is single buffered, out[1] is used
 // for the SETUP packet and in[1] is not used
-typedef __packed struct {
+struct EP_COMMAND_STATUS{
     uint32_t out[2];
     uint32_t in[2];
-} EP_COMMAND_STATUS;
+} __packed;
 
-typedef __packed struct {
+struct CONTROL_TRANSFER{
     uint8_t out[MAX_PACKET_SIZE_EP0];
     uint8_t in[MAX_PACKET_SIZE_EP0];
     uint8_t setup[SETUP_PACKET_SIZE];
-} CONTROL_TRANSFER;
+} __packed;
 
-typedef __packed struct {
+struct EP_STATE {
     uint32_t    maxPacket;
     uint32_t    buffer[2];
     uint32_t    options;
-} EP_STATE;
+} __packed;
 
 static volatile EP_STATE endpointState[NUMBER_OF_PHYSICAL_ENDPOINTS];
 
@@ -130,17 +134,18 @@ USBHAL::USBHAL(void) {
     NVIC_DisableIRQ(USB_IRQn);
     
     // fill in callback array
-    epCallback[0] = &USBHAL::EP1_OUT_callback;
-    epCallback[1] = &USBHAL::EP1_IN_callback;
-    epCallback[2] = &USBHAL::EP2_OUT_callback;
-    epCallback[3] = &USBHAL::EP2_IN_callback;
-    epCallback[4] = &USBHAL::EP3_OUT_callback;
-    epCallback[5] = &USBHAL::EP3_IN_callback;
-    epCallback[6] = &USBHAL::EP4_OUT_callback;
-    epCallback[7] = &USBHAL::EP4_IN_callback;
+//    epCallback[0] = &USBHAL::EP1_OUT_callback;
+//    epCallback[1] = &USBHAL::EP1_IN_callback;
+//    epCallback[2] = &USBHAL::EP2_OUT_callback;
+//    epCallback[3] = &USBHAL::EP2_IN_callback;
+//    epCallback[4] = &USBHAL::EP3_OUT_callback;
+//    epCallback[5] = &USBHAL::EP3_IN_callback;
+//    epCallback[6] = &USBHAL::EP4_OUT_callback;
+//    epCallback[7] = &USBHAL::EP4_IN_callback;
 
     // nUSB_CONNECT output
-    LPC_IOCON->PIO0_6 = 0x00000001;
+    //LPC_IOCON->PIO0_6 = 0x00000001;
+    LPC_SYSCON->PDRUNCFG &= ~(1<<10); //Power up USBPAD
 
     // Enable clocks (USB registers, USB RAM)
     LPC_SYSCON->SYSAHBCLKCTRL |= CLK_USB | CLK_USBRAM;
@@ -150,7 +155,7 @@ USBHAL::USBHAL(void) {
 
     // to ensure that the USB host sees the device as
     // disconnected if the target CPU is reset.
-    wait(0.3);
+    //wait(0.3);
 
     // Reserve space in USB RAM for endpoint command/status list
     // Must be 256 byte aligned
@@ -181,10 +186,10 @@ USBHAL::USBHAL(void) {
 
     // Enable interrupts for device events and EP0
     LPC_USB->INTEN = DEV_INT | EP(EP0IN) | EP(EP0OUT) | FRAME_INT;
-    instance = this;
+   // instance = this;
 
     //attach IRQ handler and enable interrupts
-    NVIC_SetVector(USB_IRQn, (uint32_t)&_usbisr);
+    //NVIC_SetVector(USB_IRQn, (uint32_t)&_usbisr);
 }
 
 USBHAL::~USBHAL(void) {
@@ -573,6 +578,12 @@ void USBHAL::remoteWakeup(void) {
     LPC_USB->DEVCMDSTAT = devCmdStat & ~DSUS;
 }
 
+void USBHAL::handleInterrupt(int irqN) {
+	if(irqN == USB_IRQn) {
+		usbisr();
+	}
+}
+
 
 static void disableEndpoints(void) {
     uint32_t logEp;
@@ -591,10 +602,19 @@ static void disableEndpoints(void) {
     epRamPtr = usbRamPtr;
 }
 
-
-
-void USBHAL::_usbisr(void) {
-    instance->usbisr();
+template <typename F, class T>
+ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
+	int* cVtablePtr = (int*)((int*)instance)[0];
+	union see_bits {
+		F p;
+		int i;
+	};
+	see_bits a;
+	a.p = offset;
+	uint32_t *t = (uint32_t*)((uint8_t*)cVtablePtr + a.i) + index;
+	F func;
+	*reinterpret_cast<void**>(&func) = (void*)*t;
+	return func;
 }
 
 void USBHAL::usbisr(void) {
@@ -613,10 +633,10 @@ void USBHAL::usbisr(void) {
 
         if (LPC_USB->DEVCMDSTAT & DSUS_C) {
             // Suspend status changed
-            LPC_USB->DEVCMDSTAT = devCmdStat | DSUS_C;
-            if((LPC_USB->DEVCMDSTAT & DSUS) != 0) {
-                suspendStateChanged(1);
-            }
+            LPC_USB->DEVCMDSTAT |= DSUS_C;
+
+            suspendStateChanged((LPC_USB->DEVCMDSTAT & DSUS) != 0);
+
         }
 
         if (LPC_USB->DEVCMDSTAT & DRES_C) {
@@ -630,6 +650,12 @@ void USBHAL::usbisr(void) {
 
             // Bus reset event
             busReset();
+        }
+
+        if(LPC_USB->DEVCMDSTAT & DCON_C) {
+        	LPC_USB->DEVCMDSTAT = devCmdStat | DCON_C;
+
+        	connectStateChanged(LPC_USB->DEVCMDSTAT & DCON != 0);
         }
     }
 
@@ -674,11 +700,14 @@ void USBHAL::usbisr(void) {
         if (LPC_USB->INTSTAT & EP(num)) {
             LPC_USB->INTSTAT = EP(num);
             epComplete |= EP(num);
-            if ((instance->*(epCallback[num - 2]))()) {
-                epComplete &= ~EP(num);
+
+            typedef bool (USBHAL::*fptr)(void);
+            fptr handler = getVirtual<fptr, USBHAL>(this, &USBHAL::EP1_OUT_callback, num-2);
+            if((this->*handler)()) {
+            	 epComplete &= ~EP(num);
             }
         }
     }
 }
-
+}
 #endif

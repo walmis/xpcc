@@ -97,8 +97,8 @@ xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n, bool blocking)
 xpcc::lpc::Uart1::Uart1(uint32_t baudrate)
 {
 	/*  UART I/O config. PIO1_6 and PIO1_7 are always Rx/Tx */
-	xpcc::lpc11::IOCon::setPinFunc(0, 18, 1);
-	xpcc::lpc11::IOCon::setPinFunc(0, 19, 1);
+	xpcc::lpc11::IOCon::setPinFunc(1, 6, 1);
+	xpcc::lpc11::IOCon::setPinFunc(1, 7, 1);
 
 	/* Enable UART clock */
 	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<12);
@@ -128,8 +128,8 @@ xpcc::lpc::Uart1::Uart1(uint32_t baudrate)
 xpcc::lpc::BufferedUart1::BufferedUart1(uint32_t baudrate)
 {
 	/*  UART I/O config. PIO1_6 and PIO1_7 are always Rx/Tx */
-	xpcc::lpc11::IOCon::setPinFunc(0, 18, 1);
-	xpcc::lpc11::IOCon::setPinFunc(0, 19, 1);
+	xpcc::lpc11::IOCon::setPinFunc(1, 6, 1);
+	xpcc::lpc11::IOCon::setPinFunc(1, 7, 1);
 
 	/* Enable UART clock */
 	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<12);
