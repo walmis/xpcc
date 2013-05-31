@@ -55,6 +55,11 @@ namespace xpcc
 			 */
 			static void
 			setBaudrate(uint32_t baudrate);
+
+			void startAutoBaud(uint8_t mode);
+			void stopAutoBaud();
+			bool autoBaudSuccess();
+
 		};
 	}
 }
