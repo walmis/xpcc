@@ -48,8 +48,8 @@
 */
 
 namespace xpcc {
-namespace lpc17 {
 
+#include "USBCDC.h"
 
 class USBSerial: public USBCDC, public xpcc::IODevice {
 public:
@@ -100,7 +100,6 @@ private:
 	volatile bool in_request;
 };
 
-}
 }
 
 #endif

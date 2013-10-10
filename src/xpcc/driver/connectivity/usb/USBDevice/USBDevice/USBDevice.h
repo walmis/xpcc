@@ -22,6 +22,7 @@
 #include "USBDevice_Types.h"
 #include "USBHAL.h"
 #include "USBDescriptor.h"
+#include <xpcc/architecture.hpp>
 
 namespace xpcc {
 

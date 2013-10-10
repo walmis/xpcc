@@ -19,19 +19,18 @@
 #include "stdint.h"
 #include "USBSerial.h"
 
-using namespace xpcc::lpc17;
-#include <lpc17xx/cmsis/LPC17xx.h>
+using namespace xpcc;
 
 #define LATENCY 32
 xpcc::Timeout<> latency_timer(LATENCY);
 
 
-void xpcc::lpc17::USBSerial::write(char c) {
+void USBSerial::write(char c) {
 
 	tx_buffer.push(c);
 
 	//check that we are in thread mode
-	if (tx_buffer.stored() >= 64 && __get_IPSR() == 0) {
+	if (tx_buffer.stored() >= 64 /*&& __get_IPSR() == 0*/) {
 		uint8_t buf[64];
 		int size = 0;
 
@@ -74,7 +73,7 @@ uint8_t USBSerial::available() {
 }
 
 
-bool xpcc::lpc17::USBSerial::read(char& c) {
+bool USBSerial::read(char& c) {
 
 	if(rx_buffer.isEmpty()) return false;
 	c = rx_buffer.get();
@@ -82,13 +81,13 @@ bool xpcc::lpc17::USBSerial::read(char& c) {
 	return true;
 }
 
-bool xpcc::lpc17::USBSerial::EP2_IN_callback() {
+bool USBSerial::EP2_IN_callback() {
 	in_request = true;
 
 	return false;
 }
 
-void xpcc::lpc17::USBSerial::SOF(int frameNumber) {
+void USBSerial::SOF(int frameNumber) {
 	uint8_t buf[64];
 	uint32_t size = 0;
 

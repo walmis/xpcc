@@ -19,7 +19,7 @@
 #include "stdint.h"
 #include "USBCDC.h"
 
-using namespace xpcc::lpc17;
+using namespace xpcc;
 
 static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x08};
 
@@ -69,7 +69,7 @@ bool USBCDC::USBCallback_request(void) {
     return success;
 }
 
-bool xpcc::lpc17::USBCDC::isAttached() {
+bool USBCDC::isAttached() {
 	return terminal_connected;
 }
 

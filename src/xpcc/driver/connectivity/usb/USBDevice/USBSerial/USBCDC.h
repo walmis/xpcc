@@ -30,7 +30,6 @@
 #include "../USBDevice/USBDevice.h"
 
 namespace xpcc {
-namespace lpc17 {
 
 
 class USBCDC: public USBDevice {
@@ -116,7 +115,6 @@ protected:
 
 };
 
-}
 }
 
 #endif

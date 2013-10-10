@@ -32,17 +32,23 @@
 #include <lpc17xx/cmsis/core_cm3.h>
 #include <lpc17xx/cmsis/system_LPC17xx.h>
 
-#include "gpio.hpp"
+#include "lpc17/gpio.hpp"
 
-#include "systick_timer.hpp"
+#include "lpc17/systick_timer.hpp"
 
-#include "usb/USBEndpoints_LPC17_LPC23.h"
+#include "lpc17/usb/USBEndpoints_LPC17_LPC23.h"
 
 
-#include "spi/spi_0.hpp"
-#include "spi/spi_1.hpp"
+#include "lpc17/spi/spi_0.hpp"
+#include "lpc17/spi/spi_1.hpp"
 
 #include "rand.hpp"
-#include "debug.hpp"
+#include "lpc17/debug.hpp"
 
-#include "gpio_interrupt.h"
+#include "lpc17/gpio_interrupt.h"
+
+#include "lpc17/pinsel.hpp"
+#include "lpc17/clkpwr.hpp"
+#include "lpc17/dac.hpp"
+#include "lpc17/adc.hpp"
+

@@ -31,7 +31,7 @@
 #include <xpcc/architecture/driver/atomic/lock.hpp>
 #include <xpcc/architecture/driver/clock.hpp>
 #include <xpcc/utils/dummy.hpp>
-#include "lpc17xx.hpp"
+#include "../lpc17xx.hpp"
 
 #include "systick_timer.hpp"
 
