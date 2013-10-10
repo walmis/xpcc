@@ -47,5 +47,8 @@
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
 #	include "lpc11/lpc11xx.hpp"
 #endif
+
+#include "iap.hpp"
+
 #endif
 #endif // LPC11__DEVICE_H

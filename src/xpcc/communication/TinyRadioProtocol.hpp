@@ -60,6 +60,11 @@ struct NodeACL {
 	}
 };
 
+struct FrameCounter {
+	uint16_t address;
+	uint8_t last_seq;
+};
+
 struct Request {
 	uint16_t address;
 	uint8_t request_id;
@@ -222,15 +227,17 @@ public:
 
 			f.addData((uint8_t*)&bcn, sizeof(BeaconFrame));
 			RadioStatus res = driver->sendFrame(tmpFrame, true);
-			if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
+			//if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
 				if(res != RadioStatus::SUCCESS) {
 					XPCC_LOG_DEBUG << "BeaconTX failure " << (int)res << xpcc::endl;
+				} else {
+					beacon_tm.restart(BEACON_INTERVAL);
 				}
 
-			}
+			//}
 
 			//XPCC_LOG_DEBUG .dump_buffer(frame.data, frame.data_len);
-			beacon_tm.restart(BEACON_INTERVAL);
+
 		}
 
 		if(current_request.timer.isActive()) {
@@ -359,7 +366,7 @@ protected:
 
 	Driver* driver;
 
-	//xpcc::LinkedList<std::shared_ptr<HeapFrame>> rxFrames;
+	xpcc::LinkedList<FrameCounter> frameSeqCounters;
 
 	xpcc::atomic::Queue<HeapFrame*, FRAME_HEAP> rxFrames;
 
@@ -417,14 +424,29 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 	//XPCC_LOG_DEBUG .printf("Frame %x\n", &rxFrame);
 	SecureFrame<Security> frm(rxFrame);
 
-	if(frm.getSeq() == last_seq && prev_src_addr == frm.getSrcAddress()) {
-		XPCC_LOG_DEBUG .printf("Discard duplicate Frame\n");
-		return;
-	} else {
-		last_seq = frm.getSeq();
-		prev_src_addr = frm.getSrcAddress();
-	}
+	bool found = false;
+	for (auto &f : frameSeqCounters) {
 
+		if(f.address == frm.getSrcAddress()) {
+			if(frm.getSeq() == f.last_seq) {
+				XPCC_LOG_DEBUG .printf("Discard duplicate Frame (%04x, %d)\n",
+						f.address, frm.getSeq());
+
+				return;
+			}
+
+			f.last_seq = frm.getSeq();
+
+			found = true;
+		}
+	}
+	if(!found) {
+		FrameCounter c;
+		c.address = frm.getSrcAddress();
+		c.last_seq = frm.getSeq();
+
+		frameSeqCounters.append(c);
+	}
 
 	uint8_t* payload = frm.getPayload();
 
@@ -434,6 +456,10 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 	NodeACL* node = findNode(frm.getSrcAddress());
 
 	FrameHdr* fr = Message<FrameHdr>(payload);
+
+	//XPCC_LOG_DEBUG .printf("Frame (len:%d)>>> \n", rxFrame.data);
+	//XPCC_LOG_DEBUG .dump_buffer(rxFrame.data, rxFrame.data_len);
+	//XPCC_LOG_DEBUG << "<<< \n";
 
 	if (frm.isSecure()) {
 		if (!frm.decrypt()) {
@@ -465,9 +491,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 			}
 		}
 	}
-	//XPCC_LOG_DEBUG << "Frame >>> \n";
-	//XPCC_LOG_DEBUG .dump_buffer(rxFrame.data, rxFrame.data_len);
-	//XPCC_LOG_DEBUG << "<<< \n";
+
 
 	//XPCC_LOG_DEBUG.dump_buffer(frm.getPayload(), frm.getPayloadSize());
 	//XPCC_LOG_DEBUG << "<<<\n";
@@ -479,15 +503,6 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 		//drop Frame
 		return;
 	}
-//
-//	if (!node && fr->req_id != ASSOCIATE_REQ && fr->req_id != PING_REQ
-//			&& fr->type != FrameType::DISSASOC
-//			&& fr->type != FrameType::BEACON) {
-//
-//		XPCC_LOG_DEBUG << "Data from non associated node\n";
-//
-//	}
-
 
 	uint8_t *data = payload + sizeof(FrameHdr);
 	uint8_t data_len = size - sizeof(FrameHdr);
@@ -678,6 +693,7 @@ send:
 		if (flags & TX_ENCRYPT)
 			f.encrypt();
 		XPCC_LOG_DEBUG. printf("send() %d %d\n", len, sz);
+
 		//XPCC_LOG_DEBUG << "send() \n";
 		//XPCC_LOG_DEBUG.dump_buffer(tmpFrame.data, tmpFrame.data_len);
 
@@ -695,7 +711,6 @@ send:
 				}
 
 			}
-			XPCC_LOG_DEBUG .printf("Fail\n");
 		}
 
 		if (res != RadioStatus::SUCCESS) {
@@ -733,7 +748,8 @@ inline bool TinyRadioProtocol<Driver, Security>::associate(uint16_t address) {
 	stdRequests::AssocReq req;
 	req.phase = 0;
 	req.token = 0;
-	return sendRequest<stdRequests::AssocReq>(address, ASSOCIATE_REQ, req, TX_ENCRYPT);
+	return sendRequest<stdRequests::AssocReq>(address, ASSOCIATE_REQ, req,
+			TX_ENCRYPT | TX_ACKREQ);
 }
 
 template<class Driver, class Security>
@@ -825,7 +841,8 @@ inline void TinyRadioProtocol<Driver, Security>::stdResponseHandler(
 			req.phase = 1;
 			req.token = msg->token;
 			sendRequest<stdRequests::AssocReq>(request.address, ASSOCIATE_REQ,
-					req);
+					req, TX_ACKREQ | TX_ENCRYPT);
+
 		} else if (msg->result == 2) {
 			NodeACL* n = findNode(request.address);
 			if (!n) {

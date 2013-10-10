@@ -49,6 +49,27 @@
 #define UART_LCR_DLAB_EN		((uint8_t)(1<<7))    	/*!< UART Divisor Latches Access bit enable */
 #define UART_LCR_BITMASK		((uint8_t)(0xFF))		/*!< UART line control bit mask */
 
+
+void xpcc::lpc::UartBase::startAutoBaud(uint8_t mode) {
+	LPC_UART->FDR = 1<<4; //clear DIVADDVAL and set MULVAL to 1
+
+	LPC_UART->ACR = (0<<1) | ((mode & 1) << 1) | (1<<2); //start, auto restart
+	LPC_UART->IER |= (1<<8); //enable autobaud int
+
+}
+
+bool xpcc::lpc::UartBase::autoBaudSuccess() {
+	if(LPC_UART->IIR & (1<<8)) {
+		LPC_UART->ACR |= (1<<8); //clear interrupt
+		return true;
+	}
+	return false;
+}
+
+void xpcc::lpc::UartBase::stopAutoBaud()  {
+	LPC_UART->ACR = 0;
+}
+
 void
 xpcc::lpc::UartBase::setBaudrate(uint32_t baudrate)
 {
