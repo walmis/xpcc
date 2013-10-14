@@ -18,8 +18,18 @@
 
 #pragma once
 
+#include "USBInterfaceHandler.h"
 #include "USBEndpoints.h"
 #include <xpcc/workflow.hpp>
+
+#define CALL_HANDLERS(x) \
+    	if(handlers) { \
+    		auto h = handlers; \
+    		while(h) { \
+    			h->x; \
+    			h = h->next; \
+    		} \
+    	}	 \
 
 namespace xpcc {
 
@@ -55,15 +65,56 @@ public:
     bool getEndpointStallState(unsigned char endpoint);
     uint32_t endpointReadcore(uint8_t endpoint, uint8_t *buffer);
 
+
+    void addInterfaceHandler(USBInterfaceHandler& handler) {
+    	if(handlers == 0) {
+    		handlers = &handler;
+    	} else {
+    		auto h = handlers;
+    		while(h) {
+    			h = h->next;
+    		}
+    		h->next = &handler;
+    	}
+    }
+
+
 protected:
+
+    USBInterfaceHandler* handlers;
+
     virtual void busReset(void){};
-    virtual void EP0setupCallback(void){};
-    virtual void EP0out(void){};
-    virtual void EP0in(void){};
-    virtual void connectStateChanged(unsigned int connected){};
-    virtual void suspendStateChanged(unsigned int suspended){};
-    virtual void SOF(int frameNumber){};
+    virtual void EP0setupCallback(void){
+    	CALL_HANDLERS(EP0setupCallback());
+    };
+    virtual void EP0out(void){
+    	CALL_HANDLERS(EP0out());
+    };
+    virtual void EP0in(void){
+    	CALL_HANDLERS(EP0in());
+    };
+    virtual void connectStateChanged(unsigned int connected){
+    	CALL_HANDLERS(connectStateChanged(connected));
+    };
+    virtual void suspendStateChanged(unsigned int suspended){
+    	CALL_HANDLERS(suspendStateChanged(suspended));
+    };
+    virtual void SOF(int frameNumber){
+    	CALL_HANDLERS(SOF(frameNumber));
+    };
             
+    virtual bool EP_handler(uint8_t ep) {
+    	if(handlers) {
+    		auto h = handlers;
+    		while(h) {
+    			if(h->EP_handler(ep)) {
+    				return true;
+    			}
+    			h = h->next;
+    		}
+    	}
+    	return false;
+    }
     //virtual EP handlers, this order must be preserved
     //since they are called directly from vtable
     virtual bool EP1_OUT_callback(){return false;};

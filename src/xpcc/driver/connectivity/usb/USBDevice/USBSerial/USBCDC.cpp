@@ -31,85 +31,16 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
-USBCDC::USBCDC(uint16_t vendor_id, uint16_t product_id, uint16_t product_release): USBDevice(vendor_id, product_id, product_release) {
-    terminal_connected = false;
-    //USBDevice::connect();
+USBCDC::USBCDC(uint16_t vendor_id, uint16_t product_id, uint16_t product_release):
+		USBDevice(vendor_id, product_id, product_release) {
+
 }
 
-bool USBCDC::USBCallback_request(void) {
-    /* Called in ISR context */
 
-    bool success = false;
-    CONTROL_TRANSFER * transfer = getTransferPtr();
+//bool USBCDC::isAttached() {
+//	return terminal_connected;
+//}
 
-    /* Process class-specific requests */
-
-    if (transfer->setup.bmRequestType.Type == CLASS_TYPE) {
-        switch (transfer->setup.bRequest) {
-            case CDC_GET_LINE_CODING:
-                transfer->remaining = 7;
-                transfer->ptr = (uint8_t*)cdc_line_coding;
-                transfer->direction = DEVICE_TO_HOST;
-                success = true;
-                break;
-            case CDC_SET_LINE_CODING:
-                transfer->remaining = 7;
-                success = true;
-                terminal_connected = true;
-                break;
-            case CDC_SET_CONTROL_LINE_STATE:
-                terminal_connected = false;
-                success = true;
-                break;
-            default:
-                break;
-        }
-    }
-
-    return success;
-}
-
-bool USBCDC::isAttached() {
-	return terminal_connected;
-}
-
-// Called in ISR context
-// Set configuration. Return false if the
-// configuration is not supported.
-bool USBCDC::USBCallback_setConfiguration(uint8_t configuration) {
-    if (configuration != DEFAULT_CONFIGURATION) {
-        return false;
-    }
-
-    // Configure endpoints > 0
-    addEndpoint(EPINT_IN, MAX_PACKET_SIZE_EPINT);
-    addEndpoint(EPBULK_IN, MAX_PACKET_SIZE_EPBULK);
-    addEndpoint(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
-
-    // We activate the endpoint to be able to recceive data
-    readStart(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
-    return true;
-}
-
-bool USBCDC::send(uint8_t * buffer, uint32_t size) {
-    return USBDevice::write(EPBULK_IN, buffer, size, MAX_CDC_REPORT_SIZE);
-}
-
-bool USBCDC::readEP(uint8_t * buffer, uint32_t * size) {
-    if (!USBDevice::readEP(EPBULK_OUT, buffer, size, MAX_CDC_REPORT_SIZE))
-        return false;
-    if (!readStart(EPBULK_OUT, MAX_CDC_REPORT_SIZE))
-        return false;
-    return true;
-}
-
-bool USBCDC::readEP_NB(uint8_t * buffer, uint32_t * size) {
-    if (!USBDevice::readEP_NB(EPBULK_OUT, buffer, size, MAX_CDC_REPORT_SIZE))
-        return false;
-    if (!readStart(EPBULK_OUT, MAX_CDC_REPORT_SIZE))
-        return false;
-    return true;
-}
 
 
 uint8_t * USBCDC::deviceDesc() {

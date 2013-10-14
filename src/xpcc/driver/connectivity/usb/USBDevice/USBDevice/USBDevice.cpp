@@ -783,14 +783,13 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
     return NULL;
 }
 
-
-void USBDevice::connectStateChanged(unsigned int connected)
-{
-}
-
-void USBDevice::suspendStateChanged(unsigned int suspended)
-{
-}
+//void USBDevice::connectStateChanged(unsigned int connected)
+//{
+//}
+//
+//void USBDevice::suspendStateChanged(unsigned int suspended)
+//{
+//}
 
 
 USBDevice::USBDevice(uint16_t vendor_id, uint16_t product_id, uint16_t product_release){

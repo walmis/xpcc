@@ -127,7 +127,14 @@ public:
     *
     * May be used to reset state
     */
-    virtual void USBCallback_busReset(void) {};
+    virtual void USBCallback_busReset(void) {
+    	auto h = handlers;
+
+    	while(h) {
+    		h->USBCallback_busReset();
+    		h = h->next;
+    	}
+    };
     
     /*
     * Called by USBDevice on Endpoint0 request. Warning: Called in ISR context
@@ -136,7 +143,18 @@ public:
     *
     * @returns true if class handles this request
     */
-    virtual bool USBCallback_request() { return false; };   
+    virtual bool USBCallback_request() {
+    	auto h = handlers;
+
+    	while(h) {
+    		if(h->USBCallback_request()) {
+    			return true;
+    		}
+    		h = h->next;
+    	}
+
+    	return false;
+    };
     
     /*
     * Called by USBDevice on Endpoint0 request completion
@@ -148,7 +166,13 @@ public:
     * @param buf buffer received on endpoint 0
     * @param length length of this buffer
     */
-    virtual void USBCallback_requestCompleted(uint8_t * buf, uint32_t length) {};
+    virtual void USBCallback_requestCompleted(uint8_t * buf, uint32_t length) {
+    	auto h = handlers;
+    	while(h) {
+    		h->USBCallback_requestCompleted(buf, length);
+    		h = h->next;
+    	}
+    };
     
     /*
     * Called by USBDevice layer. Set configuration of the device.
@@ -156,7 +180,17 @@ public:
     *
     * @param configuration Number of the configuration
     */
-    virtual bool USBCallback_setConfiguration(uint8_t configuration) { return false; };
+    virtual bool USBCallback_setConfiguration(uint8_t configuration) {
+    	bool success = false;
+    	auto h = handlers;
+    	while(h) {
+    		if(h->USBCallback_setConfiguration(configuration)) {
+    			success = true;
+    		}
+    		h = h->next;
+    	}
+    	return success;
+    };
     
     /*
      * Called by USBDevice layer. Set interface/alternate of the device.
@@ -165,7 +199,17 @@ public:
      * @param alternate Number of the alternate to be configured
      * @returns true if class handles this request
      */
-    virtual bool USBCallback_setInterface(uint16_t interface, uint8_t alternate) { return false; };
+    virtual bool USBCallback_setInterface(uint16_t interface, uint8_t alternate) {
+    	bool success = false;
+    	auto h = handlers;
+    	while(h) {
+    		if(h->USBCallback_setInterface(interface, alternate)) {
+    			success = true;
+    		}
+    		h = h->next;
+    	}
+    	return success;
+    };
 
     /*
     * Get device descriptor. Warning: this method has to store the length of the report descriptor in reportLength.
@@ -230,18 +274,20 @@ public:
     */
     virtual uint16_t reportDescLength() { return 0; };
     
+    CONTROL_TRANSFER * getTransferPtr(void);
 
+    friend class USBInterfaceHandler;
 
 protected:
     virtual void busReset(void);
     virtual void EP0setupCallback(void);
     virtual void EP0out(void);
     virtual void EP0in(void);
-    virtual void connectStateChanged(unsigned int connected);
-    virtual void suspendStateChanged(unsigned int suspended);
+    virtual void connectStateChanged(unsigned int connected){};
+    virtual void suspendStateChanged(unsigned int suspended){};
     uint8_t * findDescriptor(uint8_t descriptorType);
-    CONTROL_TRANSFER * getTransferPtr(void);
     
+
     uint16_t VENDOR_ID;
     uint16_t PRODUCT_ID;
     uint16_t PRODUCT_RELEASE;

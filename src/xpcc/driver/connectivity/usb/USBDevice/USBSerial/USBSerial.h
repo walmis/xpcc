@@ -20,6 +20,8 @@
 #define USBSERIAL_H
 
 #include "USBCDC.h"
+#include "USBSerialHandler.hpp"
+
 #include <xpcc/io.hpp>
 #include <xpcc/architecture/driver.hpp>
 
@@ -64,19 +66,24 @@ public:
     */
 	USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012,
 			uint16_t product_release = 0x0001) :
-			USBCDC(vendor_id, product_id, product_release) {
+			USBCDC(vendor_id, product_id, product_release), handler(this) {
 
-		in_request = true;
+		this->addInterfaceHandler(handler);
+
 	};
 
     void
-	write(char c);
+	write(char c){
+    	handler.putc(c);
+    }
 
     //TODO: implement flush
 	void flush(){};
 
 	/// Read a single character
-	bool read(char& c);
+	bool read(char& c) {
+		return handler.getc(c);
+	}
 
 
     /**
@@ -84,20 +91,12 @@ public:
     *
     * @returns the number of bytes available
     */
-    uint8_t available(); 
+    uint8_t available() {
+    	return handler.available();
+    }
     
+    USBSerialHandler handler;
 
-protected:
-    bool EP2_OUT_callback();
-    bool EP2_IN_callback();
-	void SOF(int frameNumber);
-
-private:
-	xpcc::atomic::Queue<uint8_t, 128> rx_buffer;
-	xpcc::atomic::Queue<uint8_t, 128> tx_buffer;
-
-	volatile bool data_waiting;
-	volatile bool in_request;
 };
 
 }
