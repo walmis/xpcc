@@ -51,4 +51,4 @@
 #include "lpc17/clkpwr.hpp"
 #include "lpc17/dac.hpp"
 #include "lpc17/adc.hpp"
-
+#include "lpc17/timer.hpp"
