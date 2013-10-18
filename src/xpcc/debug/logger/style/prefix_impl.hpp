@@ -58,7 +58,12 @@ xpcc::log::Prefix<T, STYLE>::write( char c )
 		this->flushed = false;
 		this->Style<STYLE>::write( this->value );
 	}
+
 	this->Style<STYLE>::write( c );
+
+	if(c == '\n') {
+		flush();
+	}
 }
 
 template <typename T, typename STYLE>

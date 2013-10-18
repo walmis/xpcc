@@ -35,7 +35,10 @@
 
 namespace xpcc
 {
-	namespace lpc17
+	bool isInterruptContext();
+
+
+namespace lpc17
 	{
 		typedef void (*InterruptHandler)(void);
 		

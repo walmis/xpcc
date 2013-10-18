@@ -290,7 +290,7 @@ namespace xpcc
 			ALWAYS_INLINE static void
 			reset()
 			{
-				Pin::setInput(xpcc::lpc::InputType::FLOATING);
+				Pin::setInput();
 			}
 
 			ALWAYS_INLINE static void

@@ -30,7 +30,7 @@ void USBSerial::write(char c) {
 	tx_buffer.push(c);
 
 	//check that we are in thread mode
-	if (tx_buffer.stored() >= 64 /*&& __get_IPSR() == 0*/) {
+	if (tx_buffer.stored() >= 64 && !isInterruptContext()) {
 		uint8_t buf[64];
 		int size = 0;
 

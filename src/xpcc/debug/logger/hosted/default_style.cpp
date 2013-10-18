@@ -55,16 +55,16 @@ namespace xpcc
 				}
 		};
 
-		static Wrapper< char[10], BLUE, NONE > debugWrapper("Debug:   ", device);
+		static Wrapper< char[6], GREEN, NONE > debugWrapper("DBG: ", device);
 		Logger ATTRIBUTE_WEAK debug(debugWrapper);
 
-		static Wrapper< char[10], GREEN, NONE > debugInfo("Info:    ", device);
+		static Wrapper< char[6], TURQUOISE, NONE > debugInfo("INF: ", device);
 		Logger ATTRIBUTE_WEAK info(debugInfo);
 
-		static Wrapper< char[10], YELLOW, NONE > warningInfo("Warning: ", device);
+		static Wrapper< char[6], BLACK, YELLOW > warningInfo("WRN: ", device);
 		Logger ATTRIBUTE_WEAK warning(warningInfo);
 
-		static Wrapper< char[10], RED, NONE > errorInfo("Error:   ", device);
+		static Wrapper< char[6], WHITE, RED > errorInfo("ERR: ", device);
 		Logger ATTRIBUTE_WEAK error(errorInfo);
 	}
 }

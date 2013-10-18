@@ -22,8 +22,10 @@
 #define NUM_RETRIES 12
 
 #ifndef NODE_TIMEOUT
-#define NODE_TIMEOUT 5000 //5s timeout
+#define NODE_TIMEOUT 5000 //2.5s timeout
 #endif
+
+#define NODE_TIMEOUT_PING 2500
 
 #define FRAME_HEAP 5
 
@@ -44,20 +46,43 @@ struct AssocReq {
 
 }
 
+enum DeviceFlags : uint8_t {
+	ASSOCIATED = 1<<0, // flag is set when device is associated
+	INACTIVE = 1<<1, //device is flagged inactive, when there
+					 //are no beacons in NODE_TIMEOUT interval
+	PINGED = 1<<2    //Device is flagged PINGED when it is
+					//inactive and a ping is sent to determine if it is still alive
+};
+
 struct NodeACL {
 	uint16_t address;
 	uint32_t session_token;
 	uint32_t frame_counter;
 	xpcc::Timestamp last_activity;
-	bool associated;
+	uint8_t flags; //device flags
 
 	NodeACL() {
 		address = 0;
 		session_token = 0;
 		frame_counter = 0;
 		last_activity = xpcc::Clock::now();
-		associated = false;
+		flags = (DeviceFlags)0;
 	}
+
+	bool isAssociated() {
+		return isFlag(ASSOCIATED);
+	}
+
+	inline bool isFlag(DeviceFlags flag) {
+		return flags & (uint8_t)flag;
+	}
+
+	inline void setFlag(DeviceFlags flag, bool value) {
+		flags &= ~(uint8_t)flag;
+		if(value)
+			flags |= (uint8_t)flag;
+	}
+
 };
 
 struct FrameCounter {
@@ -229,7 +254,7 @@ public:
 			RadioStatus res = driver->sendFrame(tmpFrame, true);
 			//if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
 				if(res != RadioStatus::SUCCESS) {
-					XPCC_LOG_DEBUG << "BeaconTX failure " << (int)res << xpcc::endl;
+					XPCC_LOG_ERROR << "BeaconTX failure " << (int)res << xpcc::endl;
 				} else {
 					beacon_tm.restart(BEACON_INTERVAL);
 				}
@@ -242,7 +267,21 @@ public:
 
 		if(current_request.timer.isActive()) {
 			if(current_request.timer.isExpired()) {
-				XPCC_LOG_DEBUG << "Request timeout\n";
+				XPCC_LOG_DEBUG .printf("Request %d -> %04x timeout\n",
+						current_request.request_id, current_request.address);
+
+				if(current_request.request_id == PING_REQ) {
+
+					//clear pinged flag if ping times out
+					//this will cause another ping request to be sent
+					auto *n = findNode(current_request.address);
+					if(n) {
+						if(n->isFlag(PINGED)) {
+							n->setFlag(PINGED, false);
+						}
+					}
+				}
+
 				current_request.timer.stop();
 
 				if(current_request.request_id == ASSOCIATE_REQ) {
@@ -254,13 +293,33 @@ public:
 
 		//check timeouted nodes
 		for(auto node : connectedNodes) {
-			if((xpcc::Clock::now() - node->last_activity) > NODE_TIMEOUT) {
 
-				XPCC_LOG_DEBUG .printf("Node timed out\n");
+			xpcc::Timestamp delta = xpcc::Clock::now() - node->last_activity;
+
+			if(delta > NODE_TIMEOUT_PING) {
+
+				if(!node->isFlag(PINGED)) {
+					XPCC_LOG_INFO .printf("Pinging inactive node %04x\n", node->address);
+
+					ping(node->address);
+
+					node->setFlag(PINGED, true);
+					node->setFlag(INACTIVE, true);
+				}
+			} else {
+				if(node->isFlag(INACTIVE)) {
+					node->setFlag(INACTIVE, false);
+					node->setFlag(PINGED, false);
+				}
+			}
+
+			if(delta > NODE_TIMEOUT && node->isFlag(PINGED)) {
+
+				XPCC_LOG_WARNING .printf("Node %04x timed out\n", node->address);
 
 				disassociate(node->address, false);
-				break;
 			}
+
 		}
 
 	}
@@ -275,7 +334,10 @@ public:
 		return sendRequest(address, request_id, (uint8_t*)&request, sizeof(T), flags);
 	}
 
-
+	bool ping(uint16_t address) {
+		uint32_t time = (int)xpcc::Clock::now().getTime();
+		return sendRequest(address, PING_REQ, time, TX_ACKREQ | TX_ENCRYPT);
+	}
 
 	uint16_t send(uint16_t address, uint8_t* data, uint16_t len,
 			uint8_t req_id = 0, FrameType frm_type = FrameType::DATA,
@@ -429,7 +491,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 
 		if(f.address == frm.getSrcAddress()) {
 			if(frm.getSeq() == f.last_seq) {
-				XPCC_LOG_DEBUG .printf("Discard duplicate Frame (%04x, %d)\n",
+				XPCC_LOG_WARNING .printf("Discard duplicate Frame (%04x, %d)\n",
 						f.address, frm.getSeq());
 
 				return;
@@ -455,6 +517,10 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 
 	NodeACL* node = findNode(frm.getSrcAddress());
 
+	if(node) {
+		node->last_activity = xpcc::Clock::now();
+	}
+
 	FrameHdr* fr = Message<FrameHdr>(payload);
 
 	//XPCC_LOG_DEBUG .printf("Frame (len:%d)>>> \n", rxFrame.data);
@@ -464,7 +530,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 	if (frm.isSecure()) {
 		if (!frm.decrypt()) {
 
-			XPCC_LOG_DEBUG << "Decryption failed >>>" << xpcc::endl;
+			XPCC_LOG_ERROR << "Decryption failed >>>" << xpcc::endl;
 			XPCC_LOG_DEBUG.dump_buffer(rxFrame.data, rxFrame.data_len);
 
 			//XPCC_LOG_DEBUG.dump_buffer(frm.getPayload(), frm.getPayloadSize());
@@ -478,7 +544,7 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 				node->frame_counter = count;
 			} else {
 
-				XPCC_LOG_DEBUG .printf("Replay attack prevention\n n:%d expected > %d\n", count, node->frame_counter);
+				XPCC_LOG_WARNING .printf("Replay attack prevention\n n:%d expected > %d\n", count, node->frame_counter);
 				//XPCC_LOG_DEBUG.dump_buffer(rxFrame.data, rxFrame.data_len);
 
 				if (fr->req_id != ASSOCIATE_REQ
@@ -492,12 +558,8 @@ inline void TinyRadioProtocol<Driver, Security>::processFrame(Frame& rxFrame) {
 		}
 	}
 
-
 	//XPCC_LOG_DEBUG.dump_buffer(frm.getPayload(), frm.getPayloadSize());
 	//XPCC_LOG_DEBUG << "<<<\n";
-	if(node) {
-		node->last_activity = xpcc::Clock::now();
-	}
 
 	if (!frameHandler(rxFrame)) {
 		//drop Frame
@@ -711,6 +773,7 @@ send:
 				}
 
 			}
+			XPCC_LOG_DEBUG .printf("\n");
 		}
 
 		if (res != RadioStatus::SUCCESS) {
@@ -737,7 +800,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendResponse(uint8_t* data, uin
 template<class Driver, class Security>
 inline bool TinyRadioProtocol<Driver, Security>::isAssociated(uint16_t address) {
 	auto node = findNode(address);
-	if (node && node->associated) {
+	if (node && node->isFlag(ASSOCIATED)) {
 		return true;
 	}
 	return false;
@@ -758,8 +821,8 @@ inline void TinyRadioProtocol<Driver, Security>::stdRequestHandler(
 		uint8_t* data, uint8_t len) {
 	switch (requestId) {
 	case PING_REQ: {
-		bool result = true;
-		sendResponse<bool>(result, TX_ACKREQ | frm.isSecure() ? TX_ENCRYPT : 0);
+
+		sendResponse(data, len, TX_ACKREQ | frm.isSecure() ? TX_ENCRYPT : 0);
 	}
 		break;
 	case ASSOCIATE_REQ: {
@@ -803,7 +866,7 @@ inline void TinyRadioProtocol<Driver, Security>::stdRequestHandler(
 					resp.result = 2;
 					resp.token = n->session_token;
 
-					n->associated = true;
+					n->setFlag(ASSOCIATED, true);
 
 					eventHandler(n->address, ASSOCIATION_EVENT);
 
@@ -830,13 +893,33 @@ inline void TinyRadioProtocol<Driver, Security>::stdResponseHandler(
 		MacFrame& frm, Request& request, uint8_t* data,
 		uint8_t len) {
 	switch (request.request_id) {
+
+	case PING_REQ:
+	{
+		int time = -1;
+
+		if(len == 4) {
+			memcpy((uint8_t*)&time, data, 4);
+			time = xpcc::Clock::now().getTime() - time;
+			if(time < 0) time = -1;
+		}
+
+		XPCC_LOG_INFO .printf("Ping response from %04x, time=%dms\n", frm.getSrcAddress(), time);
+		break;
+	}
+
 	case ASSOCIATE_REQ: {
-		if (!frm.isSecure())
+		if (!frm.isSecure()) {
+			XPCC_LOG_DEBUG .printf("Drop insecure ASSOC frame\n");
 			return;
+		}
 
 		//stdResponses::AssocResp *resp = (typeof resp)data;
 		auto msg = Message<stdResponses::AssocResp>(data, len);
 		if (msg->result == 1) {
+			XPCC_LOG_DEBUG .printf("%04x ASSOC phase 1, token 0x%x\n", frm.getSrcAddress(),
+					msg->token);
+
 			stdRequests::AssocReq req;
 			req.phase = 1;
 			req.token = msg->token;
@@ -849,9 +932,11 @@ inline void TinyRadioProtocol<Driver, Security>::stdResponseHandler(
 				n = createNode();
 			}
 			if (n) {
+				XPCC_LOG_DEBUG .printf("%04x ASSOC success\n", frm.getSrcAddress());
+
 				n->address = request.address;
 				n->session_token = msg->token;
-				n->associated = true;
+				n->setFlag(ASSOCIATED, true);
 				n->frame_counter = 0;
 				eventHandler(n->address, ASSOCIATION_EVENT);
 			}
