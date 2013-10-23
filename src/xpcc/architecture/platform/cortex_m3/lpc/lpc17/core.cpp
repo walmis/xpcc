@@ -25,7 +25,6 @@ void debug_irqs(int irqn) {
 	for(auto &i : counts) {
 		if(i.irqn == irqn) {
 			cnt = &i;
-			i.count ++;
 			found = true;
 		}
 	}
@@ -64,10 +63,12 @@ bool xpcc::isInterruptContext() {
 
 extern "C" void default_irq_handler() {
 	int irqn = __get_IPSR() - 16;
+
+	xpcc::TickerTask::interrupt(irqn);
+
 	if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
 		debug_irqs(irqn);
 	}
-	xpcc::TickerTask::interrupt(irqn);
 }
 
 

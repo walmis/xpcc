@@ -45,8 +45,8 @@ public:
 					if(edge == IntEvent::FALLING_EDGE)
 						result = true;
 				}
-
-				LPC_GPIOINT->IO0IntClr = 1<<pin;
+				if(result)
+					LPC_GPIOINT->IO0IntClr = 1<<pin;
 
 			}
 			else if(port == 2 && (LPC_GPIOINT->IntStatus & 4)) {
@@ -59,7 +59,8 @@ public:
 						if(edge == IntEvent::FALLING_EDGE)
 							result = true;
 					}
-					LPC_GPIOINT->IO2IntClr = (1<<pin);
+					if(result)
+						LPC_GPIOINT->IO2IntClr = (1<<pin);
 			}
 		}
 		return result;
