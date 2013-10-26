@@ -30,6 +30,8 @@
 #include <xpcc/debug.hpp>
 #include <xpcc/workflow.hpp>
 
+#define CALIBRATION_TIMEOUT (1000*5*60)
+
 namespace xpcc {
 namespace rf230 {
 
@@ -46,11 +48,36 @@ template<typename Spi, typename rst, typename cs, typename slp_tr, typename irq>
 class Driver : xpcc::TickerTask {
 typedef Hal<Spi, rst, cs, slp_tr> HAL;
 public:
-	Driver() {
+	Driver() : calibTimer(CALIBRATION_TIMEOUT) {
 		frmHandler = 0;
 	}
 
 	void init();
+
+	void handleTick() override {
+		if(calibTimer.isActive() && calibTimer.isExpired()) {
+			TRXState st = getTRXState();
+
+			switch(st) {
+			case TRXState::RX_AACK_ON:
+			case TRXState::PLL_ON:
+			case TRXState::RX_ON:
+				calibTimer.stop();
+				//start calibration
+				HAL::setTrxState(TRXState::PLL_ON);
+
+				XPCC_LOG_DEBUG .printf("Calibration\n");
+
+				HAL::Reg::PLL_CF_START = 1;
+				HAL::Reg::PLL_DCU_START = 1;
+
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
 
 	RadioStatus setChannel(uint8_t channel);
 	uint8_t getChannel();
@@ -135,7 +162,12 @@ public:
 		}
 		if (intp_src & IRQStatus::IRQ_PLL_LOCK_MASK)
 		{
-			//intp_src &= ~IRQStatus::IRQ_PLL_LOCK_MASK;
+			//XPCC_LOG_DEBUG .printf("PLL_LOCK %d\n", calibTimer.isActive());
+			if(!calibTimer.isActive()) {
+				rxOn();
+				calibTimer.restart(CALIBRATION_TIMEOUT);
+				XPCC_LOG_DEBUG.printf("Done\n");
+			}
 		}
 		if (intp_src & IRQStatus::IRQ_BAT_LOW_MASK)
 		{
@@ -275,6 +307,8 @@ private:
 
 	Stats stats;
 
+	xpcc::Timeout<> calibTimer;
+
 	void handleInterrupt(int irqn) override {
 		if(GpioInterrupt::checkInterrupt(irqn, irq::Port, irq::Pin, IntEvent::RISING_EDGE)) {
 			IRQHandler();
@@ -317,7 +351,7 @@ void Driver<Spi, rst, cs, slp_tr, irq>::init() {
 	HAL::Reg::CSMA_SEED_0 = xpcc::Random::random();
 	HAL::Reg::CSMA_SEED_1 = xpcc::Random::random();
 
-	HAL::Reg::IRQ_MASK = IRQStatus::IRQ_TRX_END_MASK;
+	HAL::Reg::IRQ_MASK = IRQStatus::IRQ_TRX_END_MASK | IRQStatus::IRQ_PLL_LOCK_MASK;
 
 }
 

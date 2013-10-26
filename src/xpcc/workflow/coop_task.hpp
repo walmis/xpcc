@@ -30,8 +30,9 @@ public:
 
 	void handleTick() override;
 
+	//implemented architecture specific
 	static void contextSwitch(void *arg);
-
+	//implemented architecture specific
 	static void yield();
 
 	static void sleep(uint16_t time) {

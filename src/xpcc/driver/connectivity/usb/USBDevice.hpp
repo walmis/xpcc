@@ -12,5 +12,6 @@
 #include "USBDevice/USBDevice/USBHAL.h"
 #include "USBDevice/USBDevice/USBDevice.h"
 #include "USBDevice/USBSerial/USBSerial.h"
+#include "USBDevice/USBMSD/USBMSD.h"
 
 #endif /* USBDEVICE_H_ */

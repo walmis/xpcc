@@ -103,6 +103,7 @@
 // Chapter 26: LPC111x/LPC11Cxx Flash programming firmware
 #if defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
 #include "../rand.hpp"
+#include "../watchdog.hpp"
 #endif
 
 

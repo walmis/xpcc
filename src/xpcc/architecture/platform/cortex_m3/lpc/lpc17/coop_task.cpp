@@ -92,6 +92,7 @@ void CoopTask::yield() {
 	//do nothing otherwise
 	if(__get_CONTROL() & 2) {
 		currTask->flags |= TSK_YIELD;
+		//issue pendSV
 		SCB->ICSR |= (1<<28);
 	}
 }
@@ -99,6 +100,7 @@ void CoopTask::yield() {
 void CoopTask::handleTick() {
 	currTask = this;
 	currTask->flags = 0;
+	//issue pendSV
 	SCB->ICSR |= (1<<28);
 }
 

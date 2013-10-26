@@ -21,11 +21,10 @@
 #define USBMSD_H
 
 /* These headers are included for child class. */
-#include "USBEndpoints.h"
-#include "USBDescriptor.h"
-#include "USBDevice_Types.h"
 
-#include "USBDevice.h"
+#include "../USBDevice/USBDevice.h"
+#include "USBMSDHandler.h"
+
 
 /**
  * USBMSD class: generic class in order to use all kinds of blocks storage chip
@@ -55,6 +54,9 @@
  * If disk_status() returns 1 (disk not initialized), then disk_initialize() is called. After this step, connect() will collect information
  * such as the number of blocks and the memory size.
  */
+
+namespace xpcc {
+
 class USBMSD: public USBDevice {
 public:
 
@@ -65,62 +67,16 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
-    USBMSD(uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104, uint16_t product_release = 0x0001);
+	USBMSD(uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104,
+			uint16_t product_release = 0x0001);
 
-    /**
-    * Connect the USB MSD device. Establish disk initialization before really connect the device.
-    *
-    * @returns true if successful
-    */
-    bool connect();
+
+	void assignHandler(USBMSDHandler &handler) {
+		this->addInterfaceHandler(handler);
+	}
 
 
 protected:
-
-    /*
-    * read a block on a storage chip
-    *
-    * @param data pointer where will be stored read data
-    * @param block block number
-    * @returns 0 if successful
-    */
-    virtual int disk_read(uint8_t * data, uint64_t block) = 0;
-
-    /*
-    * write a block on a storage chip
-    *
-    * @param data data to write
-    * @param block block number
-    * @returns 0 if successful
-    */
-    virtual int disk_write(const uint8_t * data, uint64_t block) = 0;
-
-    /*
-    * Disk initilization
-    */
-    virtual int disk_initialize() = 0;
-
-    /*
-    * Return the number of blocks
-    *
-    * @returns number of blocks
-    */
-    virtual uint64_t disk_sectors() = 0;
-
-    /*
-    * Return memory size
-    *
-    * @returns memory size
-    */
-    virtual uint64_t disk_size() = 0;
-
-
-    /*
-    * To check the status of the storage chip
-    *
-    * @returns status: 0: OK, 1: disk not initialized, 2: no medium in the drive, 4: write protected
-    */
-    virtual int disk_status() = 0;
 
     /*
     * Get string product descriptor
@@ -143,97 +99,8 @@ protected:
     */
     virtual uint8_t * configurationDesc();
 
-    /*
-    * Callback called when a packet is received
-    */
-    virtual bool EP2_OUT_callback();
 
-    /*
-    * Callback called when a packet has been sent
-    */
-    virtual bool EP2_IN_callback();
-
-    /*
-    * Set configuration of device. Add endpoints
-    */
-    virtual bool USBCallback_setConfiguration(uint8_t configuration);
-
-    /*
-    * Callback called to process class specific requests
-    */
-    virtual bool USBCallback_request();
-
-
-private:
-
-    // MSC Bulk-only Stage
-    enum Stage {
-        READ_CBW,     // wait a CBW
-        ERROR,        // error
-        PROCESS_CBW,  // process a CBW request
-        SEND_CSW,     // send a CSW
-        WAIT_CSW,     // wait that a CSW has been effectively sent
-    };
-
-    // Bulk-only CBW
-    typedef __packed struct {
-        uint32_t Signature;
-        uint32_t Tag;
-        uint32_t DataLength;
-        uint8_t  Flags;
-        uint8_t  LUN;
-        uint8_t  CBLength;
-        uint8_t  CB[16];
-    } CBW;
-
-    // Bulk-only CSW
-    typedef __packed struct {
-        uint32_t Signature;
-        uint32_t Tag;
-        uint32_t DataResidue;
-        uint8_t  Status;
-    } CSW;
-
-    //state of the bulk-only state machine
-    Stage stage;
-
-    // current CBW
-    CBW cbw;
-
-    // CSW which will be sent
-    CSW csw;
-
-    // addr where will be read or written data
-    uint32_t addr;
-
-    // length of a reading or writing
-    uint32_t length;
-
-    // memory OK (after a memoryVerify)
-    bool memOK;
-
-    // cache in RAM before writing in memory. Useful also to read a block.
-    uint8_t * page;
-
-    int BlockSize;
-    uint64_t MemorySize;
-    uint64_t BlockCount;
-
-    void CBWDecode(uint8_t * buf, uint16_t size);
-    void sendCSW (void);
-    bool inquiryRequest (void);
-    bool write (uint8_t * buf, uint16_t size);
-    bool readFormatCapacity();
-    bool readCapacity (void);
-    bool infoTransfer (void);
-    void memoryRead (void);
-    bool modeSense6 (void);
-    void testUnitReady (void);
-    bool requestSense (void);
-    void memoryVerify (uint8_t * buf, uint16_t size);
-    void memoryWrite (uint8_t * buf, uint16_t size);
-    void reset();
-    void fail();
 };
 
+}
 #endif

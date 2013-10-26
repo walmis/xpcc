@@ -1,6 +1,7 @@
 #pragma once
 
 //#include "USBDevice.h"
+#include <stdint.h>
 
 namespace xpcc {
 class USBDevice;
@@ -12,6 +13,7 @@ public:
 		next = 0;
 	}
 
+protected:
     /*
     * Called by USBDevice layer on bus reset. Warning: Called in ISR context
     *
@@ -76,7 +78,6 @@ public:
 
     friend class USBHAL;
     friend class USBDevice;
-protected:
 
 
 	USBDevice* device;

@@ -22,21 +22,19 @@ void
 xpcc::lpc::SpiMaster1::configurePins(MappingSck mapping, bool useSsel)
 {
 	if(useSsel) {
-		LPC_PINCON->PINSEL1 |= 2; //set ssel
+		Pinsel::setFunc(0, 6, 2);
 	}
 
-	LPC_PINCON->PINSEL0 &= ~(3<<16 | 3<<18); //miso1, mosi1
-	LPC_PINCON->PINSEL0 |= 2<<16 | 2<<18; //miso1, mosi1
+	Pinsel::setFunc(0, 9, 2);
+	Pinsel::setFunc(0, 8, 2);
 
 	switch (mapping)
 	{
 		case MappingSck::P0_7:
-			LPC_PINCON->PINSEL0 &= ~(3<<14);
-			LPC_PINCON->PINSEL0 |= 2<<14; //set sck1
+			Pinsel::setFunc(0, 7, 2);
 		break;
 		case MappingSck::P1_31:
-			LPC_PINCON->PINSEL3 &= ~(3<<30); //set sck1
-			LPC_PINCON->PINSEL3 |= 2<<30; //set sck1
+			Pinsel::setFunc(1, 31, 2);
 		break;
 	}
 

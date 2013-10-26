@@ -251,6 +251,64 @@ namespace xpcc
 			}
 		};
 		
+		template <typename Pin>
+		class OpenDrain
+		{
+		public:
+			ALWAYS_INLINE static void
+			setOutput()
+			{
+				set();
+			}
+
+			ALWAYS_INLINE static void
+			setOutput(bool value)
+			{
+				set(value);
+			}
+
+			ALWAYS_INLINE static void
+			setInput()
+			{
+			}
+
+			ALWAYS_INLINE static void
+			set()
+			{
+				Pin::setOutput(0);
+			}
+
+			ALWAYS_INLINE static void
+			set(bool value)
+			{
+				if(value)
+					set();
+				else
+					reset();
+			}
+
+			ALWAYS_INLINE static void
+			reset()
+			{
+				Pin::setInput();
+			}
+
+			ALWAYS_INLINE static void
+			toggle()
+			{
+				if(Pin::read())
+					reset();
+				else
+					set();
+			}
+
+			ALWAYS_INLINE static bool
+			read()
+			{
+				return !Pin::read();
+			}
+		};
+
 		/**
 		 * \brief	Invert a pin
 		 * 

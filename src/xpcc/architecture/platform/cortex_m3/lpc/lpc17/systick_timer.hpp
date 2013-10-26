@@ -33,6 +33,7 @@
 
 #include <stdint.h>
 #include "core.hpp"
+#include <xpcc/architecture/driver/clock.hpp>
 
 namespace xpcc
 {
@@ -85,6 +86,10 @@ namespace xpcc
 			 */
 			static void
 			detachInterrupt();
+
+			static inline uint32_t getTick(uint32_t ticksPerCycle = 1000000) {
+				return xpcc::Clock::now().getTime()*ticksPerCycle + SysTick->VAL;
+			}
 		};
 	}
 }
