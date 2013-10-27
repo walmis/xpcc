@@ -66,7 +66,7 @@ public:
     */
 	USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012,
 			uint16_t product_release = 0x0001) :
-			USBCDC(vendor_id, product_id, product_release), handler(this) {
+			USBCDC(vendor_id, product_id, product_release) {
 
 		this->addInterfaceHandler(handler);
 

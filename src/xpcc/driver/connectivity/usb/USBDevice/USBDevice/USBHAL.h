@@ -67,6 +67,8 @@ public:
 
 
     void addInterfaceHandler(USBInterfaceHandler& handler) {
+    	handler.device = reinterpret_cast<USBDevice*>(this);
+
     	if(handlers == 0) {
     		handlers = &handler;
     	} else {

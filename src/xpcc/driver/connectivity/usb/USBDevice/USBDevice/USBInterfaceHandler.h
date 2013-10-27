@@ -8,8 +8,8 @@ class USBDevice;
 
 class USBInterfaceHandler {
 public:
-	USBInterfaceHandler(USBDevice* device) {
-		this->device = device;
+	USBInterfaceHandler() {
+		device = 0;
 		next = 0;
 	}
 

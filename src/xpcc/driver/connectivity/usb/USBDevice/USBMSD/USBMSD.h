@@ -68,7 +68,9 @@ public:
     * @param product_release Your preoduct_release
     */
 	USBMSD(uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104,
-			uint16_t product_release = 0x0001);
+			uint16_t product_release = 0x0001) : USBDevice(vendor_id, product_id, product_release) {
+
+	};
 
 
 	void assignHandler(USBMSDHandler &handler) {

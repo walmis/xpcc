@@ -25,7 +25,7 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
-	USBMSDHandler(USBDevice* device, uint8_t bulkIn = EPBULK_IN,
+	USBMSDHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT);
 
 	bool initialize();
@@ -78,6 +78,8 @@ protected:
     */
     virtual int disk_status() = 0;
 
+
+private:
     /*
     * Set configuration of device. Add endpoints
     */
@@ -89,9 +91,6 @@ protected:
     virtual bool USBCallback_request();
 
     bool EP_handler(uint8_t ep) override;
-
-private:
-
 
     // MSC Bulk-only Stage
     enum Stage {

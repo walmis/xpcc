@@ -26,9 +26,9 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 class USBSerialHandler : public USBInterfaceHandler {
 public:
 
-	USBSerialHandler(USBDevice* device, uint8_t bulkIn = EPBULK_IN,
+	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT, uint8_t intIn = EPINT_IN) :
-			USBInterfaceHandler(device), bulkIn(bulkIn), bulkOut(bulkOut), intIn(
+			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
 					intIn) {
 
 		in_request = true;

@@ -54,8 +54,8 @@ enum Status {
 };
 
 
-USBMSDHandler::USBMSDHandler(USBDevice* device, uint8_t bulkIn, uint8_t bulkOut) :
-		bulkIn(bulkIn), bulkOut(bulkOut), USBInterfaceHandler(device) {
+USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
+		bulkIn(bulkIn), bulkOut(bulkOut) {
 	stage = READ_CBW;
 	page = 0;
 	memset((void *) &cbw, 0, sizeof(CBW));
@@ -562,6 +562,8 @@ bool USBMSDHandler::USBCallback_setConfiguration(uint8_t configuration) {
     if (configuration != DEFAULT_CONFIGURATION) {
         return false;
     }
+
+    initialize();
 
     // Configure endpoints > 0
     device->addEndpoint(EPBULK_IN, MAX_PACKET_SIZE_EPBULK);
