@@ -257,19 +257,12 @@ uint32_t USBHAL::endpointReadcore(uint8_t endpoint, uint8_t *buffer) {
     offset = 0;
 
     if (size > 0) {
-        for (i=0; i<size; i++) {
-            if (offset==0) {
-                // Fetch up to four bytes of data as a word
-                data = LPC_USB->USBRxData;
-            }
 
-            // extract a byte
-            *buffer = (data>>offset) & 0xff;
-            buffer++;
+    	uint32_t* buf = (uint32_t*)buffer;
+		for(int i = 0; i < ((size & 3)? 1 : 0) + (size >> 2); i++) {
+			*buf++ = LPC_USB->USBRxData;
+		}
 
-            // move on to the next byte
-            offset = (offset + 8) % 32;
-        }
     } else {
         dummyRead = LPC_USB->USBRxData;
     }
@@ -292,28 +285,16 @@ static void endpointWritecore(uint8_t endpoint, uint8_t *buffer, uint32_t size) 
     LPC_USB->USBCtrl = LOG_ENDPOINT(endpoint) | WR_EN;
 
     LPC_USB->USBTxPLen = size;
-    offset = 0;
-    data = 0;
+    //offset = 0;
+    //data = 0;
 
     if (size>0) {
-        do {
-            // Fetch next data byte into a word-sized temporary variable
-            temp = *buffer++;
 
-            // Add to current data word
-            temp = temp << offset;
-            data = data | temp;
+    	uint32_t* buf = (uint32_t*)buffer;
+		for(int i = 0; i < ((size & 3)? 1 : 0) + (size >> 2); i++) {
+			LPC_USB->USBTxData = *buf++;
+		}
 
-            // move on to the next byte
-            offset = (offset + 8) % 32;
-            size--;
-
-            if ((offset==0) || (size==0)) {
-                // Write the word to the endpoint
-                LPC_USB->USBTxData = data;
-                data = 0;
-            }
-        } while (size>0);
     } else {
         LPC_USB->USBTxData = 0;
     }

@@ -21,25 +21,25 @@
 namespace xpcc {
 
 uint8_t * USBMSD::stringIinterfaceDesc() {
-    static uint8_t stringIinterfaceDescriptor[] = {
+    static const uint8_t stringIinterfaceDescriptor[] = {
         0x08,                           //bLength
         STRING_DESCRIPTOR,              //bDescriptorType 0x03
         'M',0,'S',0,'D',0               //bString iInterface - MSD
     };
-    return stringIinterfaceDescriptor;
+    return (uint8_t*)stringIinterfaceDescriptor;
 }
 
 uint8_t * USBMSD::stringIproductDesc() {
-    static uint8_t stringIproductDescriptor[] = {
+    static const uint8_t stringIproductDescriptor[] = {
         0x12,                                           //bLength
         STRING_DESCRIPTOR,                              //bDescriptorType 0x03
         'M',0,'b',0,'e',0,'d',0,' ',0,'M',0,'S',0,'D',0 //bString iProduct - Mbed Audio
     };
-    return stringIproductDescriptor;
+    return (uint8_t*)stringIproductDescriptor;
 }
 
 uint8_t * USBMSD::configurationDesc() {
-    static uint8_t configDescriptor[] = {
+    static const uint8_t configDescriptor[] = {
 
         // Configuration 1
         9,      // bLength
@@ -81,7 +81,7 @@ uint8_t * USBMSD::configurationDesc() {
         MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
         0                           // bInterval
     };
-    return configDescriptor;
+    return (uint8_t*)configDescriptor;
 }
 
 }

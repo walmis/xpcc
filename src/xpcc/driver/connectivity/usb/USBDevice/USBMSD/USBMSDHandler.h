@@ -32,7 +32,12 @@ public:
 
 protected:
 
+	enum TransferType {
+		READ,
+		WRITE
+	};
 
+	virtual void transfer_begins(TransferType type, uint64_t startBlock, int numBlocks) = 0;
 
     /*
     * read a block on a storage chip
@@ -41,7 +46,9 @@ protected:
     * @param block block number
     * @returns 0 if successful
     */
-    virtual int disk_read(uint8_t * data, uint64_t block) = 0;
+    virtual int disk_read_start(uint8_t * data, uint64_t block, uint32_t blocksLeft) = 0;
+
+    void disk_read_finalize(bool success);
 
     /*
     * write a block on a storage chip
@@ -163,6 +170,12 @@ private:
     void memoryWrite (uint8_t * buf, uint16_t size);
     void reset();
     void fail();
+
+    volatile bool blockReady;
+    volatile bool readRequest;
+    volatile bool writeRequest;
+
+    void sendBlock();
 
 };
 

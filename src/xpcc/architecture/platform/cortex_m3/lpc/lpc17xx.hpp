@@ -53,3 +53,4 @@
 #include "lpc17/adc.hpp"
 #include "lpc17/timer.hpp"
 #include "lpc17/pwm.hpp"
+#include "lpc17/dma/DMA.h"

@@ -135,7 +135,7 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	    switch (stage) {
 
-	            // the device has to send data to the host
+	        // the device has to send data to the host
 	        case PROCESS_CBW:
 	            switch (cbw.CB[0]) {
 	                case READ10:
@@ -204,7 +204,7 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 	return false;
 }
 
-
+//FIXME: add deferred writes
 void USBMSDHandler::memoryWrite (uint8_t * buf, uint16_t size) {
 
     if ((addr + size) > MemorySize) {
@@ -215,10 +215,10 @@ void USBMSDHandler::memoryWrite (uint8_t * buf, uint16_t size) {
 
     // we fill an array in RAM of 1 block before writing it in memory
     for (int i = 0; i < size; i++)
-        page[addr%BlockSize + i] = buf[i];
+        page[(addr & (BlockSize-1)) + i] = buf[i];
 
     // if the array is filled, write it in memory
-    if (!((addr + size)%BlockSize)) {
+    if (!((addr + size) & (BlockSize-1))) {
         if (!(disk_status() & WRITE_PROTECT)) {
             disk_write(page, addr/BlockSize);
         }
@@ -237,6 +237,8 @@ void USBMSDHandler::memoryWrite (uint8_t * buf, uint16_t size) {
 void USBMSDHandler::memoryVerify (uint8_t * buf, uint16_t size) {
     uint32_t n;
 
+    XPCC_LOG_DEBUG .printf("memoryVerify\n");
+
     if ((addr + size) > MemorySize) {
         size = MemorySize - addr;
         stage = ERROR;
@@ -244,12 +246,12 @@ void USBMSDHandler::memoryVerify (uint8_t * buf, uint16_t size) {
     }
 
     // beginning of a new block -> load a whole block in RAM
-    if (!(addr%BlockSize))
-        disk_read(page, addr/BlockSize);
+    if (!(addr & (BlockSize-1)))
+        disk_read_start(page, addr/BlockSize, length/BlockSize);
 
     // info are in RAM -> no need to re-read memory
     for (n = 0; n < size; n++) {
-        if (page[addr%BlockSize + n] != buf[n]) {
+        if (page[(addr & (BlockSize-1)) + n] != buf[n]) {
             memOK = false;
             break;
         }
@@ -378,6 +380,7 @@ bool USBMSDHandler::requestSense (void) {
 }
 
 void USBMSDHandler::fail() {
+	XPCC_LOG_DEBUG .printf("USBMSDHandler::fail()\n");
     csw.Status = CSW_FAILED;
     sendCSW();
 }
@@ -481,32 +484,58 @@ void USBMSDHandler::testUnitReady (void) {
 }
 
 
+
+
+void USBMSDHandler::disk_read_finalize(bool success) {
+	blockReady = true;
+
+	sendBlock();
+}
+
+void USBMSDHandler::sendBlock() {
+    if(blockReady && readRequest) {
+		uint32_t n;
+
+		n = (length > MAX_PACKET) ? MAX_PACKET : length;
+
+		// write data which are in RAM
+		device->writeNB(EPBULK_IN, &page[addr & (BlockSize-1)], n, MAX_PACKET_SIZE_EPBULK);
+
+		addr += n;
+		length -= n;
+
+		csw.DataResidue -= n;
+
+		if ( !length || (stage != PROCESS_CBW)) {
+			csw.Status = (stage == PROCESS_CBW) ? CSW_PASSED : CSW_FAILED;
+			stage = (stage == PROCESS_CBW) ? SEND_CSW : stage;
+		}
+
+		readRequest = false;
+    }
+}
+
 void USBMSDHandler::memoryRead (void) {
     uint32_t n;
 
     n = (length > MAX_PACKET) ? MAX_PACKET : length;
+
+    //XPCC_LOG_DEBUG .printf("Read %d\n", n);
 
     if ((addr + n) > MemorySize) {
         n = MemorySize - addr;
         stage = ERROR;
     }
 
+    readRequest = true;
     // we read an entire block
-    if (!(addr%BlockSize))
-        disk_read(page, addr/BlockSize);
-
-    // write data which are in RAM
-    device->writeNB(EPBULK_IN, &page[addr%BlockSize], n, MAX_PACKET_SIZE_EPBULK);
-
-    addr += n;
-    length -= n;
-
-    csw.DataResidue -= n;
-
-    if ( !length || (stage != PROCESS_CBW)) {
-        csw.Status = (stage == PROCESS_CBW) ? CSW_PASSED : CSW_FAILED;
-        stage = (stage == PROCESS_CBW) ? SEND_CSW : stage;
+    if (!(addr & (BlockSize-1))) {
+    	blockReady = false;
+        disk_read_start(page, addr/BlockSize, length/BlockSize);
     }
+
+    //if block is ready, send it
+    sendBlock();
 }
 
 
@@ -540,6 +569,23 @@ bool USBMSDHandler::infoTransfer (void) {
         return false;
     }
 
+    TransferType type = READ;
+    switch (cbw.CB[0]) {
+        case READ10:
+        case READ12:
+        case VERIFY10:
+        	type = READ;
+        	break;
+        case WRITE10:
+        case WRITE12:
+        	type = WRITE;
+            break;
+    }
+
+    transfer_begins(type, addr/BlockSize, n);
+
+    //XPCC_LOG_DEBUG .printf("infoTransfer %x addr:%d blocks:%d\n", cbw.CB[0], addr, n);
+
     if (cbw.DataLength != length) {
         if ((cbw.Flags & 0x80) != 0) {
             device->stallEndpoint(EPBULK_IN);
@@ -562,7 +608,7 @@ bool USBMSDHandler::USBCallback_setConfiguration(uint8_t configuration) {
     if (configuration != DEFAULT_CONFIGURATION) {
         return false;
     }
-
+    XPCC_LOG_DEBUG .printf("USBMSDHandler::USBCallback_setConfiguration()\n");
     initialize();
 
     // Configure endpoints > 0
