@@ -11,6 +11,8 @@
 #include <xpcc/workflow.hpp>
 #include <xpcc/debug.hpp>
 
+bool xpcc::lpc17::debugIrq = false;
+
 struct irqCounter {
 	int irqn;
 	uint32_t count;
@@ -66,8 +68,10 @@ extern "C" void default_irq_handler() {
 
 	xpcc::TickerTask::interrupt(irqn);
 
-	if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
-		debug_irqs(irqn);
+	if (XPCC_LOG_LEVEL <= xpcc::log::DEBUG) {
+		if(xpcc::lpc17::debugIrq) {
+			debug_irqs(irqn);
+		}
 	}
 }
 

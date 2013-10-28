@@ -186,6 +186,7 @@ public:
 		LPC_PWM1->TCR = 0x00;
 
 		CLKPwr::setClkPower(CLKPwr::PType::PCPWM1, false);
+		NVIC_DisableIRQ(PWM1_IRQn);
 	}
 
 	/*********************************************************************//**
@@ -203,6 +204,7 @@ public:
 		} else {
 			LPC_PWM1 ->TCR &= (~PWM_TCR_PWM_ENABLE) & PWM_TCR_BITMASK;
 		}
+
 	}
 
 	/*********************************************************************//**
@@ -450,6 +452,8 @@ private:
 		LPC_PWM1 ->CCR = 0x00;
 		LPC_PWM1 ->PCR = 0x00;
 		LPC_PWM1 ->LER = 0x00;
+
+		NVIC_EnableIRQ(PWM1_IRQn);
 	}
 
 	static void updateMatchRegister(uint8_t MatchChannel, uint32_t MatchValue) {
@@ -485,6 +489,13 @@ private:
 		}
 	}
 };
+
+inline PWM::CaptureFlags operator | (PWM::CaptureFlags lhs, PWM::CaptureFlags rhs)
+{
+    return (PWM::CaptureFlags)( (int)lhs | (int)rhs );
+}
+
+
 }
 }
 

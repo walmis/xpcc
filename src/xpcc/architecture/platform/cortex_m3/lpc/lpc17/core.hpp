@@ -33,32 +33,30 @@
 
 #include <stdint.h>
 
-namespace xpcc
-{
-	bool isInterruptContext();
+namespace xpcc {
+bool isInterruptContext();
 
+namespace lpc17 {
+typedef void (*InterruptHandler)(void);
 
-namespace lpc17
-	{
-		typedef void (*InterruptHandler)(void);
-		
-		class Core
-		{
-		public:
-			/**
-			 * Get unique device id (96-bits)
-			 * 
-			 * @param offset	0..2
-			 * @return	32-bit of the unique id
-			 */
+extern bool debugIrq;
+
+class Core {
+public:
+	/**
+	 * Get unique device id (96-bits)
+	 *
+	 * @param offset	0..2
+	 * @return	32-bit of the unique id
+	 */
 //			uint32_t
 //			getUniqueId(uint8_t offset)
 //			{
 //				uint32_t *baseaddress = (uint32_t*) 0x1FFFF7E8;
 //				return *(baseaddress + offset);
 //			}
-		};
-	}
+};
+}
 }
 
 #endif	// XPCC_LPC11__CORE_HPP

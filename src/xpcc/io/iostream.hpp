@@ -380,7 +380,7 @@ namespace xpcc
 		writeHex(uint8_t value);
 		
 		void
-		writeFloat(const float& value);
+		writeFloat(float value, int precision = -1);
 		
 #if !defined(XPCC__CPU_AVR)
 		void

@@ -38,10 +38,6 @@
 
 #include "lpc17/usb/USBEndpoints_LPC17_LPC23.h"
 
-
-#include "lpc17/spi/spi_0.hpp"
-#include "lpc17/spi/spi_1.hpp"
-
 #include "rand.hpp"
 #include "lpc17/debug.hpp"
 
@@ -54,3 +50,4 @@
 #include "lpc17/timer.hpp"
 #include "lpc17/pwm.hpp"
 #include "lpc17/dma/DMA.h"
+#include "lpc17/spi/spi.hpp"

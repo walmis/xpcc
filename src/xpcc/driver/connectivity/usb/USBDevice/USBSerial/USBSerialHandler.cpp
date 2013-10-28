@@ -107,7 +107,9 @@ void USBSerialHandler::SOF(int frameNumber) {
 
 
 
-	if(!tx_buffer.isEmpty() && (in_request || latency_timer.isExpired())) {
+	if (!tx_buffer.isEmpty() && in_request
+			&& (latency_timer.isExpired() || tx_buffer.stored() >= MAX_PACKET_SIZE_EPBULK)) {
+
 		for(int i=0; i<64; i++) {
 			buf[i] = tx_buffer.get();
 			size++;
@@ -117,11 +119,12 @@ void USBSerialHandler::SOF(int frameNumber) {
 		}
 		latency_timer.restart(LATENCY);
 
-		device->writeNB(bulkIn, buf, size, 64);
+		device->writeNB(bulkIn, buf, size, MAX_PACKET_SIZE_EPBULK);
 		in_request = false;
+
 	}
 
-	if(data_waiting && rx_buffer.free() >= 64) {
+	if(data_waiting && rx_buffer.free() >= MAX_PACKET_SIZE_EPBULK) {
 		if(readEP_NB(buf, &size)) {
 			for (uint32_t i = 0; i < size; i++) {
 				rx_buffer.push(buf[i]);

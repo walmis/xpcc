@@ -48,6 +48,7 @@ xpcc::IOStream::printf(const char *fmt, ...)
 		bool isSigned = 0;
 		bool isLong = 0;
 		bool isLongLong = 0;
+		int8_t precision = -1;
 		
 		if (c != '%')
 		{
@@ -79,8 +80,18 @@ xpcc::IOStream::printf(const char *fmt, ...)
 			isLongLong = true;
 			c = *fmt++;
 		}
+		if(c == '.') {
+			c = *fmt++;
+			if(c >= '0' && c <= '9') {
+				precision = c - '0';
+			}
+			c = *fmt++;
+		}
 		
 		uint_fast8_t base = 10;
+		bool floating = false;
+
+
 		char *ptr;
 		switch (c)
 		{
@@ -99,7 +110,11 @@ xpcc::IOStream::printf(const char *fmt, ...)
 					this->device->write(c);
 				}
 				continue;
-				
+
+			case 'f':
+				floating = true;
+				break;
+
 			case 'd':
 				isSigned = true;
 				/* no break */
@@ -119,7 +134,7 @@ xpcc::IOStream::printf(const char *fmt, ...)
 		
 		
 		// Number output
-		{
+		if(!floating) {
 			unsigned long unsignedValue;
 			
 			{
@@ -180,6 +195,12 @@ xpcc::IOStream::printf(const char *fmt, ...)
 					this->device->write(c);
 				}
 			}
+		} else { //floating point
+
+			float value = va_arg(ap, double);
+
+			this->writeFloat(value, precision);
+
 		}
 	}
 	

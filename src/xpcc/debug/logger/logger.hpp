@@ -97,7 +97,7 @@ namespace xpcc
 					return *this;
 				}
 
-				void dump_buffer(uint8_t* buf, uint8_t len) {
+				void dump_buffer(uint8_t* buf, uint16_t len) {
 
 					int on_this_line = 0;
 					while (len-- > 0) {
