@@ -36,6 +36,12 @@
 #include "iodevice.hpp"
 #include "iodevice_wrapper.hpp"
 
+extern "C"
+#ifndef XPCC__CPU_HOSTED
+__attribute__((weak))
+#endif
+void xpccFloat(char* str, float val, int precision);
+
 namespace xpcc
 {
 	/**
@@ -380,11 +386,18 @@ namespace xpcc
 		writeHex(uint8_t value);
 		
 		void
-		writeFloat(float value, int precision = -1);
+		writeFloat(float value, int precision = -1) {
+			char str[20]; // +1 for '\0'
+			xpccFloat(str, value, precision);
+
+			this->device->write(str);
+		}
 		
 #if !defined(XPCC__CPU_AVR)
 		void
-		writeDouble(const double& value);
+		writeDouble(const double& value) {
+
+		}
 #endif
 
 	private :
