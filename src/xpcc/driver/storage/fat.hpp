@@ -34,6 +34,8 @@
 #include <stdint.h>
 #include <fatfs/ff.h>
 #include <fatfs/diskio.h>
+#include <xpcc/io.hpp>
+#include <xpcc/debug.hpp>
 
 namespace xpcc
 {
@@ -56,14 +58,14 @@ namespace xpcc
 			 * \brief	Initialize Volume
 			 */
 			virtual Status
-			initialize() = 0;
+			doInitialize() = 0;
 			
 			/**
 			 * \brief	
 			 * \return	
 			 */
 			virtual Status
-			getStatus() = 0;
+			doGetStatus() = 0;
 			
 			/**
 			 * \brief	Read sectors
@@ -75,7 +77,7 @@ namespace xpcc
 			 * \return	TODO
 			 */
 			virtual Result
-			read(uint8_t *buffer, int32_t sectorNumber, uint8_t sectorCount) = 0;
+			doRead(uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) = 0;
 			
 			/**
 			 * \brief	Write Sectors
@@ -87,7 +89,7 @@ namespace xpcc
 			 * \return	TODO
 			 */
 			virtual Result
-			write(const uint8_t *buffer, int32_t sectorNumber, uint8_t sectorCount) = 0;
+			doWrite(const uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) = 0;
 			
 			/**
 			 * \brief	Execute a command
@@ -97,7 +99,7 @@ namespace xpcc
 			 * 							and will be overwritten with the result.
 			 */
 			virtual Result
-			ioctl(uint8_t command, uint32_t *buffer) = 0;
+			doIoctl(uint8_t command, uint32_t *buffer) = 0;
 		};
 		
 		class FileSystem
@@ -107,6 +109,10 @@ namespace xpcc
 			
 			~FileSystem();
 			
+			FRESULT mount() {
+				return f_mount(&this->fileSystem, "", 0);
+			}
+
 		protected:
 			FATFS fileSystem;
 		};
@@ -144,31 +150,74 @@ namespace xpcc
 			DIR directory;
 		};
 		
-		class File
+
+
+		class File : public IOStream, IODevice
 		{
 		public:
-			void
-			open();
+			File() : IOStream(*static_cast<IODevice*>(this)) {
+
+			}
+
+			~File() {
+				close();
+			}
+
+			FRESULT open(const char* path, const char* mode);
+			
+			FRESULT
+			close() {
+				return f_close(&file);
+			}
+			
+			void write(char c) override {
+				f_putc(c, &file);
+			}
+
+			void flush() override {
+
+			}
+
+			bool read(char& c) override {
+				return f_read(&file, (uint8_t*)&c, 1, 0) == FR_OK;
+			}
+
+			uint32_t write(uint8_t* buffer, unsigned int len) {
+				uint32_t written = 0;
+				f_write(&file, (void*)buffer, len, (unsigned int*)&written);
+				return written;
+			}
+
+			int32_t
+			read(uint8_t* buffer, uint32_t len) {
+				UINT read  = -1;
+				FRESULT res = f_read(&file, buffer, len, &read);
+				if(res != FR_OK) {
+					return -res;
+				}
+				return read;
+			}
 			
 			void
-			close();
-			
-			void
-			read();
-			
-			void
-			lseek();
+			lseek(size_t pos) {
+				f_lseek(&file, pos);
+			}
 			
 			void
 			truncate();
-			
-			void
-			flush();
+
+			size_t size() {
+				return f_size(&file);
+			}
+
 			
 		protected:
 			FIL file;
 		};
-	}
+
+
+
+}
 }
 
 #endif // XPCC__FAT_HPP

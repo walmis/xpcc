@@ -37,10 +37,18 @@ protected:
 		WRITE
 	};
 
+	/*
+	 * Called when usb msd transfer request is received.
+	 * @param Transfer type READ or WRITE
+	 * @param first block to be read
+	 * @param number of blocks to read or write
+	 */
 	virtual void transfer_begins(TransferType type, uint64_t startBlock, int numBlocks) = 0;
 
     /*
-    * read a block on a storage chip
+    * called when a new sector needs to be filled
+    * call disk_read_finalize() when data is filled.
+    * Useful for asynchronous operations
     *
     * @param data pointer where will be stored read data
     * @param block block number
@@ -48,6 +56,9 @@ protected:
     */
     virtual int disk_read_start(uint8_t * data, uint64_t block, uint32_t blocksLeft) = 0;
 
+    /*
+     * Finalize a disk read. Call when sector is filled with valid data
+     */
     void disk_read_finalize(bool success);
 
     /*
@@ -57,7 +68,10 @@ protected:
     * @param block block number
     * @returns 0 if successful
     */
-    virtual int disk_write(const uint8_t * data, uint64_t block) = 0;
+    virtual int disk_write_start(const uint8_t * data, uint64_t block, uint32_t blocksLeft) = 0;
+
+
+    void disk_write_finalize(bool success);
 
     /*
     * Disk initilization
@@ -155,7 +169,7 @@ private:
     uint64_t MemorySize;
     uint64_t BlockCount;
 
-    void CBWDecode(uint8_t * buf, uint16_t size);
+    void CBWDecode();
     void sendCSW (void);
     bool inquiryRequest (void);
     bool write (uint8_t * buf, uint16_t size);
@@ -166,8 +180,8 @@ private:
     bool modeSense6 (void);
     void testUnitReady (void);
     bool requestSense (void);
-    void memoryVerify (uint8_t * buf, uint16_t size);
-    void memoryWrite (uint8_t * buf, uint16_t size);
+    void memoryVerify ();
+    void memoryWrite ();
     void reset();
     void fail();
 
@@ -175,7 +189,10 @@ private:
     volatile bool readRequest;
     volatile bool writeRequest;
 
+    volatile bool writeBusy;
+
     void sendBlock();
+    //void readBlock();
 
 };
 

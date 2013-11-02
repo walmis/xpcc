@@ -8,6 +8,7 @@
 #ifndef FUNCTIONPOINTER_H_
 #define FUNCTIONPOINTER_H_
 
+#include <functional>
 #include <string.h>
 
 namespace xpcc {
@@ -27,7 +28,23 @@ public:
 	 *
 	 *  @param function The void static function to attach (default is none)
 	 */
-	FunctionPointer(void (*function)(void) = 0);
+	FunctionPointer(std::function<void()> f = 0) {
+		_function = f;
+		_object = 0;
+	}
+
+	void call(void) {
+
+	    if (_function) {
+	        _function();
+	    } else if (_object) {
+	        _membercaller(_object, _member);
+	    }
+	}
+
+	void operator ()(void) {
+	    call();
+	}
 
 	/** Create a FunctionPointer, attaching a member function
 	 *
@@ -39,11 +56,20 @@ public:
 		attach(object, member);
 	}
 
+	inline void attach(FunctionPointer* other) {
+		attach(other, &FunctionPointer::call);
+	}
+
+	void attach(std::function<void()> func) {
+		_object = 0;
+		_function = func;
+	}
+
 	/** Attach a static function
 	 *
 	 *  @param function The void static function to attach (default is none)
 	 */
-	void attach(void (*function)(void) = 0);
+	//void attach(void (*function)(void) = 0);
 
 	/** Attach a member function
 	 *
@@ -58,15 +84,11 @@ public:
 		_function = 0;
 	}
 
-	/** Call the attached static or member function
-	 */
-	void call();
 
-	pvoidf_t get_function() const {
-		return (pvoidf_t) _function;
+	std::function<void()> get_function() const {
+		return _function;
 	}
 
-	void operator ()(void);
 
 private:
 	template<typename T>
@@ -77,7 +99,8 @@ private:
 		(o->*m)();
 	}
 
-	void (*_function)(void);     // static function pointer - 0 if none attached
+	std::function<void()> _function;
+//	void (*_function)(void);     // static function pointer - 0 if none attached
 	void *_object;                   // object this pointer - 0 if none attached
 	char _member[16]; // raw member function pointer storage - converted back by registered _membercaller
 	void (*_membercaller)(void*, char*); // registered membercaller function to convert back and call _member on _object

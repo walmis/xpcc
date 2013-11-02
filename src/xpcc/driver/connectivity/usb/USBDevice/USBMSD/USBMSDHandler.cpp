@@ -58,6 +58,7 @@ USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
 		bulkIn(bulkIn), bulkOut(bulkOut) {
 	stage = READ_CBW;
 	page = 0;
+	writeBusy = false;
 	memset((void *) &cbw, 0, sizeof(CBW));
 	memset((void *) &csw, 0, sizeof(CSW));
 }
@@ -152,7 +153,7 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	            // an error has occured
 	        case ERROR:
-	            device->stallEndpoint(EPBULK_IN);
+	            device->stallEndpoint(bulkIn);
 	            sendCSW();
 	            break;
 
@@ -167,13 +168,13 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	if(ep == bulkOut) {
 
-	    uint32_t size = 0;
-	    uint8_t buf[MAX_PACKET_SIZE_EPBULK];
-	    device->readEP(EPBULK_OUT, buf, &size, MAX_PACKET_SIZE_EPBULK);
+	    //uint32_t size = 0;
+	    //uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+
 	    switch (stage) {
 	            // the device has to decode the CBW received
 	        case READ_CBW:
-	            CBWDecode(buf, size);
+	            CBWDecode();
 	            break;
 
 	            // the device has to receive data from the host
@@ -181,81 +182,112 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 	            switch (cbw.CB[0]) {
 	                case WRITE10:
 	                case WRITE12:
-	                    memoryWrite(buf, size);
+	                    memoryWrite();
 	                    break;
 	                case VERIFY10:
-	                    memoryVerify(buf, size);
+	                    memoryVerify();
 	                    break;
 	            }
 	            break;
 
 	            // an error has occured: stall endpoint and send CSW
 	        default:
-	            device->stallEndpoint(EPBULK_OUT);
+	            device->stallEndpoint(bulkOut);
 	            csw.Status = CSW_ERROR;
 	            sendCSW();
 	            break;
 	    }
 
-	    //reactivate readings on the OUT bulk endpoint
-	    device->readStart(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
 	    return true;
 	}
 	return false;
 }
 
-//FIXME: add deferred writes
-void USBMSDHandler::memoryWrite (uint8_t * buf, uint16_t size) {
 
-    if ((addr + size) > MemorySize) {
-        size = MemorySize - addr;
-        stage = ERROR;
-        device->stallEndpoint(EPBULK_OUT);
-    }
+void USBMSDHandler::disk_write_finalize(bool success) {
+	writeBusy = false;
+	if ((!length) || (stage != PROCESS_CBW)) {
+		csw.Status = (stage == ERROR) ? CSW_FAILED : CSW_PASSED;
+		sendCSW();
+	}
 
-    // we fill an array in RAM of 1 block before writing it in memory
-    for (int i = 0; i < size; i++)
-        page[(addr & (BlockSize-1)) + i] = buf[i];
-
-    // if the array is filled, write it in memory
-    if (!((addr + size) & (BlockSize-1))) {
-        if (!(disk_status() & WRITE_PROTECT)) {
-            disk_write(page, addr/BlockSize);
-        }
-    }
-
-    addr += size;
-    length -= size;
-    csw.DataResidue -= size;
-
-    if ((!length) || (stage != PROCESS_CBW)) {
-        csw.Status = (stage == ERROR) ? CSW_FAILED : CSW_PASSED;
-        sendCSW();
-    }
+	if(writeRequest) {
+		memoryWrite();
+	}
 }
 
-void USBMSDHandler::memoryVerify (uint8_t * buf, uint16_t size) {
+void USBMSDHandler::memoryWrite () {
+
+	writeRequest = true;
+
+	if(!writeBusy) {
+		uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+		uint32_t size;
+
+		writeRequest = false;
+
+		device->readEP(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
+
+		if ((addr + size) > MemorySize) {
+			size = MemorySize - addr;
+			stage = ERROR;
+			device->stallEndpoint(bulkOut);
+		}
+
+		// we fill an array in RAM of 1 block before writing it in memory
+		for (int i = 0; i < size; i++) {
+			page[(addr & (BlockSize-1)) + i] = buf[i];
+		}
+
+		addr += size;
+		length -= size;
+		csw.DataResidue -= size;
+
+		// if the array is filled, write it in memory
+		if (!((addr) & (BlockSize-1))) {
+
+			if (!(disk_status() & WRITE_PROTECT)) {
+				blockReady = false;
+				writeBusy = true;
+				disk_write_start(page, addr/BlockSize, length/BlockSize);
+			}
+		}
+
+		device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
+	}
+
+}
+
+void USBMSDHandler::memoryVerify () {
     uint32_t n;
+
+    uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+    uint32_t size;
+
+    //fixme
+    memOK = true;
+
+    device->readEP(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
 
     XPCC_LOG_DEBUG .printf("memoryVerify\n");
 
     if ((addr + size) > MemorySize) {
         size = MemorySize - addr;
         stage = ERROR;
-        device->stallEndpoint(EPBULK_OUT);
+        device->stallEndpoint(bulkOut);
     }
 
-    // beginning of a new block -> load a whole block in RAM
-    if (!(addr & (BlockSize-1)))
-        disk_read_start(page, addr/BlockSize, length/BlockSize);
-
-    // info are in RAM -> no need to re-read memory
-    for (n = 0; n < size; n++) {
-        if (page[(addr & (BlockSize-1)) + n] != buf[n]) {
-            memOK = false;
-            break;
-        }
-    }
+//    // beginning of a new block -> load a whole block in RAM
+//    if (!(addr & (BlockSize-1)))
+//        disk_read_start(page, addr/BlockSize, length/BlockSize);
+//
+//    // info are in RAM -> no need to re-read memory
+//    for (n = 0; n < size; n++) {
+//        if (page[(addr & (BlockSize-1)) + n] != buf[n]) {
+//            memOK = false;
+//            break;
+//        }
+//    }
 
     addr += size;
     length -= size;
@@ -265,6 +297,8 @@ void USBMSDHandler::memoryVerify (uint8_t * buf, uint16_t size) {
         csw.Status = (memOK && (stage == PROCESS_CBW)) ? CSW_PASSED : CSW_FAILED;
         sendCSW();
     }
+
+    device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 }
 
 
@@ -326,7 +360,7 @@ bool USBMSDHandler::write (uint8_t * buf, uint16_t size) {
     }
     stage = SEND_CSW;
 
-    if (!device->writeNB(EPBULK_IN, buf, size, MAX_PACKET_SIZE_EPBULK)) {
+    if (!device->writeNB(bulkIn, buf, size, MAX_PACKET_SIZE_EPBULK)) {
         return false;
     }
 
@@ -346,7 +380,7 @@ bool USBMSDHandler::modeSense6 (void) {
 
 void USBMSDHandler::sendCSW() {
     csw.Signature = CSW_Signature;
-    device->writeNB(EPBULK_IN, (uint8_t *)&csw, sizeof(CSW), MAX_PACKET_SIZE_EPBULK);
+    device->writeNB(bulkIn, (uint8_t *)&csw, sizeof(CSW), MAX_PACKET_SIZE_EPBULK);
     stage = WAIT_CSW;
 }
 
@@ -386,8 +420,13 @@ void USBMSDHandler::fail() {
 }
 
 
-void USBMSDHandler::CBWDecode(uint8_t * buf, uint16_t size) {
-    if (size == sizeof(cbw)) {
+void USBMSDHandler::CBWDecode() {
+	uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+	uint32_t size;
+
+	device->readEP(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
+
+	if (size == sizeof(cbw)) {
         memcpy((uint8_t *)&cbw, buf, size);
         if (cbw.Signature == CBW_Signature) {
             csw.Tag = cbw.Tag;
@@ -421,7 +460,7 @@ void USBMSDHandler::CBWDecode(uint8_t * buf, uint16_t size) {
                                 stage = PROCESS_CBW;
                                 memoryRead();
                             } else {
-                                device->stallEndpoint(EPBULK_OUT);
+                                device->stallEndpoint(bulkOut);
                                 csw.Status = CSW_ERROR;
                                 sendCSW();
                             }
@@ -433,7 +472,7 @@ void USBMSDHandler::CBWDecode(uint8_t * buf, uint16_t size) {
                             if (!(cbw.Flags & 0x80)) {
                                 stage = PROCESS_CBW;
                             } else {
-                                device->stallEndpoint(EPBULK_IN);
+                                device->stallEndpoint(bulkIn);
                                 csw.Status = CSW_ERROR;
                                 sendCSW();
                             }
@@ -450,7 +489,7 @@ void USBMSDHandler::CBWDecode(uint8_t * buf, uint16_t size) {
                                 stage = PROCESS_CBW;
                                 memOK = true;
                             } else {
-                                device->stallEndpoint(EPBULK_IN);
+                                device->stallEndpoint(bulkIn);
                                 csw.Status = CSW_ERROR;
                                 sendCSW();
                             }
@@ -467,15 +506,16 @@ void USBMSDHandler::CBWDecode(uint8_t * buf, uint16_t size) {
             }
         }
     }
+	device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 }
 
 void USBMSDHandler::testUnitReady (void) {
 
     if (cbw.DataLength != 0) {
         if ((cbw.Flags & 0x80) != 0) {
-            device->stallEndpoint(EPBULK_IN);
+            device->stallEndpoint(bulkIn);
         } else {
-            device->stallEndpoint(EPBULK_OUT);
+            device->stallEndpoint(bulkOut);
         }
     }
 
@@ -499,7 +539,7 @@ void USBMSDHandler::sendBlock() {
 		n = (length > MAX_PACKET) ? MAX_PACKET : length;
 
 		// write data which are in RAM
-		device->writeNB(EPBULK_IN, &page[addr & (BlockSize-1)], n, MAX_PACKET_SIZE_EPBULK);
+		device->writeNB(bulkIn, &page[addr & (BlockSize-1)], n, MAX_PACKET_SIZE_EPBULK);
 
 		addr += n;
 		length -= n;
@@ -588,9 +628,9 @@ bool USBMSDHandler::infoTransfer (void) {
 
     if (cbw.DataLength != length) {
         if ((cbw.Flags & 0x80) != 0) {
-            device->stallEndpoint(EPBULK_IN);
+            device->stallEndpoint(bulkIn);
         } else {
-            device->stallEndpoint(EPBULK_OUT);
+            device->stallEndpoint(bulkOut);
         }
 
         csw.Status = CSW_FAILED;
@@ -612,11 +652,11 @@ bool USBMSDHandler::USBCallback_setConfiguration(uint8_t configuration) {
     initialize();
 
     // Configure endpoints > 0
-    device->addEndpoint(EPBULK_IN, MAX_PACKET_SIZE_EPBULK);
-    device->addEndpoint(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
+    device->addEndpoint(bulkIn, MAX_PACKET_SIZE_EPBULK);
+    device->addEndpoint(bulkOut, MAX_PACKET_SIZE_EPBULK);
 
     //activate readings
-    device->readStart(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
+    device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
     return true;
 }
 

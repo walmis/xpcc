@@ -56,53 +56,35 @@ extern "C"
 DSTATUS
 disk_initialize(BYTE /*drive*/)
 {
-	return globalVolume->initialize();
-	/*if (diskInterface->initialize()) {
-		return RES_OK;
-	}
-	else {
-		return RES_ERROR;
-	}*/
+	return globalVolume->doInitialize();
 }
 
 extern "C"
 DSTATUS
 disk_status(BYTE /*drive*/)
 {
-	return globalVolume->getStatus();
+	return globalVolume->doGetStatus();
 }
 
 extern "C"
 DRESULT
-disk_read(BYTE /*drive*/, BYTE* buffer, DWORD sectorNumber, BYTE sectorCount)
+disk_read(BYTE /*drive*/, BYTE* buffer, DWORD sectorNumber, UINT sectorCount)
 {
-	return globalVolume->read(buffer, sectorNumber, sectorCount);
-	/*if (diskInterface->read(buffer, sectorNumber, sectorCount)) {
-		return RES_OK;
-	}
-	else {
-		return RES_ERROR;
-	}*/
+	return globalVolume->doRead(buffer, sectorNumber, sectorCount);
 }
 
 extern "C"
 DRESULT
-disk_write(BYTE /*drive*/, const BYTE* buffer, DWORD sectorNumber, BYTE sectorCount)
+disk_write(BYTE /*drive*/, const BYTE* buffer, DWORD sectorNumber, UINT sectorCount)
 {
-	return globalVolume->write(buffer, sectorNumber, sectorCount);
-	/*if (diskInterface->write(buffer, sectorNumber, sectorCount)) {
-		return RES_OK;
-	}
-	else {
-		return RES_ERROR;
-	}*/
+	return globalVolume->doWrite(buffer, sectorNumber, sectorCount);
 }
 
 extern "C"
 DRESULT
 disk_ioctl(BYTE /*drive*/, BYTE command, void* buffer)
 {
-	return globalVolume->ioctl(command, reinterpret_cast<uint32_t *>(buffer));
+	return globalVolume->doIoctl(command, reinterpret_cast<uint32_t *>(buffer));
 	//return RES_ERROR;
 }
 
@@ -115,19 +97,52 @@ xpcc::fat::FileSystem::FileSystem(PhysicalVolume *volume,
 		uint8_t drive)
 {
 	globalVolume = volume;
-	this->fileSystem.drv = drive;
-	
-	f_mount(drive, &this->fileSystem);
+	mount();
 }
 
 xpcc::fat::FileSystem::~FileSystem()
 {
-	f_mount(this->fileSystem.drv, 0);
+	f_mount(0, "", 0);
 }
 
 // ----------------------------------------------------------------------------
 xpcc::fat::FileInfo::FileInfo()
 {
-	info.lfname = 0;
-	info.lfsize = 0;
+
+}
+
+namespace xpcc {
+namespace fat {
+
+
+
+FRESULT File::open(const char* path, const char* mode) {
+	uint8_t flags = 0;
+	bool append = false;
+	switch (mode[0]) {
+	case 'r':
+		flags |= FA_READ | FA_OPEN_EXISTING;
+		if (mode[1] == '+') {
+			flags |= FA_WRITE;
+		}
+		break;
+
+	case 'a':
+		append = true;
+	case 'w':
+		flags |= FA_CREATE_ALWAYS | FA_WRITE;
+		if (mode[1] == '+') {
+			flags |= FA_READ;
+		}
+		break;
+
+	}
+	FRESULT r = f_open(&file, path, flags);
+	if (r == FR_OK && append) {
+		lseek(size());
+	}
+	return r;
+}
+
+}
 }
