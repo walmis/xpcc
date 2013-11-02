@@ -77,13 +77,7 @@ inline uint8_t itoa(int num, char* str) {
 	return i;
 }
 
-void xpcc::IOStream::writeFloat(float value, int precision) {
-	char str[20]; // +1 for '\0'
-
-#if defined(XPCC__CPU_AVR)
-	dtostre(value, str, 5, 0);
-	this->device->write(str);
-#elif defined(XPCC__CPU_CORTEX_M3)
+void xpccFloat(char* str, float value, int precision) {
 	float v;
 	char *ptr = &str[0];
 
@@ -152,33 +146,32 @@ void xpcc::IOStream::writeFloat(float value, int precision) {
 			*ptr++ = '0';
 		}
 	}
-	*ptr++ = '\0';	// End of string
-
-	//printf("%s", str);
-	this->device->write(str);
-
 	if (precision < 0) {
-		printf("%d", ep);
-		this->writeInteger(ep);
+		itoa(ep, ptr);
 	}
 
-#else
-	snprintf(str, sizeof(str), "%.5e", (double) value);
-	this->device->write(str);
-#endif
+	*ptr++ = '\0';	// End of string
+
 }
 
+//void xpcc::IOStream::writeFloat(float value, int precision) {
+//	char str[20]; // +1 for '\0'
+//	xpccFloat(str, value, precision);
+//
+//	this->device->write(str);
+//}
+
 // ----------------------------------------------------------------------------
-#if !defined(XPCC__CPU_AVR)
-void xpcc::IOStream::writeDouble(const double& value) {
-#if defined(XPCC__CPU_CORTEX_M3)
-	// TODO do this better
-	writeFloat(static_cast<float>(value));
-#else
-	// hard coded for 2.22507e-308
-	char str[13 + 1];// +1 for '\0'
-	snprintf(str, sizeof(str), "%.5e", value);
-	this->device->write(str);
-#endif
-}
-#endif
+//#if !defined(XPCC__CPU_AVR)
+//void xpcc::IOStream::writeDouble(const double& value) {
+////#if defined(XPCC__CPU_CORTEX_M3)
+////	// TODO do this better
+////	writeFloat(static_cast<float>(value));
+////#else
+////	// hard coded for 2.22507e-308
+////	char str[13 + 1];// +1 for '\0'
+////	snprintf(str, sizeof(str), "%.5e", value);
+////	this->device->write(str);
+////#endif
+//}
+//#endif

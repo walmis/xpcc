@@ -196,11 +196,11 @@ xpcc::IOStream::printf(const char *fmt, ...)
 				}
 			}
 		} else { //floating point
+			if(xpccFloat) {
+				float value = va_arg(ap, double);
 
-			float value = va_arg(ap, double);
-
-			this->writeFloat(value, precision);
-
+				this->writeFloat(value, precision);
+			}
 		}
 	}
 	
