@@ -74,9 +74,13 @@ public:
     	} else {
     		auto h = handlers;
     		while(h) {
+    			if(!h->next) {
+    				h->next = &handler;
+    				break;
+    			}
     			h = h->next;
     		}
-    		h->next = &handler;
+
     	}
     }
 

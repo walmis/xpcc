@@ -190,7 +190,7 @@ bool USBSerialHandler::USBCallback_request(void) {
 }
 
 bool USBSerialHandler::USBCallback_setConfiguration(uint8_t configuration) {
-    XPCC_LOG_DEBUG .printf("USBCallback_setConfiguration (%d)\n", configuration);
+    XPCC_LOG_DEBUG .printf("USBSerialHandler::USBCallback_setConfiguration (%d)\n", configuration);
 
 	if (configuration != DEFAULT_CONFIGURATION) {
         return false;

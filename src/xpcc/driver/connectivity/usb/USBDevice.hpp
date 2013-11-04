@@ -14,4 +14,6 @@
 #include "USBDevice/USBSerial/USBSerial.h"
 #include "USBDevice/USBMSD/USBMSD.h"
 
+#include "USBDevice/Composite/USBCDCMSD.hpp"
+
 #endif /* USBDEVICE_H_ */

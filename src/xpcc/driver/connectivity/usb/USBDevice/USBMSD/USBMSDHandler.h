@@ -25,6 +25,14 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
+
+	enum {
+		DISK_OK      =   0x01,
+		NO_INIT      =   0x02,
+		NO_DISK	     =    0x04,
+		WRITE_PROTECT =   0x08
+	};
+
 	USBMSDHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT);
 
@@ -43,7 +51,7 @@ protected:
 	 * @param first block to be read
 	 * @param number of blocks to read or write
 	 */
-	virtual void transfer_begins(TransferType type, uint64_t startBlock, int numBlocks) = 0;
+	virtual void transfer_begins(TransferType type, uint32_t startBlock, int numBlocks) = 0;
 
     /*
     * called when a new sector needs to be filled
@@ -54,7 +62,7 @@ protected:
     * @param block block number
     * @returns 0 if successful
     */
-    virtual int disk_read_start(uint8_t * data, uint64_t block, uint32_t blocksLeft) = 0;
+    virtual int disk_read_start(uint8_t * data, uint32_t block, uint32_t blocksLeft) = 0;
 
     /*
      * Finalize a disk read. Call when sector is filled with valid data
@@ -68,7 +76,7 @@ protected:
     * @param block block number
     * @returns 0 if successful
     */
-    virtual int disk_write_start(const uint8_t * data, uint64_t block, uint32_t blocksLeft) = 0;
+    virtual int disk_write_start(const uint8_t * data, uint32_t block, uint32_t blocksLeft) = 0;
 
 
     void disk_write_finalize(bool success);
@@ -83,14 +91,14 @@ protected:
     *
     * @returns number of blocks
     */
-    virtual uint64_t disk_sectors() = 0;
+    virtual uint32_t disk_sectors() = 0;
 
     /*
     * Return memory size
     *
     * @returns memory size
     */
-    virtual uint64_t disk_size() = 0;
+    virtual uint16_t disk_sector_size() = 0;
 
     /*
     * To check the status of the storage chip
@@ -135,11 +143,34 @@ private:
 
     // Bulk-only CSW
     struct CSW {
-        uint32_t Signature;
-        uint32_t Tag;
-        uint32_t DataResidue;
+        uint32_t Signature;/**< Status block signature */
+        uint32_t Tag;/**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
+        uint32_t DataResidue;/**< Number of bytes of data not processed in the SCSI command. */
         uint8_t  Status;
     } __attribute((packed));
+
+
+	struct RequestSense {
+		uint8_t ResponseCode :7;
+		uint8_t VALID :1;
+
+		uint8_t Obsolete;
+
+		uint8_t SenseKey :4;
+		uint8_t Resv :1;
+		uint8_t ILI :1;
+		uint8_t EOM :1;
+		uint8_t FILEMARK :1;
+
+		uint32_t Information;
+		uint8_t AddSenseLen;
+		uint32_t CmdSpecificInfo;
+		uint8_t ASC;
+		uint8_t ASCQ;
+		uint8_t FRUC;
+		uint8_t SenseKeySpecific[3];
+	}__attribute__((packed));
+
 
     //state of the bulk-only state machine
     Stage stage;
@@ -150,11 +181,14 @@ private:
     // CSW which will be sent
     CSW csw;
 
+    RequestSense senseData;
+
     uint8_t bulkIn;
     uint8_t bulkOut;
 
     // addr where will be read or written data
-    uint32_t addr;
+    uint32_t blockAddr;
+    uint32_t dataPos;
 
     // length of a reading or writing
     uint32_t length;
@@ -166,8 +200,9 @@ private:
     uint8_t * page;
 
     int BlockSize;
-    uint64_t MemorySize;
-    uint64_t BlockCount;
+    //uint64_t MemorySize;
+
+    uint32_t BlockCount;
 
     void CBWDecode();
     void sendCSW (void);
@@ -180,8 +215,7 @@ private:
     bool modeSense6 (void);
     void testUnitReady (void);
     bool requestSense (void);
-    void memoryVerify ();
-    void memoryWrite ();
+    bool memoryWrite ();
     void reset();
     void fail();
 
@@ -192,7 +226,6 @@ private:
     volatile bool writeBusy;
 
     void sendBlock();
-    //void readBlock();
 
 };
 
