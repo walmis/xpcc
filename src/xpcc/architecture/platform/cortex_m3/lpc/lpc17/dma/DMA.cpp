@@ -25,7 +25,7 @@
 namespace xpcc {
 
 // Create a "hook" for our ISR to make callbacks. Set by init()
-class DMA *moddma_p = (class DMA *)NULL;
+DMA *DMA::moddma_p = 0;
 
 void
 DMA::Enable(CHANNELS ChannelNumber)
@@ -72,13 +72,15 @@ DMA::getControl(CHANNELS ChannelNumber)
 uint32_t oldDMAHandler = 0;
 typedef void (*MODDMA_FN)(void);
 
+}; // namespace AjK ends
+
 extern "C"
 void DMA_IRQHandler(void) {
     uint32_t channel_mask;
         
-    if (moddma_p == (class DMA *)NULL) {
-        if (oldDMAHandler) {
-            ((MODDMA_FN)oldDMAHandler)();
+    if (xpcc::DMA::moddma_p == 0) {
+        if (xpcc::oldDMAHandler) {
+            ((xpcc::MODDMA_FN)xpcc::oldDMAHandler)();
             return;
         }
         else {
@@ -90,11 +92,11 @@ void DMA_IRQHandler(void) {
         channel_mask = (1UL << channel_number);
         if (LPC_GPDMA->DMACIntStat & channel_mask) {
             if (LPC_GPDMA->DMACIntTCStat & channel_mask) {
-                if (moddma_p->setups[channel_number] != (DMAConfig *)NULL) {
-                    moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
-                    moddma_p->setIrqType(DMA::TcIrq);
-                    moddma_p->setups[channel_number]->isrIntTCStat->call();
-                    moddma_p->isrIntTCStat.call();
+                if (xpcc::DMA::moddma_p->setups[channel_number] != 0) {
+                    xpcc::DMA::moddma_p->setIrqProcessingChannel((xpcc::DMA::CHANNELS)channel_number);
+                    xpcc::DMA::moddma_p->setIrqType(xpcc::DMA::TcIrq);
+                    xpcc::DMA::moddma_p->setups[channel_number]->isrIntTCStat->call();
+                    xpcc::DMA::moddma_p->isrIntTCStat.call();
                     // The user callback should clear the IRQ. But if they forget
                     // then the Mbed will lockup. So, check to see if the IRQ has
                     // been dismissed, if not, we will dismiss it here.
@@ -107,20 +109,20 @@ void DMA_IRQHandler(void) {
                     // must wait for completion they should implement their
                     // own ISR. But only disable if the LLI linked list register
                     // is null otherwise we can crap out a series of transfers.
-                    if (moddma_p->Enabled( (DMA::CHANNELS)channel_number )) {
-                        if (moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 ) {
-                            moddma_p->Disable( (DMA::CHANNELS)channel_number ); 
+                    if (xpcc::DMA::moddma_p->Enabled( (xpcc::DMA::CHANNELS)channel_number )) {
+                        if (xpcc::DMA::moddma_p->lli( (xpcc::DMA::CHANNELS)channel_number ) == 0 ) {
+                            xpcc::DMA::moddma_p->Disable( (xpcc::DMA::CHANNELS)channel_number );
                         }
                     }
                 }            
             }
             
             if (LPC_GPDMA->DMACIntErrStat & channel_mask) {
-                if (moddma_p->setups[channel_number] != (DMAConfig *)NULL) {
-                    moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
-                    moddma_p->setIrqType(DMA::ErrIrq);
-                    moddma_p->setups[channel_number]->isrIntErrStat->call();
-                    moddma_p->isrIntErrStat.call();
+                if (xpcc::DMA::moddma_p->setups[channel_number] != 0) {
+                	xpcc::DMA::moddma_p->setIrqProcessingChannel((xpcc::DMA::CHANNELS)channel_number);
+                	xpcc::DMA::moddma_p->setIrqType(xpcc::DMA::ErrIrq);
+                	xpcc::DMA::moddma_p->setups[channel_number]->isrIntErrStat->call();
+                	xpcc::DMA::moddma_p->isrIntErrStat.call();
                     // The user callback should clear the IRQ. But if they forget
                     // then the Mbed will lockup. So, check to see if the IRQ has
                     // been dismissed, if not, we will dismiss it here.
@@ -133,9 +135,9 @@ void DMA_IRQHandler(void) {
                     // must wait for completion they should implement their
                     // own ISR. But only disable if the LLI linked list register
                     // is null otherwise we can crap out a series of transfers.
-                    if (moddma_p->Enabled( (DMA::CHANNELS)channel_number )) {
-                        if (moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 ) {
-                            moddma_p->Disable( (DMA::CHANNELS)channel_number ); 
+                    if (xpcc::DMA::moddma_p->Enabled( (xpcc::DMA::CHANNELS)channel_number )) {
+                        if (xpcc::DMA::moddma_p->lli( (xpcc::DMA::CHANNELS)channel_number ) == 0 ) {
+                        	xpcc::DMA::moddma_p->Disable( (xpcc::DMA::CHANNELS)channel_number );
                         }
                     }
                 }            
@@ -145,14 +147,14 @@ void DMA_IRQHandler(void) {
     
     /* IRQ should be handled by now, check to make sure. */
     if (LPC_GPDMA->DMACIntStat) {
-        ((MODDMA_FN)oldDMAHandler)();
+        ((xpcc::MODDMA_FN)xpcc::oldDMAHandler)();
         LPC_GPDMA->DMACIntTCClear = (uint32_t)0xFF; /* If not, clear anyway! */
     }
     if (LPC_GPDMA->DMACIntErrStat) {
-        ((MODDMA_FN)oldDMAHandler)();
+        ((xpcc::MODDMA_FN)xpcc::oldDMAHandler)();
         LPC_GPDMA->DMACIntErrClr = (uint32_t)0xFF; /* If not, clear anyway! */
     }
 }
 
-}; // namespace AjK ends
+
 

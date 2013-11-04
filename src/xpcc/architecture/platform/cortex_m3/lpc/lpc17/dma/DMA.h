@@ -37,6 +37,8 @@
 #include <xpcc/utils/FunctionPointer.h>
 //#include "iomacros.h"
 
+extern "C" void DMA_IRQHandler();
+
 namespace xpcc {
 
 /**
@@ -357,25 +359,15 @@ public:
         , _H   = (1UL << 18)    /*!< Halt */
     };
     
-    /**
-     * The MODDMA constructor is used to initialise the DMA controller object.
-     */    
-    DMA() { init(true); }
+
+    static DMA* instance() {
+    	if(!moddma_p) {
+    		moddma_p = new DMA;
+    	}
+    	return moddma_p;
+    }
     
-    /**
-     * The MODDMA destructor.
-     */    
-    ~DMA() {}
-    
-    /**
-     * Used to setup the DMA controller to prepare for a data transfer.
-     *
-     * @ingroup API
-     * @param isConstructorCalling Set true when called from teh constructor
-     * @param 
-     */
-    void init(bool isConstructorCalling, int Channels = 0xFF, int Tc = 0xFF, int Err = 0xFF);
-    
+
     /**
      * Used to setup and enable the DMA controller.
      *
@@ -507,14 +499,6 @@ public:
      */
     DMAConfig *getConfig(void) { return setups[IrqProcessingChannel]; }
     
-    /**
-     * Set which channel the ISR is currently servicing.
-     *
-     * *** USED INTERNALLY. DO NOT CALL FROM USER PROGRAMS ***
-     *
-     * Must be public so the extern "C" ISR can use it.
-     */
-    void setIrqProcessingChannel(CHANNELS n) { IrqProcessingChannel = n; }
     
     /**
      * Gets which channel the ISR is currently servicing.
@@ -675,6 +659,34 @@ public:
     uint32_t Channel_p(int channel);
     
 protected:
+
+    /**
+     * Set which channel the ISR is currently servicing.
+     *
+     * *** USED INTERNALLY. DO NOT CALL FROM USER PROGRAMS ***
+     *
+     * Must be public so the extern "C" ISR can use it.
+     */
+    void setIrqProcessingChannel(CHANNELS n) { IrqProcessingChannel = n; }
+
+    /**
+     * The MODDMA constructor is used to initialise the DMA controller object.
+     */
+    DMA() { init(true); }
+
+    /**
+     * The MODDMA destructor.
+     */
+    ~DMA() {}
+
+    /**
+     * Used to setup the DMA controller to prepare for a data transfer.
+     *
+     * @ingroup API
+     * @param isConstructorCalling Set true when called from teh constructor
+     * @param
+     */
+    void init(bool isConstructorCalling, int Channels = 0xFF, int Tc = 0xFF, int Err = 0xFF);
    
     // Data LUTs.
     uint32_t LUTPerAddr(int n);
@@ -685,6 +697,11 @@ protected:
     CHANNELS IrqProcessingChannel;
     
     IrqType_t IrqType;
+
+
+    friend void ::DMA_IRQHandler();
+
+    static DMA* moddma_p;
 };
 
 }; // namespace AjK ends.

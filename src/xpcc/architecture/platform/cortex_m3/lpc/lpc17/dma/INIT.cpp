@@ -25,8 +25,6 @@
 namespace xpcc {
 
 extern uint32_t oldDMAHandler;
-extern "C" void MODDMA_IRQHandler(void);
-extern class DMA *moddma_p;
 
 void
 DMA::init(bool isConstructorCalling, int Channels, int Tc, int Err)
