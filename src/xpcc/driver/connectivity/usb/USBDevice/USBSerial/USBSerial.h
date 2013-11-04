@@ -25,9 +25,20 @@
 #include <xpcc/io.hpp>
 #include <xpcc/architecture/driver.hpp>
 
-//#include "CircBuffer.h"
 
 
+
+
+namespace xpcc {
+
+#include "USBCDC.h"
+  
+/**
+* \brief		USB Serial Class
+
+* \ingroup		usb
+*/  
+  
 /**
 * USBSerial example
 *
@@ -48,10 +59,6 @@
 * }
 * @endcode
 */
-
-namespace xpcc {
-
-#include "USBCDC.h"
 
 class USBSerial: public USBCDC, public xpcc::IODevice {
 public:

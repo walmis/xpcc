@@ -8,6 +8,12 @@
 #ifndef USBDEVICE_H_
 #define USBDEVICE_H_
 
+/**
+ * \ingroup		connectivity
+ * \defgroup 	usb (USB) Universal serial bus
+ * \brief 		Interface to the USB
+ * 
+ */
 
 #include "USBDevice/USBDevice/USBHAL.h"
 #include "USBDevice/USBDevice/USBDevice.h"

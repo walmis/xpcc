@@ -26,6 +26,15 @@
 #include "USBMSDHandler.h"
 
 
+namespace xpcc {
+
+  
+/**
+* \brief		USB MSD Class
+
+* \ingroup		usb
+*/  
+
 /**
  * USBMSD class: generic class in order to use all kinds of blocks storage chip
  *
@@ -53,10 +62,12 @@
  * of USBMSD to connect your mass storage device. connect() will first call disk_status() to test the status of the disk.
  * If disk_status() returns 1 (disk not initialized), then disk_initialize() is called. After this step, connect() will collect information
  * such as the number of blocks and the memory size.
+ */  
+
+
+/*! 
+ * \tparam USBMSDHandler subclass that implements disk access methods
  */
-
-namespace xpcc {
-
 template <class MSDHandler>
 class USBMSD: public USBDevice {
 public:

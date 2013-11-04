@@ -189,6 +189,18 @@ struct BeaconFrame {
 	}
 } __attribute__((packed));
 
+
+/**
+* \brief		TinyRadioProtocol
+
+* \ingroup		communication
+*/
+
+/**
+ * A small radio protocol implementation based on IEEE 802.15.4
+ *
+ * */
+
 template <class Driver, class Security>
 class TinyRadioProtocol : xpcc::TickerTask {
 
