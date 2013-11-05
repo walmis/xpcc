@@ -1,11 +1,11 @@
 // ----------------------------------------------------------------------------
 
 #ifndef CONFIG_HPP
-#define	CONFIG_HPP
+#define	 CONFIG_HPP
 
 #include <xpcc/architecture.hpp>
-#include <xpcc/driver/connectivity/spi.hpp>
-#include <xpcc/driver/ui/seven_segment.hpp>
+#include <xpcc/communication/spi.hpp>
+#include <xpcc/ui/seven_segment.hpp>
 
 // ----------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ namespace ssd
 	GPIO__OUTPUT(Pwm,  1, 1);
 
 	// software SPI, write only
-//	typedef xpcc::SoftwareSpi<spi::Sck, spi::Mosi, xpcc::gpio::Unused, 2000000> Spi;
+//	typedef xpcc::SoftwareSpiMaster<spi::Sck, spi::Mosi, xpcc::GpioUnused, 2000000> Spi;
 
 	// Hardware SPI1
 	typedef xpcc::lpc::SpiMaster1 Spi;
@@ -76,16 +76,25 @@ namespace adc
 	// --				AD2
 	// POSITION	PIO1.2	AD3 (Servo)
 	// --		SWD		AD4
-	// POTI		PIO1.4	AD5
+	// POTI		PIO1.4	AD5 (Board)
 	// BEMF_A	PIO1.10	AD6
 	// BEMF_B	PIO1.11	AD7
 
-	typedef xpcc::lpc111x::AdcAutomaticBurst Adc;
+	typedef xpcc::lpc::AdcManualSingle Adc;
+
+	enum class Channel
+	{
+		BATTERY		= Adc::Channel::CHANNEL_0,
+		CURRENT 	= Adc::Channel::CHANNEL_1,
+		POSITION	= Adc::Channel::CHANNEL_3,
+		BEMF_A		= Adc::Channel::CHANNEL_6,
+		BEMF_B		= Adc::Channel::CHANNEL_7,
+	};
 }
 
 namespace servo
 {
-	typedef xpcc::lpc11::Timer16_0 pwmTimer;
+	typedef xpcc::lpc::Timer16_0 pwmTimer;
 	GPIO__OUTPUT(EnA,  2, 11);
 	GPIO__OUTPUT(EnB,  0,  2);
 	GPIO__OUTPUT(PwmA, 0,  8);
@@ -95,6 +104,27 @@ namespace servo
 namespace usb
 {
 	typedef xpcc::lpc::Uart1 uart;
+}
+
+namespace logger
+{
+	// Create a struct with all channels that should be
+	// observed with the logger.
+//	struct Sample
+//	{
+//		int16_t pwm;
+//		int16_t speedTicks;
+//		int16_t speedTime;
+//		int16_t current;
+//		uint8_t currentLimited;
+//	} __attribute__((packed));
+
+	struct Sample
+	{
+		int16_t current;
+		int16_t current_filtered;
+		int16_t position;
+	} __attribute__((packed));
 }
 
 #endif	// CONFIG_HPP

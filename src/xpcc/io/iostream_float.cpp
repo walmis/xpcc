@@ -27,6 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 // ----------------------------------------------------------------------------
+
 #include <stdio.h>		// snprintf()
 #include <stdlib.h>
 #include <math.h>
@@ -153,13 +154,6 @@ void xpccFloat(char* str, float value, int precision) {
 	*ptr++ = '\0';	// End of string
 
 }
-
-//void xpcc::IOStream::writeFloat(float value, int precision) {
-//	char str[20]; // +1 for '\0'
-//	xpccFloat(str, value, precision);
-//
-//	this->device->write(str);
-//}
 
 // ----------------------------------------------------------------------------
 //#if !defined(XPCC__CPU_AVR)

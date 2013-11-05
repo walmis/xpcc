@@ -32,7 +32,7 @@
 #define XPCC__MAX6966_HPP
 
 #include <stdint.h>
-#include <xpcc/architecture/driver/gpio.hpp>
+#include <xpcc/architecture/peripheral/gpio.hpp>
 #include <xpcc/architecture/driver/delay.hpp>
 
 namespace xpcc
@@ -186,10 +186,11 @@ namespace xpcc
 		}
 		
 		
-		/// set the 8bit value of a channel
+		/// set the 8bit value of a single channel
 		static void
 		setChannel(uint16_t channel, uint8_t value);
 
+		/// set the intensity of a single channel
 		static void
 		setChannelIntensity(uint16_t channel, uint8_t intensity)
 		{

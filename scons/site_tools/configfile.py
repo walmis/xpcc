@@ -93,13 +93,13 @@ class FileList(list):
 	def __append(self, item):
 		if not isinstance(item, SCons.Node.Node):
 			item = SCons.Node.FS.default_fs.File(str(item))
-			print dir(item)
+			# print dir(item)
 		if not self.__contains__(item):
 			list.append(self, item)
 	
 	def extend(self, l):
 		for item in l:
-			self.__append(item)
+			self.append(item)
 	
 	def __iadd__(self, item):
 		self.append(item)
@@ -109,7 +109,7 @@ class FileList(list):
 class Scanner:
 	
 	HEADER = ['.h', '.hpp']
-	SOURCE = ['.cpp', '.c', '.sx', '.S']
+	SOURCE = ['.cpp', '.c', '.sx', '.S', '.s']
 	
 	def __init__(self, env, unittest=None):
 		""" Constructor
@@ -144,7 +144,7 @@ class Scanner:
 		
 		for basepath in pathlist:
 			for path, directories, files in os.walk(basepath):
-				if os.path.normpath(path) in ignoreList:
+				if self._fileInList (path, ignoreList):
 					directories = self._excludeDirectories(directories)
 					continue
 				
@@ -254,6 +254,13 @@ class Scanner:
 		else:
 			string += "None"
 		return string
+
+	def _fileInList(self, file, fileList):
+		# returns true if file (or directory) is contained in fileList
+		for f in fileList:
+			if self._samefile (file, f):
+				return True
+		return False
 
 # -----------------------------------------------------------------------------
 def generate(env, **kw):

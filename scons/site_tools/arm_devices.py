@@ -1,3 +1,14 @@
+#
+#
+#   THIS FILE IS NO LONGER IN USE
+#
+#   However it is keep as long as it takes to tranfere the data contained
+#   to xml device files
+#
+
+
+
+
 devices = \
 {
 	# -------------------------------------------------------------------------
@@ -35,6 +46,13 @@ devices = \
 		"defines": ["__ARM_LPC11XX__",],
 		"linkerscript": "cortex_m0/lpc/linker/lpc1114_301.ld",
 		"size": { "flash": 32768, "ram": 8192 },
+	},
+	
+	"lpc1115_303":
+	{
+		"defines": ["__ARM_LPC11XX__",],
+		"linkerscript": "cortex_m0/lpc/linker/lpc1115_303.ld",
+		"size": { "flash": 65536, "ram": 8192 },
 	},
 	
     # Integrated CAN transceiver
@@ -377,5 +395,34 @@ devices = \
 		"defines": ["__STM32F407__", "__ARM_STM32__", "STM32F4XX"],
 		"linkerscript": "cortex_m3/stm32/linker/stm32f4xx_g.ld",
 		"size": { "flash": 1048576, "ram": 114688 },
+	},
+	
+	# -------------------------------------------------------------------------
+	
+	# STM32 F3 Series
+	# ARM Cortex-M4F MCU + FPU
+	
+	# STM32F302 p s
+	# 
+	# Pins (p):
+	#  C |  48 pins
+	#  R |  64 pins
+	#  V | 100 pins
+	# 
+	# Size (s):
+	#  B | 128 kB Flash,  8 + 40 kB RAM
+	#  C | 256 kB Flash,  8 + 40 kB RAM
+	# 
+	"stm32f303_b":
+	{
+		"defines": ["__STM32F303__", "__ARM_STM32__", "STM32F3XX", "STM32F30X"],
+		"linkerscript": "cortex_m3/stm32/linker/stm32f3xx_b.ld",
+		"size": { "flash": 131072, "ram": 40960 },
+	},
+	"stm32f303_c":
+	{
+		"defines": ["__STM32F303__", "__ARM_STM32__", "STM32F3XX", "STM32F30X"],
+		"linkerscript": "cortex_m3/stm32/linker/stm32f3xx_c.ld",
+		"size": { "flash": 262144, "ram": 40960 },
 	},
 }

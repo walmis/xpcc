@@ -78,23 +78,31 @@ namespace xpcc
 		flush()
 		{
 			this->device->flush();
-			this->mode = ASCII;
+			this->mode = Mode::Ascii;
 			return *this;
 		}
 		
-		/// set the output mode to HEX style for \c char and \c char*
+		/// set the output mode to Mode::Binary style for \c char and \c char*
 		ALWAYS_INLINE IOStream&
-		hex()
+		bin()
 		{
-			this->mode = HEX;
+			this->mode = Mode::Binary;
 			return *this;
 		}
 
-		/// set the output mode to ASCII style for \c char and \c char*
+		/// set the output mode to Mode::Hexadecimal style for \c char and \c char*
+		ALWAYS_INLINE IOStream&
+		hex()
+		{
+			this->mode = Mode::Hexadecimal;
+			return *this;
+		}
+
+		/// set the output mode to Mode::Ascii style for \c char and \c char*
 		ALWAYS_INLINE IOStream&
 		ascii()
 		{
-			this->mode = ASCII;
+			this->mode = Mode::Ascii;
 			return *this;
 		}
 		
@@ -102,8 +110,11 @@ namespace xpcc
 		IOStream&
 		operator << (const unsigned char& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->writeInteger(static_cast<uint16_t>(v));
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(v);
 			}
 			else {
 				this->writeHex(v);
@@ -114,8 +125,11 @@ namespace xpcc
 		IOStream&
 		operator << (const char& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->device->write(v);
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(v);
 			}
 			else {
 				this->writeHex(v);
@@ -126,8 +140,12 @@ namespace xpcc
 		ALWAYS_INLINE IOStream&
 		operator << (const uint16_t& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->writeInteger(v);
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(static_cast<uint8_t>(v >> 8));
+				this->writeBin(static_cast<uint8_t>(v & 0xff));
 			}
 			else {
 				this->writeHex(static_cast<uint8_t>(v >> 8));
@@ -139,8 +157,12 @@ namespace xpcc
 		ALWAYS_INLINE IOStream&
 		operator << (const int16_t& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->writeInteger(v);
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(static_cast<uint8_t>(v >> 8));
+				this->writeBin(static_cast<uint8_t>(v & 0xff));
 			}
 			else {
 				this->writeHex(static_cast<uint8_t>(v >> 8));
@@ -152,8 +174,14 @@ namespace xpcc
 		ALWAYS_INLINE IOStream&
 		operator << (const uint32_t& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->writeInteger(v);
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(static_cast<uint8_t>(v >> 24));
+				this->writeBin(static_cast<uint8_t>(v >> 16));
+				this->writeBin(static_cast<uint8_t>(v >> 8));
+				this->writeBin(static_cast<uint8_t>(v & 0xff));
 			}
 			else {
 				this->writeHex(static_cast<uint8_t>(v >> 24));
@@ -167,8 +195,14 @@ namespace xpcc
 		ALWAYS_INLINE IOStream&
 		operator << (const int32_t& v)
 		{
-			if (this->mode == ASCII) {
+			if (this->mode == Mode::Ascii) {
 				this->writeInteger(v);
+			}
+			else if (this->mode == Mode::Binary) {
+				this->writeBin(static_cast<uint8_t>(v >> 24));
+				this->writeBin(static_cast<uint8_t>(v >> 16));
+				this->writeBin(static_cast<uint8_t>(v >> 8));
+				this->writeBin(static_cast<uint8_t>(v & 0xff));
 			}
 			else {
 				this->writeHex(static_cast<uint8_t>(v >> 24));
@@ -256,8 +290,11 @@ namespace xpcc
 		IOStream&
 		operator << (const char* s)
 		{
-			if( this->mode == ASCII ) {
+			if( this->mode == Mode::Ascii ) {
 				this->device->write(s);
+			}
+			else if( this->mode == Mode::Binary ) {
+				this->writeBin(s);
 			}
 			else {
 				this->writeHex(s);
@@ -380,31 +417,32 @@ namespace xpcc
 		writeHex(const char* s);
 		
 		void
+		writeBin(const char* s);
+
+		void
 		writeHexNibble(uint8_t nibble);
 		
 		void
 		writeHex(uint8_t value);
 		
 		void
-		writeFloat(float value, int precision = -1) {
-			char str[20]; // +1 for '\0'
-			xpccFloat(str, value, precision);
+		writeBin(uint8_t value);
 
-			this->device->write(str);
-		}
+		void
+		writeFloat(const float& value);
 		
 #if !defined(XPCC__CPU_AVR)
 		void
-		writeDouble(const double& value) {
-
-		}
+		writeDouble(const double& value);
 #endif
 
 	private :
-		enum Mode
+		enum class
+		Mode
 		{
-			ASCII,
-			HEX
+			Ascii,
+			Hexadecimal,
+			Binary
 		};
 		
 		IOStream(const IOStream&);
@@ -441,7 +479,18 @@ namespace xpcc
 	}
 
 	/**
-	 * \brief  set the output mode to HEX style for \b char and \b char*
+	 * \brief  set the output mode to Mode::Binary style for \b char and \b char*
+	 *
+	 * \ingroup io
+	 */
+	inline IOStream&
+	bin(IOStream& ios)
+	{
+		return ios.bin();
+	}
+
+	/**
+	 * \brief  set the output mode to Mode::Hexadecimal style for \b char and \b char*
 	 *
 	 * \ingroup io
 	 */
@@ -452,7 +501,7 @@ namespace xpcc
 	}
 
 	/**
-	 * \brief  set the output mode to ASCII style for \b char and \b char*
+	 * \brief  set the output mode to Mode::Ascii style for \b char and \b char*
 	 *
 	 * \ingroup io
 	 */

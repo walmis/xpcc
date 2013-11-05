@@ -1,0 +1,86 @@
+// coding: utf-8
+/* Copyright (c) 2013, Roboterclub Aachen e.V.
+ * All Rights Reserved.
+ *
+ * The file is part of the xpcc library and is released under the 3-clause BSD
+ * license. See the file `LICENSE` for the full license governing this code.
+ */
+// ----------------------------------------------------------------------------
+
+#include <xpcc/math/utils/bit_operation.hpp>
+
+template<class clockSource, uint32_t baudrate,
+		xpcc::stm32::UartBase::OversamplingMode oversample>
+void
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::initialize()
+{
+	UsartHal{{ id }}::initialize<clockSource, baudrate, oversample>();
+	UsartHal{{ id }}::setLastBitClockPulse(UsartHal{{ id }}::LastBitClockPulse::Output);
+	UsartHal{{ id }}::setSpiClock(UsartHal{{ id }}::SpiClock::Enabled);
+	UsartHal{{ id }}::setTransmitterEnable(true);
+	UsartHal{{ id }}::setReceiverEnable(true);
+	finished = true;
+	dataOrder = DataOrder::MsbFirst;
+}
+
+void
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::setDataMode(DataMode mode)
+{
+	UsartHal{{ id }}::setSpiDataMode(static_cast<UartBase::SpiDataMode>(mode));
+}
+
+void
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::setDataOrder(DataOrder order)
+{
+	dataOrder = order;
+}
+
+uint8_t
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::writeReadBlocking(uint8_t data)
+{
+	writeBlocking(data);
+	while(!getResult(data))
+		;
+	return data;
+}
+
+void
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::writeBlocking(uint8_t data)
+{
+	while(!write(data))
+		;
+}
+
+bool
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::write(uint8_t data)
+{
+	if(!isFinished())
+		return false;
+
+	// the USART can only send LSB out first
+	if(dataOrder == DataOrder::MsbFirst) {
+		data = ::xpcc::bitReverse(data);
+	}
+	UsartHal{{ id }}::write(data);
+	return true;
+}
+
+bool
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::getResult(uint8_t &data)
+{
+	if (!UsartHal{{ id }}::isReceiveRegisterNotEmpty())
+		return false;
+
+	UsartHal{{ id }}::read(data);
+	// the USART can only send LSB out first
+	if(dataOrder == DataOrder::MsbFirst) {
+		data = ::xpcc::bitReverse(data);
+	}
+	return true;
+}
+
+bool
+xpcc::stm32::UartSpiSimpleMaster{{ id }}::isFinished()
+{
+	return UsartHal{{ id }}::isTransmitRegisterEmpty() && finished;
+}

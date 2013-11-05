@@ -1,6 +1,10 @@
 *~
 *.pyc
 .sconsign.dblite
+.project
+.cproject
+.pydevproject
+.settings/
 build/
 /LPC11xx
 /LPC17xx
@@ -9,3 +13,9 @@ build/
 /LPC11xxDebug
 /LPC11UxxDebug
 /Linux
+
+# Directories containing device specific files generated from templates
+# in src/xpcc/architecture/
+/src/xpcc/architecture/generated*
+# platform.hpp is generate from a template
+/src/xpcc/architecture/platform.hpp
