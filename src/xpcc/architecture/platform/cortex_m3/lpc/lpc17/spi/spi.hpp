@@ -2,10 +2,13 @@
 
 #include <stdint.h>
 
-#include <xpcc/driver/connectivity/spi/spi_master.hpp>
+#include <xpcc/architecture/peripheral.hpp>
 
 #include <xpcc/architecture.hpp>
 #include "spi_registers.h"
+
+namespace xpcc {
+namespace lpc17 {
 
 /* --------------------- BIT DEFINITIONS -------------------------------------- */
 /*********************************************************************//**
@@ -33,12 +36,9 @@
 
 #define SSP_CPSR_BITMASK	((uint32_t)(0xFF))
 
-namespace xpcc {
-namespace lpc17 {
+#define SPIx (reinterpret_cast<LPC_SSP_TypeDef*>(Spi_ptr))
 
-#define SPIx (reinterpret_cast<LPC_SSP_TypeDef*>(Spi))
-
-template<int Spi>
+template<int Spi_ptr>
 class SpiMaster: public xpcc::SpiMaster {
 public:
 	enum class TransferSize {
@@ -155,25 +155,25 @@ public:
 		return SPIx->DR;
 	}
 
-	static bool setBuffer(uint16_t length, uint8_t* transmit = 0,
-			uint8_t* receive = 0, BufferIncrease bufferIncrease =
-					BUFFER_INCR_BOTH) {
-		return false;
-	}
-
-	static bool transfer(TransferOptions options =
-			TRANSFER_SEND_BUFFER_SAVE_RECEIVE) {
-		return false;
-	}
-
-	static bool
-	transferSync(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE) {
-		return false;
-	}
-
-	static bool isFinished() {
-		return false;
-	}
+//	static bool setBuffer(uint16_t length, uint8_t* transmit = 0,
+//			uint8_t* receive = 0, BufferIncrease bufferIncrease =
+//					BUFFER_INCR_BOTH) {
+//		return false;
+//	}
+//
+//	static bool transfer(TransferOptions options =
+//			TRANSFER_SEND_BUFFER_SAVE_RECEIVE) {
+//		return false;
+//	}
+//
+//	static bool
+//	transferSync(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE) {
+//		return false;
+//	}
+//
+//	static bool isFinished() {
+//		return false;
+//	}
 
 protected:
 	static constexpr uint8_t fifoSize = 8;

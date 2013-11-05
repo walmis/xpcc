@@ -6,9 +6,8 @@
  */
 
 #include <xpcc/architecture.hpp>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/container.hpp>
-#include <xpcc/workflow.hpp>
 #include <xpcc/debug.hpp>
 
 bool xpcc::lpc17::debugIrq = false;

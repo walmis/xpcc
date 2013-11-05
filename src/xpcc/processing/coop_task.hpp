@@ -8,7 +8,7 @@
 #ifndef TICKERTASK2_HPP_
 #define TICKERTASK2_HPP_
 
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/debug.hpp>
 
 class CoopTask : xpcc::TickerTask {

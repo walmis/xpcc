@@ -429,7 +429,12 @@ namespace xpcc
 		writeBin(uint8_t value);
 
 		void
-		writeFloat(const float& value);
+		writeFloat(const float& value, int precision = -1) {
+            char str[20]; // +1 for '\0'
+            xpccFloat(str, value, precision);
+
+            this->device->write(str);
+		}
 		
 #if !defined(XPCC__CPU_AVR)
 		void

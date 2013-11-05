@@ -34,7 +34,7 @@
 
 
 #include <xpcc/architecture.hpp>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 //#include "iomacros.h"
 
 extern "C" void DMA_IRQHandler();

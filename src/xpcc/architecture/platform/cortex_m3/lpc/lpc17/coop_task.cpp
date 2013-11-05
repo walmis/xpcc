@@ -5,7 +5,7 @@
  *      Author: walmis
  */
 
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/architecture/driver/atomic.hpp>

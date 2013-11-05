@@ -20,7 +20,7 @@
 
 #include "USBInterfaceHandler.h"
 #include "USBEndpoints.h"
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 
 #define CALL_HANDLERS(x) \
     	if(handlers) { \

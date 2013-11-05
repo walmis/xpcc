@@ -1,6 +1,6 @@
 // coding: utf-8
 // ----------------------------------------------------------------------------
-/* Copyright (c) 2009, Roboterclub Aachen e.V.
+/* Copyright (c) 2011, Roboterclub Aachen e.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,8 +28,27 @@
  */
 // ----------------------------------------------------------------------------
 
-#include "driver/atomic.hpp"
-#include "driver/accessor.hpp"
-#include "driver/delay.hpp"
-#include "driver/clock.hpp"
-#include "driver/gpio.hpp"
+#ifndef XPCC__CORTEX_M3_HPP
+#define XPCC__CORTEX_M3_HPP
+
+/**
+ * \ingroup		platform
+ * \defgroup	cortex_m3	Cortex M3
+ *
+ * ARM Cortex-M3 is based on ARMv7-M architecture which is not the same as ARM7.
+ * ARM7 microcontrollers are based on ARMv4 architecture.
+ *
+ * Basically, ARM Cortex-M3 has been designed to improve upon and overcome
+ * several limitations of ARM7.
+ *
+ * All code developed/tested with Codesourcery G++ lite (now called
+ * "Sourcery CodeBench Lite Edition").
+ */
+
+#if defined __ARM_LPC13XX__ || defined __ARM_LPC17XX__
+#	include "cortex_m3/lpc.hpp"
+#elif defined __ARM_STM32__
+#	include "cortex_m3/stm32.hpp"
+#endif
+
+#endif	// XPCC__CORTEX_M3_HPP
