@@ -6,7 +6,7 @@
  */
 
 #include <xpcc/architecture.hpp>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/container.hpp>
 
 struct irqCounter {

@@ -9,7 +9,7 @@
 #define XPCC_LPC11__SPI_1_HPP
 
 #include <stdint.h>
-#include <xpcc/driver/connectivity/spi/spi_master.hpp>
+#include <xpcc/architecture/peripheral.hpp>
 
 #include "../../spi_registers.h"
 namespace xpcc
@@ -237,19 +237,19 @@ namespace xpcc
 			// static void
 			// write(uint8_t * data, uint8_t size);
 			
-			static bool
-			setBuffer(uint16_t length,
-					  uint8_t* transmit=0, uint8_t* receive=0,
-					  BufferIncrease bufferIncrease=BUFFER_INCR_BOTH);
-
-			static bool
-			transfer(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
-			
-			static ALWAYS_INLINE bool
-			transferSync(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
-			
-			static bool
-			isFinished();
+//			static bool
+//			setBuffer(uint16_t length,
+//					  uint8_t* transmit=0, uint8_t* receive=0,
+//					  BufferIncrease bufferIncrease=BUFFER_INCR_BOTH);
+//
+//			static bool
+//			transfer(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+//
+//			static ALWAYS_INLINE bool
+//			transferSync(TransferOptions options=TRANSFER_SEND_BUFFER_SAVE_RECEIVE);
+//
+//			static bool
+//			isFinished();
 
 		protected:
 			static constexpr uint8_t
