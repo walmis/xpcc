@@ -24,6 +24,7 @@
 #include "CONFIG.h"
 
 namespace xpcc {
+namespace lpc17 {
 
 uint32_t
 DMA::LUTPerAddr(int n)
@@ -137,4 +138,5 @@ DMA::LUTPerWid(int n)
     return lut[n & 0xFFF];
 }
 
+}
 }; // namespace AjK ends

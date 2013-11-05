@@ -47,5 +47,6 @@
 #include "workflow/periodic_timer.hpp"
 #include "workflow/ticker_task.hpp"
 #include "workflow/coop_task.hpp"
+#include "workflow/function_pointer.hpp"
 
 #endif	// XPCC__WORKFLOW_HPP

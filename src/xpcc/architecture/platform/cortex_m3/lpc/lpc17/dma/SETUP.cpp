@@ -23,6 +23,7 @@
 #include "DMA.h"
 
 namespace xpcc {
+namespace lpc17 {
 
 uint32_t
 DMA::Setup(DMAConfig *config)
@@ -190,5 +191,6 @@ DMA::Setup(DMAConfig *config)
     return pChannel->DMACCControl;
 }
 
+}
 }; // namespace AjK ends
 

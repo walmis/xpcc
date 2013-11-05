@@ -23,6 +23,7 @@
 #include "DMA.h"
 
 namespace xpcc {
+namespace lpc17 {
 
 extern uint32_t oldDMAHandler;
 
@@ -62,4 +63,5 @@ DMA::init(bool isConstructorCalling, int Channels, int Tc, int Err)
     }
 }
 
+}
 }; // namespace AjK ends

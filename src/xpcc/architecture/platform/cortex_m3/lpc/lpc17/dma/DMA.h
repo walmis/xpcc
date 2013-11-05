@@ -29,26 +29,25 @@
 #ifndef MODDMA_H
 #define MODDMA_H
 
-/** @defgroup API The MODDMA API */
-/** @defgroup MISC Misc MODSERIAL functions */
-/** @defgroup INTERNALS MODSERIAL Internals */
+/** @ingroup lpc17 */
+/** @defgroup API DMA */
+
 
 #include <xpcc/architecture.hpp>
-#include <xpcc/utils/FunctionPointer.h>
+#include <xpcc/workflow.hpp>
 //#include "iomacros.h"
 
 extern "C" void DMA_IRQHandler();
 
 namespace xpcc {
-
+namespace lpc17 {
 /**
- * @brief The MODDMA configuration system
+ * @brief The DMA configuration system
  * @author Andy Kirkham
  * @see http://mbed.org/cookbook/MODDMA_Config
- * @see MODDMA
- * @see API 
+ * @ingroup API
  *
- * <b>MODDMA_Config</b> defines a configuration that can be passed to the MODDMA controller
+ * <b>DMAConfig</b> defines a configuration that can be passed to the DMA controller
  * instance to perform a GPDMA data transfer.
  */
 class  DMAConfig {
@@ -176,7 +175,7 @@ public:
  * @see http://mbed.org/cookbook/MODDMA_Config
  * @see MODDMA
  * @see MODDMA_Config
- * @see API 
+ * @ingroup API
  */
 class DMALLI {
 public:
@@ -202,7 +201,7 @@ public:
  * @author Andy Kirkham
  * @see http://mbed.org/cookbook/MODDMA
  * @see example1.cpp
- * @see API 
+ * @ingroup API
  *
  * <b>MODDMA</b> defines a GPDMA controller and multiple DMA configurations that allow for DMA
  * transfers from memory to memory, memory to peripheral or peripheral to memory.
@@ -373,7 +372,6 @@ public:
      *
      * @see Setup
      * @see Enable
-     * @ingroup API
      * @param c A pointer to an instance of MODDMA_Config to setup.
      */
     uint32_t Prepare(DMAConfig *c) {
@@ -385,7 +383,6 @@ public:
     /**
      * Used to setup the DMA controller to prepare for a data transfer.
      *
-     * @ingroup API
      * @param c A pointer to an instance of MODDMA_Config to setup.
      */
     uint32_t Setup(DMAConfig *c);
@@ -393,7 +390,6 @@ public:
     /**
      * Enable and begin data transfer.
      *
-     * @ingroup API
      * @param ChannelNumber Type CHANNELS, the channel number to enable
      */
     void Enable(CHANNELS ChannelNumber);
@@ -401,7 +397,6 @@ public:
     /**
      * Enable and begin data transfer (overloaded function)
      *
-     * @ingroup API
      * @param ChannelNumber Type uin32_t, the channel number to enable
      */
     void Enable(uint32_t ChannelNumber) { Enable((CHANNELS)(ChannelNumber & 0x7)); }
@@ -409,7 +404,6 @@ public:
     /**
      * Enable and begin data transfer (overloaded function)
      *
-     * @ingroup API
      * @param config A pointer to teh configuration
      */
     void Enable(DMAConfig *config) { Enable( config->channelNum() ); }
@@ -434,7 +428,6 @@ public:
     /**
      * Is the specified channel enabled?
      *
-     * @ingroup API
      * @param ChannelNumber Type CHANNELS, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
@@ -443,8 +436,7 @@ public:
     /**
      * Is the specified channel enabled? (overloaded function)
      *
-     * @ingroup API
-     * @param ChannelNumber Type uin32_t, the channel number to test
+      * @param ChannelNumber Type uin32_t, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
     bool Enabled(uint32_t ChannelNumber) { return Enabled((CHANNELS)(ChannelNumber & 0x7)); }
@@ -494,7 +486,6 @@ public:
     /**
      * Get a pointer to the current configuration the ISR is servicing.
      *
-     * @ingroup API
      * @return MODDMA_Config * A pointer to the setup the ISR is currently servicing.
      */
     DMAConfig *getConfig(void) { return setups[IrqProcessingChannel]; }
@@ -503,7 +494,6 @@ public:
     /**
      * Gets which channel the ISR is currently servicing.
      *
-     * @ingroup API
      * @return CHANNELS The current channel the ISR is servicing.
      */
     CHANNELS irqProcessingChannel(void) { return IrqProcessingChannel; }
@@ -585,7 +575,6 @@ public:
     /**
      * Attach a callback to the TC IRQ controller.
      *
-     * @ingroup API
      * @param fptr A function pointer to call
      * @return this
      */
@@ -616,7 +605,6 @@ public:
     /**
      * Attach a callback to the ERR IRQ controller.
      *
-     * @ingroup API
      * @param fptr A function pointer to call
      * @return this
      */
@@ -627,7 +615,6 @@ public:
     /**
      * Attach a callback to the ERR IRQ controller.
      *
-     * @ingroup API
      * @param tptr A template pointer to the calling object
      * @param mptr A method pointer within the object to call.
      * @return this
@@ -704,7 +691,7 @@ protected:
     static DMA* moddma_p;
 };
 
-}; // namespace AjK ends.
-
+};
+}
 
 #endif

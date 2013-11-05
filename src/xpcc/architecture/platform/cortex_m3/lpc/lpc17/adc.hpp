@@ -10,6 +10,13 @@
 
 #include <xpcc/architecture.hpp>
 
+/** @ingroup lpc17
+ * @defgroup ADC LPC17xx ADC Controller
+ *
+ *
+ */
+
+/**@{*/
 /**  Selects which of the AD0.0:7 pins is (are) to be sampled and converted */
 #define ADC_CR_CH_SEL(n)	((1UL << n))
 /**  The APB clock (PCLK) is divided by (this value plus one)
@@ -97,6 +104,7 @@
 #define ADC_TRIM(n)		    (((n&0xF)<<8))
 
 
+/** @brief LPC17xx ADC Peripheral */
 class ADC {
 public:
 
@@ -119,8 +127,8 @@ public:
 	};
 
 	enum StartEdge {
-		RISING = 0,
-		FALLING = 1
+		RISING = 0, /*!< Start on Rising edge */
+		FALLING = 1 /*!< Start on Falling edge */
 	};
 
 	//rate - ADC conversion rate in Hz
@@ -239,5 +247,5 @@ public:
 
 };
 
-
+/**@}*/
 #endif /* ADC_HPP_ */

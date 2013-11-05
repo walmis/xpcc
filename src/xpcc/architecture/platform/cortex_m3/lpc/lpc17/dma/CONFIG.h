@@ -27,6 +27,7 @@
 #include <xpcc/architecture.hpp>
 
 namespace xpcc {
+namespace lpc17 {
 
 // Forward reference.
 class DMA;
@@ -41,14 +42,13 @@ public:
     uint32_t ChannelNum;        //!< DMA channel number, should be in range from 0 to 7. 
     uint32_t TransferSize;      //!< Length/Size of transfer 
     uint32_t TransferWidth;     //!< Transfer width - used for TransferType is GPDMA_TRANSFERTYPE_m2m only 
-    uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p 
+    uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as DMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p
     uint32_t DstMemAddr;        //!< Physical Destination Address, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::p2m 
     uint32_t TransferType;      //!< Transfer Type
     uint32_t SrcConn;           ///!< Peripheral Source Connection type, used in case TransferType is chosen as
     uint32_t DstConn;           //!< Peripheral Destination Connection type, used in case TransferType is chosen as
     uint32_t DMALLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
-    
-    // Mbed specifics.
+
     
     DMAChannelCfg() {
         isrIntTCStat  = new FunctionPointer;
@@ -89,6 +89,6 @@ public:
 };
 
 }; // namespace AjK ends.
-
+}
 #endif 
 

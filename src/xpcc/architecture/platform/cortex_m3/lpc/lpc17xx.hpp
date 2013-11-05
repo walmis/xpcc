@@ -28,6 +28,25 @@
  */
 // ----------------------------------------------------------------------------
 
+/**
+ * \ingroup		cortex_m3
+ * \defgroup	lpc17		LPC17xx
+ *
+ * <h2>Features</h2>
+ *
+ * - Based on ARM Cortex processor cores:
+ *   - Cortex-M3 core (LPC13xx, LPC17xx and LPC18xx)
+ * - Speeds up to 100MHz from flash or RAM
+ * - Available with:
+ *   - Ethernet, USB Host/OTG/Device, CAN, I2S
+ *   - Fast-mode Plus (Fm+), I2C, SPI/SSP, UARTs
+ *   - 12-bit ADC @ 1MHz conversion rates
+ *   - Low-power Real Time Clock
+ *   - Motor Control PWM and Quadrature Encoder Interface
+ *
+ * \see		http://ics.nxp.com/products/lpc1000/all/
+ */
+
 #include <lpc17xx/cmsis/LPC17xx.h>
 #include <lpc17xx/cmsis/core_cm3.h>
 #include <lpc17xx/cmsis/system_LPC17xx.h>

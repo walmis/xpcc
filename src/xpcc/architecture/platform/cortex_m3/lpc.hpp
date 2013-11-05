@@ -27,25 +27,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 // ----------------------------------------------------------------------------
-/**
- * \ingroup		cortex_m0
- * \defgroup	lpc1100		LPC11xx
- * 
- * <h2>Features</h2>
- * 
- * - Based on ARM Cortex processor cores: 
- *   - Cortex-M0 core (LPC11xx, LPC12xx)
- *   - Cortex-M3 core (LPC13xx, LPC17xx and LPC18xx)
- * - Speeds up to 100MHz from flash or RAM 
- * - Available with: 
- *   - Ethernet, USB Host/OTG/Device, CAN, I2S 
- *   - Fast-mode Plus (Fm+), I2C, SPI/SSP, UARTs 
- *   - 12-bit ADC @ 1MHz conversion rates 
- *   - Low-power Real Time Clock 
- *   - Motor Control PWM and Quadrature Encoder Interface 
- * 
- * \see		http://ics.nxp.com/products/lpc1000/all/
- */
+
 
 #if defined __ARM_LPC13XX__
 #	include "lpc/lpc13xx.hpp"

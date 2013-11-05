@@ -12,15 +12,15 @@
 #include <string.h>
 
 namespace xpcc {
-
-/* Class FunctionPointer
+ 
+  
+/**
+ * \brief FunctionPointer
  *  A class for storing and calling a pointer to a static or member void function
+ * 
+ * \ingroup	workflow
  */
 
-typedef void (*pvoidf_t)(void);
-
-/** A class for storing and calling a pointer to a static or member void function
- */
 class FunctionPointer {
 public:
 
@@ -59,17 +59,15 @@ public:
 	inline void attach(FunctionPointer* other) {
 		attach(other, &FunctionPointer::call);
 	}
-
-	void attach(std::function<void()> func) {
-		_object = 0;
-		_function = func;
-	}
-
+	
 	/** Attach a static function
 	 *
 	 *  @param function The void static function to attach (default is none)
 	 */
-	//void attach(void (*function)(void) = 0);
+	void attach(std::function<void()> func) {
+		_object = 0;
+		_function = func;
+	}
 
 	/** Attach a member function
 	 *

@@ -16,6 +16,12 @@
 /** Macro to mask peripheral clock of each type */
 #define CLKPWR_PCLKSEL_BITMASK(p)	(0x03<<p)
 
+/** @ingroup lpc17
+ *  @defgroup clkpwr LPC17xx Clocking and power
+ */
+
+/** @ingroup clkpwr
+ */
 class CLKPwr {
 public:
 	enum ClkType {
@@ -139,6 +145,7 @@ public:
 	};
 
 	enum ClkDiv {
+		/** Peripheral clock divider is set to 4 from CCLK. This is the default in LPC17xx */
 		DIV_4  = ((uint32_t)(0)),
 		/** Peripheral clock divider is the same with CCLK */
 		DIV_1  = ((uint32_t)(1)),
@@ -146,7 +153,9 @@ public:
 		DIV_2  = ((uint32_t)(2))
 	};
 
-
+	/// Set peripheral clock power.
+	/// @param peripheral type
+	/// @param enable or disable peripheral clock
 	static void setClkPower(PType type, bool power)
 	{
 		if (power)
@@ -158,7 +167,7 @@ public:
 			LPC_SC->PCONP &= (~type);
 		}
 	}
-
+	/// Set peripheral clock divisor value
 	static void setClkDiv(ClkType type, ClkDiv div) {
 		uint32_t bitpos;
 
@@ -184,8 +193,8 @@ public:
 		}
 	}
 
-
-	static uint32_t getPCLKSEL (ClkType ClkType)
+	/// Get peripheral clock divisor value
+	static ClkDiv getPCLKSEL (ClkType ClkType)
 	{
 		uint32_t bitpos, retval;
 
@@ -201,9 +210,10 @@ public:
 		}
 
 		retval = CLKPWR_PCLKSEL_GET(bitpos, retval);
-		return retval;
+		return (ClkDiv)retval;
 	}
 
+	/// Get peripheral clock speed defined by ClkType
 	static uint32_t getPCLK (ClkType ClkType)
 	{
 		uint32_t retval, div;
