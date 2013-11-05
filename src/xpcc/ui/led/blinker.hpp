@@ -1,8 +1,11 @@
 #pragma once
 
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 
 namespace xpcc {
+namespace ui
+{
+
 
 template <typename Pin, int deadtime = 20>
 class Blinker : xpcc::TickerTask {
@@ -40,4 +43,5 @@ public:
 	xpcc::Timeout<> t;
 };
 
+}
 }

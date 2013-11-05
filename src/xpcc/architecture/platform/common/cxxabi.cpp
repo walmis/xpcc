@@ -1,11 +1,10 @@
 // coding: utf-8
 // ----------------------------------------------------------------------------
-/* Copyright (c) 2009, Roboterclub Aachen e.V.
+/* Copyright (c) 2011, Roboterclub Aachen e.V.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -27,84 +26,74 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 // ----------------------------------------------------------------------------
+/**
+ * \file	cxxabi.cpp
+ * \brief	Minimal C++ support, no exception handling, no RTTI
+ */
+// ----------------------------------------------------------------------------
 
-#ifndef XPCC__IODEVICE_WRAPPER_HPP
-#define XPCC__IODEVICE_WRAPPER_HPP
+#include <stdlib.h>                   // for prototypes of malloc() and free()
 
-#include <stdint.h>
-
-#include "iodevice.hpp"
-
-namespace xpcc
+extern "C"
 {
-	/**
-	 * \brief		Wrapper to use any peripheral device that supports static
-	 * 				put() and get() as an IODevice
-	 *
-	 * \tparam		T	Peripheral which should be wrapped
-	 *
-	 * Example:
-	 * \code
-	 * // configure a UART
-	 * xpcc::BufferedUart0 uart(9600);
-	 *
-	 * // wrap it into an IODevice
-	 * xpcc::IODeviceWrapper<xpcc::BufferedUart0> device(uart);
-	 *
-	 * // use this device to print a message
-	 * device.write("Hello");
-	 *
-	 * // or create a IOStream and use the stream to print something
-	 * xpcc::IOStream stream(device);
-	 * stream << " World!";
-	 * \endcode
-	 *
-	 * \ingroup		io
-	 */
-	template<typename T>
-	class IODeviceWrapper : public IODevice
+	// ------------------------------------------------------------------------
+	void* __dso_handle = (void *) &__dso_handle;
+
+	void
+	__cxa_pure_virtual()
 	{
-	public:
-		/**
-		 * \brief	Constructor
-		 *
-		 * \param	device	configured object
-		 */
-		IODeviceWrapper(const T& device)
-		{
-			// get rid of the warning about an unused parameter
-			(void) device;
-		}
-		IODeviceWrapper()
-		{
-		}
+		// put error handling here
+	}
 
-		virtual void
-		write(char c)
-		{
-			T::write(c);
-		}
+	// ------------------------------------------------------------------------
+	__extension__ typedef int __guard __attribute__((mode (__DI__)));
 
-		virtual void
-		write(const char *s)
-		{
-			char c;
-			while ((c = *s++)) {
-				T::write(static_cast<uint8_t>(c));
-			}
-		}
+	int
+	__cxa_guard_acquire(__guard *g)
+	{
+		return !*(char *)(g);
+	}
 
-		virtual void
-		flush()
-		{
-		}
+	void
+	__cxa_guard_release (__guard *g)
+	{
+		*(char *) g = 1;
+	}
 
-		virtual bool
-		read(char& c)
-		{
-			return T::read((uint8_t&)c);
-		}
-	};
+	void
+	__cxa_guard_abort (__guard *)
+	{
+	}
+
+	// ------------------------------------------------------------------------
+	int
+	__aeabi_atexit(void */*object*/, void (*/*destructor*/)(void *), void */*dso_handle*/)
+	{
+		return 0;
+	}
 }
 
-#endif // XPCC__IODEVICE_WRAPPER_HPP
+// ----------------------------------------------------------------------------
+void *
+operator new(size_t size) throw ()
+{
+	return malloc(size);
+}
+
+void *
+operator new[](size_t size) throw ()
+{
+	return malloc(size);
+}
+
+void
+operator delete(void *p) throw ()
+{
+	free(p);
+}
+
+void
+operator delete[](void* p) throw ()
+{
+	free(p);
+}

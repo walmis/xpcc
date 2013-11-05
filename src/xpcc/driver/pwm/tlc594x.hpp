@@ -11,7 +11,7 @@
 #define XPCC_TLC594X_HPP
 
 #include <stdint.h>
-#include <xpcc/architecture/peripheral/gpio.hpp>
+#include <xpcc/architecture.hpp>
 #include <xpcc/architecture/driver/delay.hpp>
 
 namespace xpcc
@@ -59,8 +59,8 @@ template<
 	uint16_t CHANNELS,
 	typename Spi,
 	typename Xlat,
-	typename Vprog=xpcc::GpioUnused,
-	typename Xerr=xpcc::GpioUnused >
+	typename Vprog=xpcc::gpio::Unused,
+	typename Xerr=xpcc::gpio::Unused >
 class TLC594X
 {
 public:

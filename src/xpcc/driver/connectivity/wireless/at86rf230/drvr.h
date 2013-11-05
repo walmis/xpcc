@@ -28,7 +28,7 @@
 
 #include "hal.h"
 #include <xpcc/debug.hpp>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 
 #define CALIBRATION_TIMEOUT (1000*5*60)
 

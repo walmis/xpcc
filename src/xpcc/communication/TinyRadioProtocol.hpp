@@ -9,7 +9,7 @@
 #define RADIO_H_
 
 #include <memory>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/debug.hpp>
 #include <xpcc/container.hpp>
 #include <xpcc/architecture.hpp>

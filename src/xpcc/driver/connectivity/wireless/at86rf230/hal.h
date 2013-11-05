@@ -30,7 +30,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <xpcc/architecture.hpp>
-#include <xpcc/workflow.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/driver/connectivity/wireless/mac802.15.4/mac.hpp>
 
 #include "defines.hpp"
