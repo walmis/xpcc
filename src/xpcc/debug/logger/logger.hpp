@@ -98,7 +98,7 @@ namespace xpcc
 				}
 
 				void dump_buffer(uint8_t* buf, uint16_t len) {
-
+					printf("buf:0x%x len:%d\n", buf, len);
 					int on_this_line = 0;
 					while (len-- > 0) {
 						printf("%02x ", *buf++);

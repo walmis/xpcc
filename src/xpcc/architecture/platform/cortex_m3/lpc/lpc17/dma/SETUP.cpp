@@ -43,6 +43,8 @@ DMA::Setup(DMAConfig *config)
     // Assign Linker List Item value 
     pChannel->DMACCLLI = config->dmaLLI();
 
+    uint32_t DMACCControl = 0;
+
     // Set value to Channel Control Registers 
     switch (config->transferType()) {
     
@@ -51,7 +53,7 @@ DMA::Setup(DMAConfig *config)
             // Assign physical source and destination address
             pChannel->DMACCSrcAddr  = config->srcMemAddr();
             pChannel->DMACCDestAddr = config->dstMemAddr();
-            pChannel->DMACCControl
+            DMACCControl
                 = CxControl_TransferSize(config->transferSize()) 
                 | CxControl_SBSize(_32) 
                 | CxControl_DBSize(_32) 
@@ -64,11 +66,11 @@ DMA::Setup(DMAConfig *config)
         
         // Memory to peripheral
         case m2p:
-            // Assign physical source
+        	// Assign physical source
             pChannel->DMACCSrcAddr = config->srcMemAddr();
             // Assign peripheral destination address
             pChannel->DMACCDestAddr = (uint32_t)LUTPerAddr(config->dstConn());
-            pChannel->DMACCControl
+            DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->dstConn())) 
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->dstConn())) 
@@ -84,7 +86,7 @@ DMA::Setup(DMAConfig *config)
             pChannel->DMACCSrcAddr = (uint32_t)LUTPerAddr(config->srcConn());
             // Assign memory destination address
             pChannel->DMACCDestAddr = config->dstMemAddr();
-            pChannel->DMACCControl
+            DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->srcConn())) 
@@ -100,7 +102,7 @@ DMA::Setup(DMAConfig *config)
             pChannel->DMACCSrcAddr = (uint32_t)LUTPerAddr(config->srcConn());
             // Assign peripheral destination address
             pChannel->DMACCDestAddr = (uint32_t)LUTPerAddr(config->dstConn());
-            pChannel->DMACCControl
+            DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->dstConn())) 
@@ -115,7 +117,7 @@ DMA::Setup(DMAConfig *config)
             pChannel->DMACCSrcAddr = config->srcMemAddr();
             // Assign memory destination address
             pChannel->DMACCDestAddr = config->dstMemAddr();
-            pChannel->DMACCControl
+           DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->srcConn())) 
@@ -131,7 +133,7 @@ DMA::Setup(DMAConfig *config)
             pChannel->DMACCSrcAddr = config->srcMemAddr();
             // Assign peripheral destination address
             pChannel->DMACCDestAddr = config->dstMemAddr();
-            pChannel->DMACCControl
+            DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->dstConn())) 
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->dstConn())) 
@@ -145,6 +147,24 @@ DMA::Setup(DMAConfig *config)
         default:
             return 0;
     }
+
+    if(config->transferFlags()) {
+		if(config->transferFlags() & DMAConfig::FORCE_DI_OFF) {
+			DMACCControl &= ~CxControl_DI();
+		} else
+		if(config->transferFlags() & DMAConfig::FORCE_DI_ON) {
+			DMACCControl |= CxControl_DI();
+		}
+
+		if(config->transferFlags() & DMAConfig::FORCE_SI_OFF) {
+			DMACCControl &= ~CxControl_SI();
+		} else
+		if(config->transferFlags() & DMAConfig::FORCE_SI_ON) {
+			DMACCControl |= CxControl_SI();
+		}
+    }
+
+    pChannel->DMACCControl = DMACCControl;
 
      // Re-Configure DMA Request Select for source peripheral 
     if (config->srcConn() > 15) {

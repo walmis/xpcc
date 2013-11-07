@@ -32,9 +32,9 @@
 /** @ingroup lpc17 */
 /** @defgroup API DMA */
 
-
-#include <xpcc/architecture.hpp>
+#include <lpc17xx/cmsis/LPC17xx.h>
 #include <xpcc/processing.hpp>
+
 //#include "iomacros.h"
 
 extern "C" void DMA_IRQHandler();
@@ -57,25 +57,30 @@ protected:
     // From GPDMA by NXP MCU SW Application Team
     // *****************************************
     
-    uint32_t ChannelNum;        //!< DMA channel number, should be in range from 0 to 7. 
+    uint8_t ChannelNum;        //!< DMA channel number, should be in range from 0 to 7.
     uint32_t TransferSize;      //!< Length/Size of transfer 
-    uint32_t TransferWidth;     //!< Transfer width - used for TransferType is GPDMA_TRANSFERTYPE_m2m only 
-    uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p 
+    uint8_t TransferWidth;     //!< Transfer width - used for TransferType is GPDMA_TRANSFERTYPE_m2m only
+    uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p
     uint32_t DstMemAddr;        //!< Physical Destination Address, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::p2m 
-    uint32_t TransferType;      //!< Transfer Type
-    uint32_t SrcConn;           //!< Peripheral Source Connection type, used in case TransferType is chosen as
-    uint32_t DstConn;           //!< Peripheral Destination Connection type, used in case TransferType is chosen as
+    uint8_t TransferType;      //!< Transfer Type
+    uint8_t SrcConn;           //!< Peripheral Source Connection type, used in case TransferType is chosen as
+    uint8_t DstConn;           //!< Peripheral Destination Connection type, used in case TransferType is chosen as
     uint32_t DMALLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
-    uint32_t DMACSync;          //!< DMACSync if required.
-    
+    uint8_t DMACSync;          //!< DMACSync if required.
+    uint8_t flags;
     // Mbed specifics.
 
 public: 
-   
+
+    enum Flags {
+		FORCE_SI_ON = 1<<0, ///< Force source address increment on
+		FORCE_SI_OFF = 1<<1, ///< Force source address increment off
+		FORCE_DI_ON = 1<<2, ///< Force destination address increment on
+		FORCE_DI_OFF = 1<<3 ///< Force destination address increment off
+	};
+
     DMAConfig() {
-        isrIntTCStat  = new FunctionPointer;
-        isrIntErrStat = new FunctionPointer;
-        ChannelNum    = 0xFFFF;
+        ChannelNum    = 0xFF;
         TransferSize  = 0;
         TransferWidth = 0;
         SrcMemAddr    = 0;
@@ -85,11 +90,7 @@ public:
         DstConn       = 0;
         DMALLI        = 0;
         DMACSync      = 0;
-    }
-    
-    ~DMAConfig() {
-        delete(isrIntTCStat);
-        delete(isrIntErrStat);
+        flags = 0;
     }
         
     class DMAConfig * channelNum(uint32_t n)    { ChannelNum = n & 0x7;  return this; }
@@ -102,6 +103,7 @@ public:
     class DMAConfig * dstConn(uint32_t n)       { DstConn = n;           return this; }
     class DMAConfig * dmaLLI(uint32_t n)        { DMALLI = n;            return this; }
     class DMAConfig * dmacSync(uint32_t n)      { DMACSync = n;          return this; }
+    class DMAConfig * transferFlags(uint8_t n)  { flags = n;          return this; }
     
     uint32_t channelNum(void)    { return ChannelNum;    }
     uint32_t transferSize(void)  { return TransferSize;  }
@@ -113,6 +115,7 @@ public:
     uint32_t dstConn(void)       { return DstConn;       }
     uint32_t dmaLLI(void)        { return DMALLI;        }
     uint32_t dmacSync(void)      { return DMACSync; }
+    uint8_t transferFlags()      { return flags; }
     
     /**
      * Attach a callback to the TC IRQ configuration.
@@ -121,7 +124,7 @@ public:
      * @return this
      */
     class DMAConfig * attach_tc(void (*fptr)(void)) {  
-        isrIntTCStat->attach(fptr); 
+        isrIntTCStat.attach(fptr);
         return this;
     }
     
@@ -132,7 +135,7 @@ public:
      * @return this
      */
     class DMAConfig * attach_err(void (*fptr)(void)) {  
-        isrIntErrStat->attach(fptr);         
+        isrIntErrStat.attach(fptr);
         return this;
     }
     
@@ -146,7 +149,7 @@ public:
     template<typename T>
     class DMAConfig * attach_tc(T* tptr, void (T::*mptr)(void)) {  
         if((mptr != NULL) && (tptr != NULL)) {
-            isrIntTCStat->attach(tptr, mptr);
+            isrIntTCStat.attach(tptr, mptr);
         }
         return this;
     }
@@ -161,12 +164,13 @@ public:
     template<typename T>
     class DMAConfig * attach_err(T* tptr, void (T::*mptr)(void)) {  
         if((mptr != NULL) && (tptr != NULL)) {
-            isrIntErrStat->attach(tptr, mptr);
+            isrIntErrStat.attach(tptr, mptr);
         }
         return this;
     }
-    FunctionPointer *isrIntTCStat;                        
-    FunctionPointer *isrIntErrStat;                        
+
+    FunctionPointer isrIntTCStat;
+    FunctionPointer isrIntErrStat;
 };
 
 /**

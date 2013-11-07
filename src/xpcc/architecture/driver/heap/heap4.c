@@ -89,12 +89,12 @@ task.h is included from an application file. */
 #define portBYTE_ALIGNMENT 4
 #define portBYTE_ALIGNMENT_MASK	( 0x0003 )
 
-#define HEAP_SIZE (&__heap_end - &__heap_start)
+#define HEAP_SIZE ((&__heap_end - &__heap_start) & ( ( size_t ) ~portBYTE_ALIGNMENT_MASK ))
 
 extern uint8_t __heap_start;
 extern uint8_t __heap_end;
 
-#define configTOTAL_HEAP_SIZE HEAP_SIZE
+//#define configTOTAL_HEAP_SIZE HEAP_SIZE
 
 /* Define the linked list structure.  This is used to link free blocks in order
 of their memory address. */

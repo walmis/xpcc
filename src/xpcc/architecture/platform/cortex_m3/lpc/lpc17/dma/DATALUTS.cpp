@@ -21,7 +21,6 @@
 */
 
 #include "DMA.h"
-#include "CONFIG.h"
 
 namespace xpcc {
 namespace lpc17 {

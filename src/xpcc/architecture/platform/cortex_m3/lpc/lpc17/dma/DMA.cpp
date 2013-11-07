@@ -98,7 +98,7 @@ void DMA_IRQHandler(void) {
                 if (DMA::moddma_p->setups[channel_number] != 0) {
                     DMA::moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
                     DMA::moddma_p->setIrqType(DMA::TcIrq);
-                    DMA::moddma_p->setups[channel_number]->isrIntTCStat->call();
+                    DMA::moddma_p->setups[channel_number]->isrIntTCStat();
                     DMA::moddma_p->isrIntTCStat.call();
                     // The user callback should clear the IRQ. But if they forget
                     // then the Mbed will lockup. So, check to see if the IRQ has
@@ -124,7 +124,7 @@ void DMA_IRQHandler(void) {
                 if (DMA::moddma_p->setups[channel_number] != 0) {
                 	DMA::moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
                 	DMA::moddma_p->setIrqType(DMA::ErrIrq);
-                	DMA::moddma_p->setups[channel_number]->isrIntErrStat->call();
+                	DMA::moddma_p->setups[channel_number]->isrIntErrStat();
                 	DMA::moddma_p->isrIntErrStat.call();
                     // The user callback should clear the IRQ. But if they forget
                     // then the Mbed will lockup. So, check to see if the IRQ has

@@ -33,6 +33,7 @@
 // ----------------------------------------------------------------------------
 
 #include <stdlib.h>                   // for prototypes of malloc() and free()
+#include <new>
 
 extern "C"
 {
@@ -72,11 +73,15 @@ extern "C"
 		return 0;
 	}
 }
-
+#include <xpcc/debug.hpp>
 // ----------------------------------------------------------------------------
 void *
 operator new(size_t size) throw ()
 {
+	return malloc(size);
+}
+
+void* operator new(std::size_t size, const std::nothrow_t &) throw() {
 	return malloc(size);
 }
 
