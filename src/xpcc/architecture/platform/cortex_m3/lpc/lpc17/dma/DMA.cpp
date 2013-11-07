@@ -48,13 +48,6 @@ DMA::Disable(CHANNELS ChannelNumber)
     pChannel->DMACCConfig &= ~(_E);
 }
 
-bool
-DMA::isActive(CHANNELS ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
-    return (bool)( pChannel->DMACCConfig & CxConfig_A() ) ;
-}
-
 void 
 DMA::haltChannel(CHANNELS ChannelNumber)
 {
@@ -82,14 +75,8 @@ void DMA_IRQHandler(void) {
     uint32_t channel_mask;
         
     if (DMA::moddma_p == 0) {
-        if (oldDMAHandler) {
-            ((MODDMA_FN)oldDMAHandler)();
-            return;
-        }
-        else {
-            XPCC_LOG_ERROR .printf("Interrupt without instance");
-        }
-    }
+		return;
+	}
     
     for (int channel_number = 0; channel_number < 8; channel_number++) {
         channel_mask = (1UL << channel_number);
@@ -146,16 +133,6 @@ void DMA_IRQHandler(void) {
                 }            
             }
         }
-    }
-    
-    /* IRQ should be handled by now, check to make sure. */
-    if (LPC_GPDMA->DMACIntStat) {
-        ((MODDMA_FN)oldDMAHandler)();
-        LPC_GPDMA->DMACIntTCClear = (uint32_t)0xFF; /* If not, clear anyway! */
-    }
-    if (LPC_GPDMA->DMACIntErrStat) {
-        ((MODDMA_FN)oldDMAHandler)();
-        LPC_GPDMA->DMACIntErrClr = (uint32_t)0xFF; /* If not, clear anyway! */
     }
 }
 

@@ -93,7 +93,7 @@ public:
 				| ((static_cast<uint16_t>(frameFormat)) << 4)
 				| ((static_cast<uint16_t>(transferSize)) << 0);
 
-		for (uint8_t ii = 0; ii < fifoSize; ++ii) {
+		while((SPIx->SR & SPI_SRn_RNE)) {
 			uint16_t Dummy = SPIx->DR; /* clear the RxFIFO */
 			(void) Dummy; // unused
 		}
@@ -160,10 +160,15 @@ public:
 
     static bool
     transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
-    	//PROFILE();
+
+    	while((SPIx->SR & SPI_SRn_RNE)) {
+			uint16_t Dummy = SPIx->DR; /* clear the RxFIFO */
+			(void) Dummy; // unused
+		}
+
     	DMA* dma = DMA::instance();
 
-    	static const uint32_t dummy = 0x55555555;
+    	static const uint32_t dummy = 0xFFFFFFFF;
 
 		SPIx->DMACR = 3; // enable Tx DMA
 
@@ -171,7 +176,8 @@ public:
 		if(SPIx ==LPC_SSP1)
 			conn = DMA::SSP1_Tx;
 
-		txChannelCfg = new (std::nothrow) DMAConfig;
+		if(!txChannelCfg)
+			txChannelCfg = new (std::nothrow) DMAConfig;
 
 		txChannelCfg->channelNum(0)
 				->dstConn(conn)
@@ -193,7 +199,8 @@ public:
     		if(SPIx ==LPC_SSP1)
     			conn = DMA::SSP1_Rx;
 
-    		rxChannelCfg = new (std::nothrow) DMAConfig;
+    		if(!rxChannelCfg)
+    			rxChannelCfg = new (std::nothrow) DMAConfig;
 
     		if(!rxChannelCfg) {
     			return 0;
@@ -229,14 +236,17 @@ public:
     }
 
     static bool isRunning() {
-    	return running;
+    	DMA* dma = DMA::instance();
+
+    	return (txChannelCfg && dma->isActive(txChannelCfg)) ||
+    			(rxChannelCfg && dma->isActive(rxChannelCfg));
     }
 
 	/// @return	`true` if last byte has been sent and the swapped byte can be read.
 	static bool
 	isFinished() {
 		if(running) {
-			if(!txChannelCfg && !rxChannelCfg) {
+			if(!isRunning()) {
 				running = false;
 				return true;
 			}
@@ -247,36 +257,24 @@ public:
 protected:
 	static DMAConfig* txChannelCfg;
 	static DMAConfig* rxChannelCfg;
-	static bool running;
-
-	static constexpr uint8_t fifoSize = 8;
+	volatile static bool running;
 
 private:
 	static void onDMATxTransferComplete() {
 		DMA* dma = DMA::instance();
 		//XPCC_LOG_DEBUG .printf("tx transfer complete %d\n", dma->getConfig()->channelNum());
 
-
 		DMAConfig* cfg = dma->getConfig();
 		dma->Disable(cfg->channelNum());
 
-		if(txChannelCfg) {
-			delete txChannelCfg;
-			txChannelCfg = 0;
-		}
 	}
 	static void onDMARxTransferComplete() {
 		DMA* dma = DMA::instance();
 		//XPCC_LOG_DEBUG .printf("rx transfer complete %d\n", dma->getConfig()->channelNum());
 
-
 		DMAConfig* cfg = dma->getConfig();
 		dma->Disable(cfg->channelNum());
 
-		if(rxChannelCfg) {
-			delete rxChannelCfg;
-			rxChannelCfg = 0;
-		}
 	}
 };
 
@@ -287,7 +285,7 @@ template<int Spi_ptr>
 DMAConfig* SpiMaster<Spi_ptr>::rxChannelCfg = 0;
 
 template<int Spi_ptr>
-bool SpiMaster<Spi_ptr>::running = 0;
+volatile bool SpiMaster<Spi_ptr>::running = 0;
 
 typedef SpiMaster<(int)LPC_SSP0> SpiMaster0;
 typedef SpiMaster<(int)LPC_SSP1> SpiMaster1;
