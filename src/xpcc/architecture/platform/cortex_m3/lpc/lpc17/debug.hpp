@@ -15,6 +15,30 @@
 #define PROFILE() xpcc::Profiler __profiler__(__FUNCTION__)
 
 namespace xpcc {
+
+class ProfileTimer {
+public:
+
+	void start() {
+		time = xpcc::Clock::now();
+		tick = SysTick->VAL;
+	}
+
+	void end() {
+		uint32_t etick = SysTick->VAL;
+		xpcc::Timestamp etime = xpcc::Clock::now();
+
+		int32_t t = (etime.getTime() - time.getTime())*1000000 +
+				tick*(1000000000/SystemCoreClock)
+				- etick*(1000000000/SystemCoreClock);
+
+		XPCC_LOG_DEBUG .printf("Timer %x took %d.%03d us\n", this, t/1000, t % 1000);
+	}
+
+	uint32_t tick;
+	xpcc::Timestamp time;
+};
+
 class Profiler {
 public:
 	Profiler(const char* name) {
