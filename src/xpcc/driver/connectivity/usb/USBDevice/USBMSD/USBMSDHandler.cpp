@@ -217,23 +217,21 @@ bool USBMSDHandler::initialize() {
         }
     }
 
-    // get number of blocks
-    BlockCount = disk_sectors();
-    //MemorySize = BlockCount * disk_sector_size();
+	stage = READ_CBW;
+	writeBusy = false;
+    blockReady = false;
+    writeRequest = false;
+    blockSent = true;
 
-    if (BlockCount > 0) {
-        BlockSize = disk_sector_size();
-        if (BlockSize != 0) {
-            if(page)
-            	free(page);
+	BlockSize = disk_sector_size();
+	if (BlockSize != 0) {
+		if(page)
+			free(page);
 
-        	page = (uint8_t *)malloc(BlockSize * sizeof(uint8_t));
-            if (page == NULL)
-                return false;
-        }
-    } else {
-        return false;
-    }
+		page = (uint8_t*)malloc(BlockSize);
+		if (page == NULL)
+			return false;
+	}
 
     return true;
 }
@@ -266,14 +264,14 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	            // an error has occured
 	        case ERROR:
-	            XPCC_LOG_DEBUG .printf("USBMSDHandler::EP_handler stage:ERROR\n");
+	            //XPCC_LOG_DEBUG .printf("USBMSDHandler::EP_handler stage:ERROR\n");
 	        	device->stallEndpoint(bulkIn);
 	            sendCSW();
 	            break;
 
 	            // the host has received the CSW -> we wait a CBW
 	        case WAIT_CSW:
-	        	XPCC_LOG_DEBUG .printf("WAIT_CSW -> READ_CBW\n");
+	        	//XPCC_LOG_DEBUG .printf("WAIT_CSW -> READ_CBW\n");
 	            stage = READ_CBW;
 	            break;
 	    }
@@ -436,7 +434,9 @@ bool USBMSDHandler::inquiryRequest (void) {
 
 
 bool USBMSDHandler::readFormatCapacity() {
-    uint8_t capacity[] = { 0x00, 0x00, 0x00, 0x08,
+    BlockCount = disk_sectors();
+
+	uint8_t capacity[] = { 0x00, 0x00, 0x00, 0x08,
                            (BlockCount >> 24) & 0xff,
                            (BlockCount >> 16) & 0xff,
                            (BlockCount >> 8) & 0xff,
@@ -455,7 +455,9 @@ bool USBMSDHandler::readFormatCapacity() {
 
 
 bool USBMSDHandler::readCapacity (void) {
-    uint8_t capacity[] = {
+    BlockCount = disk_sectors();
+
+	uint8_t capacity[] = {
         ((BlockCount - 1) >> 24) & 0xff,
         ((BlockCount - 1) >> 16) & 0xff,
         ((BlockCount - 1) >> 8) & 0xff,
@@ -647,6 +649,8 @@ void USBMSDHandler::testUnitReady (void) {
 void USBMSDHandler::disk_read_finalize(bool success) {
 	XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_read_finalize(%d)\n", success);
 
+	//xpcc::atomic::Lock lock;
+
 	if(!success) {
 
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_MEDIUM_ERROR,
@@ -666,7 +670,11 @@ void USBMSDHandler::disk_read_finalize(bool success) {
 	}
 	blockReady = true;
 
+	//xpcc::log::debug .printf("writeNB\n");
+	//device->writeNB(bulkIn, 0, 0, MAX_PACKET_SIZE_EPBULK);
+	xpcc::atomic::Lock lock;
 	sendBlock();
+
 }
 
 void USBMSDHandler::sendBlock() {
@@ -682,8 +690,9 @@ void USBMSDHandler::sendBlock() {
 			stage = ERROR;
 		}
 
+		uint8_t* ptr = &page[dataPos & (BlockSize-1)];
 		// write data which are in RAM
-		device->writeNB(bulkIn, &page[dataPos & (BlockSize-1)], n, MAX_PACKET_SIZE_EPBULK);
+		device->writeNB(bulkIn, ptr, n, MAX_PACKET_SIZE_EPBULK);
 
 		dataPos += n;
 		length -= n;
@@ -694,6 +703,7 @@ void USBMSDHandler::sendBlock() {
 		if((dataPos & (BlockSize-1)) == 0) {
 			blockAddr++;
 			dataPos = 0;
+			blockReady = false;
 		}
 
 		if ( !length || (stage != PROCESS_CBW)) {
@@ -706,18 +716,24 @@ void USBMSDHandler::sendBlock() {
 }
 
 void USBMSDHandler::memoryRead (void) {
-    //XPCC_LOG_DEBUG .printf("Read %d\n", n);
+   //xpcc::log::debug .printf("RD%d\n", dataPos);
 
     readRequest = true;
-    // we read an entire block
-    if ((dataPos & (BlockSize-1)) == 0) {
-    	blockReady = false;
-
-        disk_read_start(page, blockAddr, length/BlockSize);
-    }
 
     //if block is ready, send it
-    sendBlock();
+
+	// we read an entire block
+	if ((dataPos & (BlockSize-1)) == 0) {
+		//blockReady = false;
+
+		disk_read_start(page, blockAddr, length/BlockSize - 1);
+	}
+
+	sendBlock();
+}
+
+void USBMSDHandler::SOF(int frame) {
+
 }
 
 

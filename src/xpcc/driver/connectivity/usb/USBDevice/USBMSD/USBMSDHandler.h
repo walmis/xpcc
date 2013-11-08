@@ -114,6 +114,8 @@ private:
     */
     virtual bool USBCallback_setConfiguration(uint8_t configuration);
 
+    virtual void SOF(int frameNumber) override;
+
     /*
     * Callback called to process class specific requests
     */
@@ -193,9 +195,6 @@ private:
     // length of a reading or writing
     uint32_t length;
 
-    // memory OK (after a memoryVerify)
-    bool memOK;
-
     // cache in RAM before writing in memory. Useful also to read a block.
     uint8_t * page;
 
@@ -222,6 +221,8 @@ private:
     volatile bool blockReady;
     volatile bool readRequest;
     volatile bool writeRequest;
+
+    volatile bool blockSent;
 
     volatile bool writeBusy;
 

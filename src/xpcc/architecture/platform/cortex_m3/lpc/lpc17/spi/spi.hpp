@@ -146,6 +146,7 @@ public:
 	 * was sent and data from the device is available.
 	 */
 	static uint16_t write(uint16_t data) {
+		//XPCC_LOG_DEBUG .printf("SPI write %x\n", SPIx);
 		while (!(SPIx->SR & SPI_SRn_TNF))
 			;
 		/* Put data into FIFO */
@@ -247,6 +248,7 @@ public:
 	isFinished() {
 		if(running) {
 			if(!isRunning()) {
+				SPIx->DMACR = 0;
 				running = false;
 				return true;
 			}

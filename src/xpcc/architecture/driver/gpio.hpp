@@ -403,6 +403,8 @@ namespace xpcc
 		class Nibble
 		{
 		public:
+			static constexpr uint8_t width = 4;
+
 			ALWAYS_INLINE static void
 			setOutput()
 			{
@@ -479,6 +481,8 @@ namespace xpcc
 		class Port
 		{
 		public:
+			static constexpr uint8_t width = 8;
+
 			static void
 			setOutput()
 			{

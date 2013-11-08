@@ -145,7 +145,6 @@ namespace xpcc
 		toggle() { if (read()) { reset(); } else { set(); } } \
 		ALWAYS_INLINE static void \
 		set(bool status) { if (status) { set(); } else { reset(); } } \
-	protected: \
 		ALWAYS_INLINE static bool \
 		read() { return (CONCAT(LPC_GPIO, port)->FIOPIN & (1 << pin)); } \
 	}

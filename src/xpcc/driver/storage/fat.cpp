@@ -105,16 +105,13 @@ xpcc::fat::FileSystem::~FileSystem()
 	f_mount(0, "", 0);
 }
 
-// ----------------------------------------------------------------------------
-xpcc::fat::FileInfo::FileInfo()
-{
-
-}
 
 namespace xpcc {
 namespace fat {
 
-
+#if _USE_LFN
+uint8_t xpcc::fat::FileInfo::lfn[_MAX_LFN];
+#endif
 
 FRESULT File::open(const char* path, const char* mode) {
 	uint8_t flags = 0;

@@ -120,31 +120,76 @@ namespace xpcc
 		class FileInfo
 		{
 		public:
-			FileInfo();
+			FileInfo() {
+#if _USE_LFN
+				info.lfname = (TCHAR*)lfn;
+				info.lfsize = _MAX_LFN;
+#endif
+			}
 			
 			inline uint32_t
-			getSize() const;
+			getSize() const {
+				return info.fsize;
+			}
 			
 			inline int16_t
-			getModifiedDate() const;
+			getModifiedDate() const {
+				return info.fdate;
+			}
 			
 			inline int16_t
-			getModifiedTime() const;
+			getModifiedTime() const {
+				return info.ftime;
+			}
 			
 			inline const char*
-			getName();
+			getName() {
+#if _USE_LFN
+				if(info.lfname[0] == 0)
+					return getShortName();
+				return info.lfname;
+#else
+				return info.fname;
+#endif
+			}
 			
 			/// Name in 8.3 format
 			inline const char*
-			getShortName();
+			getShortName() {
+				return info.fname;
+			}
+
+			inline bool eod() const {
+				return info.fname[0] == 0;
+			}
+
+			friend class Directory;
 			
 		protected:
+#if _USE_LFN
+		static uint8_t lfn[_MAX_LFN];
+#endif
 			FILINFO info;
 		};
 		
 		class Directory
 		{
 		public:
+			FRESULT open(char* path) {
+				return f_opendir(&directory, path);
+			}
+
+			FRESULT readDir(FileInfo &fileinfo) {
+				return f_readdir(&directory, &fileinfo.info);
+			}
+
+			FRESULT close() {
+				return f_closedir(&directory);
+			}
+
+			~Directory() {
+				close();
+			}
 			
 		protected:
 			DIR directory;
