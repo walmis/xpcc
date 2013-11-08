@@ -22,32 +22,48 @@
 
 using namespace xpcc;
 
-#define LATENCY 32
-xpcc::Timeout<> latency_timer(LATENCY);
+void USBSerialHandler::sendPacket(bool blocking) {
+	isActive = true;
 
+	uint8_t buf[64];
+	int size = 0;
+
+	for (int i = 0; i < 64; i++) {
+		buf[i] = tx_buffer.get();
+		size++;
+
+		tx_buffer.pop();
+		if (tx_buffer.isEmpty())
+			break;
+	}
+
+	if(blocking)
+		device->write(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
+	else
+		device->writeNB(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
+
+	latency_timer.restart(LATENCY);
+}
 
 void USBSerialHandler::putc(char c) {
-	//XPCC_LOG_DEBUG .printf("putc %x\n", device->configured());
-	tx_buffer.push(c);
 
-	//check that we are in thread mode
-	if (tx_buffer.stored() >= 64 /*&& __get_IPSR() == 0*/) {
-		uint8_t buf[64];
-		int size = 0;
+	if(tx_buffer.isFull()) {
+		if(!isActive) {
+			return;
+		} else {
 
-		for (int i = 0; i < 64; i++) {
-			buf[i] = tx_buffer.get();
-			size++;
+			Timeout<> t(5);
 
-			tx_buffer.pop();
-			if (tx_buffer.isEmpty())
-				break;
+			while(tx_buffer.isFull()) {
+				if(!device->configured() || t.isExpired()) {
+					isActive = false;
+					return;
+				}
+			}
 		}
-
-		send(buf, size);
-		latency_timer.restart(LATENCY);
-		//in_request = true;
 	}
+
+	tx_buffer.push(c);
 }
 
 
@@ -74,6 +90,12 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
     } else
 
     if(ep == bulkIn) {
+
+    	if(!tx_buffer.isEmpty()) {
+    		//XPCC_LOG_DEBUG .printf("bulkIN send\n");
+    		sendPacket(false);
+    		return true;
+    	}
     	in_request = true;
     	return false;
     }
@@ -102,37 +124,30 @@ bool USBSerialHandler::getc(char& c) {
 //}
 
 void USBSerialHandler::SOF(int frameNumber) {
-	uint8_t buf[64];
-	uint32_t size = 0;
 
+	if(device->configured()) {
 
+		if (!tx_buffer.isEmpty() && in_request
+				&& (latency_timer.isExpired() || tx_buffer.stored() >= MAX_PACKET_SIZE_EPBULK)) {
 
-	if (!tx_buffer.isEmpty() && in_request
-			&& (latency_timer.isExpired() || tx_buffer.stored() >= MAX_PACKET_SIZE_EPBULK)) {
+			in_request = false;
+			//XPCC_LOG_DEBUG .printf("SOF send\n");
+			sendPacket(false);
 
-		for(int i=0; i<64; i++) {
-			buf[i] = tx_buffer.get();
-			size++;
-
-			tx_buffer.pop();
-			if(tx_buffer.isEmpty()) break;
 		}
-		latency_timer.restart(LATENCY);
 
-		device->writeNB(bulkIn, buf, size, MAX_PACKET_SIZE_EPBULK);
-		in_request = false;
-
-	}
-
-	if(data_waiting && rx_buffer.free() >= MAX_PACKET_SIZE_EPBULK) {
-		if(readEP_NB(buf, &size)) {
-			for (uint32_t i = 0; i < size; i++) {
-				rx_buffer.push(buf[i]);
+		if(data_waiting && rx_buffer.free() >= MAX_PACKET_SIZE_EPBULK) {
+			uint8_t buf[64];
+			uint32_t size;
+			if(readEP_NB(buf, &size)) {
+				for (uint32_t i = 0; i < size; i++) {
+					rx_buffer.push(buf[i]);
+				}
+				data_waiting = false;
 			}
-			data_waiting = false;
 		}
-	}
 
+	}
 }
 
 bool USBSerialHandler::send(uint8_t * buffer, uint32_t size) {
@@ -190,7 +205,6 @@ bool USBSerialHandler::USBCallback_request(void) {
 }
 
 bool USBSerialHandler::USBCallback_setConfiguration(uint8_t configuration) {
-    XPCC_LOG_DEBUG .printf("USBSerialHandler::USBCallback_setConfiguration (%d)\n", configuration);
 
 	if (configuration != DEFAULT_CONFIGURATION) {
         return false;

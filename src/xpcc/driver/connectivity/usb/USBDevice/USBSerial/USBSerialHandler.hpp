@@ -23,17 +23,20 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
+#define LATENCY 32
+
 class USBSerialHandler : public USBInterfaceHandler {
 public:
 
 	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT, uint8_t intIn = EPINT_IN) :
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
-					intIn) {
+					intIn), latency_timer(LATENCY) {
 
 		in_request = true;
 		data_waiting = false;
 		terminal_connected = false;
+		isActive = true;
 
 		//XPCC_LOG_DEBUG .printf("SerialHandler dev:%x, %d %d %d\n", device, bulkIn, bulkOut, intIn);
 
@@ -57,18 +60,23 @@ private:
 
 	bool EP_handler(uint8_t ep) override;
 
+	void sendPacket(bool blocking);
+
 	uint8_t bulkIn;
 	uint8_t bulkOut;
 	uint8_t intIn;
 
 	volatile bool data_waiting;
 	volatile bool in_request;
+	volatile bool isActive;
 
 	volatile bool terminal_connected;
 
 	bool send(uint8_t * buffer, uint32_t size);
 	bool readEP(uint8_t * buffer, uint32_t * size);
 	bool readEP_NB(uint8_t * buffer, uint32_t * size);
+
+	xpcc::Timeout<> latency_timer;
 };
 
 }
