@@ -114,6 +114,9 @@ uint8_t xpcc::fat::FileInfo::lfn[_MAX_LFN];
 #endif
 
 FRESULT File::open(const char* path, const char* mode) {
+	if(opened)
+		close();
+
 	uint8_t flags = 0;
 	bool append = false;
 	switch (mode[0]) {
@@ -135,6 +138,8 @@ FRESULT File::open(const char* path, const char* mode) {
 
 	}
 	FRESULT r = f_open(&file, path, flags);
+	if(r == FR_OK)
+		opened = true;
 	if (r == FR_OK && append) {
 		lseek(size());
 	}

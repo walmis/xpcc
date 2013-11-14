@@ -113,6 +113,10 @@ namespace xpcc
 				return f_mount(&this->fileSystem, "", 0);
 			}
 
+			static FRESULT mkdir(const char* dir) {
+				return f_mkdir(dir);
+			}
+
 		protected:
 			FATFS fileSystem;
 		};
@@ -127,6 +131,10 @@ namespace xpcc
 #endif
 			}
 			
+			inline bool stat(const char* path) {
+				return f_stat(path, &info) == FR_OK;
+			}
+
 			inline uint32_t
 			getSize() const {
 				return info.fsize;
@@ -142,7 +150,7 @@ namespace xpcc
 				return info.ftime;
 			}
 			
-			inline const char*
+			inline char*
 			getName() {
 #if _USE_LFN
 				if(info.lfname[0] == 0)
@@ -154,7 +162,7 @@ namespace xpcc
 			}
 			
 			/// Name in 8.3 format
-			inline const char*
+			inline char*
 			getShortName() {
 				return info.fname;
 			}
@@ -201,7 +209,7 @@ namespace xpcc
 		{
 		public:
 			File() : IOStream(*static_cast<IODevice*>(this)) {
-
+				opened = false;
 			}
 
 			~File() {
@@ -212,6 +220,7 @@ namespace xpcc
 			
 			FRESULT
 			close() {
+				opened = false;
 				return f_close(&file);
 			}
 			
@@ -220,7 +229,7 @@ namespace xpcc
 			}
 
 			void flush() override {
-
+				f_sync(&file);
 			}
 
 			bool read(char& c) override {
@@ -248,6 +257,10 @@ namespace xpcc
 				f_lseek(&file, pos);
 			}
 			
+			bool isOpened() {
+				return opened;
+			}
+
 			void
 			truncate();
 
@@ -257,6 +270,7 @@ namespace xpcc
 
 			
 		protected:
+			bool opened;
 			FIL file;
 		};
 

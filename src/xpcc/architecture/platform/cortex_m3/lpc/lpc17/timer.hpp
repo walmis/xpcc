@@ -241,6 +241,13 @@ public:
 		TIMx->EMR |= TIM_EM_SET(channel, extMatch);
 	}
 
+	static void intOnMatch(uint8_t channel, bool en) {
+		if(en)
+			TIMx->MCR |= TIM_INT_ON_MATCH(channel);
+		else
+			TIMx->MCR &= ~TIM_INT_ON_MATCH(channel);
+	}
+
 	static void updateMatchValue(uint8_t MatchChannel, uint32_t MatchValue) {
 
 		switch (MatchChannel) {
