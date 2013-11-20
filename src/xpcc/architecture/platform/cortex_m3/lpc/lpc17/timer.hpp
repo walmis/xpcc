@@ -204,7 +204,7 @@ public:
 	}
 
 	static void configureMatch(uint8_t channel, uint32_t matchValue,
-			MatchFlags matchFlags, ExtMatchOpt extMatch) {
+			MatchFlags matchFlags, ExtMatchOpt extMatch = TIM_EXTMATCH_NOTHING) {
 
 		switch (channel) {
 		case 0:

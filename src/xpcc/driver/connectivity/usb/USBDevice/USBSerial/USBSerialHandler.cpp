@@ -72,20 +72,23 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 
     if(ep == bulkOut) {
 
-    	uint8_t c[65];
+    	uint8_t c[64];
 		uint32_t size = 0;
 
 		//we read the packet received and put it on the circular buffer
 
+
 		if (rx_buffer.free() >= 64) {
 			readEP(c, &size);
+			//XPCC_LOG_DEBUG .printf("bulkout %d\n", size);
 			for (uint32_t i = 0; i < size; i++) {
 				rx_buffer.push(c[i]);
 			}
 			return true;
+		} else {
+			data_waiting = true;
+			return false;
 		}
-		data_waiting = true;
-		return true;
 
     } else
 
@@ -139,12 +142,17 @@ void USBSerialHandler::SOF(int frameNumber) {
 		if(data_waiting && rx_buffer.free() >= MAX_PACKET_SIZE_EPBULK) {
 			uint8_t buf[64];
 			uint32_t size;
+
 			if(readEP_NB(buf, &size)) {
+
+				//XPCC_LOG_DEBUG .printf("SOF Read %d\n", size);
 				for (uint32_t i = 0; i < size; i++) {
 					rx_buffer.push(buf[i]);
 				}
+
 				data_waiting = false;
 			}
+
 		}
 
 	}

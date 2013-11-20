@@ -28,13 +28,15 @@ protected:
 	int to_int(char *p);
 	bool float_scan(const wchar_t* wcs, float* val);
 
+	xpcc::IODevice& device;
+
 private:
 	void handleTick() override;
 
 	char buffer[32];
 	uint8_t pos = 0;
 
-	xpcc::IODevice& device;
+
 
 	void parse();
 };

@@ -230,12 +230,17 @@ void Terminal::parse() {
 void Terminal::handleTick() {
 
 	if (device.read(buffer[pos])) {
+
 		if (buffer[pos] == '\n') {
 			//remove the newline character
 			buffer[pos] = 0;
 			parse();
 			pos = 0;
 			return;
+		} else {
+			if(!isprint(buffer[pos])) {
+				return;
+			}
 		}
 		pos++;
 		pos &= 31;
