@@ -121,5 +121,6 @@ every one of it, only a subset which is sufficient for the container.
 
 #include "container/pair.hpp"
 #include "container/smart_pointer.hpp"
+#include "container/double_buffer.hpp"
 
 

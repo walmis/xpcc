@@ -25,34 +25,75 @@
 namespace xpcc {
 namespace lpc17 {
 
+void
+DMA::getSrcDestAddresses(DMAConfig* config, uint32_t& srcAddr, uint32_t& destAddr) {
+    switch (config->transferType()) {
+
+        // Memory to memory
+        case m2m:
+            // Assign physical source and destination address
+        	srcAddr  = config->srcMemAddr();
+        	destAddr = config->dstMemAddr();
+
+            break;
+
+        // Memory to peripheral
+        case m2p:
+        	// Assign physical source
+        	srcAddr = config->srcMemAddr();
+            // Assign peripheral destination address
+        	destAddr = (uint32_t)LUTPerAddr(config->dstConn());
+
+            break;
+
+        // Peripheral to memory
+        case p2m:
+            // Assign peripheral source address
+        	srcAddr = (uint32_t)LUTPerAddr(config->srcConn());
+            // Assign memory destination address
+        	destAddr = config->dstMemAddr();
+
+            break;
+
+        // Peripheral to peripheral
+        case p2p:
+            // Assign peripheral source address
+        	srcAddr = (uint32_t)LUTPerAddr(config->srcConn());
+            // Assign peripheral destination address
+        	destAddr = (uint32_t)LUTPerAddr(config->dstConn());
+
+            break;
+
+        // GPIO to memory
+        case g2m:
+            // Assign GPIO source address
+        	srcAddr = config->srcMemAddr();
+            // Assign memory destination address
+        	destAddr = config->dstMemAddr();
+
+            break;
+
+        // Memory to GPIO
+        case m2g:
+            // Assign physical source
+        	srcAddr = config->srcMemAddr();
+            // Assign peripheral destination address
+        	destAddr = config->dstMemAddr();
+            break;
+
+    }
+}
+
+
 uint32_t
-DMA::Setup(DMAConfig *config)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( config->channelNum() );
-    
-    setups[config->channelNum() & 0x7] = config;
-    
-    // Reset the Interrupt status
-    LPC_GPDMA->DMACIntTCClear = IntTCClear_Ch( config->channelNum() );
-    LPC_GPDMA->DMACIntErrClr  = IntErrClr_Ch ( config->channelNum() );
-
-    // Clear DMA configure
-    pChannel->DMACCControl = 0x00;
-    pChannel->DMACCConfig  = 0x00;
-
-    // Assign Linker List Item value 
-    pChannel->DMACCLLI = config->dmaLLI();
-
-    uint32_t DMACCControl = 0;
+DMA::buildControlValue(DMAConfig* config) {
+	uint32_t DMACCControl = 0;
 
     // Set value to Channel Control Registers 
     switch (config->transferType()) {
     
         // Memory to memory
         case m2m:
-            // Assign physical source and destination address
-            pChannel->DMACCSrcAddr  = config->srcMemAddr();
-            pChannel->DMACCDestAddr = config->dstMemAddr();
             DMACCControl
                 = CxControl_TransferSize(config->transferSize()) 
                 | CxControl_SBSize(_32) 
@@ -66,10 +107,7 @@ DMA::Setup(DMAConfig *config)
         
         // Memory to peripheral
         case m2p:
-        	// Assign physical source
-            pChannel->DMACCSrcAddr = config->srcMemAddr();
-            // Assign peripheral destination address
-            pChannel->DMACCDestAddr = (uint32_t)LUTPerAddr(config->dstConn());
+
             DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->dstConn())) 
@@ -82,10 +120,7 @@ DMA::Setup(DMAConfig *config)
             
         // Peripheral to memory
         case p2m:
-            // Assign peripheral source address
-            pChannel->DMACCSrcAddr = (uint32_t)LUTPerAddr(config->srcConn());
-            // Assign memory destination address
-            pChannel->DMACCDestAddr = config->dstMemAddr();
+
             DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
@@ -98,10 +133,7 @@ DMA::Setup(DMAConfig *config)
             
         // Peripheral to peripheral
         case p2p:
-            // Assign peripheral source address
-            pChannel->DMACCSrcAddr = (uint32_t)LUTPerAddr(config->srcConn());
-            // Assign peripheral destination address
-            pChannel->DMACCDestAddr = (uint32_t)LUTPerAddr(config->dstConn());
+
             DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
@@ -113,10 +145,7 @@ DMA::Setup(DMAConfig *config)
             
         // GPIO to memory
         case g2m:
-            // Assign GPIO source address
-            pChannel->DMACCSrcAddr = config->srcMemAddr();
-            // Assign memory destination address
-            pChannel->DMACCDestAddr = config->dstMemAddr();
+
            DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
@@ -129,10 +158,7 @@ DMA::Setup(DMAConfig *config)
             
         // Memory to GPIO
         case m2g:
-            // Assign physical source
-            pChannel->DMACCSrcAddr = config->srcMemAddr();
-            // Assign peripheral destination address
-            pChannel->DMACCDestAddr = config->dstMemAddr();
+
             DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->dstConn())) 
@@ -164,7 +190,31 @@ DMA::Setup(DMAConfig *config)
 		}
     }
 
-    pChannel->DMACCControl = DMACCControl;
+    return DMACCControl;
+}
+
+uint32_t
+DMA::Setup(DMAConfig *config)
+{
+    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( config->channelNum() );
+
+    setups[config->channelNum() & 0x7] = config;
+
+    // Reset the Interrupt status
+    LPC_GPDMA->DMACIntTCClear = IntTCClear_Ch( config->channelNum() );
+    LPC_GPDMA->DMACIntErrClr  = IntErrClr_Ch ( config->channelNum() );
+
+    // Clear DMA configure
+    pChannel->DMACCControl = 0x00;
+    pChannel->DMACCConfig  = 0x00;
+
+    // Assign Linker List Item value
+    pChannel->DMACCLLI = config->dmaLLI();
+
+    pChannel->DMACCControl = buildControlValue(config);
+
+    // Assign physical source and destination address
+    getSrcDestAddresses(config, (uint32_t&)pChannel->DMACCSrcAddr, (uint32_t&)pChannel->DMACCDestAddr);
 
      // Re-Configure DMA Request Select for source peripheral 
     if (config->srcConn() > 15) {
@@ -209,6 +259,57 @@ DMA::Setup(DMAConfig *config)
         | CxConfig_DestPeripheral(tmp2);
 
     return pChannel->DMACCControl;
+}
+
+void DMAConfig::freeLLI() {
+	DMALLI* ptr = (DMALLI*) LLI;
+	while(ptr) {
+		if(ptr->nextLLI() == 0) {
+			delete ptr;
+			break;
+		} else {
+			auto d = ptr;
+			ptr = (DMALLI*)ptr->nextLLI();
+			delete d;
+		}
+	}
+	LLI = 0;
+}
+
+DMALLI* DMAConfig::addLLI() {
+	DMALLI* lli = new (std::nothrow) DMALLI(this);
+	if(!lli)
+		return 0;
+
+	if(LLI == 0) {
+		LLI = (uint32_t) lli;
+		DMA::instance()->lli((DMA::CHANNELS)ChannelNum, lli);
+	} else {
+		DMALLI* ptr = (DMALLI*) LLI;
+		while(ptr) {
+			if(ptr->nextLLI() == 0) {
+				ptr->nextLLI((uint32_t)lli);
+				break;
+			}
+			ptr = (DMALLI*)ptr->nextLLI();
+		}
+
+	}
+	return lli;
+}
+
+DMALLI::DMALLI(DMAConfig* cfg) {
+	NextLLI = 0;
+
+	Control = DMA::buildControlValue(cfg);
+	DMA::getSrcDestAddresses(cfg, this->SrcAddr, this->DstAddr);
+}
+
+DMALLI* DMALLI::transferSize(uint16_t n) {
+	Control &= ~0xFFF;
+	Control |= 	DMA::CxControl_TransferSize(n);
+
+	return this;
 }
 
 }

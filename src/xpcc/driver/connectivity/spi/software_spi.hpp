@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -28,92 +28,50 @@
  */
 // ----------------------------------------------------------------------------
 
-#ifndef	XPCC_ATOMIC__QUEUE_HPP
-#define	XPCC_ATOMIC__QUEUE_HPP
+#ifndef XPCC__SOFTWARE_SPI_HPP
+#define XPCC__SOFTWARE_SPI_HPP
 
-#include <cstddef>
 #include <stdint.h>
-#include <xpcc/architecture/utils.hpp>
-#include <xpcc/architecture/driver/accessor.hpp>
-#include <xpcc/utils/template_metaprogramming.hpp>
+#include <xpcc/architecture/peripheral/spi.hpp>
+#include <xpcc/architecture/driver/delay.hpp>
 
 namespace xpcc
 {
-	namespace atomic
+	/**
+	 * \brief	Software emulation of a SPI Master
+	 *
+	 * \tparam	Clk			clock pin [output]
+	 * \tparam	Mosi		master out slave in pin [output]
+	 * \tparam	Miso		master in slave out pin [input]
+	 * \tparam	Frequency	requested SPI frequency in Hz (default = 2 MHz)
+	 *
+	 * \ingroup	connectivity
+	 * \see		gpio
+	 */
+	template< typename Clk,
+			  typename Mosi,
+			  typename Miso,
+			  int32_t Frequency = 2000000UL >
+	class SoftwareSpi : public SpiMaster
 	{
-		/**
-		 * \ingroup	atomic
-		 * \brief	Interrupt save queue
-		 *
-		 * A maximum size of 254 is allowed for 8-bit mikrocontrollers.
-		 * 
-		 * \todo	This implementation should work but could be improved
-		 */
-		template<typename T,
-				 std::size_t N>
-		class Queue
-		{
-		public:
-			// select the type of the index variables with some template magic :-)
-			typedef typename xpcc::tmp::Select< (N >= 254),
-												uint16_t,
-												uint8_t >::Result Index;
-			
-			typedef Index Size;
-			
-		public:
-			Queue();
-			
-			ALWAYS_INLINE bool
-			isFull() const;
-			
-			/**
-			 * \returns	\c false if less than three elements
-			 * 			can be stored in queue.
-			 * 
-			 * Only works with queue with more than three elements. 
-			 */
-			bool
-			isNearlyFull() const;
+	public:
+		static void
+		initialize();
 
-			ALWAYS_INLINE bool
-			isEmpty() const;
-			
-			/**
-			 * Check if the queue is nearly empty.
-			 * 
-			 * \returns	\c true if less than three elements are stored
-			 * 			in the queue, \c false otherwise.
-			 *
-			 * Only works with queue with more than three elements.
-			 * TODO: calculations are approximate and may include off-by-one errors.
-			 */
-			bool
-			isNearlyEmpty() const;
-			
-			ALWAYS_INLINE Size
-			getMaxSize() const;
-			
-			const T&
-			get() const;
-			
-			bool
-			push(const T& value);
-			
-			void
-			pop();
+		static uint8_t
+		write(uint8_t data);
 
-			Size free() const;
-			Size stored() const;
-		private:
-			volatile Index head;
-			volatile Index tail;
-			
-			T buffer[N+1];
-		};
-	}
+
+	protected:
+		static ALWAYS_INLINE void
+		delay();
+
+		// calculate the delay in microseconds needed to achieve the
+		// requested SPI frequency
+		static const uint32_t delayTime = (1000000.0 / Frequency) / 2.0;
+	};
 }
 
-#include "queue_impl.hpp"
+#include "software_spi_impl.hpp"
 
-#endif	// XPCC_ATOMIC__QUEUE_HPP
+#endif // XPCC__SOFTWARE_SPI_HPP

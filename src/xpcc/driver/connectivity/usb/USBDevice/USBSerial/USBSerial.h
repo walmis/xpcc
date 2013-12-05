@@ -92,6 +92,10 @@ public:
 		return handler.getc(c);
 	}
 
+	void setLatency(uint8_t ms) {
+		handler.setLatency(ms);
+	}
+
 
     /**
     * Check the number of bytes available.

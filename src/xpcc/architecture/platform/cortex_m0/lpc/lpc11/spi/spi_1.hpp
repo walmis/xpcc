@@ -14,7 +14,7 @@
 #include "../../spi_registers.h"
 namespace xpcc
 {
-	namespace lpc
+	namespace lpc11
 	{
 		/**
 		 * \brief	Serial peripheral interface (SPI1)
@@ -36,37 +36,7 @@ namespace xpcc
 		class SpiMaster1 : public xpcc::SpiMaster
 		{
 		public:
-			enum class TransferSize
-			{
-				BIT_04 = 0x03,
-				BIT_05 = 0x04,
-				BIT_06 = 0x05,
-				BIT_07 = 0x06,
-				BIT_08 = 0x07,
-				BIT_09 = 0x08,
-				BIT_10 = 0x09,
-				BIT_11 = 0x0a,
-				BIT_12 = 0x0b,
-				BIT_13 = 0x0c,
-				BIT_14 = 0x0d,
-				BIT_15 = 0x0d,
-				BIT_16 = 0x0f,
-			};
 
-			enum class FrameFormat
-			{
-				SPI = 0x00,
-				TI  = 0x01,
-				MICROWIRE = 0x02,
-			};
-
-			enum class Mode
-			{
-				MODE_0 = 0,								///< SCK normal,   sample on rising  edge
-				MODE_1 = SPI_CR0_CPHA,					///< SCK normal,   sample on falling edge
-				MODE_2 = SPI_CR0_CPOL,					///< SCK inverted, sample on falling edge
-				MODE_3 = SPI_CR0_CPOL | SPI_CR0_CPHA,	///< SCK inverted, sample on rising  edge
-			};
 
 			/**
 			 * \brief	Clock prescaler.
@@ -210,7 +180,7 @@ namespace xpcc
 
 			static void
 			configurePins(
-					MappingSck mapping = xpcc::lpc::SpiMaster1::MappingSck::PIO2_1,
+					MappingSck mapping = xpcc::lpc11::SpiMaster1::MappingSck::PIO2_1,
 					bool useSsel = false);
 
 		public:

@@ -59,6 +59,8 @@
 #include "spi/spi_0.hpp"
 #include "spi/spi_1.hpp"
 
+#include "spi/spi_slave.hpp"
+
 // Chapter 15: I2C bus
 // TODO
 

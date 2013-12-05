@@ -100,7 +100,9 @@ void DMA_IRQHandler(void) {
                     // own ISR. But only disable if the LLI linked list register
                     // is null otherwise we can crap out a series of transfers.
                     if (DMA::moddma_p->Enabled( (DMA::CHANNELS)channel_number )) {
-                        if (DMA::moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 ) {
+                        if (DMA::moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 &&
+                        		//check if all data is transferred
+                        		DMA::moddma_p->isActive((DMA::CHANNELS)channel_number) == 0) {
                             DMA::moddma_p->Disable( (DMA::CHANNELS)channel_number );
                         }
                     }

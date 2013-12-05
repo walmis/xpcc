@@ -41,6 +41,47 @@ extern "C" void DMA_IRQHandler();
 
 namespace xpcc {
 namespace lpc17 {
+
+//forward reference
+class DMAConfig;
+class DMA;
+
+/**
+ * @brief The MODDMA configuration system (linked list items)
+ * @author Andy Kirkham
+ * @see http://mbed.org/cookbook/MODDMA_Config
+ * @see MODDMA
+ * @see MODDMA_Config
+ * @ingroup API
+ */
+class DMALLI {
+public:
+	DMALLI() {
+		SrcAddr = 0;
+		DstAddr = 0;
+		NextLLI = 0;
+		Control = 0;
+	}
+	DMALLI(DMAConfig* cfg);
+
+	/// Set transfer size for LLI transfer
+	DMALLI* transferSize(uint16_t n);
+
+    class DMALLI *srcAddr(uint32_t n) { SrcAddr = n; return this; }
+    class DMALLI *dstAddr(uint32_t n) { DstAddr = n; return this; }
+    class DMALLI *nextLLI(uint32_t n) { NextLLI = n; return this; }
+    class DMALLI *control(uint32_t n) { Control = n; return this; }
+    uint32_t srcAddr(void) { return SrcAddr; }
+    uint32_t dstAddr(void) { return DstAddr; }
+    uint32_t nextLLI(void) { return NextLLI; }
+    uint32_t control(void) { return Control; }
+
+    uint32_t SrcAddr;    //!< Source Address
+    uint32_t DstAddr;    //!< Destination address
+    uint32_t NextLLI;    //!< Next LLI address, otherwise set to '0'
+    uint32_t Control;    //!< GPDMA Control of this LLI
+};
+
 /**
  * @brief The DMA configuration system
  * @author Andy Kirkham
@@ -65,7 +106,7 @@ protected:
     uint8_t TransferType;      //!< Transfer Type
     uint8_t SrcConn;           //!< Peripheral Source Connection type, used in case TransferType is chosen as
     uint8_t DstConn;           //!< Peripheral Destination Connection type, used in case TransferType is chosen as
-    uint32_t DMALLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
+    uint32_t LLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
     uint8_t DMACSync;          //!< DMACSync if required.
     uint8_t flags;
     // Mbed specifics.
@@ -88,9 +129,9 @@ public:
         TransferType  = 0;
         SrcConn       = 0;
         DstConn       = 0;
-        DMALLI        = 0;
+        LLI           = 0;
         DMACSync      = 0;
-        flags = 0;
+        flags         = 0;
     }
         
     class DMAConfig * channelNum(uint32_t n)    { ChannelNum = n & 0x7;  return this; }
@@ -101,7 +142,7 @@ public:
     class DMAConfig * transferType(uint32_t n)  { TransferType = n;      return this; }
     class DMAConfig * srcConn(uint32_t n)       { SrcConn = n;           return this; }
     class DMAConfig * dstConn(uint32_t n)       { DstConn = n;           return this; }
-    class DMAConfig * dmaLLI(uint32_t n)        { DMALLI = n;            return this; }
+    class DMAConfig * dmaLLI(uint32_t n)        { LLI = n;            return this; }
     class DMAConfig * dmacSync(uint32_t n)      { DMACSync = n;          return this; }
     class DMAConfig * transferFlags(uint8_t n)  { flags = n;          return this; }
     
@@ -113,10 +154,14 @@ public:
     uint32_t transferType(void)  { return TransferType;  }
     uint32_t srcConn(void)       { return SrcConn;       }
     uint32_t dstConn(void)       { return DstConn;       }
-    uint32_t dmaLLI(void)        { return DMALLI;        }
+    uint32_t dmaLLI(void)        { return LLI;        }
     uint32_t dmacSync(void)      { return DMACSync; }
     uint8_t transferFlags()      { return flags; }
     
+    DMALLI* addLLI();
+
+    void freeLLI();
+
     /**
      * Attach a callback to the TC IRQ configuration.
      *
@@ -173,30 +218,7 @@ public:
     FunctionPointer isrIntErrStat;
 };
 
-/**
- * @brief The MODDMA configuration system (linked list items)
- * @author Andy Kirkham
- * @see http://mbed.org/cookbook/MODDMA_Config
- * @see MODDMA
- * @see MODDMA_Config
- * @ingroup API
- */
-class DMALLI {
-public:
-    class DMALLI *srcAddr(uint32_t n) { SrcAddr = n; return this; }
-    class DMALLI *dstAddr(uint32_t n) { DstAddr = n; return this; }
-    class DMALLI *nextLLI(uint32_t n) { NextLLI = n; return this; }
-    class DMALLI *control(uint32_t n) { Control = n; return this; }
-    uint32_t srcAddr(void) { return SrcAddr; }
-    uint32_t dstAddr(void) { return DstAddr; }
-    uint32_t nextLLI(void) { return NextLLI; }
-    uint32_t control(void) { return Control; }
 
-    uint32_t SrcAddr;    //!< Source Address 
-    uint32_t DstAddr;    //!< Destination address 
-    uint32_t NextLLI;    //!< Next LLI address, otherwise set to '0' 
-    uint32_t Control;    //!< GPDMA Control of this LLI 
-};
 
 
 
@@ -438,6 +460,16 @@ public:
     bool Enabled(CHANNELS ChannelNumber);
     
     /**
+     * Returns LPC_DMA->DMACControl value for a specific channel configuration
+     *
+     * @param Pointer to channel configuration
+     * @return DMACControl value
+     */
+    static uint32_t buildControlValue(DMAConfig* cfg);
+
+    static void getSrcDestAddresses(DMAConfig* cfg, uint32_t& srcAddr, uint32_t& destAddr);
+
+    /**
      * Is the specified channel enabled? (overloaded function)
      *
       * @param ChannelNumber Type uin32_t, the channel number to test
@@ -445,41 +477,41 @@ public:
      */
     bool Enabled(uint32_t ChannelNumber) { return Enabled((CHANNELS)(ChannelNumber & 0x7)); }
     
-    __INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t IntTCClear_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t IntErrStat_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t IntErrClr_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t RawIntErrStat_Ch(uint32_t n)   { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t EnbldChns_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    __INLINE uint32_t SoftBReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
-    __INLINE uint32_t SoftSReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
-    __INLINE uint32_t SoftLBReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
-    __INLINE uint32_t SoftLSReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
-    __INLINE uint32_t Sync_Src(uint32_t n)           { return (1UL << n) & 0xFFFF; }
-    __INLINE uint32_t ReqSel_Input(uint32_t n)       { return (1UL << (n - 8)) & 0xFF; }
+    static __INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t IntTCClear_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t IntErrStat_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t IntErrClr_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t RawIntErrStat_Ch(uint32_t n)   { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t EnbldChns_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static __INLINE uint32_t SoftBReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
+    static __INLINE uint32_t SoftSReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
+    static __INLINE uint32_t SoftLBReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
+    static __INLINE uint32_t SoftLSReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
+    static __INLINE uint32_t Sync_Src(uint32_t n)           { return (1UL << n) & 0xFFFF; }
+    static __INLINE uint32_t ReqSel_Input(uint32_t n)       { return (1UL << (n - 8)) & 0xFF; }
     
 
-    __INLINE uint32_t CxControl_TransferSize(uint32_t n)     { return (n & 0xFFF) << 0; }
-    __INLINE uint32_t CxControl_SBSize(uint32_t n)           { return (n & 0x7) << 12; }
-    __INLINE uint32_t CxControl_DBSize(uint32_t n)           { return (n & 0x7) << 15; }
-    __INLINE uint32_t CxControl_SWidth(uint32_t n)           { return (n & 0x7) << 18; }
-    __INLINE uint32_t CxControl_DWidth(uint32_t n)           { return (n & 0x7) << 21; }
-    __INLINE uint32_t CxControl_SI()                         { return (1UL << 26); }
-    __INLINE uint32_t CxControl_DI()                         { return (1UL << 27); }
-    __INLINE uint32_t CxControl_Prot1()                      { return (1UL << 28); }
-    __INLINE uint32_t CxControl_Prot2()                      { return (1UL << 29); }
-    __INLINE uint32_t CxControl_Prot3()                      { return (1UL << 30); }
-    __INLINE uint32_t CxControl_I()                          { return (1UL << 31); }
-    __INLINE uint32_t CxControl_E()                          { return (1UL << 0); }
-    __INLINE uint32_t CxConfig_SrcPeripheral(uint32_t n)     { return (n & 0x1F) << 1; }
-    __INLINE uint32_t CxConfig_DestPeripheral(uint32_t n)    { return (n & 0x1F) << 6; }
-    __INLINE uint32_t CxConfig_TransferType(uint32_t n)      { return (n & 0x7) << 11; }
-    __INLINE uint32_t CxConfig_IE()                          { return (1UL << 14); }
-    __INLINE uint32_t CxConfig_ITC()                         { return (1UL << 15); }
-    __INLINE uint32_t CxConfig_L()                           { return (1UL << 16); }
-    __INLINE uint32_t CxConfig_A()                           { return (1UL << 17); }
-    __INLINE uint32_t CxConfig_H()                           { return (1UL << 18); }
+    static __INLINE uint32_t CxControl_TransferSize(uint32_t n)     { return (n & 0xFFF) << 0; }
+    static __INLINE uint32_t CxControl_SBSize(uint32_t n)           { return (n & 0x7) << 12; }
+    static __INLINE uint32_t CxControl_DBSize(uint32_t n)           { return (n & 0x7) << 15; }
+    static __INLINE uint32_t CxControl_SWidth(uint32_t n)           { return (n & 0x7) << 18; }
+    static __INLINE uint32_t CxControl_DWidth(uint32_t n)           { return (n & 0x7) << 21; }
+    static __INLINE uint32_t CxControl_SI()                         { return (1UL << 26); }
+    static __INLINE uint32_t CxControl_DI()                         { return (1UL << 27); }
+    static __INLINE uint32_t CxControl_Prot1()                      { return (1UL << 28); }
+    static __INLINE uint32_t CxControl_Prot2()                      { return (1UL << 29); }
+    static __INLINE uint32_t CxControl_Prot3()                      { return (1UL << 30); }
+    static __INLINE uint32_t CxControl_I()                          { return (1UL << 31); }
+    static __INLINE uint32_t CxControl_E()                          { return (1UL << 0); }
+    static __INLINE uint32_t CxConfig_SrcPeripheral(uint32_t n)     { return (n & 0x1F) << 1; }
+    static __INLINE uint32_t CxConfig_DestPeripheral(uint32_t n)    { return (n & 0x1F) << 6; }
+    static __INLINE uint32_t CxConfig_TransferType(uint32_t n)      { return (n & 0x7) << 11; }
+    static __INLINE uint32_t CxConfig_IE()                          { return (1UL << 14); }
+    static __INLINE uint32_t CxConfig_ITC()                         { return (1UL << 15); }
+    static __INLINE uint32_t CxConfig_L()                           { return (1UL << 16); }
+    static __INLINE uint32_t CxConfig_A()                           { return (1UL << 17); }
+    static __INLINE uint32_t CxConfig_H()                           { return (1UL << 18); }
     
     /**
      * A store for up to 8 (8 channels) of configurations.
@@ -575,6 +607,28 @@ public:
      */
     uint32_t getControl(CHANNELS ChannelNumber);
     
+    uint32_t getControl(DMAConfig *cfg) {
+    	return getControl((CHANNELS)cfg->channelNum());
+    }
+
+    /**
+     * Get number of bytes remaining to transfer
+     *
+     * @param CHANNELS The channel to get the control register for.
+     */
+    uint32_t dataRemaining(CHANNELS ChannelNumber) {
+    	return getControl((CHANNELS)ChannelNumber) & 0xFFF;
+    }
+
+    /**
+     * Get number of bytes remaining to transfer
+     *
+     * @param CHANNELS The channel to get the control register for.
+     */
+    uint32_t dataRemaining(DMAConfig *cfg) {
+    	return getControl((CHANNELS)cfg->channelNum()) & 0xFFF;
+    }
+
     /**
      * Wait for channel transfer to complete and then halt.
      *
@@ -652,21 +706,16 @@ public:
     /**
      * The MODDMA controllers error interrupt callback.
      */
-    FunctionPointer isrIntErrStat;                        
+   FunctionPointer isrIntErrStat;
     
-    uint32_t Channel_p(int channel) {
-        const uint32_t lut[] = {
-              (uint32_t)LPC_GPDMACH0
-            , (uint32_t)LPC_GPDMACH1
-            , (uint32_t)LPC_GPDMACH2
-            , (uint32_t)LPC_GPDMACH3
-            , (uint32_t)LPC_GPDMACH4
-            , (uint32_t)LPC_GPDMACH5
-            , (uint32_t)LPC_GPDMACH6
-            , (uint32_t)LPC_GPDMACH7
-        };
-        return lut[channel & 0xFF];
-    }
+   static uint32_t Channel_p(int channel) {
+		const uint32_t lut[] = { (uint32_t) LPC_GPDMACH0,
+				(uint32_t) LPC_GPDMACH1, (uint32_t) LPC_GPDMACH2,
+				(uint32_t) LPC_GPDMACH3, (uint32_t) LPC_GPDMACH4,
+				(uint32_t) LPC_GPDMACH5, (uint32_t) LPC_GPDMACH6,
+				(uint32_t) LPC_GPDMACH7 };
+		return lut[channel & 0xFF];
+	}
     
 protected:
 
@@ -699,7 +748,7 @@ protected:
     void init(bool isConstructorCalling, int Channels = 0xFF, int Tc = 0xFF, int Err = 0xFF);
    
     // Data LUTs.
-    uint32_t LUTPerAddr(int n) {
+    static uint32_t LUTPerAddr(int n) {
         const uint32_t lut[] = {
               (uint32_t)&LPC_SSP0->DR         // SSP0 Tx
             , (uint32_t)&LPC_SSP0->DR         // SSP0 Rx
@@ -728,7 +777,7 @@ protected:
         };
         return lut[n & 0xFF];
     }
-    uint8_t  LUTPerBurst(int n) {
+    static uint8_t  LUTPerBurst(int n) {
         const uint8_t lut[] = {
               (uint8_t)_4       // SSP0 Tx
             , (uint8_t)_4       // SSP0 Rx
@@ -757,7 +806,7 @@ protected:
         };
         return lut[n & 0xFFF];
     }
-    uint8_t  LUTPerWid(int n) {
+    static uint8_t  LUTPerWid(int n) {
         const uint8_t lut[] = {
               (uint8_t)byte      // SSP0 Tx
             , (uint8_t)byte      // SSP0 Rx

@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -28,92 +28,57 @@
  */
 // ----------------------------------------------------------------------------
 
-#ifndef	XPCC_ATOMIC__QUEUE_HPP
-#define	XPCC_ATOMIC__QUEUE_HPP
+#ifndef XPCC__SOFTWARE_SPI_HPP
+	#error	"Don't include this file directly, use 'software_spi.hpp' instead!"
+#endif
 
-#include <cstddef>
-#include <stdint.h>
-#include <xpcc/architecture/utils.hpp>
-#include <xpcc/architecture/driver/accessor.hpp>
-#include <xpcc/utils/template_metaprogramming.hpp>
 
-namespace xpcc
+// ----------------------------------------------------------------------------
+template <typename Clk, typename Mosi, typename Miso, int32_t Frequency>
+void
+xpcc::SoftwareSpi<Clk, Mosi, Miso, Frequency>::initialize()
 {
-	namespace atomic
-	{
-		/**
-		 * \ingroup	atomic
-		 * \brief	Interrupt save queue
-		 *
-		 * A maximum size of 254 is allowed for 8-bit mikrocontrollers.
-		 * 
-		 * \todo	This implementation should work but could be improved
-		 */
-		template<typename T,
-				 std::size_t N>
-		class Queue
-		{
-		public:
-			// select the type of the index variables with some template magic :-)
-			typedef typename xpcc::tmp::Select< (N >= 254),
-												uint16_t,
-												uint8_t >::Result Index;
-			
-			typedef Index Size;
-			
-		public:
-			Queue();
-			
-			ALWAYS_INLINE bool
-			isFull() const;
-			
-			/**
-			 * \returns	\c false if less than three elements
-			 * 			can be stored in queue.
-			 * 
-			 * Only works with queue with more than three elements. 
-			 */
-			bool
-			isNearlyFull() const;
-
-			ALWAYS_INLINE bool
-			isEmpty() const;
-			
-			/**
-			 * Check if the queue is nearly empty.
-			 * 
-			 * \returns	\c true if less than three elements are stored
-			 * 			in the queue, \c false otherwise.
-			 *
-			 * Only works with queue with more than three elements.
-			 * TODO: calculations are approximate and may include off-by-one errors.
-			 */
-			bool
-			isNearlyEmpty() const;
-			
-			ALWAYS_INLINE Size
-			getMaxSize() const;
-			
-			const T&
-			get() const;
-			
-			bool
-			push(const T& value);
-			
-			void
-			pop();
-
-			Size free() const;
-			Size stored() const;
-		private:
-			volatile Index head;
-			volatile Index tail;
-			
-			T buffer[N+1];
-		};
-	}
+	Clk::setOutput();
+	Mosi::setOutput();
+	Miso::setInput();
 }
 
-#include "queue_impl.hpp"
+// ----------------------------------------------------------------------------
+template <typename Clk, typename Mosi, typename Miso, int32_t Frequency>
+uint8_t
+xpcc::SoftwareSpi<Clk, Mosi, Miso, Frequency>::write(uint8_t output)
+{
+	uint8_t input = 0;
 
-#endif	// XPCC_ATOMIC__QUEUE_HPP
+	Clk::reset();
+	for (uint8_t i = 0; i < 8; ++i)
+	{
+		input <<= 1;
+		if (output & 0x80) {
+			Mosi::set();
+		}
+		else {
+			Mosi::reset();
+		}
+		delay();
+
+		Clk::set();
+		delay();
+
+		if (Miso::read()) {
+			input |= 1;
+		}
+		output <<= 1;
+
+		Clk::reset();
+	}
+
+	return input;
+}
+
+template <typename Clk, typename Mosi, typename Miso, int32_t Frequency>
+void
+xpcc::SoftwareSpi<Clk, Mosi, Miso, Frequency>::delay()
+{
+	xpcc::delay_us(delayTime);
+}

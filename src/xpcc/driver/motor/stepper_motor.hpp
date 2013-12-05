@@ -80,7 +80,7 @@ public:
 	}
 
 	void move(int steps) {
-		moveSteps = steps;
+		moveSteps += steps;
 		if(steps < 0) {
 			step(REVERSE);
 		} else {
