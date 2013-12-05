@@ -159,8 +159,51 @@ public:
 		return SPIx->DR;
 	}
 
+	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
+		if(prepareTransfer(tx, rx, length)) {
+			startTransfer(rx);
+
+			return true;
+		}
+		return false;
+	}
+
+	static void
+	stopTransfer() {
+		DMA* dma = DMA::instance();
+		if(txChannelCfg) {
+			dma->Disable(txChannelCfg->channelNum());
+		}
+		if(rxChannelCfg) {
+			dma->Disable(rxChannelCfg->channelNum());
+		}
+	}
+
+	static void startTransfer(bool rx = false) {
+		DMA* dma = DMA::instance();
+
+		if(rx) {
+			dma->Enable(txChannelCfg);
+			/* Wait until at least one byte has arrived into the RX FIFO
+				   and then start-up the Channel1 DMA to begin transferring them. */
+			while((LPC_SSP0->SR & (1UL << 2)) == 0);
+			//start rx transfer
+			dma->Enable(rxChannelCfg);
+
+		} else {
+			dma->Enable(txChannelCfg);
+		}
+
+		running = true;
+	}
+
     static bool
-    transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
+    prepareTransfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
+
+    	if(isRunning()) {
+    		//XPCC_LOG_DEBUG .printf("spi busy\n");
+    		return false;
+    	}
 
     	while((SPIx->SR & SPI_SRn_RNE)) {
 			uint16_t Dummy = SPIx->DR; /* clear the RxFIFO */
@@ -180,10 +223,12 @@ public:
 		if(!txChannelCfg)
 			txChannelCfg = new (std::nothrow) DMAConfig;
 
+		txChannelCfg->freeLLI();
+
 		txChannelCfg->channelNum(0)
 				->dstConn(conn)
 				->srcMemAddr(tx ? (uint32_t)tx : (uint32_t)&dummy)
-				->transferSize(length)
+				->transferSize((length>0xFFF) ? 0xFFF : length)
 				->transferType(DMA::m2p)
 				->attach_tc(onDMATxTransferComplete);
 
@@ -192,12 +237,30 @@ public:
 			txChannelCfg->transferFlags(DMAConfig::FORCE_SI_OFF);
 		}
 
+		if(length > 0xFFF) {
+			uint16_t len = length-0xFFF;
+			uint16_t sz;
+			uint8_t* buf = tx + 0xFFF;
+
+			while(len > 0) {
+				sz = (len>0xFFF)? 0xFFF : len;
+
+				DMALLI* lli = txChannelCfg->addLLI();
+
+				lli->transferSize(sz);
+				lli->srcAddr(tx ? (uint32_t)buf : (uint32_t)&dummy);
+
+				len -= sz;
+				buf += sz;
+			}
+		}
+
 		dma->Setup(txChannelCfg);
 
     	if(rx) {
 
     		uint8_t conn = DMA::SSP0_Rx;
-    		if(SPIx ==LPC_SSP1)
+    		if(SPIx == LPC_SSP1)
     			conn = DMA::SSP1_Rx;
 
     		if(!rxChannelCfg)
@@ -216,22 +279,7 @@ public:
 
     		//prepare rx channel
     		dma->Setup(rxChannelCfg);
-
-    		//start tx transfer
-    		dma->Enable(txChannelCfg);
-
-    		/* Wait until at least one byte has arrived into the RX FIFO
-    		       and then start-up the Channel1 DMA to begin transferring them. */
-    		while((LPC_SSP0->SR & (1UL << 2)) == 0);
-    		//XPCC_LOG_DEBUG .printf("start\n");
-
-    		//start rx transfer
-    		dma->Enable(rxChannelCfg);
-    	} else {
-    		dma->Enable(txChannelCfg);
     	}
-
-    	running = true;
 
     	return true;
     }
@@ -239,11 +287,10 @@ public:
     static bool isRunning() {
     	DMA* dma = DMA::instance();
 
-    	return (txChannelCfg && dma->isActive(txChannelCfg)) ||
-    			(rxChannelCfg && dma->isActive(rxChannelCfg));
+    	return (txChannelCfg && dma->Enabled(txChannelCfg->channelNum())) ||
+    			(rxChannelCfg && dma->Enabled(rxChannelCfg->channelNum()));
     }
 
-	/// @return	`true` if last byte has been sent and the swapped byte can be read.
 	static bool
 	isFinished() {
 		if(running) {
@@ -263,19 +310,14 @@ protected:
 
 private:
 	static void onDMATxTransferComplete() {
-		DMA* dma = DMA::instance();
-		//XPCC_LOG_DEBUG .printf("tx transfer complete %d\n", dma->getConfig()->channelNum());
-
-		DMAConfig* cfg = dma->getConfig();
-		dma->Disable(cfg->channelNum());
+		//we can do nothing here
+		//DMA interrupt handler automatically clears the int flags
+		//XPCC_LOG_DEBUG .printf("compl\n");
+		//DMA* dma = DMA::instance();
+		//XPCC_LOG_DEBUG .printf("TC %d\n", dma->isActive(txChannelCfg));
 
 	}
 	static void onDMARxTransferComplete() {
-		DMA* dma = DMA::instance();
-		//XPCC_LOG_DEBUG .printf("rx transfer complete %d\n", dma->getConfig()->channelNum());
-
-		DMAConfig* cfg = dma->getConfig();
-		dma->Disable(cfg->channelNum());
 
 	}
 };

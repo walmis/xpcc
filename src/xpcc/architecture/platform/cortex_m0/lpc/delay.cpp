@@ -5,7 +5,7 @@
  *      Author: walmis
  */
 #include <xpcc/architecture.hpp>
-#include <xpcc/processing.hpp>.hpp>
+#include <xpcc/processing.hpp>
 
 inline uint32_t divide_by_1000000(uint32_t n) {
     const uint32_t reciprocal = ((1<<24) + 1000000 - 1) / 1000000;

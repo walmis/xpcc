@@ -8,25 +8,9 @@
 #include "../../device.h"
 #include "spi_0.hpp"
 
-namespace
-{
-	static uint8_t* transmitBuffer(0);
-	static uint8_t* receiveBuffer(0);
-	static uint16_t bufferLength(0);
-	enum
-	{
-		BUFFER_TRANSMIT_INCR_bm = 0x01,
-		BUFFER_RECEIVE_INCR_bm = 0x02,
-		BUFFER_TRANSMIT_IS_NOT_ZERO_bm = 0x04,
-		BUFFER_RECEIVE_IS_NOT_ZERO_bm = 0x08,
-		BUFFER_IS_DUMMY_bm = 0x10,
-		BUFFER_IS_BUSY_SYNC_bm = 0x20
-	};
-	static uint8_t status(0);
-}
 
 void
-xpcc::lpc::SpiMaster0::configurePins(MappingSck mapping, bool useSsel)
+xpcc::lpc11::SpiMaster0::configurePins(MappingSck mapping, bool useSsel)
 {
 	// Deassert Reset
 	LPC_SYSCON->PRESETCTRL 		|= PRESETCTRL_SSP0_RST_N;
@@ -73,7 +57,7 @@ xpcc::lpc::SpiMaster0::configurePins(MappingSck mapping, bool useSsel)
 }
 
 void
-xpcc::lpc::SpiMaster0::initialize(
+xpcc::lpc11::SpiMaster0::initialize(
 		Mode mode,
 		Presacler prescaler,
 		uint8_t serialClockRate,
@@ -104,7 +88,7 @@ xpcc::lpc::SpiMaster0::initialize(
 
 // ----------------------------------------------------------------------------
 uint8_t
-xpcc::lpc::SpiMaster0::write(uint8_t data)
+xpcc::lpc11::SpiMaster0::write(uint8_t data)
 {
 	/* Move on only if TX FIFO not full. */
 	while (!(LPC_SSP0->SR & SPI_SRn_TNF));

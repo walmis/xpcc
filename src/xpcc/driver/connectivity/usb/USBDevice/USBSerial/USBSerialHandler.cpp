@@ -25,10 +25,10 @@ using namespace xpcc;
 void USBSerialHandler::sendPacket(bool blocking) {
 	isActive = true;
 
-	uint8_t buf[64];
+	uint8_t buf[MAX_CDC_REPORT_SIZE];
 	int size = 0;
 
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i < MAX_CDC_REPORT_SIZE; i++) {
 		buf[i] = tx_buffer.get();
 		size++;
 
@@ -42,7 +42,7 @@ void USBSerialHandler::sendPacket(bool blocking) {
 	else
 		device->writeNB(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
 
-	latency_timer.restart(LATENCY);
+	latency_timer.restart(latency);
 }
 
 void USBSerialHandler::putc(char c) {
@@ -67,28 +67,25 @@ void USBSerialHandler::putc(char c) {
 }
 
 
+bool USBSerialHandler::getc(char& c) {
+	return rx_buffer.getNextByte((uint8_t&)c);
+}
+
+
 bool USBSerialHandler::EP_handler(uint8_t ep) {
     //XPCC_LOG_DEBUG .printf("ep handler %d\n", ep);
 
     if(ep == bulkOut) {
 
-    	uint8_t c[64];
-		uint32_t size = 0;
+    	auto buffer = rx_buffer.getFreeBuffer();
+    	if(buffer) {
+    		if(readEP_NB(buffer->data, &buffer->dataLength)) {
+    			//XPCC_LOG_DEBUG .printf("BO%d\n", buffer->dataLength);
+    			return true;
+    		}
+    	}
 
-		//we read the packet received and put it on the circular buffer
-
-
-		if (rx_buffer.free() >= 64) {
-			readEP(c, &size);
-			//XPCC_LOG_DEBUG .printf("bulkout %d\n", size);
-			for (uint32_t i = 0; i < size; i++) {
-				rx_buffer.push(c[i]);
-			}
-			return true;
-		} else {
-			data_waiting = true;
-			return false;
-		}
+		return false;
 
     } else
 
@@ -108,17 +105,9 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 }
 
 uint8_t USBSerialHandler::available() {
-	return rx_buffer.stored();
+	return rx_buffer.availData();
 }
 
-
-bool USBSerialHandler::getc(char& c) {
-
-	if(rx_buffer.isEmpty()) return false;
-	c = rx_buffer.get();
-	rx_buffer.pop();
-	return true;
-}
 
 //bool USBSerialHandler::EP2_IN_callback() {
 //	in_request = true;
@@ -139,22 +128,13 @@ void USBSerialHandler::SOF(int frameNumber) {
 
 		}
 
-		if(data_waiting && rx_buffer.free() >= MAX_PACKET_SIZE_EPBULK) {
-			uint8_t buf[64];
-			uint32_t size;
+    	auto buffer = rx_buffer.getFreeBuffer();
+    	if(buffer) {
+    		if(readEP_NB(buffer->data, &buffer->dataLength)) {
+    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
+    		}
 
-			if(readEP_NB(buf, &size)) {
-
-				//XPCC_LOG_DEBUG .printf("SOF Read %d\n", size);
-				for (uint32_t i = 0; i < size; i++) {
-					rx_buffer.push(buf[i]);
-				}
-
-				data_waiting = false;
-			}
-
-		}
-
+    	}
 	}
 }
 
@@ -173,8 +153,8 @@ bool USBSerialHandler::readEP(uint8_t * buffer, uint32_t * size) {
 bool USBSerialHandler::readEP_NB(uint8_t * buffer, uint32_t * size) {
     if (!device->readEP_NB(bulkOut, buffer, size, MAX_CDC_REPORT_SIZE))
         return false;
-    if (!device->readStart(bulkOut, MAX_CDC_REPORT_SIZE))
-        return false;
+//    if (!device->readStart(bulkOut, MAX_CDC_REPORT_SIZE))
+//        return false;
     return true;
 }
 

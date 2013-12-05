@@ -7,6 +7,7 @@
 
 #include "terminal.hpp"
 #include <math.h>
+#include <ctype.h>
 
 namespace xpcc {
 
@@ -208,7 +209,7 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 }
 
 void Terminal::parse() {
-	XPCC_LOG_DEBUG.printf(": %s\n", buffer);
+	//XPCC_LOG_DEBUG.printf(": %s\n", buffer);
 
 	char* tok = strtok(buffer, " ");
 

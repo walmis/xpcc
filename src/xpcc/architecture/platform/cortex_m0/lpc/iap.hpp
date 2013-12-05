@@ -8,9 +8,12 @@
 #ifndef IAP_HPP_
 #define IAP_HPP_
 
+#include "device.h"
+#include "uart/lpc11_uart_registers.hpp"
 
 namespace xpcc {
 namespace lpc11 {
+
 
 #define IAP_ADDRESS 0x1FFF1FF1
 
@@ -77,6 +80,86 @@ public:
 		param_table[2] = end_sector;
 		param_table[3] = clk;
 		call(param_table, result_table);
+	}
+
+
+	static void invokeISP(void) {
+		uint32_t temp;
+
+		/* Disable UART interrupts */
+		LPC_UART->IER = 0;
+		/* Disable UART interrupts in NVIC */
+		NVIC_DisableIRQ(UART_IRQn);
+
+		SysTick->CTRL = (1<<2);
+
+		/* Ensure a clean start, no data in either TX or RX FIFO. */
+		while ((LPC_UART->LSR & (LSR_THRE | LSR_TEMT)) != (LSR_THRE | LSR_TEMT))
+			;
+
+		while (LPC_UART->LSR & LSR_RDR) {
+			temp = LPC_UART->RBR; /* Dump data from RX FIFO */
+		}
+
+		/* Read to clear the line status. */
+		temp = LPC_UART->LSR;
+		(void)temp;
+
+		typedef void (*IAP)(uint32_t[], uint32_t[]);
+		IAP iap_entry = (IAP) 0x1fff1ff1;
+		static uint32_t command[5], result[4];
+
+		LPC_SYSCON->PDRUNCFG &= ~(1 << 5); /* Power-up System Osc      */
+
+		LPC_SYSCON->SYSOSCCTRL = 0;
+		LPC_SYSCON->SYSPLLCLKSEL = 0; /* Select PLL Input         */
+
+		LPC_SYSCON->SYSPLLCLKUEN = 0x01; /* Update Clock Source      */
+		LPC_SYSCON->SYSPLLCLKUEN = 0x00; /* Toggle Update Register   */
+		LPC_SYSCON->SYSPLLCLKUEN = 0x01;
+		while (!(LPC_SYSCON->SYSPLLCLKUEN & 0x01))
+			; /* Wait Until Updated       */
+		/* System PLL Setup         */
+		LPC_SYSCON->SYSPLLCTRL = 0;
+		LPC_SYSCON->PDRUNCFG &= ~(1 << 7); /* Power-up SYSPLL          */
+		while (!(LPC_SYSCON->SYSPLLSTAT & 0x01))
+			; /* Wait Until PLL Locked    */
+
+		LPC_SYSCON->MAINCLKSEL = 0; /* Select PLL Clock Output  */
+		LPC_SYSCON->MAINCLKUEN = 0x01; /* Update MCLK Clock Source */
+		LPC_SYSCON->MAINCLKUEN = 0x00; /* Toggle Update Register   */
+		LPC_SYSCON->MAINCLKUEN = 0x01;
+		while (!(LPC_SYSCON->MAINCLKUEN & 0x01))
+			; /* Wait Until Updated       */
+
+		LPC_SYSCON->UARTCLKDIV = 0;
+
+
+
+		/* make sure 32-bit Timer 1 is turned on before calling ISP */
+		LPC_SYSCON->SYSAHBCLKCTRL |= 0x00400;
+		/* make sure GPIO clock is turned on before calling ISP */
+		LPC_SYSCON->SYSAHBCLKCTRL |= 0x00040;
+		/* make sure IO configuration clock is turned on before calling ISP */
+		LPC_SYSCON->SYSAHBCLKCTRL |= 0x10000;
+		/* make sure AHB clock divider is 1:1 */
+		LPC_SYSCON->SYSAHBCLKDIV = 1;
+
+		/* Send Reinvoke ISP command to ISP entry point*/
+		command[0] = 57;
+
+		/* Set stack pointer to ROM value (reset default).
+		 This must be the last piece of code executed before calling ISP,
+		 because most C expressions and function returns will fail after
+		 the stack pointer is changed.
+		 */
+		__set_MSP(*((uint32_t *) 0x1FFF0000)); /* inline asm */
+
+		/* Invoke ISP. We call "iap_entry" to invoke ISP because the ISP entry
+		 is done through the same command interface as IAP. */
+		iap_entry(command, result);
+
+		// Code will never return!
 	}
 
 

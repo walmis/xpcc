@@ -9,6 +9,7 @@
 #define TERMINAL_HPP_
 
 #include <xpcc/architecture.hpp>
+#include <xpcc/processing.hpp>
 
 namespace xpcc {
 

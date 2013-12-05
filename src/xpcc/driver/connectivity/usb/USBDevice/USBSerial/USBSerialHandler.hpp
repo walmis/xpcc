@@ -10,6 +10,7 @@
 
 #include "../USBDevice/USBDevice.h"
 #include "../USBDevice/USBInterfaceHandler.h"
+#include <xpcc/container.hpp>
 
 namespace xpcc {
 
@@ -23,15 +24,13 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
-#define LATENCY 32
-
 class USBSerialHandler : public USBInterfaceHandler {
 public:
 
 	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT, uint8_t intIn = EPINT_IN) :
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
-					intIn), latency_timer(LATENCY) {
+					intIn), latency_timer() {
 
 		in_request = true;
 		data_waiting = false;
@@ -40,6 +39,10 @@ public:
 
 		//XPCC_LOG_DEBUG .printf("SerialHandler dev:%x, %d %d %d\n", device, bulkIn, bulkOut, intIn);
 
+	}
+
+	void setLatency(uint8_t latency) {
+		this->latency = latency;
 	}
 
 	uint8_t available();
@@ -55,12 +58,14 @@ protected:
 
 private:
 
-	xpcc::atomic::Queue<uint8_t, 128> rx_buffer;
+	DoubleBuffer<MAX_CDC_REPORT_SIZE> rx_buffer;
 	xpcc::atomic::Queue<uint8_t, 128> tx_buffer;
 
 	bool EP_handler(uint8_t ep) override;
 
 	void sendPacket(bool blocking);
+
+	uint8_t latency = 32;
 
 	uint8_t bulkIn;
 	uint8_t bulkOut;
