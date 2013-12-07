@@ -26,7 +26,7 @@ enum CHIP_IOCON_PIN_LOC_T {
  */
 
 const uint16_t iocon_offsets0[] = { 0x00C, 0x010, 0x01C, 0x02C, 0x030, 0x034,
-		0x04C, 0x050, 0x060, 0x064, 0x074, };
+		0x04C, 0x050, 0x060, 0x064, 0x068, 0x074, };
 
 const uint16_t iocon_offsets1[] = { 0x078, 0x07C, 0x080, 0x090, 0x094, 0x0A0,
 		0x0A4, 0x0A8, 0x014, 0x038, 0x06C, 0x098, };
@@ -56,47 +56,38 @@ typedef struct {						/*!< LPC11XX/LPC11XXLV/LPC11UXX IOCON Structure */
 } LPC_IOCON_T;
 #endif
 
-/** Disable pull-down and pull-up resistor at resistor at pad */
-#define MD_PUP  (0x0 << 3)
+enum PinMode {
+	/** Disable pull-down and pull-up resistor at resistor at pad */
+	MD_PUP = (0x0 << 3),
+	/** Enable pull-down resistor at pad */
+	MD_BUK = (0x1 << 3),
+	/** Enable pull-up resistor at pad */
+	MD_PLN = (0x2 << 3),
+	/** Enable pull-down and pull-up resistor at resistor at pad= (repeater mode), */
+	MD_PDN = (0x3 << 3),
+	/** Enable hysteresis */
+	MD_HYS = (0x1 << 5),
+	/** Invert enable */
+	MD_INV = (0x1 << 6),
+	/** Select analog mode */
+	MD_ADMODE = (0x0 << 7),
+	/** Select digitial mode */
+	MD_DIGMODE = (0x1 << 7),
+	/** Disable 10nS input glitch filter */
+	MD_DISFIL = (0x0 << 8),
+	/** Enable 10nS input glitch filter */
+	MD_ENFIL = (0x1 << 8),
+	/** I2C standard mode/fast-mode */
+	MD_SFI2C = (0x0 << 8),
+	/** I2C standard I/O functionality */
+	MD_STDI2C = (0x1 << 8),
+	/** I2C Fast-mode Plus */
+	MD_FASTI2C = (0x2 << 8),
+	/** Open drain mode bit */
+	MD_OPENDRAIN = (0x1 << 10)
+};
 
-/** Enable pull-down resistor at pad */
-#define MD_BUK  (0x1 << 3)
 
-/** Enable pull-up resistor at pad */
-#define MD_PLN  (0x2 << 3)
-
-/** Enable pull-down and pull-up resistor at resistor at pad (repeater mode) */
-#define MD_PDN  (0x3 << 3)
-
-/** Enable hysteresis */
-#define MD_HYS  (0x1 << 5)
-
-/** Invert enable */
-#define MD_INV  (0x1 << 6)
-
-/** Select analog mode */
-#define MD_ADMODE (0x0 << 7)
-
-/** Select digitial mode */
-#define MD_DIGMODE (0x1 << 7)
-
-/** Disable 10nS input glitch filter */
-#define MD_DISFIL (0x0 << 8)
-
-/** Enable 10nS input glitch filter */
-#define MD_ENFIL (0x1 << 8)
-
-/** I2C standard mode/fast-mode */
-#define MD_SFI2C (0x0 << 8)
-
-/** I2C standard I/O functionality */
-#define MD_STDI2C (0x1 << 8)
-
-/** I2C Fast-mode Plus */
-#define MD_FASTI2C (0x2 << 8)
-
-/** Open drain mode bit */
-#define MD_OPENDRAIN (0x1 << 10)
 
 #define FUNC0 0x0
 #define FUNC1 0x1
@@ -136,19 +127,19 @@ public:
 
 	static void
 	ALWAYS_INLINE
-	setPinMode(uint8_t port, uint8_t pin, uint8_t mode)
+	setPinMode(uint8_t port, uint8_t pin, PinMode mode)
 	{
 		uint32_t tmp;
 		if (port == 0) {
 			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin];
 			tmp &= 0b111;
-			tmp |= mode;
+			tmp |= (uint8_t)mode;
 			((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin] = tmp;
 		}
 		else {
 			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin];
 			tmp &= 0b111;
-			tmp |= mode;
+			tmp |= (uint8_t)mode;
 			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
 		}
 	}
@@ -182,7 +173,7 @@ public:
 
 	static void
 	ALWAYS_INLINE
-	setPinMode(uint8_t port, uint8_t pin, uint8_t mode)
+	setPinMode(uint8_t port, uint8_t pin, PinMode mode)
 	{
 		uint32_t tmp;
 
@@ -199,7 +190,7 @@ public:
 
 		tmp = *((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
 		tmp &= 0b111;
-		tmp |= mode;
+		tmp |= (uint8_t)mode;
 		*((uint32_t *) (((uint32_t) LPC_IOCON) + offset)) = tmp;
 	}
 	static void

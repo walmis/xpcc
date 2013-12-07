@@ -109,28 +109,28 @@ public:
 		IAP iap_entry = (IAP) 0x1fff1ff1;
 		static uint32_t command[5], result[4];
 
-		LPC_SYSCON->PDRUNCFG &= ~(1 << 5); /* Power-up System Osc      */
-
-		LPC_SYSCON->SYSOSCCTRL = 0;
-		LPC_SYSCON->SYSPLLCLKSEL = 0; /* Select PLL Input         */
-
-		LPC_SYSCON->SYSPLLCLKUEN = 0x01; /* Update Clock Source      */
-		LPC_SYSCON->SYSPLLCLKUEN = 0x00; /* Toggle Update Register   */
-		LPC_SYSCON->SYSPLLCLKUEN = 0x01;
-		while (!(LPC_SYSCON->SYSPLLCLKUEN & 0x01))
-			; /* Wait Until Updated       */
-		/* System PLL Setup         */
-		LPC_SYSCON->SYSPLLCTRL = 0;
-		LPC_SYSCON->PDRUNCFG &= ~(1 << 7); /* Power-up SYSPLL          */
-		while (!(LPC_SYSCON->SYSPLLSTAT & 0x01))
-			; /* Wait Until PLL Locked    */
-
-		LPC_SYSCON->MAINCLKSEL = 0; /* Select PLL Clock Output  */
-		LPC_SYSCON->MAINCLKUEN = 0x01; /* Update MCLK Clock Source */
-		LPC_SYSCON->MAINCLKUEN = 0x00; /* Toggle Update Register   */
-		LPC_SYSCON->MAINCLKUEN = 0x01;
-		while (!(LPC_SYSCON->MAINCLKUEN & 0x01))
-			; /* Wait Until Updated       */
+//		LPC_SYSCON->PDRUNCFG &= ~(1 << 5); /* Power-up System Osc      */
+//
+//		LPC_SYSCON->SYSOSCCTRL = 0;
+//		LPC_SYSCON->SYSPLLCLKSEL = 0; /* Select PLL Input         */
+//
+//		LPC_SYSCON->SYSPLLCLKUEN = 0x01; /* Update Clock Source      */
+//		LPC_SYSCON->SYSPLLCLKUEN = 0x00; /* Toggle Update Register   */
+//		LPC_SYSCON->SYSPLLCLKUEN = 0x01;
+//		while (!(LPC_SYSCON->SYSPLLCLKUEN & 0x01))
+//			; /* Wait Until Updated       */
+//		/* System PLL Setup         */
+//		LPC_SYSCON->SYSPLLCTRL = 0;
+//		LPC_SYSCON->PDRUNCFG &= ~(1 << 7); /* Power-up SYSPLL          */
+//		while (!(LPC_SYSCON->SYSPLLSTAT & 0x01))
+//			; /* Wait Until PLL Locked    */
+//
+//		LPC_SYSCON->MAINCLKSEL = 0; /* Select PLL Clock Output  */
+//		LPC_SYSCON->MAINCLKUEN = 0x01; /* Update MCLK Clock Source */
+//		LPC_SYSCON->MAINCLKUEN = 0x00; /* Toggle Update Register   */
+//		LPC_SYSCON->MAINCLKUEN = 0x01;
+//		while (!(LPC_SYSCON->MAINCLKUEN & 0x01))
+//			; /* Wait Until Updated       */
 
 		LPC_SYSCON->UARTCLKDIV = 0;
 

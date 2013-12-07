@@ -47,6 +47,7 @@ public:
 			LPC_SYSCON->SSP1CLKDIV = 0x01;
 		}
 
+
 		SSPx->CR0 = (static_cast<uint16_t>(mode)) |
 				((static_cast<uint16_t>(frameFormat)) << 4) |
 				((static_cast<uint16_t>(transferSize)) << 0);
@@ -57,7 +58,10 @@ public:
 			(void)Dummy; // unused
 		}
 
-		SSPx->CR1 = SPI_CR1_SSE | SPI_CR1_SLAVE;
+		SSPx->CR1 = 0;
+
+		SSPx->CR1 = SPI_CR1_SLAVE;
+		SSPx->CR1 |= SPI_CR1_SSE;
 
 	}
 
@@ -69,6 +73,18 @@ public:
 			return true;
 		}
 		return false;
+	}
+
+	static uint16_t
+	ALWAYS_INLINE
+	read() {
+		while(!(SSPx->SR & SPI_SRn_RNE) && (SSPx->SR & SPI_SRn_BSY));
+
+		if(SSPx->SR & SPI_SRn_RNE) {
+			return SSPx->DR;
+		}
+
+		return 0;
 	}
 
 	static void
