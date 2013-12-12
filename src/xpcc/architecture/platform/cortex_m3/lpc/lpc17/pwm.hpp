@@ -205,6 +205,7 @@ public:
 			LPC_PWM1 ->TCR &= (~PWM_TCR_PWM_ENABLE) & PWM_TCR_BITMASK;
 		}
 
+		counterEnable(NewState);
 	}
 
 	/*********************************************************************//**
@@ -427,7 +428,7 @@ public:
 	 * 				- DISABLE: Disable this PWM channel output
 	 * @return		None
 	 *********************************************************************/
-	void channelEnable(uint8_t PWMChannel, bool NewState = true) {
+	static void channelEnable(uint8_t PWMChannel, bool NewState = true) {
 
 		if (NewState == true) {
 			LPC_PWM1 ->PCR |= PWM_PCR_PWMENAn(PWMChannel);

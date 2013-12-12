@@ -46,6 +46,76 @@ namespace lpc17 {
 class DMAConfig;
 class DMA;
 
+//! Channel definitions.
+enum DMAChannel {
+      Channel_0 = 0     /*!< Channel 0 */
+    , Channel_1         /*!< Channel 1 */
+    , Channel_2         /*!< Channel 2 */
+    , Channel_3         /*!< Channel 3 */
+    , Channel_4         /*!< Channel 4 */
+    , Channel_5         /*!< Channel 5 */
+    , Channel_6         /*!< Channel 6 */
+    , Channel_7         /*!< Channel 7 */
+};
+
+//! DMA Connection number definitions
+enum DMAConnection {
+      SSP0_Tx       = 0UL   /*!< SSP0 Tx */
+    , SSP0_Rx       = 1UL   /*!< SSP0 Rx */
+    , SSP1_Tx       = 2UL   /*!< SSP1 Tx */
+    , SSP1_Rx       = 3UL   /*!< SSP1 Rx */
+    , ADC           = 4UL   /*!< ADC */
+    , I2S_Channel_0 = 5UL   /*!< I2S channel 0 */
+    , I2S_Channel_1 = 6UL   /*!< I2S channel 1 */
+    , DAC           = 7UL   /*!< DAC */
+    , UART0_Tx      = 8UL   /*!< UART0 Tx */
+    , UART0_Rx      = 9UL   /*!< UART0 Rx */
+    , UART1_Tx      = 10UL  /*!< UART1 Tx */
+    , UART1_Rx      = 11UL  /*!< UART1 Rx */
+    , UART2_Tx      = 12UL  /*!< UART2 Tx */
+    , UART2_Rx      = 13UL  /*!< UART2 Rx */
+    , UART3_Tx      = 14UL  /*!< UART3 Tx */
+    , UART3_Rx      = 15UL  /*!< UART3 Rx */
+    , MAT0_0        = 16UL  /*!< MAT0.0 */
+    , MAT0_1        = 17UL  /*!< MAT0.1 */
+    , MAT1_0        = 18UL  /*!< MAT1.0 */
+    , MAT1_1        = 19UL  /*!< MAT1.1 */
+    , MAT2_0        = 20UL  /**< MAT2.0 */
+    , MAT2_1        = 21UL  /*!< MAT2.1 */
+    , MAT3_0        = 22UL  /*!< MAT3.0 */
+    , MAT3_1        = 23UL  /*!< MAT3.1 */
+};
+
+//! GPDMA Transfer type definitions
+enum  DMATransferType {
+      m2m = 0     /*!< Memory to memory - DMA control */
+    , m2p = 1     /*!< Memory to peripheral - DMA control */
+    , p2m = 2     /*!< Peripheral to memory - DMA control */
+    , p2p = 3     /*!< Src peripheral to dest peripheral - DMA control */
+    , g2m = 4     /*!< Psuedo special case for reading "peripheral GPIO" that's memory mapped. */
+    , m2g = 5     /*!< Psuedo Special case for writing "peripheral GPIO" that's memory mapped. */
+};
+
+//! Burst size in Source and Destination definitions */
+enum DMABurstSize {
+      _1    = 0   /*!< Burst size = 1 */
+    , _4    = 1   /*!< Burst size = 4 */
+    , _8    = 2   /*!< Burst size = 8 */
+    , _16   = 3   /*!< Burst size = 16 */
+    , _32   = 4   /*!< Burst size = 32 */
+    , _64   = 5   /*!< Burst size = 64 */
+    , _128  = 6   /*!< Burst size = 128 */
+    , _256  = 7   /*!< Burst size = 256 */
+};
+
+//! Width in Src transfer width and Dest transfer width definitions */
+enum DMATransferWidth {
+      byte     = 0    /*!< Width = 1 byte */
+    , halfword = 1    /*!< Width = 2 bytes */
+    , word     = 2    /*!< Width = 4 bytes */
+};
+
+
 /**
  * @brief The MODDMA configuration system (linked list items)
  * @author Andy Kirkham
@@ -100,7 +170,13 @@ protected:
     
     uint8_t ChannelNum;        //!< DMA channel number, should be in range from 0 to 7.
     uint32_t TransferSize;      //!< Length/Size of transfer 
-    uint8_t TransferWidth;     //!< Transfer width - used for TransferType is GPDMA_TRANSFERTYPE_m2m only
+
+    uint8_t srcTransferWidth : 4;
+    uint8_t dstTransferWidth : 4;
+
+    uint8_t sbsize : 4;
+    uint8_t dbsize : 4;
+
     uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p
     uint32_t DstMemAddr;        //!< Physical Destination Address, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::p2m 
     uint8_t TransferType;      //!< Transfer Type
@@ -109,7 +185,6 @@ protected:
     uint32_t LLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
     uint8_t DMACSync;          //!< DMACSync if required.
     uint8_t flags;
-    // Mbed specifics.
 
 public: 
 
@@ -123,7 +198,10 @@ public:
     DMAConfig() {
         ChannelNum    = 0xFF;
         TransferSize  = 0;
-        TransferWidth = 0;
+        srcTransferWidth = 0xF;
+        dstTransferWidth = 0xF;
+        sbsize = 0xF;
+        dbsize = 0xF;
         SrcMemAddr    = 0;
         DstMemAddr    = 0;
         TransferType  = 0;
@@ -134,21 +212,31 @@ public:
         flags         = 0;
     }
         
-    class DMAConfig * channelNum(uint32_t n)    { ChannelNum = n & 0x7;  return this; }
-    class DMAConfig * transferSize(uint32_t n)  { TransferSize = n;      return this; }
-    class DMAConfig * transferWidth(uint32_t n) { TransferWidth = n;     return this; }
-    class DMAConfig * srcMemAddr(uint32_t n)    { SrcMemAddr = n;        return this; }
-    class DMAConfig * dstMemAddr(uint32_t n)    { DstMemAddr = n;        return this; }
-    class DMAConfig * transferType(uint32_t n)  { TransferType = n;      return this; }
-    class DMAConfig * srcConn(uint32_t n)       { SrcConn = n;           return this; }
-    class DMAConfig * dstConn(uint32_t n)       { DstConn = n;           return this; }
-    class DMAConfig * dmaLLI(uint32_t n)        { LLI = n;            return this; }
-    class DMAConfig * dmacSync(uint32_t n)      { DMACSync = n;          return this; }
-    class DMAConfig * transferFlags(uint8_t n)  { flags = n;          return this; }
+    ALWAYS_INLINE DMAConfig * channelNum(DMAChannel n)    { ChannelNum = n & 0x7;  return this; }
+    ALWAYS_INLINE DMAConfig * transferSize(uint32_t n)    { TransferSize = n;      return this; }
+    ALWAYS_INLINE DMAConfig * transferWidth(DMATransferWidth n) {
+    	dstTransferWidth = srcTransferWidth = (uint8_t)n;
+    	return this;
+    }
+    ALWAYS_INLINE DMAConfig * srcWidth(DMATransferWidth n) { srcTransferWidth = (uint8_t)n;     return this; }
+    ALWAYS_INLINE DMAConfig * dstWidth(DMATransferWidth n) { dstTransferWidth = (uint8_t)n;     return this; }
+    ALWAYS_INLINE DMAConfig * srcMemAddr(uint32_t n)    { SrcMemAddr = n;        return this; }
+    ALWAYS_INLINE DMAConfig * dstMemAddr(uint32_t n)    { DstMemAddr = n;        return this; }
+    ALWAYS_INLINE DMAConfig * transferType(uint32_t n)  { TransferType = n;      return this; }
+    ALWAYS_INLINE DMAConfig * srcConn(DMAConnection n)  { SrcConn = n;           return this; }
+    ALWAYS_INLINE DMAConfig * dstConn(DMAConnection n)  { DstConn = n;           return this; }
+    ALWAYS_INLINE DMAConfig * dmaLLI(uint32_t n)        { LLI = n;               return this; }
+    ALWAYS_INLINE DMAConfig * dmacSync(uint32_t n)      { DMACSync = n;          return this; }
+    ALWAYS_INLINE DMAConfig * transferFlags(Flags n)    { flags = (uint8_t)n;    return this; }
+    /// Source burst size
+    ALWAYS_INLINE DMAConfig * SBurstSize(DMABurstSize n)  { sbsize = (uint8_t)n; return this; }
+    /// Destination burst size
+    ALWAYS_INLINE DMAConfig * DBurstSize(DMABurstSize n)  { dbsize = (uint8_t)n; return this; }
     
     uint32_t channelNum(void)    { return ChannelNum;    }
     uint32_t transferSize(void)  { return TransferSize;  }
-    uint32_t transferWidth(void) { return TransferWidth; }
+    uint32_t srcWidth(void)      { return srcTransferWidth; }
+    uint32_t dstWidth(void)      { return dstTransferWidth; }
     uint32_t srcMemAddr(void)    { return SrcMemAddr;    }
     uint32_t dstMemAddr(void)    { return DstMemAddr;    }
     uint32_t transferType(void)  { return TransferType;  }
@@ -158,6 +246,9 @@ public:
     uint32_t dmacSync(void)      { return DMACSync; }
     uint8_t transferFlags()      { return flags; }
     
+    uint8_t SBurstSize()    { return sbsize; }
+    uint8_t DBurstSize()    { return dbsize; }
+
     DMALLI* addLLI();
 
     void freeLLI();
@@ -219,9 +310,6 @@ public:
 };
 
 
-
-
-
  /**
  * @brief MODDMA GPDMA Controller
  * @author Andy Kirkham
@@ -279,18 +367,6 @@ public:
 class DMA
 {
 public:
-
-    //! Channel definitions.
-    enum CHANNELS {
-          Channel_0 = 0     /*!< Channel 0 */ 
-        , Channel_1         /*!< Channel 1 */ 
-        , Channel_2         /*!< Channel 2 */ 
-        , Channel_3         /*!< Channel 3 */ 
-        , Channel_4         /*!< Channel 4 */ 
-        , Channel_5         /*!< Channel 5 */ 
-        , Channel_6         /*!< Channel 6 */ 
-        , Channel_7         /*!< Channel 7 */ 
-    };
     
     //! Interrupt callback types.
     enum IrqType_t {
@@ -305,62 +381,7 @@ public:
         , ErrChInUse    = -2    /*!< Specific error, channel in use */
     };
     
-    //! DMA Connection number definitions 
-    enum GPDMA_CONNECTION {
-          SSP0_Tx       = 0UL   /*!< SSP0 Tx */
-        , SSP0_Rx       = 1UL   /*!< SSP0 Rx */
-        , SSP1_Tx       = 2UL   /*!< SSP1 Tx */
-        , SSP1_Rx       = 3UL   /*!< SSP1 Rx */
-        , ADC           = 4UL   /*!< ADC */
-        , I2S_Channel_0 = 5UL   /*!< I2S channel 0 */
-        , I2S_Channel_1 = 6UL   /*!< I2S channel 1 */
-        , DAC           = 7UL   /*!< DAC */
-        , UART0_Tx      = 8UL   /*!< UART0 Tx */
-        , UART0_Rx      = 9UL   /*!< UART0 Rx */
-        , UART1_Tx      = 10UL  /*!< UART1 Tx */
-        , UART1_Rx      = 11UL  /*!< UART1 Rx */
-        , UART2_Tx      = 12UL  /*!< UART2 Tx */
-        , UART2_Rx      = 13UL  /*!< UART2 Rx */
-        , UART3_Tx      = 14UL  /*!< UART3 Tx */
-        , UART3_Rx      = 15UL  /*!< UART3 Rx */
-        , MAT0_0        = 16UL  /*!< MAT0.0 */
-        , MAT0_1        = 17UL  /*!< MAT0.1 */
-        , MAT1_0        = 18UL  /*!< MAT1.0 */
-        , MAT1_1        = 19UL  /*!< MAT1.1 */
-        , MAT2_0        = 20UL  /**< MAT2.0 */
-        , MAT2_1        = 21UL  /*!< MAT2.1 */
-        , MAT3_0        = 22UL  /*!< MAT3.0 */
-        , MAT3_1        = 23UL  /*!< MAT3.1 */
-    };
 
-    //! GPDMA Transfer type definitions 
-    enum  GPDMA_TRANSFERTYPE {
-          m2m = 0UL     /*!< Memory to memory - DMA control */
-        , m2p = 1UL     /*!< Memory to peripheral - DMA control */
-        , p2m = 2UL     /*!< Peripheral to memory - DMA control */
-        , p2p = 3UL     /*!< Src peripheral to dest peripheral - DMA control */         
-        , g2m = 4UL     /*!< Psuedo special case for reading "peripheral GPIO" that's memory mapped. */
-        , m2g = 5UL     /*!< Psuedo Special case for writing "peripheral GPIO" that's memory mapped. */        
-    };   
-
-    //! Burst size in Source and Destination definitions */
-    enum GPDMA_BSIZE {
-          _1    = 0UL   /*!< Burst size = 1 */
-        , _4    = 1UL   /*!< Burst size = 4 */
-        , _8    = 2UL   /*!< Burst size = 8 */
-        , _16   = 3UL   /*!< Burst size = 16 */
-        , _32   = 4UL   /*!< Burst size = 32 */
-        , _64   = 5UL   /*!< Burst size = 64 */
-        , _128  = 6UL   /*!< Burst size = 128 */
-        , _256  = 7UL   /*!< Burst size = 256 */
-    };
-    
-    //! Width in Src transfer width and Dest transfer width definitions */
-    enum GPDMA_WIDTH {
-          byte     = 0UL    /*!< Width = 1 byte */
-        , halfword = 1UL    /*!< Width = 2 bytes */
-        , word     = 2UL    /*!< Width = 4 bytes */
-    };
     
     //! DMA Request Select Mode definitions. */
     enum GPDMA_REQSEL {
@@ -416,16 +437,16 @@ public:
     /**
      * Enable and begin data transfer.
      *
-     * @param ChannelNumber Type CHANNELS, the channel number to enable
+     * @param ChannelNumber Type DMAChannel, the channel number to enable
      */
-    void Enable(CHANNELS ChannelNumber);
+    void Enable(DMAChannel ChannelNumber);
     
     /**
      * Enable and begin data transfer (overloaded function)
      *
      * @param ChannelNumber Type uin32_t, the channel number to enable
      */
-    void Enable(uint32_t ChannelNumber) { Enable((CHANNELS)(ChannelNumber & 0x7)); }
+    void Enable(uint32_t ChannelNumber) { Enable((DMAChannel)(ChannelNumber & 0x7)); }
     
     /**
      * Enable and begin data transfer (overloaded function)
@@ -439,9 +460,9 @@ public:
      * Disable a channel and end data transfer.
      *
      * @ingroup API
-     * @param ChannelNumber Type CHANNELS, the channel number to enable
+     * @param ChannelNumber Type DMAChannel, the channel number to enable
      */
-    void Disable(CHANNELS ChannelNumber);
+    void Disable(DMAChannel ChannelNumber);
     
     /**
      * Disable a channel and end data transfer (overloaded function)
@@ -449,15 +470,15 @@ public:
      * @ingroup API
      * @param ChannelNumber Type uin32_t, the channel number to disable
      */
-    void Disable(uint32_t ChannelNumber) { Disable((CHANNELS)(ChannelNumber & 0x7)); }
+    void Disable(uint32_t ChannelNumber) { Disable((DMAChannel)(ChannelNumber & 0x7)); }
     
     /**
      * Is the specified channel enabled?
      *
-     * @param ChannelNumber Type CHANNELS, the channel number to test
+     * @param ChannelNumber Type DMAChannel, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
-    bool Enabled(CHANNELS ChannelNumber);
+    bool Enabled(DMAChannel ChannelNumber);
     
     /**
      * Returns LPC_DMA->DMACControl value for a specific channel configuration
@@ -475,7 +496,7 @@ public:
       * @param ChannelNumber Type uin32_t, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
-    bool Enabled(uint32_t ChannelNumber) { return Enabled((CHANNELS)(ChannelNumber & 0x7)); }
+    bool Enabled(uint32_t ChannelNumber) { return Enabled((DMAChannel)(ChannelNumber & 0x7)); }
     
     static __INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
     static __INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
@@ -514,7 +535,7 @@ public:
     static __INLINE uint32_t CxConfig_H()                           { return (1UL << 18); }
     
     /**
-     * A store for up to 8 (8 channels) of configurations.
+     * A store for up to 8 (8 DMAChannel) of configurations.
      * @see MODDMA_Config
      */
     DMAConfig *setups[8];
@@ -530,9 +551,9 @@ public:
     /**
      * Gets which channel the ISR is currently servicing.
      *
-     * @return CHANNELS The current channel the ISR is servicing.
+     * @return DMAChannel The current channel the ISR is servicing.
      */
-    CHANNELS irqProcessingChannel(void) { return IrqProcessingChannel; }
+    DMAChannel irqProcessingChannel(void) { return IrqProcessingChannel; }
     
     /**
      * Sets which type of IRQ the ISR is making a callback for.
@@ -552,9 +573,9 @@ public:
     /**
      * Clear the interrupt after handling.
      *
-     * @param CHANNELS The channel the IQR occured on.
+     * @param DMAChannel The channel the IQR occured on.
      */
-    void clearTcIrq(CHANNELS n) { LPC_GPDMA->DMACIntTCClear = (uint32_t)(1UL << n); } 
+    void clearTcIrq(DMAChannel n) { LPC_GPDMA->DMACIntTCClear = (uint32_t)(1UL << n); }
     
     /**
      * Clear the interrupt the ISR is currently handing..
@@ -565,9 +586,9 @@ public:
      * Clear the error interrupt after handling.
      *
      * @ingroup API
-     * @param CHANNELS The channel the IQR occured on.
+     * @param DMAChannel The channel the IQR occured on.
      */
-    void clearErrIrq(CHANNELS n) { LPC_GPDMA->DMACIntTCClear = (uint32_t)(1UL << n); } 
+    void clearErrIrq(DMAChannel n) { LPC_GPDMA->DMACIntTCClear = (uint32_t)(1UL << n); }
     
     /**
      * Clear the error interrupt the ISR is currently handing.
@@ -579,63 +600,63 @@ public:
      * Is the supplied channel currently active?
      *
      * @ingroup API
-     * @param CHANNELS The channel to inquire about.
+     * @param DMAChannel The channel to inquire about.
      * @return bool true if active, false otherwise.
      */     
-    bool isActive(CHANNELS ChannelNumber) {
+    bool isActive(DMAChannel ChannelNumber) {
         LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
         return (bool)( pChannel->DMACCConfig & CxConfig_A() ) ;
     }
 
     bool isActive(DMAConfig* config) {
-    	return isActive((CHANNELS)config->channelNum());
+    	return isActive((DMAChannel)config->channelNum());
     }
     
     /**
      * Halt the supplied channel. 
      *
      * @ingroup API
-     * @param CHANNELS The channel to halt.
+     * @param DMAChannel The channel to halt.
      */
-    void haltChannel(CHANNELS ChannelNumber);
+    void haltChannel(DMAChannel ChannelNumber);
     
     /**
-     * get a channels control register. 
+     * get a DMAChannel control register.
      *
      * @ingroup API
-     * @param CHANNELS The channel to get the control register for.
+     * @param DMAChannel The channel to get the control register for.
      */
-    uint32_t getControl(CHANNELS ChannelNumber);
+    uint32_t getControl(DMAChannel ChannelNumber);
     
     uint32_t getControl(DMAConfig *cfg) {
-    	return getControl((CHANNELS)cfg->channelNum());
+    	return getControl((DMAChannel)cfg->channelNum());
     }
 
     /**
      * Get number of bytes remaining to transfer
      *
-     * @param CHANNELS The channel to get the control register for.
+     * @param DMAChannel The channel to get the control register for.
      */
-    uint32_t dataRemaining(CHANNELS ChannelNumber) {
-    	return getControl((CHANNELS)ChannelNumber) & 0xFFF;
+    uint32_t dataRemaining(DMAChannel ChannelNumber) {
+    	return getControl((DMAChannel)ChannelNumber) & 0xFFF;
     }
 
     /**
      * Get number of bytes remaining to transfer
      *
-     * @param CHANNELS The channel to get the control register for.
+     * @param DMAChannel The channel to get the control register for.
      */
     uint32_t dataRemaining(DMAConfig *cfg) {
-    	return getControl((CHANNELS)cfg->channelNum()) & 0xFFF;
+    	return getControl((DMAChannel)cfg->channelNum()) & 0xFFF;
     }
 
     /**
      * Wait for channel transfer to complete and then halt.
      *
      * @ingroup API
-     * @param CHANNELS The channel to wait for then halt.
+     * @param DMAChannel The channel to wait for then halt.
      */
-    void haltAndWaitChannelComplete(CHANNELS n) { haltChannel(n); while (isActive(n)); }
+    void haltAndWaitChannelComplete(DMAChannel n) { haltChannel(n); while (isActive(n)); }
     
     /**
      * Attach a callback to the TC IRQ controller.
@@ -697,7 +718,7 @@ public:
      * @param channelNum The channel number.
      * @return uint32_t The value of the DMACCLLI register
      */
-    uint32_t lli(CHANNELS ChannelNumber, DMALLI *set = 0) { 
+    uint32_t lli(DMAChannel ChannelNumber, DMALLI *set = 0) {
         LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber & 0x7 );
         if (set) pChannel->DMACCLLI = (uint32_t)set;
         return pChannel->DMACCLLI; 
@@ -726,7 +747,7 @@ protected:
      *
      * Must be public so the extern "C" ISR can use it.
      */
-    void setIrqProcessingChannel(CHANNELS n) { IrqProcessingChannel = n; }
+    void setIrqProcessingChannel(DMAChannel n) { IrqProcessingChannel = n; }
 
     /**
      * The MODDMA constructor is used to initialise the DMA controller object.
@@ -745,7 +766,7 @@ protected:
      * @param isConstructorCalling Set true when called from teh constructor
      * @param
      */
-    void init(bool isConstructorCalling, int Channels = 0xFF, int Tc = 0xFF, int Err = 0xFF);
+    void init(bool isConstructorCalling, int DMAChannel = 0xFF, int Tc = 0xFF, int Err = 0xFF);
    
     // Data LUTs.
     static uint32_t LUTPerAddr(int n) {
@@ -837,7 +858,7 @@ protected:
     }
     //uint32_t Channel_p(int channel);
     
-    CHANNELS IrqProcessingChannel;
+    DMAChannel IrqProcessingChannel;
     
     IrqType_t IrqType;
 

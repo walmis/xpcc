@@ -28,35 +28,35 @@ namespace lpc17 {
 DMA *DMA::moddma_p = 0;
 
 void
-DMA::Enable(CHANNELS ChannelNumber)
+DMA::Enable(DMAChannel ChannelNumber)
 {
     LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
     pChannel->DMACCConfig |= _E;
 }
 
 bool
-DMA::Enabled(CHANNELS ChannelNumber)
+DMA::Enabled(DMAChannel ChannelNumber)
 {
     LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );    
     return (bool)(pChannel->DMACCConfig & _E);
 }
 
 void
-DMA::Disable(CHANNELS ChannelNumber)
+DMA::Disable(DMAChannel ChannelNumber)
 {
     LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
     pChannel->DMACCConfig &= ~(_E);
 }
 
 void 
-DMA::haltChannel(CHANNELS ChannelNumber)
+DMA::haltChannel(DMAChannel ChannelNumber)
 {
     LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
     pChannel->DMACCConfig |= CxConfig_H();
 }
 
 uint32_t 
-DMA::getControl(CHANNELS ChannelNumber)
+DMA::getControl(DMAChannel ChannelNumber)
 {
     LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
     return pChannel->DMACCControl;
@@ -83,7 +83,7 @@ void DMA_IRQHandler(void) {
         if (LPC_GPDMA->DMACIntStat & channel_mask) {
             if (LPC_GPDMA->DMACIntTCStat & channel_mask) {
                 if (DMA::moddma_p->setups[channel_number] != 0) {
-                    DMA::moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
+                    DMA::moddma_p->setIrqProcessingChannel((DMAChannel)channel_number);
                     DMA::moddma_p->setIrqType(DMA::TcIrq);
                     DMA::moddma_p->setups[channel_number]->isrIntTCStat();
                     DMA::moddma_p->isrIntTCStat.call();
@@ -99,11 +99,11 @@ void DMA_IRQHandler(void) {
                     // must wait for completion they should implement their
                     // own ISR. But only disable if the LLI linked list register
                     // is null otherwise we can crap out a series of transfers.
-                    if (DMA::moddma_p->Enabled( (DMA::CHANNELS)channel_number )) {
-                        if (DMA::moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 &&
+                    if (DMA::moddma_p->Enabled( (DMAChannel)channel_number )) {
+                        if (DMA::moddma_p->lli( (DMAChannel)channel_number ) == 0 &&
                         		//check if all data is transferred
-                        		DMA::moddma_p->isActive((DMA::CHANNELS)channel_number) == 0) {
-                            DMA::moddma_p->Disable( (DMA::CHANNELS)channel_number );
+                        		DMA::moddma_p->isActive((DMAChannel)channel_number) == 0) {
+                            DMA::moddma_p->Disable( (DMAChannel)channel_number );
                         }
                     }
                 }            
@@ -111,7 +111,7 @@ void DMA_IRQHandler(void) {
             
             if (LPC_GPDMA->DMACIntErrStat & channel_mask) {
                 if (DMA::moddma_p->setups[channel_number] != 0) {
-                	DMA::moddma_p->setIrqProcessingChannel((DMA::CHANNELS)channel_number);
+                	DMA::moddma_p->setIrqProcessingChannel((DMAChannel)channel_number);
                 	DMA::moddma_p->setIrqType(DMA::ErrIrq);
                 	DMA::moddma_p->setups[channel_number]->isrIntErrStat();
                 	DMA::moddma_p->isrIntErrStat.call();
@@ -127,9 +127,9 @@ void DMA_IRQHandler(void) {
                     // must wait for completion they should implement their
                     // own ISR. But only disable if the LLI linked list register
                     // is null otherwise we can crap out a series of transfers.
-                    if (DMA::moddma_p->Enabled( (DMA::CHANNELS)channel_number )) {
-                        if (DMA::moddma_p->lli( (DMA::CHANNELS)channel_number ) == 0 ) {
-                        	DMA::moddma_p->Disable( (DMA::CHANNELS)channel_number );
+                    if (DMA::moddma_p->Enabled( (DMAChannel)channel_number )) {
+                        if (DMA::moddma_p->lli( (DMAChannel)channel_number ) == 0 ) {
+                        	DMA::moddma_p->Disable( (DMAChannel)channel_number );
                         }
                     }
                 }            

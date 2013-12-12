@@ -34,7 +34,6 @@ public:
 
 		byte = activeBuffer->data[activeBuffer->readPosition++];
 		if (activeBuffer->readPosition == activeBuffer->dataLength) {
-			resetBuffer();
 			swapBuffer();
 		}
 
@@ -64,11 +63,16 @@ private:
 	}
 
 	void swapBuffer() {
+		auto tmp = activeBuffer;
+
 		if (activeBuffer == &a) {
 			activeBuffer = &b;
 		} else {
 			activeBuffer = &a;
 		}
+
+		tmp->readPosition = 0;
+		tmp->dataLength = 0;
 	}
 
 	Buffer* activeBuffer;

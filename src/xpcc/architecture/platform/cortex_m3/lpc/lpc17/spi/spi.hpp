@@ -216,20 +216,20 @@ public:
 
 		SPIx->DMACR = 3; // enable Tx DMA
 
-		uint8_t conn = DMA::SSP0_Tx;
+		DMAConnection conn = SSP0_Tx;
 		if(SPIx ==LPC_SSP1)
-			conn = DMA::SSP1_Tx;
+			conn = SSP1_Tx;
 
 		if(!txChannelCfg)
 			txChannelCfg = new (std::nothrow) DMAConfig;
 
 		txChannelCfg->freeLLI();
 
-		txChannelCfg->channelNum(0)
+		txChannelCfg->channelNum(Channel_0)
 				->dstConn(conn)
 				->srcMemAddr(tx ? (uint32_t)tx : (uint32_t)&dummy)
 				->transferSize((length>0xFFF) ? 0xFFF : length)
-				->transferType(DMA::m2p)
+				->transferType(m2p)
 				->attach_tc(onDMATxTransferComplete);
 
 		if(!tx) {
@@ -259,9 +259,9 @@ public:
 
     	if(rx) {
 
-    		uint8_t conn = DMA::SSP0_Rx;
+    		DMAConnection conn = SSP0_Rx;
     		if(SPIx == LPC_SSP1)
-    			conn = DMA::SSP1_Rx;
+    			conn = SSP1_Rx;
 
     		if(!rxChannelCfg)
     			rxChannelCfg = new (std::nothrow) DMAConfig;
@@ -270,11 +270,11 @@ public:
     			return 0;
     		}
 
-    		rxChannelCfg->channelNum(1)
+    		rxChannelCfg->channelNum(Channel_1)
     				->dstMemAddr((uint32_t)rx)
     				->srcConn(conn)
     				->transferSize(length)
-    				->transferType(DMA::p2m)
+    				->transferType(p2m)
     				->attach_tc(onDMARxTransferComplete);
 
     		//prepare rx channel

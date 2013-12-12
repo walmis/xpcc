@@ -19,7 +19,8 @@ enum StepperDirection {
 
 enum DriveMode {
 	FULL_STEP = 0,
-	HALF_STEP = 1
+	HALF_STEP = 1,
+	WAVE_DRIVE = 2
 };
 
 template <typename Nibble>
@@ -29,6 +30,9 @@ public:
 	StepperMotor() {
 		Nibble::setOutput();
 		Nibble::write(0);
+
+		delay = 10;
+		idleTimeout = 1;
 
 		moveSteps = 0;
 		position = 0;
@@ -45,10 +49,9 @@ public:
 		}
 
 		moveSteps += steps;
-		if(steps < 0) {
-			step(REVERSE);
-		} else {
-			step(FORWARD);
+
+		if(!stepTimer.isActive()) {
+			stepTimer.restart(0);
 		}
 	}
 
@@ -58,6 +61,10 @@ public:
 
 	void setSpeed(uint8_t delay) {
 		this->delay = delay;
+	}
+
+	void setIdleTimeout(uint8_t timeoutMs) {
+		this->idleTimeout = timeoutMs;
 	}
 
 	void resetStepPosition() {
@@ -77,13 +84,13 @@ public:
 	}
 
 	void wait() {
-		while(t.isActive()) {
-			run();
+		while(moveSteps != 0) {
+			handleTick();
 		}
 	}
 
 	void run() {
-		if(t.isActive() && t.isExpired()) {
+		if(stepTimer.isActive() && stepTimer.isExpired()) {
 			if(moveSteps != 0) {
 				if(moveSteps < 0) {
 					step(REVERSE);
@@ -94,15 +101,29 @@ public:
 					moveSteps--;
 				}
 			} else {
-				Nibble::write(0);
-				t.stop();
+				idleTimer.restart(idleTimeout);
+				stepTimer.stop();
 			}
+		}
+
+		if(idleTimer.isActive() && idleTimer.isExpired()) {
+			setOutput(0);
+			idleTimer.stop();
 		}
 	}
 
+
 protected:
+
+	virtual void setOutput(uint8_t bits) {
+		Nibble::write(bits);
+	}
+
 	void step(StepperDirection dir) {
-		if(mode != HALF_STEP) {
+		switch(mode) {
+		case FULL_STEP:
+		case WAVE_DRIVE:
+
 			if(dir == FORWARD) {
 				position++;
 				state++;
@@ -114,7 +135,9 @@ protected:
 				else
 					state--;
 			}
-		} else {
+			break;
+
+		case HALF_STEP:
 			if(dir == FORWARD) {
 				position++;
 				state++;
@@ -126,60 +149,83 @@ protected:
 				else
 					state--;
 			}
+			break;
 		}
 
-		if(mode == FULL_STEP) {
+		//XPCC_LOG_DEBUG .printf("state %d\n", state);
+		switch(mode) {
+		case WAVE_DRIVE:
 			switch (state) {
-			case 0:
-				Nibble::write(0b0011);
-				break;
-			case 1:
-				Nibble::write(0b0110);
-				break;
-			case 2:
-				Nibble::write(0b1100);
-				break;
-			case 3:
-				Nibble::write(0b1001);
-				break;
-			}
-		} else if(mode == HALF_STEP) {
+				case 0:
+					setOutput(0b1000);
+					break;
+				case 1:
+					setOutput(0b0001);
+					break;
+				case 2:
+					setOutput(0b0100);
+					break;
+				case 3:
+					setOutput(0b0010);
+					break;
+				}
+			break;
+
+		case FULL_STEP:
 			switch (state) {
-			case 0:
-				Nibble::write(0b0011);
-				break;
-			case 1:
-				Nibble::write(0b0010);
-				break;
-			case 2:
-				Nibble::write(0b0110);
-				break;
-			case 3:
-				Nibble::write(0b0100);
-				break;
-			case 4:
-				Nibble::write(0b1100);
-				break;
-			case 5:
-				Nibble::write(0b1000);
-				break;
-			case 6:
-				Nibble::write(0b1001);
-				break;
-			case 7:
-				Nibble::write(0b0001);
-				break;
-			}
+				case 0:
+					setOutput(0b1010);
+					break;
+				case 1:
+					setOutput(0b1001);
+					break;
+				case 2:
+					setOutput(0b0101);
+					break;
+				case 3:
+					setOutput(0b0110);
+					break;
+				}
+			break;
+			case HALF_STEP:
+
+				switch (state) {
+				case 0:
+					setOutput(0b1010);
+					break;
+				case 1:
+					setOutput(0b1000);
+					break;
+				case 2:
+					setOutput(0b1001);
+					break;
+				case 3:
+					setOutput(0b0001);
+					break;
+				case 4:
+					setOutput(0b0101);
+					break;
+				case 5:
+					setOutput(0b0100);
+					break;
+				case 6:
+					setOutput(0b0110);
+					break;
+				case 7:
+					setOutput(0b0010);
+					break;
+				}
 		}
 
-		t.restart(delay);
+		stepTimer.restart(delay);
 	}
 
 	void handleTick() {
 		run();
 	}
 
-	uint8_t delay = 10;
+	uint8_t idleTimeout;
+	uint8_t delay;
 	int moveSteps;
 
 	int position;
@@ -187,7 +233,8 @@ protected:
 
 	DriveMode mode;
 
-	Timeout<> t;
+	Timeout<> stepTimer;
+	Timeout<> idleTimer;
 };
 
 }
