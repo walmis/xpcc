@@ -98,8 +98,8 @@ DMA::buildControlValue(DMAConfig* config) {
                 = CxControl_TransferSize(config->transferSize()) 
                 | CxControl_SBSize(config->SBurstSize() == 0xF ? _32 : config->SBurstSize())
                 | CxControl_DBSize(config->DBurstSize() == 0xF ? _32: config->DBurstSize())
-                | CxControl_SWidth(config->srcWidth())
-                | CxControl_DWidth(config->dstWidth())
+                | CxControl_SWidth(config->SWidth())
+                | CxControl_DWidth(config->DWidth())
                 | CxControl_SI() 
                 | CxControl_DI() 
                 | CxControl_I();
@@ -110,9 +110,9 @@ DMA::buildControlValue(DMAConfig* config) {
 
             DMACCControl
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
-                | CxControl_SBSize((uint32_t)LUTPerBurst(config->dstConn()))
+                | CxControl_SBSize(config->SBurstSize() == 0xF ? (uint32_t)LUTPerBurst(config->dstConn()) : config->SBurstSize())
                 | CxControl_DBSize((uint32_t)LUTPerBurst(config->dstConn())) 
-                | CxControl_SWidth((uint32_t)LUTPerWid(config->dstConn()))
+                | CxControl_SWidth(config->SWidth() == 0xF ? LUTPerWid(config->dstConn()) : config->SWidth())
                 | CxControl_DWidth((uint32_t)LUTPerWid(config->dstConn())) 
                 | CxControl_SI() 
                 | CxControl_I();
@@ -126,7 +126,7 @@ DMA::buildControlValue(DMAConfig* config) {
                 | CxControl_SBSize((uint32_t)LUTPerBurst(config->srcConn())) 
                 | CxControl_DBSize(config->DBurstSize() == 0xF ? LUTPerBurst(config->srcConn()): config->DBurstSize())
                 | CxControl_SWidth((uint32_t)LUTPerWid(config->srcConn())) 
-                | CxControl_DWidth(config->dstWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->dstWidth())
+                | CxControl_DWidth(config->DWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->DWidth())
                 | CxControl_DI() 
                 | CxControl_I();
             break;
@@ -150,8 +150,8 @@ DMA::buildControlValue(DMAConfig* config) {
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize(config->SBurstSize() == 0xF ? (uint32_t)LUTPerBurst(config->srcConn()) : config->SBurstSize())
                 | CxControl_DBSize(config->DBurstSize() == 0xF ? (uint32_t)LUTPerBurst(config->srcConn()): config->DBurstSize())
-                | CxControl_SWidth(config->srcWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->srcWidth())
-                | CxControl_DWidth(config->dstWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->dstWidth())
+                | CxControl_SWidth(config->SWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->SWidth())
+                | CxControl_DWidth(config->DWidth() == 0xF ? LUTPerWid(config->srcConn()) : config->DWidth())
                 | CxControl_DI() 
                 | CxControl_I();
             break;
@@ -163,8 +163,8 @@ DMA::buildControlValue(DMAConfig* config) {
                 = CxControl_TransferSize((uint32_t)config->transferSize()) 
                 | CxControl_SBSize(config->SBurstSize() == 0xF ? (uint32_t)LUTPerBurst(config->dstConn()) : config->SBurstSize())
                 | CxControl_DBSize(config->DBurstSize() == 0xF ? (uint32_t)LUTPerBurst(config->dstConn()): config->DBurstSize())
-                | CxControl_SWidth(config->srcWidth() == 0xF ? LUTPerWid(config->dstConn()) : config->srcWidth())
-                | CxControl_DWidth(config->dstWidth() == 0xF ? LUTPerWid(config->dstConn()) : config->dstWidth())
+                | CxControl_SWidth(config->SWidth() == 0xF ? LUTPerWid(config->dstConn()) : config->SWidth())
+                | CxControl_DWidth(config->DWidth() == 0xF ? LUTPerWid(config->dstConn()) : config->DWidth())
                 | CxControl_SI() 
                 | CxControl_I();
             break;
@@ -196,13 +196,15 @@ DMA::buildControlValue(DMAConfig* config) {
 uint32_t
 DMA::Setup(DMAConfig *config)
 {
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( config->channelNum() );
+   uint8_t channel = config->channelNum();
 
-    setups[config->channelNum() & 0x7] = config;
+	LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( channel );
+
+    setups[channel & 0x7] = config;
 
     // Reset the Interrupt status
-    LPC_GPDMA->DMACIntTCClear = IntTCClear_Ch( config->channelNum() );
-    LPC_GPDMA->DMACIntErrClr  = IntErrClr_Ch ( config->channelNum() );
+    LPC_GPDMA->DMACIntTCClear = IntTCClear_Ch( channel );
+    LPC_GPDMA->DMACIntErrClr  = IntErrClr_Ch ( channel );
 
     // Clear DMA configure
     pChannel->DMACCControl = 0x00;
@@ -246,10 +248,12 @@ DMA::Setup(DMAConfig *config)
     }
     
     uint32_t tfer_type = (uint32_t)config->transferType();
-    if (tfer_type == g2m || tfer_type == m2g) {
-        tfer_type -= 2; // Adjust psuedo transferType to a real transferType.
+    if(tfer_type == m2g) {
+    	tfer_type = m2p;
+    } else if(tfer_type == g2m) {
+    	tfer_type = p2m;
     }
-    
+
     // Configure DMA Channel, enable Error Counter and Terminate counter
     pChannel->DMACCConfig 
         = CxConfig_IE() 

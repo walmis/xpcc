@@ -457,7 +457,8 @@ private:
 		NVIC_EnableIRQ(PWM1_IRQn);
 	}
 
-	static void updateMatchRegister(uint8_t MatchChannel, uint32_t MatchValue) {
+	static ALWAYS_INLINE
+	void updateMatchRegister(uint8_t MatchChannel, uint32_t MatchValue) {
 
 		switch (MatchChannel) {
 		case 0:
@@ -490,6 +491,11 @@ private:
 		}
 	}
 };
+
+inline PWM::MatchFlags operator | (PWM::MatchFlags lhs, PWM::MatchFlags rhs)
+{
+    return (PWM::MatchFlags)( (int)lhs | (int)rhs );
+}
 
 inline PWM::CaptureFlags operator | (PWM::CaptureFlags lhs, PWM::CaptureFlags rhs)
 {

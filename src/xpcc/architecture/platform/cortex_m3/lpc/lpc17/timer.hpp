@@ -224,8 +224,9 @@ public:
 		//interrupt on MRn
 		TIMx->MCR &= ~TIM_MCR_CHANNEL_MASKBIT(channel);
 
-		if (matchFlags & MatchFlags::INT_ON_MATCH)
-			TIMx->MCR |= TIM_INT_ON_MATCH(channel);
+		if (matchFlags & MatchFlags::INT_ON_MATCH) {
+			intOnMatch(channel, true);
+		}
 
 		//reset on MRn
 		if (matchFlags & MatchFlags::RESET_ON_MATCH)
@@ -312,7 +313,7 @@ public:
 
 private:
 
-	static void initPower() {
+	static ALWAYS_INLINE void initPower() {
 		if (TIMx == LPC_TIM0) {
 			CLKPwr::setClkPower(CLKPwr::PType::PCTIM0, true);
 			//PCLK_Timer0 = CCLK/4

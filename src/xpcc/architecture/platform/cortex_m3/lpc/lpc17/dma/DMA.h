@@ -218,15 +218,15 @@ public:
     	dstTransferWidth = srcTransferWidth = (uint8_t)n;
     	return this;
     }
-    ALWAYS_INLINE DMAConfig * srcWidth(DMATransferWidth n) { srcTransferWidth = (uint8_t)n;     return this; }
-    ALWAYS_INLINE DMAConfig * dstWidth(DMATransferWidth n) { dstTransferWidth = (uint8_t)n;     return this; }
+    ALWAYS_INLINE DMAConfig * SWidth(DMATransferWidth n) { srcTransferWidth = (uint8_t)n;     return this; }
+    ALWAYS_INLINE DMAConfig * DWidth(DMATransferWidth n) { dstTransferWidth = (uint8_t)n;     return this; }
     ALWAYS_INLINE DMAConfig * srcMemAddr(uint32_t n)    { SrcMemAddr = n;        return this; }
     ALWAYS_INLINE DMAConfig * dstMemAddr(uint32_t n)    { DstMemAddr = n;        return this; }
     ALWAYS_INLINE DMAConfig * transferType(uint32_t n)  { TransferType = n;      return this; }
     ALWAYS_INLINE DMAConfig * srcConn(DMAConnection n)  { SrcConn = n;           return this; }
     ALWAYS_INLINE DMAConfig * dstConn(DMAConnection n)  { DstConn = n;           return this; }
     ALWAYS_INLINE DMAConfig * dmaLLI(uint32_t n)        { LLI = n;               return this; }
-    ALWAYS_INLINE DMAConfig * dmacSync(uint32_t n)      { DMACSync = n;          return this; }
+    ALWAYS_INLINE DMAConfig * dmacSync(DMAConnection n)      { DMACSync = n;          return this; }
     ALWAYS_INLINE DMAConfig * transferFlags(Flags n)    { flags = (uint8_t)n;    return this; }
     /// Source burst size
     ALWAYS_INLINE DMAConfig * SBurstSize(DMABurstSize n)  { sbsize = (uint8_t)n; return this; }
@@ -235,8 +235,8 @@ public:
     
     uint32_t channelNum(void)    { return ChannelNum;    }
     uint32_t transferSize(void)  { return TransferSize;  }
-    uint32_t srcWidth(void)      { return srcTransferWidth; }
-    uint32_t dstWidth(void)      { return dstTransferWidth; }
+    uint32_t SWidth(void)      { return srcTransferWidth; }
+    uint32_t DWidth(void)      { return dstTransferWidth; }
     uint32_t srcMemAddr(void)    { return SrcMemAddr;    }
     uint32_t dstMemAddr(void)    { return DstMemAddr;    }
     uint32_t transferType(void)  { return TransferType;  }
@@ -498,41 +498,41 @@ public:
      */
     bool Enabled(uint32_t ChannelNumber) { return Enabled((DMAChannel)(ChannelNumber & 0x7)); }
     
-    static __INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t IntTCClear_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t IntErrStat_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t IntErrClr_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t RawIntErrStat_Ch(uint32_t n)   { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t EnbldChns_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
-    static __INLINE uint32_t SoftBReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
-    static __INLINE uint32_t SoftSReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
-    static __INLINE uint32_t SoftLBReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
-    static __INLINE uint32_t SoftLSReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
-    static __INLINE uint32_t Sync_Src(uint32_t n)           { return (1UL << n) & 0xFFFF; }
-    static __INLINE uint32_t ReqSel_Input(uint32_t n)       { return (1UL << (n - 8)) & 0xFF; }
+    static ALWAYS_INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t IntTCClear_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t IntErrStat_Ch(uint32_t n)      { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t IntErrClr_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t RawIntErrStat_Ch(uint32_t n)   { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t EnbldChns_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
+    static ALWAYS_INLINE uint32_t SoftBReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
+    static ALWAYS_INLINE uint32_t SoftSReq_Src(uint32_t n)       { return (1UL << n) & 0xFFFF; }
+    static ALWAYS_INLINE uint32_t SoftLBReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
+    static ALWAYS_INLINE uint32_t SoftLSReq_Src(uint32_t n)      { return (1UL << n) & 0xFFFF; }
+    static ALWAYS_INLINE uint32_t Sync_Src(uint32_t n)           { return (1UL << n) & 0xFFFF; }
+    static ALWAYS_INLINE uint32_t ReqSel_Input(uint32_t n)       { return (1UL << (n - 8)) & 0xFF; }
     
 
-    static __INLINE uint32_t CxControl_TransferSize(uint32_t n)     { return (n & 0xFFF) << 0; }
-    static __INLINE uint32_t CxControl_SBSize(uint32_t n)           { return (n & 0x7) << 12; }
-    static __INLINE uint32_t CxControl_DBSize(uint32_t n)           { return (n & 0x7) << 15; }
-    static __INLINE uint32_t CxControl_SWidth(uint32_t n)           { return (n & 0x7) << 18; }
-    static __INLINE uint32_t CxControl_DWidth(uint32_t n)           { return (n & 0x7) << 21; }
-    static __INLINE uint32_t CxControl_SI()                         { return (1UL << 26); }
-    static __INLINE uint32_t CxControl_DI()                         { return (1UL << 27); }
-    static __INLINE uint32_t CxControl_Prot1()                      { return (1UL << 28); }
-    static __INLINE uint32_t CxControl_Prot2()                      { return (1UL << 29); }
-    static __INLINE uint32_t CxControl_Prot3()                      { return (1UL << 30); }
-    static __INLINE uint32_t CxControl_I()                          { return (1UL << 31); }
-    static __INLINE uint32_t CxControl_E()                          { return (1UL << 0); }
-    static __INLINE uint32_t CxConfig_SrcPeripheral(uint32_t n)     { return (n & 0x1F) << 1; }
-    static __INLINE uint32_t CxConfig_DestPeripheral(uint32_t n)    { return (n & 0x1F) << 6; }
-    static __INLINE uint32_t CxConfig_TransferType(uint32_t n)      { return (n & 0x7) << 11; }
-    static __INLINE uint32_t CxConfig_IE()                          { return (1UL << 14); }
-    static __INLINE uint32_t CxConfig_ITC()                         { return (1UL << 15); }
-    static __INLINE uint32_t CxConfig_L()                           { return (1UL << 16); }
-    static __INLINE uint32_t CxConfig_A()                           { return (1UL << 17); }
-    static __INLINE uint32_t CxConfig_H()                           { return (1UL << 18); }
+    static ALWAYS_INLINE uint32_t CxControl_TransferSize(uint32_t n)     { return (n & 0xFFF) << 0; }
+    static ALWAYS_INLINE uint32_t CxControl_SBSize(uint32_t n)           { return (n & 0x7) << 12; }
+    static ALWAYS_INLINE uint32_t CxControl_DBSize(uint32_t n)           { return (n & 0x7) << 15; }
+    static ALWAYS_INLINE uint32_t CxControl_SWidth(uint32_t n)           { return (n & 0x7) << 18; }
+    static ALWAYS_INLINE uint32_t CxControl_DWidth(uint32_t n)           { return (n & 0x7) << 21; }
+    static ALWAYS_INLINE uint32_t CxControl_SI()                         { return (1UL << 26); }
+    static ALWAYS_INLINE uint32_t CxControl_DI()                         { return (1UL << 27); }
+    static ALWAYS_INLINE uint32_t CxControl_Prot1()                      { return (1UL << 28); }
+    static ALWAYS_INLINE uint32_t CxControl_Prot2()                      { return (1UL << 29); }
+    static ALWAYS_INLINE uint32_t CxControl_Prot3()                      { return (1UL << 30); }
+    static ALWAYS_INLINE uint32_t CxControl_I()                          { return (1UL << 31); }
+    static ALWAYS_INLINE uint32_t CxControl_E()                          { return (1UL << 0); }
+    static ALWAYS_INLINE uint32_t CxConfig_SrcPeripheral(uint32_t n)     { return (n & 0x1F) << 1; }
+    static ALWAYS_INLINE uint32_t CxConfig_DestPeripheral(uint32_t n)    { return (n & 0x1F) << 6; }
+    static ALWAYS_INLINE uint32_t CxConfig_TransferType(uint32_t n)      { return (n & 0x7) << 11; }
+    static ALWAYS_INLINE uint32_t CxConfig_IE()                          { return (1UL << 14); }
+    static ALWAYS_INLINE uint32_t CxConfig_ITC()                         { return (1UL << 15); }
+    static ALWAYS_INLINE uint32_t CxConfig_L()                           { return (1UL << 16); }
+    static ALWAYS_INLINE uint32_t CxConfig_A()                           { return (1UL << 17); }
+    static ALWAYS_INLINE uint32_t CxConfig_H()                           { return (1UL << 18); }
     
     /**
      * A store for up to 8 (8 DMAChannel) of configurations.

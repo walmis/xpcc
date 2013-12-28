@@ -89,6 +89,10 @@ public:
 		}
 	}
 
+	bool isBusy() {
+		return moveSteps != 0;
+	}
+
 	void run() {
 		if(stepTimer.isActive() && stepTimer.isExpired()) {
 			if(moveSteps != 0) {
