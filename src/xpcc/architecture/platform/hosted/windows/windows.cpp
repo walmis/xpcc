@@ -88,14 +88,4 @@ namespace std
 		return std::atan2(static_cast<float>(y), static_cast<float>(x));
 	}
 
-	bool
-	isnan(float f)
-	{
-		return _isnanf(f);
-	}
-
-	bool
-	isinf(float f)	{
-		return !_finitef(f);
-	}
 }

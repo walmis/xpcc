@@ -35,10 +35,10 @@
 #include <xpcc/io/iostream.hpp>
 #include <ctype.h>
 
-#include "level.hpp"
 #include "style.hpp"
 #include "style_wrapper.hpp"
 #include "style/prefix.hpp"
+#include "level.hpp"
 
 namespace xpcc
 {
@@ -163,7 +163,7 @@ namespace xpcc
  * \ingroup logger
  */
 #define XPCC_LOG_DEBUG \
-	if (XPCC_LOG_LEVEL > xpcc::log::DEBUG){} \
+	if (XPCC_LOG_LEVEL > XPCC_LOG_LEVEL_DEBUG){} \
 	else xpcc::log::debug
 
 /**
@@ -171,7 +171,7 @@ namespace xpcc
  * \ingroup logger
  */
 #define XPCC_LOG_INFO \
-	if (XPCC_LOG_LEVEL > xpcc::log::INFO){}	\
+	if (XPCC_LOG_LEVEL > XPCC_LOG_LEVEL_INFO){}	\
 	else xpcc::log::info
 
 /**
@@ -179,7 +179,7 @@ namespace xpcc
  * \ingroup logger
  */
 #define XPCC_LOG_WARNING \
-	if (XPCC_LOG_LEVEL > xpcc::log::WARNING){}	\
+	if (XPCC_LOG_LEVEL > XPCC_LOG_LEVEL_WARNING){}	\
 	else xpcc::log::warning
 
 /**
@@ -187,7 +187,7 @@ namespace xpcc
  * \ingroup logger
  */
 #define XPCC_LOG_ERROR \
-	if (XPCC_LOG_LEVEL > xpcc::log::ERROR){}	\
+	if (XPCC_LOG_LEVEL > XPCC_LOG_LEVEL_ERROR){}	\
 	else xpcc::log::error
 
 #ifdef __DOXYGEN__

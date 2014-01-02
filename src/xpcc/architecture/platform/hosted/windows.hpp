@@ -56,11 +56,11 @@
 // WARNINGS & COMPILER SETTINGS
 
 // Disable warnings about array initialization
-#pragma warning( disable : 4351 )
+//#pragma warning( disable : 4351 )
 
 // Allow pointer to virtual member functions. May generate non-optimal code but works
 // always. See http://msdn.microsoft.com/en-us/library/83cch5a6.aspx
-#pragma pointers_to_members( full_generality, virtual_inheritance )
+//#pragma pointers_to_members( full_generality, virtual_inheritance )
 
 // ----------------------------------------------------------------------------
 // CONSTANTS
@@ -137,12 +137,6 @@ namespace std
 
 	float
 	atan2(int32_t y, int32_t x);
-
-	bool
-	isnan(float f);
-
-	bool
-	isinf(float f);
 }
 
 #endif // XPCC__WINDOWS_HPP

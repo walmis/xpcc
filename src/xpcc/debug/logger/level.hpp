@@ -28,6 +28,12 @@
 #ifndef XPCC_LOG__LEVEL_HPP
 #define XPCC_LOG__LEVEL_HPP
 
+#define XPCC_LOG_LEVEL_DEBUG 0
+#define XPCC_LOG_LEVEL_INFO  1
+#define XPCC_LOG_LEVEL_WARNING 2
+#define XPCC_LOG_LEVEL_ERROR 3
+#define XPCC_LOG_LEVEL_DISABLED 4
+
 namespace xpcc
 {
 	namespace log
@@ -39,14 +45,12 @@ namespace xpcc
 		 *
 		 * \ingroup logger
 		 */
-		enum Level
-		{
-			DEBUG,
-			INFO,
-			WARNING,
-			ERROR,
-			DISABLED
-		};
+		static const uint8_t DEBUG   = 0;
+		static const uint8_t INFO    = 1;
+		static const uint8_t WARNING = 2;
+		static const uint8_t ERROR   = 3;
+		static const uint8_t DISABLED= 4;
+
 	}
 }
 
@@ -66,7 +70,7 @@ namespace xpcc
 	 * 
 	 * \ingroup logger
 	 */
-	#define XPCC_LOG_LEVEL xpcc::log::DEBUG
+	#define XPCC_LOG_LEVEL XPCC_LOG_LEVEL_DEBUG
 #endif // XPCC_LOG_LEVEL
 
 #endif // XPCC_LOG__LEVEL_HPP
