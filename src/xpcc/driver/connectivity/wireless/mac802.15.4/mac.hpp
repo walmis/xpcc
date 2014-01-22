@@ -49,4 +49,45 @@ enum class RadioStatus
 		CRC_FAILED, /**< The CRC failed for the actual frame. */
 		CHANNEL_ACCESS_FAILURE, /**< The channel access failed during the auto mode. */
 		NO_ACK /**< No acknowledge frame was received. */
+
 };
+
+static const char* radioStatusStr(RadioStatus status) {
+	switch(status) {
+	case RadioStatus::SUCCESS:
+		return "SUCCESS";
+	case RadioStatus::UNSUPPORTED_DEVICE:
+		return "UNSUPPORTED_DEVICE";
+	case RadioStatus::INVALID_ARGUMENT:
+		return "INVALID_ARGUMENT";
+	case RadioStatus::TIMED_OUT:
+		return "TIMED_OUT";
+	case RadioStatus::WRONG_STATE:
+		return "WRONG_STATE";
+	case RadioStatus::BUSY_STATE:
+		return "BUSY_STATE";
+	case RadioStatus::STATE_TRANSITION_FAILED:
+		return "STATE_TRANSITION_FAILED";
+	case RadioStatus::CCA_IDLE:
+		return "CCA_IDLE";
+	case RadioStatus::CCA_BUSY:
+		return "CCA_BUSY";
+	case RadioStatus::TRX_BUSY:
+		return "TRX_BUSY";
+	case RadioStatus::BAT_LOW:
+		return "BAT_LOW";
+	case RadioStatus::CRC_FAILED:
+		return "CRC_FAILED";
+	case RadioStatus::CHANNEL_ACCESS_FAILURE:
+		return "CHANNEL_ACCESS_FAILURE";
+	case RadioStatus::NO_ACK:
+		return "NO_ACK";
+	default:
+		return "UNKNOWN";
+	}
+}
+
+ALWAYS_INLINE xpcc::IOStream& operator << (xpcc::IOStream& s, RadioStatus st) {
+	s << radioStatusStr(st);
+	return s;
+}

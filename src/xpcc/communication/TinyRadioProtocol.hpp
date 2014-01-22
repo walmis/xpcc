@@ -266,7 +266,7 @@ public:
 			RadioStatus res = driver->sendFrame(tmpFrame, true);
 			//if (xpcc::log::DEBUG <= xpcc::log::DEBUG) {
 				if(res != RadioStatus::SUCCESS) {
-					XPCC_LOG_ERROR << "BeaconTX failure " << (int)res << xpcc::endl;
+					XPCC_LOG_ERROR << "BeaconTX failure " << res << xpcc::endl;
 				} else {
 					beacon_tm.restart(BEACON_INTERVAL);
 				}
@@ -773,7 +773,7 @@ send:
 
 		RadioStatus res = RadioStatus::TIMED_OUT;
 		if ((res = driver->sendFrame(tmpFrame, true)) != RadioStatus::SUCCESS) {
-			XPCC_LOG_DEBUG .printf("send failed, res (%d) retrying\n", res);
+			XPCC_LOG_DEBUG .printf("send failed, res (%s) retrying\n", radioStatusStr(res));
 			for (int i = 0; i < NUM_RETRIES; i++) {
 				//resend frame
 				res = driver->sendFrame(true);
@@ -781,7 +781,7 @@ send:
 					XPCC_LOG_DEBUG .printf("Retry successful\n");
 					break;
 				} else {
-					XPCC_LOG_DEBUG .printf("%d .. ", res);
+					XPCC_LOG_DEBUG .printf("%s .. ", radioStatusStr(res));
 				}
 
 			}
@@ -987,7 +987,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 		for(int i = 0; i < NUM_RETRIES; i++) {
 			res = driver->sendFrame(tmpFrame, true);
 			if(res == RadioStatus::SUCCESS) break;
-			XPCC_LOG_DEBUG .printf("Request send retry (%d)\n", res);
+			XPCC_LOG_DEBUG .printf("Request send retry (%s)\n", radioStatusStr(res));
 		}
 
 		if (res == RadioStatus::SUCCESS) {
@@ -995,7 +995,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 			current_request.request_id = request_id;
 			current_request.timer.restart(REQUEST_TIMEOUT);
 		} else {
-			XPCC_LOG_DEBUG .printf("Request send failed status:%d\n", res);
+			XPCC_LOG_DEBUG .printf("Request send failed status:%s\n", radioStatusStr(res));
 			return false;
 		}
 		return true;

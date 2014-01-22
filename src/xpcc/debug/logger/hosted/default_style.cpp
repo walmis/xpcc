@@ -54,7 +54,19 @@ namespace xpcc
 				{
 				}
 		};
+#ifdef WIN32
+		static Wrapper< char[6], NONE, NONE > debugWrapper("DBG: ", device);
+		Logger debug(debugWrapper);
 
+		static Wrapper< char[6], NONE, NONE > debugInfo("INF: ", device);
+		Logger info(debugInfo);
+
+		static Wrapper< char[6], NONE, NONE > warningInfo("WRN: ", device);
+		Logger warning(warningInfo);
+
+		static Wrapper< char[6], NONE, NONE > errorInfo("ERR: ", device);
+		Logger error(errorInfo);
+#else
 		static Wrapper< char[6], GREEN, NONE > debugWrapper("DBG: ", device);
 		Logger ATTRIBUTE_WEAK debug(debugWrapper);
 
@@ -66,5 +78,7 @@ namespace xpcc
 
 		static Wrapper< char[6], WHITE, RED > errorInfo("ERR: ", device);
 		Logger ATTRIBUTE_WEAK error(errorInfo);
+#endif
+
 	}
 }
