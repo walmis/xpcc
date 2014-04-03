@@ -37,7 +37,7 @@
 #define ADC_INDEX		4
 
 namespace xpcc {
-	namespace lpc111x {
+	namespace lpc11 {
 		/**
 		 * \brief 	Analog-to-Digital Converter Module of
 		 * 			LPC111x, LPC11D14 and LPC11Cxx parts.
@@ -202,7 +202,7 @@ namespace xpcc {
 			 * \brief	Initialise the ADC block in Manual Single Mode.
 			 */
 			static void inline
-			initialize()
+			initialize(uint32_t ADC_Clk = 4500000)
 			{
 				  /* Disable Power down bit to the ADC block. */
 				  LPC_SYSCON->PDRUNCFG &= ~(PDRUNCFG_ADC_PD);
@@ -210,8 +210,7 @@ namespace xpcc {
 				  /* Enable AHB clock to the ADC. */
 				  LPC_SYSCON->SYSAHBCLKCTRL |= SYSAHBCLKCTRL_ADC;
 
-				  /* Set clock: 48 MHz / (10 + 1) = 4.36 MHz < 4.5 MHz */
-				  LPC_ADC->CR = (10 << 8);
+				  LPC_ADC->CR = ((SystemCoreClock/LPC_SYSCON->SYSAHBCLKDIV)/ADC_Clk-1)<<8;
 			}
 
 			/**

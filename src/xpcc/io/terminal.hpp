@@ -31,13 +31,12 @@ protected:
 
 	xpcc::IODevice& device;
 
-private:
-	void handleTick() override;
+protected:
+	virtual void handleTick() override;
 
+private:
 	char buffer[32];
 	uint8_t pos = 0;
-
-
 
 	void parse();
 };

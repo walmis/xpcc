@@ -146,7 +146,6 @@ public:
 	 * was sent and data from the device is available.
 	 */
 	static uint16_t write(uint16_t data) {
-		//XPCC_LOG_DEBUG .printf("SPI write %x\n", SPIx);
 		while (!(SPIx->SR & SPI_SRn_TNF))
 			;
 		/* Put data into FIFO */
@@ -160,11 +159,13 @@ public:
 	}
 
 	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
+		//XPCC_LOG_DEBUG .printf("DMA start %x %x %d\n", tx, rx, length);
 		if(prepareTransfer(tx, rx, length)) {
 			startTransfer(rx);
 
 			return true;
 		}
+		//XPCC_LOG_DEBUG .printf("... failed\n");
 		return false;
 	}
 
@@ -172,11 +173,16 @@ public:
 	stopTransfer() {
 		DMA* dma = DMA::instance();
 		if(txChannelCfg) {
+			//dma->haltAndWaitChannelComplete((DMAChannel)txChannelCfg->channelNum());
 			dma->Disable(txChannelCfg->channelNum());
+
 		}
 		if(rxChannelCfg) {
+			//dma->haltAndWaitChannelComplete((DMAChannel)rxChannelCfg->channelNum());
 			dma->Disable(rxChannelCfg->channelNum());
 		}
+		//call isFinished() to clean up transfer
+		//isFinished();
 	}
 
 	static void startTransfer(bool rx = false) {
@@ -186,13 +192,15 @@ public:
 			dma->Enable(txChannelCfg);
 			/* Wait until at least one byte has arrived into the RX FIFO
 				   and then start-up the Channel1 DMA to begin transferring them. */
-			while((LPC_SSP0->SR & (1UL << 2)) == 0);
+			//while((LPC_SSP0->SR & (1UL << 2)) == 0);
 			//start rx transfer
 			dma->Enable(rxChannelCfg);
 
 		} else {
 			dma->Enable(txChannelCfg);
 		}
+		SPIx->DMACR = 3; // enable Tx Rx DMA
+
 
 		running = true;
 	}
@@ -214,8 +222,6 @@ public:
 
     	static const uint32_t dummy = 0xFFFFFFFF;
 
-		SPIx->DMACR = 3; // enable Tx DMA
-
 		DMAConnection conn = SSP0_Tx;
 		if(SPIx ==LPC_SSP1)
 			conn = SSP1_Tx;
@@ -229,8 +235,8 @@ public:
 				->dstConn(conn)
 				->srcMemAddr(tx ? (uint32_t)tx : (uint32_t)&dummy)
 				->transferSize((length>0xFFF) ? 0xFFF : length)
-				->transferType(m2p)
-				->attach_tc(onDMATxTransferComplete);
+				->transferType(m2p);
+				//->attach_tc(onDMATxTransferComplete);
 
 		if(!tx) {
 			//force source address increment off if we send dummy bytes
@@ -238,7 +244,7 @@ public:
 		}
 
 		if(length > 0xFFF) {
-			uint16_t len = length-0xFFF;
+			uint16_t len = length - 0xFFF;
 			uint16_t sz;
 			uint8_t* buf = tx + 0xFFF;
 
@@ -274,8 +280,8 @@ public:
     				->dstMemAddr((uint32_t)rx)
     				->srcConn(conn)
     				->transferSize(length)
-    				->transferType(p2m)
-    				->attach_tc(onDMARxTransferComplete);
+    				->transferType(p2m);
+    				//->attach_tc(onDMARxTransferComplete);
 
     		//prepare rx channel
     		dma->Setup(rxChannelCfg);
@@ -298,6 +304,8 @@ public:
 				SPIx->DMACR = 0;
 				running = false;
 				return true;
+			} else {
+				//XPCC_LOG_DEBUG .printf("still running %d\n", SPIx->DMACR);
 			}
 		}
 		return false;
@@ -315,10 +323,9 @@ private:
 		//XPCC_LOG_DEBUG .printf("compl\n");
 		//DMA* dma = DMA::instance();
 		//XPCC_LOG_DEBUG .printf("TC %d\n", dma->isActive(txChannelCfg));
-
 	}
 	static void onDMARxTransferComplete() {
-
+		//XPCC_LOG_DEBUG .printf("DMArx\n");
 	}
 };
 

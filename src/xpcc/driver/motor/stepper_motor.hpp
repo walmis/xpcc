@@ -84,13 +84,12 @@ public:
 	}
 
 	void wait() {
-		while(moveSteps != 0) {
-			handleTick();
-		}
+		while(isBusy());
 	}
 
 	bool isBusy() {
-		return moveSteps != 0;
+		run();
+		return moveSteps != 0 && stepTimer.isActive();
 	}
 
 	void run() {

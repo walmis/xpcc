@@ -85,7 +85,7 @@ namespace xpcc
 			
 			/// calculate median
 			void
-			udpate();
+			update();
 			
 			/// Get median value
 			const T

@@ -987,7 +987,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 		for(int i = 0; i < NUM_RETRIES; i++) {
 			res = driver->sendFrame(tmpFrame, true);
 			if(res == RadioStatus::SUCCESS) break;
-			XPCC_LOG_DEBUG .printf("Request send retry (%s)\n", radioStatusStr(res));
+			XPCC_LOG_DEBUG .printf("Request (%d) send retry (%s)\n", request_id, radioStatusStr(res));
 		}
 
 		if (res == RadioStatus::SUCCESS) {

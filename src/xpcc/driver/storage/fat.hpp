@@ -233,13 +233,43 @@ namespace xpcc
 			}
 
 			bool read(char& c) override {
-				return f_read(&file, (uint8_t*)&c, 1, 0) == FR_OK;
+				UINT read  = -1;
+				return f_read(&file, (uint8_t*)&c, 1, &read) == FR_OK;
 			}
 
 			uint32_t write(uint8_t* buffer, unsigned int len) {
 				uint32_t written = 0;
 				f_write(&file, (void*)buffer, len, (unsigned int*)&written);
 				return written;
+			}
+
+			//return true if line fit the buffer
+			//false if not
+			bool readLine(uint8_t* line, size_t maxSize) {
+				char tmp;
+				while(1) {
+					if(read(tmp)) {
+						if(maxSize) {
+							*line = tmp;
+							if(tmp == '\r') {
+								*line = '\0';
+								read(tmp);
+							}
+							if(tmp == '\n') {
+								*line = '\0';
+								return true;
+							}
+
+							maxSize--;
+							line++;
+						} else {
+							return false;
+						}
+
+					} else {
+						return false;
+					}
+				}
 			}
 
 			int32_t
