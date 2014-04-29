@@ -35,6 +35,7 @@
 #include <stdint.h>
 
 #include <xpcc/math/matrix.hpp>
+#include <xpcc/math/utils.hpp>
 
 namespace xpcc
 {

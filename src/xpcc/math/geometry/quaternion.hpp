@@ -33,6 +33,7 @@
 
 #include <cmath>
 #include <stdint.h>
+#include "vector.hpp"
 
 namespace xpcc
 {
@@ -62,6 +63,7 @@ namespace xpcc
 		Quaternion(T inW, T inX, T inY, T inZ);
 		Quaternion(const Vector<T, 3> &axis, T angle);
 		Quaternion(const Matrix<T, 4, 1> &rhs);
+		Quaternion(T yaw, T roll, T pitch);
 		
 		Quaternion(const Quaternion &rhs);
 		
@@ -111,7 +113,9 @@ namespace xpcc
 		
 		Quaternion unitInverse();	//	assumes we have a unit quaternion
 		Quaternion inverse();
-		
+
+		Vector<T, 3> toEuler();
+
 		void to4x4Matrix(Matrix<T, 4, 4> *outMatrix);
 		void to3x3Matrix(Matrix<T, 3, 3> *outMatrix);
 	
@@ -122,6 +126,12 @@ namespace xpcc
 		T z;
 	};
 	
+	template<class T>
+	IOStream& operator<<(IOStream& s, const Quaternion<T> &q) {
+		s.printf("Q(%.4f,%.4f,%.4f,%.4f)", q.w, q.x, q.y, q.z);
+		return s;
+	}
+
 	template<class T>
 	Quaternion<T>
 	operator * (const T &lhs, const Quaternion<T> &rhs);

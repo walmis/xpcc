@@ -368,9 +368,9 @@ namespace xpcc
 	int32_t
 	Vector<int16_t, 2>::getLengthSquared() const;
 	
-	template<>
-	int32_t
-	Vector<int16_t, 2>::dot(const xpcc::Vector<int16_t, 2>& other) const;
+//	template<>
+//	int32_t
+//	Vector<int16_t, 2>::dot(const xpcc::Vector<int16_t, 2>& other) const;
 	
 	
 	template<> template<>

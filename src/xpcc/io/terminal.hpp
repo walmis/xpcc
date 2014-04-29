@@ -27,7 +27,7 @@ protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 
 	int to_int(char *p);
-	bool float_scan(const wchar_t* wcs, float* val);
+	bool float_scan(const char* wcs, float* val);
 
 	xpcc::IODevice& device;
 

@@ -32,6 +32,7 @@
 #define XPCC__IOSTREAM_HPP
 
 #include <xpcc/architecture/utils.hpp>
+#include <cstring>
 
 #include "iodevice.hpp"
 #include "iodevice_wrapper.hpp"
@@ -74,6 +75,15 @@ namespace xpcc
 			return *this;
 		}
 		
+		inline IOStream&
+		write(uint8_t* buffer, size_t length)
+		{
+			while(length--) {
+				this->device->write(*buffer++);
+			}
+			return *this;
+		}
+
 		inline IOStream&
 		flush()
 		{

@@ -32,6 +32,8 @@
 	#error	"Don't include this file directly, use 'vector3.hpp' instead!"
 #endif
 
+#include <type_traits>
+
 // ----------------------------------------------------------------------------
 template<typename T>
 xpcc::Vector<T, 3>::Vector() :
@@ -460,7 +462,11 @@ template<typename T>
 float
 xpcc::Vector<T, 3>::getLength() const
 {
-	return std::sqrt(getLengthSquared());
+	if(std::is_same<T, float>::value) {
+		return sqrtf(getLengthSquared());
+	} else {
+		return sqrt(getLengthSquared());
+	}
 }
 
 // ----------------------------------------------------------------------------
@@ -493,7 +499,8 @@ template<typename T>
 void
 xpcc::Vector<T, 3>::normalize()
 {
-	scale(1.0);
+	//scale(1.0);
+	*this *= xpcc::math::fastInvSqrt(getLengthSquared());
 }
 
 // ----------------------------------------------------------------------------
@@ -501,7 +508,7 @@ template<typename T>
 xpcc::Vector<T, 3>
 xpcc::Vector<T, 3>::normalized() const
 {
-	return scaled(1.0f);
+	return *this * xpcc::math::fastInvSqrt(getLengthSquared());
 }
 
 // ----------------------------------------------------------------------------

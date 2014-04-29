@@ -13,8 +13,6 @@
 class Pinsel {
 public:
 
-
-
 	template <typename Pin>
 	static void setFunc(int func) {
 		setFunc(Pin::Port, Pin::Pin, func);

@@ -48,7 +48,7 @@
  */
 namespace xpcc
 {
-	namespace lpc
+	namespace lpc17
 	{
 		/**
 		 * \ingroup	lpc17xx

@@ -31,14 +31,25 @@ protected:
 	virtual void handleInterrupt(int irqn) {
 	}
 
+	/// returns true if current task is blocking (yielding)
+	inline bool taskBusy() {
+		return blocking;
+	}
+
 	///internal pointer to the next tickerTask
 	TickerTask *next;
 
 private:
 	static TickerTask* base;
+	static volatile TickerTask* current;
+	volatile bool blocking;
 
 public:
 	static void tick();
+
+	///yield current task. Call this function repeatedly until some blocking operation finishes.
+	///note: other tasks are moved down the stack. So watch the stack usage if multiple tasks are blocking.
+	static void yield();
 
 	///called from IRQ handler
 	static void interrupt(int irqN);

@@ -32,7 +32,9 @@
 #define XPCC__VECTOR3_HPP
 
 #include <stdint.h>
+#include <type_traits>
 #include "vector.hpp"
+#include "quaternion.hpp"
 
 namespace xpcc
 {
@@ -136,7 +138,30 @@ namespace xpcc
 		Vector& operator -= (const Vector &rhs);
 		Vector& operator *= (const T &rhs);
 		Vector& operator /= (const T &rhs);
+
+		//! cross product
+		Vector cross(const Vector &v) const
+		{
+			Vector temp(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
+			return temp;
+		}
 		
+		Vector& rotate(Quaternion<T>& q) {
+			auto v = q * Quaternion<float>(0,x,y,z) * q.conjugated();
+
+			x = v.x;
+			y = v.y;
+			z = v.z;
+
+			return *this;
+		}
+
+		Vector rotated(Quaternion<T>& q) const {
+			Vector v(*this);
+			v.rotate(q);
+			return v;
+		}
+
 		float getLength() const;
 		float getLengthSquared() const;
 		
@@ -225,6 +250,16 @@ namespace xpcc
 		return lhs * rhs.asTMatrix();
 	}
 	
+	template<typename T>
+	IOStream& operator << (IOStream &s, const Vector<T, 3> &rhs)
+	{
+		if(std::is_same<T, float>::value || std::is_same<T, double>::value) {
+			s.printf("V(%.3f,%.3f,%.3f)", rhs[0], rhs[1], rhs[2]);
+		} else {
+			s.printf("V(%d,%d,%d)", rhs[0], rhs[1], rhs[2]);
+		}
+		return s;
+	}
 	
 	typedef Vector<float, 3> 	Vector3f;
 	typedef Vector<int16_t, 3>	Vector3i;

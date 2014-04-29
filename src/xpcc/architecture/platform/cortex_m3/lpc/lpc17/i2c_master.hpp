@@ -591,9 +591,9 @@ private:
 		nextOperation = xpcc::I2c::Operation::Restart;
 	}
 
-	static void i2stop()
+	static ALWAYS_INLINE
+	void i2stop()
 	{
-
 		/* Make sure start bit is not active */
 		if (I2Cx->I2CONSET & I2C_I2CONSET_STA)
 		{
@@ -627,7 +627,8 @@ private:
 		return (I2Cx->I2STAT & I2C_STAT_CODE_BITMASK);
 	}
 
-	static inline void intCmd(bool enable) {
+	static ALWAYS_INLINE
+	void intCmd(bool enable) {
 		if (enable) {
 			if (I2Cx == LPC_I2C0) {
 				NVIC_EnableIRQ(I2C0_IRQn);
@@ -647,8 +648,8 @@ private:
 		}
 	}
 
-	static inline void
-	i2start()
+	static ALWAYS_INLINE
+	void i2start()
 	{
 		DEBUG("callStarting");
 		error = xpcc::I2cMaster::Error::NoError;
@@ -657,23 +658,6 @@ private:
 		I2Cx->I2CONCLR = I2C_I2CONCLR_SIC;
 		I2Cx->I2CONSET = I2C_I2CONSET_STA;
 
-		// Wait for complete
-		//while (!(I2Cx->I2CONSET & I2C_I2CONSET_SI));
-		//I2Cx->I2CONCLR = I2C_I2CONCLR_STAC;
-
-
-//		I2C{{ id }}->CR1 &= ~I2C_CR1_POS;
-//		I2C{{ id }}->SR1 = 0;
-//		I2C{{ id }}->SR2 = 0;
-//
-//		// generate startcondition
-//		I2C{{ id }}->CR1 |= I2C_CR1_START;
-//		checkNextOperation = CHECK_NEXT_OPERATION_NO;
-//
-//		// and enable interrupts
-//		DEBUG_STREAM("enable interrupts");
-//		I2C{{ id }}->CR2 &= ~I2C_CR2_ITBUFEN;
-//		I2C{{ id }}->CR2 |= I2C_CR2_ITEVTEN | I2C_CR2_ITERREN;
 	}
 };
 
@@ -710,3 +694,5 @@ typedef I2cMaster<(int)LPC_I2C2> I2cMaster2;
 
 } // namespace xpcc
 
+#undef DEBUG
+#undef DEBUG_STREAM

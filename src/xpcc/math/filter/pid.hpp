@@ -155,7 +155,7 @@ namespace xpcc
 		 * 								this disables integral summation.
 		 */
 		void
-		update(const T& input, bool externalLimitation = false);
+		update(const T& input, const T& dt, bool externalLimitation = false);
 		
 		/**
 		 * \brief	Returns the calculated actuating variable.

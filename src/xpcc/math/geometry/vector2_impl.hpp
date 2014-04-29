@@ -94,7 +94,7 @@ xpcc::Vector<T, 2>::Vector(const xpcc::Matrix<T, 2, 1> &rhs) :
 
 // ----------------------------------------------------------------------------
 template<typename T>
-xpcc::Vector<T, 2>::Vector(const Vector &rhs) :
+xpcc::Vector<T, 2>::Vector(const xpcc::Vector<T, 2> &rhs) :
 	x(rhs.x),
 	y(rhs.y)
 {
@@ -187,7 +187,7 @@ template<typename T>
 xpcc::Vector<T, 2>
 xpcc::Vector<T, 2>::normalized() const
 {
-	Vector a(*this);
+	xpcc::Vector<T, 2> a(*this);
 	a.normalize();
 	return a;
 }
@@ -210,7 +210,7 @@ template<typename T>
 xpcc::Vector<T, 2>
 xpcc::Vector<T, 2>::scaled(float length) const
 {
-	Vector a(*this);
+	xpcc::Vector<T, 2> a(*this);
 	a.scale(length);
 	return a;
 }
@@ -234,7 +234,7 @@ xpcc::Vector<T, 2>::rotate(float phi)
 // ----------------------------------------------------------------------------
 template<typename T>
 xpcc::Vector<T, 2>&
-xpcc::Vector<T, 2>::translate(const Vector<T, 2>& vector)
+xpcc::Vector<T, 2>::translate(const xpcc::Vector<T, 2>& vector)
 {
 	this->x += vector.x;
 	this->y += vector.y;
@@ -245,7 +245,7 @@ xpcc::Vector<T, 2>::translate(const Vector<T, 2>& vector)
 // ----------------------------------------------------------------------------
 template<typename T>
 typename xpcc::Vector<T, 2>::WideType
-xpcc::Vector<T, 2>::getDistanceTo(const Vector<T, 2>& other) const
+xpcc::Vector<T, 2>::getDistanceTo(const xpcc::Vector<T, 2>& other) const
 {
 	return (other - *this).getLength();
 }
@@ -253,7 +253,7 @@ xpcc::Vector<T, 2>::getDistanceTo(const Vector<T, 2>& other) const
 // ----------------------------------------------------------------------------
 template<typename T>
 float
-xpcc::Vector<T, 2>::getAngleTo(const Vector<T, 2>& other) const
+xpcc::Vector<T, 2>::getAngleTo(const xpcc::Vector<T, 2>& other) const
 {
 	return (other - *this).getAngle();
 }
@@ -303,8 +303,8 @@ xpcc::Vector<T, 2>::perpendicular() const
 // ----------------------------------------------------------------------------
 template<typename T>
 int_fast8_t
-xpcc::Vector<T, 2>::ccw(const Vector& a, const Vector& b,
-		const Vector& c)
+xpcc::Vector<T, 2>::ccw(const xpcc::Vector<T, 2>& a, const xpcc::Vector<T, 2>& b,
+		const xpcc::Vector<T, 2>& c)
 {
 	WideType dx1 = b.x - a.x;
 	WideType dy1 = b.y - a.y;

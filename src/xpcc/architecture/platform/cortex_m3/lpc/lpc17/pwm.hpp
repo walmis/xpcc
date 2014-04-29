@@ -380,7 +380,7 @@ public:
 			return this;
 		}
 
-		void commit(UpdateType type) {
+		void commit(UpdateType type = PWM_MATCH_UPDATE_NOW) {
 			LPC_PWM1 ->LER = latchValue;
 
 			if (type == PWM_MATCH_UPDATE_NOW) {

@@ -33,6 +33,7 @@
 #endif
 
 #include "quaternion.hpp"
+#include <type_traits>
 
 // ----------------------------------------------------------------------------
 template<class T>
@@ -285,7 +286,11 @@ template<class T>
 float
 xpcc::Quaternion<T>::getLength() const
 {
-	return std::sqrt(getLengthSquared());
+	if(std::is_same<T, float>::value) {
+		return sqrtf(getLengthSquared());
+	} else {
+		return sqrt(getLengthSquared());
+	}
 }
 
 // ----------------------------------------------------------------------------
@@ -301,7 +306,12 @@ template<class T>
 xpcc::Quaternion<T>&
 xpcc::Quaternion<T>::scale(float newLength)
 {
-	float s = newLength / getLength();
+	float s;
+	if(newLength == 1.0) {
+		s = xpcc::math::fastInvSqrt(getLengthSquared());
+	} else {
+		s = newLength / getLength();
+	}
 	w *= s;
 	x *= s;
 	y *= s;
@@ -315,7 +325,12 @@ template<class T>
 xpcc::Quaternion<T>&
 xpcc::Quaternion<T>::normalize()
 {
-	return scale(1.0f);
+	float s = xpcc::math::fastInvSqrt(getLengthSquared());
+	w *= s;
+	x *= s;
+	y *= s;
+	z *= s;
+	return *this;
 }
 
 // ----------------------------------------------------------------------------
@@ -371,6 +386,33 @@ xpcc::Quaternion<T>::inverse()
 	return conjugate() / getLengthSquared();
 }
 
+template<class T>
+xpcc::Vector<T, 3> xpcc::Quaternion<T>::toEuler() {
+	xpcc::Vector<T, 3> angles;
+	float sqw = w*w;
+	float sqx = x*x;
+	float sqy = y*y;
+	float sqz = z*z;
+	float unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+	float test = x*y + z*w;
+	if (test > 0.499*unit) { // singularity at north pole
+		angles.z = 2 * atan2f(x,w);
+		angles.x = M_PI/2;
+		angles.y = 0;
+		return angles;
+	}
+	if (test < -0.499*unit) { // singularity at south pole
+		angles.z = -2 * atan2f(x,w);
+		angles.x = -M_PI/2;
+		angles.y = 0;
+		return angles;
+	}
+	angles.z = atan2f(2*y*w-2*x*z , sqx - sqy - sqz + sqw);
+	angles.x = asinf(2*test/unit);
+	angles.y = atan2f(2*x*w-2*y*z , -sqx + sqy - sqz + sqw);
+	return angles;
+}
+
 // ----------------------------------------------------------------------------
 template<class T>
 void
@@ -412,6 +454,21 @@ xpcc::Quaternion<T>::to3x3Matrix(Matrix<T, 3, 3> *outMatrix)
 	m[0*3+0] = 1-2*(yy+zz); m[1*3+0] =   2*(xy-zw); m[2*3+0] =   2*(xz+yw);
 	m[0*3+1] =   2*(xy+zw); m[1*3+1] = 1-2*(xx+zz); m[2*3+1] =   2*(yz-xw);
 	m[0*3+2] =   2*(xz-yw); m[1*3+2] =   2*(yz+xw); m[2*3+2] = 1-2*(xx+yy);
+}
+template<typename T>
+xpcc::Quaternion<T>::Quaternion(T yaw, T pitch, T roll) {
+    float c1 = cosf(roll/2);
+    float s1 = sinf(roll/2);
+    float c2 = cosf(yaw/2);
+    float s2 = sinf(yaw/2);
+    float c3 = cosf(pitch/2);
+    float s3 = sinf(pitch/2);
+    float c1c2 = c1*c2;
+    float s1s2 = s1*s2;
+    w =c1c2*c3 - s1s2*s3;
+  	x =c1c2*s3 + s1s2*c3;
+	y =s1*c2*c3 + c1*s2*s3;
+	z =c1*s2*c3 - s1*c2*s3;
 }
 
 // ----------------------------------------------------------------------------

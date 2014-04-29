@@ -96,7 +96,7 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
     		sendPacket(false);
     		return true;
     	}
-    	in_request = true;
+    	inEp_request = true;
     	return false;
     }
 
@@ -116,13 +116,12 @@ uint8_t USBSerialHandler::available() {
 //}
 
 void USBSerialHandler::SOF(int frameNumber) {
-
 	if(device->configured()) {
 
-		if (!tx_buffer.isEmpty() && in_request
+		if (!tx_buffer.isEmpty() && inEp_request
 				&& (latency_timer.isExpired() || tx_buffer.stored() >= MAX_PACKET_SIZE_EPBULK)) {
 
-			in_request = false;
+			inEp_request = false;
 			//XPCC_LOG_DEBUG .printf("SOF send\n");
 			sendPacket(false);
 
@@ -197,6 +196,11 @@ bool USBSerialHandler::USBCallback_setConfiguration(uint8_t configuration) {
 	if (configuration != DEFAULT_CONFIGURATION) {
         return false;
     }
+
+	inEp_request = true;
+	data_waiting = false;
+	terminal_connected = false;
+	isActive = true;
 
     // Configure endpoints > 0
     device->addEndpoint(intIn, MAX_PACKET_SIZE_EPINT);

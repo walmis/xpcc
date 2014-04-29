@@ -346,6 +346,18 @@ void Driver<Spi, rst, cs, slp_tr, irq>::init() {
 
 	HAL::setTrxState(TRXState::TRX_OFF);
 
+//	XPCC_LOG_DEBUG .printf("- %d %d %d\n", HAL::Reg::DVDD_OK, HAL::Reg::AVDD_OK, (int)HAL::Reg::MAN_ID_0);
+//	xpcc::Timeout<> t(1000);
+//	while(!(HAL::Reg::DVDD_OK && HAL::Reg::AVDD_OK)) {
+//		if(t.isExpired()) {
+//
+//			XPCC_LOG_DEBUG .printf("AT86RF Power unstable (VREG_CTRL)\n");
+//			return;
+//		}
+//	}
+
+
+
 	HAL::Reg::TX_AUTO_CRC_ON = 1;
 
 	HAL::Reg::CSMA_SEED_0 = xpcc::Random::random();

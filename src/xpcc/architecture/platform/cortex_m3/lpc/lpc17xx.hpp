@@ -47,6 +47,8 @@
  * \see		http://ics.nxp.com/products/lpc1000/all/
  */
 
+#pragma once
+
 #include <lpc17xx/cmsis/LPC17xx.h>
 #include <lpc17xx/cmsis/core_cm3.h>
 #include <lpc17xx/cmsis/system_LPC17xx.h>
@@ -68,6 +70,8 @@
 #include "lpc17/adc.hpp"
 #include "lpc17/timer.hpp"
 #include "lpc17/pwm.hpp"
+#include "lpc17/i2c_master.hpp"
+#include "lpc17/rit_clock.hpp"
 
 #include "lpc17/dma/DMA.h"
 

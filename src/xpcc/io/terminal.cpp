@@ -99,11 +99,11 @@ int Terminal::to_int(char *p) {
 	return k;
 }
 
-bool Terminal::float_scan(const wchar_t* wcs, float* val)
+bool Terminal::float_scan(const char* wcs, float* val)
 // (C)2009 Marcin Sokalski gumix@ghnet.pl - All rights reserved.
 		{
 	int hdr = 0;
-	while (wcs[hdr] == L' ')
+	while (wcs[hdr] == ' ')
 		hdr++;
 
 	int cur = hdr;
@@ -111,8 +111,8 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 	bool negative = false;
 	bool has_sign = false;
 
-	if (wcs[cur] == L'+' || wcs[cur] == L'-') {
-		if (wcs[cur] == L'-')
+	if (wcs[cur] == '+' || wcs[cur] == '-') {
+		if (wcs[cur] == '-')
 			negative = true;
 		has_sign = true;
 		cur++;
@@ -124,19 +124,19 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 
 	bool full = false;
 
-	wchar_t period = 0;
+	char period = 0;
 	int binexp = 0;
 	int decexp = 0;
 	unsigned long value = 0;
 
-	while (wcs[cur] >= L'0' && wcs[cur] <= L'9') {
+	while (wcs[cur] >= '0' && wcs[cur] <= '9') {
 		if (!full) {
-			if (value >= 0x19999999 && wcs[cur] - L'0' > 5
+			if (value >= 0x19999999 && wcs[cur] - '0' > 5
 					|| value > 0x19999999) {
 				full = true;
 				decexp++;
 			} else
-				value = value * 10 + wcs[cur] - L'0';
+				value = value * 10 + wcs[cur] - '0';
 		} else
 			decexp++;
 
@@ -144,18 +144,18 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 		cur++;
 	}
 
-	if (wcs[cur] == L'.' || wcs[cur] == L',') {
+	if (wcs[cur] == '.' || wcs[cur] == ',') {
 		period = wcs[cur];
 		cur++;
 
-		while (wcs[cur] >= L'0' && wcs[cur] <= L'9') {
+		while (wcs[cur] >= '0' && wcs[cur] <= '9') {
 			if (!full) {
-				if (value >= 0x19999999 && wcs[cur] - L'0' > 5
+				if (value >= 0x19999999 && wcs[cur] - '0' > 5
 						|| value > 0x19999999)
 					full = true;
 				else {
 					decexp--;
-					value = value * 10 + wcs[cur] - L'0';
+					value = value * 10 + wcs[cur] - '0';
 				}
 			}
 
@@ -167,7 +167,7 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 	if (!quot_digs && !frac_digs)
 		return false;
 
-	wchar_t exp_char = 0;
+	char exp_char = 0;
 
 	int decexp2 = 0; // explicit exponent
 	bool exp_negative = false;
@@ -175,21 +175,21 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 	int exp_digs = 0;
 
 	// even if value is 0, we still need to eat exponent chars
-	if (wcs[cur] == L'e' || wcs[cur] == L'E') {
+	if (wcs[cur] == 'e' || wcs[cur] == 'E') {
 		exp_char = wcs[cur];
 		cur++;
 
-		if (wcs[cur] == L'+' || wcs[cur] == L'-') {
+		if (wcs[cur] == '+' || wcs[cur] == '-') {
 			has_expsign = true;
 			if (wcs[cur] == '-')
 				exp_negative = true;
 			cur++;
 		}
 
-		while (wcs[cur] >= L'0' && wcs[cur] <= L'9') {
+		while (wcs[cur] >= '0' && wcs[cur] <= '9') {
 			if (decexp2 >= 0x19999999)
 				return false;
-			decexp2 = 10 * decexp2 + wcs[cur] - L'0';
+			decexp2 = 10 * decexp2 + wcs[cur] - '0';
 			exp_digs++;
 			cur++;
 		}
@@ -220,11 +220,11 @@ bool Terminal::float_scan(const wchar_t* wcs, float* val)
 
 			// convert exp from 10 to 2 (using FPU)
 			int E;
-			double v = pow(10.0, decexp);
-			double m = frexp(v, &E);
+			float v = powf(10.0, decexp);
+			float m = frexpf(v, &E);
 			m = 2.0 * m;
 			E--;
-			value = (unsigned long) floor(value * m);
+			value = (unsigned long) floorf(value * m);
 
 			binexp += E;
 		}

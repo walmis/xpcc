@@ -80,11 +80,11 @@ xpcc::Pid<T, ScaleFactor>::setParameter(const Parameter& parameter)
 
 template<typename T, unsigned int ScaleFactor>
 void
-xpcc::Pid<T, ScaleFactor>::update(const T& input, bool externalLimitation)
+xpcc::Pid<T, ScaleFactor>::update(const T& input, const T& dt, bool externalLimitation)
 {
 	bool limitation = externalLimitation;
 	
-	T tempErrorSum = errorSum + input;
+	T tempErrorSum = errorSum + input*dt;
 	if (tempErrorSum > this->parameter.maxErrorSum) {
 		tempErrorSum = this->parameter.maxErrorSum;
 	}
@@ -95,7 +95,7 @@ xpcc::Pid<T, ScaleFactor>::update(const T& input, bool externalLimitation)
 	WideType tmp = 0;
 	tmp += static_cast<WideType>(this->parameter.kp) * input;
 	tmp += static_cast<WideType>(this->parameter.ki) * (tempErrorSum);
-	tmp += static_cast<WideType>(this->parameter.kd) * (input - this->lastError);
+	tmp += static_cast<WideType>(this->parameter.kd) * (input - this->lastError)/dt;
 	
 	tmp = tmp / ScaleFactor;
 	

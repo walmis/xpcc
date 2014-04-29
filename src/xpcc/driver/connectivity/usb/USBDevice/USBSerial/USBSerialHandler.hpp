@@ -32,7 +32,7 @@ public:
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
 					intIn), latency_timer() {
 
-		in_request = true;
+		inEp_request = true;
 		data_waiting = false;
 		terminal_connected = false;
 		isActive = true;
@@ -72,7 +72,7 @@ private:
 	uint8_t intIn;
 
 	volatile bool data_waiting;
-	volatile bool in_request;
+	volatile bool inEp_request;
 	volatile bool isActive;
 
 	volatile bool terminal_connected;

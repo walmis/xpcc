@@ -7,11 +7,12 @@
 
 #include "ticker_task.hpp"
 #include <xpcc/architecture/driver/atomic.hpp>
-
+#include <xpcc/debug.hpp>
 namespace xpcc {
 
 TickerTask::TickerTask() {
 	xpcc::atomic::Lock lock;
+	blocking = false;
 	next = 0;
 	if (base == 0) {
 		base = this;
@@ -43,10 +44,25 @@ TickerTask::~TickerTask() {
 	}
 }
 
+void TickerTask::yield() {
+	TickerTask* t = (TickerTask*)current;
+	//XPCC_LOG_DEBUG .printf("current %x\n", t);
+	if(t) {
+		t->blocking = true;
+		tick();
+		t->blocking = false;
+	}
+	current = t;
+}
+
 void TickerTask::tick() {
 	TickerTask* task = base;
 	while (task) {
-		task->handleTick();
+		if(!task->blocking) {
+			current = task;
+			task->handleTick();
+			task->blocking = false;
+		}
 		task = task->next;
 	}
 }
@@ -60,5 +76,5 @@ void TickerTask::interrupt(int irqN) {
 }
 
 TickerTask* TickerTask::base = 0;
-
+volatile TickerTask* TickerTask::current = 0;
 }
