@@ -372,6 +372,7 @@ public:
 	public:
 		MatchUpdate() {
 			latchValue = 0;
+			LPC_PWM1 ->LER = 0;
 		}
 
 		MatchUpdate* set(uint8_t channel, uint32_t value) {

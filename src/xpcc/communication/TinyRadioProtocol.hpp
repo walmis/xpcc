@@ -44,7 +44,7 @@
 
 #define NODE_TIMEOUT_PING 2500
 
-#define FRAME_HEAP 5
+#define RX_QUEUE_SIZE 3
 
 namespace xpcc {
 namespace stdResponses {
@@ -227,8 +227,6 @@ public:
 	TinyRadioProtocol(Driver& drvr) {
 		driver = &drvr;
 		self = this;
-		last_seq = 0xFF;
-		rx_flag = false;
 		address = 0;
 		panId = 0;
 	}
@@ -238,7 +236,6 @@ public:
 
 
 	void init() {
-		rx_flag = false;
 		driver->init();
 		driver->setRxFrameHandler(rxHandler);
 
@@ -290,15 +287,15 @@ public:
 
 	void handleTick() override {
 
-		while(!rxFrames.isEmpty()) {
-			auto frame = rxFrames.get();
-			rxFrames.pop();
+		while(!rxQueue.isEmpty()) {
+			StaticFrame* frame = rxQueue.get();
 
 			processedFrame = frame;
 			processFrame(*frame);
-			delete frame;
-			processedFrame = 0;
 
+			frame->data_len = 0;
+			rxQueue.pop();
+			processedFrame = 0;
 		}
 
 		if(beacon_tm.isExpired() && !isTxBusy()) {
@@ -478,7 +475,8 @@ protected:
 
 	xpcc::LinkedList<FrameCounter> frameSeqCounters;
 
-	xpcc::atomic::Queue<HeapFrame*, FRAME_HEAP> rxFrames;
+	StaticFrame rxFrames[RX_QUEUE_SIZE];
+	xpcc::atomic::Queue<StaticFrame*, RX_QUEUE_SIZE> rxQueue;
 
 	Request current_request;
 
@@ -487,33 +485,19 @@ protected:
 	//pointer to currently processed frame
 	Frame* processedFrame;
 
-	bool rx_flag;
-
-	uint8_t last_seq;
-
 	void processFrame(Frame& rxFrame);
 
 	static void rxHandler() {
-
-#ifdef FRAME_HEAP
-		//RADIO_DEBUG << "+\n";
-		if(!self->rxFrames.isFull()) {
-			HeapFrame* frm = new HeapFrame;
-			if(frm && frm->allocate(self->driver->getFrameLength())) {
-				self->driver->readFrame(*frm);
-				self->rxFrames.push(frm);
-				//self->rx_flag = true;
+		if(!self->rxQueue.isFull()) {
+			for(int i = 0; i < RX_QUEUE_SIZE; i++) {
+				StaticFrame* frm = &self->rxFrames[i];
+				if(frm->data_len == 0) {
+					self->driver->readFrame(*frm);
+					self->rxQueue.push(frm);
+					break;
+				}
 			}
 		}
-
-#else
-		if(!self->rx_flag) {
-			self->driver->readFrame(self->frame);
-			self->rx_flag = true;
-		}
-#endif
-
-		//RADIO_DEBUG .printf("%x %x\n", &f, &self->rxFrames.getBack());
 	}
 
 	void prepareFrame(MacFrame& frame, uint16_t dst_addr, uint8_t flags =

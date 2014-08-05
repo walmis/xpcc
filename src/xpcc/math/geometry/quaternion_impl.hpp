@@ -457,18 +457,21 @@ xpcc::Quaternion<T>::to3x3Matrix(Matrix<T, 3, 3> *outMatrix)
 }
 template<typename T>
 xpcc::Quaternion<T>::Quaternion(T yaw, T pitch, T roll) {
-    float c1 = cosf(roll/2);
-    float s1 = sinf(roll/2);
-    float c2 = cosf(yaw/2);
-    float s2 = sinf(yaw/2);
-    float c3 = cosf(pitch/2);
-    float s3 = sinf(pitch/2);
-    float c1c2 = c1*c2;
+
+    float c1 = cosf(pitch/2);
+    float s1 = sinf(pitch/2);
+    float c2 = cosf(roll/2);
+    float s2 = sinf(roll/2);
+    float c3 = cosf(yaw/2);
+    float s3 = sinf(yaw/2);
+
+    float c2c3 = c2*c3;
     float s1s2 = s1*s2;
-    w =c1c2*c3 - s1s2*s3;
-  	x =c1c2*s3 + s1s2*c3;
-	y =s1*c2*c3 + c1*s2*s3;
-	z =c1*s2*c3 - s1*c2*s3;
+
+    w =c1*c2c3 + s1s2*s3;
+    x =s1*c2c3 - c1*s2*s3;
+    y =c1*s2*c3 + s1*c2*s3;
+    z =c1*c2*s3 - s1s2*c3;
 }
 
 // ----------------------------------------------------------------------------

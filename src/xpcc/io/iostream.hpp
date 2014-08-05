@@ -439,7 +439,7 @@ namespace xpcc
 		writeBin(uint8_t value);
 
 		void
-		writeFloat(const float& value, int precision = -1) {
+		writeFloat(const float& value, int precision = 4) {
             char str[20]; // +1 for '\0'
             xpccFloat(str, value, precision);
 

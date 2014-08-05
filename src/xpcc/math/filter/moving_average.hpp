@@ -75,7 +75,7 @@ namespace xpcc
 		
 		/// Append new value
 		void
-		update(const T& input);
+		append(const T& input);
 		
 		/// Get filtered value
 		const T
@@ -102,7 +102,7 @@ xpcc::MovingAverage<T, N>::MovingAverage(const T& initialValue) :
 // TODO implementierung für float anpassen
 template<typename T, std::size_t N>
 void
-xpcc::MovingAverage<T, N>::update(const T& input)
+xpcc::MovingAverage<T, N>::append(const T& input)
 {
 	sum -= buffer[index];
 	sum += input;

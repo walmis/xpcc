@@ -20,14 +20,14 @@ public:
 
 
 protected:
-	bool cmp(char* cmd, char* value) {
+	bool cmp(char* cmd, const char* value) {
 		return strcmp(cmd, value) == 0;
 	}
 
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 
-	int to_int(char *p);
-	bool float_scan(const char* wcs, float* val);
+	int to_int(const char *p);
+	float toFloat(const char* c);
 
 	xpcc::IODevice& device;
 

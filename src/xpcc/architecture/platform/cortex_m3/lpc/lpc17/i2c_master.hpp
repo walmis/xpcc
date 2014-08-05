@@ -296,7 +296,7 @@ public:
 
 	static bool
 	start(xpcc::I2cDelegate *d) {
-		if (!delegate && d && d->attaching())
+		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
 		{
 			newSession = true;
 			DEBUG("\n###");
@@ -310,14 +310,14 @@ public:
 
 	static bool
 	startBlocking(xpcc::I2cDelegate *d) {
-		if (!delegate && d && d->attaching())
+		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
 		{
 			newSession = true;
 			DEBUG("\n###");
 			delegate = d;
 			i2start();
 
-			while(xpcc::accessor::asVolatile(delegate)) {
+			while(isBusy()) {
 				//DEBUG_STREAM .printf("d %x\n", delegate);
 				__WFI();
 			}
@@ -537,6 +537,10 @@ public:
 			break;
 		}
 
+	}
+
+	static inline bool isBusy() {
+		return xpcc::accessor::asVolatile(delegate);
 	}
 
 

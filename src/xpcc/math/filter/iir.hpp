@@ -11,17 +11,46 @@
 namespace xpcc {
 namespace filter {
 
-template <typename T, int strength>
-class IIR {
-		bool first;
-        T sum;
+class FastIIR {
+
+        uint32_t sum;
+        uint8_t strength;
 public:
-        IIR(T initial = 0) {
-                sum = initial * strength;
-                first = false;
+        FastIIR(uint8_t strength, uint32_t initial = 0) {
+                sum = initial << strength;
+                this->strength = strength;
         }
 
-        inline T append(T sample) {
+        void setStrength(uint8_t strength) {
+        	this->strength = strength;
+        }
+
+        uint32_t append(uint32_t sample) {
+                sum = sum - (sum >> strength) + sample;
+                return sum >> strength;
+        }
+
+        uint32_t getValue() {
+                return sum >> strength;
+        }
+};
+
+template <typename T>
+class LPF {
+		bool first;
+		uint16_t strength;
+        T sum;
+public:
+        LPF(uint16_t strength) : strength(strength) {
+			sum = 0;
+			first = true;
+        }
+
+        void setValue(T value) {
+        	sum = value * strength;
+        }
+
+        inline T append(T& sample) {
         	if(!first) {
         		sum = sample * strength;
         		first = true;

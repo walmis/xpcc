@@ -77,7 +77,7 @@ static unsigned int htoi(const char s[])
     return result;
 }
 
-int Terminal::to_int(char *p) {
+int Terminal::to_int(const char *p) {
 
 	if(p[0] == '0' && (p[1] == 'x' || p[1] == 'X')) {
 		return htoi(p);
@@ -99,184 +99,34 @@ int Terminal::to_int(char *p) {
 	return k;
 }
 
-bool Terminal::float_scan(const char* wcs, float* val)
-// (C)2009 Marcin Sokalski gumix@ghnet.pl - All rights reserved.
-		{
-	int hdr = 0;
-	while (wcs[hdr] == ' ')
-		hdr++;
+inline unsigned int ipow(int x, int n) {
+    int r = 1;
+    while (n--)
+    r *= x;
 
-	int cur = hdr;
+    return r;
+}
 
-	bool negative = false;
-	bool has_sign = false;
+float Terminal::toFloat(const char* c) {
+	char str[20];
+	strncpy(str, c, 20);
 
-	if (wcs[cur] == '+' || wcs[cur] == '-') {
-		if (wcs[cur] == '-')
-			negative = true;
-		has_sign = true;
-		cur++;
-	} else
-		has_sign = false;
+	char* tok;
+	tok = strtok(str, ".");
 
-	int quot_digs = 0;
-	int frac_digs = 0;
+	int base = to_int(tok);
 
-	bool full = false;
+	tok = strtok(NULL, ".");
+	if(tok) {
+		uint8_t len = strlen(tok);
 
-	char period = 0;
-	int binexp = 0;
-	int decexp = 0;
-	unsigned long value = 0;
+		float l = (float)to_int(tok) / ipow(10, len);
+		l += base;
+		return l;
 
-	while (wcs[cur] >= '0' && wcs[cur] <= '9') {
-		if (!full) {
-			if (value >= 0x19999999 && wcs[cur] - '0' > 5
-					|| value > 0x19999999) {
-				full = true;
-				decexp++;
-			} else
-				value = value * 10 + wcs[cur] - '0';
-		} else
-			decexp++;
-
-		quot_digs++;
-		cur++;
+	} else {
+		return base;
 	}
-
-	if (wcs[cur] == '.' || wcs[cur] == ',') {
-		period = wcs[cur];
-		cur++;
-
-		while (wcs[cur] >= '0' && wcs[cur] <= '9') {
-			if (!full) {
-				if (value >= 0x19999999 && wcs[cur] - '0' > 5
-						|| value > 0x19999999)
-					full = true;
-				else {
-					decexp--;
-					value = value * 10 + wcs[cur] - '0';
-				}
-			}
-
-			frac_digs++;
-			cur++;
-		}
-	}
-
-	if (!quot_digs && !frac_digs)
-		return false;
-
-	char exp_char = 0;
-
-	int decexp2 = 0; // explicit exponent
-	bool exp_negative = false;
-	bool has_expsign = false;
-	int exp_digs = 0;
-
-	// even if value is 0, we still need to eat exponent chars
-	if (wcs[cur] == 'e' || wcs[cur] == 'E') {
-		exp_char = wcs[cur];
-		cur++;
-
-		if (wcs[cur] == '+' || wcs[cur] == '-') {
-			has_expsign = true;
-			if (wcs[cur] == '-')
-				exp_negative = true;
-			cur++;
-		}
-
-		while (wcs[cur] >= '0' && wcs[cur] <= '9') {
-			if (decexp2 >= 0x19999999)
-				return false;
-			decexp2 = 10 * decexp2 + wcs[cur] - '0';
-			exp_digs++;
-			cur++;
-		}
-
-		if (exp_negative)
-			decexp -= decexp2;
-		else
-			decexp += decexp2;
-	}
-
-	// end of wcs scan, cur contains value's tail
-
-	if (value) {
-		while (value <= 0x19999999) {
-			decexp--;
-			value = value * 10;
-		}
-
-		if (decexp) {
-			// ensure 1bit space for mul by something lower than 2.0
-			if (value & 0x80000000) {
-				value >>= 1;
-				binexp++;
-			}
-
-			if (decexp > 308 || decexp < -307)
-				return false;
-
-			// convert exp from 10 to 2 (using FPU)
-			int E;
-			float v = powf(10.0, decexp);
-			float m = frexpf(v, &E);
-			m = 2.0 * m;
-			E--;
-			value = (unsigned long) floorf(value * m);
-
-			binexp += E;
-		}
-
-		binexp += 23; // rebase exponent to 23bits of mantisa
-
-		// so the value is: +/- VALUE * pow(2,BINEXP);
-		// (normalize manthisa to 24bits, update exponent)
-		while (value & 0xFE000000) {
-			value >>= 1;
-			binexp++;
-		}
-		if (value & 0x01000000) {
-			if (value & 1)
-				value++;
-			value >>= 1;
-			binexp++;
-			if (value & 0x01000000) {
-				value >>= 1;
-				binexp++;
-			}
-		}
-
-		while (!(value & 0x00800000)) {
-			value <<= 1;
-			binexp--;
-		}
-
-		if (binexp < -127) {
-			// underflow
-			value = 0;
-			binexp = -127;
-		} else if (binexp > 128)
-			return false;
-
-		//exclude "implicit 1"
-		value &= 0x007FFFFF;
-
-		// encode exponent
-		unsigned long exponent = (binexp + 127) << 23;
-		value |= exponent;
-	}
-
-	// encode sign
-	unsigned long sign = negative << 31;
-	value |= sign;
-
-	if (val) {
-		*(unsigned long*) val = value;
-	}
-
-	return true;
 }
 
 void Terminal::parse() {

@@ -35,7 +35,7 @@
 // ----------------------------------------------------------------------------
 template <typename I2cMaster>
 xpcc::I2cEeprom<I2cMaster>::I2cEeprom(uint8_t address)
-:	address(address << 1), state(xpcc::I2c::AdapterState::Idle)
+:	address(address), state(xpcc::I2c::AdapterState::Idle)
 {
 	initialize(0, 0, 0, 0);
 }
@@ -45,10 +45,12 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::writeByte(uint16_t address, uint8_t data)
 {
-	buffer[0] = address >> 8;
-	buffer[1] = address;
-	buffer[2] = data;
-	initialize(buffer, 3, 0, 0);
+	int i = 0;
+	if(0)
+		buffer[i++] = address >> 8;
+	buffer[i++] = address;
+	buffer[i++] = data;
+	initialize(buffer, i, 0, 0);
 	
 	return I2cMaster::startBlocking(this);
 }
@@ -57,18 +59,56 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t bytes)
 {
-	buffer[0] = address >> 8;
-	buffer[1] = address;
-	initialize(buffer, 2, data, bytes, 0, 0);
-	
-	return I2cMaster::startBlocking(this);
+	uint8_t i;
+	uint8_t n;
+
+	Timeout<> t(50);
+
+	if(!isAvailable()) {
+		return false;
+	}
+
+	while(bytes > 0) {
+		i = 0;
+		if(0)
+			buffer[i++] = address >> 8;
+		buffer[i++] = address;
+
+		n = 16 - (address & 0x0F);
+		if(bytes < n)
+			n = bytes;
+
+		//XPCC_LOG_DEBUG .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
+		//XPCC_LOG_DEBUG .dump_buffer((uint8_t*)data, n);
+
+		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
+
+		initialize(buffer, i, data, n, 0, 0);
+		bool res = I2cMaster::startBlocking(this);
+		if(!res)
+			return false;
+
+		while(!isAvailable()) {
+			TickerTask::yield();
+			if(t.isExpired()) {
+				return false;
+			}
+		}
+
+		bytes -= n;
+		address += n;
+		data += n;
+	}
+
+	return true;
 }
 
 template <typename I2cMaster> template <typename T>
 bool
 xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const T& data)
 {
-	return write(address, static_cast<const uint8_t *>(&data), sizeof(T));
+	//XPCC_LOG_DEBUG .printf("write a:%d L:%d\n", address, sizeof(T));
+	return write(address, reinterpret_cast<const uint8_t *>(&data), sizeof(T));
 }
 
 // MARK: - read operations
@@ -76,9 +116,11 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::readByte(uint16_t address, uint8_t &data)
 {
-	buffer[0] = address >> 8;
-	buffer[1] = address;
-	initialize(buffer, 2, &data, 1);
+	int i = 0;
+	if(0)
+		buffer[i++] = address >> 8;
+	buffer[i++] = address;
+	initialize(buffer, i, &data, 1);
 	
 	return I2cMaster::startBlocking(this);
 }
@@ -87,9 +129,11 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 {
-	buffer[0] = address >> 8;
-	buffer[1] = address;
-	initialize(buffer, 2, data, bytes);
+	int i = 0;
+	if(0)
+		buffer[i++] = address >> 8;
+	buffer[i++] = address;
+	initialize(buffer, i, data, bytes);
 	
 	return I2cMaster::startBlocking(this);
 }
@@ -98,7 +142,7 @@ template <typename I2cMaster> template <typename T>
 bool
 xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, T& data)
 {
-	return read(address, static_cast<uint8_t *>(&data), sizeof(T));
+	return read(address, reinterpret_cast<uint8_t *>(&data), sizeof(T));
 }
 
 // MARK: - available

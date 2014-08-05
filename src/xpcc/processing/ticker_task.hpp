@@ -27,6 +27,8 @@ protected:
 	///handle task tick. This is called repeatedly when TickerTask::tasksRun is executing.
 	virtual void handleTick() {};
 
+	virtual void handleInit() {};
+
 	///handle interrupt with interrupt code irqn
 	virtual void handleInterrupt(int irqn) {
 	}
@@ -57,6 +59,12 @@ public:
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
 	static void tasksRun(std::function<void()> idleFunc = 0) {
+		TickerTask* task = base;
+		while (task) {
+			task->handleInit();
+			task = task->next;
+		}
+
 		while(1) {
 			tick();
 			if(idleFunc)

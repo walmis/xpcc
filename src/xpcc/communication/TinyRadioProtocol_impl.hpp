@@ -46,8 +46,8 @@ inline void TinyRadioProtocol<Driver, Security>::removeNode(NodeACL* node) {
 	while (it != connectedNodes.end()) {
 		if (*it == node) {
 			RADIO_DEBUG .printf("Removing node %d\n", node->address);
-			delete node;
 			connectedNodes.remove(it);
+			delete node;
 			return;
 		}
 		++it;
