@@ -42,5 +42,6 @@
 #include "math/lu_decomposition.hpp"
 #include "math/interpolation.hpp"
 #include "math/utils.hpp"
+#include "math/fixed_point.hpp"
 
 #endif	// XPCC__MATH_HPP

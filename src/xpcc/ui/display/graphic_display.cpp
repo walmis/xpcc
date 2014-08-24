@@ -28,11 +28,13 @@
  */
 // ----------------------------------------------------------------------------
 
-#include <stdlib.h>
+
 #include <xpcc/math/utils/bit_operation.hpp>
 
 #include "font/fixed_width_5x8.hpp"
 #include "graphic_display.hpp"
+
+#include <cstdlib>
 
 // ----------------------------------------------------------------------------
 xpcc::GraphicDisplay::GraphicDisplay() :
@@ -87,7 +89,7 @@ xpcc::GraphicDisplay::drawLine(int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 	else
 	{
 		// bresenham algorithm
-		bool steep = abs(y2 - y1) > abs(x2 - x1);
+		bool steep = ::abs(y2 - y1) > ::abs(x2 - x1);
 		if (steep) {
 			xpcc::swap(x1, y1);
 			xpcc::swap(x2, y2);
@@ -98,7 +100,7 @@ xpcc::GraphicDisplay::drawLine(int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 		}
 		
 		int16_t deltaX = x2 - x1;
-		int16_t deltaY = abs(y2 - y1);
+		int16_t deltaY = ::abs(y2 - y1);
 		int16_t error = deltaX / 2;
 		
 		int16_t yStep;

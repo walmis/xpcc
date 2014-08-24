@@ -34,6 +34,7 @@
 
 #include "quaternion.hpp"
 #include <type_traits>
+#include <xpcc/math/fixed_point.hpp>
 
 // ----------------------------------------------------------------------------
 template<class T>
@@ -283,19 +284,15 @@ xpcc::Quaternion<T>::operator - ()
 
 // ----------------------------------------------------------------------------
 template<class T>
-float
+T
 xpcc::Quaternion<T>::getLength() const
 {
-	if(std::is_same<T, float>::value) {
-		return sqrtf(getLengthSquared());
-	} else {
-		return sqrt(getLengthSquared());
-	}
+	return std::sqrt(getLengthSquared());
 }
 
 // ----------------------------------------------------------------------------
 template<class T>
-float
+T
 xpcc::Quaternion<T>::getLengthSquared() const
 {
 	return w*w + x*x + y*y + z*z;
@@ -396,20 +393,20 @@ xpcc::Vector<T, 3> xpcc::Quaternion<T>::toEuler() {
 	float unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
 	float test = x*y + z*w;
 	if (test > 0.499*unit) { // singularity at north pole
-		angles.z = 2 * atan2f(x,w);
+		angles.z = 2 * std::atan2(x,w);
 		angles.x = M_PI/2;
 		angles.y = 0;
 		return angles;
 	}
 	if (test < -0.499*unit) { // singularity at south pole
-		angles.z = -2 * atan2f(x,w);
+		angles.z = -2 * std::atan2(x,w);
 		angles.x = -M_PI/2;
 		angles.y = 0;
 		return angles;
 	}
-	angles.z = atan2f(2*y*w-2*x*z , sqx - sqy - sqz + sqw);
-	angles.x = asinf(2*test/unit);
-	angles.y = atan2f(2*x*w-2*y*z , -sqx + sqy - sqz + sqw);
+	angles.z = std::atan2(2*y*w-2*x*z , sqx - sqy - sqz + sqw);
+	angles.x = std::asin(2*test/unit);
+	angles.y = std::atan2(2*x*w-2*y*z , -sqx + sqy - sqz + sqw);
 	return angles;
 }
 
@@ -458,12 +455,12 @@ xpcc::Quaternion<T>::to3x3Matrix(Matrix<T, 3, 3> *outMatrix)
 template<typename T>
 xpcc::Quaternion<T>::Quaternion(T yaw, T pitch, T roll) {
 
-    float c1 = cosf(pitch/2);
-    float s1 = sinf(pitch/2);
-    float c2 = cosf(roll/2);
-    float s2 = sinf(roll/2);
-    float c3 = cosf(yaw/2);
-    float s3 = sinf(yaw/2);
+    float c1 = std::cos(pitch/2);
+    float s1 = std::sin(pitch/2);
+    float c2 = std::cos(roll/2);
+    float s2 = std::sin(roll/2);
+    float c3 = std::cos(yaw/2);
+    float s3 = std::sin(yaw/2);
 
     float c2c3 = c2*c3;
     float s1s2 = s1*s2;
