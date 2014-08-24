@@ -55,6 +55,7 @@
 									<listOptionValue builtIn="false" value="${targetDefine}"/>
 									<listOptionValue builtIn="false" value="XPCC_LOG_LEVEL=xpcc::log::DISABLED"/>
 								</option>
+								<option id="gnu.cpp.compiler.option.optimization.flags.1548529458" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-ffast-math -fsingle-precision-constant" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.499278313" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.2102665116" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>

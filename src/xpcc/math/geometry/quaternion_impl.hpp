@@ -76,6 +76,26 @@ xpcc::Quaternion<T>::Quaternion(const Vector<T, 3> &axis, T angle)
 
 // ----------------------------------------------------------------------------
 template<class T>
+xpcc::Quaternion<T>::Quaternion(const Vector<T, 3> &u, const Vector<T, 3> &v)
+:
+	w(),
+	x(),
+	y(),
+	z()
+{
+
+	Vector<T, 3> w = u.cross(v);
+
+	this->w = 1.f + dot(u, v);
+	this->x = w.x;
+	this->y = w.y;
+	this->z = w.z;
+
+	normalize();
+}
+
+// ----------------------------------------------------------------------------
+template<class T>
 xpcc::Quaternion<T>::Quaternion(const Matrix<T, 4, 1> &rhs)
 :
 	w(reinterpret_cast<const T*>(&rhs)[0]),

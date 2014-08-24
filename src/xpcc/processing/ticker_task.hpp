@@ -44,6 +44,7 @@ protected:
 private:
 	static TickerTask* base;
 	static volatile TickerTask* current;
+	static std::function<void()> idleFunc;
 	volatile bool blocking;
 
 public:
@@ -59,6 +60,7 @@ public:
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
 	static void tasksRun(std::function<void()> idleFunc = 0) {
+		TickerTask::idleFunc = idleFunc;
 		TickerTask* task = base;
 		while (task) {
 			task->handleInit();
@@ -67,8 +69,6 @@ public:
 
 		while(1) {
 			tick();
-			if(idleFunc)
-				idleFunc();
 		}
 	}
 };

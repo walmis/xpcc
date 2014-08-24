@@ -145,13 +145,25 @@ namespace xpcc
 			Vector temp(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
 			return temp;
 		}
+		//! dot product
+		T dot(const Vector &v) const
+		{
+			return v.x * x + v.y * y + v.z * z;
+		}
 		
 		Vector& rotate(Quaternion<T>& q) {
-			auto v = q * Quaternion<float>(0,x,y,z) * q.conjugated();
+			//Quaternion<float> v = q.conjugated() * Quaternion<float>(0.0,x,y,z) * q;
 
-			x = v.x;
-			y = v.y;
-			z = v.z;
+			Vector u(q.x, q.y, q.z);
+
+			float s = q.w;
+
+			*this = 2.0 * u.dot(*this) * u + (s*s - u.dot(u)) * (*this) + 2.0 * s * u.cross(*this);
+
+
+			//x = v.x;
+			//y = v.y;
+			//z = v.z;
 
 			return *this;
 		}

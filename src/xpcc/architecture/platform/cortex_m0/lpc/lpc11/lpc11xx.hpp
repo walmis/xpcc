@@ -62,7 +62,7 @@
 #include "spi/spi_slave.hpp"
 
 // Chapter 15: I2C bus
-// TODO
+#include "../i2c_master.hpp"
 
 // Chapter 16: C_CAN controller
 // The C_CAN block is available in LPC11Cxx parts only (LPC11C00 series).

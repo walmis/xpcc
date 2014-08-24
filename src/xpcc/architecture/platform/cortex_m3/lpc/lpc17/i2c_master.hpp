@@ -296,11 +296,11 @@ public:
 
 	static bool
 	start(xpcc::I2cDelegate *d) {
-		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
+		if (!isBusy() && d && d->attaching())
 		{
 			newSession = true;
 			DEBUG("\n###");
-			delegate = d;
+			xpcc::accessor::asVolatile(delegate) = d;
 			i2start();
 
 			return true;
@@ -435,7 +435,7 @@ public:
 					i2stop();
 					//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
 					delegate->stopped(xpcc::I2c::DetachCause::NormalStop);
-					delegate = 0;
+					xpcc::accessor::asVolatile(delegate) = 0;
 
 					intClear();
 					break;
@@ -540,7 +540,8 @@ public:
 	}
 
 	static inline bool isBusy() {
-		return xpcc::accessor::asVolatile(delegate);
+		__DMB();
+		return xpcc::accessor::asVolatile(delegate) != 0;
 	}
 
 
@@ -555,7 +556,7 @@ private:
 	static const uint8_t *writePointer;
 	static std::size_t readBytesLeft;
 	static std::size_t writeBytesLeft;
-	static bool newSession;
+	static volatile bool newSession;
 
 	// delegating
 	static xpcc::I2cDelegate *delegate;
@@ -666,7 +667,7 @@ private:
 };
 
 template <int P_I2C>
-bool I2cMaster<P_I2C>::newSession;
+volatile bool I2cMaster<P_I2C>::newSession;
 
 template <int P_I2C>
 uint8_t * I2cMaster<P_I2C>::readPointer;

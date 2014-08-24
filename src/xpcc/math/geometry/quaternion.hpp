@@ -62,8 +62,9 @@ namespace xpcc
 		Quaternion();
 		Quaternion(T inW, T inX, T inY, T inZ);
 		Quaternion(const Vector<T, 3> &axis, T angle);
+		Quaternion(const Vector<T, 3> &u, const Vector<T, 3> &v);
 		Quaternion(const Matrix<T, 4, 1> &rhs);
-		Quaternion(T yaw, T roll, T pitch);
+		Quaternion(T yaw, T pitch, T roll);
 		
 		Quaternion(const Quaternion &rhs);
 		

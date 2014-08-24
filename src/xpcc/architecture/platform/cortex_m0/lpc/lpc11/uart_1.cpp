@@ -48,8 +48,7 @@ xpcc::lpc::Uart1::write(const uint8_t *buffer, uint8_t n)
 {
 	  while (n != 0)
 	  {
-			while ( !(LPC_UART->LSR & LSR_THRE) );
-			LPC_UART->THR = *buffer;
+			write(*buffer);
 			--n; ++buffer;
 	  }
 }

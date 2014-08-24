@@ -89,7 +89,8 @@ public:
 		/* Disable UART interrupts */
 		LPC_UART->IER = 0;
 		/* Disable UART interrupts in NVIC */
-		NVIC_DisableIRQ(UART_IRQn);
+		//NVIC_DisableIRQ(UART_IRQn);
+		NVIC->ICER[0] = 0xFFFFFFFF;
 
 		SysTick->CTRL = (1<<2);
 
@@ -134,6 +135,7 @@ public:
 
 		LPC_SYSCON->UARTCLKDIV = 0;
 
+		LPC_SYSCON->SYSMEMREMAP = 0;
 
 
 		/* make sure 32-bit Timer 1 is turned on before calling ISP */
@@ -144,6 +146,7 @@ public:
 		LPC_SYSCON->SYSAHBCLKCTRL |= 0x10000;
 		/* make sure AHB clock divider is 1:1 */
 		LPC_SYSCON->SYSAHBCLKDIV = 1;
+
 
 		/* Send Reinvoke ISP command to ISP entry point*/
 		command[0] = 57;

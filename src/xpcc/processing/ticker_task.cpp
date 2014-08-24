@@ -65,6 +65,8 @@ void TickerTask::tick() {
 		}
 		task = task->next;
 	}
+	if(idleFunc)
+		idleFunc();
 }
 
 void TickerTask::interrupt(int irqN) {
@@ -76,5 +78,6 @@ void TickerTask::interrupt(int irqN) {
 }
 
 TickerTask* TickerTask::base = 0;
+std::function<void()> TickerTask::idleFunc;
 volatile TickerTask* TickerTask::current = 0;
 }
