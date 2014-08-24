@@ -97,8 +97,8 @@ namespace xpcc
 		Quaternion& operator *= (const T &rhs);
 		Quaternion& operator /= (const T &rhs);
 		
-		float getLength() const;
-		float getLengthSquared() const;
+		T getLength() const;
+		T getLengthSquared() const;
 		
 		Quaternion& scale(float newLength);
 		
@@ -129,7 +129,11 @@ namespace xpcc
 	
 	template<class T>
 	IOStream& operator<<(IOStream& s, const Quaternion<T> &q) {
-		s.printf("Q(%.4f,%.4f,%.4f,%.4f)", q.w, q.x, q.y, q.z);
+		s << "Q(";
+		s << q.w << ", ";
+		s << q.x << ", ";
+		s << q.y << ", ";
+		s << q.z << ")";
 		return s;
 	}
 

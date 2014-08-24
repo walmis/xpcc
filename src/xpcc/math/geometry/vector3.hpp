@@ -152,14 +152,11 @@ namespace xpcc
 		}
 		
 		Vector& rotate(Quaternion<T>& q) {
-			//Quaternion<float> v = q.conjugated() * Quaternion<float>(0.0,x,y,z) * q;
-
 			Vector u(q.x, q.y, q.z);
 
 			float s = q.w;
 
 			*this = 2.0 * u.dot(*this) * u + (s*s - u.dot(u)) * (*this) + 2.0 * s * u.cross(*this);
-
 
 			//x = v.x;
 			//y = v.y;
@@ -265,11 +262,11 @@ namespace xpcc
 	template<typename T>
 	IOStream& operator << (IOStream &s, const Vector<T, 3> &rhs)
 	{
-		if(std::is_same<T, float>::value || std::is_same<T, double>::value) {
-			s.printf("V(%.3f,%.3f,%.3f)", rhs[0], rhs[1], rhs[2]);
-		} else {
-			s.printf("V(%d,%d,%d)", rhs[0], rhs[1], rhs[2]);
-		}
+		s << "V(";
+		s << rhs[0] << ", ";
+		s << rhs[1] << ", ";
+		s << rhs[2] << ")";
+
 		return s;
 	}
 	
