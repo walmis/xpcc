@@ -281,7 +281,21 @@ namespace xpcc
 			rawVal *= r;
 			return *this;
 		}
+
+		template <typename T>
+		Fp32f& operator *= (T r)
+		{
+			*this *= Fp32f<q>(r);
+			return *this;
+		}
 		
+		template <typename T>
+		Fp32f& operator /= (T r)
+		{
+			*this /= Fp32f(r);
+			return *this;
+		}
+
 		Fp32f& operator /= (int32_t r)
 		{ 
 			rawVal /= r;
@@ -432,20 +446,22 @@ namespace xpcc
 			x -= r;
 			return x;
 		}
-		
-		Fp32f operator * (int32_t r) const
+		template <typename T>
+		Fp32f operator * (T r) const
 		{
 			Fp32f x = *this;
-			x *= r;
+			x *= Fp32f(r);
 			return x;
 		}
-		
-		Fp32f operator / (int32_t r) const
+
+		template<typename T>
+		Fp32f operator / (T r) const
 		{
 			Fp32f x = *this;
-			x /= r;
+			x /= Fp32f(r);
 			return x;
 		}
+
 		
 		bool operator >  (int32_t r) const
 		{
@@ -513,14 +529,27 @@ namespace xpcc
 
 	template <uint8_t q>
 	inline Fp32f<q> sin(Fp32f<q> a) {
-		return 0;
+		return std::sin(a);
 	}
 
 	template <uint8_t q>
-	inline Fp32f<q> cos(Fp32f<q> a);
+	inline Fp32f<q> cos(Fp32f<q> a) {
+		return std::cos(a);
+	}
 
 	template <uint8_t q>
-	inline Fp32f<q> sqrt(Fp32f<q> a);
+	inline Fp32f<q> sqrt(Fp32f<q> a) {
+		return std::sqrt(a);
+	}
+
+	template <uint8_t q>
+	inline Fp32f<q> atan(Fp32f<q> a) {
+		return std::sqrt(a);
+	}
+	template <uint8_t q>
+	inline Fp32f<q> atan2(Fp32f<q> a, Fp32f<q> b) {
+		return std::atan2(a, b);
+	}
 
 	template <uint8_t q>
 	inline Fp32f<q> rsqrt(Fp32f<q> a);
@@ -637,6 +666,16 @@ inline xpcc::Fp32f<q> sin(xpcc::Fp32f<q> a) {
 template <uint8_t q>
 inline xpcc::Fp32f<q> cos(xpcc::Fp32f<q> a) {
 	return xpcc::Fp32f<q>(std::cos((float)a));
+}
+
+template <uint8_t q>
+inline xpcc::Fp32f<q> atan(xpcc::Fp32f<q> a) {
+	return xpcc::Fp32f<q>(std::atan((float)a));
+}
+
+template <uint8_t q>
+inline xpcc::Fp32f<q> atan2(xpcc::Fp32f<q> a, xpcc::Fp32f<q> b) {
+	return xpcc::Fp32f<q>(std::atan2((float)a, (float)b));
 }
 
 template <uint8_t q>
