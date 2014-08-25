@@ -321,14 +321,12 @@ xpcc::Quaternion<T>::getLengthSquared() const
 // ----------------------------------------------------------------------------
 template<class T>
 xpcc::Quaternion<T>&
-xpcc::Quaternion<T>::scale(float newLength)
+xpcc::Quaternion<T>::scale(T newLength)
 {
-	float s;
-	if(newLength == 1.0) {
-		s = xpcc::math::fastInvSqrt(getLengthSquared());
-	} else {
-		s = newLength / getLength();
-	}
+	T s;
+
+	s = newLength / getLength();
+
 	w *= s;
 	x *= s;
 	y *= s;
@@ -342,7 +340,7 @@ template<class T>
 xpcc::Quaternion<T>&
 xpcc::Quaternion<T>::normalize()
 {
-	float s = xpcc::math::fastInvSqrt(getLengthSquared());
+	T s = static_cast<T>(1.0) / getLength();
 	w *= s;
 	x *= s;
 	y *= s;
@@ -365,9 +363,9 @@ xpcc::Quaternion<T>::conjugate()
 // ----------------------------------------------------------------------------
 template<class T>
 xpcc::Quaternion<T>
-xpcc::Quaternion<T>::scaled(float newLength) const
+xpcc::Quaternion<T>::scaled(T newLength) const
 {
-	float s = newLength / getLength();
+	T s = newLength / getLength();
 	return Quaternion(w*s, x*s, y*s, z*s);
 }
 

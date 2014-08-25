@@ -208,11 +208,13 @@ namespace xpcc
 		
 		Fp32f()
 		{
-			#if(fpConfig_PRINT_DEBUG_GENERAL == 1)
-				//Port::DebugPrint("FP: New fixed-point object created.");
-			#endif
 		}
 		
+		template<uint8_t w>
+		Fp32f(Fp32f<w> i) {
+			*this = i;
+		}
+
 		Fp32f(int8_t i) : rawVal((int32_t)i << q)
 		{
 			
@@ -239,8 +241,14 @@ namespace xpcc
 		}
 		
 		template<uint8_t w>
-		Fp32f& operator = (Fp32f<w> r) {
+		inline Fp32f& operator = (Fp32f<w> r) {
+			if(w-q < 0) {
+				rawVal = r.rawVal << (q-w);
+			} else {
+				rawVal = r.rawVal >> (w-q);
+			}
 
+			return *this;
 		}
 
 		// Compound Arithmetic Overloads
@@ -619,7 +627,30 @@ namespace xpcc
 	template <uint8_t q>
 	xpcc::IOStream& operator<< (xpcc::IOStream &stream, Fp32f<q> fixedPoint)
 	{
-	    return stream << (float)fixedPoint;
+		int32_t i = fixedPoint.rawVal;
+
+	    if(i < 0) {
+	    	i = -i;
+	    	stream << '-';
+	    }
+
+	    int32_t integer = i >> q;
+	    i &= (1<<q)-1;
+
+	    stream << integer << '.';
+
+	    int32_t quot = (((int64_t)i*100000) >> q);
+
+	    for(int x = 1; x < 100000; x*=10) {
+	    	if(quot < x) {
+	    		stream << '0';
+	    	}
+	    }
+	    if(quot) {
+	    	stream << quot;
+	    }
+
+		return stream;
 	}
 
 

@@ -77,6 +77,7 @@ namespace xpcc
 			x = static_cast<T>(rhs.x);
 			y = static_cast<T>(rhs.y);
 			z = static_cast<T>(rhs.z);
+			return *this;
 		}
 
 		bool operator == (const Quaternion &rhs) const;
@@ -108,13 +109,13 @@ namespace xpcc
 		T getLength() const;
 		T getLengthSquared() const;
 		
-		Quaternion& scale(float newLength);
+		Quaternion& scale(T newLength);
 		
 		/** Rescale to length = 1 */
 		Quaternion& normalize();
 		Quaternion& conjugate();
 
-		Quaternion scaled(float newLength) const;
+		Quaternion scaled(T newLength) const;
 		
 		/** Return a new quaternion with the same direction by the length 1 */
 		Quaternion normalized() const;
