@@ -71,6 +71,14 @@ namespace xpcc
 		Quaternion& operator = (const Matrix<T, 4, 1> &rhs);
 		Quaternion& operator = (const Quaternion &rhs);
 		
+		template<class U>
+		Quaternion& operator = (const Quaternion<U> &rhs) {
+			w = static_cast<T>(rhs.w);
+			x = static_cast<T>(rhs.x);
+			y = static_cast<T>(rhs.y);
+			z = static_cast<T>(rhs.z);
+		}
+
 		bool operator == (const Quaternion &rhs) const;
 		bool operator != (const Quaternion &rhs) const;
 		bool operator < (const Quaternion &rhs) const;

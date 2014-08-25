@@ -238,6 +238,11 @@ namespace xpcc
 		
 		}
 		
+		template<uint8_t w>
+		Fp32f& operator = (Fp32f<w> r) {
+
+		}
+
 		// Compound Arithmetic Overloads
 		
 		Fp32f& operator += (Fp32f r)
@@ -274,13 +279,6 @@ namespace xpcc
 			rawVal %= r.rawVal;
 			return *this;
 		}
-		
-		
-		Fp32f& operator *= (int32_t r)
-		{
-			rawVal *= r;
-			return *this;
-		}
 
 		template <typename T>
 		Fp32f& operator *= (T r)
@@ -293,12 +291,6 @@ namespace xpcc
 		Fp32f& operator /= (T r)
 		{
 			*this /= Fp32f(r);
-			return *this;
-		}
-
-		Fp32f& operator /= (int32_t r)
-		{ 
-			rawVal /= r;
 			return *this;
 		}
 		
@@ -630,29 +622,6 @@ namespace xpcc
 	    return stream << (float)fixedPoint;
 	}
 
-	//===============================================================================================//
-	//======================================== GRAVEYARD ============================================//
-	//===============================================================================================//
-	
-	/*
-	//! @brief		Conversion from fixed-point to float.
-	//! @details	Good for debugging fixed-point arithmetic.
-	//! @warning 	Slow!
-	template <uint8_t q>
-	float Fix32ToFloat(int32_t f)
-	{
-		return (float)f / (1 << q);
-	}
-	
-	//! @brief		Conversion from fixed-point to float.
-	//! @details	Good for debugging fixed-point arithmetic.
-	//! @warning 	Slow!
-	template <uint8_t q>
-	double Fix32ToDouble(int32_t f)
-	{
-		return (double)f / (double)(1 << q);
-	}
-	*/
 
 } // namespace Fp
 
