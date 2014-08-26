@@ -684,9 +684,20 @@ inline xpcc::Fp32f<q> atan2(xpcc::Fp32f<q> a, xpcc::Fp32f<q> b) {
 	return xpcc::Fp32f<q>(std::atan2((float)a, (float)b));
 }
 
-template <uint8_t q>
-inline xpcc::Fp32f<q> sqrt(xpcc::Fp32f<q> a) {
-	return xpcc::Fp32f<q>(std::sqrt((float)a));
+template<uint8_t q>
+inline xpcc::Fp32f<q> sqrt(xpcc::Fp32f<q> s) {
+	xpcc::Fp32f<q> x, px;
+	x = s >> 1;
+
+	int i = 0;
+	do {
+		px = x;
+		x = (s >> 1) / x + (x >> 1);
+		if (i > 10)
+			return 0;
+	} while ((px.rawVal - x.rawVal) != 0);
+
+	return x;
 }
 
 }
