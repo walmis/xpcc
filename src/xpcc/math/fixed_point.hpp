@@ -431,8 +431,14 @@ namespace xpcc
 		//! @}
 		
 		// Overloads Between Fp32f And int32_t
-
 		
+		Fp32f operator >>(int32_t r) const
+		{
+			Fp32f x = *this;
+			x.rawVal >>= r;
+			return x;
+		}
+
 		Fp32f operator + (int32_t r) const
 		{
 			Fp32f x = *this;
