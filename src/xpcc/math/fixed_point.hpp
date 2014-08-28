@@ -103,33 +103,7 @@ namespace xpcc
 	namespace detail {
 		inline uint32_t CountLeadingZeros(uint32_t x)
 		{
-			uint32_t exp = 31;
-		
-			if (x & 0xffff0000) { 
-				exp -= 16; 
-				x >>= 16; 
-			}
-		
-			if (x & 0xff00) { 
-				exp -= 8; 
-				x >>= 8; 
-			}
-			
-			if (x & 0xf0) { 
-				exp -= 4; 
-				x >>= 4; 
-			}
-		
-			if (x & 0xc) { 
-				exp -= 2; 
-				x >>= 2; 
-			}
-			
-			if (x & 0x2) { 
-				exp -= 1; 
-			}
-		
-			return exp;
+			return __builtin_clz(x);
 		}
 	}
 
@@ -230,6 +204,11 @@ namespace xpcc
 		
 		}
 		
+		Fp32f(int i) : rawVal(i << q)
+		{
+
+		}
+
 		Fp32f(float f) : rawVal(FloatToFix32<q>(f))
 		{
 		
@@ -431,19 +410,20 @@ namespace xpcc
 		//! @}
 		
 		// Overloads Between Fp32f And int32_t
-		Fp32f operator <<(int32_t r) const
+		Fp32f operator <<(int r) const
 		{
 			Fp32f x = *this;
 			x.rawVal <<= r;
 			return x;
 		}
 		
-		Fp32f operator >>(int32_t r) const
+		Fp32f operator >>(int r) const
 		{
 			Fp32f x = *this;
 			x.rawVal >>= r;
 			return x;
 		}
+
 
 		Fp32f operator + (int32_t r) const
 		{
@@ -462,7 +442,7 @@ namespace xpcc
 		Fp32f operator * (T r) const
 		{
 			Fp32f x = *this;
-			x *= Fp32f(r);
+			x *= static_cast<Fp32f>(r);
 			return x;
 		}
 
@@ -510,29 +490,40 @@ namespace xpcc
 	// Specializations for use with plain integers
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t q>
-	inline Fp32f<q> operator + (int32_t a, Fp32f<q> b)
-	{ 
-		return b + a; 
-	}
 
-	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t q>
-	inline Fp32f<q> operator - (int32_t a, Fp32f<q> b)
+	template <uint8_t q, typename T>
+	inline Fp32f<q> operator + (T a, Fp32f<q> b)
 	{
-		return -b + a;
+		return b + Fp32f<q>(a);
 	}
 
 	//! @note 		Assumes integer has the same precision as Fp32f
-	template <uint8_t q>
-	inline Fp32f<q> operator * (int32_t a, Fp32f<q> b)
-	{ return b * a; }
+	template <uint8_t q, typename T>
+	inline Fp32f<q> operator - (T a, Fp32f<q> b)
+	{
+		return -b + Fp32f<q>(a);
+	}
 
-	template <uint8_t q>
-	inline Fp32f<q> operator / (int32_t a, Fp32f<q> b)
+
+	template <uint8_t q, typename T>
+	inline Fp32f<q> operator *(T a, Fp32f<q> b)
+	{
+		return Fp32f<q>(a) * b;
+	}
+
+	template <uint8_t q, typename T>
+	inline Fp32f<q> operator / (T a, Fp32f<q> b)
 	{ 
 		Fp32f<q> r(a); 
 		r /= b; 
+		return r;
+	}
+
+	template <uint8_t q, typename T>
+	inline Fp32f<q> operator % (T a, Fp32f<q> b)
+	{
+		Fp32f<q> r(a);
+		r %= b;
 		return r;
 	}
 
@@ -700,7 +691,7 @@ inline xpcc::Fp32f<q> sqrt(xpcc::Fp32f<q> s) {
 		px = x;
 		x = (s >> 1) / x + (x >> 1);
 		if (i > 10)
-			return 0;
+			return (int32_t)0;
 	} while ((px.rawVal - x.rawVal) != 0);
 
 	return x;
