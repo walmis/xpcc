@@ -4,6 +4,7 @@
 // $Id: RH_RF22.cpp,v 1.17 2014/05/30 19:30:54 mikem Exp $
 
 #include <RH_RF22.h>
+#include <cmath>
 
 // Interrupt vectors for the 2 Arduino interrupt pins
 // Each interrupt can be handled by a different instance of RH_RF22, allowing you to have
@@ -360,24 +361,24 @@ bool RH_RF22::setFrequency(float centre, float afcPullInRange)
 {
     uint8_t fbsel = RH_RF22_SBSEL;
     uint8_t afclimiter;
-    if (centre < 240.0 || centre > 960.0) // 930.0 for early silicon
+    if (centre < 240.0f || centre > 960.0f) // 930.0 for early silicon
 	return false;
-    if (centre >= 480.0)
+    if (centre >= 480.0f)
     {
-	if (afcPullInRange < 0.0 || afcPullInRange > 0.318750)
+	if (afcPullInRange < 0.0f || afcPullInRange > 0.318750f)
 	    return false;
 	centre /= 2;
 	fbsel |= RH_RF22_HBSEL;
-	afclimiter = afcPullInRange * 1000000.0 / 1250.0;
+	afclimiter = afcPullInRange * 1000000.0f / 1250.0f;
     }
     else
     {
-	if (afcPullInRange < 0.0 || afcPullInRange > 0.159375)
+	if (afcPullInRange < 0.0f || afcPullInRange > 0.159375f)
 	    return false;
-	afclimiter = afcPullInRange * 1000000.0 / 625.0;
+	afclimiter = afcPullInRange * 1000000.0f / 625.0f;
     }
-    centre /= 10.0;
-    float integerPart = floor(centre);
+    centre /= 10.0f;
+    float integerPart = std::floor(centre);
     float fractionalPart = centre - integerPart;
 
     uint8_t fb = (uint8_t)integerPart - 24; // Range 0 to 23

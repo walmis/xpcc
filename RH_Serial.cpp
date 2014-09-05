@@ -4,7 +4,9 @@
 // $Id: RH_Serial.cpp,v 1.10 2014/06/24 02:40:12 mikem Exp $
 
 #include <RH_Serial.h>
+#if (RH_PLATFORM != RH_PLATFORM_XPCC)
 #include <HardwareSerial.h>
+#endif
 #include <RHCRC.h>
 
 RH_Serial::RH_Serial(HardwareSerial& serial)

@@ -9,7 +9,9 @@
 
 #include <RHGenericSPI.h>
 
-#if (RH_PLATFORM == RH_PLATFORM_STM32) // Maple etc
+#if (RH_PLATFORM == RH_PLATFORM_XPCC) // Maple etc
+
+#elif (RH_PLATFORM == RH_PLATFORM_STM32) // Maple etc
 #include <HardwareSPI.h>
 #elif (RH_PLATFORM == RH_PLATFORM_STM32STD) // STM32F4 Discovery
 #include <HardwareSPI.h>

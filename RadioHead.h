@@ -373,6 +373,8 @@
 #ifndef RadioHead_h
 #define RadioHead_h
 
+#define RH_PLATFORM RH_PLATFORM_XPCC
+
 // Official version numbers are maintained automatically by Makefile:
 #define RH_VERSION_MAJOR 1
 #define RH_VERSION_MINOR 24
@@ -434,6 +436,16 @@
  #define memcpy_P memcpy
  #define Serial SerialUSB
 
+#elif (RH_PLATFORM == RH_PLATFORM_XPCC) // Maple, Flymaple etc
+ #include <wirish.h>
+ #include <stdint.h>
+ #include <string.h>
+ // Defines which timer to use on Maple
+// #define MAPLE_TIMER 1
+ #define PROGMEM
+ #define memcpy_P memcpy
+ #define Serial SerialDBG
+
 #elif (RH_PLATFORM == RH_PLATFORM_STM32STD) // STM32 with STM32F4xx_StdPeriph_Driver 
  #include <stm32f4xx.h>
  #include <wirish.h>	
@@ -479,7 +491,8 @@
 ////////////////////////////////////////////////////
 // Try to be compatible with systems that support yield() and multitasking
 // instead of spin-loops
-#if (RH_PLATFORM == RH_PLATFORM_ARDUINO && ARDUINO >= 155) || (TEENSYDUINO)
+#if (RH_PLATFORM == RH_PLATFORM_ARDUINO && ARDUINO >= 155) || (TEENSYDUINO) || \
+(RH_PLATFORM == RH_PLATFORM_XPCC)
  #define YIELD yield();
 #else
  #define YIELD
@@ -534,5 +547,6 @@
 // This is the address that indicates a broadcast
 #define RH_BROADCAST_ADDRESS 0xff
 
+#include <stdint.h>
 
 #endif

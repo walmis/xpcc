@@ -55,6 +55,10 @@ unsigned long millis()
     return time_in_millis() - start_millis;
 }
 
+long random() {
+	return rand();
+}
+
 long random(long from, long to)
 {
     return from + (random() % (to - from));

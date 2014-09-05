@@ -6,6 +6,8 @@
 
 #include <RHHardwareSPI.h>
 
+#if (RH_PLATFORM != RH_PLATFORM_XPCC)
+
 #if (RH_PLATFORM == RH_PLATFORM_STM32) // Maple etc
 // Declare an SPI interface to use
 HardwareSPI SPI(1);
@@ -253,3 +255,4 @@ void RHHardwareSPI::end()
     return SPI.end();
 }
 
+#endif
