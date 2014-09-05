@@ -103,6 +103,9 @@
 /** Written to boot code*/
 #define ADC_TRIM(n)		    (((n&0xF)<<8))
 
+namespace xpcc {
+namespace lpc17 {
+
 
 /** @brief LPC17xx ADC Peripheral */
 class ADC {
@@ -177,6 +180,13 @@ public:
 		LPC_ADC->ADCR |= ADC_CR_START_MODE_SEL((uint32_t)start_mode);
 	}
 
+	/***
+	 * The AD converter does repeated conversions at up to 200 kHz, scanning (if necessary)
+	 through the pins selected by bits set to ones in the SEL field. The first conversion after the
+	 start corresponds to the least-significant 1 in the SEL field, then higher numbered 1-bits
+	 (pins) if applicable. Repeated conversions can be terminated by clearing this bit, but the
+	 conversion that’s in progress when this bit is cleared will be completed.
+	 */
 	static void burstMode(bool enable = true)
 	{
 		LPC_ADC->ADCR &= ~ADC_CR_BURST;
@@ -247,5 +257,7 @@ public:
 
 };
 
+}
+}
 /**@}*/
 #endif /* ADC_HPP_ */

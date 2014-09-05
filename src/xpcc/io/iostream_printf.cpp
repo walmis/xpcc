@@ -40,6 +40,15 @@ xpcc::IOStream::printf(const char *fmt, ...)
 	va_list ap;
 	va_start(ap, fmt);
 	
+	vprintf(fmt, ap);
+
+	va_end(ap);
+	return *this;
+}
+
+xpcc::IOStream&
+xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
+
 	unsigned char c;
 	
 	// for all chars in format (fmt)
@@ -204,7 +213,6 @@ xpcc::IOStream::printf(const char *fmt, ...)
 		}
 	}
 	
-	va_end(ap);
 	return *this;
 }
 

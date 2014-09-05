@@ -69,7 +69,7 @@ xpcc::Hd44780<E, RW, RS, DATA>::initialize()
 	
 	writeCommand(0x28);		// 2 lines 5*7
 	writeCommand(0x08);		// display off
-	writeCommand(0x01);		// display clear
+	clear();		// display clear
 	writeCommand(0x06);		// cursor increment
 	writeCommand(0x0C);		// on, no cursor, no blink
 }
@@ -120,6 +120,8 @@ xpcc::Hd44780<E, RW, RS, DATA>::writeNibble(uint8_t data)
 	E::set();
 	xpcc::delay_us(1);
 	E::reset();
+
+	//xpcc::delay_us(100);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>
@@ -151,12 +153,13 @@ template <typename E, typename RW, typename RS, typename DATA>
 void
 xpcc::Hd44780<E, RW, RS, DATA>::waitBusy()
 {
-	while (readByte() & 0x80) {
-		// wait until busy flag is reseted
+	if(!std::is_same<xpcc::gpio::Unused, RW>()) {
+		while (readByte() & 0x80) {
+			// wait until busy flag is reseted
+		}
+	} else {
+		xpcc::delay_us (500);   // Commands need > 37us to settle
 	}
-	
-	// the address counter is updated 4 us after the busy flag is reseted
-	xpcc::delay_us(2);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>
@@ -164,6 +167,7 @@ void
 xpcc::Hd44780<E, RW, RS, DATA>::clear()
 {
 	writeCommand(0x01);
+	xpcc::delay_ms (2);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>

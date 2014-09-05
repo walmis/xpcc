@@ -33,6 +33,7 @@
 
 #include <xpcc/architecture/utils.hpp>
 #include <cstring>
+#include <stdarg.h>
 
 #include "iodevice.hpp"
 #include "iodevice_wrapper.hpp"
@@ -116,7 +117,11 @@ namespace xpcc
 			return *this;
 		}
 		
-		
+		IOStream& precision(uint8_t precision) {
+
+			return *this;
+		}
+
 		IOStream&
 		operator << (const unsigned char& v)
 		{
@@ -404,6 +409,9 @@ namespace xpcc
 		IOStream&
 		printf(const char* fmt, ...);
 		
+		IOStream&
+		vprintf(const char* fmt, va_list ap);
+
 	protected :
 		void
 		writeInteger(int16_t value);
@@ -468,6 +476,7 @@ namespace xpcc
 	private:
 		IODevice* const	device;
 		Mode mode;
+		uint8_t precn;
 	};
 	
 	/**
