@@ -169,7 +169,7 @@ void RH_RF22::handleInterrupt()
     uint8_t _lastInterruptFlags[2];
     // Read the interrupt flags which clears the interrupt
     spiBurstRead(RH_RF22_REG_03_INTERRUPT_STATUS1, _lastInterruptFlags, 2);
-
+//    printf("INT %02x %02x\n", _lastInterruptFlags[0], _lastInterruptFlags[1]);
 #if 0
     // Caution: Serial printing in this interrupt routine can cause mysterious crashes
     Serial.print("interrupt ");
@@ -197,37 +197,37 @@ void RH_RF22::handleInterrupt()
 	    restartTransmit();
 	else if (_mode == RHModeRx)
 	    clearRxBuf();
-//	Serial.println("IFFERROR");  
+//	Serial.println("IFFERROR");
     }
     // Caution, any delay here may cause a FF underflow or overflow
     if (_lastInterruptFlags[0] & RH_RF22_ITXFFAEM)
     {
 	// See if more data has to be loaded into the Tx FIFO 
 	sendNextFragment();
-//	Serial.println("ITXFFAEM");  
+//	Serial.println("ITXFFAEM");
     }
     if (_lastInterruptFlags[0] & RH_RF22_IRXFFAFULL)
     {
 	// Caution, any delay here may cause a FF overflow
 	// Read some data from the Rx FIFO
 	readNextFragment();
-//	Serial.println("IRXFFAFULL"); 
+//	Serial.println("IRXFFAFULL");
     }
     if (_lastInterruptFlags[0] & RH_RF22_IEXT)
     {
 	// This is not enabled by the base code, but users may want to enable it
 	handleExternalInterrupt();
-//	Serial.println("IEXT"); 
+//	Serial.println("IEXT");
     }
     if (_lastInterruptFlags[1] & RH_RF22_IWUT)
     {
 	// This is not enabled by the base code, but users may want to enable it
 	handleWakeupTimerInterrupt();
-//	Serial.println("IWUT"); 
+//	Serial.println("IWUT");
     }
     if (_lastInterruptFlags[0] & RH_RF22_IPKSENT)
     {
-//	Serial.println("IPKSENT");   
+//	Serial.println("IPKSENT");
 	_txGood++; 
 	// Transmission does not automatically clear the tx buffer.
 	// Could retransmit if we wanted
@@ -237,7 +237,7 @@ void RH_RF22::handleInterrupt()
     if (_lastInterruptFlags[0] & RH_RF22_IPKVALID)
     {
 	uint8_t len = spiRead(RH_RF22_REG_4B_RECEIVED_PACKET_LENGTH);
-//	Serial.println("IPKVALID");   
+//	Serial.println("IPKVALID");
 
 	// May have already read one or more fragments
 	// Get any remaining unread octets, based on the expected length
@@ -264,7 +264,7 @@ void RH_RF22::handleInterrupt()
     }
     if (_lastInterruptFlags[0] & RH_RF22_ICRCERROR)
     {
-//	Serial.println("ICRCERR");  
+//	Serial.println("ICRCERR");
 	_rxBad++;
 	clearRxBuf();
 	resetRxFifo();
@@ -273,8 +273,8 @@ void RH_RF22::handleInterrupt()
     }
     if (_lastInterruptFlags[1] & RH_RF22_IPREAVAL)
     {
-//	Serial.println("IPREAVAL");  
-	_lastRssi = (int8_t)(-120 + ((spiRead(RH_RF22_REG_26_RSSI) / 2)));
+//	Serial.println("IPREAVAL");
+	_lastRssi = (int8_t)(((int)rssiRead()*100 / 190) - 127);
 	_lastPreambleTime = millis();
 	resetRxFifo();
 	clearRxBuf();
