@@ -72,6 +72,7 @@
 #include "lpc17/pwm.hpp"
 #include "lpc17/i2c_master.hpp"
 #include "lpc17/rit_clock.hpp"
+#include "lpc17/uart.hpp"
 
 #include "lpc17/dma/DMA.h"
 

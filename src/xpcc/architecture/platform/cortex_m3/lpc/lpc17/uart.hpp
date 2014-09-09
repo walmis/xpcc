@@ -279,8 +279,8 @@ namespace lpc17 {
 #define UARTx (reinterpret_cast<LPC_UART_TypeDef*>(P_UART))
 
 template <int P_UART>
-class Uart : ::xpcc::IODevice {
-
+class Uart {
+public:
 	/**
 	 * @brief UART Databit type definitions
 	 */
@@ -353,6 +353,8 @@ class Uart : ::xpcc::IODevice {
 			CfgParity parity = UART_PARITY_NONE,
 			CfgStopBits stopBits = UART_STOPBIT_1) {
 
+		uint32_t tmp;
+
 		if(UARTx == LPC_UART0)
 		{
 			/* Set up clock and power for UART module */
@@ -394,8 +396,6 @@ class Uart : ::xpcc::IODevice {
 			((LPC_UART1_TypeDef *)UARTx)->TER = UART_TER_TXEN;
 			// Wait for current transmit complete
 			while (!(((LPC_UART1_TypeDef *)UARTx)->LSR & UART_LSR_THRE));
-			// Disable Tx
-			((LPC_UART1_TypeDef *)UARTx)->TER = 0;
 
 			// Disable interrupt
 			((LPC_UART1_TypeDef *)UARTx)->/*DLIER.*/IER = 0;
@@ -430,8 +430,6 @@ class Uart : ::xpcc::IODevice {
 			UARTx->TER = UART_TER_TXEN;
 			// Wait for current transmit complete
 			while (!(UARTx->LSR & UART_LSR_THRE));
-			// Disable Tx
-			UARTx->TER = 0;
 
 			// Disable interrupt
 			UARTx->/*DLIER.*/IER = 0;
@@ -528,6 +526,29 @@ class Uart : ::xpcc::IODevice {
 			UARTx->LCR = (uint8_t)(tmp & UART_LCR_BITMASK);
 		}
 	}
+
+	static void write(char c) {
+
+		if(fifoLevel == UART_TX_FIFO_SIZE) {
+			// Wait for THR empty with timeout
+			while (!(UARTx->LSR & UART_LSR_THRE));
+			fifoLevel = 0;
+		}
+
+		UARTx->THR = c;
+
+		fifoLevel++;
+	}
+
+	static bool read(uint8_t& c) {
+		if(UARTx->LCR & UART_LSR_RDR) {
+			c = UARTx->RBR;
+			return true;
+		}
+		return false;
+	}
+
+private:
 
 	static bool uart_set_divisors(uint32_t baudrate)
 	{
@@ -635,30 +656,21 @@ class Uart : ::xpcc::IODevice {
 		return returnStatus;
 	}
 
-	static void write(char c) {
-		if (((LPC_UART1_TypeDef *)UARTx) == LPC_UART1)
-		{
-			((LPC_UART1_TypeDef *)UARTx)->/*RBTHDLR.*/THR = c;
-		}
-		else
-		{
-			UARTx->/*RBTHDLR.*/THR = c;
-		}
-	}
-
-	//overrides
-	void write(char c) override {
-	}
-
-	void flush() override {}
-
-	bool read(char& c) override {
-		return false;
-	}
+	static uint8_t fifoLevel;
 
 
 };
 
+template<int P_UART>
+uint8_t Uart<P_UART>::fifoLevel = 0;
 
+
+
+typedef Uart<(int)LPC_UART0> Uart0;
+typedef Uart<(int)LPC_UART1> Uart1;
+typedef Uart<(int)LPC_UART2> Uart2;
+typedef Uart<(int)LPC_UART3> Uart3;
+
+#undef UARTx
 }
 }
