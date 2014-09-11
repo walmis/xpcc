@@ -63,7 +63,7 @@ namespace xpcc
 	//! @brief		Perform a fixed point multiplication without a 64-bit intermediate result.
 	//!	@note 		This is fast but beware of intermediatry overflow!
 	template <uint8_t q> 
-	inline int32_t FixMulF(int32_t a, int32_t b)
+	constexpr inline int32_t FixMulF(int32_t a, int32_t b)
 	{
 		return (a * b) >> q;
 	}
@@ -72,7 +72,7 @@ namespace xpcc
 	//! 			prevent intermediatry overflow problems.
 	//! @note 		Slower than Fp32f::FixMulF()
 	template <uint8_t q>
-	inline int32_t FixMul(int32_t a, int32_t b)
+	constexpr inline int32_t FixMul(int32_t a, int32_t b)
 	{
 		return (int32_t)(((int64_t)a * b) >> q);
 	}
@@ -148,7 +148,7 @@ namespace xpcc
 	//! @details	Good for inputting values into fixed-point arithmetic.
 	//! @warning	Slow!
 	template <uint8_t q>
-	int32_t FloatToFix32(float f)
+	constexpr int32_t FloatToFix32(float f)
 	{
 		return (int32_t)(f * (1 << q));
 	}
@@ -157,7 +157,7 @@ namespace xpcc
 	//! @details	Good for inputting values into fixed-point arithmetic.
 	//! @warning	Slow!
 	template <uint8_t q>
-	int32_t DoubleToFix32(double f)
+	constexpr int32_t DoubleToFix32(double f)
 	{
 		return (int32_t)(f * (double)(1 << q));
 	}
@@ -180,41 +180,44 @@ namespace xpcc
 		//! @brief		The fixed-point number is stored in this basic data type.
 		int32_t rawVal;			
 		
-		Fp32f()
+		constexpr Fp32f() : rawVal(0)
 		{
 		}
 		
+//		constexpr Fp32f(Fp32f const &i) : rawVal(i.rawVal) {
+//		}
+
 		template<uint8_t w>
 		Fp32f(Fp32f<w> i) {
 			*this = i;
 		}
 
-		Fp32f(int8_t i) : rawVal((int32_t)i << q)
+		constexpr Fp32f(int8_t i) : rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int16_t i) : rawVal((int32_t)i << q)
+		constexpr Fp32f(int16_t i) : rawVal((int32_t)i << q)
 		{
 			
 		}
 		
-		Fp32f(int32_t i) : rawVal(i << q)
+		constexpr Fp32f(int32_t i) : rawVal(i << q)
 		{
 		
 		}
 		
-		Fp32f(int i) : rawVal(i << q)
+		constexpr Fp32f(int i) : rawVal(i << q)
 		{
 
 		}
 
-		Fp32f(float f) : rawVal(FloatToFix32<q>(f))
+		constexpr Fp32f(float f) : rawVal(FloatToFix32<q>(f))
 		{
 		
 		}
 		
-		Fp32f(double f) : rawVal(FloatToFix32<q>((float)f))
+		constexpr Fp32f(double f) : rawVal(FloatToFix32<q>((float)f))
 		{
 		
 		}
@@ -232,13 +235,13 @@ namespace xpcc
 
 		// Compound Arithmetic Overloads
 		
-		Fp32f& operator += (Fp32f r)
+		Fp32f& operator += (const Fp32f r)
 		{
 			rawVal += r.rawVal;
 			return *this;
 		}
 		
-		Fp32f& operator -= (Fp32f r)
+		Fp32f& operator -= (const Fp32f r)
 		{
 			rawVal -= r.rawVal;
 			return *this;

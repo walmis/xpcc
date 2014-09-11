@@ -45,6 +45,7 @@ TickerTask::~TickerTask() {
 }
 
 void TickerTask::yield() {
+	if(!current) return;
 	TickerTask* t = (TickerTask*)current;
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
