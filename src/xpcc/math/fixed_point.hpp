@@ -72,14 +72,14 @@ namespace xpcc
 	//! 			prevent intermediatry overflow problems.
 	//! @note 		Slower than Fp32f::FixMulF()
 	template <uint8_t q>
-	constexpr inline int32_t FixMul(int32_t a, int32_t b)
+	constexpr int32_t FixMul(int32_t a, int32_t b)
 	{
 		return (int32_t)(((int64_t)a * b) >> q);
 	}
 
 	// Fixed point division
 	template <uint8_t q>
-	inline int32_t fixdiv(int32_t a, int32_t b)
+	int32_t fixdiv(const int32_t &a, int32_t b)
 	{
 		#if 0
 			return (int32_t)((((int64_t)a) << q) / b);
@@ -206,6 +206,10 @@ namespace xpcc
 		{
 		
 		}
+		constexpr Fp32f(int64_t i) : rawVal((int32_t)i)
+		{
+
+		}
 		
 		constexpr Fp32f(int i) : rawVal(i << q)
 		{
@@ -323,13 +327,13 @@ namespace xpcc
 		
 		//! @brief		Overload for '/' operator.
 		//! @details	Uses '/=' operator.
-		Fp32f operator / (Fp32f r) const
+		constexpr Fp32f operator / (Fp32f r) const
 		{
-			Fp32f x = *this;
-			x /= r;
-			return x;
+			//Fp32f x = *this;
+			//x /= r;
+			return fixdiv<q>(rawVal, r.rawVal);
 		}
-		
+
 		//! @brief		Overload for '%' operator.
 		//! @details	Uses '%=' operator.
 		Fp32f operator % (Fp32f r) const
@@ -427,18 +431,19 @@ namespace xpcc
 			return x;
 		}
 
-
-		Fp32f operator + (int32_t r) const
+		template <typename T>
+		Fp32f operator + (T r) const
 		{
 			Fp32f x = *this;
-			x += r;
+			x += static_cast<Fp32f>(r);
 			return x;
 		}
 		
-		Fp32f operator - (int32_t r) const
+		template <typename T>
+		Fp32f operator - (T r) const
 		{
 			Fp32f x = *this;
-			x -= r;
+			x -= static_cast<Fp32f>(r);
 			return x;
 		}
 		template <typename T>
@@ -658,9 +663,34 @@ namespace xpcc
 
 		return stream;
 	}
-
-
-} // namespace Fp
+	typedef Fp32f<4> Q4;
+	typedef Fp32f<5> Q5;
+	typedef Fp32f<6> Q6;
+	typedef Fp32f<7> Q7;
+	typedef Fp32f<8> Q8;
+	typedef Fp32f<9> Q9;
+	typedef Fp32f<10> Q10;
+	typedef Fp32f<11> Q11;
+	typedef Fp32f<12> Q12;
+	typedef Fp32f<13> Q13;
+	typedef Fp32f<14> Q14;
+	typedef Fp32f<15> Q15;
+	typedef Fp32f<16> Q16;
+	typedef Fp32f<17> Q17;
+	typedef Fp32f<18> Q18;
+	typedef Fp32f<20> Q20;
+	typedef Fp32f<21> Q21;
+	typedef Fp32f<22> Q22;
+	typedef Fp32f<23> Q23;
+	typedef Fp32f<24> Q24;
+	typedef Fp32f<25> Q25;
+	typedef Fp32f<26> Q26;
+	typedef Fp32f<27> Q27;
+	typedef Fp32f<28> Q28;
+	typedef Fp32f<29> Q29;
+	typedef Fp32f<30> Q30;
+	typedef Fp32f<31> Q31;
+}
 
 namespace std {
 
@@ -699,6 +729,9 @@ inline xpcc::Fp32f<q> sqrt(xpcc::Fp32f<q> s) {
 
 	return x;
 }
+
+
+
 
 }
 
