@@ -158,6 +158,32 @@ public:
 		return SPIx->DR;
 	}
 
+	static uint8_t burstWrite(const uint8_t* buffer, uint8_t len) {
+		if(len > 16)
+			len = 16;
+
+		while (!(SPIx->SR & SPI_SRn_TFE));
+
+		for(int i = 0; i < len; i++) {
+			SPIx->DR = *buffer++;
+		}
+
+		return len;
+	}
+
+	static uint8_t burstRead(uint8_t* buffer, uint8_t len) {
+		if(len > 16)
+			len = 16;
+
+		while (!(SPIx->SR & SPI_SRn_TFE));
+
+		for(int i = 0; i < len; i++) {
+			*buffer++ = SPIx->DR;
+		}
+
+		return len;
+	}
+
 	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
 		//XPCC_LOG_DEBUG .printf("DMA start %x %x %d\n", tx, rx, length);
 		if(prepareTransfer(tx, rx, length)) {
