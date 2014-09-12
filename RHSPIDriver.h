@@ -47,19 +47,19 @@ public:
     /// Initialise the Driver transport hardware and software.
     /// Make sure the Driver is properly configured before calling init().
     /// \return true if initialisation succeeded.
-    bool init();
+    virtual bool init();
 
     /// Reads a single register from the SPI device
     /// \param[in] reg Register number
     /// \return The value of the register
-    uint8_t        spiRead(uint8_t reg);
+    virtual uint8_t        spiRead(uint8_t reg);
 
     /// Writes a single byte to the SPI device
     /// \param[in] reg Register number
     /// \param[in] val The value to write
     /// \return Some devices return a status byte during the first data transfer. This byte is returned.
     ///  it may or may not be meaningfule depending on the the type of device being accessed.
-    uint8_t           spiWrite(uint8_t reg, uint8_t val);
+    virtual uint8_t           spiWrite(uint8_t reg, uint8_t val);
 
     /// Reads a number of consecutive registers from the SPI device using burst read mode
     /// \param[in] reg Register number of the first register
@@ -67,7 +67,7 @@ public:
     /// \param[in] len Number of bytes to read
     /// \return Some devices return a status byte during the first data transfer. This byte is returned.
     ///  it may or may not be meaningfule depending on the the type of device being accessed.
-    uint8_t           spiBurstRead(uint8_t reg, uint8_t* dest, uint8_t len);
+    virtual uint8_t           spiBurstRead(uint8_t reg, uint8_t* dest, uint8_t len);
 
     /// Write a number of consecutive registers using burst write mode
     /// \param[in] reg Register number of the first register
@@ -75,7 +75,7 @@ public:
     /// \param[in] len Number of bytes to write
     /// \return Some devices return a status byte during the first data transfer. This byte is returned.
     ///  it may or may not be meaningfule depending on the the type of device being accessed.
-    uint8_t           spiBurstWrite(uint8_t reg, const uint8_t* src, uint8_t len);
+    virtual uint8_t           spiBurstWrite(uint8_t reg, const uint8_t* src, uint8_t len);
 
 protected:
     /// Reference to the RHGenericSPI instance to use to trasnfer data with teh SPI device
