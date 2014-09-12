@@ -162,7 +162,7 @@ public:
 		if(len > 16)
 			len = 16;
 
-		while (!(SPIx->SR & SPI_SRn_TFE));
+		while (!txFifoEmpty());
 
 		for(int i = 0; i < len; i++) {
 			SPIx->DR = *buffer++;
@@ -175,13 +175,25 @@ public:
 		if(len > 16)
 			len = 16;
 
-		while (!(SPIx->SR & SPI_SRn_TFE));
+		while (!txFifoEmpty());
 
 		for(int i = 0; i < len; i++) {
 			*buffer++ = SPIx->DR;
 		}
 
 		return len;
+	}
+
+	static inline bool rxFifoEmpty() {
+		return !(SPIx->SR & SPI_SRn_RNE);
+	}
+
+	static inline bool txFifoEmpty() {
+		return (SPIx->SR & SPI_SRn_TFE);
+	}
+
+	static inline bool isBusy() {
+		return (SPIx->SR & SPI_SRn_BSY);
 	}
 
 	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
@@ -234,7 +246,7 @@ public:
     static bool
     prepareTransfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
 
-    	if(isRunning()) {
+    	if(isTransferBusy()) {
     		//XPCC_LOG_DEBUG .printf("spi busy\n");
     		return false;
     	}
@@ -316,7 +328,7 @@ public:
     	return true;
     }
 
-    static bool isRunning() {
+    static bool isTransferBusy() {
     	DMA* dma = DMA::instance();
 
     	return (txChannelCfg && dma->Enabled(txChannelCfg->channelNum())) ||
@@ -324,9 +336,9 @@ public:
     }
 
 	static bool
-	isFinished() {
+	isTransferFinished() {
 		if(running) {
-			if(!isRunning()) {
+			if(!isTransferBusy()) {
 				SPIx->DMACR = 0;
 				running = false;
 				return true;
