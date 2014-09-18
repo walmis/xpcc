@@ -39,6 +39,8 @@ namespace lpc17 {
 
 #define SSP_CPSR_BITMASK	((uint32_t)(0xFF))
 
+#define SSP_FIFO_SIZE	(8)
+
 #define SPIx (reinterpret_cast<LPC_SSP_TypeDef*>(Spi_ptr))
 
 template<int Spi_ptr>
@@ -159,8 +161,8 @@ public:
 	}
 
 	static uint8_t burstWrite(const uint8_t* buffer, uint8_t len) {
-		if(len > 16)
-			len = 16;
+		if(len > SSP_FIFO_SIZE)
+			len = SSP_FIFO_SIZE;
 
 		while (!txFifoEmpty());
 
@@ -172,10 +174,10 @@ public:
 	}
 
 	static uint8_t burstRead(uint8_t* buffer, uint8_t len) {
-		if(len > 16)
-			len = 16;
+		if(len > SSP_FIFO_SIZE)
+			len = SSP_FIFO_SIZE;
 
-		while (!txFifoEmpty());
+		while(isBusy());
 
 		for(int i = 0; i < len; i++) {
 			*buffer++ = SPIx->DR;
@@ -184,12 +186,22 @@ public:
 		return len;
 	}
 
+	static inline void flushRx() {
+		while(!rxFifoEmpty()) {
+			uint16_t Dummy = SPIx->DR; /* clear the RxFIFO */
+			(void) Dummy; // unused
+		}
+	}
+
 	static inline bool rxFifoEmpty() {
 		return !(SPIx->SR & SPI_SRn_RNE);
 	}
 
 	static inline bool txFifoEmpty() {
 		return (SPIx->SR & SPI_SRn_TFE);
+	}
+	static inline bool txFifoFull() {
+		return !(SPIx->SR & SPI_SRn_TNF);
 	}
 
 	static inline bool isBusy() {
@@ -251,10 +263,7 @@ public:
     		return false;
     	}
 
-    	while((SPIx->SR & SPI_SRn_RNE)) {
-			uint16_t Dummy = SPIx->DR; /* clear the RxFIFO */
-			(void) Dummy; // unused
-		}
+    	flushRx();
 
     	DMA* dma = DMA::instance();
 
