@@ -684,10 +684,6 @@ std::size_t I2cMaster<P_I2C>::writeBytesLeft;
 template <int P_I2C>
 xpcc::I2c::Operation I2cMaster<P_I2C>::nextOperation;
 
-// delegating
-template <int P_I2C>
-xpcc::I2cDelegate *I2cMaster<P_I2C>::delegate;
-
 template <int P_I2C>
 volatile xpcc::I2cMaster::Error I2cMaster<P_I2C>::error(xpcc::I2cMaster::Error::NoError);
 

@@ -13,36 +13,28 @@
 
 namespace xpcc {
 
-enum class IntSense {
-	EDGE = 0,
+
+enum IntEdge {
+	RISING_EDGE = 1,
+	FALLING_EDGE = 2
 };
 
-enum class IntEdge {
-	SINGLE = 0,
-	DOUBLE = 1
-};
-
-enum class IntEvent {
-	RISING_EDGE = 0,
-	FALLING_EDGE = 1
-};
-
-class GpioInterrupt {
+class GpioInt {
 public:
 
 	static ALWAYS_INLINE
-	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEvent edge) {
+	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEdge edges) {
 		bool result = false;
 		if(irqn == EINT3_IRQn) {
 			if(port == 0 && (LPC_GPIOINT->IntStatus & 1)) {
 
 				if(LPC_GPIOINT->IO0IntStatR & (1<<pin)) {
-					if(edge == IntEvent::RISING_EDGE)
+					if(edges & IntEdge::RISING_EDGE)
 						result = true;
 
 				}
 				if(LPC_GPIOINT->IO0IntStatF & (1<<pin)) {
-					if(edge == IntEvent::FALLING_EDGE)
+					if(edges & IntEdge::FALLING_EDGE)
 						result = true;
 				}
 				if(result)
@@ -52,11 +44,11 @@ public:
 			else if(port == 2 && (LPC_GPIOINT->IntStatus & 4)) {
 
 					if(LPC_GPIOINT->IO2IntStatR & (1<<pin)) {
-						if(edge == IntEvent::RISING_EDGE)
+						if(edges & IntEdge::RISING_EDGE)
 							result = true;
 					}
 					if(LPC_GPIOINT->IO2IntStatF & (1<<pin)) {
-						if(edge == IntEvent::FALLING_EDGE)
+						if(edges & IntEdge::FALLING_EDGE)
 							result = true;
 					}
 					if(result)
@@ -67,40 +59,28 @@ public:
 	}
 
 
-	static void enableGlobalInterrupts() {
+	static ALWAYS_INLINE void enableInterrupts() {
 		NVIC_EnableIRQ(EINT3_IRQn);
 	}
 
-	static void disableGlobalInterrupts() {
+	static ALWAYS_INLINE void disableInterrupts() {
 		NVIC_DisableIRQ(EINT3_IRQn);
 	}
 
 	static ALWAYS_INLINE
-	void enableInterrupt(uint32_t port, uint32_t pin, IntSense sense =
-			IntSense::EDGE, IntEdge edge = IntEdge::SINGLE, IntEvent event =
-			IntEvent::RISING_EDGE) {
+	void enableInterrupt(uint32_t port, uint32_t pin, IntEdge edges = IntEdge::RISING_EDGE) {
 
 		uint32_t mask = 1<<pin;
-		if(edge == IntEdge::SINGLE) {
-			if((port == 0)&&(event==IntEvent::RISING_EDGE))
-				LPC_GPIOINT->IO0IntEnR |= mask;
-			else if ((port == 2)&&(event==IntEvent::RISING_EDGE))
-				LPC_GPIOINT->IO2IntEnR |= mask;
-			else if ((port == 0)&&(event==IntEvent::FALLING_EDGE))
-				LPC_GPIOINT->IO0IntEnF |= mask;
-			else if ((port == 2)&&(event==IntEvent::FALLING_EDGE))
-				LPC_GPIOINT->IO2IntEnF |= mask;
-		} else {
 
-			if(port == 0) {
-				LPC_GPIOINT->IO0IntEnR |= mask;
-				LPC_GPIOINT->IO0IntEnF |= mask;
-			} else if(port == 2) {
-				LPC_GPIOINT->IO2IntEnF |= mask;
-				LPC_GPIOINT->IO2IntEnR |= mask;
-			}
+		if((port == 0)&&(edges & IntEdge::RISING_EDGE))
+			LPC_GPIOINT->IO0IntEnR |= mask;
+		if ((port == 2)&&(edges & IntEdge::RISING_EDGE))
+			LPC_GPIOINT->IO2IntEnR |= mask;
+		if ((port == 0)&&(edges & IntEdge::FALLING_EDGE))
+			LPC_GPIOINT->IO0IntEnF |= mask;
+		if ((port == 2)&&(edges & IntEdge::FALLING_EDGE))
+			LPC_GPIOINT->IO2IntEnF |= mask;
 
-		}
 	}
 
 	static ALWAYS_INLINE
@@ -115,6 +95,14 @@ public:
 			LPC_GPIOINT->IO2IntEnF &= ~mask;
 		}
 	}
+
+	static void attach(uint8_t port, uint8_t pin, std::function<void()> fn,
+			IntEdge edges = IntEdge::RISING_EDGE);
+
+	static IntEdge currentEdge();
+	static uint8_t currentPort();
+	static uint8_t currentPin();
+
 };
 
 } /* namespace xpcc */
