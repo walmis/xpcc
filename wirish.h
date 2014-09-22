@@ -78,8 +78,11 @@ extern void delay(uint32_t millis);
 extern void attachInterrupt(uint8_t, void (*)(void), int mode);
 extern void digitalWrite(uint8_t pin, uint8_t val);
 extern uint8_t digitalRead(uint8_t pin);
-extern void yield();
 extern long random(long from, long to);
+
+extern void rh_yield();
+extern void rh_atomic_block_start();
+extern void rh_atomic_block_end();
 
 //extern long random(long to);
 //extern long random(long from, long to);

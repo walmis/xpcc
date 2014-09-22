@@ -446,6 +446,9 @@
  #define memcpy_P memcpy
  #define Serial SerialDBG
 
+#define ATOMIC_BLOCK_START rh_atomic_block_start()
+#define ATOMIC_BLOCK_END rh_atomic_block_end()
+
 #elif (RH_PLATFORM == RH_PLATFORM_STM32STD) // STM32 with STM32F4xx_StdPeriph_Driver 
  #include <stm32f4xx.h>
  #include <wirish.h>	
@@ -484,8 +487,12 @@
  #define ATOMIC_BLOCK_END } INTRestoreInterrupts(__status);
 #else 
  // TO BE DONE:
+#ifndef ATOMIC_BLOCK_START
  #define ATOMIC_BLOCK_START
+#endif
+#ifndef ATOMIC_BLOCK_END
  #define ATOMIC_BLOCK_END
+#endif
 #endif
 
 ////////////////////////////////////////////////////
@@ -493,7 +500,7 @@
 // instead of spin-loops
 #if (RH_PLATFORM == RH_PLATFORM_ARDUINO && ARDUINO >= 155) || (TEENSYDUINO) || \
 (RH_PLATFORM == RH_PLATFORM_XPCC)
- #define YIELD yield();
+ #define YIELD rh_yield();
 #else
  #define YIELD
 #endif

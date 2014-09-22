@@ -96,7 +96,7 @@ bool RH_RF22::init()
     // Enable interrupt output on the radio. Interrupt line will now go high until
     // an interrupt occurs
     spiWrite(RH_RF22_REG_05_INTERRUPT_ENABLE1, RH_RF22_ENTXFFAEM | RH_RF22_ENRXFFAFULL | RH_RF22_ENPKSENT | RH_RF22_ENPKVALID | RH_RF22_ENCRCERROR | RH_RF22_ENFFERR);
-    spiWrite(RH_RF22_REG_06_INTERRUPT_ENABLE2, RH_RF22_ENPREAVAL);
+    spiWrite(RH_RF22_REG_06_INTERRUPT_ENABLE2, RH_RF22_ENPREAVAL | RH_RF22_ENPOR);
 
     // Set up interrupt handler
     // Since there are a limited number of interrupt glue functions isr*() available,
@@ -225,6 +225,9 @@ void RH_RF22::handleInterrupt()
 	handleWakeupTimerInterrupt();
 //	Serial.println("IWUT");
     }
+    if (_lastInterruptFlags[1] & RH_RF22_IPOR) {
+    	printf("POR!!!\n");
+    }
     if (_lastInterruptFlags[0] & RH_RF22_IPKSENT)
     {
 //	Serial.println("IPKSENT");
@@ -304,7 +307,7 @@ void RH_RF22::reset()
 {
     spiWrite(RH_RF22_REG_07_OPERATING_MODE1, RH_RF22_SWRES);
     // Wait for it to settle
-    delay(1); // SWReset time is nominally 100usec
+    while(!(spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2) & RH_RF22_ICHIPRDY));
 }
 
 uint8_t RH_RF22::statusRead()
