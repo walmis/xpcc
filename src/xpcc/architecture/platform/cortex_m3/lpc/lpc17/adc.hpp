@@ -189,9 +189,11 @@ public:
 	 */
 	static void burstMode(bool enable = true)
 	{
-		LPC_ADC->ADCR &= ~ADC_CR_BURST;
+
 		if (enable){
 			LPC_ADC->ADCR |= ADC_CR_BURST;
+		} else {
+			LPC_ADC->ADCR &= ~ADC_CR_BURST;
 		}
 	}
 
@@ -207,17 +209,19 @@ public:
 
 	static void enableChannelInt(uint8_t channel, bool enable = true)
 	{
-		LPC_ADC->ADINTEN &= ~ADC_INTEN_CH(channel);
 		if (enable){
 			LPC_ADC->ADINTEN |= ADC_INTEN_CH(channel);
+		} else {
+			LPC_ADC->ADINTEN &= ~ADC_INTEN_CH(channel);
 		}
 	}
 
 	static void powerDown(bool powerdown = true)
 	{
-		LPC_ADC->ADCR &= ~ADC_CR_PDN;
 		if (powerdown){
 			LPC_ADC->ADCR |= ADC_CR_PDN;
+		} else {
+			LPC_ADC->ADCR &= ~ADC_CR_PDN;
 		}
 	}
 
