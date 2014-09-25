@@ -63,7 +63,7 @@
 #include "lpc17/debug.hpp"
 
 #include "lpc17/gpio_interrupt.h"
-
+#include "lpc17/iap.hpp"
 #include "lpc17/pinsel.hpp"
 #include "lpc17/clkpwr.hpp"
 #include "lpc17/dac.hpp"
