@@ -226,7 +226,7 @@ void RH_RF22::handleInterrupt()
 //	Serial.println("IWUT");
     }
     if (_lastInterruptFlags[1] & RH_RF22_IPOR) {
-    	printf("POR!!!\n");
+    	//printf("POR!!!\n");
     }
     if (_lastInterruptFlags[0] & RH_RF22_IPKSENT)
     {
@@ -236,6 +236,7 @@ void RH_RF22::handleInterrupt()
 	// Could retransmit if we wanted
 	// RH_RF22 transitions automatically to Idle
 	_mode = RHModeIdle;
+	handleTxComplete();
     }
     if (_lastInterruptFlags[0] & RH_RF22_IPKVALID)
     {
@@ -264,6 +265,7 @@ void RH_RF22::handleInterrupt()
 	_bufLen = len;
 	_mode = RHModeIdle;
 	_rxBufValid = true;
+	handleRxComplete();
     }
     if (_lastInterruptFlags[0] & RH_RF22_ICRCERROR)
     {

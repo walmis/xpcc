@@ -1030,6 +1030,9 @@ public:
     /// Starts the transmitter in the RH_RF22.
     void           setModeTx();
 
+
+    virtual void handleRxComplete() {}
+    virtual void handleTxComplete() {}
     /// Sets the transmitter power output level in register RH_RF22_REG_6D_TX_POWER.
     /// Be a good neighbour and set the lowest power level you need.
     /// After init(), the power will be set to RH_RF22::RH_RF22_TXPOW_8DBM on RF22B
