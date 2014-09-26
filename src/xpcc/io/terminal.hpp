@@ -18,16 +18,15 @@ class Terminal : xpcc::TickerTask {
 public:
 	Terminal(xpcc::IODevice &device) : device(device) {}
 
+	int toInt(const char *p);
+	float toFloat(const char* c);
 
-protected:
-	bool cmp(char* cmd, const char* value) {
+	inline bool cmp(char* cmd, const char* value) {
 		return strcmp(cmd, value) == 0;
 	}
 
+protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
-
-	int to_int(const char *p);
-	float toFloat(const char* c);
 
 	xpcc::IODevice& device;
 

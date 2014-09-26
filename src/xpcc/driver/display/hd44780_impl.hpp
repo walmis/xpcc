@@ -101,6 +101,7 @@ xpcc::Hd44780<E, RW, RS, DATA>::setCursor(uint8_t column, uint8_t line)
 		column += 20;
 	}
 	writeCommand(0x80 | column);
+	waitYield(2);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>
@@ -158,7 +159,7 @@ xpcc::Hd44780<E, RW, RS, DATA>::waitBusy()
 			// wait until busy flag is reseted
 		}
 	} else {
-		xpcc::delay_us (500);   // Commands need > 37us to settle
+		xpcc::delay_us (50);   // Commands need > 37us to settle
 	}
 }
 
@@ -167,7 +168,7 @@ void
 xpcc::Hd44780<E, RW, RS, DATA>::clear()
 {
 	writeCommand(0x01);
-	xpcc::delay_ms (2);
+	waitYield(2);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>

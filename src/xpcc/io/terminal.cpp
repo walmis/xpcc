@@ -77,7 +77,7 @@ static unsigned int htoi(const char s[])
     return result;
 }
 
-int Terminal::to_int(const char *p) {
+int Terminal::toInt(const char *p) {
 
 	if(p[0] == '0' && (p[1] == 'x' || p[1] == 'X')) {
 		return htoi(p);
@@ -114,13 +114,13 @@ float Terminal::toFloat(const char* c) {
 	char* tok;
 	tok = strtok(str, ".");
 
-	int base = to_int(tok);
+	int base = toInt(tok);
 
 	tok = strtok(NULL, ".");
 	if(tok) {
 		uint8_t len = strlen(tok);
 
-		float l = (float)to_int(tok) / ipow(10, len);
+		float l = (float)toInt(tok) / ipow(10, len);
 		l += base;
 		return l;
 

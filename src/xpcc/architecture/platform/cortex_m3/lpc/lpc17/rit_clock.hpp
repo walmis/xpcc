@@ -9,6 +9,7 @@
 #define RIT_CLOCK_HPP_
 
 #include "../lpc17xx.hpp"
+#include "clkpwr.hpp"
 
 namespace xpcc {
 namespace lpc17 {

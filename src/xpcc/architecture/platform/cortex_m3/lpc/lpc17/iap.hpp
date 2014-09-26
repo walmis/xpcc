@@ -40,25 +40,22 @@ public:
 		byte_ctr = 0;
 	}
 
-	unsigned writeFlash(unsigned * dst, char* src, unsigned no_of_bytes);
+	//unsigned writeFlash(unsigned * dst, char* src, unsigned no_of_bytes);
 
-	void findErasePrepareSector(unsigned cclk, unsigned flash_address);
+	void findErasePrepareSector(unsigned flash_address);
 
-	void writeData(unsigned cclk, unsigned flash_address,
+	void writeData(unsigned flash_address,
 			unsigned * flash_data_buf, unsigned count);
 
-	void eraseSector(unsigned start_sector, unsigned end_sector,
-			unsigned cclk);
+	void eraseSector(unsigned start_sector, unsigned end_sector);
 
-	void prepareSector(unsigned start_sector, unsigned end_sector,
-			unsigned cclk);
+	void prepareSector(unsigned start_sector, unsigned end_sector);
 
 	void iapEntry(unsigned param_tab[], unsigned result_tab[]);
 
 	unsigned readPartId();
 
 private:
-	uint8_t flash_buf[512];
 
 	unsigned * flash_address;
 	unsigned byte_ctr;

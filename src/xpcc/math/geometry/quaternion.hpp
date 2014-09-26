@@ -55,7 +55,7 @@ namespace xpcc
 	 * \author	Fabian Greif
 	 * \ingroup	geometry
 	 */
-	template<class T>
+	template<class T = float>
 	class Quaternion
 	{
 	public:

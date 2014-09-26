@@ -97,6 +97,13 @@ namespace xpcc
 		uint8_t
 		readByte();
 		
+		void waitYield(int ms) {
+			xpcc::Timeout<> t(ms);
+			while(!t.isExpired()) {
+				TickerTask::yield();
+			}
+		}
+
 		/// Wait unitl the busy flag is reseted
 		void
 		waitBusy();

@@ -106,7 +106,6 @@ namespace xpcc
 				this->maxErrorSum = static_cast<T>(maxErrorSum * ScaleFactor);
 			}
 			
-		private:
 			T kp;		///< Proportional gain multiplied with ScaleFactor
 			T ki;		///< Integral gain multiplied with ScaleFactor
 			T kd;		///< Differential gain multiplied with ScaleFactor
@@ -193,9 +192,9 @@ namespace xpcc
 			return this->errorSum;
 		}
 		
-	private:
+
 		Parameter parameter;
-		
+	private:
 		T errorSum;
 		T lastError;
 		T output;

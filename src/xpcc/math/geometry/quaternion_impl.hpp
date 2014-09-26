@@ -324,9 +324,11 @@ xpcc::Quaternion<T>&
 xpcc::Quaternion<T>::scale(T newLength)
 {
 	T s;
-
-	s = newLength / getLength();
-
+	if(std::is_same<T, float>::value) {
+		s = newLength * math::fastInvSqrt(getLengthSquared());
+	} else {
+		s = newLength / getLength();
+	}
 	w *= s;
 	x *= s;
 	y *= s;
@@ -340,7 +342,12 @@ template<class T>
 xpcc::Quaternion<T>&
 xpcc::Quaternion<T>::normalize()
 {
-	T s = static_cast<T>(1.0) / getLength();
+	T s;
+	if(std::is_same<T, float>::value) {
+		s = math::fastInvSqrt(getLengthSquared());
+	} else {
+		s = static_cast<T>(1.0) / getLength();
+	}
 	w *= s;
 	x *= s;
 	y *= s;

@@ -100,82 +100,78 @@ const unsigned sector_end_map[MAX_FLASH_SECTOR] = { SECTOR_0_END, SECTOR_1_END,
 		SECTOR_24_END, SECTOR_25_END, SECTOR_26_END, SECTOR_27_END,
 		SECTOR_28_END, SECTOR_29_END };
 
-unsigned IAP::writeFlash(unsigned * dst, char* src,
-		unsigned no_of_bytes) {
-	unsigned i;
-	if (flash_address == 0) {
-		/* Store flash start address */
-		flash_address = (unsigned *) (dst);
-	}
-	for (i = 0; i < no_of_bytes; i++) {
-		flash_buf[(byte_ctr + i)] = *(src + i);
-	}
-	byte_ctr = byte_ctr + no_of_bytes;
-	if (byte_ctr == sizeof(flash_buf)) {
-		/* We have accumulated enough bytes to trigger a flash write */
-		findErasePrepareSector(SystemCoreClock / 1000,
-				(unsigned) flash_address);
+//unsigned IAP::writeFlash(unsigned * dst, char* src,
+//		unsigned no_of_bytes) {
+//	unsigned i;
+//	if (flash_address == 0) {
+//		/* Store flash start address */
+//		flash_address = (unsigned *) (dst);
+//	}
+//	for (i = 0; i < no_of_bytes; i++) {
+//		flash_buf[(byte_ctr + i)] = *(src + i);
+//	}
+//	byte_ctr = byte_ctr + no_of_bytes;
+//	if (byte_ctr == sizeof(flash_buf)) {
+//		/* We have accumulated enough bytes to trigger a flash write */
+//		findErasePrepareSector((unsigned) flash_address);
+//
+//		if (result_table[0] != CMD_SUCCESS) {
+//			return CMD_FAILURE;
+//		}
+//		writeData((unsigned) flash_address,
+//				(unsigned *) flash_buf, sizeof(flash_buf));
+//
+//		if (result_table[0] != CMD_SUCCESS) {
+//			return CMD_FAILURE;
+//		}
+//		/* Reset byte counter and flash address */
+//		byte_ctr = 0;
+//		flash_address = 0;
+//	}
+//	return (CMD_SUCCESS);
+//}
 
-		if (result_table[0] != CMD_SUCCESS) {
-			return CMD_FAILURE;
-		}
-		writeData(SystemCoreClock / 1000, (unsigned) flash_address,
-				(unsigned *) flash_buf, sizeof(flash_buf));
-
-		if (result_table[0] != CMD_SUCCESS) {
-			return CMD_FAILURE;
-		}
-		/* Reset byte counter and flash address */
-		byte_ctr = 0;
-		flash_address = 0;
-	}
-	return (CMD_SUCCESS);
-}
-
-void IAP::findErasePrepareSector(unsigned cclk,
-		unsigned flash_address) {
+void IAP::findErasePrepareSector(unsigned flash_address) {
 	unsigned i;
 	__disable_irq();
 	for (i = USER_START_SECTOR; i <= MAX_USER_SECTOR; i++) {
 		if (flash_address < sector_end_map[i]) {
 			if (flash_address == sector_start_map[i]) {
-				prepareSector(i, i, cclk);
-				eraseSector(i, i, cclk);
+				prepareSector(i, i);
+				eraseSector(i, i);
 			}
-			prepareSector(i, i, cclk);
+			prepareSector(i, i);
 			break;
 		}
 	}
 	__enable_irq();
 }
 
-void IAP::writeData(unsigned cclk, unsigned flash_address,
+void IAP::writeData(unsigned flash_address,
 		unsigned * flash_data_buf, unsigned count) {
 	__disable_irq();
 	param_table[0] = COPY_RAM_TO_FLASH;
 	param_table[1] = flash_address;
 	param_table[2] = (unsigned) (flash_data_buf);
 	param_table[3] = count;
-	param_table[4] = cclk;
+	param_table[4] = SystemCoreClock / 1000;
 	iapEntry(param_table, result_table);
 	__enable_irq();
 }
 
-void IAP::eraseSector(unsigned start_sector, unsigned end_sector,
-		unsigned cclk) {
+void IAP::eraseSector(unsigned start_sector, unsigned end_sector) {
 	param_table[0] = ERASE_SECTOR;
 	param_table[1] = start_sector;
 	param_table[2] = end_sector;
-	param_table[3] = cclk;
+	param_table[3] = SystemCoreClock / 1000;
 	iapEntry(param_table, result_table);
 }
 
-inline void IAP::prepareSector(unsigned start_sector, unsigned end_sector,
-		unsigned cclk) {
+inline void IAP::prepareSector(unsigned start_sector, unsigned end_sector) {
 	param_table[0] = PREPARE_SECTOR_FOR_WRITE;
 	param_table[1] = start_sector;
 	param_table[2] = end_sector;
-	param_table[3] = cclk;
+	param_table[3] = SystemCoreClock / 1000;
 	iapEntry(param_table, result_table);
 }
 

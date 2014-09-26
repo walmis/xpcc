@@ -300,7 +300,7 @@ public:
 		{
 			newSession = true;
 			DEBUG("\n###");
-			xpcc::accessor::asVolatile(delegate) = d;
+			delegate = d;
 			i2start();
 
 			return true;
@@ -310,7 +310,7 @@ public:
 
 	static bool
 	startBlocking(xpcc::I2cDelegate *d) {
-		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
+		if (!isBusy() && d && d->attaching())
 		{
 			newSession = true;
 			DEBUG("\n###");
@@ -435,7 +435,7 @@ public:
 					i2stop();
 					//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
 					delegate->stopped(xpcc::I2c::DetachCause::NormalStop);
-					xpcc::accessor::asVolatile(delegate) = 0;
+					delegate = 0;
 
 					intClear();
 					break;
@@ -541,7 +541,7 @@ public:
 
 	static inline bool isBusy() {
 		__DMB();
-		return xpcc::accessor::asVolatile(delegate) != 0;
+		return delegate != 0;
 	}
 
 
@@ -559,7 +559,7 @@ private:
 	static volatile bool newSession;
 
 	// delegating
-	static xpcc::I2cDelegate *delegate;
+	static xpcc::I2cDelegate* volatile delegate;
 	volatile static xpcc::I2cMaster::Error error;
 
 	static inline void

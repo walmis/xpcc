@@ -11,7 +11,7 @@
 namespace xpcc {
 
 template <>
-xpcc::I2cDelegate *lpc17::I2cMaster1::delegate = 0;
+xpcc::I2cDelegate* volatile lpc17::I2cMaster1::delegate = 0;
 
 extern "C" void I2C1_IRQHandler() {
 	lpc17::I2cMaster1::IRQ();
