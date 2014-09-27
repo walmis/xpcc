@@ -145,10 +145,16 @@ extern uint8_t __heap_end;
 
 //static xpcc::BlockAllocator<uint16_t, 8> allocator;
 
+extern "C" int memsys3Init();
+extern "C" void *memsys3Realloc(void *pPrior, int nBytes);
+extern "C" void memsys3Free(void *pPrior);
+extern "C" void *memsys3Malloc(int nBytes);
+
 extern "C"
 void __xpcc_initialize_memory(void)
 {
 	//allocator.initialize(&__heap_start, &__heap_end);
+	memsys3Init();
 }
 
 extern "C" void *pvPortMalloc( size_t xWantedSize );
@@ -158,7 +164,8 @@ extern "C"
 void *malloc(size_t size)
 {
 	xpcc::atomic::Lock lock;
-	return pvPortMalloc(size);
+	//return pvPortMalloc(size);
+	return memsys3Malloc(size);
 	//return allocator.allocate(size);
 }
 
@@ -166,7 +173,8 @@ extern "C"
 void free(void *p)
 {
 	xpcc::atomic::Lock lock;
-	vPortFree(p);
+	memsys3Free(p);
+	//vPortFree(p);
 	//allocator.free(p);
 }
 
