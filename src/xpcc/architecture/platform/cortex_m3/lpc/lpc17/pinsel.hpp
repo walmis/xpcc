@@ -9,6 +9,8 @@
 #define PINSEL_HPP_
 
 #include <xpcc/architecture.hpp>
+namespace xpcc {
+namespace lpc17 {
 
 class Pinsel {
 public:
@@ -62,4 +64,6 @@ public:
 
 };
 
+}
+}
 #endif /* PINSEL_HPP_ */

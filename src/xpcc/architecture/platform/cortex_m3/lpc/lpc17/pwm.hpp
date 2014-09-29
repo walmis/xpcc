@@ -360,6 +360,7 @@ public:
 
 		// Write Latch register
 		LPC_PWM1 ->LER |= PWM_LER_EN_MATCHn_LATCH(MatchChannel);
+		//LPC_PWM1 ->LER = 0x3F;
 
 		// In case of update now
 		if (UpdateType == PWM_MATCH_UPDATE_NOW) {
@@ -435,6 +436,26 @@ public:
 			LPC_PWM1 ->PCR |= PWM_PCR_PWMENAn(PWMChannel);
 		} else {
 			LPC_PWM1 ->PCR &= (~PWM_PCR_PWMENAn(PWMChannel)) & PWM_PCR_BITMASK;
+		}
+	}
+
+	static uint32_t readMatchRegister(uint8_t MatchChannel) {
+
+		switch (MatchChannel) {
+		case 0:
+			return LPC_PWM1 ->MR0;
+		case 1:
+			return LPC_PWM1 ->MR1;
+		case 2:
+			return LPC_PWM1 ->MR2;
+		case 3:
+			return LPC_PWM1 ->MR3;
+		case 4:
+			return LPC_PWM1 ->MR4;
+		case 5:
+			return LPC_PWM1 ->MR5;
+		case 6:
+			return LPC_PWM1 ->MR6;
 		}
 	}
 

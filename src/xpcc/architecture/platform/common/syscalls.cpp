@@ -118,7 +118,7 @@ _isatty(int /*file*/)
 
 // ----------------------------------------------------------------------------
 /* Support function. Adjusts end of heap to provide more memory to
- * memory allocator. Simple and dumb with no sanity checks.
+ * memory allocator.
  *
  *  struct _reent *r -- re-entrancy structure, used by newlib to
  *                      support multiple threads of operation.
@@ -130,11 +130,22 @@ _isatty(int /*file*/)
  *         Since the _reent struct is not used in the current implementation,
  *         the following messages must be suppressed.
  */
+extern uint8_t __heap_start;
+extern uint8_t __heap_end;
+
 extern "C"
 void *
-_sbrk_r(struct _reent *,  ptrdiff_t)
+_sbrk_r(struct _reent *,  ptrdiff_t size)
 {
-	return 0;
+	static uint8_t *heap_ptr = &__heap_start;
+
+	if((heap_ptr + size) < &__heap_end) {
+		void *base  = heap_ptr;
+		heap_ptr += size;
+		return base;
+	}
+
+	return  (void *) -1;
 }
 
 // ----------------------------------------------------------------------------
@@ -154,29 +165,29 @@ extern "C"
 void __xpcc_initialize_memory(void)
 {
 	//allocator.initialize(&__heap_start, &__heap_end);
-	memsys3Init();
+	//memsys3Init();
 }
 
 extern "C" void *pvPortMalloc( size_t xWantedSize );
 extern "C" void vPortFree( void *pv );
 
-extern "C"
-void *malloc(size_t size)
-{
-	xpcc::atomic::Lock lock;
-	//return pvPortMalloc(size);
-	return memsys3Malloc(size);
-	//return allocator.allocate(size);
-}
-
-extern "C"
-void free(void *p)
-{
-	xpcc::atomic::Lock lock;
-	memsys3Free(p);
-	//vPortFree(p);
-	//allocator.free(p);
-}
+//extern "C"
+//void *malloc(size_t size)
+//{
+//	xpcc::atomic::Lock lock;
+//	//return pvPortMalloc(size);
+//	return memsys3Malloc(size);
+//	//return allocator.allocate(size);
+//}
+//
+//extern "C"
+//void free(void *p)
+//{
+//	xpcc::atomic::Lock lock;
+//	memsys3Free(p);
+//	//vPortFree(p);
+//	//allocator.free(p);
+//}
 
 static uint32_t lfsr = 1;
 extern "C"
