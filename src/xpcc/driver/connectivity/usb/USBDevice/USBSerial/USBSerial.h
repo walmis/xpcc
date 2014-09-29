@@ -102,8 +102,12 @@ public:
     *
     * @returns the number of bytes available
     */
-    uint8_t available() {
-    	return handler.available();
+    int16_t rxAvailable() {
+    	return handler.rxAvailable();
+    }
+
+    int16_t txAvailable() {
+    	return handler.txAvailable();
     }
     
     USBSerialHandler handler;

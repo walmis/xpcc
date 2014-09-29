@@ -50,7 +50,7 @@ namespace xpcc
 	class I2cEeprom : public xpcc::I2cDelegate
 	{
 	public:
-		I2cEeprom(uint8_t address);
+		I2cEeprom(uint8_t address, uint8_t sizeKbits = 2);
 		
 		/**
 		 * \brief	Write byte
@@ -113,7 +113,8 @@ namespace xpcc
 		isAvailable();
 		
 	private:
-		uint8_t address;
+		uint8_t address; //i2c address
+		uint8_t sizeKbytes; //eeprom size
 		uint8_t readSize;
 		uint8_t writeSize;
 		uint8_t auxWriteSize;

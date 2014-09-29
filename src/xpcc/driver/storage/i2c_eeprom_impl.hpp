@@ -34,8 +34,8 @@
 
 // ----------------------------------------------------------------------------
 template <typename I2cMaster>
-xpcc::I2cEeprom<I2cMaster>::I2cEeprom(uint8_t address)
-:	address(address), state(xpcc::I2c::AdapterState::Idle)
+xpcc::I2cEeprom<I2cMaster>::I2cEeprom(uint8_t address, uint8_t size)
+:	address(address), sizeKbytes(size), state(xpcc::I2c::AdapterState::Idle)
 {
 	initialize(0, 0, 0, 0);
 }
@@ -50,7 +50,7 @@ xpcc::I2cEeprom<I2cMaster>::writeByte(uint16_t address, uint8_t data)
 	}
 
 	int i = 0;
-	if(0)
+	if(sizeKbytes > 2)
 		buffer[i++] = address >> 8;
 	buffer[i++] = address;
 	buffer[i++] = data;
@@ -78,7 +78,7 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 
 	while(bytes > 0) {
 		i = 0;
-		if(0)
+		if(sizeKbytes > 2)
 			buffer[i++] = address >> 8;
 		buffer[i++] = address;
 
@@ -128,7 +128,7 @@ xpcc::I2cEeprom<I2cMaster>::readByte(uint16_t address, uint8_t &data)
 		xpcc::TickerTask::yield();
 	}
 	int i = 0;
-	if(0)
+	if(sizeKbytes > 2)
 		buffer[i++] = address >> 8;
 	buffer[i++] = address;
 	initialize(buffer, i, &data, 1);
@@ -145,7 +145,7 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	}
 
 	int i = 0;
-	if(0)
+	if(sizeKbytes > 2)
 		buffer[i++] = address >> 8;
 	buffer[i++] = address;
 	initialize(buffer, i, data, bytes);

@@ -45,7 +45,9 @@ public:
 		this->latency = latency;
 	}
 
-	uint8_t available();
+	uint8_t rxAvailable();
+	uint8_t txAvailable();
+
     void putc(char c);
 	bool getc(char& c);
 

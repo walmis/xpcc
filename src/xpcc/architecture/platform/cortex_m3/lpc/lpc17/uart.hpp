@@ -271,8 +271,6 @@ namespace lpc17 {
  * @{
  */
 
-
-
 /* Accepted Error baud rate value (in percent unit) */
 #define UART_ACCEPTED_BAUDRATE_ERROR	(3)			/*!< Acceptable UART baudrate error */
 
@@ -281,6 +279,7 @@ namespace lpc17 {
 template <int P_UART>
 class Uart {
 public:
+	constexpr static LPC_UART_TypeDef* const uart = (LPC_UART_TypeDef*)(P_UART);
 	/**
 	 * @brief UART Databit type definitions
 	 */
@@ -359,18 +358,21 @@ public:
 		{
 			/* Set up clock and power for UART module */
 			CLKPwr::setClkPower(CLKPwr::PType::PCUART0, true);
+			NVIC_EnableIRQ(UART0_IRQn);
 		}
 
 		if(((LPC_UART1_TypeDef *)UARTx) == LPC_UART1)
 		{
 			/* Set up clock and power for UART module */
 			CLKPwr::setClkPower(CLKPwr::PType::PCUART1, true);
+			NVIC_EnableIRQ(UART1_IRQn);
 		}
 
 		if(UARTx == LPC_UART2)
 		{
 			/* Set up clock and power for UART module */
 			CLKPwr::setClkPower(CLKPwr::PType::PCUART2, true);
+			NVIC_EnableIRQ(UART2_IRQn);
 		}
 
 
@@ -378,6 +380,7 @@ public:
 		{
 			/* Set up clock and power for UART module */
 			CLKPwr::setClkPower(CLKPwr::PType::PCUART3, true);
+			NVIC_EnableIRQ(UART3_IRQn);
 		}
 
 
@@ -516,7 +519,7 @@ public:
 			break;
 		}
 
-		// Write back to LCR, configure FIFO and Disable Tx
+		// Write back to LCR
 		if (((LPC_UART1_TypeDef *)UARTx) ==  LPC_UART1)
 		{
 			((LPC_UART1_TypeDef *)UARTx)->LCR = (uint8_t)(tmp & UART_LCR_BITMASK);
@@ -525,6 +528,14 @@ public:
 		{
 			UARTx->LCR = (uint8_t)(tmp & UART_LCR_BITMASK);
 		}
+	}
+
+	static bool txEmpty() {
+		return UARTx->LSR & UART_LSR_THRE;
+	}
+
+	static bool rxEmpty() {
+		return !(UARTx->LSR & UART_LSR_RDR);
 	}
 
 	static void write(char c) {
@@ -548,7 +559,49 @@ public:
 		return false;
 	}
 
+	static void enableTxCompleteInterrupt(bool en) {
+		if(en)
+			UARTx->IER |= UART_IER_THREINT_EN;
+		else
+			UARTx->IER &= ~UART_IER_THREINT_EN;
+	}
+
+	static void enableRxCompleteInterrupt(bool en) {
+		if(en)
+			UARTx->IER |= UART_IER_RBRINT_EN;
+		else
+			UARTx->IER &= ~UART_IER_RBRINT_EN;
+	}
+
+
+	static void attachTxCompleteInterrupt(std::function<void()> f) {
+		txCallback = f;
+	}
+
+	static void attachRxCompleteInterrupt(std::function<void()> f) {
+		rxCallback = f;
+	}
+
+	static void handleIRQ() {
+		uint32_t intstat = LPC_UART0->IIR;
+		if(!(intstat & 1)) {
+			switch(intstat & 0xF) {
+			case UART_IIR_INTID_THRE:
+				if(txCallback != 0)
+					txCallback();
+				break;
+			case UART_IIR_INTID_RDA:
+				if(rxCallback != 0)
+					rxCallback();
+				break;
+			}
+		}
+	}
+	static std::function<void()> txCallback;
+	static std::function<void()> rxCallback;
 private:
+
+
 
 	static bool uart_set_divisors(uint32_t baudrate)
 	{
@@ -657,14 +710,10 @@ private:
 	}
 
 	static uint8_t fifoLevel;
-
-
 };
 
 template<int P_UART>
 uint8_t Uart<P_UART>::fifoLevel = 0;
-
-
 
 typedef Uart<(int)LPC_UART0> Uart0;
 typedef Uart<(int)LPC_UART1> Uart1;

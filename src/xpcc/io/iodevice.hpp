@@ -30,6 +30,7 @@
 
 #ifndef XPCC__IODEVICE_HPP
 #define XPCC__IODEVICE_HPP
+#include <stdint.h>
 
 namespace xpcc
 {
@@ -42,41 +43,34 @@ namespace xpcc
 	class IODevice
 	{
 	public :
-		IODevice()
-		{
-		}
+		IODevice(){}
 		
 		virtual
-		~IODevice()
-		{
-		}
+		~IODevice()	{}
 		
 		///	Write a single character
-		virtual void
-		write(char c) = 0;
-		
+		virtual void write(char c) = 0;
 		/// Write a C-string
-		virtual void
-		write(const char* str);
-
-		virtual void
-		flush() = 0;
-		
+		virtual void write(const char* str);
 		/// Read a single character
-		virtual bool
-		read(char& c) = 0;
+		virtual bool read(char& c) = 0;
+		virtual void flush() = 0;
+
+		virtual int16_t rxAvailable() {
+			return -1; //unknown
+		}
+		virtual int16_t txAvailable() {
+			return -1;
+		}
+
 
 	private :
 		IODevice(const IODevice&);
 	};
 
 	class NullIODevice : public IODevice {
-
-		void write(char c) override {
-		}
-
+		void write(char c) override {}
 		void flush() override {}
-
 		bool read(char& c) override {
 			return false;
 		}

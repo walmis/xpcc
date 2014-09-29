@@ -104,10 +104,13 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 
 }
 
-uint8_t USBSerialHandler::available() {
+uint8_t USBSerialHandler::rxAvailable() {
 	return rx_buffer.availData();
 }
 
+uint8_t USBSerialHandler::txAvailable() {
+	return tx_buffer.free();
+}
 
 //bool USBSerialHandler::EP2_IN_callback() {
 //	in_request = true;

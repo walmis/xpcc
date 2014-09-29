@@ -113,6 +113,7 @@ every one of it, only a subset which is sufficient for the container.
 #include "container/deque.hpp"
 #include "container/queue.hpp"
 #include "container/stack.hpp"
+#include "container/io_buffer.hpp"
 
 #include "container/linked_list.hpp"
 #include "container/doubly_linked_list.hpp"
