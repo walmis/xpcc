@@ -30,11 +30,13 @@
 #include "iodevice.hpp"
 
 // ----------------------------------------------------------------------------
-void
+size_t
 xpcc::IODevice::write(const char* str)
 {
+	uint16_t count = 0;
 	char c;
 	while ((c = *str++)) {
-		this->write(c);
+		count += this->write(c);
 	}
+	return count;
 }

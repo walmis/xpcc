@@ -20,23 +20,23 @@ public:
 
 	}
 
-	virtual void write(char c) {
-		txbuf.write(c);
+	virtual size_t write(char c) {
+		return txbuf.write(c);
 	}
 	/// Read a single character
-	virtual bool read(char& c) {
-		int16_t ch = rxbuf.read();
-		if(ch < 0) return false;
-		c = ch;
-		return true;
+	virtual int16_t read() {
+		return rxbuf.read();
 	}
+
 	virtual void flush() {
 	}
 
+	//returns available bytes in the rx buffer
 	virtual int16_t rxAvailable() {
 		return rxbuf.bytes_used(); //unknown
 	}
 
+	//returns available bytes in tx buffer
 	virtual int16_t txAvailable() {
 		return txbuf.bytes_free();
 	}

@@ -151,7 +151,7 @@ void Terminal::parse() {
 
 void Terminal::handleTick() {
 
-	if (device.read(buffer[pos])) {
+	if ((buffer[pos] = device.read()) != -1) {
 
 		if (buffer[pos] == '\n') {
 			//remove the newline character

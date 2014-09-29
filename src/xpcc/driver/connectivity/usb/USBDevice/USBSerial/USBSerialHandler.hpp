@@ -49,8 +49,7 @@ public:
 	uint8_t txAvailable();
 
     void putc(char c);
-	bool getc(char& c);
-
+	int16_t getc();
 
 
 protected:

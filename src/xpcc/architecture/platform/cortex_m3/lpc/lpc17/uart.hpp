@@ -421,7 +421,7 @@ public:
 		else
 		{
 			/* FIFOs are empty */
-			UARTx->FCR = ( UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS);
+			UARTx->FCR = ( UART_FCR_FIFO_EN | UART_FCR_RX_RS | UART_FCR_TX_RS | UART_FCR_TRG_LEV3);
 
 
 			// Dummy reading
@@ -574,11 +574,11 @@ public:
 	}
 
 
-	static void attachTxCompleteInterrupt(std::function<void()> f) {
+	static void attachTxCompleteInterrupt(void (*f)()) {
 		txCallback = f;
 	}
 
-	static void attachRxCompleteInterrupt(std::function<void()> f) {
+	static void attachRxCompleteInterrupt(void (*f)()) {
 		rxCallback = f;
 	}
 
@@ -591,17 +591,19 @@ public:
 					txCallback();
 				break;
 			case UART_IIR_INTID_RDA:
+			case UART_IIR_INTID_CTI:
 				if(rxCallback != 0)
 					rxCallback();
+				else
+					UARTx->RBR;
 				break;
 			}
 		}
 	}
-	static std::function<void()> txCallback;
-	static std::function<void()> rxCallback;
+
 private:
-
-
+	static void (*txCallback)();
+	static void (*rxCallback)();
 
 	static bool uart_set_divisors(uint32_t baudrate)
 	{

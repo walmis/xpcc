@@ -67,8 +67,12 @@ void USBSerialHandler::putc(char c) {
 }
 
 
-bool USBSerialHandler::getc(char& c) {
-	return rx_buffer.getNextByte((uint8_t&)c);
+int16_t USBSerialHandler::getc() {
+	char c;
+	if(rx_buffer.getNextByte((uint8_t&)c)) {
+		return c;
+	}
+	return -1;
 }
 
 

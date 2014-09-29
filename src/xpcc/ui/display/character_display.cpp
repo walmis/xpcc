@@ -39,10 +39,11 @@ xpcc::CharacterDisplay::write(char c)
 }
 
 // ----------------------------------------------------------------------------
-void
+size_t
 xpcc::CharacterDisplay::Writer::write(char c)
 {
 	this->parent->write(c);
+	return 1;
 }
 
 void
@@ -50,8 +51,8 @@ xpcc::CharacterDisplay::Writer::flush()
 {
 }
 
-bool
-xpcc::CharacterDisplay::Writer::read(char&)
+int16_t
+xpcc::CharacterDisplay::Writer::read()
 {
-	return false;
+	return -1;
 }

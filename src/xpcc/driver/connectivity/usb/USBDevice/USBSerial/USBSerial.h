@@ -79,17 +79,18 @@ public:
 
 	};
 
-    void
+    size_t
 	write(char c){
     	handler.putc(c);
+    	return 1;
     }
 
     //TODO: implement flush
 	void flush(){};
 
 	/// Read a single character
-	bool read(char& c) {
-		return handler.getc(c);
+	int16_t read() override {
+		return handler.getc();
 	}
 
 	void setLatency(uint8_t ms) {

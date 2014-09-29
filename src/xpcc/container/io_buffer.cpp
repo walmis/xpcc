@@ -17,7 +17,7 @@ size_t IOBuffer::bytes_used() {
 }
 
 IOBuffer::IOBuffer(uint16_t size) :
-		bytes(0), head(0), mask(0), tail(0)
+	head(0), tail(0), mask(0), bytes(0)
 {
 	_allocBuffer(size);
 }

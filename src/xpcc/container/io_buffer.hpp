@@ -32,8 +32,8 @@ private:
 	void _freeBuffer();
 	bool _allocBuffer(uint16_t size);
 
-	volatile uint8_t head, tail;	///< head and tail pointers
-	uint8_t mask;					///< buffer size mask for pointer wrap
+	volatile uint16_t head, tail;	///< head and tail pointers
+	uint16_t mask;					///< buffer size mask for pointer wrap
 	uint8_t *bytes;					///< pointer to allocated buffer
 };
 

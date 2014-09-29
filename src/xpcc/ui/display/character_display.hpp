@@ -117,7 +117,7 @@ protected:
 		}
 
 		/// Draw a single character
-		virtual void
+		virtual size_t
 		write(char c);
 
 		using IODevice::write;
@@ -127,8 +127,8 @@ protected:
 		flush();
 
 		/// unused, returns always \c false
-		virtual bool
-		read(char& c);
+		virtual int16_t
+		read();
 
 	private:
 		CharacterDisplay *parent;

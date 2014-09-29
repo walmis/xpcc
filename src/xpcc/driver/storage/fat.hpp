@@ -224,17 +224,20 @@ namespace xpcc
 				return f_close(&file);
 			}
 			
-			void write(char c) override {
+			size_t write(char c) override {
 				f_putc(c, &file);
+				return 1;
 			}
 
 			void flush() override {
 				f_sync(&file);
 			}
 
-			bool read(char& c) override {
+			int16_t read() override {
 				UINT read  = -1;
-				return f_read(&file, (uint8_t*)&c, 1, &read) == FR_OK;
+				char c;
+				if(f_read(&file, (uint8_t*)&c, 1, &read) != FR_OK) return -1;
+				return c;
 			}
 
 			uint32_t write(uint8_t* buffer, unsigned int len) {
@@ -248,12 +251,12 @@ namespace xpcc
 			bool readLine(uint8_t* line, size_t maxSize) {
 				char tmp;
 				while(1) {
-					if(read(tmp)) {
+					if((tmp = read()) != -1) {
 						if(maxSize) {
 							*line = tmp;
 							if(tmp == '\r') {
 								*line = '\0';
-								read(tmp);
+								tmp = read();
 							}
 							if(tmp == '\n') {
 								*line = '\0';

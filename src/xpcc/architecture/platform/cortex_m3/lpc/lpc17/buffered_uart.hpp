@@ -19,37 +19,53 @@ class BufferedUart : public BufferedIODevice {
 public:
 	BufferedUart(uint32_t baud, uint16_t txS, uint16_t rxS) :
 		BufferedIODevice(txS, rxS) {
+		inst = this;
+
+		Pinsel::setFunc(0, 2, 1);
+		Pinsel::setFunc(0, 3, 1);
 
 		Uart::init(baud);
 
-		Uart::attachTxCompleteInterrupt(std::bind(&BufferedUart::onTxComplete, this));
-		Uart::attachRxCompleteInterrupt(std::bind(&BufferedUart::onRxComplete, this));
+		Uart::attachTxCompleteInterrupt(onTxComplete);
+		Uart::attachRxCompleteInterrupt(onRxComplete);
 
 		Uart::enableTxCompleteInterrupt(true);
 		Uart::enableRxCompleteInterrupt(true);
 
 	}
 
-	void write(char c) {
-
+	size_t write(char c) {
 		if(Uart::txEmpty()) {
 			Uart::write(c);
+			return 1;
 		} else {
-			XPCC_LOG_DEBUG .printf("b\n");
-			BufferedIODevice::write(c);
+			//XPCC_LOG_DEBUG .printf("b %d\n");
+			while(BufferedIODevice::write(c) == 0) {};
+			return 1;
 		}
+
 	}
 
 private:
-	void onTxComplete() {
-		XPCC_LOG_DEBUG .printf("tx %d\n", txbuf.bytes_used());
+	static BufferedUart* inst;
+	static void onTxComplete() {
+		int16_t ch = inst->txbuf.read();
+		if(ch >= 0)
+			Uart::write(ch);
 	}
 
-	void onRxComplete() {
-		XPCC_LOG_DEBUG .printf("rx\n");
+	static void onRxComplete() {
+		while(!Uart::rxEmpty()) {
+			uint8_t ch = 0;
+			Uart::read(ch);
+			inst->rxbuf.write(ch);
+		}
 	}
 
 };
+
+template <typename Uart>
+BufferedUart<Uart>* BufferedUart<Uart>::inst = 0;
 
 }
 }

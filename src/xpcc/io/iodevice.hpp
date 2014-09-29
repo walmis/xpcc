@@ -31,6 +31,7 @@
 #ifndef XPCC__IODEVICE_HPP
 #define XPCC__IODEVICE_HPP
 #include <stdint.h>
+#include <stddef.h>
 
 namespace xpcc
 {
@@ -49,11 +50,11 @@ namespace xpcc
 		~IODevice()	{}
 		
 		///	Write a single character
-		virtual void write(char c) = 0;
+		virtual size_t write(char c) = 0;
 		/// Write a C-string
-		virtual void write(const char* str);
+		virtual size_t write(const char* str);
 		/// Read a single character
-		virtual bool read(char& c) = 0;
+		virtual int16_t read() = 0;
 		virtual void flush() = 0;
 
 		virtual int16_t rxAvailable() {
@@ -69,10 +70,12 @@ namespace xpcc
 	};
 
 	class NullIODevice : public IODevice {
-		void write(char c) override {}
+		size_t write(char c) override {
+			return 1;
+		}
 		void flush() override {}
-		bool read(char& c) override {
-			return false;
+		int16_t read() override {
+			return -1;
 		}
 
 	};
