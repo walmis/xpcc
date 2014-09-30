@@ -27,14 +27,18 @@ public:
 	}
 
 	////----IODevice overrides----//////
-	void write(char c) {
-		if(pos < N)
+	size_t write(char c) {
+		if(pos < N) {
 			buffer[pos++] = c;
+			return 1;
+		}
+		return 0;
 	}
 
-	bool read(char& c) {
-		return false;
+	int16_t read() {
+		return -1;
 	}
+
 	void flush() {}
 };
 
