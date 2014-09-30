@@ -34,6 +34,11 @@ public:
 
 	}
 
+	~BufferedUart() {
+		if(inst == this)
+			inst = 0;
+	}
+
 	size_t write(char c) {
 		if(Uart::txEmpty()) {
 			Uart::write(c);
@@ -49,12 +54,14 @@ public:
 private:
 	static BufferedUart* inst;
 	static void onTxComplete() {
+		if(!inst) return;
 		int16_t ch = inst->txbuf.read();
 		if(ch >= 0)
 			Uart::write(ch);
 	}
 
 	static void onRxComplete() {
+		if(!inst) return;
 		while(!Uart::rxEmpty()) {
 			uint8_t ch = 0;
 			Uart::read(ch);
