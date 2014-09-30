@@ -33,7 +33,7 @@ public:
 
 	//returns available bytes in the rx buffer
 	virtual int16_t rxAvailable() {
-		return rxbuf.bytes_used(); //unknown
+		return rxbuf.bytes_used();
 	}
 
 	//returns available bytes in tx buffer
