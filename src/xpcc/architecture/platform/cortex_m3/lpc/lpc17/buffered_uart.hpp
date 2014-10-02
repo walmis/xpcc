@@ -40,32 +40,37 @@ public:
 	}
 
 	size_t write(char c) {
-		if(Uart::txEmpty()) {
-			Uart::write(c);
-			return 1;
-		} else {
-			//XPCC_LOG_DEBUG .printf("b %d\n");
-			while(BufferedIODevice::write(c) == 0) {};
-			return 1;
+		if(BufferedIODevice::write(c)) {
+			if(Uart::txEmpty()) {
+				onTxComplete();
+				return 1;
+			} else {
+				return 1;
+			}
 		}
-
+		return 0;
 	}
 
 private:
 	static BufferedUart* inst;
 	static void onTxComplete() {
 		if(!inst) return;
-		int16_t ch = inst->txbuf.read();
-		if(ch >= 0)
-			Uart::write(ch);
+		//fill uart fifo
+		for(int i = 0; i < 16; i++) {
+			int16_t ch = inst->txbuf.read();
+			if(ch >= 0) {
+				Uart::put(ch);
+			} else {
+				return;
+			}
+		}
+
 	}
 
 	static void onRxComplete() {
 		if(!inst) return;
 		while(!Uart::rxEmpty()) {
-			uint8_t ch = 0;
-			Uart::read(ch);
-			inst->rxbuf.write(ch);
+			inst->rxbuf.write(Uart::get());
 		}
 	}
 

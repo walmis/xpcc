@@ -40,3 +40,4 @@ xpcc::IODevice::write(const char* str)
 	}
 	return count;
 }
+

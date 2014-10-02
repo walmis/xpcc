@@ -8,6 +8,7 @@
 
 #include "gpio_interrupt.h"
 #include <xpcc/container/linked_list.hpp>
+#include <stdio.h>
 
 namespace xpcc {
 
@@ -56,16 +57,21 @@ extern "C" void EINT3_IRQHandler() {
 	uint32_t i2clrMask = 0;
 	bool result;
 
+    uint32_t rise0 = LPC_GPIOINT->IO0IntStatR;
+    uint32_t fall0 = LPC_GPIOINT->IO0IntStatF;
+    uint32_t rise2 = LPC_GPIOINT->IO2IntStatR;
+    uint32_t fall2 = LPC_GPIOINT->IO2IntStatF;
+
 	for(Entry& e : handlers ) {
 
-		if(e.port == 0 && (LPC_GPIOINT->IntStatus & 1)) {
+		if(e.port == 0) {
 			_currentPort = e.port;
 			_currentPin = e.pin;
 
 			uint32_t mask = (1<<e.pin);
 			result = false;
 
-			if(LPC_GPIOINT->IO0IntStatR & mask) {
+			if(rise0 & mask) {
 				if(e.edges & IntEdge::RISING_EDGE) {
 					_currentEdge = IntEdge::RISING_EDGE;
 					e.func();
@@ -73,7 +79,7 @@ extern "C" void EINT3_IRQHandler() {
 				}
 
 			}
-			if(LPC_GPIOINT->IO0IntStatF & mask) {
+			if(fall0 & mask) {
 				if(e.edges & IntEdge::FALLING_EDGE) {
 					_currentEdge = IntEdge::FALLING_EDGE;
 					e.func();
@@ -84,20 +90,20 @@ extern "C" void EINT3_IRQHandler() {
 				i0clrMask |= mask;
 
 		}
-		else if(e.port == 2 && (LPC_GPIOINT->IntStatus & 4)) {
+		else if(e.port == 2) {
 			_currentPort = e.port;
 			_currentPin = e.pin;
 
 			uint32_t mask = (1<<e.pin);
 			result = false;
-			if(LPC_GPIOINT->IO2IntStatR & mask) {
+			if(rise2 & mask) {
 				if(e.edges & IntEdge::RISING_EDGE) {
 					_currentEdge = IntEdge::RISING_EDGE;
 					e.func();
 					result = true;
 				}
 			}
-			if(LPC_GPIOINT->IO2IntStatF & mask) {
+			if(fall2 & mask) {
 				if(e.edges & IntEdge::FALLING_EDGE) {
 					_currentEdge = IntEdge::FALLING_EDGE;
 					e.func();
@@ -120,7 +126,6 @@ extern "C" void EINT3_IRQHandler() {
 	//if there still are some unhandled pins, run the default irq handler
 	if(LPC_GPIOINT->IO0IntStatF ||  LPC_GPIOINT->IO0IntStatR ||
 			LPC_GPIOINT->IO2IntStatF || LPC_GPIOINT->IO0IntStatR) {
-
 		int irqn = __get_IPSR() - 16;
 		xpcc::TickerTask::interrupt(irqn);
 	}

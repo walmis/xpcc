@@ -49,12 +49,15 @@ namespace xpcc
 		virtual
 		~IODevice()	{}
 		
+		//write blocking
+
 		///	Write a single character
 		virtual size_t write(char c) = 0;
 		/// Write a C-string
 		virtual size_t write(const char* str);
 		/// Read a single character
 		virtual int16_t read() = 0;
+
 		virtual void flush() = 0;
 
 		virtual int16_t rxAvailable() {

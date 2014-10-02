@@ -559,6 +559,16 @@ public:
 		return false;
 	}
 
+	static ALWAYS_INLINE
+	void put(char c) {
+		UARTx->THR = c;
+	}
+
+	static ALWAYS_INLINE
+	char get() {
+		return UARTx->RBR;
+	}
+
 	static void enableTxCompleteInterrupt(bool en) {
 		if(en)
 			UARTx->IER |= UART_IER_THREINT_EN;

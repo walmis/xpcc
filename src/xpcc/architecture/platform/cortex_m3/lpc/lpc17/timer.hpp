@@ -311,6 +311,11 @@ public:
 		return (TIMx->IR) & TIM_IR_CLR(IntFlag);
 	}
 
+	static ALWAYS_INLINE
+	uint32_t getCounterValue() {
+		return TIMx->TC;
+	}
+
 private:
 
 	static ALWAYS_INLINE void initPower() {
