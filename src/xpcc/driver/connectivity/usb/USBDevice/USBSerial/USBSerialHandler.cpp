@@ -29,12 +29,12 @@ void USBSerialHandler::sendPacket(bool blocking) {
 	int size = 0;
 
 	for (int i = 0; i < MAX_CDC_REPORT_SIZE; i++) {
-		buf[i] = tx_buffer.get();
-		size++;
-
-		tx_buffer.pop();
-		if (tx_buffer.isEmpty())
+		int16_t c = tx_buffer.read();
+		if (c < 0)
 			break;
+
+		buf[i] = c;
+		size++;
 	}
 
 	if(blocking)
@@ -47,14 +47,14 @@ void USBSerialHandler::sendPacket(bool blocking) {
 
 void USBSerialHandler::putc(char c) {
 
-	if(tx_buffer.isFull()) {
+	if(!tx_buffer.bytes_free()) {
 		if(!isActive) {
 			return;
 		} else {
 
 			Timeout<> t(5);
 
-			while(tx_buffer.isFull()) {
+			while(!tx_buffer.bytes_free()) {
 				if(!device->configured() || t.isExpired()) {
 					isActive = false;
 					return;
@@ -63,16 +63,12 @@ void USBSerialHandler::putc(char c) {
 		}
 	}
 
-	tx_buffer.push(c);
+	tx_buffer.write(c);
 }
 
 
 int16_t USBSerialHandler::getc() {
-	char c;
-	if(rx_buffer.getNextByte((uint8_t&)c)) {
-		return c;
-	}
-	return -1;
+	return rx_buffer.read();
 }
 
 
@@ -81,10 +77,14 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 
     if(ep == bulkOut) {
 
-    	auto buffer = rx_buffer.getFreeBuffer();
-    	if(buffer) {
-    		if(readEP_NB(buffer->data, &buffer->dataLength)) {
-    			//XPCC_LOG_DEBUG .printf("BO%d\n", buffer->dataLength);
+		uint16_t len = rx_buffer.bytes_free();
+    	if(len >= MAX_PACKET_SIZE_EPBULK) {
+    		uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+    		uint32_t len;
+
+    		if(readEP_NB(buf, &len)) {
+    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
+    			rx_buffer.write(buf, len);
     			return true;
     		}
     	}
@@ -95,7 +95,7 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 
     if(ep == bulkIn) {
 
-    	if(!tx_buffer.isEmpty()) {
+    	if(tx_buffer.bytes_used()) {
     		//XPCC_LOG_DEBUG .printf("bulkIN send\n");
     		sendPacket(false);
     		return true;
@@ -109,11 +109,11 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 }
 
 uint8_t USBSerialHandler::rxAvailable() {
-	return rx_buffer.availData();
+	return rx_buffer.bytes_used();
 }
 
 uint8_t USBSerialHandler::txAvailable() {
-	return tx_buffer.free();
+	return tx_buffer.bytes_free();
 }
 
 //bool USBSerialHandler::EP2_IN_callback() {
@@ -125,8 +125,8 @@ uint8_t USBSerialHandler::txAvailable() {
 void USBSerialHandler::SOF(int frameNumber) {
 	if(device->configured()) {
 
-		if (!tx_buffer.isEmpty() && inEp_request
-				&& (latency_timer.isExpired() || tx_buffer.stored() >= MAX_PACKET_SIZE_EPBULK)) {
+		if (tx_buffer.bytes_used() && inEp_request
+				&& (latency_timer.isExpired() || tx_buffer.bytes_used() >= MAX_PACKET_SIZE_EPBULK)) {
 
 			inEp_request = false;
 			//XPCC_LOG_DEBUG .printf("SOF send\n");
@@ -134,12 +134,15 @@ void USBSerialHandler::SOF(int frameNumber) {
 
 		}
 
-    	auto buffer = rx_buffer.getFreeBuffer();
-    	if(buffer) {
-    		if(readEP_NB(buffer->data, &buffer->dataLength)) {
-    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
-    		}
+		uint16_t len = rx_buffer.bytes_free();
+    	if(len >= MAX_PACKET_SIZE_EPBULK) {
+    		uint8_t buf[MAX_PACKET_SIZE_EPBULK];
+    		uint32_t len;
 
+    		if(readEP_NB(buf, &len)) {
+    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
+    			rx_buffer.write(buf, len);
+    		}
     	}
 	}
 }

@@ -30,7 +30,7 @@ public:
 	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
 			uint8_t bulkOut = EPBULK_OUT, uint8_t intIn = EPINT_IN) :
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
-					intIn), latency_timer() {
+					intIn), latency_timer(), tx_buffer(128), rx_buffer(128){
 
 		inEp_request = true;
 		data_waiting = false;
@@ -59,8 +59,9 @@ protected:
 
 private:
 
-	DoubleBuffer<MAX_CDC_REPORT_SIZE> rx_buffer;
-	xpcc::atomic::Queue<uint8_t, 128> tx_buffer;
+	//DoubleBuffer<MAX_CDC_REPORT_SIZE> rx_buffer;
+	IOBuffer rx_buffer;
+	IOBuffer tx_buffer;
 
 	bool EP_handler(uint8_t ep) override;
 
