@@ -268,18 +268,14 @@ public:
 		if (I2Cx == LPC_I2C0)
 		{
 			temp = CLKPwr::getPCLK(CLKPwr::ClkType::I2C0) / target_clock;
-			NVIC_EnableIRQ(I2C0_IRQn);
 		}
 		else if (I2Cx == LPC_I2C1)
 		{
 			temp = CLKPwr::getPCLK(CLKPwr::ClkType::I2C1) / target_clock;
-			NVIC_EnableIRQ(I2C1_IRQn);
 		}
 		else if (I2Cx == LPC_I2C2)
 		{
 			temp = CLKPwr::getPCLK(CLKPwr::ClkType::I2C2) / target_clock;
-			NVIC_EnableIRQ(I2C2_IRQn);
-
 		}
 
 		reset();
@@ -288,10 +284,12 @@ public:
 		I2Cx->I2SCLH = (uint32_t)(temp / 2);
 		I2Cx->I2SCLL = (uint32_t)(temp - I2Cx->I2SCLH);
 
-		I2Cx->I2CONCLR = (I2C_I2CONCLR_AAC | I2C_I2CONCLR_STAC | I2C_I2CONCLR_I2ENC);
+		I2Cx->I2CONCLR = (I2C_I2CONCLR_AAC | I2C_I2CONCLR_STAC | I2C_I2CONCLR_I2ENC | I2C_I2CONCLR_SIC);
 
 		//enable i2c operation
 		I2Cx->I2CONSET = I2C_I2CONSET_I2EN;
+
+		intCmd(true);
 	}
 
 	static bool
@@ -319,7 +317,7 @@ public:
 
 			while(isBusy()) {
 				//DEBUG_STREAM .printf("d %x\n", delegate);
-				__WFI();
+				//__WFI();
 			}
 
 
@@ -540,7 +538,6 @@ public:
 	}
 
 	static inline bool isBusy() {
-		__DMB();
 		return delegate != 0;
 	}
 
