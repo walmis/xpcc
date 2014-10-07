@@ -11,6 +11,7 @@
 #include <inttypes.h>
 #include <xpcc/io/iodevice.hpp>
 #include <xpcc/container/io_buffer.hpp>
+#include <xpcc/architecture/driver/atomic.hpp>
 
 class BufferedIODevice : public xpcc::IODevice {
 public:
@@ -23,6 +24,11 @@ public:
 	virtual size_t write(char c) {
 		return txbuf.write(c);
 	}
+
+	virtual size_t write(const uint8_t* buf, size_t len) {
+		return txbuf.write(buf, len);
+	}
+
 	/// Read a single character
 	virtual int16_t read() {
 		return rxbuf.read();

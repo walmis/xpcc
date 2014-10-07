@@ -529,12 +529,15 @@ public:
 			UARTx->LCR = (uint8_t)(tmp & UART_LCR_BITMASK);
 		}
 	}
+	static ALWAYS_INLINE bool txBusy() {
+		return !((UARTx->LSR & UART_LSR_THRE) && (UARTx->LSR & UART_LSR_TEMT));
+	}
 
-	static bool txEmpty() {
+	static ALWAYS_INLINE bool txEmpty() {
 		return UARTx->LSR & UART_LSR_THRE;
 	}
 
-	static bool rxEmpty() {
+	static ALWAYS_INLINE bool rxEmpty() {
 		return !(UARTx->LSR & UART_LSR_RDR);
 	}
 

@@ -240,7 +240,7 @@ namespace xpcc
 				return c;
 			}
 
-			uint32_t write(uint8_t* buffer, unsigned int len) {
+			size_t write(uint8_t* buffer, size_t len) {
 				uint32_t written = 0;
 				f_write(&file, (void*)buffer, len, (unsigned int*)&written);
 				return written;

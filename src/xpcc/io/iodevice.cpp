@@ -41,3 +41,11 @@ xpcc::IODevice::write(const char* str)
 	return count;
 }
 
+size_t
+xpcc::IODevice::write(const uint8_t* buf, size_t len) {
+	uint16_t count = 0;
+	while (len--) {
+		count += this->write(*buf++);
+	}
+	return count;
+}

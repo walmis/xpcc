@@ -7,6 +7,7 @@
 
 #include "io_buffer.hpp"
 #include <string.h>
+#include <stdio.h>
 
 size_t IOBuffer::bytes_free() {
 	return ((mask) - ((head - tail) & mask));
@@ -27,7 +28,7 @@ IOBuffer::~IOBuffer() {
 }
 
 size_t IOBuffer::write(const uint8_t* buffer, size_t size) {
-	int16_t space = bytes_free();
+	size_t space = bytes_free();
 	if (space <= 0) {
 		return 0;
 	}
@@ -58,8 +59,7 @@ size_t IOBuffer::write(const uint8_t* buffer, size_t size) {
 }
 
 size_t IOBuffer::write(uint8_t c) {
-	uint8_t i;
-	i = (head + 1) & mask;
+	uint16_t i = (head + 1) & mask;
 
 	// if there isn't enough room for it in the transmit buffer
 	if (i == tail) {
@@ -73,7 +73,7 @@ size_t IOBuffer::write(uint8_t c) {
 }
 
 int16_t IOBuffer::read(void) {
-	uint8_t c;
+	uint16_t c;
 	// if the head and tail are equal, the buffer is empty
 	if ((head == tail))
 		return (-1);
@@ -111,14 +111,15 @@ void IOBuffer::_freeBuffer() {
 }
 
 bool IOBuffer::_allocBuffer(uint16_t size) {
-	uint8_t mask;
-	uint8_t shift;
+	uint16_t mask;
+	uint16_t shift;
 	// init buffer state
 	head = tail = 0;
 	// Compute the power of 2 greater or equal to the requested buffer size
 	// and then a mask to simplify wrapping operations.  Using __builtin_clz
 	// would seem to make sense, but it uses a 256(!) byte table.
 	// Note that we ignore requests for more than BUFFER_MAX space.
+
 	for (shift = 1; (1U << shift) < size; shift++)
 		;
 

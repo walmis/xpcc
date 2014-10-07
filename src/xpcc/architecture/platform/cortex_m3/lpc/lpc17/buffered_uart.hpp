@@ -38,11 +38,21 @@ public:
 		if(inst == this)
 			inst = 0;
 	}
-
+	size_t write(const uint8_t* buf, size_t len) {
+		size_t n;
+		if((n = BufferedIODevice::write(buf, len))) {
+			if(!Uart::txBusy()) {
+				_send();
+			}
+		}
+	}
 	size_t write(char c) {
-		if(BufferedIODevice::write(c)) {
-			if(Uart::txEmpty()) {
-				onTxComplete();
+		if(BufferedIODevice::write(c) > 0) {
+			if(!Uart::txBusy()) {
+				XPCC_LOG_DEBUG .printf("first wr %d %d %d\n", txAvailable(), LPC_UART0->LSR & (1<<6),  LPC_UART0->LSR & (1<<5));
+
+				_send();
+
 				return 1;
 			} else {
 				return 1;
@@ -51,20 +61,27 @@ public:
 		return 0;
 	}
 
+
 private:
 	static BufferedUart* inst;
+
+	bool _send() {
+		int16_t ch = inst->txbuf.read();
+		if(ch < 0) return false;
+
+		Uart::put(ch);
+		return true;
+	}
+
 	static void onTxComplete() {
 		if(!inst) return;
-		//fill uart fifo
-		for(int i = 0; i < 16; i++) {
-			int16_t ch = inst->txbuf.read();
-			if(ch >= 0) {
-				Uart::put(ch);
-			} else {
-				return;
+
+		if(Uart::txEmpty()) {
+			//fill uart fifo
+			for(int i = 0; i < 16; i++) {
+				if(!inst->_send()) return;
 			}
 		}
-
 	}
 
 	static void onRxComplete() {
