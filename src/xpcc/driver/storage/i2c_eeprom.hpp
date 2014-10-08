@@ -114,7 +114,7 @@ namespace xpcc
 		
 	private:
 		uint8_t address; //i2c address
-		uint8_t sizeKbytes; //eeprom size
+		uint8_t sizeKbits; //eeprom size
 		uint8_t readSize;
 		uint8_t writeSize;
 		uint8_t auxWriteSize;
