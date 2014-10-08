@@ -44,13 +44,13 @@ public:
 			if(!Uart::txBusy()) {
 				_send();
 			}
+			return 1;
 		}
+		return 0;
 	}
 	size_t write(char c) {
 		if(BufferedIODevice::write(c) > 0) {
 			if(!Uart::txBusy()) {
-				XPCC_LOG_DEBUG .printf("first wr %d %d %d\n", txAvailable(), LPC_UART0->LSR & (1<<6),  LPC_UART0->LSR & (1<<5));
-
 				_send();
 
 				return 1;
