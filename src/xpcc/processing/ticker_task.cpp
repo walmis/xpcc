@@ -47,6 +47,7 @@ TickerTask::~TickerTask() {
 void TickerTask::yield() {
 	if(!current) return;
 	TickerTask* t = (TickerTask*)current;
+	if(t->inInterruptContext()) return;
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
 		t->blocking = true;

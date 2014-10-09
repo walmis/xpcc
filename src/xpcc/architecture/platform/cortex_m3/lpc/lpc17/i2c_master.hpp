@@ -317,7 +317,7 @@ public:
 
 			while(isBusy()) {
 				//DEBUG_STREAM .printf("d %x\n", delegate);
-				//__WFI();
+				__WFI();
 			}
 
 

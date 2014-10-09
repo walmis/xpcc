@@ -77,6 +77,13 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 	}
 
 	while(bytes > 0) {
+		while(!isAvailable()) {
+			TickerTask::yield();
+			if(t.isExpired()) {
+				return false;
+			}
+		}
+
 		i = 0;
 		if(sizeKbits > 2)
 			buffer[i++] = address >> 8;
@@ -95,13 +102,6 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		bool res = I2cMaster::startBlocking(this);
 		if(!res)
 			return false;
-
-		while(!isAvailable()) {
-			TickerTask::yield();
-			if(t.isExpired()) {
-				return false;
-			}
-		}
 
 		bytes -= n;
 		address += n;

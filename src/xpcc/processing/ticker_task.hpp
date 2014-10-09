@@ -38,6 +38,8 @@ protected:
 		return blocking;
 	}
 
+	bool inInterruptContext();
+
 	///internal pointer to the next tickerTask
 	TickerTask *next;
 
