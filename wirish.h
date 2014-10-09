@@ -74,6 +74,7 @@ typedef enum WiringPinMode {
 
 extern void pinMode(uint8_t pin, WiringPinMode mode);
 extern uint32_t millis();
+extern uint32_t micros();
 extern void delay(uint32_t millis);
 extern void attachInterrupt(uint8_t, void (*)(void), int mode);
 extern void digitalWrite(uint8_t pin, uint8_t val);
