@@ -109,8 +109,9 @@ namespace xpcc
 		inline bool
 		read(uint16_t address, T& data);
 		
-		bool
-		isAvailable();
+		bool isAvailable();
+
+		bool waitAvailable(uint16_t timeout);
 		
 	private:
 		uint8_t address; //i2c address

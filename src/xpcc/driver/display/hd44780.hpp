@@ -100,7 +100,7 @@ namespace xpcc
 		void waitYield(int ms) {
 			xpcc::Timeout<> t(ms);
 			while(!t.isExpired()) {
-				TickerTask::yield();
+				xpcc::yield();
 			}
 		}
 

@@ -34,6 +34,7 @@
 #include <stdint.h>
 
 namespace xpcc {
+
 bool isInterruptContext();
 
 namespace lpc17 {

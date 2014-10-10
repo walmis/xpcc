@@ -9,6 +9,7 @@
 #include <xpcc/processing.hpp>
 #include <xpcc/container.hpp>
 #include <xpcc/debug.hpp>
+#include <xpcc/processing/ticker_task.hpp>
 
 bool xpcc::lpc17::debugIrq = false;
 
@@ -17,6 +18,12 @@ struct irqCounter {
 	uint32_t count;
 	xpcc::Timestamp last;
 };
+namespace xpcc {
+	extern void yield() __attribute__((weak));
+	void yield() {
+		xpcc::TickerTask::yield();
+	}
+}
 
 void debug_irqs(int irqn) {
 	static xpcc::LinkedList<irqCounter> counts;

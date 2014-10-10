@@ -49,4 +49,8 @@
 #include "processing/coop_task.hpp"
 #include "processing/function_pointer.hpp"
 
+namespace xpcc {
+	extern void yield();
+}
+
 #endif	// XPCC__PROCESSING_HPP

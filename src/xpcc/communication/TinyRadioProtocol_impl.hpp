@@ -133,7 +133,7 @@ send:
 		res = transmitFrame(frm);
 		if(res == RadioStatus::SUCCESS) {
 			while((res = driver->checkTxStatus()) == RadioStatus::TRX_BUSY) {
-				TickerTask::yield();
+				yield();
 			}
 		}
 
@@ -143,7 +143,7 @@ send:
 				//resend frame
 				res = transmitFrame();
 				while((res = driver->checkTxStatus()) == RadioStatus::TRX_BUSY) {
-					TickerTask::yield();
+					yield();
 				}
 				if (res == RadioStatus::SUCCESS) {
 					RADIO_DEBUG .printf("Retry successful\n");
@@ -332,7 +332,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 	if (!current_request.timer.isActive()) {
 
 		while(isTxBusy()) {
-			TickerTask::yield();
+			yield();
 		}
 
 		StaticFrame frm;
@@ -361,7 +361,7 @@ inline bool TinyRadioProtocol<Driver, Security>::sendRequest(uint16_t address,
 			res = transmitFrame(frm);
 
 			while(isTxBusy()) {
-				TickerTask::yield();
+				yield();
 			}
 
 			if(res == RadioStatus::SUCCESS) break;

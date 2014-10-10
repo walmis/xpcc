@@ -44,9 +44,9 @@ void Terminal::parse() {
 }
 
 void Terminal::handleTick() {
-
-	if (device.rxAvailable()) {
-		buffer[pos] = device.read();
+	int16_t c;
+	if ((c = device.read()) > 0) {
+		buffer[pos] = c;
 		if (buffer[pos] == '\n') {
 			//remove the newline character
 			buffer[pos] = 0;

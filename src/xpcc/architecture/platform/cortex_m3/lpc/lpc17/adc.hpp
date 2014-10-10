@@ -178,6 +178,10 @@ public:
 	{
 		LPC_ADC->ADCR &= ~ADC_CR_START_MASK;
 		LPC_ADC->ADCR |= ADC_CR_START_MODE_SEL((uint32_t)start_mode);
+
+		if(start_mode == ADCStartMode::START_CONTINUOUS) {
+			ADC::burstMode(true);
+		}
 	}
 
 	/***
@@ -186,24 +190,24 @@ public:
 	 start corresponds to the least-significant 1 in the SEL field, then higher numbered 1-bits
 	 (pins) if applicable. Repeated conversions can be terminated by clearing this bit, but the
 	 conversion that’s in progress when this bit is cleared will be completed.
+	 Remark: START bits must be 000 when BURST = 1 or conversions will not start. If
+	 BURST is set to 1, the ADGINTEN bit in the AD0INTEN register (Table 534) must be set
+	 to 0.
 	 */
 	static void burstMode(bool enable = true)
 	{
-
+		LPC_ADC->ADCR &= ~ADC_CR_BURST;
 		if (enable){
+			enableGlobalInt(false);
 			LPC_ADC->ADCR |= ADC_CR_BURST;
-		} else {
-			LPC_ADC->ADCR &= ~ADC_CR_BURST;
 		}
 	}
 
 	static void enableChannel(uint8_t channel, bool enable = true)
 	{
-
+		LPC_ADC->ADCR &= ~ADC_CR_CH_SEL(channel);
 		if (enable) {
 			LPC_ADC->ADCR |= ADC_CR_CH_SEL(channel);
-		} else {
-			LPC_ADC->ADCR &= ~ADC_CR_CH_SEL(channel);
 		}
 	}
 
@@ -218,7 +222,7 @@ public:
 
 	static void powerDown(bool powerdown = true)
 	{
-		if (powerdown){
+		if (!powerdown){
 			LPC_ADC->ADCR |= ADC_CR_PDN;
 		} else {
 			LPC_ADC->ADCR &= ~ADC_CR_PDN;
