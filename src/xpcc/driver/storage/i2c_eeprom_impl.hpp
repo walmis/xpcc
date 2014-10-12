@@ -45,19 +45,7 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::writeByte(uint16_t address, uint8_t data)
 {
-	while(I2cMaster::isBusy()) {
-		xpcc::yield();
-	}
-	if(!waitAvailable(20)) return false;
-
-	int i = 0;
-	if(sizeKbits > 2)
-		buffer[i++] = address >> 8;
-	buffer[i++] = address;
-	buffer[i++] = data;
-	initialize(buffer, i, 0, 0);
-	
-	return I2cMaster::startBlocking(this);
+	return write(address, &data, 1);
 }
 
 template <typename I2cMaster>
@@ -67,17 +55,13 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 	uint8_t i;
 	uint8_t n;
 
-	while(I2cMaster::isBusy()) {
+	while(state == AdapterState::Busy) {
 		xpcc::yield();
 	}
 
-	if(!waitAvailable(5)) return false;
-
 	while(bytes > 0) {
-		if(!waitAvailable(20)) return false;
-
 		i = 0;
-		if(sizeKbits > 2)
+		if(sizeKbits >= 128)
 			buffer[i++] = address >> 8;
 		buffer[i++] = address;
 
@@ -91,16 +75,40 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
 
 		initialize(buffer, i, data, n, 0, 0);
-		bool res = I2cMaster::startBlocking(this);
-		if(!res)
+		if(!I2cMaster::startBlocking(this)) {
 			return false;
+		}
+
+		if(!waitAvailable(20)) return false;
 
 		bytes -= n;
 		address += n;
 		data += n;
 	}
 
-	return true;
+	return state != AdapterState::Error;
+}
+
+
+template <typename I2cMaster>
+bool
+xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
+{
+	while(state == AdapterState::Busy) {
+		xpcc::yield();
+	}
+
+	int i = 0;
+	if(sizeKbits >= 128)
+		buffer[i++] = address >> 8;
+	buffer[i++] = address;
+	initialize(buffer, i, data, bytes);
+	
+	if(!I2cMaster::startBlocking(this)) {
+		return false;
+	}
+
+	return state != AdapterState::Error;
 }
 
 template <typename I2cMaster> template <typename T>
@@ -116,37 +124,7 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::readByte(uint16_t address, uint8_t &data)
 {
-	while(I2cMaster::isBusy()) {
-		xpcc::yield();
-	}
-	if(!waitAvailable(20)) return false;
-
-	int i = 0;
-	if(sizeKbits > 2)
-		buffer[i++] = address >> 8;
-	buffer[i++] = address;
-	initialize(buffer, i, &data, 1);
-	
-	return I2cMaster::startBlocking(this);
-}
-
-template <typename I2cMaster>
-bool
-xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
-{
-	while(I2cMaster::isBusy()) {
-		xpcc::yield();
-	}
-
-	if(!waitAvailable(20)) return false;
-
-	int i = 0;
-	if(sizeKbits > 2)
-		buffer[i++] = address >> 8;
-	buffer[i++] = address;
-	initialize(buffer, i, data, bytes);
-	
-	return I2cMaster::startBlocking(this);
+	return read(address, &data, 1);
 }
 
 template <typename I2cMaster> template <typename T>
@@ -155,6 +133,7 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, T& data)
 {
 	return read(address, reinterpret_cast<uint8_t *>(&data), sizeof(T));
 }
+
 template <typename I2cMaster>
 bool xpcc::I2cEeprom<I2cMaster>::waitAvailable(uint16_t timeout) {
 	xpcc::Timeout<> t(timeout);
@@ -171,7 +150,9 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::isAvailable()
 {
-	initialize(0, 0, 0, 0);
+	uint8_t c = 0xFF;
+	if(!initialize(0, 0, &c, 1))
+		return false;
 	
 	if (I2cMaster::startBlocking(this))
 	{

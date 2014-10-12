@@ -175,6 +175,7 @@ public:
 class I2cDelegate : public I2c
 {
 public:
+	I2cDelegate() : next(0) {}
 	/// Contains the information required to begin an I2C transfer
 	struct Starting {
 		uint8_t address;	///< the slave address excluding read/write bit
@@ -194,6 +195,9 @@ public:
 		uint8_t *buffer;			///< buffer to be filled with the bytes received from the slave
 		std::size_t size;			///< number of bytes to be read
 	};
+
+	//support linked list of delegates
+	I2cDelegate* volatile next;
 
 public:
 	/**

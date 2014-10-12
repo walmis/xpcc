@@ -294,36 +294,24 @@ public:
 
 	static bool
 	start(xpcc::I2cDelegate *d) {
-		if (!isBusy() && d && d->attaching())
-		{
-			newSession = true;
-			DEBUG("\n###");
-			delegate = d;
-			i2start();
-
-			return true;
+		if(!attachDelegate(d)) {
+			return false;
 		}
-		return false;
+
+		return true;
 	}
 
 	static bool
 	startBlocking(xpcc::I2cDelegate *d) {
-		if (!isBusy() && d && d->attaching())
-		{
-			newSession = true;
-			DEBUG("\n###");
-			delegate = d;
-			i2start();
-
-			while(isBusy()) {
-				//DEBUG_STREAM .printf("d %x\n", delegate);
-				__WFI();
-			}
-
-
-			return true;
+		if(!attachDelegate(d)) {
+			return false;
 		}
-		return false;
+
+		while(delegate) {
+			__WFI();
+		}
+
+		return true;
 	}
 
 	static Error
@@ -335,8 +323,17 @@ public:
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
-		if (delegate) delegate->stopped(cause);
-		delegate = 0;
+		if (delegate) {
+			delegate->stopped(cause);
+			//attach new delegate in the chain
+			while((delegate = delegate->next) != 0) {
+				if(delegate->attaching()) {
+					newSession = true;
+					i2start();
+					return;
+				}
+			}
+		}
 	}
 
 	static void IRQ() {
@@ -367,21 +364,19 @@ public:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::READ;
 						initializeRead(delegate->reading());
 						break;
-
 					case xpcc::I2c::Operation::Write:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 						initializeWrite(delegate->writing());
+						break;
+					case xpcc::I2c::Operation::Restart:
+						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
+						initializeRestartAfterAddress();
 						break;
 
 					default:
 					case xpcc::I2c::Operation::Stop:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 						initializeStopAfterAddress();
-						break;
-
-					case xpcc::I2c::Operation::Restart:
-						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
-						initializeRestartAfterAddress();
 						break;
 				}
 				DEBUG("send address " << address);
@@ -431,11 +426,10 @@ public:
 					DEBUG("Stop");
 
 					i2stop();
-					//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
-					delegate->stopped(xpcc::I2c::DetachCause::NormalStop);
-					delegate = 0;
-
 					intClear();
+
+					reset(xpcc::I2c::DetachCause::NormalStop);
+
 					break;
 				}
 			}
@@ -481,7 +475,6 @@ public:
 				DEBUG("Restart");
 				i2start();
 
-				//TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN) | (1 << TWIE);
 				break;
 
 			default:
@@ -490,8 +483,7 @@ public:
 
 				i2stop();
 
-				delegate->stopped(xpcc::I2c::DetachCause::NormalStop);
-				delegate = 0;
+				reset(xpcc::I2c::DetachCause::NormalStop);
 				break;
 			}
 
@@ -528,10 +520,9 @@ public:
 				DEBUG("Error::Unknown");
 			}
 			newSession = false;
+			intClear();
 
 			reset(xpcc::I2c::DetachCause::ErrorCondition);
-
-			intClear();
 			break;
 		}
 
@@ -543,6 +534,27 @@ public:
 
 
 private:
+	static bool attachDelegate(xpcc::I2cDelegate *d) {
+		if(!delegate && d->attaching()) {
+			delegate = d;
+			newSession = true;
+			i2start();
+			return true;
+		} else {
+			xpcc::I2cDelegate* p = delegate;
+			while(p->next) {
+				if(p == d) {
+					//the same delegate is already in the chain
+					return false;
+				}
+				p = p->next;
+			}
+			//add the new delegate to the end of the list
+			p->next	= d;
+			return true;
+		}
+	}
+
 	static void
 	initializeWithPrescaler(uint16_t baud);
 

@@ -37,11 +37,11 @@ namespace xpcc
 {
 	/**
 	 * \brief	I2C Eeprom
-	 * 
+	 *
 	 * Compatible with the 24C256 (ST) and 24FC1025 (Microchip) family and other
 	 * I2C eeprom with an 16-bit address pointer.
 	 * Base address for most 24xxyyyy eeproms is 0xA0.
-	 * 
+	 *
 	 * \ingroup	storage
 	 * \author	Fabian Greif
 	 * \author	Niklas Hauser

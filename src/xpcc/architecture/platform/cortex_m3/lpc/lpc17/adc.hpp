@@ -153,7 +153,7 @@ public:
 		 * ADC clock = PCLK_ADC0 / (CLKDIV + 1);
 		 * ADC rate = ADC clock / 65;
 		 */
-		temp = (temp /(rate * 65)) - 1;
+		temp = (temp /(rate * 65));
 		tmp |=  ADC_CR_CLKDIV(temp);
 
 		LPC_ADC->ADCR = tmp;
@@ -205,9 +205,10 @@ public:
 
 	static void enableChannel(uint8_t channel, bool enable = true)
 	{
-		LPC_ADC->ADCR &= ~ADC_CR_CH_SEL(channel);
 		if (enable) {
 			LPC_ADC->ADCR |= ADC_CR_CH_SEL(channel);
+		} else {
+			LPC_ADC->ADCR &= ~ADC_CR_CH_SEL(channel);
 		}
 	}
 
