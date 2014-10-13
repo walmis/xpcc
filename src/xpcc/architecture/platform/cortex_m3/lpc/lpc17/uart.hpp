@@ -541,7 +541,7 @@ public:
 		return !(UARTx->LSR & UART_LSR_RDR);
 	}
 
-	static void write(char c) {
+	static size_t write(char c) {
 
 		if(fifoLevel == UART_TX_FIFO_SIZE) {
 			// Wait for THR empty with timeout
@@ -552,14 +552,18 @@ public:
 		UARTx->THR = c;
 
 		fifoLevel++;
+		return 1;
 	}
 
-	static bool read(uint8_t& c) {
+	static void flush() {
+		while (txBusy());
+	}
+
+	static int16_t read() {
 		if(UARTx->LCR & UART_LSR_RDR) {
-			c = UARTx->RBR;
-			return true;
+			return UARTx->RBR;
 		}
-		return false;
+		return -1;
 	}
 
 	static ALWAYS_INLINE
@@ -596,7 +600,7 @@ public:
 	}
 
 	static void handleIRQ() {
-		uint32_t intstat = LPC_UART0->IIR;
+		uint32_t intstat = UARTx->IIR;
 		if(!(intstat & 1)) {
 			switch(intstat & 0xF) {
 			case UART_IIR_INTID_THRE:

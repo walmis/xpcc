@@ -21,9 +21,6 @@ public:
 		BufferedIODevice(txS, rxS) {
 		inst = this;
 
-		Pinsel::setFunc(0, 2, 1);
-		Pinsel::setFunc(0, 3, 1);
-
 		Uart::init(baud);
 
 		Uart::attachTxCompleteInterrupt(onTxComplete);

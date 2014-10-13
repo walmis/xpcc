@@ -79,30 +79,32 @@ namespace xpcc
 		{
 		}
 
-		virtual void
+		virtual size_t
 		write(char c)
 		{
-			T::write(c);
+			return T::write(c);
 		}
 
-		virtual void
+		virtual size_t
 		write(const char *s)
 		{
+			size_t n = 0;
 			char c;
 			while ((c = *s++)) {
-				T::write(static_cast<uint8_t>(c));
+				n += T::write(static_cast<uint8_t>(c));
 			}
+			return n;
 		}
 
 		virtual void
 		flush()
 		{
+			T::flush();
 		}
 
-		virtual bool
-		read(char& c)
+		int16_t read()
 		{
-			return T::read((uint8_t&)c);
+			return T::read();
 		}
 	};
 }

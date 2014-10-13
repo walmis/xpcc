@@ -218,8 +218,8 @@ namespace lpc17
 #define SERIAL_DEBUGGING 0
 
 #if SERIAL_DEBUGGING
-#	define DEBUG_STREAM XPCC_LOG_DEBUG
-#	define DEBUG(x) XPCC_LOG_DEBUG << x << "\n"
+#	define DEBUG_STREAM XPCC_LOG_ERROR
+#	define DEBUG(x) XPCC_LOG_ERROR << x << "\n"
 #else
 #	define DEBUG_STREAM XPCC_LOG_OFF
 #	define DEBUG(x)
@@ -535,9 +535,13 @@ public:
 
 private:
 	static bool attachDelegate(xpcc::I2cDelegate *d) {
+		xpcc::atomic::Lock l;
+
 		if(!delegate && d->attaching()) {
+			d->next = 0;
 			delegate = d;
 			newSession = true;
+			//XPCC_LOG_ERROR .printf("s1 %x\n", d);
 			i2start();
 			return true;
 		} else {
@@ -551,8 +555,11 @@ private:
 			}
 			//add the new delegate to the end of the list
 			p->next	= d;
+			d->next = 0;
+			//XPCC_LOG_ERROR .printf("s2 %x\n", d);
 			return true;
 		}
+
 	}
 
 	static void

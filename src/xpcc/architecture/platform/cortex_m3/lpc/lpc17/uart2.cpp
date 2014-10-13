@@ -17,7 +17,7 @@ template<>
 void (*Uart2::rxCallback)() = 0;
 
 extern "C"
-void UART0_IRQHandler() {
+void UART2_IRQHandler() {
 	Uart2::handleIRQ();
 }
 
