@@ -216,7 +216,6 @@ namespace lpc17
 {
 
 #define SERIAL_DEBUGGING 0
-
 #if SERIAL_DEBUGGING
 #	define DEBUG_STREAM XPCC_LOG_ERROR
 #	define DEBUG(x) XPCC_LOG_ERROR << x << "\n"
@@ -297,7 +296,6 @@ public:
 		if(!attachDelegate(d)) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -307,8 +305,9 @@ public:
 			return false;
 		}
 
-		while(delegate) {
-			__WFI();
+		while(delegate != 0) {
+			__DMB();
+			//__WFI();
 		}
 
 		return true;
@@ -324,16 +323,22 @@ public:
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
 		if (delegate) {
+			//ERROR("-");
 			delegate->stopped(cause);
 			//attach new delegate in the chain
-			while((delegate = delegate->next) != 0) {
-				if(delegate->attaching()) {
-					newSession = true;
-					i2start();
-					return;
-				}
+			if(delegate->next) {
+				delegate = delegate->next;
+				newSession = true;
+				i2start();
+				return;
+			} else {
+				//ERROR("d0");
+				delegate = 0;
 			}
+
+
 		}
+
 	}
 
 	static void IRQ() {
@@ -426,8 +431,6 @@ public:
 					DEBUG("Stop");
 
 					i2stop();
-					intClear();
-
 					reset(xpcc::I2c::DetachCause::NormalStop);
 
 					break;
@@ -474,54 +477,51 @@ public:
 			case xpcc::I2c::Operation::Restart:
 				DEBUG("Restart");
 				i2start();
-
 				break;
 
 			default:
 			case xpcc::I2c::Operation::Stop:
 				DEBUG("Stop");
-
 				i2stop();
-
 				reset(xpcc::I2c::DetachCause::NormalStop);
 				break;
 			}
 
-			intClear();
 			break;
 
 		case I2C_I2STAT_M_TX_SLAW_NACK:	// SLA+W transmitted, NACK received
 		case I2C_I2STAT_M_RX_SLAR_NACK:	// SLA+R transmitted, NACK received
-			error = xpcc::I2cMaster::Error::AddressNack;
-			DEBUG("Error::AddressNack");
-			newSession = false;
-
+			if(newSession) {
+				error = xpcc::I2cMaster::Error::AddressNack;
+				//ERR << "Error::AddressNack " << delegate << endl;
+				newSession = false;
+				intClear();
+			}
 		case I2C_I2STAT_M_TX_DAT_NACK:	// data transmitted, NACK received
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::DataNack;
-				DEBUG("Error::DataNack");
+				//ERR << "Error::DataNack " << delegate << endl;
+				// generate a stop condition
+				//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+				i2stop();
+				intClear();
+				newSession = false;
 			}
-			newSession = false;
-			// generate a stop condition
-			//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
-			i2stop();
-			intClear();
-
 			//case I2C_I2STAT_M_RX_ARB_LOST:	// arbitration lost in SLA+W or data
 		case I2C_I2STAT_M_TX_ARB_LOST:	// arbitration lost in SLA+R or NACK
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::ArbitrationLost;
-				DEBUG("Error::ArbitrationLost");
+				//ERR << "Error::ArbitrationLost " << delegate << endl;
+				newSession = false;
 			}
-			newSession = false;
+
 		default:
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::Unknown;
-				DEBUG("Error::Unknown");
+				//ERROR("Error::Unknown");
 			}
 			newSession = false;
 			intClear();
-
 			reset(xpcc::I2c::DetachCause::ErrorCondition);
 			break;
 		}
@@ -536,30 +536,39 @@ public:
 private:
 	static bool attachDelegate(xpcc::I2cDelegate *d) {
 		xpcc::atomic::Lock l;
+		//intCmd(false);
+		if(d->attaching()) {
 
-		if(!delegate && d->attaching()) {
-			d->next = 0;
-			delegate = d;
-			newSession = true;
-			//XPCC_LOG_ERROR .printf("s1 %x\n", d);
-			i2start();
-			return true;
-		} else {
-			xpcc::I2cDelegate* p = delegate;
-			while(p->next) {
-				if(p == d) {
-					//the same delegate is already in the chain
-					return false;
+			if(!delegate) {
+				//ERR << 'a';
+				d->next = 0;
+				delegate = d;
+				newSession = true;
+				//XPCC_LOG_ERROR .printf("s1 %x\n", d);
+				i2start();
+				//intCmd(true);
+				return true;
+			} else {
+
+				xpcc::I2cDelegate* p = delegate;
+				while(p->next) {
+					if(p == d) {
+						//the same delegate is already in the chain
+						d->stopped(DetachCause::SoftwareReset);
+						return false;
+					}
+					p = p->next;
 				}
-				p = p->next;
-			}
-			//add the new delegate to the end of the list
-			p->next	= d;
-			d->next = 0;
-			//XPCC_LOG_ERROR .printf("s2 %x\n", d);
-			return true;
-		}
+				//add the new delegate to the end of the list
+				d->next = 0;
+				p->next	= d;
 
+				//XPCC_LOG_ERROR .printf("s2 %x\n", d);
+				//intCmd(true);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	static void
