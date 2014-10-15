@@ -443,7 +443,6 @@
  // Defines which timer to use on Maple
 // #define MAPLE_TIMER 1
  #define PROGMEM
- #define memcpy_P memcpy
  #define Serial SerialDBG
 
 #define ATOMIC_BLOCK_START rh_atomic_block_start()

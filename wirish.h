@@ -9,7 +9,10 @@
 #include <stdint.h>
 
 #define PROGMEM
-#define memcpy_P memcpy
+
+static inline void* memcpy_P(void* dest, const void* src, size_t len) {
+	return memcpy(dest, src, len);
+}
 
 typedef enum WiringPinMode {
     OUTPUT, /**< Basic digital output: when the pin is HIGH, the
