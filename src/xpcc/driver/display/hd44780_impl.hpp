@@ -101,7 +101,7 @@ xpcc::Hd44780<E, RW, RS, DATA>::setCursor(uint8_t column, uint8_t line)
 		column += 20;
 	}
 	writeCommand(0x80 | column);
-	waitYield(2);
+	waitYield(3);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>
@@ -168,7 +168,7 @@ void
 xpcc::Hd44780<E, RW, RS, DATA>::clear()
 {
 	writeCommand(0x01);
-	waitYield(2);
+	waitYield(3);
 }
 
 template <typename E, typename RW, typename RS, typename DATA>

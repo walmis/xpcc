@@ -6,6 +6,7 @@
  */
 
 #include "ticker_task.hpp"
+#include "timeout.hpp"
 #include <xpcc/architecture/driver/atomic.hpp>
 #include <xpcc/debug.hpp>
 namespace xpcc {
@@ -44,31 +45,37 @@ TickerTask::~TickerTask() {
 	}
 }
 
-void TickerTask::yield() {
+void TickerTask::yield(uint16_t timeAvailable) {
 	if(!current) return;
 	TickerTask* t = (TickerTask*)current;
 	if(t->inInterruptContext()) return;
+	xpcc::Timeout<> tm(timeAvailable);
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
 		t->blocking = true;
-		tick();
+		do {
+			tick();
+		} while(!tm.isExpired());
 		t->blocking = false;
 	}
 	current = t;
 }
 
 void TickerTask::tick() {
-	TickerTask* task = base;
-	while (task) {
-		if(!task->blocking) {
-			current = task;
-			task->handleTick();
-			task->blocking = false;
-		}
-		task = task->next;
+	static TickerTask* task = 0;
+	if(!task) {
+		if(idleFunc) idleFunc();
+		task = base;
 	}
-	if(idleFunc)
-		idleFunc();
+	TickerTask* tsk = task;
+
+	if(!tsk->blocking) {
+		current = tsk;
+		tsk->handleTick();
+		tsk->blocking = false;
+	}
+	if(task)
+		task = task->next;
 }
 
 void TickerTask::interrupt(int irqN) {

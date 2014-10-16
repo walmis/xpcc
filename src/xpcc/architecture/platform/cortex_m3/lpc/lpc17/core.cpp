@@ -18,10 +18,11 @@ struct irqCounter {
 	uint32_t count;
 	xpcc::Timestamp last;
 };
+
 namespace xpcc {
-	extern void yield() __attribute__((weak));
-	void yield() {
-		xpcc::TickerTask::yield();
+
+	void yield(uint16_t timeAvailable) {
+		xpcc::TickerTask::yield(timeAvailable);
 	}
 }
 

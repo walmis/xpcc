@@ -18,6 +18,9 @@ namespace xpcc {
 * \author	Valmantas Palikša
 * \ingroup	workflow
 */ 
+__attribute__((weak))
+void yield(uint16_t timeAvailable = 0);
+
 class TickerTask {
 protected:
 	TickerTask(); //constructs the Task and adds itself to tasks List
@@ -54,7 +57,7 @@ public:
 
 	///yield current task. Call this function repeatedly until some blocking operation finishes.
 	///note: other tasks are moved down the stack. So watch the stack usage if multiple tasks are blocking.
-	static void yield();
+	static void yield(uint16_t timeAvailable = 0);
 
 	///called from IRQ handler
 	static void interrupt(int irqN);

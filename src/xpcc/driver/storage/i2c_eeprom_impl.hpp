@@ -136,12 +136,11 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, T& data)
 
 template <typename I2cMaster>
 bool xpcc::I2cEeprom<I2cMaster>::waitAvailable(uint16_t timeout) {
-	xpcc::Timeout<> t(timeout);
 	while(!isAvailable()) {
-		if(t.isExpired()) {
+		xpcc::yield(1);
+		if(!timeout--) {
 			return false;
 		}
-		xpcc::yield();
 	}
 	return true;
 }

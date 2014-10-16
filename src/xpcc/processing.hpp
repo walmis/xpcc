@@ -50,8 +50,4 @@
 #include "processing/function_pointer.hpp"
 #include "processing/semaphore.hpp"
 
-namespace xpcc {
-	extern void yield();
-}
-
 #endif	// XPCC__PROCESSING_HPP
