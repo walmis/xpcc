@@ -119,6 +119,7 @@ using namespace xpcc;
 
 static volatile int epComplete;
 static uint32_t endpointStallState;
+static USBHAL* instance;
 
 static void SIECommand(uint32_t command) {
     // The command phase of a SIE transaction
@@ -306,19 +307,12 @@ static void endpointWritecore(uint8_t endpoint, uint8_t *buffer, uint32_t size) 
     SIEvalidateBuffer();
 }
 
-
-void USBHAL::handleInterrupt(int irqn) {
-	if(irqn == USB_IRQn) {
-		usbisr();
-	}
-}
-
 USBHAL::USBHAL(void) {
     // Disable IRQ
     NVIC_DisableIRQ(USB_IRQn);
     
     handlers = 0;
-
+    instance = this;
 
     // Enable power to USB device controller
     LPC_SC->PCONP |= PCUSB;
@@ -523,7 +517,7 @@ ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
 	return func;
 }
 
-void USBHAL::usbisr(void) {
+void USBHAL::_usbisr(void) {
     uint8_t devStat;
 
     if (LPC_USB->USBDevIntSt & FRAME) {
@@ -601,6 +595,11 @@ void USBHAL::usbisr(void) {
             }
         }
     }
+}
+
+extern "C" void USB_IRQHandler() {
+	if(instance)
+		instance->_usbisr();
 }
 
 #endif

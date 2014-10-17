@@ -20,7 +20,6 @@
 
 #include "USBInterfaceHandler.h"
 #include "USBEndpoints.h"
-#include <xpcc/processing.hpp>
 
 #define CALL_HANDLERS(x) \
     	if(handlers) { \
@@ -33,7 +32,7 @@
 
 namespace xpcc {
 
-class USBHAL : xpcc::TickerTask {
+class USBHAL {
 public:
     /* Configuration */
     USBHAL();
@@ -84,6 +83,7 @@ public:
     	}
     }
 
+    void _usbisr(void);
 
 protected:
 
@@ -156,12 +156,6 @@ protected:
     virtual bool EP15_OUT_callback(){return false;};
     virtual bool EP15_IN_callback(){return false;};
 #endif
-    
-private:
-    void usbisr(void);
-    void handleInterrupt(int irqn) override;
-
-
 };
 
 }

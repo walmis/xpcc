@@ -41,7 +41,7 @@ protected:
 		return blocking;
 	}
 
-	bool inInterruptContext();
+	static bool inInterruptContext();
 
 	///internal pointer to the next tickerTask
 	TickerTask *next;

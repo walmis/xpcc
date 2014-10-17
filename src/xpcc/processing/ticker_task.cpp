@@ -46,9 +46,9 @@ TickerTask::~TickerTask() {
 }
 
 void TickerTask::yield(uint16_t timeAvailable) {
-	if(!current) return;
+	if(!current || inInterruptContext()) return;
+
 	TickerTask* t = (TickerTask*)current;
-	if(t->inInterruptContext()) return;
 	xpcc::Timeout<> tm(timeAvailable);
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
