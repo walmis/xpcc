@@ -618,7 +618,7 @@ public:
 		}
 	}
 
-	bool setBaud(uint32_t baud) {
+	static inline bool setBaud(uint32_t baud) {
 		return uart_set_divisors(baud);
 	}
 
