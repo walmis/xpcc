@@ -618,6 +618,10 @@ public:
 		}
 	}
 
+	bool setBaud(uint32_t baud) {
+		return uart_set_divisors(baud);
+	}
+
 private:
 	static void (*txCallback)();
 	static void (*rxCallback)();

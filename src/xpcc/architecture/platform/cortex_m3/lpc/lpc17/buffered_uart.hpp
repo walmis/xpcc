@@ -35,6 +35,11 @@ public:
 		if(inst == this)
 			inst = 0;
 	}
+
+	bool setBaud(uint32_t baud) {
+		return Uart::setBaud(baud);
+	}
+
 	size_t write(const uint8_t* buf, size_t len) {
 		size_t n;
 		if((n = BufferedIODevice::write(buf, len))) {
