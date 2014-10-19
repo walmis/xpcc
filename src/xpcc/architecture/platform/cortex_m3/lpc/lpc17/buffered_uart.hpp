@@ -37,6 +37,8 @@ public:
 	}
 
 	bool setBaud(uint32_t baud) {
+		rxbuf.flush();
+		txbuf.flush();
 		return Uart::setBaud(baud);
 	}
 
@@ -88,6 +90,7 @@ private:
 
 	static void onRxComplete() {
 		if(!inst) return;
+
 		while(!Uart::rxEmpty()) {
 			inst->rxbuf.write(Uart::get());
 		}

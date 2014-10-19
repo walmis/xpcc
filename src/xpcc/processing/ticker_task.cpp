@@ -13,7 +13,7 @@ namespace xpcc {
 
 TickerTask::TickerTask() {
 	xpcc::atomic::Lock lock;
-	blocking = false;
+	clearBlocking();
 	next = 0;
 	if (base == 0) {
 		base = this;
@@ -46,17 +46,22 @@ TickerTask::~TickerTask() {
 }
 
 void TickerTask::yield(uint16_t timeAvailable) {
-	if(!current || inInterruptContext()) return;
+	if(current)
+		current->_yield(timeAvailable);
+}
+
+void TickerTask::_yield(uint16_t timeAvailable) {
+	if(inInterruptContext()) return;
 
 	TickerTask* t = (TickerTask*)current;
 	xpcc::Timeout<> tm(timeAvailable);
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
-		t->blocking = true;
+		t->setBlocking();
 		do {
 			tick();
 		} while(!tm.isExpired());
-		t->blocking = false;
+		t->clearBlocking();
 	}
 	current = t;
 }
@@ -69,10 +74,10 @@ void TickerTask::tick() {
 	}
 	TickerTask* tsk = task;
 
-	if(!tsk->blocking) {
+	if(!tsk->taskBlocking()) {
 		current = tsk;
 		tsk->handleTick();
-		tsk->blocking = false;
+		tsk->clearBlocking();
 	}
 	if(task)
 		task = task->next;
@@ -88,5 +93,5 @@ void TickerTask::interrupt(int irqN) {
 
 TickerTask* TickerTask::base = 0;
 std::function<void()> TickerTask::idleFunc;
-volatile TickerTask* TickerTask::current = 0;
+TickerTask* volatile TickerTask::current = 0;
 }

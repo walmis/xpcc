@@ -142,5 +142,5 @@ extern "C" __attribute__((naked)) void PendSV_Handler() {
 
 	load_context();
 
-	asm volatile("pop {pc}");
+	asm volatile("pop {pc}"); //pop value lr from stack to pc register
 }

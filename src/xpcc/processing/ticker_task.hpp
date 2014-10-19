@@ -21,6 +21,9 @@ namespace xpcc {
 __attribute__((weak))
 void yield(uint16_t timeAvailable = 0);
 
+__attribute__((weak))
+void sleep(uint16_t time_ms);
+
 class TickerTask {
 protected:
 	TickerTask(); //constructs the Task and adds itself to tasks List
@@ -37,27 +40,55 @@ protected:
 	}
 
 	/// returns true if current task is blocking (yielding)
-	inline bool taskBusy() {
-		return blocking;
+	inline bool taskBlocking() {
+		return flags & FLAG_BLOCKING;
+	}
+	inline void setBlocking() {
+		flags |= FLAG_BLOCKING;
+	}
+	inline void clearBlocking() {
+		flags &= ~FLAG_BLOCKING;
+	}
+
+	inline bool taskSleeping() {
+		return flags & FLAG_SLEEPING;
+	}
+	inline void setSleeping() {
+		flags |= FLAG_SLEEPING;
+	}
+	inline void clearSleeping() {
+		flags &= ~FLAG_SLEEPING;
 	}
 
 	static bool inInterruptContext();
+
+	//allows subclasses to override the static yield function
+	//useful for context switching
+
 
 	///internal pointer to the next tickerTask
 	TickerTask *next;
 
 private:
 	static TickerTask* base;
-	static volatile TickerTask* current;
+	static TickerTask* volatile current;
 	static std::function<void()> idleFunc;
-	volatile bool blocking;
+	volatile uint8_t flags;
+
+	virtual void _yield(uint16_t timeAvailable);
 
 public:
+	enum {
+		FLAG_BLOCKING = 1,
+		FLAG_SLEEPING = 2
+	};
+
 	static void tick();
 
 	///yield current task. Call this function repeatedly until some blocking operation finishes.
 	///note: other tasks are moved down the stack. So watch the stack usage if multiple tasks are blocking.
 	static void yield(uint16_t timeAvailable = 0);
+	static void sleep(uint16_t time_ms);
 
 	///called from IRQ handler
 	static void interrupt(int irqN);
