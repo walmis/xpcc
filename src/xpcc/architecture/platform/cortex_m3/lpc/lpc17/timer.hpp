@@ -290,8 +290,8 @@ public:
 			return TIMx->CR1;
 	}
 
-	static void clearIntCapturePending(IntType IntFlag) {
-		TIMx->IR = (1 << (4 + IntFlag));
+	static void clearIntCapturePending(uint8_t channel) {
+		TIMx->IR = (1 << (4 + channel));
 	}
 
 	static void clearIntPending(IntType IntFlag) {
@@ -299,10 +299,10 @@ public:
 		TIMx->IR = TIM_IR_CLR(IntFlag);
 	}
 
-	static bool getIntCaptureStatus(IntType IntFlag) {
+	static bool getIntCaptureStatus(uint8_t channel) {
 		uint8_t temp;
 
-		return (TIMx->IR) & (1 << (4 + IntFlag));
+		return (TIMx->IR) & (1 << (channel));
 	}
 
 	static bool getIntStatus(IntType IntFlag) {
