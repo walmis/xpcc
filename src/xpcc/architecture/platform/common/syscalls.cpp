@@ -45,6 +45,7 @@
 
 #include <reent.h>
 #include <sys/stat.h>
+#include <ctype.h>
 
 #include <xpcc/architecture/driver/heap/block_allocator.hpp>
 #include <xpcc/architecture/driver/atomic.hpp>
@@ -290,7 +291,7 @@ long atol(const char* p) {
 		neg = true;
 	}
 
-	while (*p) {
+	while (*p && isdigit(*p)) {
 		k = (k << 3) + (k << 1) + (*p) - '0';
 		p++;
 	}
