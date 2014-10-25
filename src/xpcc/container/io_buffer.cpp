@@ -111,6 +111,7 @@ void IOBuffer::_freeBuffer() {
 }
 
 bool IOBuffer::_allocBuffer(uint16_t size) {
+	if(!size) return false;
 	uint16_t mask;
 	uint16_t shift;
 	// init buffer state

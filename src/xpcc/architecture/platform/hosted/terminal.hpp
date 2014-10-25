@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -39,25 +39,25 @@ namespace xpcc
 	{
 		/**
 		 * \brief	Standard text terminal
-		 * 
+		 *
 		 * Uses the STL IOStream for in- and output.
-		 * 
+		 *
 		 * \ingroup	hosted
 		 */
 		class Terminal : public IODevice
 		{
 		public :
-			virtual void
+			virtual size_t
 			write(char c);
-			
-			virtual void
+
+			virtual size_t
 			write(const char* s);
-			
+
 			virtual void
 			flush();
-			
-			virtual bool
-			read(char& value);
+
+			virtual int16_t
+			read();
 		};
 	}
 }

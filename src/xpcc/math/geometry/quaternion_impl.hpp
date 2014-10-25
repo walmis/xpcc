@@ -34,7 +34,6 @@
 
 #include "quaternion.hpp"
 #include <type_traits>
-#include <xpcc/math/fixed_point.hpp>
 
 // ----------------------------------------------------------------------------
 template<class T>

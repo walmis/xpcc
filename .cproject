@@ -555,8 +555,8 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cross.exe.release.735040115.1884083434" moduleId="org.eclipse.cdt.core.settings" name="AVR">
 				<macros>
 					<stringMacro name="targetClock" type="VALUE_TEXT" value="8000000"/>
-					<stringMacro name="targetCpu" type="VALUE_TEXT" value="atmega8"/>
-					<stringMacro name="targetDefine" type="VALUE_TEXT" value="__ARM_LPC11XX__"/>
+					<stringMacro name="targetCpu" type="VALUE_TEXT" value="atxmega16x1"/>
+					<stringMacro name="targetDefine" type="VALUE_TEXT" value=""/>
 				</macros>
 				<externalSettings>
 					<externalSetting>
@@ -603,9 +603,10 @@
 									<listOptionValue builtIn="false" value="&quot;../src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../src/stdc++&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../ext&quot;"/>
+									<listOptionValue builtIn="false" value="../src/stdc++/avr"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1510418571" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="${targetDefine}"/>
+									<listOptionValue builtIn="false" value="&quot;${targetDefine}=1&quot;"/>
 									<listOptionValue builtIn="false" value="XPCC_LOG_LEVEL=xpcc::log::DISABLED"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.flags.1834505797" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-ffunction-sections -fdata-sections -fno-rtti -fno-exceptions " valueType="string"/>
