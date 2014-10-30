@@ -31,6 +31,7 @@
 
 #include <xpcc/io/iodevice.hpp>
 #include "style.hpp"
+#include <stdint.h>
 
 namespace xpcc
 {
@@ -51,17 +52,17 @@ namespace xpcc
 			virtual
 			~StyleWrapper();
 
-			virtual void
+			virtual size_t
 			write(char c);
 
-			virtual void
+			virtual size_t
 			write(const char* str);
 
 			virtual void
 			flush();
 
-			virtual bool
-			read(char&);
+			virtual int16_t
+			read();
 
 		private :
 			StyleWrapper( const StyleWrapper& );
@@ -92,16 +93,17 @@ xpcc::log::StyleWrapper<STYLE>::~StyleWrapper()
 // -----------------------------------------------------------------------------
 
 template < typename STYLE >
-void
+size_t
 xpcc::log::StyleWrapper<STYLE>::write( char c )
 {
 	this->style.write( c );
+	return 1;
 }
 
 // -----------------------------------------------------------------------------
 
 template < typename STYLE >
-void
+size_t
 xpcc::log::StyleWrapper<STYLE>::write( const char* s )
 {
 	this->style.write( s );
@@ -119,11 +121,10 @@ xpcc::log::StyleWrapper<STYLE>::flush()
 // -----------------------------------------------------------------------------
 
 template < typename STYLE >
-bool
-xpcc::log::StyleWrapper<STYLE>::read(char& c)
+int16_t
+xpcc::log::StyleWrapper<STYLE>::read()
 {
-	(void) c;
-	return false;
+	return -1;
 }
 
 

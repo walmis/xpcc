@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -33,16 +33,18 @@
 #include "terminal.hpp"
 
 // ----------------------------------------------------------------------------
-void
+size_t
 xpcc::pc::Terminal::write(char c)
 {
 	std::cout << c;
+	return 1;
 }
 
-void
+size_t
 xpcc::pc::Terminal::write(const char* s)
 {
 	std::cout << s;
+	return 1;
 }
 
 void
@@ -51,8 +53,10 @@ xpcc::pc::Terminal::flush()
 	std::cout << std::flush;
 }
 
-bool
-xpcc::pc::Terminal::read(char& value)
+int16_t
+xpcc::pc::Terminal::read()
 {
-	return std::cin.get(value);
+	char value;
+	std::cin.get(value);
+	return value;
 }

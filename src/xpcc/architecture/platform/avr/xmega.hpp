@@ -99,7 +99,7 @@ namespace xpcc
 	}
 }
 
-#include "xmega/uart.hpp"
+//#include "xmega/uart.hpp"
 #include "xmega/spi.hpp"
 #include "xmega/gpio.hpp"
 #include "xmega/timer.hpp"
