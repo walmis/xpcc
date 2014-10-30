@@ -56,6 +56,7 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 	uint8_t n;
 
 	while(state == AdapterState::Busy) {
+		//XPCC_LOG_ERROR << "#";
 		xpcc::yield();
 	}
 
@@ -69,16 +70,23 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		if(bytes < n)
 			n = bytes;
 
-		//XPCC_LOG_DEBUG .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
+		XPCC_LOG_ERROR .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
 		//XPCC_LOG_DEBUG .dump_buffer((uint8_t*)data, n);
 
 		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
 
-		initialize(buffer, i, data, n, 0, 0);
-		if(!I2cMaster::startBlocking(this)) {
+		if(!initialize(buffer, i, data, n, 0, 0)) {
 			return false;
 		}
 
+		if(!I2cMaster::start(this)) {
+			return false;
+		}
+		//XPCC_LOG_ERROR << "a+";
+		while(state == xpcc::I2c::AdapterState::Busy) {
+			xpcc::yield();
+		}
+		//XPCC_LOG_ERROR << "a-";
 		if(!waitAvailable(20)) return false;
 
 		bytes -= n;
@@ -102,13 +110,21 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	if(sizeKbits >= 128)
 		buffer[i++] = address >> 8;
 	buffer[i++] = address;
-	initialize(buffer, i, data, bytes);
 	
-	if(!I2cMaster::startBlocking(this)) {
+	if(!initialize(buffer, i, data, bytes)) {
+		XPCC_LOG_ERROR << '1' << endl;
 		return false;
 	}
 
-	return state != AdapterState::Error;
+	if(!I2cMaster::start(this)) {
+		XPCC_LOG_ERROR << '2' << endl;
+		return false;
+	}
+	while(state == xpcc::I2c::AdapterState::Busy) {
+		xpcc::yield();
+	}
+	XPCC_LOG_ERROR << '3' << (uint8_t)state << " " << address << endl;
+	return state == AdapterState::Idle;
 }
 
 template <typename I2cMaster> template <typename T>
@@ -137,7 +153,7 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, T& data)
 template <typename I2cMaster>
 bool xpcc::I2cEeprom<I2cMaster>::waitAvailable(uint16_t timeout) {
 	while(!isAvailable()) {
-		xpcc::yield(1);
+		xpcc::sleep(1);
 		if(!timeout--) {
 			return false;
 		}
@@ -152,12 +168,15 @@ xpcc::I2cEeprom<I2cMaster>::isAvailable()
 	uint8_t c = 0xFF;
 	if(!initialize(0, 0, &c, 1))
 		return false;
-	
-	if (I2cMaster::startBlocking(this))
+	if (!I2cMaster::start(this))
 	{
-		return (state == xpcc::I2c::AdapterState::Idle);
+		return false;
 	}
-	return false;
+	while(state == xpcc::I2c::AdapterState::Busy) {
+		xpcc::yield();
+	}
+
+	return state == xpcc::I2c::AdapterState::Idle;
 }
 
 // MARK: - i2c delegates

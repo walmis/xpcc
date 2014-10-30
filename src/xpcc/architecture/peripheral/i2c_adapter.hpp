@@ -53,6 +53,10 @@ public:
 		return state;
 	}
 
+	inline bool isBusy() {
+		return state == AdapterState::Busy;
+	}
+
 	/**
 	 * @brief	Initializes the adapter with the slave address and the required information for a write/read operation
 	 *
@@ -106,7 +110,7 @@ public:
 		return false;
 	}
 
-private:
+protected:
 	///@{
 	/// @internal
 	virtual bool
@@ -195,6 +199,10 @@ public:
 	getState()
 	{
 		return state;
+	}
+
+	inline bool isBusy() {
+		return state == AdapterState::Busy;
 	}
 
 	/**
@@ -322,6 +330,10 @@ public:
 	getState()
 	{
 		return state;
+	}
+
+	inline bool isBusy() {
+		return state == AdapterState::Busy;
 	}
 
 	/**

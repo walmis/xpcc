@@ -18,10 +18,8 @@ namespace xpcc {
 * \author	Valmantas Palikša
 * \ingroup	workflow
 */ 
-__attribute__((weak))
-void yield(uint16_t timeAvailable = 0);
 
-__attribute__((weak))
+void yield(uint16_t timeAvailable = 0);
 void sleep(uint16_t time_ms);
 
 class TickerTask {

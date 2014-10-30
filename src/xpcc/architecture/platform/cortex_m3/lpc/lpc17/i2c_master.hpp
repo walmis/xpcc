@@ -12,6 +12,8 @@
 #include <xpcc/architecture/platform.hpp>
 #include <xpcc/architecture/peripheral/i2c.hpp>
 
+#define DMB() asm volatile("DMB" ::: "memory")
+
 /* --------------------- BIT DEFINITIONS -------------------------------------- */
 /*******************************************************************//**
  * I2C Control Set register description
@@ -214,7 +216,7 @@ namespace xpcc
 
 namespace lpc17
 {
-
+#define ERROR(x) XPCC_LOG_ERROR<<x<<endl
 #define SERIAL_DEBUGGING 0
 #if SERIAL_DEBUGGING
 #	define DEBUG_STREAM XPCC_LOG_ERROR
@@ -296,22 +298,24 @@ public:
 		if(!attachDelegate(d)) {
 			return false;
 		}
-		return true;
-	}
-
-	static bool
-	startBlocking(xpcc::I2cDelegate *d) {
-		if(!attachDelegate(d)) {
-			return false;
-		}
-
-		while(delegate != 0) {
-			__DMB();
-			//__WFI();
-		}
 
 		return true;
 	}
+
+//	static bool
+//	startBlocking(xpcc::I2cDelegate *d) {
+//		if(!attachDelegate(d)) {
+//			return false;
+//		}
+//
+//		__DMB();
+//
+//		while(delegate == d) {
+//			__WFI();
+//		}
+//
+//		return true;
+//	}
 
 	static Error
 	getErrorState() {
@@ -322,23 +326,19 @@ public:
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
-		if (delegate) {
-			//ERROR("-");
-			delegate->stopped(cause);
+
+		if (delegate != 0) {
+			I2cDelegate* old = delegate;
 			//attach new delegate in the chain
-			if(delegate->next) {
-				delegate = delegate->next;
+			delegate = delegate->next;
+			DMB();
+			if(delegate) {
 				newSession = true;
 				i2start();
-				return;
-			} else {
-				//ERROR("d0");
-				delegate = 0;
 			}
 
-
+			old->stopped(cause);
 		}
-
 	}
 
 	static void IRQ() {
@@ -544,6 +544,8 @@ private:
 				d->next = 0;
 				delegate = d;
 				newSession = true;
+
+				DMB();
 				//XPCC_LOG_ERROR .printf("s1 %x\n", d);
 				i2start();
 				//intCmd(true);
@@ -563,11 +565,13 @@ private:
 				d->next = 0;
 				p->next	= d;
 
-				//XPCC_LOG_ERROR .printf("s2 %x\n", d);
+				DMB();
+				//XPCC_LOG_ERROR .printf("s2 %x %x\n", delegate, d);
 				//intCmd(true);
 				return true;
 			}
 		}
+		d->stopped(DetachCause::SoftwareReset);
 		return false;
 	}
 

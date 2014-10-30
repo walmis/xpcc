@@ -50,10 +50,17 @@ void TickerTask::yield(uint16_t timeAvailable) {
 		current->_yield(timeAvailable);
 }
 
+void TickerTask::sleep(uint16_t time_ms) {
+	Timeout<> t(time_ms);
+	while(!t.isExpired()) {
+		yield();
+	}
+}
+
 void TickerTask::_yield(uint16_t timeAvailable) {
 	if(inInterruptContext()) return;
 
-	TickerTask* t = (TickerTask*)current;
+	TickerTask* t = current;
 	xpcc::Timeout<> tm(timeAvailable);
 	//XPCC_LOG_DEBUG .printf("current %x\n", t);
 	if(t) {
@@ -67,7 +74,7 @@ void TickerTask::_yield(uint16_t timeAvailable) {
 }
 
 void TickerTask::tick() {
-	static TickerTask* task = 0;
+	static TickerTask* volatile task = 0;
 	if(!task) {
 		if(idleFunc) idleFunc();
 		task = base;
@@ -77,7 +84,7 @@ void TickerTask::tick() {
 	if(!tsk->taskBlocking()) {
 		current = tsk;
 		tsk->handleTick();
-		tsk->clearBlocking();
+		//tsk->clearBlocking();
 	}
 	if(task)
 		task = task->next;
