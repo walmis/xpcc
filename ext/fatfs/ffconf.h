@@ -173,8 +173,11 @@
 /*---------------------------------------------------------------------------/
 / System Configurations
 /----------------------------------------------------------------------------*/
-
+#ifdef __ARM_FEATURE_UNALIGNED
+#define _WORD_ACCESS	1	/* 0 or 1 */
+#else
 #define _WORD_ACCESS	0	/* 0 or 1 */
+#endif
 /* The _WORD_ACCESS option is an only platform dependent option. It defines
 /  which access method is used to the word data on the FAT volume.
 /

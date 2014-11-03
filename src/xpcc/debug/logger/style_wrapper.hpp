@@ -107,6 +107,7 @@ size_t
 xpcc::log::StyleWrapper<STYLE>::write( const char* s )
 {
 	this->style.write( s );
+	return 1;
 }
 
 // -----------------------------------------------------------------------------
