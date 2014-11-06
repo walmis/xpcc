@@ -44,7 +44,7 @@ namespace xpcc
 	class IODevice
 	{
 	public :
-		IODevice(){}
+		IODevice() : _blocking(true) {}
 		
 		virtual
 		~IODevice()	{}
@@ -69,8 +69,11 @@ namespace xpcc
 			return -1;
 		}
 
+		inline bool isBlocking() { return _blocking; }
+		inline void setBlocking(bool b) { _blocking = b; }
 
 	private :
+		bool _blocking;
 		IODevice(const IODevice&);
 	};
 

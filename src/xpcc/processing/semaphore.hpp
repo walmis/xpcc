@@ -14,11 +14,12 @@
 namespace xpcc {
 
 class Semaphore {
+public:
 	Semaphore();
 
-	void release();
-	bool acquire();
-	bool acquire_blocking(uint16_t timeout);
+	void give();
+	bool take(uint16_t timeout) __attribute__ ((warn_unused_result));
+	bool take_nonblocking() __attribute__ ((warn_unused_result));
 
 private:
 	volatile bool _taken;

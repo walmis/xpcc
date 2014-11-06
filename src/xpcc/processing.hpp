@@ -49,5 +49,6 @@
 #include "processing/coop_task.hpp"
 #include "processing/function_pointer.hpp"
 #include "processing/semaphore.hpp"
+#include "processing/function.hpp"
 
 #endif	// XPCC__PROCESSING_HPP

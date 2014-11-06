@@ -97,6 +97,7 @@ xpcc::fat::FileSystem::FileSystem(PhysicalVolume *volume,
 		uint8_t drive)
 {
 	globalVolume = volume;
+	_volume = volume;
 	mount();
 }
 

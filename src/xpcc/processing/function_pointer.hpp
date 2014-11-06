@@ -8,7 +8,7 @@
 #ifndef FUNCTIONPOINTER_H_
 #define FUNCTIONPOINTER_H_
 
-#include <functional>
+#include "function.hpp"
 #include <string.h>
 
 namespace xpcc {
@@ -28,7 +28,7 @@ public:
 	 *
 	 *  @param function The void static function to attach (default is none)
 	 */
-	FunctionPointer(std::function<void()> f = 0) {
+	FunctionPointer(xpcc::function<void()> f = 0) {
 		_function = f;
 	}
 
@@ -60,7 +60,7 @@ public:
 	 *
 	 *  @param function The void static function to attach (default is none)
 	 */
-	void attach(std::function<void()> func) {
+	void attach(xpcc::function<void()> func) {
 		_function = func;
 	}
 
@@ -75,14 +75,14 @@ public:
 	}
 
 
-	std::function<void()> get_function() const {
+	xpcc::function<void()> get_function() const {
 		return _function;
 	}
 
 
 private:
 
-	std::function<void()> _function;
+	xpcc::function<void()> _function;
 };
 
 

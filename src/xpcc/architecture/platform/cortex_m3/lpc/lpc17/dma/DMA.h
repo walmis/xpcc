@@ -189,14 +189,21 @@ protected:
 public: 
 
     enum Flags {
-		FORCE_SI_ON = 1<<0, ///< Force source address increment on
+    	DEFAULTS = 0,
+    	FORCE_SI_ON = 1<<0, ///< Force source address increment on
 		FORCE_SI_OFF = 1<<1, ///< Force source address increment off
 		FORCE_DI_ON = 1<<2, ///< Force destination address increment on
 		FORCE_DI_OFF = 1<<3 ///< Force destination address increment off
 	};
 
     DMAConfig() {
-        ChannelNum    = 0xFF;
+    	LLI = 0;
+    	reset();
+    }
+
+    void reset() {
+    	freeLLI();
+    	ChannelNum    = 0xFF;
         TransferSize  = 0;
         srcTransferWidth = 0xF;
         dstTransferWidth = 0xF;

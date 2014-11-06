@@ -33,18 +33,19 @@ public:
 	}
 
 	//override IODevice methods
-	void
+	size_t
 	write(char c) override {
 		serial.putc(c);
+		return 1;
 	}
 
 	void
 	flush() override {}
 
 	/// Read a single character
-	bool
-	read(char& c) override {
-		return serial.getc(c);
+	int16_t
+	read() override {
+		return serial.getc();
 	}
 
 	uint8_t * stringIinterfaceDesc() override {

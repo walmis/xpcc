@@ -44,24 +44,30 @@ public:
 
 	size_t write(const uint8_t* buf, size_t len) {
 		size_t n;
+		if(isBlocking()) {
+			while(txAvailable() < len);
+		}
+
 		if((n = BufferedIODevice::write(buf, len))) {
 			if(!Uart::txBusy()) {
 				_send();
 			}
-			return 1;
+			return n;
 		}
+
 		return 0;
 	}
 	size_t write(char c) {
-		if(BufferedIODevice::write(c) > 0) {
-			if(!Uart::txBusy()) {
-				_send();
-
-				return 1;
-			} else {
+		size_t n;
+		do {
+			if((n = BufferedIODevice::write(c)) > 0) {
+				if(!Uart::txBusy()) {
+					_send();
+				}
 				return 1;
 			}
-		}
+		} while(isBlocking());
+
 		return 0;
 	}
 

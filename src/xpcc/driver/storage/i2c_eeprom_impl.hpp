@@ -70,7 +70,7 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		if(bytes < n)
 			n = bytes;
 
-		XPCC_LOG_ERROR .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
+		//XPCC_LOG_ERROR .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
 		//XPCC_LOG_DEBUG .dump_buffer((uint8_t*)data, n);
 
 		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
@@ -112,18 +112,18 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	buffer[i++] = address;
 	
 	if(!initialize(buffer, i, data, bytes)) {
-		XPCC_LOG_ERROR << '1' << endl;
+		//XPCC_LOG_ERROR << '1' << endl;
 		return false;
 	}
 
 	if(!I2cMaster::start(this)) {
-		XPCC_LOG_ERROR << '2' << endl;
+		//XPCC_LOG_ERROR << '2' << endl;
 		return false;
 	}
 	while(state == xpcc::I2c::AdapterState::Busy) {
 		xpcc::yield();
 	}
-	XPCC_LOG_ERROR << '3' << (uint8_t)state << " " << address << endl;
+	//XPCC_LOG_ERROR << '3' << (uint8_t)state << " " << address << endl;
 	return state == AdapterState::Idle;
 }
 

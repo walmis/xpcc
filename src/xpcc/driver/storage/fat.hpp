@@ -116,8 +116,11 @@ namespace xpcc
 			static FRESULT mkdir(const char* dir) {
 				return f_mkdir(dir);
 			}
-
+			PhysicalVolume* volume() {
+				return _volume;
+			}
 		protected:
+			PhysicalVolume* _volume;
 			FATFS fileSystem;
 		};
 		

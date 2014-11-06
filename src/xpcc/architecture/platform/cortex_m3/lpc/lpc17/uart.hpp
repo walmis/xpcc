@@ -542,16 +542,9 @@ public:
 	}
 
 	static size_t write(char c) {
-
-		if(fifoLevel == UART_TX_FIFO_SIZE) {
-			// Wait for THR empty with timeout
-			while (!(UARTx->LSR & UART_LSR_THRE));
-			fifoLevel = 0;
-		}
-
+		while(txBusy());
 		UARTx->THR = c;
 
-		fifoLevel++;
 		return 1;
 	}
 
@@ -731,12 +724,8 @@ private:
 
 		return returnStatus;
 	}
-
-	static uint8_t fifoLevel;
 };
 
-template<int P_UART>
-uint8_t Uart<P_UART>::fifoLevel = 0;
 
 typedef Uart<(int)LPC_UART0> Uart0;
 typedef Uart<(int)LPC_UART1> Uart1;

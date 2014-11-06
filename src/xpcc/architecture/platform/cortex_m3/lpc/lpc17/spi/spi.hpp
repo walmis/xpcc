@@ -148,8 +148,8 @@ public:
 	 * was sent and data from the device is available.
 	 */
 	static uint16_t write(uint16_t data) {
-		while (!(SPIx->SR & SPI_SRn_TNF))
-			;
+
+		while (!(SPIx->SR & SPI_SRn_TFE));
 		/* Put data into FIFO */
 		SPIx->DR = data;
 
@@ -209,10 +209,10 @@ public:
 	}
 
 	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
+
 		//XPCC_LOG_DEBUG .printf("DMA start %x %x %d\n", tx, rx, length);
 		if(prepareTransfer(tx, rx, length)) {
 			startTransfer(rx);
-
 			return true;
 		}
 		//XPCC_LOG_DEBUG .printf("... failed\n");
@@ -233,33 +233,28 @@ public:
 		}
 		//call isFinished() to clean up transfer
 		//isFinished();
+		running = false;
 	}
 
 	static void startTransfer(bool rx = false) {
 		DMA* dma = DMA::instance();
 
-		if(rx) {
-			dma->Enable(txChannelCfg);
-			/* Wait until at least one byte has arrived into the RX FIFO
-				   and then start-up the Channel1 DMA to begin transferring them. */
-			//while((LPC_SSP0->SR & (1UL << 2)) == 0);
-			//start rx transfer
-			dma->Enable(rxChannelCfg);
-
-		} else {
-			dma->Enable(txChannelCfg);
-		}
+		xpcc::atomic::Lock lock;
+		dma->Enable(txChannelCfg);
+		/* Wait until at least one byte has arrived into the RX FIFO
+			   and then start-up the Channel1 DMA to begin transferring them. */
+		//while((SPIx->SR & (1UL << 2)) == 0);
+		//start rx transfer
+		dma->Enable(rxChannelCfg);
 		SPIx->DMACR = 3; // enable Tx Rx DMA
-
-
 		running = true;
+
 	}
 
     static bool
     prepareTransfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
 
     	if(isTransferBusy()) {
-    		//XPCC_LOG_DEBUG .printf("spi busy\n");
     		return false;
     	}
 
@@ -273,17 +268,17 @@ public:
 		if(SPIx ==LPC_SSP1)
 			conn = SSP1_Tx;
 
-		if(!txChannelCfg)
+		if(!txChannelCfg) {
 			txChannelCfg = new (std::nothrow) DMAConfig;
+		} else {
+			txChannelCfg->reset();
+		}
 
-		txChannelCfg->freeLLI();
-
-		txChannelCfg->channelNum(Channel_0)
+		txChannelCfg->channelNum(Channel_1)
 				->dstConn(conn)
 				->srcMemAddr(tx ? (uint32_t)tx : (uint32_t)&dummy)
 				->transferSize((length>0xFFF) ? 0xFFF : length)
 				->transferType(m2p);
-				//->attach_tc(onDMATxTransferComplete);
 
 		if(!tx) {
 			//force source address increment off if we send dummy bytes
@@ -310,69 +305,56 @@ public:
 
 		dma->Setup(txChannelCfg);
 
-    	if(rx) {
+		conn = SSP0_Rx;
+		if(SPIx == LPC_SSP1)
+			conn = SSP1_Rx;
 
-    		DMAConnection conn = SSP0_Rx;
-    		if(SPIx == LPC_SSP1)
-    			conn = SSP1_Rx;
+		if(!rxChannelCfg) {
+			rxChannelCfg = new (std::nothrow) DMAConfig;
+			if(!rxChannelCfg) {
+				return 0;
+			}
+		} else {
+			rxChannelCfg->reset();
+		}
 
-    		if(!rxChannelCfg)
-    			rxChannelCfg = new (std::nothrow) DMAConfig;
+		static uint32_t _dummy_rx;
 
-    		if(!rxChannelCfg) {
-    			return 0;
-    		}
+		rxChannelCfg->channelNum(Channel_0)
+				->dstMemAddr((rx != 0) ? (uint32_t)rx : (uint32_t)&_dummy_rx)
+				->srcConn(conn)
+				->transferSize(length)
+				->transferType(p2m)
+				->attach_tc(onDMAComplete);
 
-    		rxChannelCfg->channelNum(Channel_1)
-    				->dstMemAddr((uint32_t)rx)
-    				->srcConn(conn)
-    				->transferSize(length)
-    				->transferType(p2m);
-    				//->attach_tc(onDMARxTransferComplete);
+		if(!rx) {
+			rxChannelCfg->transferFlags(DMAConfig::FORCE_DI_OFF);
+		}
 
-    		//prepare rx channel
-    		dma->Setup(rxChannelCfg);
-    	}
+		//prepare rx channel
+		dma->Setup(rxChannelCfg);
 
     	return true;
     }
 
     static bool isTransferBusy() {
-    	DMA* dma = DMA::instance();
-
-    	return (txChannelCfg && dma->Enabled(txChannelCfg->channelNum())) ||
-    			(rxChannelCfg && dma->Enabled(rxChannelCfg->channelNum()));
+    	return running;
     }
 
 	static bool
 	isTransferFinished() {
-		if(running) {
-			if(!isTransferBusy()) {
-				SPIx->DMACR = 0;
-				running = false;
-				return true;
-			} else {
-				//XPCC_LOG_DEBUG .printf("still running %d\n", SPIx->DMACR);
-			}
-		}
-		return false;
+		return !running;
 	}
 
 protected:
 	static DMAConfig* txChannelCfg;
 	static DMAConfig* rxChannelCfg;
 	volatile static bool running;
-
 private:
-	static void onDMATxTransferComplete() {
-		//we can do nothing here
-		//DMA interrupt handler automatically clears the int flags
-		//XPCC_LOG_DEBUG .printf("compl\n");
-		//DMA* dma = DMA::instance();
-		//XPCC_LOG_DEBUG .printf("TC %d\n", dma->isActive(txChannelCfg));
-	}
-	static void onDMARxTransferComplete() {
-		//XPCC_LOG_DEBUG .printf("DMArx\n");
+
+	static void onDMAComplete() {
+		SPIx->DMACR = 0;
+		running = false;
 	}
 };
 
