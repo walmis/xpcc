@@ -47,21 +47,25 @@ namespace xpcc
 	class Button
 	{
 	public:
-		static bool
+		Button() : state(0), pressed(0), released(0) {
+		}
+
+		bool
 		getState();
 		
-		static bool
+		bool
 		isPressed();
 		
-		static bool
+		bool
 		isReleased();
 		
-		
-		static void
+		void
 		update();
 		
 	private:
-		static uint8_t state;
+		uint8_t state : 6;
+		uint8_t pressed : 1;
+		uint8_t released : 1;
 	};
 }
 

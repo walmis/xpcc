@@ -32,15 +32,15 @@ DMA::getSrcDestAddresses(DMAConfig* config, uint32_t& srcAddr, uint32_t& destAdd
         // Memory to memory
         case m2m:
             // Assign physical source and destination address
-        	srcAddr  = config->srcMemAddr();
-        	destAddr = config->dstMemAddr();
+        	srcAddr  = (uint32_t)config->srcMemAddr();
+        	destAddr = (uint32_t)config->dstMemAddr();
 
             break;
 
         // Memory to peripheral
         case m2p:
         	// Assign physical source
-        	srcAddr = config->srcMemAddr();
+        	srcAddr = (uint32_t)config->srcMemAddr();
             // Assign peripheral destination address
         	destAddr = (uint32_t)LUTPerAddr(config->dstConn());
 
@@ -51,7 +51,7 @@ DMA::getSrcDestAddresses(DMAConfig* config, uint32_t& srcAddr, uint32_t& destAdd
             // Assign peripheral source address
         	srcAddr = (uint32_t)LUTPerAddr(config->srcConn());
             // Assign memory destination address
-        	destAddr = config->dstMemAddr();
+        	destAddr = (uint32_t)config->dstMemAddr();
 
             break;
 
@@ -67,18 +67,18 @@ DMA::getSrcDestAddresses(DMAConfig* config, uint32_t& srcAddr, uint32_t& destAdd
         // GPIO to memory
         case g2m:
             // Assign GPIO source address
-        	srcAddr = config->srcMemAddr();
+        	srcAddr = (uint32_t)config->srcMemAddr();
             // Assign memory destination address
-        	destAddr = config->dstMemAddr();
+        	destAddr = (uint32_t)config->dstMemAddr();
 
             break;
 
         // Memory to GPIO
         case m2g:
             // Assign physical source
-        	srcAddr = config->srcMemAddr();
+        	srcAddr = (uint32_t)config->srcMemAddr();
             // Assign peripheral destination address
-        	destAddr = config->dstMemAddr();
+        	destAddr = (uint32_t)config->dstMemAddr();
             break;
 
     }
@@ -211,7 +211,7 @@ DMA::Setup(DMAConfig *config)
     pChannel->DMACCConfig  = 0x00;
 
     // Assign Linker List Item value
-    pChannel->DMACCLLI = config->dmaLLI();
+    pChannel->DMACCLLI = (uint32_t)config->dmaLLI();
 
     pChannel->DMACCControl = buildControlValue(config);
 
@@ -265,37 +265,21 @@ DMA::Setup(DMAConfig *config)
     return pChannel->DMACCControl;
 }
 
-void DMAConfig::freeLLI() {
-	DMALLI* ptr = (DMALLI*) LLI;
-	while(ptr) {
-		if(ptr->nextLLI() == 0) {
-			delete ptr;
-			break;
-		} else {
-			auto d = ptr;
-			ptr = (DMALLI*)ptr->nextLLI();
-			delete d;
-		}
-	}
-	LLI = 0;
-}
-
-DMALLI* DMAConfig::addLLI() {
-	DMALLI* lli = new (std::nothrow) DMALLI(this);
+DMALLI* DMAConfig::addLLI(DMALLI* lli) {
 	if(!lli)
 		return 0;
 
 	if(LLI == 0) {
-		LLI = (uint32_t) lli;
+		LLI = lli;
 		DMA::instance()->lli((DMAChannel)ChannelNum, lli);
 	} else {
 		DMALLI* ptr = (DMALLI*) LLI;
 		while(ptr) {
 			if(ptr->nextLLI() == 0) {
-				ptr->nextLLI((uint32_t)lli);
+				ptr->nextLLI(lli);
 				break;
 			}
-			ptr = (DMALLI*)ptr->nextLLI();
+			ptr = ptr->nextLLI();
 		}
 
 	}
@@ -303,6 +287,10 @@ DMALLI* DMAConfig::addLLI() {
 }
 
 DMALLI::DMALLI(DMAConfig* cfg) {
+	reset(cfg);
+}
+
+void DMALLI::reset(DMAConfig* cfg) {
 	NextLLI = 0;
 
 	Control = DMA::buildControlValue(cfg);
@@ -314,6 +302,22 @@ DMALLI* DMALLI::transferSize(uint16_t n) {
 	Control |= 	DMA::CxControl_TransferSize(n);
 
 	return this;
+}
+
+void DMAConfig::setup() {
+	DMA::instance()->Setup(this);
+}
+
+void DMAConfig::enable() {
+	DMA::instance()->Enable(this);
+}
+
+void DMAConfig::disable() {
+	DMA::instance()->Disable(ChannelNum);
+}
+
+bool DMAConfig::enabled() {
+	return DMA::instance()->Enabled(ChannelNum);
 }
 
 }

@@ -99,6 +99,6 @@ void TickerTask::interrupt(int irqN) {
 }
 
 TickerTask* TickerTask::base = 0;
-std::function<void()> TickerTask::idleFunc;
+xpcc::function<void()> TickerTask::idleFunc;
 TickerTask* volatile TickerTask::current = 0;
 }

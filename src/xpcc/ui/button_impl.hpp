@@ -32,31 +32,26 @@
 	#error	"Don't include this file directly, use 'button.hpp' instead!"
 #endif
 
-template <typename T> uint8_t xpcc::Button<T>::state;
-
 template <typename T>
 void
 xpcc::Button<T>::update()
 {
-	uint8_t i;
-	if (T::read()) {
-		i = 0;
-	}
-	else {
-		i = 1;
-	}
-	
-	i = i ^ state;
-	i = i << 1 | 0xc0;
-	
-	// FIXME
-	if (i == 0xef)
-	{
-		state ^= 0x01;
-	}
-	else
-	{
+	if(state < 62) {
+		if (!T::read()) {
+			state++;
+		} else {
+			state = 0;
+		}
+	} else {
+		if(state == 62) {
+			pressed = 1;
+			state++;
+		}
 		
+		if(T::read()) { // PIN is high, button released
+			released = 1;
+			state = 0;
+		}
 	}
 }
 
@@ -64,12 +59,27 @@ template <typename T>
 bool
 xpcc::Button<T>::getState()
 {
-	return (state & 0x01);
+	return state;
 }
 
 template <typename T>
 bool
 xpcc::Button<T>::isPressed()
 {
+	if(pressed) {
+		pressed = 0;
+		return true;
+	}
+	return false;
+}
+
+template <typename T>
+bool
+xpcc::Button<T>::isReleased()
+{
+	if(released) {
+		released = 0;
+		return true;
+	}
 	return false;
 }

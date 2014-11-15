@@ -134,16 +134,18 @@ public:
 	}
 	DMALLI(DMAConfig* cfg);
 
+	void reset(DMAConfig* cfg);
+
 	/// Set transfer size for LLI transfer
 	DMALLI* transferSize(uint16_t n);
 
-    class DMALLI *srcAddr(uint32_t n) { SrcAddr = n; return this; }
-    class DMALLI *dstAddr(uint32_t n) { DstAddr = n; return this; }
-    class DMALLI *nextLLI(uint32_t n) { NextLLI = n; return this; }
+    class DMALLI *srcAddr(void* n) { SrcAddr = (uint32_t)n; return this; }
+    class DMALLI *dstAddr(void* n) { DstAddr = (uint32_t)n; return this; }
+    class DMALLI *nextLLI(DMALLI* n) { NextLLI = (uint32_t)n; return this; }
     class DMALLI *control(uint32_t n) { Control = n; return this; }
     uint32_t srcAddr(void) { return SrcAddr; }
     uint32_t dstAddr(void) { return DstAddr; }
-    uint32_t nextLLI(void) { return NextLLI; }
+    DMALLI* nextLLI(void) { return (DMALLI*)NextLLI; }
     uint32_t control(void) { return Control; }
 
     uint32_t SrcAddr;    //!< Source Address
@@ -169,7 +171,7 @@ protected:
     // *****************************************
     
     uint8_t ChannelNum;        //!< DMA channel number, should be in range from 0 to 7.
-    uint32_t TransferSize;      //!< Length/Size of transfer 
+    uint16_t TransferSize;      //!< Length/Size of transfer
 
     uint8_t srcTransferWidth : 4;
     uint8_t dstTransferWidth : 4;
@@ -177,12 +179,12 @@ protected:
     uint8_t sbsize : 4;
     uint8_t dbsize : 4;
 
-    uint32_t SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p
-    uint32_t DstMemAddr;        //!< Physical Destination Address, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::p2m 
+    void* SrcMemAddr;        //!< Physical Src Addr, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::m2p
+    void* DstMemAddr;        //!< Physical Destination Address, used in case TransferType is chosen as MODDMA::GPDMA_TRANSFERTYPE::m2m or MODDMA::GPDMA_TRANSFERTYPE::p2m
     uint8_t TransferType;      //!< Transfer Type
     uint8_t SrcConn;           //!< Peripheral Source Connection type, used in case TransferType is chosen as
     uint8_t DstConn;           //!< Peripheral Destination Connection type, used in case TransferType is chosen as
-    uint32_t LLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
+    DMALLI* LLI;            //!< Linker List Item structure data address if there's no Linker List, set as '0'
     uint8_t DMACSync;          //!< DMACSync if required.
     uint8_t flags;
 
@@ -202,7 +204,6 @@ public:
     }
 
     void reset() {
-    	freeLLI();
     	ChannelNum    = 0xFF;
         TransferSize  = 0;
         srcTransferWidth = 0xF;
@@ -227,12 +228,12 @@ public:
     }
     ALWAYS_INLINE DMAConfig * SWidth(DMATransferWidth n) { srcTransferWidth = (uint8_t)n;     return this; }
     ALWAYS_INLINE DMAConfig * DWidth(DMATransferWidth n) { dstTransferWidth = (uint8_t)n;     return this; }
-    ALWAYS_INLINE DMAConfig * srcMemAddr(uint32_t n)    { SrcMemAddr = n;        return this; }
-    ALWAYS_INLINE DMAConfig * dstMemAddr(uint32_t n)    { DstMemAddr = n;        return this; }
-    ALWAYS_INLINE DMAConfig * transferType(uint32_t n)  { TransferType = n;      return this; }
+    ALWAYS_INLINE DMAConfig * srcMemAddr(void* n)    { SrcMemAddr = n;        return this; }
+    ALWAYS_INLINE DMAConfig * dstMemAddr(void* n)    { DstMemAddr = n;        return this; }
+    ALWAYS_INLINE DMAConfig * transferType(DMATransferType n)  { TransferType = n;      return this; }
     ALWAYS_INLINE DMAConfig * srcConn(DMAConnection n)  { SrcConn = n;           return this; }
     ALWAYS_INLINE DMAConfig * dstConn(DMAConnection n)  { DstConn = n;           return this; }
-    ALWAYS_INLINE DMAConfig * dmaLLI(uint32_t n)        { LLI = n;               return this; }
+    ALWAYS_INLINE DMAConfig * dmaLLI(DMALLI* n)        { LLI = n;               return this; }
     ALWAYS_INLINE DMAConfig * dmacSync(DMAConnection n)      { DMACSync = n;          return this; }
     ALWAYS_INLINE DMAConfig * transferFlags(Flags n)    { flags = (uint8_t)n;    return this; }
     /// Source burst size
@@ -244,21 +245,24 @@ public:
     uint32_t transferSize(void)  { return TransferSize;  }
     uint32_t SWidth(void)      { return srcTransferWidth; }
     uint32_t DWidth(void)      { return dstTransferWidth; }
-    uint32_t srcMemAddr(void)    { return SrcMemAddr;    }
-    uint32_t dstMemAddr(void)    { return DstMemAddr;    }
+    void* srcMemAddr(void)    { return SrcMemAddr;    }
+    void* dstMemAddr(void)    { return DstMemAddr;    }
     uint32_t transferType(void)  { return TransferType;  }
     uint32_t srcConn(void)       { return SrcConn;       }
     uint32_t dstConn(void)       { return DstConn;       }
-    uint32_t dmaLLI(void)        { return LLI;        }
+    DMALLI* dmaLLI(void)        { return LLI;        }
     uint32_t dmacSync(void)      { return DMACSync; }
     uint8_t transferFlags()      { return flags; }
     
     uint8_t SBurstSize()    { return sbsize; }
     uint8_t DBurstSize()    { return dbsize; }
 
-    DMALLI* addLLI();
+    DMALLI* addLLI(DMALLI* lli);
 
-    void freeLLI();
+    void setup();
+    void enable();
+    void disable();
+    bool enabled();
 
     /**
      * Attach a callback to the TC IRQ configuration.
@@ -266,7 +270,7 @@ public:
      * @param fptr A function pointer to call
      * @return this
      */
-    class DMAConfig * attach_tc(void (*fptr)(void)) {  
+    class DMAConfig * attach_tc(xpcc::function<void()> fptr) {
         isrIntTCStat.attach(fptr);
         return this;
     }
@@ -277,7 +281,7 @@ public:
      * @param fptr A function pointer to call
      * @return this
      */
-    class DMAConfig * attach_err(void (*fptr)(void)) {  
+    class DMAConfig * attach_err(xpcc::function<void()> fptr) {
         isrIntErrStat.attach(fptr);
         return this;
     }

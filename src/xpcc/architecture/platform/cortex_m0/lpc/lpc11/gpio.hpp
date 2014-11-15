@@ -91,6 +91,7 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
 			if(port == 1) { \
 				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
 					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
@@ -111,7 +112,8 @@ namespace xpcc
 			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
 		} \
 		ALWAYS_INLINE static void \
-		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
+		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) { \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
 			if(port == 1) { \
 				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
 					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
@@ -128,7 +130,6 @@ namespace xpcc
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
 				}\
 			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
 		} \
@@ -170,7 +171,7 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
 			if(port == 1) { \
 				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
@@ -219,8 +220,8 @@ namespace xpcc
 		static const int Port = port; \
 		static const int Pin = pin; \
 		ALWAYS_INLINE static void \
-		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::FLOATING) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) { \
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
 			if(port == 1) { \
 				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\

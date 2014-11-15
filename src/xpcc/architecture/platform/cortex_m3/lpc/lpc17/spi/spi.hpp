@@ -276,31 +276,13 @@ public:
 
 		txChannelCfg->channelNum(Channel_1)
 				->dstConn(conn)
-				->srcMemAddr(tx ? (uint32_t)tx : (uint32_t)&dummy)
-				->transferSize((length>0xFFF) ? 0xFFF : length)
+				->srcMemAddr(tx ? tx : (uint8_t*)&dummy)
+				->transferSize(length)
 				->transferType(m2p);
 
 		if(!tx) {
 			//force source address increment off if we send dummy bytes
 			txChannelCfg->transferFlags(DMAConfig::FORCE_SI_OFF);
-		}
-
-		if(length > 0xFFF) {
-			uint16_t len = length - 0xFFF;
-			uint16_t sz;
-			uint8_t* buf = tx + 0xFFF;
-
-			while(len > 0) {
-				sz = (len>0xFFF)? 0xFFF : len;
-
-				DMALLI* lli = txChannelCfg->addLLI();
-
-				lli->transferSize(sz);
-				lli->srcAddr(tx ? (uint32_t)buf : (uint32_t)&dummy);
-
-				len -= sz;
-				buf += sz;
-			}
 		}
 
 		dma->Setup(txChannelCfg);
@@ -321,7 +303,7 @@ public:
 		static uint32_t _dummy_rx;
 
 		rxChannelCfg->channelNum(Channel_0)
-				->dstMemAddr((rx != 0) ? (uint32_t)rx : (uint32_t)&_dummy_rx)
+				->dstMemAddr((rx != 0) ? rx : (uint8_t*)&_dummy_rx)
 				->srcConn(conn)
 				->transferSize(length)
 				->transferType(p2m)

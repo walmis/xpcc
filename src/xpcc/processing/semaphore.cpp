@@ -6,6 +6,7 @@
  */
 
 #include "semaphore.hpp"
+#include "ticker_task.hpp"
 #include <xpcc/architecture.hpp>
 
 xpcc::Semaphore::Semaphore() : _taken(false) {
@@ -34,6 +35,7 @@ bool xpcc::Semaphore::take(uint16_t timeout_ms) {
     return false;
 }
 
+#ifdef __ARM_ARCH_7M__
 bool xpcc::Semaphore::take_nonblocking() {
 	  volatile unsigned char failed = 1;
 	  register bool lock;
@@ -46,3 +48,12 @@ bool xpcc::Semaphore::take_nonblocking() {
 
 	  return !failed;
 }
+#else
+bool xpcc::Semaphore::take_nonblocking() {
+	xpcc::atomic::Lock l;
+	if(_taken) return false;
+	_taken = true;
+	return true;
+}
+
+#endif

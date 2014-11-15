@@ -8,7 +8,7 @@
 #ifndef TASK_H_
 #define TASK_H_
 
-#include <functional>
+#include "function.hpp"
 
 namespace xpcc {
   
@@ -70,7 +70,7 @@ protected:
 private:
 	static TickerTask* base;
 	static TickerTask* volatile current;
-	static std::function<void()> idleFunc;
+	static function<void()> idleFunc;
 	volatile uint8_t flags;
 
 	virtual void _yield(uint16_t timeAvailable);
@@ -93,7 +93,7 @@ public:
 
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
-	static void tasksRun(std::function<void()> idleFunc = 0) {
+	static void tasksRun(xpcc::function<void()> idleFunc = 0) {
 		TickerTask::idleFunc = idleFunc;
 		TickerTask* task = base;
 		while (task) {

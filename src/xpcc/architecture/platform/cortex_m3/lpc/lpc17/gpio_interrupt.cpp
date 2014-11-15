@@ -16,7 +16,7 @@ struct Entry {
 	uint8_t port;
 	uint8_t pin;
 	uint8_t edges;
-	std::function<void()> func;
+	xpcc::function<void()> func;
 };
 
 static LinkedList<Entry> handlers;
@@ -26,7 +26,7 @@ static uint8_t _currentPort;
 static uint8_t _currentPin;
 
 void GpioInt::attach(uint8_t port, uint8_t pin,
-		std::function<void()> fn, IntEdge edges) {
+		xpcc::function<void()> fn, IntEdge edges) {
 
 	Entry e;
 	e.port = port;
@@ -34,9 +34,9 @@ void GpioInt::attach(uint8_t port, uint8_t pin,
 	e.edges = edges;
 	e.func = fn;
 
-	GpioInt::enableInterrupt(port, pin, edges);
-
 	handlers.append(e);
+
+	GpioInt::enableInterrupt(port, pin, edges);
 
 }
 

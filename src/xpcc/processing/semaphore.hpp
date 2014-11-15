@@ -21,6 +21,10 @@ public:
 	bool take(uint16_t timeout) __attribute__ ((warn_unused_result));
 	bool take_nonblocking() __attribute__ ((warn_unused_result));
 
+	inline bool taken() {
+		return _taken;
+	}
+
 private:
 	volatile bool _taken;
 };
