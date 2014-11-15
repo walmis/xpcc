@@ -274,7 +274,7 @@ public:
 			txChannelCfg->reset();
 		}
 
-		txChannelCfg->channelNum(Channel_1)
+		txChannelCfg->channelNum(Channel_7)
 				->dstConn(conn)
 				->srcMemAddr(tx ? tx : (uint8_t*)&dummy)
 				->transferSize(length)
@@ -302,7 +302,7 @@ public:
 
 		static uint32_t _dummy_rx;
 
-		rxChannelCfg->channelNum(Channel_0)
+		rxChannelCfg->channelNum(Channel_6)
 				->dstMemAddr((rx != 0) ? rx : (uint8_t*)&_dummy_rx)
 				->srcConn(conn)
 				->transferSize(length)
