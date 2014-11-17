@@ -210,57 +210,11 @@ public:
 
 	static bool transfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
 
-		//XPCC_LOG_DEBUG .printf("DMA start %x %x %d\n", tx, rx, length);
-		if(prepareTransfer(tx, rx, length)) {
-			startTransfer(rx);
-			return true;
-		}
-		//XPCC_LOG_DEBUG .printf("... failed\n");
-		return false;
-	}
-
-	static void
-	stopTransfer() {
-		DMA* dma = DMA::instance();
-		if(txChannelCfg) {
-			//dma->haltAndWaitChannelComplete((DMAChannel)txChannelCfg->channelNum());
-			dma->Disable(txChannelCfg->channelNum());
-
-		}
-		if(rxChannelCfg) {
-			//dma->haltAndWaitChannelComplete((DMAChannel)rxChannelCfg->channelNum());
-			dma->Disable(rxChannelCfg->channelNum());
-		}
-		//call isFinished() to clean up transfer
-		//isFinished();
-		running = false;
-	}
-
-	static void startTransfer(bool rx = false) {
-		DMA* dma = DMA::instance();
-
-		xpcc::atomic::Lock lock;
-		dma->Enable(txChannelCfg);
-		/* Wait until at least one byte has arrived into the RX FIFO
-			   and then start-up the Channel1 DMA to begin transferring them. */
-		//while((SPIx->SR & (1UL << 2)) == 0);
-		//start rx transfer
-		dma->Enable(rxChannelCfg);
-		SPIx->DMACR = 3; // enable Tx Rx DMA
-		running = true;
-
-	}
-
-    static bool
-    prepareTransfer(uint8_t * tx, uint8_t * rx, std::size_t length) {
-
     	if(isTransferBusy()) {
     		return false;
     	}
 
     	flushRx();
-
-    	DMA* dma = DMA::instance();
 
     	static const uint32_t dummy = 0xFFFFFFFF;
 
@@ -285,7 +239,7 @@ public:
 			txChannelCfg->transferFlags(DMAConfig::FORCE_SI_OFF);
 		}
 
-		dma->Setup(txChannelCfg);
+		txChannelCfg->setup();
 
 		conn = SSP0_Rx;
 		if(SPIx == LPC_SSP1)
@@ -312,31 +266,54 @@ public:
 		if(!rx) {
 			rxChannelCfg->transferFlags(DMAConfig::FORCE_DI_OFF);
 		}
-
 		//prepare rx channel
-		dma->Setup(rxChannelCfg);
+		rxChannelCfg->setup();
 
-    	return true;
-    }
+		{
+			xpcc::atomic::Lock lock;
+			SPIx->DMACR = 3; // enable Tx Rx DMA
+
+			rxChannelCfg->enable();
+			txChannelCfg->enable();
+			/* Wait until at least one byte has arrived into the RX FIFO
+				   and then start-up the Channel1 DMA to begin transferring them. */
+			//while((SPIx->SR & (1UL << 2)) == 0);
+			//start rx transfer
+		}
+		return true;
+	}
+
+	static void
+	stopTransfer() {
+		DMA* dma = DMA::instance();
+		if(txChannelCfg) {
+			//dma->haltAndWaitChannelComplete((DMAChannel)txChannelCfg->channelNum());
+			txChannelCfg->disable();
+
+		}
+		if(rxChannelCfg) {
+			//dma->haltAndWaitChannelComplete((DMAChannel)rxChannelCfg->channelNum());
+			rxChannelCfg->disable();
+		}
+	}
+
 
     static bool isTransferBusy() {
-    	return running;
+    	return rxChannelCfg->enabled() || txChannelCfg->enabled();
     }
 
 	static bool
 	isTransferFinished() {
-		return !running;
+		return !isTransferBusy();
 	}
 
 protected:
 	static DMAConfig* txChannelCfg;
 	static DMAConfig* rxChannelCfg;
-	volatile static bool running;
 private:
 
 	static void onDMAComplete() {
 		SPIx->DMACR = 0;
-		running = false;
 	}
 };
 
@@ -345,9 +322,6 @@ DMAConfig* SpiMaster<Spi_ptr>::txChannelCfg = 0;
 
 template<int Spi_ptr>
 DMAConfig* SpiMaster<Spi_ptr>::rxChannelCfg = 0;
-
-template<int Spi_ptr>
-volatile bool SpiMaster<Spi_ptr>::running = 0;
 
 typedef SpiMaster<(int)LPC_SSP0> SpiMaster0;
 typedef SpiMaster<(int)LPC_SSP1> SpiMaster1;

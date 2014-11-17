@@ -257,8 +257,6 @@ public:
     uint8_t SBurstSize()    { return sbsize; }
     uint8_t DBurstSize()    { return dbsize; }
 
-    DMALLI* addLLI(DMALLI* lli);
-
     void setup();
     void enable();
     void disable();

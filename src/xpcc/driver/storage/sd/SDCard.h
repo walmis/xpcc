@@ -216,12 +216,12 @@ public:
 
 		initialized = true;
 
-		onInitialized();
-
 		return true;
 	}
 
-	virtual void onInitialized() {	}
+	void deinit() {
+		initialized = false;
+	}
 
 	//------------------------------------------------------------------------------
 	/** Begin a read multiple blocks sequence.

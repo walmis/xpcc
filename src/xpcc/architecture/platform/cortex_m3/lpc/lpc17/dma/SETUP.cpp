@@ -265,27 +265,6 @@ DMA::Setup(DMAConfig *config)
     return pChannel->DMACCControl;
 }
 
-DMALLI* DMAConfig::addLLI(DMALLI* lli) {
-	if(!lli)
-		return 0;
-
-	if(LLI == 0) {
-		LLI = lli;
-		DMA::instance()->lli((DMAChannel)ChannelNum, lli);
-	} else {
-		DMALLI* ptr = (DMALLI*) LLI;
-		while(ptr) {
-			if(ptr->nextLLI() == 0) {
-				ptr->nextLLI(lli);
-				break;
-			}
-			ptr = ptr->nextLLI();
-		}
-
-	}
-	return lli;
-}
-
 DMALLI::DMALLI(DMAConfig* cfg) {
 	reset(cfg);
 }

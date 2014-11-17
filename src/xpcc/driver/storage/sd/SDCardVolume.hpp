@@ -39,7 +39,7 @@ private:
 	void handleTick() {
 		if(read_sem_taken && !reading) {
 			if((xpcc::Clock::now() - last_op) > 5) {
-				XPCC_LOG_DEBUG .printf("release sem\n");
+				//XPCC_LOG_DEBUG .printf("release sem\n");
 				last_block = 0;
 				this->readStop();
 				this->semaphore()->give();
@@ -49,7 +49,7 @@ private:
 
 		if(write_sem_taken && !writing) {
 			if((xpcc::Clock::now() - last_op) > 5) {
-				XPCC_LOG_DEBUG .printf("release wr sem\n");
+				//XPCC_LOG_DEBUG .printf("release wr sem\n");
 				last_block = 0;
 				this->writeStop();
 				this->semaphore()->give();
@@ -60,7 +60,7 @@ private:
 
 	xpcc::fat::Result
 	doRead(uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) override {
-		XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
+		//XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
 
 		if(!read_sem_taken) {
 			if(!this->semaphore()->take(200)) {
@@ -76,7 +76,7 @@ private:
 		if(last_block+1 != sectorNumber) {
 			this->readStop();
 			this->readStart(sectorNumber);
-				XPCC_LOG_DEBUG .printf("--start %d\n", sectorNumber);
+			//XPCC_LOG_DEBUG .printf("--start %d\n", sectorNumber);
 		}
 
 		last_block = sectorNumber + sectorCount - 1;
