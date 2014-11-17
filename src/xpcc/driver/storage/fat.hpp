@@ -36,6 +36,8 @@
 #include <xpcc/io.hpp>
 #include <xpcc/debug.hpp>
 
+#undef feof
+
 namespace xpcc {
 namespace fat {
 typedef DRESULT Result;
