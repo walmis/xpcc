@@ -35,7 +35,7 @@ namespace
 // ----------------------------------------------------------------------------
 
 void
-xpcc::lpc::Uart1::write(uint8_t data)
+xpcc::lpc11::Uart1::write(uint8_t data)
 {
 	while ( !(LPC_UART->LSR & LSR_THRE) );
 	LPC_UART->THR = data;
@@ -44,7 +44,7 @@ xpcc::lpc::Uart1::write(uint8_t data)
 // ----------------------------------------------------------------------------
 
 void
-xpcc::lpc::Uart1::write(const uint8_t *buffer, uint8_t n)
+xpcc::lpc11::Uart1::write(const uint8_t *buffer, uint8_t n)
 {
 	  while (n != 0)
 	  {
@@ -56,7 +56,7 @@ xpcc::lpc::Uart1::write(const uint8_t *buffer, uint8_t n)
 // ----------------------------------------------------------------------------
 
 bool
-xpcc::lpc::Uart1::read(uint8_t & c)
+xpcc::lpc11::Uart1::read(uint8_t & c)
 {
 	if (LPC_UART->LSR & LSR_RDR) {
 		// Receive data available
@@ -70,7 +70,7 @@ xpcc::lpc::Uart1::read(uint8_t & c)
 // ----------------------------------------------------------------------------
 
 uint8_t
-xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n, bool blocking)
+xpcc::lpc11::Uart1::read(uint8_t *buffer, uint8_t n, bool blocking)
 {
 	uint8_t ret = 0;
 
@@ -93,7 +93,7 @@ xpcc::lpc::Uart1::read(uint8_t *buffer, uint8_t n, bool blocking)
 
 // ----------------------------------------------------------------------------
 
-xpcc::lpc::Uart1::Uart1(uint32_t baudrate)
+xpcc::lpc11::Uart1::Uart1(uint32_t baudrate)
 {
 	/*  UART I/O config. PIO1_6 and PIO1_7 are always Rx/Tx */
 	xpcc::lpc11::IOCon::setPinFunc(1, 6, 1);
@@ -124,7 +124,7 @@ xpcc::lpc::Uart1::Uart1(uint32_t baudrate)
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 
-xpcc::lpc::BufferedUart1::BufferedUart1(uint32_t baudrate)
+xpcc::lpc11::BufferedUart1::BufferedUart1(uint32_t baudrate)
 {
 	/*  UART I/O config. PIO1_6 and PIO1_7 are always Rx/Tx */
 	xpcc::lpc11::IOCon::setPinFunc(1, 6, 1);
@@ -179,7 +179,7 @@ xpcc::lpc::BufferedUart1::BufferedUart1(uint32_t baudrate)
 // ----------------------------------------------------------------------------
 
 void
-xpcc::lpc::BufferedUart1::write(uint8_t data)
+xpcc::lpc11::BufferedUart1::write(uint8_t data)
 {
 	if (LPC_UART->LSR & LSR_THRE) {
 		// If the FIFO is empty 16 bytes can be send.
@@ -250,7 +250,7 @@ xpcc::lpc::BufferedUart1::write(uint8_t data)
 // ----------------------------------------------------------------------------
 
 void
-xpcc::lpc::BufferedUart1::write(const uint8_t *buffer, uint8_t n)
+xpcc::lpc11::BufferedUart1::write(const uint8_t *buffer, uint8_t n)
 {
 	if (LPC_UART->LSR & LSR_THRE) {
 		// If the FIFO is empty 16 bytes can be send.

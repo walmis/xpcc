@@ -35,7 +35,7 @@
 
 namespace xpcc
 {
-	namespace lpc
+	namespace lpc11
 	{
 		/**
 		 * @brief		Base class for the UART classes

@@ -7,7 +7,7 @@
 
 namespace xpcc
 {
-	namespace lpc
+	namespace lpc11
 	{
 		/**
 		 * \brief	Universal asynchronous receiver transmitter (UART1)
