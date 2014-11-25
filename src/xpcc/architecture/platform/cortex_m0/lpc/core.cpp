@@ -20,6 +20,10 @@ namespace xpcc {
 	}
 }
 
+bool xpcc::TickerTask::inInterruptContext() {
+	return __get_IPSR() != 0;
+}
+
 extern "C" void default_irq_handler() {
 	int irqn = __get_IPSR() - 16;
 
