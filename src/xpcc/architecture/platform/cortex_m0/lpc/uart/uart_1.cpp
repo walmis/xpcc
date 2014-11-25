@@ -40,6 +40,9 @@ char xpcc::lpc11::Uart1::get() {
 	return LPC_UART->RBR;
 }
 
+void xpcc::lpc11::Uart1::flush() {
+	while ( !(LPC_UART->LSR & LSR_THRE) );
+}
 // ----------------------------------------------------------------------------
 
 void xpcc::lpc11::Uart1::init(uint32_t baud, CfgDataBits dataBits,
