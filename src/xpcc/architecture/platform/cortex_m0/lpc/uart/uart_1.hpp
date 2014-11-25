@@ -2,8 +2,7 @@
 #define XPCC_LPC11__UART_1_HPP
 
 #include <stdint.h>
-
-#include "uart_base.hpp"
+#include <stddef.h>
 
 namespace xpcc
 {
@@ -18,117 +17,67 @@ namespace xpcc
 		 * 
 		 * \ingroup	lpc1100
 		 */
-		class Uart1 : public UartBase
+		class Uart1
 		{
 		public:
-			Uart1(uint32_t baudrate);
+			typedef enum {
+				UART_DATABIT_5		= 0,     		/*!< UART 5 bit data mode */
+				UART_DATABIT_6,		     			/*!< UART 6 bit data mode */
+				UART_DATABIT_7,		     			/*!< UART 7 bit data mode */
+				UART_DATABIT_8		     			/*!< UART 8 bit data mode */
+			} CfgDataBits;
 
 			/**
-			 * \brief	Write a single bytes
-			 *
-			 * \param	data	Data to be written
+			 * @brief UART Stop bit type definitions
 			 */
-			static void
-			write(uint8_t data);
+			typedef enum {
+				UART_STOPBIT_1		= (0),   					/*!< UART 1 Stop Bits Select */
+				UART_STOPBIT_2		 							/*!< UART Two Stop Bits Select */
+			} CfgStopBits;
 
 			/**
-			 * \brief	Write a block of bytes
-			 *
-			 * \param	*buffer	Pointer to a buffer
-			 * \param	n		Number of bytes to be read
+			 * @brief UART Parity type definitions
 			 */
-			static void
-			write(const uint8_t *buffer, uint8_t n);
+			typedef enum {
+				UART_PARITY_NONE 	= 0,					/*!< No parity */
+				UART_PARITY_ODD,	 						/*!< Odd parity */
+				UART_PARITY_EVEN, 							/*!< Even parity */
+				UART_PARITY_SP_1, 							/*!< Forced "1" stick parity */
+				UART_PARITY_SP_0 							/*!< Forced "0" stick parity */
+			} CfgParity;
 
-			/**
-			 * \brief	Read a single byte
-			 */
-			static bool
-			read(uint8_t& c);
+			static void init(uint32_t baud = 115200,
+					CfgDataBits dataBits = UART_DATABIT_8,
+					CfgParity parity = UART_PARITY_NONE,
+					CfgStopBits stopBits = UART_STOPBIT_1);
 
-			/**
-			 * \brief	Read a block of bytes
-			 *
-			 * \param	*buffer	Pointer to a buffer big enough to storage \a n bytes
-			 * \param	n	Number of bytes to be read
-			 *
-			 * \return	Number of bytes which could be read, maximal \a n
-			 */
-			static uint8_t
-			read(uint8_t *buffer, uint8_t n, bool blocking = false);
+			static size_t write(char c);
+			static int16_t read();
+			static void flush();
+
+
+			static inline void put(char c);
+			static inline char get();
+
+			static void enableTxCompleteInterrupt(bool en);
+			static void enableRxCompleteInterrupt(bool en);
+
+			static void attachTxCompleteInterrupt(void (*f)());
+			static void attachRxCompleteInterrupt(void (*f)());
+
+			static bool setBaud(uint32_t baud);
+
+			static void startAutoBaud(uint8_t mode);
+			static void stopAutoBaud();
+			static bool autoBaudSuccess();
+
 
 		protected:
-//			static void inline
-//			setBaudrate(uint32_t baudrate);
 
 			static void
 			configurePins(void);
 		}; // Uart1 class
 
-		/**
-		 * \brief	Universal asynchronous receiver transmitter (UART1)
-		 *
-		 * This implementation uses the hardware buffer and the software buffer.
-		 * A software buffer is only used if more than 16 bytes of buffering
-		 * is requested.
-		 *
-		 * The hardware implementation by NXP is flawed. See
-		 *   http://knowledgebase.nxp.com/showthread.php?t=2231
-		 *
-		 * There is no FIFO-not-full flag. It's only possible to check if the
-		 * FIFO is completely empty. This makes it impossible to add data
-		 * to the FIFO after the first byte is put into the FIFO.
-		 *
-		 * After detecting that the FIFO is empty (THRE interrupt) the
-		 * charsLeft variable is set to 16 (= size of FIFO) and some accounting
-		 * is done in this class.
-		 *
-		 * The interrupt occurence is strongly reduced compared to STM devices.
-		 * In STM devices after each char transmitted an interrupt is called.
-		 * In this implementation only every 16 bytes an interrupt is generated.
-		 *
-		 */
-		class BufferedUart1 : public UartBase
-		{
-		public:
-			BufferedUart1(uint32_t baudrate);
-
-			/**
-			 * \brief	Write a single bytes
-			 *
-			 * \param	data	Data to be written
-			 */
-			static void
-			write(uint8_t data);
-
-			/**
-			 * \brief	Write a block of bytes
-			 *
-			 * \param	*buffer	Pointer to a buffer
-			 * \param	n		Number of bytes to be read
-			 */
-			static void
-			write(const uint8_t *buffer, uint8_t n);
-
-			/**
-			 * \brief	Read a single byte
-			 */
-			static bool
-			read(uint8_t& c);
-
-			/**
-			 * \brief	Read a block of bytes
-			 *
-			 * \param	*buffer	Pointer to a buffer big enough to storage \a n bytes
-			 * \param	n	Number of bytes to be read
-			 *
-			 * \return	Number of bytes which could be read, maximal \a n
-			 */
-			static uint8_t
-			read(uint8_t *buffer, uint8_t n);
-
-
-		};
 
 	} // lpc namespace
 } // xpcc namespace

@@ -50,7 +50,7 @@
 #define UART_LCR_BITMASK		((uint8_t)(0xFF))		/*!< UART line control bit mask */
 
 
-void xpcc::lpc11::UartBase::startAutoBaud(uint8_t mode) {
+void xpcc::lpc11::Uart1::startAutoBaud(uint8_t mode) {
 	LPC_UART->FDR = 1<<4; //clear DIVADDVAL and set MULVAL to 1
 
 	LPC_UART->ACR = (0<<1) | ((mode & 1) << 1) | (1<<2); //start, auto restart
@@ -58,7 +58,7 @@ void xpcc::lpc11::UartBase::startAutoBaud(uint8_t mode) {
 
 }
 
-bool xpcc::lpc11::UartBase::autoBaudSuccess() {
+bool xpcc::lpc11::Uart1::autoBaudSuccess() {
 	if(LPC_UART->IIR & (1<<8)) {
 		LPC_UART->ACR |= (1<<8); //clear interrupt
 		return true;
@@ -66,12 +66,12 @@ bool xpcc::lpc11::UartBase::autoBaudSuccess() {
 	return false;
 }
 
-void xpcc::lpc11::UartBase::stopAutoBaud()  {
+void xpcc::lpc11::Uart1::stopAutoBaud()  {
 	LPC_UART->ACR = 0;
 }
 
-void
-xpcc::lpc11::UartBase::setBaudrate(uint32_t baudrate)
+bool
+xpcc::lpc11::Uart1::setBaud(uint32_t baudrate)
 {
 //	LPC_UART->LCR = LCR_DLAB;             /* DLAB = 1 */
 //	uint32_t regVal = LPC_SYSCON->UARTCLKDIV;
@@ -145,4 +145,5 @@ xpcc::lpc11::UartBase::setBaudrate(uint32_t baudrate)
 
 		LPC_UART->LCR = LCR_WLS_8_BIT;
 
+		return true;
 }

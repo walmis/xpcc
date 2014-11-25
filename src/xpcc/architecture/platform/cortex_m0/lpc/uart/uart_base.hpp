@@ -37,30 +37,7 @@ namespace xpcc
 {
 	namespace lpc11
 	{
-		/**
-		 * @brief		Base class for the UART classes
-		 * 
-		 * Provides same common helper functions.
-		 * 
-		 * @internal
-		 * @ingroup		lpc1100
-		 */
-		class UartBase
-		{
-		public:
-			/**
-			 * @brief	Set the baud rate.
-			 * 
-			 * @param	baudrate	Requested baudrate
-			 */
-			static void
-			setBaudrate(uint32_t baudrate);
 
-			void startAutoBaud(uint8_t mode);
-			void stopAutoBaud();
-			bool autoBaudSuccess();
-
-		};
 	}
 }
 
