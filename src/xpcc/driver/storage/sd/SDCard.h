@@ -294,7 +294,7 @@ public:
 	bool writeStart(uint32_t blockNumber, uint32_t eraseCount) {
 		//SD_TRACE("WS", blockNumber);
 		// send pre-erase count
-		PROFILE();
+		//PROFILE();
 		if (_acmd(23, eraseCount) != 0) {
 			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
 			goto fail;
@@ -420,7 +420,7 @@ inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 
 template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::writeStop() {
-	PROFILE();
+	//PROFILE();
 	if (!waitNotBusy(SD_WRITE_TIMEOUT))
 		goto fail;
 

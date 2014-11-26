@@ -495,6 +495,7 @@ public:
 				error = xpcc::I2cMaster::Error::AddressNack;
 				//ERR << "Error::AddressNack " << delegate << endl;
 				newSession = false;
+				i2stop();
 				intClear();
 			}
 		case I2C_I2STAT_M_TX_DAT_NACK:	// data transmitted, NACK received

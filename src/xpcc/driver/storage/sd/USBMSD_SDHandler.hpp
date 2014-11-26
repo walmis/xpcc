@@ -125,67 +125,7 @@ protected:
     			break;
     		}
     	}
-//
-//		if (requestedBlock != -1 && haveBlock == -1 && readingBlock == -1
-//				&& !card->isOpInprogress()) {
-//			bool res;
-//			if (opType == READ) {
-//				if (!card->readStart(requestedBlock)) {
-//					disk_read_finalize(false);
-//					requestedBlock = -1;
-//					return;
-//				}
-//
-//				readingBlock = requestedBlock;
-//	    		XPCC_LOG_DEBUG .printf("X:first read %d\n", requestedBlock);
-//	      		card->readAsync(buffer, 512).attach([this]{ this->onBlockRead(); });
-//
-//			} else if (opType == WRITE) {
-//				if (!card->writeStart(requestedBlock, totalBlocks)) {
-//					requestedBlock = -1;
-//					disk_write_finalize(false);
-//					return;
-//				}
-//
-//				XPCC_LOG_DEBUG.printf("X: first write %d\n", requestedBlock);
-//				readingBlock = requestedBlock;
-//
-//				uint8_t token = (totalBlocks>1)? WRITE_MULTIPLE_TOKEN : DATA_START_BLOCK;
-//				card->writeDataAsync(token, buffer).attach([this]{ this->onBlockWrite(); });
-//			}
-//    	}
-//
-//    	//if(requestedBlock != -1 && v.isExpired()){
-//    	if(haveBlock == requestedBlock && requestedBlock != -1 ) {
-//    		//xpcc::atomic::Lock lock;
-//    		if(opType == TransferType::READ) {
-//				memcpy(dataptr, buffer, 512);
-//
-//				if(blocksLeft > 0) {
-//					readingBlock = requestedBlock+1;
-//					haveBlock = -1;
-//					//XPCC_LOG_DEBUG .printf("X:read %d\n", readingBlock);
-//					card->readAsync(buffer, 512).attach([this]{ this->onBlockRead(); });
-//				} else {
-//					//XPCC_LOG_DEBUG .printf("X:stop read\n");
-//					card->readStop();
-//				}
-//				requestedBlock = -1;
-//
-//
-//
-//				disk_read_finalize(true);
-//				//XPCC_LOG_DEBUG.printf("---\n");
-//			} else
-//    		if(opType == TransferType::WRITE) {
-//    			if(blocksLeft == 0) {
-//    				card->writeStop();
-//    			}
-//    			requestedBlock = -1;
-//    			XPCC_LOG_DEBUG.printf("X: finalizing write\n");
-//    			disk_write_finalize(true);
-//    		}
-//    	}
+
     }
 
     void transfer_begins(TransferType type, uint32_t startBlock, int numBlocks) override{
