@@ -319,9 +319,9 @@ void USBMSDHandler::disk_write_finalize(bool success) {
 	//XPCC_LOG_DEBUG.printf("finalize writeRequest:%d %d\n", writeRequest, writeBusy);
 
     if(!success) {
-    	xpcc::atomic::Lock lock;
-
     	XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_write_finalize(%d)\n", success);
+
+    	xpcc::atomic::Lock lock;
 
     	SCSI_SET_SENSE(SCSI_SENSE_KEY_MEDIUM_ERROR,
 	                   SCSI_ASENSE_WRITE_FAULT,

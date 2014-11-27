@@ -14,52 +14,21 @@
 class CoopTask : xpcc::TickerTask {
 
 public:
+	CoopTask(uint8_t* stack, size_t stacksize) : stack(stack),
+			stacksize(stacksize), stackPtr(0) {}
 
-	enum {
-		TSK_YIELD = 1
-	};
-
-	CoopTask(uint16_t stackSize);
-
-	virtual ~CoopTask() {
-		if(stack)
-			delete (uint8_t*)stack;
-	}
 
 	virtual void run() = 0;
 
-	void handleTick() override;
+
+	void _yield(uint16_t timeAvailable) override {
+
+	}
 
 	//implemented architecture specific
 	static void contextSwitch(void *arg);
-	//implemented architecture specific
-	static void yield();
-
-	static void sleep(uint16_t time) {
-		xpcc::Timeout<> t(time);
-		while(!t.isExpired()) {
-			yield();
-		}
-	}
-
-	class Mutex {
-	public:
-		Mutex() : flag(0) {}
-
-		void lock() {
-			while(flag) {
-				yield();
-			}
-			flag = true;
-		}
-		void unlock() {
-			flag = false;
-		}
-	private:
-		volatile bool flag;
-	};
-
 private:
+	void handleTick() override;
 
 	void _thread() {
 		while(1) {

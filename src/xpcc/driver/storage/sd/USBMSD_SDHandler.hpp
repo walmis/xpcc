@@ -66,7 +66,7 @@ protected:
     	    			XPCC_LOG_DEBUG .printf("*");
     	    			return;
     	    		}
-    				XPCC_LOG_DEBUG .printf("TestMSD::read_begins %d a:%d d:%d\n", opType, requestedBlock, totalBlocks);
+    				XPCC_LOG_DEBUG .printf("MSD::read_begins %d a:%d d:%d\n", opType, requestedBlock, totalBlocks);
     				card->readStart(requestedBlock);
     				firstBlock = false;
     			}
@@ -107,6 +107,8 @@ protected:
     	    			XPCC_LOG_DEBUG .printf("*");
     	    			return;
     	    		}
+    				XPCC_LOG_DEBUG .printf("MSD::write_begins r:%d c:%d\n", requestedBlock, totalBlocks);
+
     				card->writeStart(requestedBlock, totalBlocks);
     				firstBlock = false;
     			}
@@ -114,6 +116,7 @@ protected:
     			memcpy(buffer, dataptr, 512);
     			requestedBlock = -1;
     			size_t left = blocksLeft;
+
     			disk_write_finalize(true);
 
     			res = card->writeData(buffer);
