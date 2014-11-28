@@ -13,7 +13,7 @@
 
 namespace xpcc {
 
-class Terminal : xpcc::TickerTask {
+class Terminal : public xpcc::TickerTask {
 
 public:
 	Terminal(xpcc::IODevice &device) : device(device) {}

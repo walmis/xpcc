@@ -9,6 +9,8 @@
 #define TASK_H_
 
 #include "function.hpp"
+#include "timestamp.hpp"
+#include "../io/iostream.hpp"
 
 namespace xpcc {
   
@@ -30,32 +32,21 @@ protected:
 
 	///handle task tick. This is called repeatedly when TickerTask::tasksRun is executing.
 	virtual void handleTick() {};
-
 	virtual void handleInit() {};
 
 	///handle interrupt with interrupt code irqn
-	virtual void handleInterrupt(int irqn) {
+	virtual void handleInterrupt(int irqn) {}
+
+	inline bool getFlag(uint8_t flag) {
+		return flags & flag;
 	}
 
-	/// returns true if current task is blocking (yielding)
-	inline bool taskBlocking() {
-		return flags & FLAG_BLOCKING;
-	}
-	inline void setBlocking() {
-		flags |= FLAG_BLOCKING;
-	}
-	inline void clearBlocking() {
-		flags &= ~FLAG_BLOCKING;
+	inline void setFlag(uint8_t flag) {
+		flags |= flag;
 	}
 
-	inline bool taskSleeping() {
-		return flags & FLAG_SLEEPING;
-	}
-	inline void setSleeping() {
-		flags |= FLAG_SLEEPING;
-	}
-	inline void clearSleeping() {
-		flags &= ~FLAG_SLEEPING;
+	inline void clearFlag(uint8_t flag) {
+		flags &= ~flag;
 	}
 
 	static bool inInterruptContext();
@@ -69,7 +60,6 @@ private:
 	static TickerTask* base;
 	static TickerTask* volatile current;
 	static function<void()> idleFunc;
-
 
 	virtual void _yield(uint16_t timeAvailable);
 
@@ -92,18 +82,9 @@ public:
 
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
-	static void tasksRun(xpcc::function<void()> idleFunc = 0) {
-		TickerTask::idleFunc = idleFunc;
-		TickerTask* task = base;
-		while (task) {
-			task->handleInit();
-			task = task->next;
-		}
+	static void tasksRun(xpcc::function<void()> idleFunc = 0);
 
-		while(1) {
-			tick();
-		}
-	}
+	static void printTasks(IOStream& stream);
 };
 
 
