@@ -14,19 +14,15 @@
 class CoopTask : xpcc::TickerTask {
 
 public:
-	CoopTask(uint8_t* stack, size_t stacksize) : stack(stack),
-			stacksize(stacksize), stackPtr(0) {}
-
+	CoopTask(uint8_t* stack, size_t stacksize);
 
 	virtual void run() = 0;
 
-
-	void _yield(uint16_t timeAvailable) override {
-
-	}
+	void _yield(uint16_t timeAvailable);
 
 	//implemented architecture specific
 	static void contextSwitch(void *arg);
+
 private:
 	void handleTick() override;
 
@@ -39,10 +35,6 @@ private:
 	void* stackPtr;
 	void* stack;
 	uint16_t stacksize;
-
-	volatile uint8_t flags;
-
-	static CoopTask* currTask;
 };
 
 

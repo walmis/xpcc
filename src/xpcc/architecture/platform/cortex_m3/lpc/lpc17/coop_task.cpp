@@ -37,7 +37,7 @@ typedef struct {
   uint32_t r11;
 } sw_stack_frame_t;
 
-CoopTask* CoopTask::currTask = 0;
+static CoopTask* volatile currTask = 0;
 
 //holds the context of the main thread
 uint8_t main_context[sizeof(sw_stack_frame_t)];
@@ -57,7 +57,7 @@ inline void load_context(void){
       "MSR psp, %0\n\t"  : "=r" (scratch) );
 }
 
-CoopTask::CoopTask(uint16_t stackSize) {
+CoopTask::CoopTask(uint8_t* stack, size_t stackSize) {
 	xpcc::atomic::Lock lock;
 
 	if(!__get_PSP()) {
@@ -69,7 +69,8 @@ CoopTask::CoopTask(uint16_t stackSize) {
 
 	flags = 0;
 	this->stacksize = stackSize;
-	stack = new uint8_t[stackSize];
+	this->stack = stack;
+
 	hw_stack_frame_t* process_frame;
 	process_frame = (hw_stack_frame_t*) (((uint8_t*) (stack) + stackSize
 			- sizeof(hw_stack_frame_t)));
@@ -87,11 +88,11 @@ CoopTask::CoopTask(uint16_t stackSize) {
 			- sizeof(sw_stack_frame_t);
 }
 
-void CoopTask::yield() {
+void CoopTask::_yield(uint16_t time_available) {
 	//if yield is called from thread, issue a pendSV,
 	//do nothing otherwise
 	if(__get_CONTROL() & 2) {
-		currTask->flags |= TSK_YIELD;
+		currTask->flags |= FLAG_YIELDING;
 		//issue pendSV
 		SCB->ICSR |= (1<<28);
 	}
@@ -99,7 +100,7 @@ void CoopTask::yield() {
 
 void CoopTask::handleTick() {
 	currTask = this;
-	currTask->flags = 0;
+	currTask->flags &= ~FLAG_YIELDING;
 	//issue pendSV
 	SCB->ICSR |= (1<<28);
 }
@@ -109,10 +110,10 @@ void CoopTask::contextSwitch(void* arg) {
 
 	//current executing task has yielded the cpu
 	//return to main thread for rescheduling
-	if(currTask->flags & TSK_YIELD) {
+	if(currTask && (currTask->flags & FLAG_YIELDING)) {
 
 		currTask->stackPtr = (void*)__get_PSP();
-		currTask->flags &= ~TSK_YIELD;
+		currTask->flags &= ~FLAG_YIELDING;
 
 		//XPCC_LOG_DEBUG .printf("yield %x psp %x\n", currTask, currTask->stackPtr);
 		currTask = 0;

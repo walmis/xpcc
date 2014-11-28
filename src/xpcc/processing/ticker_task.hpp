@@ -60,25 +60,24 @@ protected:
 
 	static bool inInterruptContext();
 
-	//allows subclasses to override the static yield function
-	//useful for context switching
-
-
 	///internal pointer to the next tickerTask
 	TickerTask *next;
+
+	volatile uint8_t flags;
 
 private:
 	static TickerTask* base;
 	static TickerTask* volatile current;
 	static function<void()> idleFunc;
-	volatile uint8_t flags;
+
 
 	virtual void _yield(uint16_t timeAvailable);
 
 public:
 	enum {
 		FLAG_BLOCKING = 1,
-		FLAG_SLEEPING = 2
+		FLAG_SLEEPING = 2,
+		FLAG_YIELDING = 4
 	};
 
 	static void tick();
