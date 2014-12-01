@@ -62,7 +62,7 @@ void TickerTask::_yield(uint16_t timeAvailable) {
 
 	TickerTask* t = current;
 	xpcc::Timeout<> tm(timeAvailable);
-	//XPCC_LOG_DEBUG .printf("current %x\n", t);
+	//XPCC_LOG_DEBUG .printf("yield %d\n", timeAvailable);
 	if(t) {
 		t->setFlag(FLAG_BLOCKING);
 		do {

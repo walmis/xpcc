@@ -19,7 +19,7 @@ public:
 	CoopTask(void* stack, size_t stacksize);
 
 	//implemented architecture specific
-	static void contextSwitch(void *arg);
+	static void* contextSwitch(void *arg);
 protected:
 	virtual void run() = 0;
 	void _yield(uint16_t timeAvailable);

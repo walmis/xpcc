@@ -62,6 +62,7 @@ inline void load_context(void){
 struct InitPSP {
 	InitPSP() {
 		__set_PSP((uint32_t)(main_context + sizeof(sw_stack_frame_t)));
+		NVIC_SetPriority(PendSV_IRQn, 0xFF);
 	}
 } _initpsp;
 
@@ -96,51 +97,57 @@ CoopTask::CoopTask(void* stack, size_t stackSize) {
 			- sizeof(sw_stack_frame_t);
 }
 
+ProfileTimer tm;
+
 void CoopTask::_yield(uint16_t time_available) {
 	//if yield is called from thread, issue a pendSV,
 	//do nothing otherwise
+	//XPCC_LOG_DEBUG .printf("yield %x\n", this);
+
 	if((__get_CONTROL() & 2) && !getFlag(FLAG_YIELDING)) {
 		flags |= FLAG_YIELDING;
 		if(time_available) {
 			sleep_timeout = xpcc::Clock::now() + time_available;
 			flags |= FLAG_SLEEPING;
 		}
-		__DMB();
 		//issue pendSV
-		SCB->ICSR |= (1<<28);
+		SCB->ICSR = (1<<28);
 	}
+
 }
 
 void CoopTask::handleTick() {
+
 	if(!getFlag(FLAG_SLEEPING)) {
 		currTask = this;
 		clearFlag(FLAG_YIELDING);
 		__DMB();
 		//issue pendSV
-		SCB->ICSR |= (1<<28);
+		SCB->ICSR = (1<<28);
 	} else {
 		if(xpcc::Clock::now() >= sleep_timeout) {
 			clearFlag(FLAG_SLEEPING);
 		}
 	}
+
 }
 
-void CoopTask::contextSwitch(void* arg) {
+void* CoopTask::contextSwitch(void* arg) {
 	uint32_t* lr = (uint32_t*)arg;
 
 	//current executing task has yielded the cpu
 	//return to main thread for rescheduling
-	if(!currTask) {
-		__set_PSP((uint32_t)main_context);
-		*lr = MAIN_RETURN;
-		return;
-	}
+//	if(!currTask) {
+//		__set_PSP((uint32_t)main_context);
+//		*lr = MAIN_RETURN;
+//		return 0;
+//	}
 	if(currTask->flags & FLAG_YIELDING) {
 		//save the current stack pointer
 		currTask->stackPtr = (void*)__get_PSP();
 		currTask->flags &= ~FLAG_YIELDING;
 
-		//XPCC_LOG_DEBUG .printf("yield %x psp %x\n", currTask, currTask->stackPtr);
+		//XPCC_LOG_DEBUG .printf("return to %x msp %x\n", currTask, __get_MSP());
 		currTask = 0;
 		//set new PSP to point to main thread's state values
 		__set_PSP((uint32_t)main_context);
@@ -151,24 +158,28 @@ void CoopTask::contextSwitch(void* arg) {
 		__set_PSP((uint32_t)currTask->stackPtr);
 		*lr = THREAD_RETURN;
 	}
+	return 0;
+}
 
+extern "C" void* context_sw(void* arg) {
+	return CoopTask::contextSwitch(arg);
 }
 
 extern "C" __attribute__((naked)) void PendSV_Handler() {
+	__disable_irq();
 	uint32_t* lr;
-	{
-		xpcc::atomic::Lock lock;
 
-		save_context();
+	save_context();
 
-		asm volatile("PUSH {lr};"
-					 "MRS %0, MSP;"
-					 : "=r"(lr));
+	asm volatile("PUSH {lr};"
+				 "MRS %0, MSP;"
+				 : "=r"(lr));
 
-		CoopTask::contextSwitch(lr);
-		//XPCC_LOG_DEBUG .printf("PendSV %x new psp %x\n", *lr, __get_PSP());
+	CoopTask::contextSwitch(lr);
 
-		load_context();
-	}
+	//XPCC_LOG_DEBUG .printf("PendSV %x new psp %x\n", *lr, __get_PSP());
+
+	load_context();
+	__enable_irq();
 	asm volatile("pop {pc}"); //pop value lr from stack to pc register
 }
