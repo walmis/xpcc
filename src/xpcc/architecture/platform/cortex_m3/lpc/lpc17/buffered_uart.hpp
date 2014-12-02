@@ -45,7 +45,9 @@ public:
 	size_t write(const uint8_t* buf, size_t len) {
 		size_t n;
 		if(isBlocking()) {
-			while(txAvailable() < len);
+			while(txAvailable() < len) {
+				yield();
+			}
 		}
 
 		if((n = BufferedIODevice::write(buf, len))) {
@@ -66,6 +68,7 @@ public:
 				}
 				return 1;
 			}
+			yield();
 		} while(isBlocking());
 
 		return 0;

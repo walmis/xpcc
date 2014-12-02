@@ -103,6 +103,7 @@ void CoopTask::_yield(uint16_t time_available) {
 	//if yield is called from thread, issue a pendSV,
 	//do nothing otherwise
 	//XPCC_LOG_DEBUG .printf("yield %x\n", this);
+	if(inInterruptContext()) return;
 
 	if((__get_CONTROL() & 2) && !getFlag(FLAG_YIELDING)) {
 		flags |= FLAG_YIELDING;

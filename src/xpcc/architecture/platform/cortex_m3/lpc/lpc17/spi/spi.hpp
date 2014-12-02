@@ -288,7 +288,6 @@ public:
 
 	static void
 	stopTransfer() {
-		DMA* dma = DMA::instance();
 		if(txChannelCfg) {
 			//dma->haltAndWaitChannelComplete((DMAChannel)txChannelCfg->channelNum());
 			txChannelCfg->disable();

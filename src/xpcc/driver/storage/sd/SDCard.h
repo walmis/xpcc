@@ -212,7 +212,7 @@ public:
 			return false;
 		}
 
-		Spi::frequency(10000000);
+		Spi::frequency(16000000);
 
 		initialized = true;
 
@@ -407,6 +407,7 @@ inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 		xpcc::yield();
 		if(t.isExpired()) {
 			XPCC_LOG_ERROR .printf("DMA read timeout\n");
+			Spi::stopTransfer();
 			return false;
 		}
 	}
