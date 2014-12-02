@@ -283,22 +283,6 @@ DMALLI* DMALLI::transferSize(uint16_t n) {
 	return this;
 }
 
-void DMAConfig::setup() {
-	DMA::instance()->Setup(this);
-}
-
-void DMAConfig::enable() {
-	DMA::instance()->Enable(this);
-}
-
-void DMAConfig::disable() {
-	DMA::instance()->Disable(ChannelNum);
-}
-
-bool DMAConfig::enabled() {
-	return DMA::instance()->Enabled(ChannelNum);
-}
-
 }
 }; // namespace AjK ends
 

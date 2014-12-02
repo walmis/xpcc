@@ -213,8 +213,7 @@ public:
     	if(isTransferBusy()) {
     		return false;
     	}
-
-    	flushRx();
+    	//XPCC_LOG_DEBUG << '!';
 
     	static const uint32_t dummy = 0xFFFFFFFF;
 
@@ -232,14 +231,13 @@ public:
 				->dstConn(conn)
 				->srcMemAddr(tx ? tx : (uint8_t*)&dummy)
 				->transferSize(length)
-				->transferType(m2p);
+				->transferType(m2p)
+				->attach_err(onDMAError);
 
 		if(!tx) {
 			//force source address increment off if we send dummy bytes
 			txChannelCfg->transferFlags(DMAConfig::FORCE_SI_OFF);
 		}
-
-		txChannelCfg->setup();
 
 		conn = SSP0_Rx;
 		if(SPIx == LPC_SSP1)
@@ -261,25 +259,30 @@ public:
 				->srcConn(conn)
 				->transferSize(length)
 				->transferType(p2m)
-				->attach_tc(onDMAComplete);
+				->attach_tc(onDMAComplete)
+				->attach_err(onDMAError);
 
 		if(!rx) {
 			rxChannelCfg->transferFlags(DMAConfig::FORCE_DI_OFF);
 		}
+
+		txChannelCfg->setup();
 		//prepare rx channel
 		rxChannelCfg->setup();
 
-		{
-			xpcc::atomic::Lock lock;
-			SPIx->DMACR = 3; // enable Tx Rx DMA
+		flushRx();
 
-			rxChannelCfg->enable();
-			txChannelCfg->enable();
-			/* Wait until at least one byte has arrived into the RX FIFO
-				   and then start-up the Channel1 DMA to begin transferring them. */
-			//while((SPIx->SR & (1UL << 2)) == 0);
-			//start rx transfer
-		}
+		__disable_irq();
+
+		rxChannelCfg->enable();
+		txChannelCfg->enable();
+
+		SPIx->DMACR = 3; // enable Tx Rx DMA
+		/* Wait until at least one byte has arrived into the RX FIFO
+			   and then start-up the Channel1 DMA to begin transferring them. */
+		//while((SPIx->SR & (1UL << 2)) == 0);
+		//start rx transfer
+		__enable_irq();
 		return true;
 	}
 
@@ -313,7 +316,17 @@ protected:
 private:
 
 	static void onDMAComplete() {
+		txChannelCfg->disable();
+		rxChannelCfg->disable();
+
 		SPIx->DMACR = 0;
+
+		__DSB();
+		//XPCC_LOG_DEBUG << '~';
+	}
+
+	static void onDMAError() {
+		XPCC_LOG_ERROR << "SPI DMA ERROR\n";
 	}
 };
 

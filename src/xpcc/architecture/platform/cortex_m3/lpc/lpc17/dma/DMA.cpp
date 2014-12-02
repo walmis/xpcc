@@ -27,41 +27,6 @@ namespace lpc17 {
 // Create a "hook" for our ISR to make callbacks. Set by init()
 DMA *DMA::moddma_p = 0;
 
-void
-DMA::Enable(DMAChannel ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
-    pChannel->DMACCConfig |= _E;
-}
-
-bool
-DMA::Enabled(DMAChannel ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );    
-    return (bool)(pChannel->DMACCConfig & _E);
-}
-
-void
-DMA::Disable(DMAChannel ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
-    pChannel->DMACCConfig &= ~(_E);
-}
-
-void 
-DMA::haltChannel(DMAChannel ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
-    pChannel->DMACCConfig |= CxConfig_H();
-}
-
-uint32_t 
-DMA::getControl(DMAChannel ChannelNumber)
-{
-    LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
-    return pChannel->DMACCControl;
-}
-
 uint32_t oldDMAHandler = 0;
 typedef void (*MODDMA_FN)(void);
 

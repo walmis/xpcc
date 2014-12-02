@@ -212,7 +212,7 @@ public:
 			return false;
 		}
 
-		Spi::frequency(25000000);
+		Spi::frequency(10000000);
 
 		initialized = true;
 

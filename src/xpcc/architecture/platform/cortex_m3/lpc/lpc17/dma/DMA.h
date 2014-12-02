@@ -257,10 +257,11 @@ public:
     uint8_t SBurstSize()    { return sbsize; }
     uint8_t DBurstSize()    { return dbsize; }
 
-    void setup();
-    void enable();
-    void disable();
-    bool enabled();
+    inline void setup();
+    inline void enable();
+    inline void disable();
+    inline bool enabled();
+    inline void halt();
 
     /**
      * Attach a callback to the TC IRQ configuration.
@@ -448,21 +449,24 @@ public:
      *
      * @param ChannelNumber Type DMAChannel, the channel number to enable
      */
-    void Enable(DMAChannel ChannelNumber);
+    inline void Enable(DMAChannel ChannelNumber) {
+        LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
+        pChannel->DMACCConfig |= _E;
+    }
     
     /**
      * Enable and begin data transfer (overloaded function)
      *
      * @param ChannelNumber Type uin32_t, the channel number to enable
      */
-    void Enable(uint32_t ChannelNumber) { Enable((DMAChannel)(ChannelNumber & 0x7)); }
+    inline void Enable(uint32_t ChannelNumber) { Enable((DMAChannel)(ChannelNumber & 0x7)); }
     
     /**
      * Enable and begin data transfer (overloaded function)
      *
      * @param config A pointer to teh configuration
      */
-    void Enable(DMAConfig *config) { Enable( config->channelNum() ); }
+    inline void Enable(DMAConfig *config) { Enable( config->channelNum() ); }
         
     
     /**
@@ -471,7 +475,10 @@ public:
      * @ingroup API
      * @param ChannelNumber Type DMAChannel, the channel number to enable
      */
-    void Disable(DMAChannel ChannelNumber);
+    inline void Disable(DMAChannel ChannelNumber) {
+        LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
+        pChannel->DMACCConfig &= ~(_E);
+    }
     
     /**
      * Disable a channel and end data transfer (overloaded function)
@@ -479,7 +486,7 @@ public:
      * @ingroup API
      * @param ChannelNumber Type uin32_t, the channel number to disable
      */
-    void Disable(uint32_t ChannelNumber) { Disable((DMAChannel)(ChannelNumber & 0x7)); }
+    inline void Disable(uint32_t ChannelNumber) { Disable((DMAChannel)(ChannelNumber & 0x7)); }
     
     /**
      * Is the specified channel enabled?
@@ -487,7 +494,10 @@ public:
      * @param ChannelNumber Type DMAChannel, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
-    bool Enabled(DMAChannel ChannelNumber);
+    inline bool Enabled(DMAChannel ChannelNumber) {
+        LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
+        return (bool)(pChannel->DMACCConfig & _E);
+    }
     
     /**
      * Returns LPC_DMA->DMACControl value for a specific channel configuration
@@ -505,7 +515,7 @@ public:
       * @param ChannelNumber Type uin32_t, the channel number to test
      * @return bool true if enabled, false otherwise.
      */
-    bool Enabled(uint32_t ChannelNumber) { return Enabled((DMAChannel)(ChannelNumber & 0x7)); }
+    inline bool Enabled(uint32_t ChannelNumber) { return Enabled((DMAChannel)(ChannelNumber & 0x7)); }
     
     static ALWAYS_INLINE uint32_t IntStat(uint32_t n)            { return (1UL << n) & 0xFF; }
     static ALWAYS_INLINE uint32_t IntTCStat_Ch(uint32_t n)       { return (1UL << n) & 0xFF; }
@@ -627,7 +637,10 @@ public:
      * @ingroup API
      * @param DMAChannel The channel to halt.
      */
-    void haltChannel(DMAChannel ChannelNumber);
+    inline void haltChannel(DMAChannel ChannelNumber) {
+        LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
+        pChannel->DMACCConfig |= CxConfig_H();
+    }
     
     /**
      * get a DMAChannel control register.
@@ -635,7 +648,10 @@ public:
      * @ingroup API
      * @param DMAChannel The channel to get the control register for.
      */
-    uint32_t getControl(DMAChannel ChannelNumber);
+    inline uint32_t getControl(DMAChannel ChannelNumber) {
+        LPC_GPDMACH_TypeDef *pChannel = (LPC_GPDMACH_TypeDef *)Channel_p( ChannelNumber );
+        return pChannel->DMACCControl;
+    }
     
     uint32_t getControl(DMAConfig *cfg) {
     	return getControl((DMAChannel)cfg->channelNum());
@@ -756,7 +772,7 @@ protected:
      *
      * Must be public so the extern "C" ISR can use it.
      */
-    void setIrqProcessingChannel(DMAChannel n) { IrqProcessingChannel = n; }
+    inline void setIrqProcessingChannel(DMAChannel n) { IrqProcessingChannel = n; }
 
     /**
      * The MODDMA constructor is used to initialise the DMA controller object.
@@ -876,6 +892,26 @@ protected:
 
     static DMA* moddma_p;
 };
+
+void DMAConfig::setup() {
+	DMA::instance()->Setup(this);
+}
+
+void DMAConfig::enable() {
+	DMA::instance()->Enable(this);
+}
+
+void DMAConfig::disable() {
+	DMA::instance()->Disable(ChannelNum);
+}
+
+bool DMAConfig::enabled() {
+	return DMA::instance()->Enabled(ChannelNum);
+}
+
+void DMAConfig::halt() {
+	DMA::instance()->haltChannel((DMAChannel)ChannelNum);
+}
 
 };
 }
