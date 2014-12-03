@@ -9,27 +9,22 @@
 #define USBMSD_SDHANDLER_HPP_
 
 #include <xpcc/architecture.hpp>
+#include <xpcc/driver/storage/fat.hpp>
 #include "SDCard.h"
 
 namespace xpcc {
 
-
-template <class SDCardAsync>
-class USBMSD_SDHandler : public USBMSDHandler, TickerTask {
+class USBMSD_VolumeHandler : public USBMSDHandler, TickerTask {
 public:
-	USBMSD_SDHandler(uint8_t bulkIn = EPBULK_IN,
-                    uint8_t bulkOut = EPBULK_OUT) :
-                            USBMSDHandler(bulkIn, bulkOut) {
+	USBMSD_VolumeHandler(xpcc::fat::PhysicalVolume &vol,
+			uint8_t bulkIn = EPBULK_IN, uint8_t bulkOut = EPBULK_OUT) :
+                            USBMSDHandler(bulkIn, bulkOut), volume(vol) {
 		haveBlock = -1;
 		readBlock = -1;
 		requestedBlock = -1;
-		card = 0;
 		writeBusy = false;
 	}
 
-	void assignCard(SDCardAsync& card) {
-		this->card = &card;
-	}
 
 protected:
     volatile uint32_t requestedBlock;
@@ -45,36 +40,31 @@ protected:
     volatile int32_t readBlock;
     volatile bool writeBusy;
 
-
     void handleTick() override {
-
     	if(readBlock != -1) {
-			if(card->readData(buffer, 512)) {
+			if(volume.doRead(buffer, readBlock, 1) == RES_OK) {
 				haveBlock = readBlock;
 			}
 			readBlock = -1;
     	}
 
     	if(requestedBlock != -1) {
-
     		bool res;
 
     		switch(opType) {
     		case READ:
     			if(firstBlock) {
-    	    		if(!card->semaphore()->take_nonblocking()) {
-    	    			XPCC_LOG_DEBUG .printf("*");
-    	    			return;
-    	    		}
+//    	    		if(!card->semaphore()->take_nonblocking()) {
+//    	    			XPCC_LOG_DEBUG .printf("*");
+//    	    			return;
+//    	    		}
     				XPCC_LOG_DEBUG .printf("MSD::read_begins %d a:%d d:%d\n", opType, requestedBlock, totalBlocks);
-    				card->readStart(requestedBlock);
+    				//card->readStart(requestedBlock);
     				firstBlock = false;
     			}
 
     			if(haveBlock != requestedBlock) {
-    				//XPCC_LOG_DEBUG.printf("-");
-
-    				res = card->readData(dataptr, 512);
+    				res = volume.doRead(dataptr, requestedBlock, 1) == RES_OK;
 
     			} else {
     				//XPCC_LOG_DEBUG.printf("+");
@@ -84,8 +74,8 @@ protected:
     			}
 
     			if(blocksLeft == 0) {
-    				card->readStop();
-    				card->semaphore()->give();
+    				//card->readStop();
+    				//card->semaphore()->give();
     			} else {
     				//read in advance
     				readBlock = requestedBlock+1;
@@ -103,28 +93,29 @@ protected:
 
     		case WRITE:
     			if(firstBlock) {
-    	    		if(!card->semaphore()->take_nonblocking()) {
-    	    			XPCC_LOG_DEBUG .printf("*");
-    	    			return;
-    	    		}
+//    	    		if(!card->semaphore()->take_nonblocking()) {
+//    	    			XPCC_LOG_DEBUG .printf("*");
+//    	    			return;
+//    	    		}
     				XPCC_LOG_DEBUG .printf("MSD::write_begins r:%d c:%d\n", requestedBlock, totalBlocks);
 
-    				card->writeStart(requestedBlock, totalBlocks);
+    				//card->writeStart(requestedBlock, totalBlocks);
     				firstBlock = false;
     			}
 
+    			uint32_t block = requestedBlock;
     			memcpy(buffer, dataptr, 512);
     			requestedBlock = -1;
-    			size_t left = blocksLeft;
+    			//size_t left = blocksLeft;
 
     			disk_write_finalize(true);
 
-    			res = card->writeData(buffer);
+    			res = volume.doWrite(buffer, block, 1) == RES_OK;
 
-    			if(left == 0) {
-    				card->writeStop();
-    				card->semaphore()->give();
-    			}
+//    			if(left == 0) {
+//    				card->writeStop();
+//    				card->semaphore()->give();
+//    			}
     			break;
     		}
     	}
@@ -161,31 +152,40 @@ protected:
     }
 
     uint32_t disk_sectors() override {
-    	//return card->numSectors();
-    	XPCC_LOG_DEBUG .printf("req: card sector -> %d\n", card->numSectors());
-    	return card->numSectors();
+        uint32_t res;
+    	if(volume.doIoctl(GET_SECTOR_COUNT, &res) == RES_OK) {
+    		return res;
+    	}
+
+    	return 0;
     }
 
     uint16_t disk_sector_size() override {
-            return 512;
+        uint32_t res;
+    	if(volume.doIoctl(GET_SECTOR_SIZE, &res) == RES_OK) {
+    		return res;
+    	}
+    	XPCC_LOG_ERROR .printf("Unable to get sector size\n");
+    	return 512;
     }
 
     int disk_status() override {
     	//return NO_DISK;
     	//return DISK_OK | WRITE_PROTECT;
-    	if(!card)
+    	DSTATUS status = volume.doGetStatus();
+
+    	if(status & (STA_NODISK|STA_NOINIT))
     		return NO_DISK;
 
-    	if(card->isInitialised()) {
-            return DISK_OK /*| WRITE_PROTECT*/;
-    	} else {
-    		return NO_DISK;
-    	}
+    	if(status & (STA_PROTECT))
+    		return DISK_OK | WRITE_PROTECT;
+
+        return DISK_OK;
+
     }
 
 protected:
-
-	SDCardAsync* card;
+	xpcc::fat::PhysicalVolume& volume;
 };
 
 }

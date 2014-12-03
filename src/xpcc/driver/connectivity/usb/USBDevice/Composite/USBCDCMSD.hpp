@@ -14,22 +14,19 @@
 
 namespace xpcc {
 
-template<class MSDHandlerClass, class SerialHandlerClass = USBSerialHandler,
-		int bulkOutMSD = EP5OUT, int bulkInMSD = EP5IN>
+template<class MSDHandlerClass = USBMSDHandler, class SerialHandlerClass = USBSerialHandler>
 
 class USBCDCMSD: public USBDevice, public IODevice {
 public:
-
+	template <typename ... Args>
 	USBCDCMSD(uint16_t vendor_id,
-			uint16_t product_id, uint16_t product_release) :
+			uint16_t product_id, uint16_t product_release, Args... args) :
 			USBDevice(vendor_id, product_id, product_release),
-			msd(bulkInMSD, bulkOutMSD),
+			msd(args..., EP5OUT, EP5IN),
 			serial(EPBULK_IN, EPBULK_OUT, EPINT_IN) {
-
 
 		this->addInterfaceHandler(serial);
 		this->addInterfaceHandler(msd);
-
 	}
 
 	//override IODevice methods
@@ -173,7 +170,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(bulkInMSD),     // bEndpointAddress
+	        PHY_TO_DESC(EP5IN),     // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -182,7 +179,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(bulkOutMSD),    // bEndpointAddress
+	        PHY_TO_DESC(EP5OUT),    // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)

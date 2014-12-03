@@ -42,8 +42,10 @@ protected:
 template <typename Task, size_t stack_size>
 class CoopTask : public Task, CoopTask_Base {
 public:
-	CoopTask(void* stack, size_t stackSize) :
-		CoopTask_Base(_stack, stack_size) {}
+	template<typename ... Args>
+	CoopTask(Args ... args) :
+			Task(args...), CoopTask_Base(_stack, stack_size) {
+	}
 
 protected:
 	void handleTick() override {
