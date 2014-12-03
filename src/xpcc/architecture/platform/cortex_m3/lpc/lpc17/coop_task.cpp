@@ -39,7 +39,7 @@ typedef struct {
   uint32_t r11;
 } sw_stack_frame_t;
 
-static CoopTask* volatile currTask = 0;
+static CoopTask_Base* volatile currTask = 0;
 
 //holds the context of the main thread
 uint8_t main_context[sizeof(sw_stack_frame_t)];
@@ -66,17 +66,9 @@ struct InitPSP {
 	}
 } _initpsp;
 
-CoopTask::CoopTask(void* stack, size_t stackSize) {
+CoopTask_Base::CoopTask_Base(void* stack, size_t stackSize) {
 	xpcc::atomic::Lock lock;
 
-//	if(!__get_PSP()) {
-//		//initial stack pointer
-//		//this will get pushed down with main thread's cpu registers
-//		//on the first PendSV call
-//		__set_PSP((uint32_t)(main_context + sizeof(sw_stack_frame_t)));
-//	}
-
-	flags = 0;
 	this->stacksize = stackSize;
 	this->stack = stack;
 
@@ -89,27 +81,25 @@ CoopTask::CoopTask(void* stack, size_t stackSize) {
 	process_frame->r3 = 0;
 	process_frame->r12 = 0;
 	process_frame->pc =
-			(uint32_t) (reinterpret_cast<void*>(&CoopTask::_thread));
+			(uint32_t) (reinterpret_cast<void*>(&CoopTask_Base::_thread));
 	process_frame->lr = 0xFFFFFFFF;
 	process_frame->psr = 0x21000000; //default PSR value
 	//XPCC_LOG_DEBUG.printf("stack %x\n", stack);
-	stackPtr = (uint8_t*) (stack) + stackSize - sizeof(hw_stack_frame_t)
+	sp = (uint8_t*) (stack) + stackSize - sizeof(hw_stack_frame_t)
 			- sizeof(sw_stack_frame_t);
 }
 
-ProfileTimer tm;
-
-void CoopTask::_yield(uint16_t time_available) {
+void CoopTask_Base::_yield(uint16_t time_available) {
 	//if yield is called from thread, issue a pendSV,
 	//do nothing otherwise
 	//XPCC_LOG_DEBUG .printf("yield %x\n", this);
-	if(inInterruptContext()) return;
+	if(isInterruptContext()) return;
 
-	if((__get_CONTROL() & 2) && !getFlag(FLAG_YIELDING)) {
-		flags |= FLAG_YIELDING;
+	if((__get_CONTROL() & 2) && !(flags & TickerTask::FLAG_YIELDING)) {
+		flags |= TickerTask::FLAG_YIELDING;
 		if(time_available) {
 			sleep_timeout = xpcc::Clock::now() + time_available;
-			flags |= FLAG_SLEEPING;
+			flags |= TickerTask::FLAG_SLEEPING;
 		}
 		//issue pendSV
 		SCB->ICSR = (1<<28);
@@ -117,23 +107,23 @@ void CoopTask::_yield(uint16_t time_available) {
 
 }
 
-void CoopTask::handleTick() {
+void CoopTask_Base::_handleTick() {
 
-	if(!getFlag(FLAG_SLEEPING)) {
+	if(!(flags & TickerTask::FLAG_SLEEPING)) {
 		currTask = this;
-		clearFlag(FLAG_YIELDING);
+		flags &= ~TickerTask::FLAG_YIELDING;
 		__DMB();
 		//issue pendSV
 		SCB->ICSR = (1<<28);
 	} else {
 		if(xpcc::Clock::now() >= sleep_timeout) {
-			clearFlag(FLAG_SLEEPING);
+			flags &= ~TickerTask::FLAG_SLEEPING;
 		}
 	}
 
 }
 
-void* CoopTask::contextSwitch(void* arg) {
+void* CoopTask_Base::contextSwitch(void* arg) {
 	uint32_t* lr = (uint32_t*)arg;
 
 	//current executing task has yielded the cpu
@@ -143,10 +133,10 @@ void* CoopTask::contextSwitch(void* arg) {
 //		*lr = MAIN_RETURN;
 //		return 0;
 //	}
-	if(currTask->flags & FLAG_YIELDING) {
+	if(currTask->flags & TickerTask::FLAG_YIELDING) {
 		//save the current stack pointer
-		currTask->stackPtr = (void*)__get_PSP();
-		currTask->flags &= ~FLAG_YIELDING;
+		currTask->sp = (void*)__get_PSP();
+		currTask->flags &= ~TickerTask::FLAG_YIELDING;
 
 		//XPCC_LOG_DEBUG .printf("return to %x msp %x\n", currTask, __get_MSP());
 		currTask = 0;
@@ -156,14 +146,10 @@ void* CoopTask::contextSwitch(void* arg) {
 	} else {
 		//XPCC_LOG_DEBUG .printf("load task %x psp %x\n", currTask, currTask->stackPtr);
 
-		__set_PSP((uint32_t)currTask->stackPtr);
+		__set_PSP((uint32_t)currTask->sp);
 		*lr = THREAD_RETURN;
 	}
 	return 0;
-}
-
-extern "C" void* context_sw(void* arg) {
-	return CoopTask::contextSwitch(arg);
 }
 
 extern "C" __attribute__((naked)) void PendSV_Handler() {
@@ -176,7 +162,7 @@ extern "C" __attribute__((naked)) void PendSV_Handler() {
 				 "MRS %0, MSP;"
 				 : "=r"(lr));
 
-	CoopTask::contextSwitch(lr);
+	CoopTask_Base::contextSwitch(lr);
 
 	//XPCC_LOG_DEBUG .printf("PendSV %x new psp %x\n", *lr, __get_PSP());
 

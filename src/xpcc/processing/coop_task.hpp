@@ -13,10 +13,10 @@
 
 namespace xpcc {
 
-class CoopTask : public xpcc::TickerTask {
+class CoopTask_Base {
 
 public:
-	CoopTask(void* stack, size_t stacksize);
+	CoopTask_Base(void* stack, size_t stacksize);
 
 	//implemented architecture specific
 	static void* contextSwitch(void *arg);
@@ -24,48 +24,44 @@ protected:
 	virtual void run() = 0;
 	void _yield(uint16_t timeAvailable);
 
-	void handleTick() override;
+	void _handleTick();
 
 	void _thread() {
 		while(1) {
 			run();
 		}
 	}
-	void* stackPtr;
+
+	void* sp;
 	void* stack;
 	uint16_t stacksize;
 	xpcc::Timestamp sleep_timeout;
+	uint8_t flags;
 };
 
-template <typename T, unsigned int STACKSZ>
-class CoopWrapper : public CoopTask, public T {
+template <typename Task, size_t stack_size>
+class CoopTask : public Task, CoopTask_Base {
 public:
-	CoopWrapper() :	CoopTask(_stack, STACKSZ) {}
+	CoopTask(void* stack, size_t stackSize) :
+		CoopTask_Base(_stack, stack_size) {}
 
 protected:
 	void handleTick() override {
-		this->CoopTask::handleTick();
-	}
-
-	void handleInit() override {
-		XPCC_LOG_DEBUG .printf("init %x %x\n", this, _stack);
-		T::handleInit();
-	}
-
-	void run() {
-		while(1) {
-			T::handleTick();
-			this->CoopTask::_yield(0);
-		}
+		CoopTask_Base::_handleTick();
 	}
 
 	void _yield(uint16_t timeAvailable) override {
-		this->CoopTask::_yield(timeAvailable);
+		CoopTask_Base::_yield(0);
 	}
 
-private:
-	uint32_t _stack[STACKSZ/4];
+	void run() {
+		Task::handleTick();
+		_yield(0);
+	}
+
+	void* _stack[stack_size / sizeof(void*)];
 };
+
 
 }
 
