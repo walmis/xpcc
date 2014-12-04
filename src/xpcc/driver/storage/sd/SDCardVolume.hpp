@@ -144,8 +144,8 @@ private:
 				this->writeStop();
 			}
 			this->writeStart(sectorNumber, eraseCount);
-			eraseCount = 0;
 			XPCC_LOG_DEBUG .printf("write start count:%d\n", eraseCount);
+			eraseCount = 0;
 		}
 
 		last_block = sectorNumber + sectorCount - 1;
