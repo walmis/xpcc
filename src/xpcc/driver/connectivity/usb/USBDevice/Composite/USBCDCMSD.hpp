@@ -22,7 +22,7 @@ public:
 	USBCDCMSD(uint16_t vendor_id,
 			uint16_t product_id, uint16_t product_release, Args... args) :
 			USBDevice(vendor_id, product_id, product_release),
-			msd(args..., EP5OUT, EP5IN),
+			msd(args..., EP5IN, EP5OUT),
 			serial(EPBULK_IN, EPBULK_OUT, EPINT_IN) {
 
 		this->addInterfaceHandler(serial);

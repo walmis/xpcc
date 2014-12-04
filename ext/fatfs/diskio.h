@@ -53,6 +53,7 @@ DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 #define GET_SECTOR_SIZE		2	/* Get sector size (for multiple sector size (_MAX_SS >= 1024)) */
 #define GET_BLOCK_SIZE		3	/* Get erase block size (for only f_mkfs()) */
 #define CTRL_ERASE_SECTOR	4	/* Force erased a block of sectors (for only _USE_ERASE) */
+#define CTRL_ERASE_COUNT	23	/* erase count for multi block write operation*/
 
 /* Generic command (not used by FatFs) */
 #define CTRL_POWER			5	/* Get/Set power status */

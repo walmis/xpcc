@@ -21,7 +21,8 @@ class SDCardVolume : public SDCard<Spi,Cs>,	public xpcc::fat::PhysicalVolume,
 
 public:
 	SDCardVolume() : last_block(0), read_sem_taken(false),
-	write_sem_taken(false),	reading(false), writing(false)
+	write_sem_taken(false),	reading(false), writing(false),
+	eraseCount(0)
 {}
 
 private:
@@ -35,7 +36,7 @@ private:
 	}
 
 	DSTATUS doGetStatus () override {
-		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
+		XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 		if(!this->initialized) {
 			return STA_NOINIT;
 		}
@@ -48,6 +49,7 @@ private:
 		this->readStop();
 		this->semaphore()->give();
 		read_sem_taken = false;
+		XPCC_LOG_DEBUG .printf("read stop\n");
 	}
 
 	void stopWrite() {
@@ -55,6 +57,7 @@ private:
 		this->writeStop();
 		this->semaphore()->give();
 		write_sem_taken = false;
+		XPCC_LOG_DEBUG .printf("write stop\n");
 	}
 
 	void handleTick() {
@@ -98,7 +101,7 @@ private:
 		if(last_block+1 != sectorNumber) {
 			this->readStop();
 			this->readStart(sectorNumber);
-			//XPCC_LOG_DEBUG .printf("--start %d\n", sectorNumber);
+			XPCC_LOG_DEBUG .printf("read start %d\n", sectorNumber);
 		}
 
 		last_block = sectorNumber + sectorCount - 1;
@@ -140,16 +143,18 @@ private:
 			if(last_block != 0) {
 				this->writeStop();
 			}
-			this->writeStart(sectorNumber, sectorCount);
+			this->writeStart(sectorNumber, eraseCount);
+			eraseCount = 0;
+			XPCC_LOG_DEBUG .printf("write start count:%d\n", eraseCount);
 		}
+
+		last_block = sectorNumber + sectorCount - 1;
 
 		while(sectorCount) {
 			this->writeData(buffer);
 			sectorCount--;
 			buffer+=512;
 		}
-
-		last_block = sectorNumber + sectorCount-1;
 
 		last_op = xpcc::Clock::now();
 
@@ -164,10 +169,17 @@ private:
 
 		switch(command) {
 		case GET_SECTOR_COUNT:
-			*buffer = this->_sectors;
+			if(!this->initialized) {
+				*buffer = 0;
+			} else {
+				*buffer = this->_sectors;
+			}
 			return RES_OK;
 		case GET_SECTOR_SIZE:
 			*buffer = 512;
+			return RES_OK;
+		case CTRL_ERASE_COUNT:
+			eraseCount = *buffer;
 			return RES_OK;
 		}
 
@@ -178,11 +190,12 @@ private:
 	uint32_t last_block;
 	xpcc::Timestamp last_op;
 
-	bool read_sem_taken; //semaphore taken by us?
-	bool write_sem_taken; //semaphore taken by us?
+	volatile bool read_sem_taken; //semaphore taken by us?
+	volatile bool write_sem_taken; //semaphore taken by us?
 
-	bool reading;
-	bool writing;
+	volatile bool reading;
+	volatile bool writing;
+	uint32_t eraseCount;
 };
 
 #endif /* SDIO_HPP_ */

@@ -295,9 +295,11 @@ public:
 		//SD_TRACE("WS", blockNumber);
 		// send pre-erase count
 		//PROFILE();
-		if (_acmd(23, eraseCount) != 0) {
-			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
-			goto fail;
+		if(eraseCount) {
+			if (_acmd(23, eraseCount) != 0) {
+				XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
+				goto fail;
+			}
 		}
 
 		if (_cmd(25, blockNumber * cdv) != 0) {
