@@ -36,7 +36,7 @@ private:
 	}
 
 	DSTATUS doGetStatus () override {
-		XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
+		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 		if(!this->initialized) {
 			return STA_NOINIT;
 		}
@@ -120,7 +120,7 @@ private:
 
 	xpcc::fat::Result
 	doWrite(const uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) override {
-		XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
+		//XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
 		if(!write_sem_taken) {
 			if(read_sem_taken) {
 				while(reading) {
@@ -141,10 +141,12 @@ private:
 
 		if(last_block+1 != sectorNumber) {
 			if(last_block != 0) {
+				XPCC_LOG_DEBUG .printf("write stop\n");
 				this->writeStop();
 			}
 			this->writeStart(sectorNumber, eraseCount);
-			XPCC_LOG_DEBUG .printf("write start count:%d\n", eraseCount);
+			XPCC_LOG_DEBUG .printf("write start b:%d count:%d\n",
+					sectorNumber, eraseCount);
 			eraseCount = 0;
 		}
 
