@@ -21,16 +21,16 @@ void USBMSD_VolumeHandler::handleTick() {
 
 		switch (opType) {
 		case READ:
-			if (firstBlock) {
+//			if (firstBlock) {
 //    	    		if(!card->semaphore()->take_nonblocking()) {
 //    	    			XPCC_LOG_DEBUG .printf("*");
 //    	    			return;
 //    	    		}
-				XPCC_LOG_DEBUG.printf("MSD::read_begins %d a:%d d:%d\n", opType,
-						requestedBlock, totalBlocks);
+//				XPCC_LOG_DEBUG.printf("MSD::read_begins %d a:%d d:%d\n", opType,
+//						requestedBlock, totalBlocks);
 				//card->readStart(requestedBlock);
-				firstBlock = false;
-			}
+//				firstBlock = false;
+//			}
 
 			if (haveBlock != requestedBlock) {
 				res = volume.doRead(dataptr, requestedBlock, 1) == RES_OK;

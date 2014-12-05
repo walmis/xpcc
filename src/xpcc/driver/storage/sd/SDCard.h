@@ -188,36 +188,7 @@ public:
 		return initialized;
 	}
 
-	bool initialise() {
-
-		if(initialized)
-			return true;
-
-		PROFILE();
-
-		int i = initialise_card();
-		XPCC_LOG_DEBUG.printf("init card = %d\n", i);
-		if (i == 0) {
-			return false;
-		}
-
-		_sectors = _sd_sectors();
-		if(!_sectors) {
-			return false;
-		}
-
-		// Set block length to 512 (CMD16)
-		if (_cmd(16, 512) != 0) {
-			XPCC_LOG_DEBUG.printf("Set 512-byte block timed out\n");
-			return false;
-		}
-
-		Spi::frequency(16000000);
-
-		initialized = true;
-
-		return true;
-	}
+	bool initialise();
 
 	void deinit() {
 		initialized = false;
@@ -229,18 +200,7 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	bool readStart(uint32_t blockNumber) {
-		//PROFILE();
-		//XPCC_LOG_DEBUG .printf("RS%d\n", blockNumber);
-		//if (type()!= SD_CARD_TYPE_SDHC) blockNumber <<= 9;
-
-		if (_cmd(18, blockNumber * cdv) != 0) {
-			initialized = false;
-			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_CMD18\n");
-			return false;
-		}
-		return true;
-	}
+	bool readStart(uint32_t blockNumber);
 
 	//------------------------------------------------------------------------------
 	/** End a read multiple blocks sequence.
@@ -248,36 +208,11 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	bool readStop() {
-		//PROFILE();
-		//XPCC_LOG_DEBUG <<"RE\n";
-		Cs::reset();
-
-		if (_cmd(12, 0) == -1) {
-			goto fail;
-		}
-		Cs::set();
-
-		return true;
-
-		fail:
-			initialized = false;
-			Cs::set();
-
-		return false;
-	}
+	bool readStop();
 
 	bool readData(uint8_t* buffer, size_t length);
 
-	bool readSingleBlock(uint8_t* buffer, size_t block_number) {
-
-		if (_cmd(17, block_number * cdv) != 0) {
-			XPCC_LOG_DEBUG .printf("readSingleBlock cmd17 failed\n");
-			return false;
-		}
-
-		return readData(buffer, 512);
-	}
+	bool readSingleBlock(uint8_t* buffer, size_t block_number);
 
 	//------------------------------------------------------------------------------
 	/** Start a write multiple blocks sequence.
@@ -291,28 +226,7 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	bool writeStart(uint32_t blockNumber, uint32_t eraseCount) {
-		//SD_TRACE("WS", blockNumber);
-		// send pre-erase count
-		//PROFILE();
-		if(eraseCount > 1) {
-			if (_acmd(23, eraseCount) != 0) {
-				XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
-			}
-		}
-
-		if (_cmd(25, blockNumber * cdv) != 0) {
-			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_CMD25\n");
-			goto fail;
-		}
-
-		return true;
-
-		fail:
-		initialized = false;
-		Cs::set();
-		return false;
-	}
+	bool writeStart(uint32_t blockNumber, uint32_t eraseCount);
 	//------------------------------------------------------------------------------
 	/** End a write multiple blocks sequence.
 	 *
@@ -389,6 +303,62 @@ protected:
 };
 
 template<typename Spi, typename Cs>
+inline bool SDCard<Spi, Cs>::initialise() {
+	if (initialized)
+		return true;
+
+	PROFILE();
+	int i = initialise_card();
+	XPCC_LOG_DEBUG.printf("init card = %d\n", i);
+	if (i == 0) {
+		return false;
+	}
+	_sectors = _sd_sectors();
+	if (!_sectors) {
+		return false;
+	}
+	// Set block length to 512 (CMD16)
+	if (_cmd(16, 512) != 0) {
+		XPCC_LOG_DEBUG.printf("Set 512-byte block timed out\n");
+		return false;
+	}
+	Spi::frequency(16000000);
+
+	Cs::set();
+	initialized = true;
+	return true;
+}
+
+template<typename Spi, typename Cs>
+inline bool SDCard<Spi, Cs>::readStart(uint32_t blockNumber) {
+	//PROFILE();
+	XPCC_LOG_DEBUG .printf("SD:read start b:%d\n", blockNumber);
+	//if (type()!= SD_CARD_TYPE_SDHC) blockNumber <<= 9;
+	if (_cmd(18, blockNumber * cdv) != 0) {
+		initialized = false;
+		XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_CMD18\n");
+		return false;
+	}
+	return true;
+}
+
+template<typename Spi, typename Cs>
+inline bool SDCard<Spi, Cs>::readStop() {
+	//PROFILE();
+	XPCC_LOG_DEBUG << "SD:Read stop\n";
+	if (_cmd(12, 0) & 0x80) {
+		XPCC_LOG_DEBUG << "SD_CARD_ERROR_CMD12\n";
+		goto fail;
+	}
+	Cs::set();
+	Spi::write(0xFF);
+	return true;
+	fail: initialized = false;
+	Cs::set();
+	return false;
+}
+
+template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 	//PROFILE();
 	Cs::reset();
@@ -415,14 +385,47 @@ inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 
 	Spi::write(0xFF); // checksum
 	Spi::write(0xFF);
-	Cs::set();
-	Spi::write(0xFF);
+
 	return true;
+}
+
+template<typename Spi, typename Cs>
+inline bool SDCard<Spi, Cs>::readSingleBlock(uint8_t* buffer,
+		size_t block_number) {
+	if (_cmd(17, block_number * cdv) != 0) {
+		XPCC_LOG_DEBUG.printf("readSingleBlock cmd17 failed\n");
+		return false;
+	}
+	return readData(buffer, 512);
+}
+
+template<typename Spi, typename Cs>
+inline bool SDCard<Spi, Cs>::writeStart(uint32_t blockNumber,
+		uint32_t eraseCount) {
+	//SD_TRACE("WS", blockNumber);
+	// send pre-erase count
+	//PROFILE();
+	XPCC_LOG_DEBUG.printf("SD:write start b:%d cnt:%d\n", blockNumber,
+			eraseCount);
+	if (eraseCount > 1) {
+		if (_acmd(23, eraseCount) != 0) {
+			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
+		}
+	}
+	if (_cmd(25, blockNumber * cdv) != 0) {
+		XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_CMD25\n");
+		goto fail;
+	}
+	return true;
+	fail: initialized = false;
+	Cs::set();
+	return false;
 }
 
 template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::writeStop() {
 	//PROFILE();
+	XPCC_LOG_DEBUG << "SD:writeStop()\n";
 	if (!waitNotBusy(SD_WRITE_TIMEOUT))
 		goto fail;
 
@@ -432,6 +435,7 @@ inline bool SDCard<Spi, Cs>::writeStop() {
 		goto fail;
 
 	Cs::set();
+	Spi::write(0xFF);
 	return true;
 
 fail:
@@ -455,6 +459,7 @@ inline bool SDCard<Spi, Cs>::writeData(const uint8_t* src) {
 	fail: initialized = false;
 	XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_WRITE_MULTIPLE\n");
 	Cs::set();
+	Spi::write(0xFF);
 	return false;
 }
 
@@ -557,6 +562,7 @@ inline int SDCard<Spi, Cs>::_cmd(int cmd, int arg, int timeout) {
 	for (uint8_t i = 0; ((status_ = Spi::write(0xFF)) & 0x80) && i != 0xFF; i++) {
 		xpcc::yield();
 	}
+
 	return status_;
 }
 

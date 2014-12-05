@@ -25,7 +25,7 @@ public:
 	eraseCount(0)
 {}
 
-private:
+//private:
 	DSTATUS doInitialize () override {
 		XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 
@@ -45,32 +45,39 @@ private:
 	}
 
 	void stopRead() {
-		last_block = 0;
-		this->readStop();
-		this->semaphore()->give();
-		read_sem_taken = false;
-		XPCC_LOG_DEBUG .printf("read stop\n");
+		if(read_sem_taken) {
+			last_block = 0;
+			this->readStop();
+
+
+			this->semaphore()->give();
+			read_sem_taken = false;
+		}
 	}
 
 	void stopWrite() {
-		last_block = 0;
-		this->writeStop();
-		this->semaphore()->give();
-		write_sem_taken = false;
-		XPCC_LOG_DEBUG .printf("write stop\n");
+		if(write_sem_taken) {
+			if(eraseCount != 0) {
+				XPCC_LOG_WARNING .printf("erase count != 0 before stop\n");
+			}
+			last_block = 0;
+			this->writeStop();
+
+			this->semaphore()->give();
+			write_sem_taken = false;
+		}
 	}
 
 	void handleTick() {
 		if(read_sem_taken && !reading) {
-			if((xpcc::Clock::now() - last_op) > 5) {
-				//XPCC_LOG_DEBUG .printf("release sem\n");
+			if((xpcc::Clock::now() - last_op) > SD_READ_TIMEOUT) {
 				stopRead();
 			}
 		}
 
-		if(write_sem_taken && !writing) {
-			if((xpcc::Clock::now() - last_op) > 5) {
-				//XPCC_LOG_DEBUG .printf("release wr sem\n");
+		if(write_sem_taken && !writing && eraseCount == 0) {
+			if((xpcc::Clock::now() - last_op) > SD_WRITE_TIMEOUT) {
+				//XPCC_LOG_DEBUG .printf("=release wr sem\n");
 				stopWrite();
 			}
 		}
@@ -83,7 +90,8 @@ private:
 		if(!read_sem_taken) {
 			if(write_sem_taken) {
 				while(writing) {
-					//wait for write to complete
+					//wait for write to complete,
+					//and all erase blocks to finish writing
 					yield();
 				}
 				stopWrite(); //stop write operation, and begin read
@@ -94,14 +102,20 @@ private:
 			}
 			read_sem_taken = true;
 			last_block = 0;
+		} else {
+			while(reading) {
+				yield();
+			}
 		}
 
 		reading = true;
 
 		if(last_block+1 != sectorNumber) {
-			this->readStop();
+			if(last_block != 0) {
+				this->readStop();
+			}
 			this->readStart(sectorNumber);
-			XPCC_LOG_DEBUG .printf("read start %d\n", sectorNumber);
+			//XPCC_LOG_DEBUG .printf("read start %d\n", sectorNumber);
 		}
 
 		last_block = sectorNumber + sectorCount - 1;
@@ -121,6 +135,7 @@ private:
 	xpcc::fat::Result
 	doWrite(const uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) override {
 		//XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
+
 		if(!write_sem_taken) {
 			if(read_sem_taken) {
 				while(reading) {
@@ -135,25 +150,27 @@ private:
 			}
 			write_sem_taken = true;
 			last_block = 0;
+			eraseCount = 0;
+		} else {
+			while(writing) {
+				yield();
+			}
 		}
 
 		writing = true;
 
 		if(last_block+1 != sectorNumber) {
 			if(last_block != 0) {
-				XPCC_LOG_DEBUG .printf("write stop\n");
-				this->writeStop();
+					this->writeStop();
 			}
 			this->writeStart(sectorNumber, eraseCount);
-			XPCC_LOG_DEBUG .printf("write start b:%d count:%d\n",
-					sectorNumber, eraseCount);
-			eraseCount = 0;
 		}
 
 		last_block = sectorNumber + sectorCount - 1;
 
 		while(sectorCount) {
 			this->writeData(buffer);
+			if(eraseCount) eraseCount--;
 			sectorCount--;
 			buffer+=512;
 		}
