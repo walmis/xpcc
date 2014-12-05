@@ -9,28 +9,12 @@
 namespace xpcc {
 
 void USBMSD_VolumeHandler::handleTick() {
-	if (readBlock != -1) {
-		if (volume.doRead(buffer, readBlock, 1) == RES_OK) {
-			haveBlock = readBlock;
-		}
-		readBlock = -1;
-	}
 
 	if (requestedBlock != -1) {
 		bool res;
 
 		switch (opType) {
 		case READ:
-//			if (firstBlock) {
-//    	    		if(!card->semaphore()->take_nonblocking()) {
-//    	    			XPCC_LOG_DEBUG .printf("*");
-//    	    			return;
-//    	    		}
-//				XPCC_LOG_DEBUG.printf("MSD::read_begins %d a:%d d:%d\n", opType,
-//						requestedBlock, totalBlocks);
-				//card->readStart(requestedBlock);
-//				firstBlock = false;
-//			}
 
 			if (haveBlock != requestedBlock) {
 				res = volume.doRead(dataptr, requestedBlock, 1) == RES_OK;
@@ -42,10 +26,7 @@ void USBMSD_VolumeHandler::handleTick() {
 				res = true;
 			}
 
-			if (blocksLeft == 0) {
-				//card->readStop();
-				//card->semaphore()->give();
-			} else {
+			if (blocksLeft != 0) {
 				//read in advance
 				readBlock = requestedBlock + 1;
 			}
@@ -62,15 +43,10 @@ void USBMSD_VolumeHandler::handleTick() {
 
 		case WRITE:
 			if (firstBlock) {
-//    	    		if(!card->semaphore()->take_nonblocking()) {
-//    	    			XPCC_LOG_DEBUG .printf("*");
-//    	    			return;
-//    	    		}
 				XPCC_LOG_DEBUG.printf("MSD::write_begins r:%d c:%d\n",
 						requestedBlock, totalBlocks);
 				volume.doIoctl(CTRL_ERASE_COUNT, &totalBlocks);
 
-				//card->writeStart(requestedBlock, totalBlocks);
 				firstBlock = false;
 			}
 
@@ -83,12 +59,15 @@ void USBMSD_VolumeHandler::handleTick() {
 
 			res = volume.doWrite(buffer, block, 1) == RES_OK;
 
-//    			if(left == 0) {
-//    				card->writeStop();
-//    				card->semaphore()->give();
-//    			}
 			break;
 		}
+	}
+
+	if (readBlock != -1) {
+		if (volume.doRead(buffer, readBlock, 1) == RES_OK) {
+			haveBlock = readBlock;
+		}
+		readBlock = -1;
 	}
 
 }

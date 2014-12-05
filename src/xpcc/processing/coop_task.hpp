@@ -53,7 +53,7 @@ protected:
 	}
 
 	void _yield(uint16_t timeAvailable) override {
-		CoopTask_Base::_yield(0);
+		CoopTask_Base::_yield(timeAvailable);
 	}
 
 	void run() {
