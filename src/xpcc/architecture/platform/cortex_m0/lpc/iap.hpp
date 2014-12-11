@@ -26,7 +26,8 @@ typedef enum
 	READ_PART_ID				=54,
 	READ_BOOT_VER				=55,
 	COMPARE						=56,
-	REINVOKE_ISP				=57
+	REINVOKE_ISP				=57,
+	READ_UID				    =58,
 }IAP_Command_Code;
 
 class IAP {
@@ -41,6 +42,19 @@ public:
 
 		return false;
 
+	}
+
+	static void readUID(uint32_t result[4]) {
+		uint32_t param_table[5];
+		uint32_t result_table[5];
+
+		param_table[0] = READ_UID;
+		call(param_table, result_table);
+
+		result[0] = result_table[1];
+		result[1] = result_table[2];
+		result[2] = result_table[3];
+		result[3] = result_table[4];
 	}
 
 	static void writeFlash(unsigned flash_address, unsigned * flash_data_buf,

@@ -189,7 +189,7 @@ public:
 		}
 
 		tmp = *((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
-		tmp &= 0b111;
+		tmp &= 0b0111000111;
 		tmp |= (uint8_t)mode;
 		*((uint32_t *) (((uint32_t) LPC_IOCON) + offset)) = tmp;
 	}

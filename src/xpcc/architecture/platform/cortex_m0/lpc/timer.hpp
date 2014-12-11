@@ -239,6 +239,27 @@ public:
 			TIMER->EMR |= TIM_EM_SET(matchChannel, (int)extMatch);
 		}
 
+		static void
+		ALWAYS_INLINE
+		updateMatchValue(uint32_t matchChannel,	uint32_t matchValue)
+		{
+			switch(matchChannel)
+			{
+			case 0:
+				TIMER->MR0 = matchValue;
+				break;
+			case 1:
+				TIMER->MR1 = matchValue;
+				break;
+		    case 2:
+				TIMER->MR2 = matchValue;
+				break;
+		    case 3:
+				TIMER->MR3 = matchValue;
+				break;
+			}
+		}
+
 		/*********************************************************************//**
 		 * @brief 		Clear Interrupt pending
 		 * @param[in]	timer Timer selection, should be LPC_TMR16B0,
@@ -272,6 +293,13 @@ public:
 			} else {
 				TIMER->TCR &= ~TIM_ENABLE;
 			}
+		}
+
+		static bool
+		ALWAYS_INLINE
+		isActive()
+		{
+			return TIMER->TCR & TIM_ENABLE;
 		}
 
 		/*********************************************************************//**
@@ -433,6 +461,35 @@ public:
 		static void
 		ALWAYS_INLINE
 		enableCapturePins();
+
+		static void
+		ALWAYS_INLINE
+		enableIRQ() {
+		    if (TIMER == LPC_TMR16B0) {    //  16-bit counter/TIMER 0
+		    	NVIC_EnableIRQ(TIMER_16_0_IRQn);
+		    } else if(TIMER == LPC_TMR16B1) {    //  16-bit counter/timer 1
+		    	NVIC_EnableIRQ(TIMER_16_1_IRQn);
+		    } else if(TIMER == LPC_TMR32B0) {    //  32-bit counter/timer 0
+		    	NVIC_EnableIRQ(TIMER_32_0_IRQn);
+		    } else if(TIMER == LPC_TMR32B1) {    //  32-bit counter/timer 1
+		    	NVIC_EnableIRQ(TIMER_32_1_IRQn);
+		    }
+		}
+
+		static void
+		ALWAYS_INLINE
+		disableIRQ() {
+		    if (TIMER == LPC_TMR16B0) {    //  16-bit counter/TIMER 0
+		    	NVIC_DisableIRQ(TIMER_16_0_IRQn);
+		    } else if(TIMER == LPC_TMR16B1) {    //  16-bit counter/timer 1
+		    	NVIC_DisableIRQ(TIMER_16_1_IRQn);
+		    } else if(TIMER == LPC_TMR32B0) {    //  32-bit counter/timer 0
+		    	NVIC_DisableIRQ(TIMER_32_0_IRQn);
+		    } else if(TIMER == LPC_TMR32B1) {    //  32-bit counter/timer 1
+		    	NVIC_DisableIRQ(TIMER_32_1_IRQn);
+		    }
+		}
+
 
 private:
 		static uint32_t TIM_ConverUSecToVal (uint32_t usec)

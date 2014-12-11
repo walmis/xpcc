@@ -28,7 +28,6 @@ void Terminal::parse() {
 
 	char* tok = strtok(buffer, " ");
 
-	char* arglist[6];
 	uint8_t nargs = 0;
 
 	memset(arglist, 0, sizeof(char*) * 6);
@@ -41,25 +40,45 @@ void Terminal::parse() {
 
 	handleCommand(nargs, arglist);
 
+	device.write('\r');
+	device.write("xpcc> ");
+
 }
 
 void Terminal::handleTick() {
 	int16_t c;
 	if ((c = device.read()) > 0) {
-		buffer[pos] = c;
-		if (buffer[pos] == '\n') {
-			//remove the newline character
-			buffer[pos] = 0;
-			parse();
-			pos = 0;
-			return;
-		} else {
-			if(!isprint(buffer[pos])) {
-				return;
+
+		if(c == '\b' || c == 127) { //backspace
+			if(pos > 0) {
+				pos--;
+	            device.write('\b');
+	            device.write(' ');
+	            device.write('\b');
 			}
+		} else {
+			if (c == '\n' || c == '\r') {
+				//remove the newline character
+				buffer[pos] = 0;
+
+				device.write('\r');
+				device.write('\n');
+
+				parse();
+				pos = 0;
+				return;
+			} else {
+				if(!isprint(c)) {
+					return;
+				} else {
+					buffer[pos] = c;
+					pos++;
+					pos &= 31;
+					device.write(c);
+				}
+			}
+
 		}
-		pos++;
-		pos &= 31;
 	}
 }
 

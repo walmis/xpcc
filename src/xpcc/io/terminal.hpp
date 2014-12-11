@@ -25,6 +25,14 @@ public:
 		return strcmp(cmd, value) == 0;
 	}
 
+	bool cmd(uint8_t arg, const char* c) {
+		return cmp(arglist[arg], c);
+	}
+
+	bool cmd(uint8_t arg, int c) {
+		return atol(arglist[arg]) == c;
+	}
+
 protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 
@@ -36,6 +44,7 @@ protected:
 private:
 	char buffer[32];
 	uint8_t pos = 0;
+	char* arglist[6];
 
 	void parse();
 };
