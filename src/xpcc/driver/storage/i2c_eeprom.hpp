@@ -33,6 +33,11 @@
 
 #include <xpcc/architecture/peripheral/i2c.hpp>
 
+template<typename T, typename U> constexpr size_t offsetOf(U T::*member)
+{
+    return (char*)&((T*)nullptr->*member) - (char*)nullptr;
+}
+
 namespace xpcc
 {
 	/**
@@ -46,6 +51,7 @@ namespace xpcc
 	 * \author	Fabian Greif
 	 * \author	Niklas Hauser
 	 */
+
 	template <typename I2cMaster>
 	class I2cEeprom : public xpcc::I2cDelegate
 	{
@@ -113,6 +119,18 @@ namespace xpcc
 
 		bool waitAvailable(uint16_t timeout);
 		
+		template <typename T, typename U, typename Y>
+		bool put(T U::*pos, Y &data) {
+			static_assert(sizeof(T) == sizeof(Y), "Type size mismatch");
+			return write(offsetOf(pos), (uint8_t*)&data, sizeof(T));
+		}
+
+		template <typename T, typename U, typename Y>
+		bool get(T U::*pos, Y &dest) {
+			static_assert(sizeof(T) <= sizeof(Y), "Type size mismatch");
+			return read(offsetOf(pos), (uint8_t*)&dest, sizeof(T));
+		}
+
 	private:
 		uint8_t address; //i2c address
 		uint8_t sizeKbits; //eeprom size

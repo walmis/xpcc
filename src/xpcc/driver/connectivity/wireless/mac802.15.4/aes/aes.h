@@ -20,9 +20,9 @@ extern "C" {
 #define Nk 4			// number of columns in a key
 #define Nr 10			// number of rounds in encryption
 
-typedef struct {
-	uint8_t expkey[4 * Nb * (Nr + 1)];
-} aes128_ctx_t;
+typedef struct  {
+	uint8_t expkey[4 * Nb * (Nr + 1)] ;
+} aes128_ctx_t __attribute__ ((aligned (4)));
 
 void aes128_enc (uint8_t *block, aes128_ctx_t* ctx);
 void aes128_dec(uint8_t *block, aes128_ctx_t* ctx);

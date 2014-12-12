@@ -57,6 +57,7 @@ xpcc::lpc11::SysTickTimer::enable(uint32_t reload)
 			SysTick_CTRL_CLKSOURCE_Msk |
 			SysTick_CTRL_ENABLE_Msk |
 			SysTick_CTRL_TICKINT_Msk;
+	SysTick->VAL = 0x00FFFFFF;
 }
 
 void

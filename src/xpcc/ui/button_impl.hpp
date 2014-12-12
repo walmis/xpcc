@@ -36,14 +36,14 @@ template <typename T>
 void
 xpcc::Button<T>::update()
 {
-	if(state < 62) {
+	if(state < 20) {
 		if (!T::read()) {
 			state++;
 		} else {
 			state = 0;
 		}
 	} else {
-		if(state == 62) {
+		if(state == 20) {
 			pressed = 1;
 			state++;
 		}

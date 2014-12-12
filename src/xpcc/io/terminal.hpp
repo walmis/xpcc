@@ -33,6 +33,10 @@ public:
 		return atol(arglist[arg]) == c;
 	}
 
+	int arg(uint8_t id) {
+		return atol(arglist[id]);
+	}
+
 protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 

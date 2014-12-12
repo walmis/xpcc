@@ -63,9 +63,9 @@ namespace xpcc
 		update();
 		
 	private:
-		uint8_t state : 6;
-		uint8_t pressed : 1;
-		uint8_t released : 1;
+		volatile uint8_t state : 6;
+		volatile uint8_t pressed : 1;
+		volatile uint8_t released : 1;
 	};
 }
 

@@ -76,6 +76,7 @@ void TickerTask::_yield(uint16_t timeAvailable) {
 void TickerTask::tick() {
 	static TickerTask* volatile task = 0;
 	if(!task) {
+		current = 0;
 		if(idleFunc) idleFunc();
 		task = base;
 	}
