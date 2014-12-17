@@ -11,6 +11,7 @@
 #include "../USBDevice/USBDevice.h"
 #include "../USBDevice/USBInterfaceHandler.h"
 #include <xpcc/container.hpp>
+#include <xpcc/io/iodevice.hpp>
 
 namespace xpcc {
 
@@ -24,7 +25,7 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
-class USBSerialHandler : public USBInterfaceHandler {
+class USBSerialHandler : public USBInterfaceHandler, public IODevice {
 public:
 
 	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
@@ -45,12 +46,28 @@ public:
 		this->latency = latency;
 	}
 
-	uint8_t rxAvailable();
-	uint8_t txAvailable();
+	int16_t rxAvailable();
+	int16_t txAvailable();
 
     void putc(char c);
 	int16_t getc();
 
+	//IODevice overrides
+	size_t
+	write(char c) override {
+		putc(c);
+		return 1;
+	}
+
+	void
+	flush() override {}
+
+	/// Read a single character
+	int16_t
+	read() override {
+		return getc();
+	}
+	///////
 
 protected:
 	void SOF(int frameNumber) override;

@@ -108,11 +108,11 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
 
 }
 
-uint8_t USBSerialHandler::rxAvailable() {
+int16_t USBSerialHandler::rxAvailable() {
 	return rx_buffer.bytes_used();
 }
 
-uint8_t USBSerialHandler::txAvailable() {
+int16_t USBSerialHandler::txAvailable() {
 	return tx_buffer.bytes_free();
 }
 

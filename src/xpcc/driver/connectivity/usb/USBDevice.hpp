@@ -21,5 +21,5 @@
 #include "USBDevice/USBMSD/USBMSD.h"
 
 #include "USBDevice/Composite/USBCDCMSD.hpp"
-
+#include "USBDevice/Composite/USB2xCDCMSD.hpp"
 #endif /* USBDEVICE_H_ */
