@@ -16,7 +16,10 @@ size_t IOBuffer::bytes_free() {
 size_t IOBuffer::bytes_used() {
 	return ((head - tail) & mask);
 }
-
+IOBuffer::IOBuffer() :
+	head(0), tail(0), mask(0), bytes(0)
+{
+}
 IOBuffer::IOBuffer(uint16_t size) :
 	head(0), tail(0), mask(0), bytes(0)
 {

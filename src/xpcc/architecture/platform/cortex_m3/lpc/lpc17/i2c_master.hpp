@@ -302,21 +302,6 @@ public:
 		return true;
 	}
 
-//	static bool
-//	startBlocking(xpcc::I2cDelegate *d) {
-//		if(!attachDelegate(d)) {
-//			return false;
-//		}
-//
-//		__DMB();
-//
-//		while(delegate == d) {
-//			__WFI();
-//		}
-//
-//		return true;
-//	}
-
 	static Error
 	getErrorState() {
 		return error;
@@ -324,6 +309,7 @@ public:
 
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
+		__disable_irq();
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
 
@@ -339,6 +325,7 @@ public:
 
 			old->stopped(cause);
 		}
+		__enable_irq();
 	}
 
 	static void IRQ() {
@@ -351,6 +338,7 @@ public:
 		}
 		//DEBUG_STREAM << "\n--- interrupt ";
 		//DEBUG_STREAM .printf("%x ---\n", returnCode);
+		xpcc::atomic::Lock lock;
 
 		switch (returnCode) {
 			case I2C_I2STAT_M_TX_START:
@@ -365,23 +353,22 @@ public:
 				uint8_t address;
 				DEBUG_STREAM .printf("Start/next %d\n", s.next);
 				switch (s.next) {
-					case xpcc::I2c::Operation::Read:
-						address = ((s.address<<1) & 0xfe) | xpcc::I2c::READ;
-						initializeRead(delegate->reading());
-						break;
-					case xpcc::I2c::Operation::Write:
+					default:
+					case xpcc::I2c::Operation::Stop:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
-						initializeWrite(delegate->writing());
+						initializeStopAfterAddress();
 						break;
 					case xpcc::I2c::Operation::Restart:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 						initializeRestartAfterAddress();
 						break;
-
-					default:
-					case xpcc::I2c::Operation::Stop:
+					case xpcc::I2c::Operation::Write:
 						address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
-						initializeStopAfterAddress();
+						initializeWrite(delegate->writing());
+						break;
+					case xpcc::I2c::Operation::Read:
+						address = ((s.address<<1) & 0xfe) | xpcc::I2c::READ;
+						initializeRead(delegate->reading());
 						break;
 				}
 				DEBUG("send address " << address);
@@ -512,14 +499,14 @@ public:
 		case I2C_I2STAT_M_TX_ARB_LOST:	// arbitration lost in SLA+R or NACK
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::ArbitrationLost;
-				//ERR << "Error::ArbitrationLost " << delegate << endl;
+				XPCC_LOG_ERROR << "Error::ArbitrationLost " << delegate << endl;
 				newSession = false;
 			}
 
 		default:
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::Unknown;
-				//ERROR("Error::Unknown");
+				XPCC_LOG_ERROR << "Error::Unknown\n";
 			}
 			newSession = false;
 			intClear();
@@ -557,6 +544,7 @@ private:
 				while(p->next) {
 					if(p == d) {
 						//the same delegate is already in the chain
+						XPCC_LOG_ERROR << "same delegate in chain\n";
 						d->stopped(DetachCause::SoftwareReset);
 						return false;
 					}

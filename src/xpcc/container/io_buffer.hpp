@@ -14,7 +14,7 @@
 class IOBuffer {
 
 public:
-
+	IOBuffer();
 	IOBuffer(uint16_t size);
 
 	~IOBuffer();

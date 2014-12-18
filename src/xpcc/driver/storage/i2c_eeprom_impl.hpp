@@ -112,12 +112,12 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	buffer[i++] = address;
 	
 	if(!initialize(buffer, i, data, bytes)) {
-		//XPCC_LOG_ERROR << '1' << endl;
+		XPCC_LOG_ERROR << '1' << endl;
 		return false;
 	}
 
 	if(!I2cMaster::start(this)) {
-		//XPCC_LOG_ERROR << '2' << endl;
+		XPCC_LOG_ERROR << '2' << endl;
 		return false;
 	}
 	while(state == xpcc::I2c::AdapterState::Busy) {
