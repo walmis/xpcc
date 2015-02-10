@@ -12,6 +12,8 @@
 RH_RF22* RH_RF22::_deviceForInterrupt[RH_RF22_NUM_INTERRUPTS] = {0, 0, 0};
 uint8_t RH_RF22::_interruptCount = 0; // Index into _deviceForInterrupt for next device
 
+#define DEBUG(...) printf(__VA_ARGS__)
+
 // These are indexed by the values of ModemConfigChoice
 // Canned modem configurations generated with 
 // http://www.hoperf.com/upload/rf/RH_RF22B%2023B%2031B%2042B%2043B%20Register%20Settings_RevB1-v5.xls
@@ -76,6 +78,13 @@ bool RH_RF22::init()
     if (interruptNumber == NOT_AN_INTERRUPT)
 	return false;
 
+    // Add by Adrien van den Bossche <vandenbo@univ-tlse2.fr> for Teensy
+    // ARM M4 requires the below. else pin interrupt doesn't work properly.
+    // On all other platforms, its innocuous, belt and braces
+    pinMode(_interruptPin, INPUT);
+
+    delay(15);
+
     // Software reset the device
     reset();
 
@@ -85,13 +94,10 @@ bool RH_RF22::init()
     if (   _deviceType != RH_RF22_DEVICE_TYPE_RX_TRX
         && _deviceType != RH_RF22_DEVICE_TYPE_TX)
     {
-	return false;
+    	DEBUG("RF22: Device type unknown (0x%x)\n", _deviceType);
+    	return false;
     }
 
-    // Add by Adrien van den Bossche <vandenbo@univ-tlse2.fr> for Teensy
-    // ARM M4 requires the below. else pin interrupt doesn't work properly.
-    // On all other platforms, its innocuous, belt and braces
-    pinMode(_interruptPin, INPUT); 
 
     // Enable interrupt output on the radio. Interrupt line will now go high until
     // an interrupt occurs
@@ -307,9 +313,18 @@ void RH_RF22::isr2()
 
 void RH_RF22::reset()
 {
+	uint8_t tmp;
+
+    tmp = spiRead(RH_RF22_REG_03_INTERRUPT_STATUS1);
+    tmp = spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2);
+
     spiWrite(RH_RF22_REG_07_OPERATING_MODE1, RH_RF22_SWRES);
     // Wait for it to settle
-    while(!(spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2) & RH_RF22_ICHIPRDY));
+    delay(1);
+
+    tmp = spiRead(RH_RF22_REG_03_INTERRUPT_STATUS1);
+    tmp = spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2);
+
 }
 
 uint8_t RH_RF22::statusRead()
