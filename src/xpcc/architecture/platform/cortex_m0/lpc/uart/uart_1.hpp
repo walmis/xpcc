@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "lpc11_uart_registers.hpp"
+//lpc17xx uses the same uart api
+#include <xpcc/architecture/platform/cortex_m3/lpc/lpc17/buffered_uart.hpp>
 
 namespace xpcc
 {
@@ -17,6 +20,8 @@ namespace xpcc
 		 * 
 		 * \ingroup	lpc1100
 		 */
+
+
 		class Uart1
 		{
 		public:
@@ -51,19 +56,65 @@ namespace xpcc
 					CfgParity parity = UART_PARITY_NONE,
 					CfgStopBits stopBits = UART_STOPBIT_1);
 
-			static size_t write(char c);
-			static int16_t read();
-			static void flush();
+			//write a character (blocking)
+			static size_t write(char c) {
+				while(txBusy());
+				put(c);
+				return 1;
+			}
+			//read a character
+			static int16_t read() {
+				if(LPC_UART->LCR & LSR_RDR) {
+					return get();
+				}
+				return -1;
+			}
+			//flush data
+			static void flush() {
+				while (txBusy());
+			}
 
+			static ALWAYS_INLINE bool txBusy() {
+				return !((LPC_UART->LSR & LSR_THRE) && (LPC_UART->LSR & LSR_TEMT));
+			}
 
-			static inline void put(char c);
-			static inline char get();
+			static ALWAYS_INLINE bool txEmpty() {
+				return LPC_UART->LSR & LSR_THRE;
+			}
 
-			static void enableTxCompleteInterrupt(bool en);
-			static void enableRxCompleteInterrupt(bool en);
+			static ALWAYS_INLINE bool rxEmpty() {
+				return !(LPC_UART->LSR & LSR_RDR);
+			}
 
-			static void attachTxCompleteInterrupt(void (*f)());
-			static void attachRxCompleteInterrupt(void (*f)());
+			//put char to fifo
+			static inline void put(char c) {
+				LPC_UART->THR = c;
+			}
+			//get char from fifo
+			static inline char get() {
+				return LPC_UART->RBR;
+			}
+
+			static void enableTxCompleteInterrupt(bool en) {
+				if(en)
+					LPC_UART->IER |= IER_THREIE;
+				else
+					LPC_UART->IER &= ~IER_THREIE;
+			}
+
+			static void enableRxCompleteInterrupt(bool en) {
+				if(en)
+					LPC_UART->IER |= IER_RBRIE;
+				else
+					LPC_UART->IER &= ~IER_RBRIE;
+			}
+
+			static void attachTxCompleteInterrupt(void (*f)()) {
+				txCallback = f;
+			}
+			static void attachRxCompleteInterrupt(void (*f)()) {
+				rxCallback = f;
+			}
 
 			static bool setBaud(uint32_t baud);
 
@@ -71,13 +122,18 @@ namespace xpcc
 			static void stopAutoBaud();
 			static bool autoBaudSuccess();
 
+			static void handleIRQ();
 
 		protected:
+			static void (*txCallback)();
+			static void (*rxCallback)();
 
 			static void
 			configurePins(void);
 		}; // Uart1 class
 
+
+		typedef lpc17::BufferedUart<Uart1> BufferedUart;
 
 	} // lpc namespace
 } // xpcc namespace

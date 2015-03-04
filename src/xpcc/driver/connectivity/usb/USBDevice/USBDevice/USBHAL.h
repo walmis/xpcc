@@ -44,6 +44,10 @@ public:
     void setAddress(uint8_t address);
     void remoteWakeup(void);
 
+    void disableInterrupts();
+    void enableInterrupts();
+    bool suspended() { return _suspended; };
+
     /* Endpoint 0 */
     void EP0setup(uint8_t *buffer);
     void EP0read(void);
@@ -86,7 +90,7 @@ public:
     void _usbisr(void);
 
 protected:
-
+    bool _suspended;
     USBInterfaceHandler* handlers;
 
     virtual void busReset(void){};
@@ -103,6 +107,7 @@ protected:
     	CALL_HANDLERS(connectStateChanged(connected));
     };
     virtual void suspendStateChanged(unsigned int suspended){
+    	this->_suspended = suspended;
     	CALL_HANDLERS(suspendStateChanged(suspended));
     };
     virtual void SOF(int frameNumber){

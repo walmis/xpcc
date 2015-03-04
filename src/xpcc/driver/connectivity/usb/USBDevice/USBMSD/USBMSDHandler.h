@@ -33,8 +33,9 @@ public:
 		WRITE_PROTECT =   0x08
 	};
 
-	USBMSDHandler(uint8_t bulkIn = EPBULK_IN,
-			uint8_t bulkOut = EPBULK_OUT);
+	USBMSDHandler();
+
+	void setEndpoints(uint8_t bulkIn, uint8_t bulkOut);
 
 	bool initialize();
 

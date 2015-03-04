@@ -6,10 +6,10 @@
  */
 
 #include "USBMSD_VolumeHandler.hpp"
+
 namespace xpcc {
 
 void USBMSD_VolumeHandler::handleTick() {
-
 	if (requestedBlock != -1) {
 		bool res;
 
@@ -54,7 +54,6 @@ void USBMSD_VolumeHandler::handleTick() {
 			memcpy(buffer, dataptr, 512);
 			requestedBlock = -1;
 			//size_t left = blocksLeft;
-
 			disk_write_finalize(true);
 
 			res = volume.doWrite(buffer, block, 1) == RES_OK;
@@ -94,7 +93,6 @@ int USBMSD_VolumeHandler::disk_write_start(const uint8_t * data, uint32_t block,
 	requestedBlock = block;
 	dataptr = (uint8_t*)data;
 	this->blocksLeft = blocksLeft;
-
 	return 0;
 }
 
@@ -129,7 +127,7 @@ int USBMSD_VolumeHandler::disk_status() {
 	if(status & (STA_NODISK|STA_NOINIT))
 	return NO_DISK;
 
-	if(status & (STA_PROTECT))
+	if((status & STA_PROTECT))
 	return DISK_OK | WRITE_PROTECT;
 
 	return DISK_OK;

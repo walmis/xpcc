@@ -283,11 +283,8 @@ protected:
     virtual void EP0setupCallback(void);
     virtual void EP0out(void);
     virtual void EP0in(void);
-    virtual void connectStateChanged(unsigned int connected){};
-    virtual void suspendStateChanged(unsigned int suspended){};
     uint8_t * findDescriptor(uint8_t descriptorType);
     
-
     uint16_t VENDOR_ID;
     uint16_t PRODUCT_ID;
     uint16_t PRODUCT_RELEASE;

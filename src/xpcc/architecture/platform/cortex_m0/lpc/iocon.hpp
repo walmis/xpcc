@@ -124,7 +124,28 @@ public:
 			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
 		}
 	}
-
+	static void
+	ALWAYS_INLINE
+	setGpioMode(uint8_t port, uint8_t pin)
+	{
+		uint32_t tmp;
+		if (port == 0) {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin];
+			tmp &= ~0b111;
+			if(SWITCH_PINS_PORT0(pin)) {
+				tmp |= 1;
+			}
+			((LPC_IOCON_T*)LPC_IOCON)->PIO0[pin] = tmp;
+		}
+		else {
+			tmp = ((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin];
+			tmp &= ~0b111;
+			if(SWITCH_PINS_PORT1(pin)) {
+				tmp |= 1;
+			}
+			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
+		}
+	}
 	static void
 	ALWAYS_INLINE
 	setPinMode(uint8_t port, uint8_t pin, PinMode mode)

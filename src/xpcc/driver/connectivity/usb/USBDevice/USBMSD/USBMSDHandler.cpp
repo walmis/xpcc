@@ -13,7 +13,7 @@ namespace xpcc {
 
 #ifndef _MSD_DEBUG
 #undef XPCC_LOG_LEVEL
-#define XPCC_LOG_LEVEL xpcc::log::DISABLED
+#define XPCC_LOG_LEVEL xpcc::log::ERROR
 #endif
 
 
@@ -163,8 +163,7 @@ enum Status {
 };
 
 
-USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
-		bulkIn(bulkIn), bulkOut(bulkOut) {
+USBMSDHandler::USBMSDHandler() : bulkIn(255), bulkOut(255) {
 	stage = READ_CBW;
 	page = 0;
 	writeBusy = false;
@@ -178,6 +177,10 @@ USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
 	memset((void *) &csw, 0, sizeof(CSW));
 }
 
+void USBMSDHandler::setEndpoints(uint8_t bulkIn, uint8_t bulkOut) {
+	this->bulkIn = bulkIn;
+	this->bulkOut = bulkOut;
+}
 
 
 // Called in ISR context to process a class specific request
@@ -264,7 +267,7 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	            // an error has occured
 	        case ERROR:
-	            //XPCC_LOG_DEBUG .printf("USBMSDHandler::EP_handler stage:ERROR\n");
+	            XPCC_LOG_ERROR .printf("USBMSDHandler::EP_handler stage:ERROR\n");
 	        	device->stallEndpoint(bulkIn);
 	            sendCSW();
 	            break;
@@ -302,7 +305,7 @@ bool USBMSDHandler::EP_handler(uint8_t ep) {
 
 	            // an error has occured: stall endpoint and send CSW
 	        default:
-	        	XPCC_LOG_DEBUG .printf("CSW error stage\n");
+	        	XPCC_LOG_ERROR .printf("CSW error stage\n");
 	        	device->stallEndpoint(bulkOut);
 	            csw.Status = CSW_ERROR;
 	            sendCSW();
@@ -321,7 +324,7 @@ void USBMSDHandler::disk_write_finalize(bool success) {
     if(!success) {
     	XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_write_finalize(%d)\n", success);
 
-    	xpcc::atomic::Lock lock;
+    	device->disableInterrupts();
 
     	SCSI_SET_SENSE(SCSI_SENSE_KEY_MEDIUM_ERROR,
 	                   SCSI_ASENSE_WRITE_FAULT,
@@ -332,19 +335,19 @@ void USBMSDHandler::disk_write_finalize(bool success) {
     	sendCSW();
 
     	writeBusy = false;
+
+    	device->enableInterrupts();
         return;
     }
 
 	if(writeBusy) {
+		device->disableInterrupts();
 		writeBusy = false;
-		device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 
-		{
-			xpcc::atomic::Lock lock;
-
-			if(writeRequest) {
-				memoryWrite();
-			}
+		if(writeRequest) {
+			memoryWrite();
+		} else {
+			device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 		}
 
 		if ((!length) || (stage != PROCESS_CBW)) {
@@ -353,6 +356,8 @@ void USBMSDHandler::disk_write_finalize(bool success) {
 
 			sendCSW();
 		}
+
+		device->enableInterrupts();
 	}
 }
 
@@ -376,7 +381,7 @@ bool USBMSDHandler::memoryWrite () {
 
 		if (blockAddr + ((dataPos+size) / (BlockSize+1)) > BlockCount) {
 			size = BlockSize - (dataPos & (BlockSize-1));
-			XPCC_LOG_DEBUG .printf("USBMSDHandler::memoryWrite error\n");
+			XPCC_LOG_ERROR .printf("USBMSDHandler::memoryWrite error\n");
 			stage = ERROR;
 			device->stallEndpoint(bulkOut);
 		}
@@ -514,6 +519,7 @@ void USBMSDHandler::sendCSW() {
     XPCC_LOG_DEBUG .printf("sendCSW %d\n", csw.Status);
     //XPCC_LOG_DEBUG .dump_buffer((uint8_t *)&csw, sizeof(CSW));
     device->writeNB(bulkIn, (uint8_t *)&csw, sizeof(CSW), MAX_PACKET_SIZE_EPBULK);
+
     stage = WAIT_CSW;
 }
 
@@ -672,9 +678,9 @@ void USBMSDHandler::disk_read_finalize(bool success) {
 
 	//xpcc::log::debug .printf("writeNB\n");
 	//device->writeNB(bulkIn, 0, 0, MAX_PACKET_SIZE_EPBULK);
-	xpcc::atomic::Lock lock;
+	device->disableInterrupts();
 	sendBlock();
-
+	device->enableInterrupts();
 }
 
 void USBMSDHandler::sendBlock() {
@@ -684,7 +690,7 @@ void USBMSDHandler::sendBlock() {
 		n = (length > MAX_PACKET) ? MAX_PACKET : length;
 
 		if ((blockAddr + ((dataPos + n - 1) / BlockSize)) > BlockCount) {
-			XPCC_LOG_DEBUG.printf("USBMSDHandler::sendBlock() error line:%d\n",
+			XPCC_LOG_ERROR.printf("USBMSDHandler::sendBlock() error line:%d\n",
 					__LINE__);
 
 			stage = ERROR;

@@ -639,14 +639,21 @@ inline int SDCard<Spi, Cs>::initialise_card() {
 	for (int i = 0; i < 32; i++) {
 		Spi::write(0xFF);
 	}
-	uint8_t s = _cmd(0, 0, 10);
-	XPCC_LOG_DEBUG.printf("_cmd(0, 0) = %x\n", s);
-	// send CMD0, should return with all zeros except IDLE STATE set (bit 0)
+	uint8_t s;
+	for(int i = 0; i < 8; i++) {
+		s = _cmd(0, 0, 10);
+		XPCC_LOG_DEBUG.printf("_cmd(0, 0) = %x\n", s);
+		// send CMD0, should return with all zeros except IDLE STATE set (bit 0)
+		if(s == R1_IDLE_STATE) {
+			break;
+		}
+	}
 	if (s != R1_IDLE_STATE) {
 		XPCC_LOG_DEBUG.printf(
 				"No disk, or could not put SD card in to SPI idle state\n");
 		return SDCARD_FAIL;
 	}
+
 	// send CMD8 to determine whther it is ver 2.x
 	int r = _cmd8();
 	if (r == R1_IDLE_STATE) {

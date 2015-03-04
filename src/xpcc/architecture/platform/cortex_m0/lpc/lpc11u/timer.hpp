@@ -12,15 +12,15 @@ void Timer<timerptr>::enableCapturePins()
         IOCon::setPinFunc(0, 2, 2);
 
     } else if (TIMER == LPC_TMR16B1) {  /** CT16B1_CAP0 */
-        IOCon::setPinFunc(1, 8, 1);
+        IOCon::setPinFunc(0, 20, 1);
 
     } else if (TIMER == LPC_TMR32B0) {  /** CT32B0_CAP0 */
-        IOCon::setPinFunc(1, 5, 2);
+        IOCon::setPinFunc(0, 17, 2);
 
     } else if (TIMER == LPC_TMR32B1) {  /** CT32B1_CAP0 */
-        IOCon::setPinFunc(1, 0, 3);
+        IOCon::setPinFunc(0, 12, 3);
     }
-#error "B"
+
 }
 
 template<int timerptr>

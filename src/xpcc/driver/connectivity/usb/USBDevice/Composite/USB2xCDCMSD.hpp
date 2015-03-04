@@ -14,8 +14,6 @@
 
 namespace xpcc {
 
-template<class MSDHandlerClass = USBMSDHandler, class SerialHandlerClass = USBSerialHandler>
-
 #ifdef __ARM_LPC17XX__
 #define S1_BULK_IN  EP2IN
 #define S1_BULK_OUT EP2OUT
@@ -31,19 +29,21 @@ template<class MSDHandlerClass = USBMSDHandler, class SerialHandlerClass = USBSe
 
 class USB2xCDCMSD: public USBDevice {
 public:
-	template <typename ... Args>
-	USB2xCDCMSD(uint16_t vendor_id,
-			uint16_t product_id, uint16_t product_release, Args... args) :
+	USB2xCDCMSD(USBMSDHandler* msd_handler, uint16_t vendor_id,
+			uint16_t product_id, uint16_t product_release) :
 			USBDevice(vendor_id, product_id, product_release),
-			msd(args..., MSD_BULK_IN, MSD_BULK_OUT),
+			msd(*msd_handler),
 			serial1(S1_BULK_IN, S1_BULK_OUT, S1_INT_IN),
 			serial2(S2_BULK_IN, S2_BULK_OUT, S2_INT_IN) {
 
 		this->addInterfaceHandler(serial1);
 		this->addInterfaceHandler(serial2);
+
+		msd.setEndpoints(MSD_BULK_IN, MSD_BULK_OUT);
 		this->addInterfaceHandler(msd);
 	}
 
+	USBMSDHandler& msd;
 	USBSerialHandler serial1;
 	USBSerialHandler serial2;
 
@@ -307,8 +307,6 @@ public:
 	    };
 	    return (uint8_t*)configDescriptor;
 	}
-
-	MSDHandlerClass msd;
 
 };
 

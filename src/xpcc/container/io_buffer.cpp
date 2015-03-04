@@ -8,6 +8,7 @@
 #include "io_buffer.hpp"
 #include <string.h>
 #include <stdio.h>
+#include <algorithm>
 
 size_t IOBuffer::bytes_free() {
 	return ((mask) - ((head - tail) & mask));
@@ -28,6 +29,20 @@ IOBuffer::IOBuffer(uint16_t size) :
 
 IOBuffer::~IOBuffer() {
 	_freeBuffer();
+}
+
+int16_t IOBuffer::read(uint8_t* buffer, size_t size) {
+	size = std::min(size, bytes_used());
+	if(!size) return 0;
+
+	size_t bytes_read1 = std::min(size, (size_t)(mask + 1) - tail);
+
+	memcpy(buffer, bytes + tail, bytes_read1);
+	memcpy(buffer + bytes_read1, bytes, size - bytes_read1);
+
+	tail = (tail + size) & mask;
+
+	return size;
 }
 
 size_t IOBuffer::write(const uint8_t* buffer, size_t size) {

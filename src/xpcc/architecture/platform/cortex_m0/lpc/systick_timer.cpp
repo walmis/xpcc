@@ -36,7 +36,7 @@
 #include "device.h"
 #include "systick_timer.hpp"
 
-static xpcc::lpc11::InterruptHandler sysTickHandler = &xpcc::dummy;
+static void (*sysTickHandler)()  = &xpcc::dummy;
 
 extern "C" void
 SysTick_Handler(void)
@@ -68,7 +68,7 @@ xpcc::lpc11::SysTickTimer::disable()
 
 // ----------------------------------------------------------------------------
 void
-xpcc::lpc11::SysTickTimer::attachInterrupt(InterruptHandler handler)
+xpcc::lpc11::SysTickTimer::attachInterrupt(void(*handler)())
 {
 	atomic::Lock lock;
 	sysTickHandler = handler;

@@ -9,13 +9,24 @@
 #define TIMER32_HPP_
 
 //#include <xpcc/architecture.hpp>
+#ifdef __ARM_LPC11UXX__
+#include <lpc11xx/cmsis/LPC11Uxx.h>
+#define TIMER reinterpret_cast<LPC_CTxxBx_Type*>(timerptr)
+#define LPC_TMR16B0 LPC_CT16B0
+#define LPC_TMR16B1 LPC_CT16B1
+#define LPC_TMR32B0 LPC_CT32B0
+#define LPC_TMR32B1 LPC_CT32B1
+#else
 #include <lpc11xx/cmsis/LPC11xx.h>
+#define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
+#endif
+
 
 #include "timer_defs.hpp"
 #include "iocon.hpp"
 
 
-#define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
+
 
 namespace xpcc {
 namespace lpc11 {
@@ -40,6 +51,7 @@ enum class CapInput {
 };
 
 enum CaptureFlags : uint8_t {
+	DISABLED = 0,
 	//capture on rising edge
 	RISING_EDGE = 1<<0,
 	//capture on falling edge
@@ -505,6 +517,7 @@ private:
 
 
 	};
+
 
 typedef Timer<(int)LPC_TMR16B0> Timer16B0;
 typedef Timer<(int)LPC_TMR16B1> Timer16B1;

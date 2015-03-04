@@ -19,6 +19,7 @@
 #include "stdint.h"
 
 #include <xpcc/architecture.hpp>
+#include <xpcc/processing/timeout.hpp>
 
 #include "USBEndpoints.h"
 #include "USBDevice.h"
@@ -53,7 +54,7 @@ bool USBDevice::requestGetDescriptor(void)
     switch (DESCRIPTOR_TYPE(transfer.setup.wValue))
     {
         case DEVICE_DESCRIPTOR:
-            if (deviceDesc() != NULL)
+            if (deviceDesc() != 0)
             {
                 if ((deviceDesc()[0] == DEVICE_DESCRIPTOR_LENGTH) \
                     && (deviceDesc()[1] == DEVICE_DESCRIPTOR))
@@ -69,7 +70,7 @@ bool USBDevice::requestGetDescriptor(void)
             }
             break;
         case CONFIGURATION_DESCRIPTOR:
-            if (configurationDesc() != NULL)
+            if (configurationDesc() != 0)
             {
                 if ((configurationDesc()[0] == CONFIGURATION_DESCRIPTOR_LENGTH) \
                     && (configurationDesc()[1] == CONFIGURATION_DESCRIPTOR))
@@ -219,7 +220,7 @@ bool USBDevice::controlOut(void)
             transfer.notify = false;
         }
         /* Status stage */
-        EP0write(NULL, 0);
+        EP0write(0, 0);
     }
     else
     {
@@ -241,7 +242,7 @@ bool USBDevice::controlIn(void)
         if (transfer.zlp)
         {
             /* Send zero length packet */
-            EP0write(NULL, 0);
+            EP0write(0, 0);
             transfer.zlp = false;
         }
 
@@ -249,7 +250,7 @@ bool USBDevice::controlIn(void)
         if (transfer.notify)
         {
             /* Notify class layer. */
-            USBCallback_requestCompleted(NULL, 0);
+            USBCallback_requestCompleted(0, 0);
             transfer.notify = false;
         }
 
@@ -545,7 +546,7 @@ bool USBDevice::controlSetup(void)
 
     /* Initialise control transfer state */
     decodeSetupPacket(buffer, &transfer.setup);
-    transfer.ptr = NULL;
+    transfer.ptr = 0;
     transfer.remaining = 0;
     transfer.direction = 0;
     transfer.zlp = false;
@@ -650,7 +651,7 @@ bool USBDevice::controlSetup(void)
     else
     {
         /* Status stage */
-        EP0write(NULL, 0);
+        EP0write(0, 0);
     }
 
     return true;
@@ -744,16 +745,16 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
     uint16_t wTotalLength;
     uint8_t *ptr;
 
-    if (configurationDesc() == NULL)
+    if (configurationDesc() == 0)
     {
-        return NULL;
+        return 0;
     }
 
     /* Check this is a configuration descriptor */
     if ((configurationDesc()[0] != CONFIGURATION_DESCRIPTOR_LENGTH) \
             || (configurationDesc()[1] != CONFIGURATION_DESCRIPTOR))
     {
-        return NULL;
+        return 0;
     }
 
     wTotalLength = configurationDesc()[2] | (configurationDesc()[3] << 8);
@@ -762,7 +763,7 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
     if (wTotalLength <= (CONFIGURATION_DESCRIPTOR_LENGTH+2))
     /* +2 is for bLength and bDescriptorType of next descriptor */
     {
-        return NULL;
+        return 0;
     }
 
     /* Start at first descriptor after the configuration descriptor */
@@ -780,7 +781,7 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
     } while (ptr < (configurationDesc() + wTotalLength));
 
     /* Reached end of the descriptors - not found */
-    return NULL;
+    return 0;
 }
 
 //void USBDevice::connectStateChanged(unsigned int connected)

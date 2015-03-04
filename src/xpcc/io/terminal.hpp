@@ -46,7 +46,7 @@ protected:
 	virtual void handleTick() override;
 
 private:
-	char buffer[32];
+	char buffer[64];
 	uint8_t pos = 0;
 	char* arglist[6];
 

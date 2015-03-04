@@ -16,9 +16,7 @@ namespace xpcc {
 
 class USBMSD_VolumeHandler : public USBMSDHandler, TickerTask {
 public:
-	USBMSD_VolumeHandler(xpcc::fat::PhysicalVolume *vol,
-			uint8_t bulkIn = EPBULK_IN, uint8_t bulkOut = EPBULK_OUT) :
-                            USBMSDHandler(bulkIn, bulkOut), volume(*vol) {
+	USBMSD_VolumeHandler(xpcc::fat::PhysicalVolume *vol) : volume(*vol) {
 		haveBlock = -1;
 		readBlock = -1;
 		requestedBlock = -1;

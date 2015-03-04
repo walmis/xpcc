@@ -313,6 +313,7 @@ USBHAL::USBHAL(void) {
     
     handlers = 0;
     instance = this;
+    _suspended = 1;
 
     // Enable power to USB device controller
     LPC_SC->PCONP |= PCUSB;
@@ -499,6 +500,14 @@ void USBHAL::remoteWakeup(void) {
     SIEsetDeviceStatus(status & ~SIE_DS_SUS);
 }
 
+void USBHAL::enableInterrupts(void) {
+	NVIC_EnableIRQ(USB_IRQn);
+}
+
+void USBHAL::disableInterrupts(void) {
+	NVIC_DisableIRQ(USB_IRQn);
+}
+
 //a little bit of magic
 //return a virtual function from the vtable with index=index
 //offset from some other virtual function
@@ -534,20 +543,19 @@ void USBHAL::_usbisr(void) {
 
         // Read device status from SIE
         devStat = SIEgetDeviceStatus();
-        //printf("devStat: %d\r\n", devStat);
+        //XPCC_LOG_DEBUG. printf("devStat: %d\r\n", devStat);
 
         if (devStat & SIE_DS_SUS_CH) {
             // Suspend status changed
             if((devStat & SIE_DS_SUS) != 0) {
-                suspendStateChanged(0);
+                suspendStateChanged(1);
+            } else {
+            	suspendStateChanged(0);
             }
         }
 
         if (devStat & SIE_DS_RST) {
             // Bus reset
-            if((devStat & SIE_DS_SUS) == 0) {
-                suspendStateChanged(1);
-            }
             busReset();
         }
     }

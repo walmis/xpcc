@@ -27,6 +27,7 @@ TickerTask::TickerTask() {
 			t = t->next;
 		}
 	}
+	_setFlag(FLAG_RUNNING);
 }
 
 TickerTask::~TickerTask() {
@@ -64,11 +65,11 @@ void TickerTask::_yield(uint16_t timeAvailable) {
 	xpcc::Timeout<> tm(timeAvailable);
 	//XPCC_LOG_DEBUG .printf("yield %d\n", timeAvailable);
 	if(t) {
-		t->setFlag(FLAG_BLOCKING);
+		t->_setFlag(FLAG_BLOCKING);
 		do {
 			tick();
 		} while(!tm.isExpired());
-		t->clearFlag(FLAG_BLOCKING);
+		t->_clearFlag(FLAG_BLOCKING);
 	}
 	current = t;
 }
@@ -79,10 +80,12 @@ void TickerTask::tick() {
 		current = 0;
 		if(idleFunc) idleFunc();
 		task = base;
+		if(!task) return;
 	}
 	TickerTask* tsk = task;
 
-	if(!tsk->getFlag(FLAG_BLOCKING)) {
+	if(tsk->_getFlag(FLAG_RUNNING) &&
+			!tsk->_getFlag(FLAG_BLOCKING)) {
 		current = tsk;
 		tsk->handleTick();
 	}

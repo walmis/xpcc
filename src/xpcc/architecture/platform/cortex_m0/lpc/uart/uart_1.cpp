@@ -3,47 +3,18 @@
 #include <xpcc/architecture/driver/atomic.hpp>
 
 #include "../device.h"
-#include "../uart/lpc11_uart_registers.hpp"
+
 
 #include <xpcc_config.hpp>
 
 // ----------------------------------------------------------------------------
-
-size_t
-xpcc::lpc11::Uart1::write(char data)
-{
-	while ( !(LPC_UART->LSR & LSR_THRE) );
-	LPC_UART->THR = data;
-	return 1;
-}
-
+namespace xpcc {
+namespace lpc11 {
 
 // ----------------------------------------------------------------------------
 
-int16_t
-xpcc::lpc11::Uart1::read()
-{
-	if (LPC_UART->LSR & LSR_RDR) {
-		// Receive data available
-		return LPC_UART->RBR;
-	}
-
-	return -1;
-}
-
-
-void xpcc::lpc11::Uart1::put(char data) {
-	LPC_UART->THR = data;
-}
-
-char xpcc::lpc11::Uart1::get() {
-	return LPC_UART->RBR;
-}
-
-void xpcc::lpc11::Uart1::flush() {
-	while ( !(LPC_UART->LSR & LSR_THRE) );
-}
-// ----------------------------------------------------------------------------
+void (*Uart1::txCallback)();
+void (*Uart1::rxCallback)();
 
 void xpcc::lpc11::Uart1::init(uint32_t baud, CfgDataBits dataBits,
 					CfgParity parity, CfgStopBits stopBits)
@@ -78,11 +49,34 @@ void xpcc::lpc11::Uart1::init(uint32_t baud, CfgDataBits dataBits,
 		regVal = LPC_UART->RBR;	/* Dump data from RX FIFO */
 	}
 
+	NVIC_EnableIRQ(UART_IRQn);
+
 } // Uart1 constructor
+
+void Uart1::handleIRQ() {
+	uint32_t intstat = LPC_UART->IIR;
+	if(!(intstat & 1)) {
+		switch(intstat & 0xF) {
+		case IIR_INTID_THRE:
+			if(txCallback != 0)
+				txCallback();
+			break;
+		case IIR_INTID_RDA:
+		case IIR_INTID_CTI:
+			if(rxCallback != 0)
+				rxCallback();
+			else
+				LPC_UART->RBR;
+			break;
+		}
+	}
+}
 
 extern "C" void
 UART_IRQHandler()
 {
+	Uart1::handleIRQ();
+}
 
-
+}
 }

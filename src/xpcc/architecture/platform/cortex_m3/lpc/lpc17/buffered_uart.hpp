@@ -8,8 +8,9 @@
 #ifndef BUFFERED_UART_HPP_
 #define BUFFERED_UART_HPP_
 
-#include "uart.hpp"
+#include <xpcc/architecture.hpp>
 #include <xpcc/io/buffered_device.hpp>
+#include <xpcc/processing.hpp>
 
 namespace xpcc{
 namespace lpc17 {
@@ -43,10 +44,12 @@ public:
 	}
 
 	size_t write(const uint8_t* buf, size_t len) {
-		size_t n;
+		size_t n = 0;
 		if(isBlocking()) {
-			while(txAvailable() < len) {
-				yield();
+			while(len) {
+				this->write(buf[n]);
+				n++;
+				len--;
 			}
 		}
 
@@ -68,7 +71,7 @@ public:
 				}
 				return 1;
 			}
-			yield();
+			xpcc::yield();
 		} while(isBlocking());
 
 		return 0;

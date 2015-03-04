@@ -38,7 +38,7 @@ public:
 	DSTATUS doGetStatus () override {
 		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 		if(!this->initialized) {
-			return STA_NOINIT;
+			return STA_NODISK;
 		}
 
 		return 0;
@@ -189,6 +189,9 @@ public:
 		XPCC_LOG_DEBUG .printf("%s(%d)\n", __FUNCTION__, command);
 
 		switch(command) {
+		case CTRL_SYNC:
+			return RES_OK;
+
 		case GET_SECTOR_COUNT:
 			if(!this->initialized) {
 				*buffer = 0;

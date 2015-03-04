@@ -146,7 +146,7 @@ public:
 		return info.ftime;
 	}
 
-	inline char*
+	inline const char*
 	getName() {
 #if _USE_LFN
 		if (info.lfname[0] == 0)
@@ -158,7 +158,7 @@ public:
 	}
 
 	/// Name in 8.3 format
-	inline char*
+	inline const char*
 	getShortName() {
 		return info.fname;
 	}
@@ -235,7 +235,9 @@ public:
 
 	size_t write(uint8_t* buffer, size_t len) {
 		uint32_t written = 0;
-		f_write(&file, (void*) buffer, len, (unsigned int*) &written);
+		if(f_write(&file, (void*) buffer, len, (unsigned int*) &written) != FR_OK) {
+			return -1;
+		}
 		return written;
 	}
 
@@ -249,35 +251,6 @@ public:
 
 	uint32_t ftell() {
 		return f_tell(&file);
-	}
-
-	//return true if line fit the buffer
-	//false if not
-	bool readLine(uint8_t* line, size_t maxSize) {
-		char tmp;
-		while (1) {
-			if ((tmp = read()) != -1) {
-				if (maxSize) {
-					*line = tmp;
-					if (tmp == '\r') {
-						*line = '\0';
-						tmp = read();
-					}
-					if (tmp == '\n') {
-						*line = '\0';
-						return true;
-					}
-
-					maxSize--;
-					line++;
-				} else {
-					return false;
-				}
-
-			} else {
-				return false;
-			}
-		}
 	}
 
 	int32_t read(uint8_t* buffer, uint32_t len) {

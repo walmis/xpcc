@@ -37,16 +37,16 @@ protected:
 	///handle interrupt with interrupt code irqn
 	virtual void handleInterrupt(int irqn) {}
 
-	inline bool getFlag(uint8_t flag) {
-		return flags & flag;
+	inline void stop() {
+		_clearFlag(FLAG_RUNNING);
 	}
 
-	inline void setFlag(uint8_t flag) {
-		flags |= flag;
+	inline bool isRunning() {
+		return _getFlag(FLAG_RUNNING);
 	}
 
-	inline void clearFlag(uint8_t flag) {
-		flags &= ~flag;
+	inline void start() {
+		_setFlag(FLAG_RUNNING);
 	}
 
 	static bool inInterruptContext();
@@ -63,11 +63,24 @@ private:
 
 	virtual void _yield(uint16_t timeAvailable);
 
+	inline bool _getFlag(uint8_t flag) {
+		return flags & flag;
+	}
+
+	inline void _setFlag(uint8_t flag) {
+		flags |= flag;
+	}
+
+	inline void _clearFlag(uint8_t flag) {
+		flags &= ~flag;
+	}
+
 public:
 	enum {
-		FLAG_BLOCKING = 1,
-		FLAG_SLEEPING = 2,
-		FLAG_YIELDING = 4
+		FLAG_RUNNING  = 1,
+		FLAG_BLOCKING = 2,
+		FLAG_SLEEPING = 4,
+		FLAG_YIELDING = 8,
 	};
 
 	static void tick();

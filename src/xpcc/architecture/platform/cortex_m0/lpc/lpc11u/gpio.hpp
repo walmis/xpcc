@@ -95,7 +95,7 @@ namespace xpcc
 		} \
 		ALWAYS_INLINE static void \
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) = 0;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0x07;\
 			if(port == 1) { \
 				if(SWITCH_PINS_PORT1(pin)) { \
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
@@ -106,6 +106,7 @@ namespace xpcc
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0x18;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			LPC_GPIO->DIR[port] |= 1 << pin;\
 		} \
@@ -127,7 +128,7 @@ namespace xpcc
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
 				}\
 			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0x18;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			LPC_GPIO->DIR[port] &= ~(1 << pin); \
 		} \
@@ -180,6 +181,7 @@ namespace xpcc
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
 				}\
 			}\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0x18;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			LPC_GPIO->DIR[port] |= 1 << pin;\
 		} \
@@ -235,7 +237,7 @@ namespace xpcc
 					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
 				}\
 			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= 7;\
+			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0x18;\
 			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
 			LPC_GPIO->DIR[port] &= ~(1 << pin); \
 		} \

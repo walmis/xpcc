@@ -495,12 +495,17 @@ public:
 				intClear();
 				newSession = false;
 			}
-			//case I2C_I2STAT_M_RX_ARB_LOST:	// arbitration lost in SLA+W or data
-		case I2C_I2STAT_M_TX_ARB_LOST:	// arbitration lost in SLA+R or NACK
+		case I2C_I2STAT_M_TX_ARB_LOST:	// RX or TX arbitration lost in SLA or NACK
 			if (newSession) {
-				error = xpcc::I2cMaster::Error::ArbitrationLost;
-				XPCC_LOG_ERROR << "Error::ArbitrationLost " << delegate << endl;
-				newSession = false;
+				XPCC_LOG_ERROR << "Error::ArbitrationLost (restart)" << delegate << endl;
+
+				//restart transfer
+				I2Cx->I2CONSET = I2C_I2CONSET_STA | I2C_I2CONSET_AA;
+				I2Cx->I2CONCLR = I2C_I2CONCLR_SIC;
+
+				break;
+				//error = xpcc::I2cMaster::Error::ArbitrationLost;
+				//newSession = false;
 			}
 
 		default:

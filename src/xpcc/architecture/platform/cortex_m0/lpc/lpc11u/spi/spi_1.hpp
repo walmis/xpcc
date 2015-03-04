@@ -14,7 +14,7 @@
 #include "../../spi_registers.h"
 namespace xpcc
 {
-	namespace lpc
+	namespace lpc11u
 	{
 		/**
 		 * \brief	Serial peripheral interface (SPI1)
@@ -211,18 +211,8 @@ namespace xpcc
 
 			static void
 			configurePins(
-					MappingSck mapping = xpcc::lpc::SpiMaster1::MappingSck::PIO1_15,
+					MappingSck mapping = MappingSck::PIO1_15,
 					bool useSsel = false) {
-
-				// Deassert Reset
-				LPC_SYSCON->PRESETCTRL 		|= PRESETCTRL_SSP1_RST_N;
-
-				// Enable peripheral clock
-				LPC_SYSCON->SYSAHBCLKCTRL	|= SYSAHBCLKCTRL_SSP1;
-
-				// Divide peripheral clock by 1
-				LPC_SYSCON->SSP1CLKDIV = 0x01;
-
 
 				xpcc::lpc11::IOCon::setPinFunc(0, 21, 1); //MOSI1
 				xpcc::lpc11::IOCon::setPinFunc(0, 22, 1); //MISO1
@@ -251,20 +241,38 @@ namespace xpcc
 			static void
 			initialize(
 					Mode mode = Mode::MODE_0,
-					Presacler prescaler = Presacler::DIV002,
-					uint8_t serialClockRate = 7,
+					uint32_t sckFrequency = 1000000,
 					TransferSize transferSize = TransferSize::BIT_08,
 					FrameFormat frameFormat = FrameFormat::SPI) {
+				// Clock prescale register
 
 
+				// Deassert Reset
+				LPC_SYSCON->PRESETCTRL 		|= PRESETCTRL_SSP1_RST_N;
+
+				// Enable peripheral clock
+				LPC_SYSCON->SYSAHBCLKCTRL	|= SYSAHBCLKCTRL_SSP1;
+
+				// Divide peripheral clock by 1
+				LPC_SYSCON->SSP1CLKDIV = 0x01;
+
+				LPC_SSP1->CPSR = 2;
+
+				int32_t serialClockRate =
+						((SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV) / (2*sckFrequency)) - 1;
+
+				if(serialClockRate < 0) {
+					serialClockRate = 0;
+				} else if(serialClockRate > 255) {
+					serialClockRate = 255;
+				}
 				// Control register 0
-				LPC_SSP1->CR0 = (serialClockRate << 8) |
+				LPC_SSP1->CR0 = ((serialClockRate&0xFF) << 8) |
 						 (static_cast<uint16_t>(mode)) |
 						((static_cast<uint16_t>(frameFormat)) << 4) |
 						((static_cast<uint16_t>(transferSize)) << 0);
 
-				// Clock prescale register
-				LPC_SSP1->CPSR = static_cast<uint8_t>(prescaler);
+
 
 				for (uint8_t ii = 0; ii < fifoSize; ++ii)
 				{

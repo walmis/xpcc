@@ -73,7 +73,7 @@ void Terminal::handleTick() {
 				} else {
 					buffer[pos] = c;
 					pos++;
-					pos &= 31;
+					pos %= sizeof(buffer);
 					device.write(c);
 				}
 			}

@@ -19,12 +19,15 @@ public:
 
 	~IOBuffer();
 
+	bool allocate(uint16_t size) { return _allocBuffer(size); }
+
 	size_t bytes_free();
 	size_t bytes_used();
 
 	size_t write(const uint8_t* buffer, size_t size);
 	size_t write(uint8_t c);
 	int16_t read(void);
+	int16_t read(uint8_t* buffer, size_t size);
 
 	void flush(void);
 

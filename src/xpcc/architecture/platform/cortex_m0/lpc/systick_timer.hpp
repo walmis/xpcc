@@ -32,7 +32,6 @@
 #define XPCC_LPC11__SYSTICK_TIMER_HPP
 
 #include <stdint.h>
-#include "core.hpp"
 
 namespace xpcc
 {
@@ -80,7 +79,7 @@ namespace xpcc
 			 * Previously passed interrupt handler will be detached.
 			 */
 			static void
-			attachInterrupt(InterruptHandler handler);
+			attachInterrupt(void (*handler)());
 
 			/**
 			 * Detaches previously attached interrupt handler.

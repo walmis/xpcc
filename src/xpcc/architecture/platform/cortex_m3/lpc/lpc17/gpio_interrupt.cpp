@@ -53,10 +53,6 @@ uint8_t GpioInt::currentPin() {
 }
 
 extern "C" void EINT3_IRQHandler() {
-	uint32_t i0clrMask = 0;
-	uint32_t i2clrMask = 0;
-	bool result;
-
     uint32_t rise0 = LPC_GPIOINT->IO0IntStatR;
     uint32_t fall0 = LPC_GPIOINT->IO0IntStatF;
     uint32_t rise2 = LPC_GPIOINT->IO2IntStatR;
@@ -69,25 +65,28 @@ extern "C" void EINT3_IRQHandler() {
 			_currentPin = e.pin;
 
 			uint32_t mask = (1<<e.pin);
-			result = false;
+
+			if((rise0|fall0) & mask) {
+				//clear interrupt flag immediately
+				LPC_GPIOINT->IO0IntClr = mask;
+			}
 
 			if(rise0 & mask) {
 				if(e.edges & IntEdge::RISING_EDGE) {
 					_currentEdge = IntEdge::RISING_EDGE;
-					e.func();
-					result = true;
+					e.func(); //call handler
+					rise0 &= ~mask; //clear pin
 				}
 
 			}
 			if(fall0 & mask) {
 				if(e.edges & IntEdge::FALLING_EDGE) {
 					_currentEdge = IntEdge::FALLING_EDGE;
-					e.func();
-					result = true;
+					e.func(); //call handler
+					fall0 &= ~mask; //clear pin
 				}
 			}
-			if(result)
-				i0clrMask |= mask;
+
 
 		}
 		else if(e.port == 2) {
@@ -95,23 +94,27 @@ extern "C" void EINT3_IRQHandler() {
 			_currentPin = e.pin;
 
 			uint32_t mask = (1<<e.pin);
-			result = false;
+
+			if((rise2|fall2) & mask) {
+				//clear interrupt flag immediately
+				LPC_GPIOINT->IO2IntClr = mask;
+			}
+
 			if(rise2 & mask) {
 				if(e.edges & IntEdge::RISING_EDGE) {
 					_currentEdge = IntEdge::RISING_EDGE;
 					e.func();
-					result = true;
+					rise2 &= ~mask; //clear pin
 				}
 			}
 			if(fall2 & mask) {
 				if(e.edges & IntEdge::FALLING_EDGE) {
 					_currentEdge = IntEdge::FALLING_EDGE;
 					e.func();
-					result = true;
+					fall2 &= ~mask; //clear pin
 				}
 			}
-			if(result)
-				i2clrMask |= mask;
+
 		}
 
 	}
@@ -120,20 +123,17 @@ extern "C" void EINT3_IRQHandler() {
 	_currentPort = 0;
 	_currentPin = 0;
 
-	LPC_GPIOINT->IO0IntClr = i0clrMask;
-	LPC_GPIOINT->IO2IntClr = i2clrMask;
-
+	uint32_t p0 = (rise0 | fall0);
+	uint32_t p2 = (rise2 | fall2);
 	//if there still are some unhandled pins, run the default irq handler
-	if(LPC_GPIOINT->IO0IntStatF ||  LPC_GPIOINT->IO0IntStatR ||
-			LPC_GPIOINT->IO2IntStatF || LPC_GPIOINT->IO0IntStatR) {
+	if(p0 | p2) {
 		int irqn = __get_IPSR() - 16;
 		xpcc::TickerTask::interrupt(irqn);
+
+		//clear any unhandled interrupts
+		LPC_GPIOINT->IO0IntClr = p0;
+		LPC_GPIOINT->IO2IntClr = p2;
 	}
-
-	//clear any unhandled interrupts
-	LPC_GPIOINT->IO0IntClr = 0xFFFFFFFF;
-	LPC_GPIOINT->IO2IntClr = 0xFFFFFFFF;
-
 }
 
 }

@@ -22,6 +22,9 @@
 #include "usb/USBEndpoints_LPC11U.h"
 
 #include "gpio_interrupt.h"
+#include "../iap.hpp"
+
+#include "eeprom.hpp"
 
 // Chapter 13: UART
 #include "../uart/uart_1.hpp"
@@ -40,6 +43,10 @@
 #if defined(__ARM_LPC11UXX__) || defined(__ARM_LPC11XX__) || defined(__ARM_LPC11CXX__)
 #include "../rand.hpp"
 #endif
+
+#include "timer.hpp"
+
+#include "watchdog.hpp"
 
 
 #endif /* LPC11UXX_HPP_ */

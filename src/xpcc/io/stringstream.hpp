@@ -30,6 +30,7 @@ public:
 	size_t write(char c) {
 		if(pos < N) {
 			buffer[pos++] = c;
+			buffer[pos] = 0;
 			return 1;
 		}
 		return 0;

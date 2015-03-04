@@ -40,7 +40,8 @@ namespace xpcc {
 #define OUT_EP(endpoint)    ((endpoint) & 1U ? false : true)
 
 // USB RAM
-#define USB_RAM_START (0x20004000)
+extern uint8_t __usb_ram_start; //linker export
+#define USB_RAM_START ((uint32_t)&__usb_ram_start)
 #define USB_RAM_SIZE  (0x00000800)
 
 // SYSAHBCLKCTRL
@@ -129,19 +130,13 @@ void USBMemCopy(uint8_t *dst, uint8_t *src, uint32_t size) {
     }
 }
 
+static USBHAL* instance;
 
 USBHAL::USBHAL(void) {
     NVIC_DisableIRQ(USB_IRQn);
     
     // fill in callback array
-//    epCallback[0] = &USBHAL::EP1_OUT_callback;
-//    epCallback[1] = &USBHAL::EP1_IN_callback;
-//    epCallback[2] = &USBHAL::EP2_OUT_callback;
-//    epCallback[3] = &USBHAL::EP2_IN_callback;
-//    epCallback[4] = &USBHAL::EP3_OUT_callback;
-//    epCallback[5] = &USBHAL::EP3_IN_callback;
-//    epCallback[6] = &USBHAL::EP4_OUT_callback;
-//    epCallback[7] = &USBHAL::EP4_IN_callback;
+    instance = this;
 
     // nUSB_CONNECT output
     //LPC_IOCON->PIO0_6 = 0x00000001;
@@ -578,12 +573,6 @@ void USBHAL::remoteWakeup(void) {
     LPC_USB->DEVCMDSTAT = devCmdStat & ~DSUS;
 }
 
-void USBHAL::handleInterrupt(int irqN) {
-	if(irqN == USB_IRQn) {
-		usbisr();
-	}
-}
-
 
 static void disableEndpoints(void) {
     uint32_t logEp;
@@ -617,7 +606,14 @@ ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
 	return func;
 }
 
-void USBHAL::usbisr(void) {
+extern "C"
+void USB_IRQHandler() {
+	if(instance) {
+		instance->_usbisr();
+	}
+}
+
+void USBHAL::_usbisr(void) {
     // Start of frame
     if (LPC_USB->INTSTAT & FRAME_INT) {
         // Clear SOF interrupt
@@ -655,7 +651,7 @@ void USBHAL::usbisr(void) {
         if(LPC_USB->DEVCMDSTAT & DCON_C) {
         	LPC_USB->DEVCMDSTAT = devCmdStat | DCON_C;
 
-        	connectStateChanged(LPC_USB->DEVCMDSTAT & DCON != 0);
+        	connectStateChanged((LPC_USB->DEVCMDSTAT & DCON) != 0);
         }
     }
 
@@ -700,11 +696,14 @@ void USBHAL::usbisr(void) {
         if (LPC_USB->INTSTAT & EP(num)) {
             LPC_USB->INTSTAT = EP(num);
             epComplete |= EP(num);
-
-            typedef bool (USBHAL::*fptr)(void);
-            fptr handler = getVirtual<fptr, USBHAL>(this, &USBHAL::EP1_OUT_callback, num-2);
-            if((this->*handler)()) {
+            if(EP_handler(num)) {
             	 epComplete &= ~EP(num);
+            } else {
+				typedef bool (USBHAL::*fptr)(void);
+				fptr handler = getVirtual<fptr, USBHAL>(this, &USBHAL::EP1_OUT_callback, num-2);
+				if((this->*handler)()) {
+					 epComplete &= ~EP(num);
+				}
             }
         }
     }
