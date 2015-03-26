@@ -11,7 +11,7 @@ void Timer<timerptr>::enableCapturePins()
     if (TIMER == LPC_TMR16B0) {  /** CT16B0_CAP0 */
         IOCon::setPinFunc(0, 2, 2);
 
-    } else if (TIMER == LPC_TMR16B1) {  /** CT16B1_CAP0 */
+    } else if (TIMER == LPC_TMR16B1) {  /** CT16B1_CAP1 */
         IOCon::setPinFunc(0, 20, 1);
 
     } else if (TIMER == LPC_TMR32B0) {  /** CT32B0_CAP0 */

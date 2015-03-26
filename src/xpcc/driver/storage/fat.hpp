@@ -36,6 +36,14 @@
 #include <xpcc/io.hpp>
 #include <xpcc/debug.hpp>
 
+#define DAYS_DELTA      (365 * 10 + 2)
+#define YEAR_2100       120
+#define IS_LEAP_YEAR(y) (!((y) & 3) && (y) != YEAR_2100)
+static const uint16_t days_in_year[] = {
+         /* Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec */
+         0,   0,  31,  59,  90, 120, 151, 181, 212, 243, 273, 304, 334, 0, 0, 0,
+};
+
 #undef feof
 
 namespace xpcc {
@@ -113,6 +121,11 @@ public:
 	static FRESULT mkdir(const char* dir) {
 		return f_mkdir(dir);
 	}
+
+	static FRESULT chdir(const char* dir) {
+		return f_chdir(dir);
+	}
+
 	PhysicalVolume* volume() {
 		return _volume;
 	}
@@ -145,6 +158,8 @@ public:
 	inline int16_t getModifiedTime() const {
 		return info.ftime;
 	}
+
+	uint32_t getUnixTimestamp();
 
 	inline const char*
 	getName() {
@@ -184,6 +199,17 @@ public:
 
 	FRESULT readDir(FileInfo &fileinfo) {
 		return f_readdir(&directory, &fileinfo.info);
+	}
+
+	FRESULT readDir(xpcc::function<void(FileInfo*)> fn) {
+		FileInfo info;
+		FRESULT res;
+
+    	while((res = readDir(info)) == FR_OK && !info.eod()) {
+    		fn(&info);
+    	}
+
+		return res;
 	}
 
 	FRESULT close() {
@@ -281,6 +307,8 @@ protected:
 	bool opened;
 	FIL file;
 };
+
+
 
 }
 }

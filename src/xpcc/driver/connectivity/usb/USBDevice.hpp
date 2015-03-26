@@ -22,4 +22,5 @@
 
 #include "USBDevice/Composite/USBCDCMSD.hpp"
 #include "USBDevice/Composite/USB2xCDCMSD.hpp"
+#include "USBDevice/DFU.hpp"
 #endif /* USBDEVICE_H_ */

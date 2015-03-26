@@ -46,6 +46,8 @@
 #define LSB(n)  ((n)&0xff)
 #define MSB(n)  (((n)&0xff00)>>8)
 
+#define WBVAL(x) ((x) & 0xFF),(((x) >> 8) & 0xFF)
+
 /* Convert physical endpoint number to descriptor endpoint number */
 #define PHY_TO_DESC(endpoint) (((endpoint)>>1) | (((endpoint) & 1) ? 0x80:0))
 
@@ -72,3 +74,5 @@
 #define E_DATA                  (0x00)
 #define E_FEEDBACK              (0x10)
 #define E_IMPLICIT_FEEDBACK     (0x20)
+
+

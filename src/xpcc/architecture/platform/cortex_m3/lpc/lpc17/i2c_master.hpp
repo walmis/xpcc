@@ -309,7 +309,8 @@ public:
 
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
-		__disable_irq();
+		xpcc::atomic::Lock l;
+
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
 
@@ -325,7 +326,6 @@ public:
 
 			old->stopped(cause);
 		}
-		__enable_irq();
 	}
 
 	static void IRQ() {
@@ -338,7 +338,6 @@ public:
 		}
 		//DEBUG_STREAM << "\n--- interrupt ";
 		//DEBUG_STREAM .printf("%x ---\n", returnCode);
-		xpcc::atomic::Lock lock;
 
 		switch (returnCode) {
 			case I2C_I2STAT_M_TX_START:
@@ -530,6 +529,7 @@ private:
 	static bool attachDelegate(xpcc::I2cDelegate *d) {
 		xpcc::atomic::Lock l;
 		//intCmd(false);
+
 		if(d->attaching()) {
 
 			if(!delegate) {

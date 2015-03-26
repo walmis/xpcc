@@ -360,6 +360,12 @@ public:
 			return TIMER->TC;
 		}
 
+		static void
+		ALWAYS_INLINE
+		setCounterValue(uint32_t val) {
+			TIMER->TC = val;
+		}
+
 
 
 		/*********************************************************************//**

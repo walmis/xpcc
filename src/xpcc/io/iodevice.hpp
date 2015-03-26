@@ -33,6 +33,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define NULLCH (-1)
+
 namespace xpcc
 {
 	/**
@@ -71,9 +73,10 @@ namespace xpcc
 
 		inline bool isBlocking() { return _blocking; }
 		inline void setBlocking(bool b) { _blocking = b; }
-
-	private :
+	protected:
 		bool _blocking;
+	private :
+
 		IODevice(const IODevice&);
 	};
 

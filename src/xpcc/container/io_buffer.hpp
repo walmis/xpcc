@@ -16,13 +16,15 @@ class IOBuffer {
 public:
 	IOBuffer();
 	IOBuffer(uint16_t size);
-
-	~IOBuffer();
+	IOBuffer(uint8_t* buf, size_t size);
 
 	bool allocate(uint16_t size) { return _allocBuffer(size); }
+	void free() { _freeBuffer(); }
 
 	size_t bytes_free();
 	size_t bytes_used();
+
+	bool empty() { return head == tail; }
 
 	size_t write(const uint8_t* buffer, size_t size);
 	size_t write(uint8_t c);

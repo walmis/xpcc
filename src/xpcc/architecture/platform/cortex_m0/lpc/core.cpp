@@ -9,16 +9,6 @@
 #include <xpcc/processing.hpp>
 #include <xpcc/container.hpp>
 
-namespace xpcc {
-
-	void yield(uint16_t timeAvailable) {
-		xpcc::TickerTask::yield(timeAvailable);
-	}
-
-	void sleep(uint16_t time_ms) {
-		TickerTask::sleep(time_ms);
-	}
-}
 
 bool xpcc::TickerTask::inInterruptContext() {
 	return __get_IPSR() != 0;

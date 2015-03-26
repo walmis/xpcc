@@ -11,6 +11,7 @@
 #include "../USBDevice/USBDevice.h"
 #include "../USBSerial/USBSerialHandler.hpp"
 #include "../USBMSD/USBMSDHandler.h"
+#include "../DFU.hpp"
 
 namespace xpcc {
 
@@ -25,6 +26,18 @@ namespace xpcc {
 
 #define MSD_BULK_IN  EP5IN
 #define MSD_BULK_OUT EP5OUT
+#endif
+#ifdef __ARM_LPC11UXX__
+#define S1_BULK_IN  EP1IN
+#define S1_BULK_OUT EP1OUT
+#define S1_INT_IN   EP4IN
+
+#define S2_BULK_IN  EP2IN
+#define S2_BULK_OUT EP2OUT
+#define S2_INT_IN   EP4IN
+
+#define MSD_BULK_IN  EP3IN
+#define MSD_BULK_OUT EP3OUT
 #endif
 
 class USB2xCDCMSD: public USBDevice {
@@ -93,9 +106,9 @@ public:
 	    static const uint8_t configDescriptor[] = {
 	        9,                      // bLength;
 	        2,                      // bDescriptorType;
-	        LSB(164),              // wTotalLength
-	        MSB(164),
-	        5,                      // bNumInterfaces
+	        LSB(164+DFU_SIZE),              // wTotalLength
+	        MSB(164+DFU_SIZE),
+	        6,                      // bNumInterfaces
 	        1,                      // bConfigurationValue
 	        0,                      // iConfiguration
 	        0xc0,                   // bmAttributes
@@ -303,7 +316,9 @@ public:
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
-	        0                           // bInterval
+	        0,                           // bInterval
+
+	        DFU_INTF_DESC(0x05)
 	    };
 	    return (uint8_t*)configDescriptor;
 	}

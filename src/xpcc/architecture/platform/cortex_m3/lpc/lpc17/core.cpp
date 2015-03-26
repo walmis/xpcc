@@ -19,17 +19,6 @@ struct irqCounter {
 	xpcc::Timestamp last;
 };
 
-namespace xpcc {
-
-	void yield(uint16_t timeAvailable) {
-		xpcc::TickerTask::yield(timeAvailable);
-	}
-
-	void sleep(uint16_t time_ms) {
-		TickerTask::sleep(time_ms);
-	}
-}
-
 void debug_irqs(int irqn) {
 	static xpcc::LinkedList<irqCounter> counts;
 

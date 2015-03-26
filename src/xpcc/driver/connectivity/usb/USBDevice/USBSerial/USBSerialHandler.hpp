@@ -49,13 +49,13 @@ public:
 	int16_t rxAvailable();
 	int16_t txAvailable();
 
-    void putc(char c);
-	int16_t getc();
+    void putch(char c);
+	int16_t getch();
 
 	//IODevice overrides
 	size_t
 	write(char c) override {
-		putc(c);
+		putch(c);
 		return 1;
 	}
 
@@ -65,7 +65,7 @@ public:
 	/// Read a single character
 	int16_t
 	read() override {
-		return getc();
+		return getch();
 	}
 	///////
 

@@ -8,7 +8,8 @@
 #include "io_buffer.hpp"
 #include <string.h>
 #include <stdio.h>
-#include <algorithm>
+
+#define MIN(X, Y)  ((X) < (Y) ? (X) : (Y))
 
 size_t IOBuffer::bytes_free() {
 	return ((mask) - ((head - tail) & mask));
@@ -27,15 +28,24 @@ IOBuffer::IOBuffer(uint16_t size) :
 	_allocBuffer(size);
 }
 
-IOBuffer::~IOBuffer() {
-	_freeBuffer();
+IOBuffer::IOBuffer(uint8_t* buf, size_t size) :
+			head(0), tail(0), mask(size-1), bytes(buf)
+{
+	uint16_t shift;
+	// Compute the power of 2 greater or equal to the requested buffer size
+	// and then a mask to simplify wrapping operations.  Using __builtin_clz
+	// would seem to make sense, but it uses a 256(!) byte table.
+	// Note that we ignore requests for more than BUFFER_MAX space.
+	for (shift = 1; (1U << shift) < size; shift++);
+
+	mask = (1U << shift) - 1;
 }
 
 int16_t IOBuffer::read(uint8_t* buffer, size_t size) {
-	size = std::min(size, bytes_used());
+	size = MIN(size, bytes_used());
 	if(!size) return 0;
 
-	size_t bytes_read1 = std::min(size, (size_t)(mask + 1) - tail);
+	size_t bytes_read1 = MIN(size, (size_t)(mask + 1) - tail);
 
 	memcpy(buffer, bytes + tail, bytes_read1);
 	memcpy(buffer + bytes_read1, bytes, size - bytes_read1);

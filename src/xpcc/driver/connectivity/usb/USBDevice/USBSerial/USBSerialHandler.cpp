@@ -45,7 +45,7 @@ void USBSerialHandler::sendPacket(bool blocking) {
 	latency_timer.restart(latency);
 }
 
-void USBSerialHandler::putc(char c) {
+void USBSerialHandler::putch(char c) {
 
 	if(!tx_buffer.bytes_free()) {
 		if(!isActive) {
@@ -67,7 +67,7 @@ void USBSerialHandler::putc(char c) {
 }
 
 
-int16_t USBSerialHandler::getc() {
+int16_t USBSerialHandler::getch() {
 	return rx_buffer.read();
 }
 
@@ -162,8 +162,8 @@ bool USBSerialHandler::readEP(uint8_t * buffer, uint32_t * size) {
 bool USBSerialHandler::readEP_NB(uint8_t * buffer, uint32_t * size) {
     if (!device->readEP_NB(bulkOut, buffer, size, MAX_CDC_REPORT_SIZE))
         return false;
-//    if (!device->readStart(bulkOut, MAX_CDC_REPORT_SIZE))
-//        return false;
+    if (!device->readStart(bulkOut, MAX_CDC_REPORT_SIZE))
+        return false;
     return true;
 }
 

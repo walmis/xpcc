@@ -32,19 +32,53 @@
 #include <fatfs/ffconf.h>
 
 #include "fat.hpp"
-
+#include <sys/time.h>
+#include <xpcc/driver/time/time.hpp>
 // ----------------------------------------------------------------------------
 // FatFs Backend
 extern "C"
 DWORD
 get_fattime(void)
 {
-	return (((2010L - 1980L) << 25) |
-			(5L << 21) |
-			(30L << 16) |
-			(16L << 11) |
-			(0 << 5) |
-			(0));
+	timeval tv;
+	if(gettimeofday(&tv, 0) == 0) {
+		xpcc::UnixTime ut(tv.tv_sec);
+		xpcc::Date d;
+		ut.toDate(&d);
+
+		return ((d.year - 80) << 25) |
+				(d.month << 21) |
+				(d.day << 16) |
+				(d.hour << 11) |
+				(d.minute << 5) |
+				(d.second >> 1);
+
+	} else {
+		return 0;
+	}
+}
+
+
+uint32_t xpcc::fat::FileInfo::getUnixTimestamp() {
+	uint16_t date = getModifiedDate();
+	uint16_t time = getModifiedTime();
+	uint32_t second, day, leap_day, month, year;
+	year = date >> 9;
+	month = std::max(1, (date >> 5) & 0xf);
+	day = std::max(1, date & 0x1f) - 1;
+	leap_day = (year + 3) / 4;
+	if (year > YEAR_2100) /* 2100 isn't leap year */
+		leap_day--;
+
+	if (IS_LEAP_YEAR(year) && month > 2)
+		leap_day++;
+
+	second = (time & 0x1f) << 1;
+	second += ((time >> 5) & 0x3f) * 60;
+	second += (time >> 11) * 3600;
+	second += (year * 365 + leap_day + days_in_year[month] + day + DAYS_DELTA)
+			* 86400;
+	return second;
 }
 
 // ----------------------------------------------------------------------------

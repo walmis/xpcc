@@ -12,6 +12,8 @@
 #include "timestamp.hpp"
 #include "../io/iostream.hpp"
 
+#define TASK_DEBUG
+
 namespace xpcc {
   
 /**
@@ -20,9 +22,6 @@ namespace xpcc {
 * \author	Valmantas Palikša
 * \ingroup	workflow
 */ 
-
-void yield(uint16_t timeAvailable = 0);
-void sleep(uint16_t time_ms);
 
 class TickerTask {
 protected:
@@ -37,7 +36,7 @@ protected:
 	///handle interrupt with interrupt code irqn
 	virtual void handleInterrupt(int irqn) {}
 
-	inline void stop() {
+	inline void stopTask() {
 		_clearFlag(FLAG_RUNNING);
 	}
 
@@ -45,7 +44,7 @@ protected:
 		return _getFlag(FLAG_RUNNING);
 	}
 
-	inline void start() {
+	inline void startTask() {
 		_setFlag(FLAG_RUNNING);
 	}
 
@@ -96,11 +95,19 @@ public:
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
 	static void tasksRun(xpcc::function<void()> idleFunc = 0);
-
+#ifdef TASK_DEBUG
+	uint32_t yield_return_address;
 	static void printTasks(IOStream& stream);
+#endif
 };
 
+static ALWAYS_INLINE void yield(uint16_t timeAvailable = 0) {
+	xpcc::TickerTask::yield(timeAvailable);
+}
 
+static ALWAYS_INLINE void sleep(uint16_t time_ms) {
+	xpcc::TickerTask::sleep(time_ms);
+}
 
 }
 

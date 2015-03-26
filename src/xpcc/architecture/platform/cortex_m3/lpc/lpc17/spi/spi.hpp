@@ -272,8 +272,8 @@ public:
 
 		flushRx();
 
-		__disable_irq();
-
+		xpcc::atomic::Lock lock;
+		{
 		rxChannelCfg->enable();
 		txChannelCfg->enable();
 
@@ -282,7 +282,7 @@ public:
 			   and then start-up the Channel1 DMA to begin transferring them. */
 		//while((SPIx->SR & (1UL << 2)) == 0);
 		//start rx transfer
-		__enable_irq();
+		}
 		return true;
 	}
 
@@ -319,8 +319,6 @@ private:
 		rxChannelCfg->disable();
 
 		SPIx->DMACR = 0;
-
-		__DSB();
 		//XPCC_LOG_DEBUG << '~';
 	}
 

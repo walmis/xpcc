@@ -12,6 +12,11 @@
 #include "../USBSerial/USBSerialHandler.hpp"
 #include "../USBMSD/USBMSDHandler.h"
 
+#ifdef __ARM_LPC11UXX__
+#define EP5IN EP4IN
+#define EP5OUT EP4OUT
+#endif
+
 namespace xpcc {
 
 template<class MSDHandlerClass = USBMSDHandler, class SerialHandlerClass = USBSerialHandler>
@@ -32,7 +37,7 @@ public:
 	//override IODevice methods
 	size_t
 	write(char c) override {
-		serial.putc(c);
+		serial.putch(c);
 		return 1;
 	}
 
@@ -42,7 +47,7 @@ public:
 	/// Read a single character
 	int16_t
 	read() override {
-		return serial.getc();
+		return serial.getch();
 	}
 
 	uint8_t * stringIinterfaceDesc() override {

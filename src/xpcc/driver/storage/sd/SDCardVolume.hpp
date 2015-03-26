@@ -27,7 +27,7 @@ public:
 
 //private:
 	DSTATUS doInitialize () override {
-		XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
+		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 
 		if(!this->initialise())
 			return STA_NODISK;
@@ -107,7 +107,7 @@ public:
 		//XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
 
 		if(last_block+1 != sectorNumber) {
-			XPCC_LOG_DEBUG .printf("last block %d\n", last_block);
+			//XPCC_LOG_DEBUG .printf("last block %d\n", last_block);
 			this->readStop();
 			this->readStart(sectorNumber);
 
@@ -186,7 +186,7 @@ public:
 
 	xpcc::fat::Result
 	doIoctl(uint8_t command, uint32_t *buffer) override {
-		XPCC_LOG_DEBUG .printf("%s(%d)\n", __FUNCTION__, command);
+		//XPCC_LOG_DEBUG .printf("%s(%d)\n", __FUNCTION__, command);
 
 		switch(command) {
 		case CTRL_SYNC:

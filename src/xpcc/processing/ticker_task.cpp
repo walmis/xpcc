@@ -47,8 +47,16 @@ TickerTask::~TickerTask() {
 }
 
 void TickerTask::yield(uint16_t timeAvailable) {
-	if(current)
+#ifdef TASK_DEBUG
+	uint32_t lr;
+	asm volatile("mov %[v], lr" : [v]"=r"(lr));
+#endif
+	if(current) {
+#ifdef TASK_DEBUG
+		current->yield_return_address = lr;
+#endif
 		current->_yield(timeAvailable);
+	}
 }
 
 void TickerTask::sleep(uint16_t time_ms) {
@@ -118,7 +126,11 @@ void TickerTask::printTasks(IOStream& stream) {
 	TickerTask* task = TickerTask::base;
 	stream.printf("--- TASKS ---\n");
 	while(task) {
-		stream.printf("Task(@0x%x) flags:%x\n", task, task->flags);
+		stream.printf("Task(@0x%x) flags:%x ", task, task->flags);
+		if(task->_getFlag(FLAG_BLOCKING)) {
+			stream.printf("lr:%x", task->yield_return_address);
+		}
+		stream << endl;
 		task = task->next;
 	}
 	stream.printf("-------------\n");

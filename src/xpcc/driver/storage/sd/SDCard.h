@@ -332,7 +332,7 @@ inline bool SDCard<Spi, Cs>::initialise() {
 template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::readStart(uint32_t blockNumber) {
 	//PROFILE();
-	XPCC_LOG_DEBUG .printf("SD:read start b:%d\n", blockNumber);
+	//XPCC_LOG_DEBUG .printf("SD:read start b:%d\n", blockNumber);
 	//if (type()!= SD_CARD_TYPE_SDHC) blockNumber <<= 9;
 	if (_cmd(18, blockNumber * cdv) != 0) {
 		initialized = false;
@@ -345,7 +345,7 @@ inline bool SDCard<Spi, Cs>::readStart(uint32_t blockNumber) {
 template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::readStop() {
 	//PROFILE();
-	XPCC_LOG_DEBUG << "SD:Read stop\n";
+	//XPCC_LOG_DEBUG << "SD:Read stop\n";
 	if (_cmd(12, 0) & 0x80) {
 		XPCC_LOG_DEBUG << "SD_CARD_ERROR_CMD12\n";
 		goto fail;
@@ -405,8 +405,8 @@ inline bool SDCard<Spi, Cs>::writeStart(uint32_t blockNumber,
 	//SD_TRACE("WS", blockNumber);
 	// send pre-erase count
 	//PROFILE();
-	XPCC_LOG_DEBUG.printf("SD:write start b:%d cnt:%d\n", blockNumber,
-			eraseCount);
+	//XPCC_LOG_DEBUG.printf("SD:write start b:%d cnt:%d\n", blockNumber,
+	//		eraseCount);
 	if (eraseCount > 1) {
 		if (_acmd(23, eraseCount) != 0) {
 			XPCC_LOG_DEBUG.printf("SD_CARD_ERROR_ACMD23\n");
@@ -425,7 +425,7 @@ inline bool SDCard<Spi, Cs>::writeStart(uint32_t blockNumber,
 template<typename Spi, typename Cs>
 inline bool SDCard<Spi, Cs>::writeStop() {
 	//PROFILE();
-	XPCC_LOG_DEBUG << "SD:writeStop()\n";
+	//XPCC_LOG_DEBUG << "SD:writeStop()\n";
 	if (!waitNotBusy(SD_WRITE_TIMEOUT))
 		goto fail;
 

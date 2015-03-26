@@ -81,7 +81,7 @@ public:
 
     size_t
 	write(char c){
-    	handler.putc(c);
+    	handler.putch(c);
     	return 1;
     }
 
@@ -90,7 +90,7 @@ public:
 
 	/// Read a single character
 	int16_t read() override {
-		return handler.getc();
+		return handler.getch();
 	}
 
 	void setLatency(uint8_t ms) {

@@ -45,18 +45,13 @@ public:
 
 	size_t write(const uint8_t* buf, size_t len) {
 		size_t n = 0;
-		if(isBlocking()) {
-			while(len) {
-				this->write(buf[n]);
-				n++;
-				len--;
-			}
+		//if uart is empty, start transmission
+		if(!Uart::txBusy()) {
+			txbuf.write(*buf++);
+			len--;
+			_send();
 		}
-
 		if((n = BufferedIODevice::write(buf, len))) {
-			if(!Uart::txBusy()) {
-				_send();
-			}
 			return n;
 		}
 
@@ -64,16 +59,15 @@ public:
 	}
 	size_t write(char c) {
 		size_t n;
-		do {
-			if((n = BufferedIODevice::write(c)) > 0) {
-				if(!Uart::txBusy()) {
-					_send();
-				}
-				return 1;
-			}
-			xpcc::yield();
-		} while(isBlocking());
-
+		//transmitter is not busy, put char directly
+		//to uart to start interrupt transfers
+		if(!Uart::txBusy()) {
+			txbuf.write(c);
+			return _send();
+		}
+		if((n = BufferedIODevice::write(c)) > 0) {
+			return 1;
+		}
 		return 0;
 	}
 

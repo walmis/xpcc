@@ -40,9 +40,11 @@ namespace xpcc {
 #define OUT_EP(endpoint)    ((endpoint) & 1U ? false : true)
 
 // USB RAM
-extern uint8_t __usb_ram_start; //linker export
-#define USB_RAM_START ((uint32_t)&__usb_ram_start)
-#define USB_RAM_SIZE  (0x00000800)
+
+uint8_t __attribute((section(".usb_ram"))) _usb_ram[0x800];
+
+#define USB_RAM_START ((uint32_t)&_usb_ram)
+#define USB_RAM_SIZE  (sizeof(_usb_ram))
 
 // SYSAHBCLKCTRL
 #define CLK_USB     (1UL<<14)
@@ -123,11 +125,12 @@ static uint32_t epRamPtr = 0; // Buffers for endpoints > 0 start here
 
 void USBMemCopy(uint8_t *dst, uint8_t *src, uint32_t size);
 void USBMemCopy(uint8_t *dst, uint8_t *src, uint32_t size) {
-    if (size > 0) {
-        do {
-            *dst++ = *src++;
-        } while (--size > 0);
-    }
+//    if (size > 0) {
+//        do {
+//            *dst++ = *src++;
+//        } while (--size > 0);
+//    }
+	memcpy((void*)dst, (void*)src, size);
 }
 
 static USBHAL* instance;

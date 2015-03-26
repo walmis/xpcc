@@ -1,7 +1,7 @@
 #pragma once
 
-//#include "USBDevice.h"
 #include <stdint.h>
+#include "USBDevice_Types.h"
 
 namespace xpcc {
 class USBDevice;
@@ -83,7 +83,7 @@ protected:
 	USBDevice* device;
 	USBInterfaceHandler* next;
 
-
 };
+
 
 }

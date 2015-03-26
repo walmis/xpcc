@@ -37,6 +37,15 @@ public:
 		return atol(arglist[id]);
 	}
 
+	void printf(const char *fmt, ...) {
+		va_list ap;
+		va_start(ap, fmt);
+		xpcc::IOStream s(device);
+		s.vprintf(fmt, ap);
+
+		va_end(ap);
+	}
+
 protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 
