@@ -229,13 +229,13 @@ namespace lpc17
 #define I2Cx (reinterpret_cast<LPC_I2C_TypeDef*>(P_I2C))
 
 
+
 template <int P_I2C>
 class I2cMaster : ::xpcc::I2cMaster
 {
 public:
 //	static const TypeId::I2cMaster{{ id }}Sda Sda;
 //	static const TypeId::I2cMaster{{ id }}Scl Scl;
-
 	/**
 	 * Set up the I2C module for master operation.
 	 *
@@ -311,20 +311,26 @@ public:
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 		xpcc::atomic::Lock l;
 
-		readBytesLeft = 0;
-		writeBytesLeft = 0;
+		__DSB();
 
 		if (delegate != 0) {
 			I2cDelegate* old = delegate;
 			//attach new delegate in the chain
 			delegate = delegate->next;
-			DMB();
+
+			old->next = 0;
+			old->stopped(cause);
+
 			if(delegate) {
 				newSession = true;
 				i2start();
+				//XPCC_LOG_DEBUG .printf("d %x-> %x\n", old, delegate);
+			} else {
+				i2stop();
 			}
 
-			old->stopped(cause);
+		} else {
+			i2stop();
 		}
 	}
 
@@ -337,7 +343,7 @@ public:
 			return;
 		}
 		//DEBUG_STREAM << "\n--- interrupt ";
-		//DEBUG_STREAM .printf("%x ---\n", returnCode);
+		//XPCC_LOG_ERROR .printf("%x\n", returnCode);
 
 		switch (returnCode) {
 			case I2C_I2STAT_M_TX_START:
@@ -410,13 +416,12 @@ public:
 					I2Cx->I2CONSET = I2C_I2CONSET_STA;
 					I2Cx->I2CONCLR = I2C_I2CONCLR_AAC | I2C_I2CONCLR_SIC;
 
-					//TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN) | (1 << TWIE);
 					break;
 
 				default:
 					DEBUG("Stop");
 
-					i2stop();
+					//i2stop();
 					reset(xpcc::I2c::DetachCause::NormalStop);
 
 					break;
@@ -468,7 +473,7 @@ public:
 			default:
 			case xpcc::I2c::Operation::Stop:
 				DEBUG("Stop");
-				i2stop();
+				//i2stop();
 				reset(xpcc::I2c::DetachCause::NormalStop);
 				break;
 			}
@@ -479,72 +484,63 @@ public:
 		case I2C_I2STAT_M_RX_SLAR_NACK:	// SLA+R transmitted, NACK received
 			if(newSession) {
 				error = xpcc::I2cMaster::Error::AddressNack;
-				//ERR << "Error::AddressNack " << delegate << endl;
+				//XPCC_LOG_ERROR << "Error::AddressNack " << delegate << endl;
 				newSession = false;
-				i2stop();
-				intClear();
 			}
 		case I2C_I2STAT_M_TX_DAT_NACK:	// data transmitted, NACK received
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::DataNack;
-				//ERR << "Error::DataNack " << delegate << endl;
-				// generate a stop condition
-				//TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
-				i2stop();
-				intClear();
+				//XPCC_LOG_ERROR << "Error::DataNack " << delegate << endl;
 				newSession = false;
 			}
 		case I2C_I2STAT_M_TX_ARB_LOST:	// RX or TX arbitration lost in SLA or NACK
 			if (newSession) {
-				XPCC_LOG_ERROR << "Error::ArbitrationLost (restart)" << delegate << endl;
-
-				//restart transfer
-				I2Cx->I2CONSET = I2C_I2CONSET_STA | I2C_I2CONSET_AA;
-				I2Cx->I2CONCLR = I2C_I2CONCLR_SIC;
-
-				break;
-				//error = xpcc::I2cMaster::Error::ArbitrationLost;
-				//newSession = false;
+				XPCC_LOG_DEBUG << "Error::ArbitrationLost" << endl;
+				error = xpcc::I2cMaster::Error::ArbitrationLost;
+				newSession = false;
+				i2reset();
 			}
 
 		default:
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::Unknown;
-				XPCC_LOG_ERROR << "Error::Unknown\n";
+				XPCC_LOG_DEBUG << "Error::Unknown " << endl;
+				newSession = false;
+				i2reset();
 			}
-			newSession = false;
-			intClear();
+
 			reset(xpcc::I2c::DetachCause::ErrorCondition);
 			break;
 		}
-
 	}
 
 	static inline bool isBusy() {
 		return delegate != 0;
 	}
 
+	static void i2reset() {
+		I2Cx->I2CONCLR = (I2C_I2CONCLR_AAC | I2C_I2CONCLR_STAC | I2C_I2CONCLR_I2ENC | I2C_I2CONCLR_SIC);
+		//enable i2c operation
+		I2Cx->I2CONSET = I2C_I2CONSET_I2EN;
+	}
 
 private:
 	static bool attachDelegate(xpcc::I2cDelegate *d) {
 		xpcc::atomic::Lock l;
-		//intCmd(false);
+
+		if(delegate == d)
+			return false;
 
 		if(d->attaching()) {
-
+			__DSB();
 			if(!delegate) {
 				//ERR << 'a';
-				d->next = 0;
 				delegate = d;
+				delegate->next = 0;
 				newSession = true;
-
-				DMB();
-				//XPCC_LOG_ERROR .printf("s1 %x\n", d);
 				i2start();
-				//intCmd(true);
 				return true;
 			} else {
-
 				xpcc::I2cDelegate* p = delegate;
 				while(p->next) {
 					if(p == d) {
@@ -555,11 +551,11 @@ private:
 					}
 					p = p->next;
 				}
+
 				//add the new delegate to the end of the list
 				d->next = 0;
 				p->next	= d;
 
-				DMB();
 				//XPCC_LOG_ERROR .printf("s2 %x %x\n", delegate, d);
 				//intCmd(true);
 				return true;
@@ -623,11 +619,11 @@ private:
 	void i2stop()
 	{
 		/* Make sure start bit is not active */
-		if (I2Cx->I2CONSET & I2C_I2CONSET_STA)
-		{
-			I2Cx->I2CONCLR = I2C_I2CONCLR_STAC;
-		}
-		I2Cx->I2CONSET = I2C_I2CONSET_STO;
+//		if (I2Cx->I2CONSET & I2C_I2CONSET_STA)
+//		{
+//			I2Cx->I2CONCLR = I2C_I2CONCLR_STAC;
+//		}
+		I2Cx->I2CONSET = I2C_I2CONSET_STO | I2C_I2CONSET_AA;
 		I2Cx->I2CONCLR = I2C_I2CONCLR_SIC;
 	}
 
@@ -681,7 +677,6 @@ private:
 	{
 		DEBUG("callStarting");
 		error = xpcc::I2cMaster::Error::NoError;
-		//intCmd(true);
 
 		I2Cx->I2CONCLR = I2C_I2CONCLR_SIC;
 		I2Cx->I2CONSET = I2C_I2CONSET_STA;
