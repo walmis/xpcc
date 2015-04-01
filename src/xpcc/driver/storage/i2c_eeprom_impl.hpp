@@ -34,8 +34,8 @@
 
 // ----------------------------------------------------------------------------
 template <typename I2cMaster>
-xpcc::I2cEeprom<I2cMaster>::I2cEeprom(uint8_t address, uint8_t size)
-:	address(address), sizeKbits(size), state(xpcc::I2c::AdapterState::Idle)
+xpcc::I2cEeprom<I2cMaster>::I2cEeprom(uint8_t address, uint8_t addrSize, uint8_t pageSize)
+:	address(address), addrSize(addrSize), pageSize(pageSize), state(xpcc::I2c::AdapterState::Idle)
 {
 	initialize(0, 0, 0, 0);
 }
@@ -62,15 +62,15 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 
 	while(bytes > 0) {
 		i = 0;
-		if(sizeKbits >= 128)
+		if(addrSize == 2)
 			buffer[i++] = address >> 8;
 		buffer[i++] = address;
 
-		n = 16 - (address & 0x0F);
+		n = pageSize - (address & (pageSize-1)); //how much space is available in this page
 		if(bytes < n)
 			n = bytes;
 
-		//XPCC_LOG_ERROR .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
+		//XPCC_LOG_DEBUG .printf("write addr:%d len:%d ptr:%x\n", address, n, data);
 		//XPCC_LOG_DEBUG .dump_buffer((uint8_t*)data, n);
 
 		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
@@ -83,18 +83,22 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 			return false;
 		}
 		//XPCC_LOG_ERROR << "a+";
+
 		while(state == xpcc::I2c::AdapterState::Busy) {
 			xpcc::yield();
 		}
+
 		//XPCC_LOG_ERROR << "a-";
-		if(!waitAvailable(20)) return false;
+
+		//if(!waitAvailable(20)) return false;
+		sleep(10);
 
 		bytes -= n;
 		address += n;
 		data += n;
 	}
 
-	return state != AdapterState::Error;
+	return state == AdapterState::Idle;
 }
 
 
@@ -107,7 +111,7 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	}
 
 	int i = 0;
-	if(sizeKbits >= 128)
+	if(addrSize == 2)
 		buffer[i++] = address >> 8;
 	buffer[i++] = address;
 	

@@ -310,18 +310,21 @@ public:
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 		xpcc::atomic::Lock l;
-
-		__DSB();
-
+		DMB();
 		if (delegate != 0) {
 			I2cDelegate* old = delegate;
 			//attach new delegate in the chain
 			delegate = delegate->next;
 
 			old->next = 0;
-			old->stopped(cause);
+			{
+				xpcc::atomic::Unlock u;
+				old->stopped(cause);
+			}
 
 			if(delegate) {
+				i2stop();
+
 				newSession = true;
 				i2start();
 				//XPCC_LOG_DEBUG .printf("d %x-> %x\n", old, delegate);
@@ -484,13 +487,13 @@ public:
 		case I2C_I2STAT_M_RX_SLAR_NACK:	// SLA+R transmitted, NACK received
 			if(newSession) {
 				error = xpcc::I2cMaster::Error::AddressNack;
-				//XPCC_LOG_ERROR << "Error::AddressNack " << delegate << endl;
+				XPCC_LOG_DEBUG << "Error::AddressNack " << delegate << endl;
 				newSession = false;
 			}
 		case I2C_I2STAT_M_TX_DAT_NACK:	// data transmitted, NACK received
 			if (newSession) {
 				error = xpcc::I2cMaster::Error::DataNack;
-				//XPCC_LOG_ERROR << "Error::DataNack " << delegate << endl;
+				XPCC_LOG_DEBUG << "Error::DataNack " << delegate << endl;
 				newSession = false;
 			}
 		case I2C_I2STAT_M_TX_ARB_LOST:	// RX or TX arbitration lost in SLA or NACK
@@ -532,7 +535,7 @@ private:
 			return false;
 
 		if(d->attaching()) {
-			__DSB();
+			DMB();
 			if(!delegate) {
 				//ERR << 'a';
 				delegate = d;
