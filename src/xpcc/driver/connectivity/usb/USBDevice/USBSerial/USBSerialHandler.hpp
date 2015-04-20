@@ -11,6 +11,7 @@
 #include "../USBDevice/USBDevice.h"
 #include "../USBDevice/USBInterfaceHandler.h"
 #include <xpcc/container.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/io/iodevice.hpp>
 
 namespace xpcc {

@@ -116,6 +116,10 @@ namespace xpcc
 				rxCallback = f;
 			}
 
+			static uint8_t getFifoSize() {
+				return 16;
+			}
+
 			static bool setBaud(uint32_t baud);
 
 			static void startAutoBaud(uint8_t mode);
@@ -133,7 +137,7 @@ namespace xpcc
 		}; // Uart1 class
 
 
-		typedef lpc17::BufferedUart<Uart1> BufferedUart;
+		typedef BufferedUart<Uart1> BufferedUart;
 
 	} // lpc namespace
 } // xpcc namespace

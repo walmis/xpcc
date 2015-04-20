@@ -6,6 +6,7 @@
  */
 
 #include "USBMSDHandler.h"
+#include <xpcc/debug.hpp>
 
 namespace xpcc {
 
@@ -229,9 +230,9 @@ bool USBMSDHandler::initialize() {
 	BlockSize = disk_sector_size();
 	if (BlockSize != 0) {
 		if(page)
-			free(page);
+			delete[] page;
 
-		page = (uint8_t*)malloc(BlockSize);
+		page = new uint8_t[BlockSize];
 		if (page == NULL)
 			return false;
 	}

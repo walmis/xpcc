@@ -13,7 +13,6 @@
 #include <xpcc/processing.hpp>
 
 namespace xpcc{
-namespace lpc17 {
 
 template <typename Uart>
 class BufferedUart : public BufferedIODevice {
@@ -88,7 +87,7 @@ private:
 
 		if(Uart::txEmpty()) {
 			//fill uart fifo
-			for(int i = 0; i < 16; i++) {
+			for(int i = 0; i < Uart::getFifoSize(); i++) {
 				if(!inst->_send()) return;
 			}
 		}
@@ -107,7 +106,6 @@ private:
 template <typename Uart>
 BufferedUart<Uart>* BufferedUart<Uart>::inst = 0;
 
-}
 }
 
 #endif /* BUFFERED_UART_HPP_ */

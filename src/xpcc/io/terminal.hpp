@@ -10,6 +10,7 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/processing.hpp>
+#include <stdlib.h>
 
 namespace xpcc {
 

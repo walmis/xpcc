@@ -552,6 +552,10 @@ public:
 		while (txBusy());
 	}
 
+	static uint8_t getFifoSize() {
+		return 16;
+	}
+
 	static int16_t read() {
 		if(UARTx->LCR & UART_LSR_RDR) {
 			return UARTx->RBR;

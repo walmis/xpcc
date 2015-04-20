@@ -61,11 +61,15 @@
  * Common to all STM32 processors.
  */
 
-#include "stm32/device.h"
+#pragma once
 
-#include "stm32/core.hpp"
-#include "stm32/gpio.hpp"
-#include "stm32/clock.hpp"
+#include <stm32f4xx.h>
+
+//#include "stm32/device.h"
+//
+//#include "stm32/core.hpp"
+//#include "stm32/gpio.hpp"
+//#include "stm32/clock.hpp"
 
 
 /**
@@ -80,74 +84,80 @@
  */
 
 // CAN1
-#if defined(STM32F10X) || defined(STM32F3XX) || defined(STM32F2XX) || defined(STM32F4XX)
-#include "stm32/can/can_1.hpp"
-#include "stm32/can/can_filter.hpp"
-#endif
+//#if defined(STM32F10X) || defined(STM32F3XX) || defined(STM32F2XX) || defined(STM32F4XX)
+//#include "stm32/can/can_1.hpp"
+//#include "stm32/can/can_filter.hpp"
+//#endif
 
 // CAN2
-#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F4XX)
-#include "stm32/can/can_2.hpp"
-#endif
+//#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F4XX)
+//#include "stm32/can/can_2.hpp"
+//#endif
 
 // External Interrupt only tested on STM32F4XX
-#if defined(STM32F4XX)
-#include "stm32/exti.hpp"
-#endif
+//#if defined(STM32F4XX)
+//#include "stm32/exti.hpp"
+//#endif
 
 // HW drivers enabled for all supported STM32 series
-#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F3XX) \
-	|| defined(STM32F4XX)
-#include "stm32/uart/usart_1.hpp"
-#include "stm32/uart/usart_2.hpp"
-#include "stm32/uart/usart_3.hpp"
-#include "stm32/uart/uart_4.hpp"
-#include "stm32/uart/uart_5.hpp"
-#include "stm32/adc/adc_1.hpp"
-#include "stm32/adc/adc_2.hpp"
-#include "stm32/adc/adc_3.hpp"
-#include "stm32/timer.hpp"
-#endif
+//#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F3XX) \
+//	|| defined(STM32F4XX)
+//#include "stm32/uart/usart_1.hpp"
+//#include "stm32/uart/usart_2.hpp"
+//#include "stm32/uart/usart_3.hpp"
+//#include "stm32/uart/uart_4.hpp"
+//#include "stm32/uart/uart_5.hpp"
+//#include "stm32/adc/adc_1.hpp"
+//#include "stm32/adc/adc_2.hpp"
+//#include "stm32/adc/adc_3.hpp"
+//#include "stm32/timer.hpp"
+//#endif
 
 // Uart HAL tested only on STM32F3 and F4 series
-#if defined(STM32F3XX) || defined(STM32F4XX)
-#include "stm32/uart/usart_hal_1.hpp"
-#include "stm32/uart/usart_hal_2.hpp"
-#include "stm32/uart/usart_hal_3.hpp"
-#include "stm32/uart/uart_hal_4.hpp"
-#include "stm32/uart/uart_hal_5.hpp"
-#endif
+//#if defined(STM32F3XX) || defined(STM32F4XX)
+//#include "stm32/uart/usart_hal_1.hpp"
+//#include "stm32/uart/usart_hal_2.hpp"
+//#include "stm32/uart/usart_hal_3.hpp"
+//#include "stm32/uart/uart_hal_4.hpp"
+//#include "stm32/uart/uart_hal_5.hpp"
+//#endif
 
 // COMP1-7 only available on STM32F3 series
-#if defined(STM32F3XX)
-#include "stm32/comp/comp_1.hpp"
-#include "stm32/comp/comp_2.hpp"
-#include "stm32/comp/comp_3.hpp"
-#include "stm32/comp/comp_4.hpp"
-#include "stm32/comp/comp_5.hpp"
-#include "stm32/comp/comp_6.hpp"
-#include "stm32/comp/comp_7.hpp"
-#include "stm32/adc/adc_4.hpp"
-#endif
+//#if defined(STM32F3XX)
+//#include "stm32/comp/comp_1.hpp"
+//#include "stm32/comp/comp_2.hpp"
+//#include "stm32/comp/comp_3.hpp"
+//#include "stm32/comp/comp_4.hpp"
+//#include "stm32/comp/comp_5.hpp"
+//#include "stm32/comp/comp_6.hpp"
+//#include "stm32/comp/comp_7.hpp"
+//#include "stm32/adc/adc_4.hpp"
+//#endif
 
 
 // Other hardware, not yet implemented for F3
-#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F4XX)
-#include "stm32/fsmc.hpp"
-
-#include "stm32/uart/usart_6.hpp"
-
-#include "stm32/spi/spi_1.hpp"
-#include "stm32/spi/spi_2.hpp"
-#include "stm32/spi/spi_3.hpp"
-
-
-
-#include "stm32/i2c/i2c_master_1.hpp"
-#include "stm32/i2c/i2c_master_2.hpp"
-#include "stm32/i2c/i2c_master_3.hpp"
+//#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F4XX)
+//#include "stm32/fsmc.hpp"
+//
+//#include "stm32/uart/usart_6.hpp"
+//
+//#include "stm32/spi/spi_1.hpp"
+//#include "stm32/spi/spi_2.hpp"
+//#include "stm32/spi/spi_3.hpp"
+//
+//
+//
+//#include "stm32/i2c/i2c_master_1.hpp"
+//#include "stm32/i2c/i2c_master_2.hpp"
+//#include "stm32/i2c/i2c_master_3.hpp"
 
 #include "stm32/systick_timer.hpp"
 
-
+#if defined(STM32F4xx)
+#include "stm32/stm32f4/USBDevice-USBEndpoints_STM32F4.h"
+#include "stm32/stm32f4/gpio.hpp"
+#include "stm32/stm32f4/timer/general_purpose.hpp"
+#include "stm32/stm32f4/uart/uart_hal.hpp"
+#include "stm32/stm32f4/rcc.hpp"
+#include "stm32/stm32f4/i2c/i2c_master.hpp"
 #endif
