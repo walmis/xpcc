@@ -307,7 +307,11 @@ inline bool SDCard<Spi, Cs>::initialise() {
 	if (initialized)
 		return true;
 
-	PROFILE();
+	Spi::frequency(100000);
+	Cs::set();
+	for (int i = 0; i < 32; i++) {
+		Spi::write(0xFF);
+	}
 	int i = initialise_card();
 	XPCC_LOG_DEBUG.printf("init card = %d\n", i);
 	if (i == 0) {
@@ -634,11 +638,7 @@ inline int SDCard<Spi, Cs>::_cmd58() {
 template<typename Spi, typename Cs>
 inline int SDCard<Spi, Cs>::initialise_card() {
 	// Set to 100kHz for initialisation, and clock card with cs = 1
-	Spi::frequency(100000);
-	Cs::set();
-	for (int i = 0; i < 32; i++) {
-		Spi::write(0xFF);
-	}
+
 	uint8_t s;
 	for(int i = 0; i < 8; i++) {
 		s = _cmd(0, 0, 10);

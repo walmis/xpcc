@@ -15,14 +15,14 @@
 #include <xpcc/driver/storage/fat.hpp>
 
 
-template <typename Spi, typename Cs>
-class SDCardVolume : public SDCard<Spi,Cs>,	public xpcc::fat::PhysicalVolume,
+template <typename Card>
+class SDCardVolume : public Card, public xpcc::fat::PhysicalVolume,
 	xpcc::TickerTask {
 
 public:
 	SDCardVolume() : last_block(0), read_sem_taken(false),
 	write_sem_taken(false),	reading(false), writing(false),
-	eraseCount(0)
+	eraseCount(0), wrRemaining(0)
 {}
 
 //private:
@@ -48,8 +48,6 @@ public:
 		if(read_sem_taken) {
 			last_block = 0;
 			this->readStop();
-
-
 			this->semaphore()->give();
 			read_sem_taken = false;
 		}

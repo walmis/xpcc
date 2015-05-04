@@ -100,7 +100,7 @@
 //#endif
 
 // HW drivers enabled for all supported STM32 series
-//#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F3XX) \
+//#if defined(STM32F10X) || defined(STM32F2XX) || defined(STM32F3XX)
 //	|| defined(STM32F4XX)
 //#include "stm32/uart/usart_1.hpp"
 //#include "stm32/uart/usart_2.hpp"
@@ -153,11 +153,15 @@
 
 #include "stm32/systick_timer.hpp"
 
-#if defined(STM32F4xx)
-#include "stm32/stm32f4/USBDevice-USBEndpoints_STM32F4.h"
-#include "stm32/stm32f4/gpio.hpp"
+#if defined(STM32F4XX)
+#include "stm32/stm32f4/usb/USBDevice-USBEndpoints_STM32F4.h"
+#include "stm32/stm32f4/gpio/gpio.hpp"
+#include "stm32/stm32f4/gpio/gpio_interrupt.hpp"
 #include "stm32/stm32f4/timer/general_purpose.hpp"
 #include "stm32/stm32f4/uart/uart_hal.hpp"
 #include "stm32/stm32f4/rcc.hpp"
 #include "stm32/stm32f4/i2c/i2c_master.hpp"
+#include "stm32/stm32f4/spi/spi_hal.hpp"
+#include "stm32/stm32f4/sdio/sdio_hal.hpp"
+#include "stm32/stm32f4/dma/dma.hpp"
 #endif

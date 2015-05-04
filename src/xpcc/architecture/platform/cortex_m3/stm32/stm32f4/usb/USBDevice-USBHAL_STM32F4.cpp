@@ -57,8 +57,8 @@ USBHAL::USBHAL(void) {
 //    pin_function(PA_10, STM_PIN_DATA(2, 10));
 //    pin_function(PA_11, STM_PIN_DATA(2, 10));
 //    pin_function(PA_12, STM_PIN_DATA(2, 10));
-    PA11::setFunction(GPIO_AF_OTG_FS);
-    PA12::setFunction(GPIO_AF_OTG_FS);
+    PA11::setFunction(AltFunction::AF_OTG_FS);
+    PA12::setFunction(AltFunction::AF_OTG_FS);
 
     // Set ID pin to open drain with pull-up resistor
     //pin_mode(PA_10, OpenDrain);
@@ -100,11 +100,11 @@ USBHAL::~USBHAL(void) {
 }
 
 void USBHAL::connect(void) {
-    NVIC_EnableIRQ(OTG_FS_IRQn);
+    NVIC_EnableIRQ((IRQn_Type)OTG_FS_IRQn);
 }
 
 void USBHAL::disconnect(void) {
-    NVIC_DisableIRQ(OTG_FS_IRQn);
+    NVIC_DisableIRQ((IRQn_Type)OTG_FS_IRQn);
 }
 
 void USBHAL::configureDevice(void) {
@@ -124,7 +124,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket,
                              uint32_t flags) {
     uint32_t epIndex = endpoint >> 1;
 
-    uint32_t type;
+    uint32_t type = 0;
     switch (endpoint) {
         case EP0IN:
         case EP0OUT:
@@ -133,6 +133,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket,
         case EPISO_IN:
         case EPISO_OUT:
             type = 1;
+            break;
         case EPBULK_IN:
         case EPBULK_OUT:
             type = 2;
