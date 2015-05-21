@@ -6,12 +6,9 @@
  * license. See the file `LICENSE` for the full license governing this code.
  */
 // ----------------------------------------------------------------------------
-
-#ifndef XPCC_STM32_TIMER_x_HPP
-#define XPCC_STM32_TIMER_x_HPP
+#pragma once
 
 #include "general_purpose_base.hpp"
-#include "../rcc.hpp"
 
 namespace xpcc
 {
@@ -39,10 +36,9 @@ namespace stm32
  * @ingroup		stm32
  */
 
-
-
 TIM_TypeDef* const gp_timers[] = { 0, TIM2, TIM3, TIM4, TIM5, 0, 0, 0, TIM9,
 		TIM10, TIM11, TIM12, TIM13, TIM14 };
+
 
 #define TIMx (gp_timers[timid-1])
 
@@ -155,9 +151,9 @@ public:
 		// unequal to zero)
 		uint32_t freq;
 		if(timid == 9 || timid == 10 || timid == 11) {
-			freq = Clocks::getPCLK2Frequency();
+			freq = Clocks::getPCLK2Frequency()*2;
 		} else {
-			freq = Clocks::getPCLK1Frequency();
+			freq = Clocks::getPCLK1Frequency()*2;
 		}
 
 		uint32_t cycles = microseconds * (freq / 1000000UL);
@@ -201,21 +197,21 @@ public:
 	static inline void
 	setCompareValue(uint32_t channel, Value value)
 	{
-//%% if target is stm32f2 or target is stm32f3 or target is stm32f4
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 		*(&TIMx->CCR1 + (channel - 1)) = value;
-//%% else
-//		*(&TIMx->CCR1 + ((channel - 1) * 2)) = value;
-//%% endif
+#else
+		*(&TIMx->CCR1 + ((channel - 1) * 2)) = value;
+#endif
 	}
 
 	static inline Value
 	getCompareValue(uint32_t channel)
 	{
-//%% if target is stm32f2 or target is stm32f3 or target is stm32f4
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX)
 		return *(&TIMx->CCR1 + (channel - 1));
-//%% else
-//		return *(&TIMx->CCR1 + ((channel - 1) * 2));
-//%% endif
+#else
+		return *(&TIMx->CCR1 + ((channel - 1) * 2));
+#endif
 	}
 
 public:
@@ -443,4 +439,4 @@ typedef GPTimer<14> GPTimer14;
 }
 }
 
-#endif // XPCC_STM32_TIMER_x_HPP
+#undef TIMx

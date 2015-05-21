@@ -1,26 +1,15 @@
 /*
- * sdcard.hpp
+ * SDCardInterface.hpp
  *
- *  Created on: Apr 24, 2015
+ *  Created on: May 16, 2015
  *      Author: walmis
  */
 
-#ifndef SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_SDIO_SDCARD_HPP_
-#define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_SDIO_SDCARD_HPP_
+#ifndef SRC_XPCC_DRIVER_STORAGE_SD_SDCARDINTERFACE_HPP_
+#define SRC_XPCC_DRIVER_STORAGE_SD_SDCARDINTERFACE_HPP_
 
-#include <xpcc/debug.hpp>
-#include <xpcc/processing/semaphore.hpp>
-#include <xpcc/processing/timeout.hpp>
-
-namespace xpcc {
-
-enum SDError {
-};
-
-#define SDCARD_FAIL 0
-#define SDCARD_V1   1
-#define SDCARD_V2   2
-#define SDCARD_V2HC 3
+#include <stdint.h>
+#include <xpcc/architecture.hpp>
 
 #define R1_IDLE_STATE           (1 << 0)
 #define R1_ERASE_RESET          (1 << 1)
@@ -123,34 +112,163 @@ enum class SDCardState
   SD_CARD_ERROR                  = ((uint32_t)0x000000FF)
 };
 
-uint8_t const DATA_START_BLOCK = 0XFE;
-/** stop token for write multiple blocks*/
-uint8_t const STOP_TRAN_TOKEN = 0XFD;
+ //------------------------------------------------------------------------------
+ struct CID {
+   // byte 0
+   uint8_t mid;  // Manufacturer ID
+   // byte 1-2
+   char oid[2];  // OEM/Application ID
+   // byte 3-7
+   char pnm[5];  // Product name
+   // byte 8
+   uint16_t prv_m : 4;  // Product revision n.m
+   uint16_t prv_n : 4;
+   // byte 9-12
+   uint32_t psn;  // Product serial number
+   // byte 13
+   uint16_t mdt_year_high : 4;  // Manufacturing date
+   uint16_t reserved : 4;
+   // byte 14
+   uint16_t mdt_month : 4;
+   uint16_t mdt_year_low :4;
+   // byte 15
+   uint16_t always1 : 1;
+   uint16_t crc : 7;
+ }__attribute__ ((packed));
+ typedef struct CID cid_t;
+ //------------------------------------------------------------------------------
+ // CSD for version 1.00 cards
+ struct CSDV1 {
+   // byte 0
+   uint16_t reserved1 : 6;
+   uint16_t csd_ver : 2;
+   // byte 1
+   uint8_t taac;
+   // byte 2
+   uint8_t nsac;
+   // byte 3
+   uint8_t tran_speed;
+   // byte 4
+   uint8_t ccc_high;
+   // byte 5
+   uint16_t read_bl_len : 4;
+   uint16_t ccc_low : 4;
+   // byte 6
+   uint16_t c_size_high : 2;
+   uint16_t reserved2 : 2;
+   uint16_t dsr_imp : 1;
+   uint16_t read_blk_misalign :1;
+   uint16_t write_blk_misalign : 1;
+   uint16_t read_bl_partial : 1;
+   // byte 7
+   uint8_t c_size_mid;
+   // byte 8
+   uint16_t vdd_r_curr_max : 3;
+   uint16_t vdd_r_curr_min : 3;
+   uint16_t c_size_low :2;
+   // byte 9
+   uint16_t c_size_mult_high : 2;
+   uint16_t vdd_w_cur_max : 3;
+   uint16_t vdd_w_curr_min : 3;
+   // byte 10
+   uint16_t sector_size_high : 6;
+   uint16_t erase_blk_en : 1;
+   uint16_t c_size_mult_low : 1;
+   // byte 11
+   uint16_t wp_grp_size : 7;
+   uint16_t sector_size_low : 1;
+   // byte 12
+   uint16_t write_bl_len_high : 2;
+   uint16_t r2w_factor : 3;
+   uint16_t reserved3 : 2;
+   uint16_t wp_grp_enable : 1;
+   // byte 13
+   uint16_t reserved4 : 5;
+   uint16_t write_partial : 1;
+   uint16_t write_bl_len_low : 2;
+   // byte 14
+   uint16_t reserved5: 2;
+   uint16_t file_format : 2;
+   uint16_t tmp_write_protect : 1;
+   uint16_t perm_write_protect : 1;
+   uint16_t copy : 1;
+   uint16_t file_format_grp : 1;
+   // byte 15
+   uint16_t always1 : 1;
+   uint16_t crc : 7;
+ }__attribute__ ((packed));
+ typedef CSDV1 csd1_t;
+ //------------------------------------------------------------------------------
+ // CSD for version 2.00 cards
+ struct CSDV2 {
+   // byte 0
+   uint16_t reserved1 : 6;
+   uint16_t csd_ver : 2;
+   // byte 1
+   uint8_t taac;
+   // byte 2
+   uint8_t nsac;
+   // byte 3
+   uint8_t tran_speed;
+   // byte 4
+   uint8_t ccc_high;
+   // byte 5
+   uint16_t read_bl_len : 4;
+   uint16_t ccc_low : 4;
+   // byte 6
+   uint16_t reserved2 : 4;
+   uint16_t dsr_imp : 1;
+   uint16_t read_blk_misalign :1;
+   uint16_t write_blk_misalign : 1;
+   uint16_t read_bl_partial : 1;
+   // byte 7
+   uint16_t reserved3 : 2;
+   uint16_t c_size_high : 6;
+   // byte 8
+   uint8_t c_size_mid;
+   // byte 9
+   uint8_t c_size_low;
+   // byte 10
+   uint16_t sector_size_high : 6;
+   uint16_t erase_blk_en : 1;
+   uint16_t reserved4 : 1;
+   // byte 11
+   uint16_t wp_grp_size : 7;
+   uint16_t sector_size_low : 1;
+   // byte 12
+   uint16_t write_bl_len_high : 2;
+   uint16_t r2w_factor : 3;
+   uint16_t reserved5 : 2;
+   uint16_t wp_grp_enable : 1;
+   // byte 13
+   uint16_t reserved6 : 5;
+   uint16_t write_partial : 1;
+   uint16_t write_bl_len_low : 2;
+   // byte 14
+   uint16_t reserved7: 2;
+   uint16_t file_format : 2;
+   uint16_t tmp_write_protect : 1;
+   uint16_t perm_write_protect : 1;
+   uint16_t copy : 1;
+   uint16_t file_format_grp : 1;
+   // byte 15
+   uint16_t always1 : 1;
+   uint16_t crc : 7;
+ }__attribute__ ((packed));
+ typedef CSDV2 csd2_t;
+ //------------------------------------------------------------------------------
+ // union of old and new style CSD register
+ union csd_t {
+   csd1_t v1;
+   csd2_t v2;
+ };
 
-/** init timeout ms */
-uint16_t const SD_INIT_TIMEOUT = 2000;
-/** erase timeout ms */
-uint16_t const SD_ERASE_TIMEOUT = 10000;
-/** read timeout ms */
-uint16_t const SD_READ_TIMEOUT = 300;
-/** write time out ms */
-uint16_t const SD_WRITE_TIMEOUT = 600;
-/** start data token for write multiple blocks*/
-uint8_t const WRITE_MULTIPLE_TOKEN = 0XFC;
-/** mask for data response tokens after a write block operation */
-uint8_t const DATA_RES_MASK = 0X1F;
-/** write data accepted token */
-uint8_t const DATA_RES_ACCEPTED = 0X05;
-
-class SDCard {
+class SDCardInterface {
 public:
-	enum class ResponseType {
-			None, Short, Long, R3Resp
-	};
 
-	virtual bool init() = 0;
+	bool init();
 
-	virtual bool isInitialized() = 0;
+	bool isInitialized();
 
 	//------------------------------------------------------------------------------
 	/** Begin a read multiple blocks sequence.
@@ -158,7 +276,7 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	virtual bool readStart(uint32_t blockNumber) = 0;
+	bool readStart(uint32_t blockNumber);
 
 	//------------------------------------------------------------------------------
 	/** End a read multiple blocks sequence.
@@ -166,11 +284,11 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	virtual bool readStop()= 0;
+	bool readStop();
 
-	virtual bool readData(uint8_t* buffer, size_t length)= 0;
+	bool readData(uint8_t* buffer, size_t length);
 
-	virtual bool readSingleBlock(uint8_t* buffer, size_t block_number)= 0;
+	bool readSingleBlock(uint8_t* buffer, size_t block_number);
 
 	//------------------------------------------------------------------------------
 	/** Start a write multiple blocks sequence.
@@ -184,14 +302,14 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	virtual bool writeStart(uint32_t blockNumber, uint32_t eraseCount)= 0;
+	bool writeStart(uint32_t blockNumber, uint32_t eraseCount);
 	//------------------------------------------------------------------------------
 	/** End a write multiple blocks sequence.
 	 *
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	virtual bool writeStop()= 0;
+	bool writeStop();
 
 	//------------------------------------------------------------------------------
 	/** Write one data block in a multiple block write sequence
@@ -199,165 +317,23 @@ public:
 	 * \return The value one, true, is returned for success and
 	 * the value zero, false, is returned for failure.
 	 */
-	virtual bool writeData(const uint8_t* src)= 0;
+	bool writeData(const uint8_t* src);
 
 	//------------------------------------------------------------------------------
 	// send one block of data for write block or write multiple blocks
-	virtual bool writeData(uint8_t token, const uint8_t* src)= 0;
+	bool writeData(uint8_t token, const uint8_t* src);
 
 	//write a single block to SD card
-	virtual bool writeBlock(uint32_t blockNumber, const uint8_t* src)= 0;
+	bool writeBlock(uint32_t blockNumber, const uint8_t* src);
 
-	virtual bool cmd(uint32_t cmd, uint32_t arg, ResponseType resp = ResponseType::None,
-			uint32_t timeout = SD_COMMAND_TIMEOUT)= 0;
+	uint32_t getSectorCount();
 
-//////////////////////////////
-
-	uint8_t initializeCard() {
-		uint8_t s;
-		for(int i = 0; i < 8; i++) {
-			s = cmd(0, 0);
-			XPCC_LOG_DEBUG.printf("_cmd(0, 0) = %x\n", s);
-			// send CMD0, should return with all zeros except IDLE STATE set (bit 0)
-			if(s == R1_IDLE_STATE) {
-				break;
-			}
-		}
-		if (s != R1_IDLE_STATE) {
-			XPCC_LOG_DEBUG.printf(
-					"No disk, or could not put SD card in to SPI idle state\n");
-			return SDCARD_FAIL;
-		}
-
-		// send CMD8 to determine whther it is ver 2.x
-		int r = cmd(8, 0x1AA, ResponseType::Short);
-		if (r == R1_IDLE_STATE) {
-			return initialise_card_v2();
-		} else if (r == (R1_IDLE_STATE | R1_ILLEGAL_COMMAND)) {
-			return initialise_card_v1();
-		} else {
-			XPCC_LOG_DEBUG.printf(
-					"Not in idle state after sending CMD8 (not an SD card?)\n");
-			return SDCARD_FAIL;
-		}
-	}
-
-	int initialise_card_v1() {
-		Timeout<> t(500);
-		while (!t.isExpired()) {
-			cmd(55, 0);
-			if (cmd(41, 0) == 0) {
-				cdv = 512;
-				XPCC_LOG_DEBUG.printf("Init: SDCARD_V1\n");
-				return SDCARD_V1;
-			}
-		}
-		XPCC_LOG_DEBUG.printf("Timeout waiting for v1.x card\n");
-		return SDCARD_FAIL;
-	}
-
-	int initialise_card_v2() {
-		xpcc::Timeout<> t(500);
-		while (!t.isExpired()) {
-
-			cmd(58, 0);
-			cmd(55, 0);
-			if (cmd(41, 0x40000000) == 0) {
-				cmd(58, 0);
-				XPCC_LOG_DEBUG.printf("Init: SDCARD_V2\n");
-				cdv = 1;
-				return SDCARD_V2;
-			}
-		}
-		XPCC_LOG_DEBUG.printf("Timeout waiting for v2.x card\n");
-		return SDCARD_FAIL;
-	}
-
-	uint32_t ext_bits(unsigned char* data, int msb,
-			int lsb) {
-		uint32_t bits = 0;
-		uint32_t size = 1 + msb - lsb;
-		for (uint32_t i = 0; i < size; i++) {
-			uint32_t position = lsb + i;
-			uint32_t byte = 15 - (position >> 3);
-			uint32_t bit = position & 0x7;
-			uint32_t value = (data[byte] >> bit) & 1;
-			bits |= value << i;
-		}
-		return bits;
-	}
-
-	uint32_t _sd_sectors() {
-		uint32_t c_size, c_size_mult, read_bl_len;
-		uint32_t block_len, mult, blocknr;
-		uint32_t hc_c_size;
-		uint64_t blocks, capacity;
-		// CMD9, Response R2 (R1 byte + 16-byte block read)
-		if (cmd(9, 0) != 0) {
-			XPCC_LOG_DEBUG.printf("Didn't get a response from the disk\n");
-			return 0;
-		}
-		uint8_t csd[16];
-		if (!readData(csd, 16)) {
-			XPCC_LOG_DEBUG.printf("Couldn't read csd response from disk\n");
-			return 0;
-		}
-		// csd_structure : csd[127:126]
-		// c_size        : csd[73:62]
-		// c_size_mult   : csd[49:47]
-		// read_bl_len   : csd[83:80] - the *maximum* read block length
-		int csd_structure = ext_bits(csd, 127, 126);
-		switch (csd_structure) {
-		case 0:
-			cdv = 512;
-			c_size = ext_bits(csd, 73, 62);
-			c_size_mult = ext_bits(csd, 49, 47);
-			read_bl_len = ext_bits(csd, 83, 80);
-
-			block_len = 1 << read_bl_len;
-			mult = 1 << (c_size_mult + 2);
-			blocknr = (c_size + 1) * mult;
-			capacity = blocknr * block_len;
-			blocks = capacity / 512;
-			XPCC_LOG_DEBUG.printf(
-					"SDCard\nc_size: %d \ncapacity: %lld \nsectors: %lld\n", c_size,
-					capacity, blocks);
-			break;
-
-		case 1:
-			cdv = 1;
-			hc_c_size = ext_bits(csd, 63, 48);
-			blocks = ((hc_c_size + 1) * 1024) /*- 1*/;
-			capacity = (blocks * 512) / 1000000;
-			XPCC_LOG_DEBUG.printf(
-					"SDHC Card \nhc_c_size: %d\ncapacity: %lldMiB \nsectors: %lld\n",
-					hc_c_size, capacity, blocks);
-			break;
-
-		default:
-			XPCC_LOG_DEBUG.printf("CSD struct unsupported\n");
-			return 0;
-		};
-		return blocks;
-	}
-
-	SDError errno();
-
-	Semaphore* semaphore() {
-		return &_semaphore;
-	}
+	xpcc::Semaphore* semaphore();
 
 protected:
 	bool initialized;
 
-private:
-
-	Semaphore _semaphore;
-	uint32_t cdv;
-	uint32_t _sectors;
 };
 
-}
 
-
-#endif /* SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_SDIO_SDCARD_HPP_ */
+#endif /* SRC_XPCC_DRIVER_STORAGE_SD_SDCARDINTERFACE_HPP_ */

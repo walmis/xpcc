@@ -6,11 +6,12 @@
  * license. See the file `LICENSE` for the full license governing this code.
  */
 // ----------------------------------------------------------------------------
-#ifndef XPCC_STM32_TIMER_BASIC_BASE_HPP
-#define XPCC_STM32_TIMER_BASIC_BASE_HPP
+#pragma once
 
 #include <stdint.h>
-#include "../../../stm32.hpp"
+#include <xpcc/architecture/utils.hpp>
+#include "../../device.hpp"
+#include "../rcc.hpp"
 
 namespace xpcc
 {
@@ -228,4 +229,3 @@ ENUM_CLASS_FLAG(BasicTimer::InterruptFlag)
 
 } // namespace xpcc
 
-#endif // XPCC_STM32_TIMER_BASIC_BASE_HPP

@@ -9,6 +9,10 @@
 #define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_GPIO_HPP_
 
 #include <xpcc/architecture.hpp>
+#include "gpio_interrupt.hpp"
+
+namespace xpcc {
+namespace stm32 {
 
 enum class AltFunction {
 	AF_RTC_50Hz     = ((uint8_t)0x00),  /* RTC_50Hz Alternate Function mapping */
@@ -338,6 +342,11 @@ public:
 	read() {
 		return _port(Port)->ODR & (1<<Pin);
 	}
+
+	ALWAYS_INLINE static bool
+	attachInterrupt(xpcc::function<void()> fn, IntEdge edges = IntEdge::RISING_EDGE) {
+		return GpioInt::attach(Port, Pin, fn, edges);
+	}
 };
 
 typedef GpioPin<A,0> PA0;
@@ -485,7 +494,8 @@ typedef GpioPin<I,13> PI13;
 typedef GpioPin<I,14> PI14;
 typedef GpioPin<I,15> PI15;
 
-
+}
+}
 
 
 #endif /* SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_GPIO_HPP_ */

@@ -26,7 +26,89 @@ For more information, please refer to <http://unlicense.org/>
  */
 // despite that it would be nice if you give credit to Malte Skarupke
 
+#pragma once
 
+#if 0
+#include <functional>
+#include <utility>
+#include <memory>
+// Helper traits
+template<typename T> using Invoke = typename T::type;
+template <typename Condition, typename T = void> using EnableIf = Invoke<std::enable_if<Condition::value, T>>;
+template <typename Condition, typename T = void> using DisableIf = Invoke<std::enable_if<!Condition::value, T>>;
+template <typename T> using Decay = Invoke<std::remove_const<Invoke<std::remove_reference<T>>>>;
+template <typename T, typename U> struct IsRelated : std::is_same<Decay<T>, Decay<U>> {};
+
+template<typename Signature>
+struct Function;
+
+template<typename R, typename ...Args>
+struct Function<R(Args...)>
+{
+  Function() : mImpl() {}
+  template<typename F, typename = DisableIf<IsRelated<F, Function>>>
+  Function(F f) : mImpl(std::make_shared<Impl<F>>(std::move(f))) {}
+
+  template<typename Alloc, typename F, typename = DisableIf<IsRelated<F, Function>>>
+  Function(std::allocator_arg_t, Alloc alloc, F f)
+  {
+    typedef typename Alloc::template rebind<Impl<F>>::other Other;
+    mImpl = std::allocate_shared<Impl<F>>(Other(alloc), std::move(f));
+  }
+
+  Function(Function&&) noexcept = default;
+  Function& operator=(Function&&) noexcept = default;
+
+  Function(const Function&) noexcept = default;
+  Function& operator=(const Function&) noexcept = default;
+
+  operator bool() {
+	  return (bool)mImpl;
+  }
+
+  R operator()(Args ...args) const
+  {
+    return mImpl->call(args...);
+  }
+
+private:
+  struct ImplBase
+  {
+    virtual ~ImplBase() {}
+    virtual R call(Args ...args) = 0;
+  };
+
+  template<typename F>
+  struct Impl : ImplBase
+  {
+    template<typename FArg>
+    Impl(FArg&& f) : f(std::forward<FArg>(f)) {  }
+
+    ~Impl() {}
+
+    virtual R call(Args ...args)
+    { return f(args...); }
+
+    F f;
+  };
+
+  std::shared_ptr<ImplBase> mImpl;
+};
+
+namespace xpcc {
+	template<typename Signature>
+	using function = Function<Signature>;
+}
+
+#endif
+#if 1
+#include <functional>
+namespace xpcc {
+	using std::function;
+}
+#endif
+
+#if 0
 #pragma once
 #include <utility>
 #include <type_traits>
@@ -631,3 +713,4 @@ struct uses_allocator<xpcc::function<Result (Arguments...)>, Allocator>
 #undef FUNC_FORWARD
 #undef FUNC_MOVE
 #undef FUNC_CONSTEXPR
+#endif

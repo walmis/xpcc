@@ -176,10 +176,10 @@ uint8_t const DATA_RES_MASK = 0X1F;
 uint8_t const DATA_RES_ACCEPTED = 0X05;
 
 template<typename Spi, typename Cs>
-class SDCard {
+class SDCard_SPI {
 public:
 
-	SDCard() {
+	SDCard_SPI() {
 		Cs::setOutput(1);
 		initialized = false;
 	}
@@ -188,7 +188,7 @@ public:
 		return initialized;
 	}
 
-	bool initialise();
+	bool init();
 
 	void deinit() {
 		initialized = false;
@@ -303,7 +303,7 @@ protected:
 };
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::initialise() {
+inline bool SDCard_SPI<Spi, Cs>::init() {
 	if (initialized)
 		return true;
 
@@ -334,7 +334,7 @@ inline bool SDCard<Spi, Cs>::initialise() {
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::readStart(uint32_t blockNumber) {
+inline bool SDCard_SPI<Spi, Cs>::readStart(uint32_t blockNumber) {
 	//PROFILE();
 	//XPCC_LOG_DEBUG .printf("SD:read start b:%d\n", blockNumber);
 	//if (type()!= SD_CARD_TYPE_SDHC) blockNumber <<= 9;
@@ -347,7 +347,7 @@ inline bool SDCard<Spi, Cs>::readStart(uint32_t blockNumber) {
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::readStop() {
+inline bool SDCard_SPI<Spi, Cs>::readStop() {
 	//PROFILE();
 	//XPCC_LOG_DEBUG << "SD:Read stop\n";
 	if (_cmd(12, 0) & 0x80) {
@@ -363,7 +363,7 @@ inline bool SDCard<Spi, Cs>::readStop() {
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
+inline bool SDCard_SPI<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 	//PROFILE();
 	Cs::reset();
 	// read until start byte (0xFF)
@@ -394,7 +394,7 @@ inline bool SDCard<Spi, Cs>::readData(uint8_t* buffer, size_t length) {
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::readSingleBlock(uint8_t* buffer,
+inline bool SDCard_SPI<Spi, Cs>::readSingleBlock(uint8_t* buffer,
 		size_t block_number) {
 	if (_cmd(17, block_number * cdv) != 0) {
 		XPCC_LOG_DEBUG.printf("readSingleBlock cmd17 failed\n");
@@ -404,7 +404,7 @@ inline bool SDCard<Spi, Cs>::readSingleBlock(uint8_t* buffer,
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::writeStart(uint32_t blockNumber,
+inline bool SDCard_SPI<Spi, Cs>::writeStart(uint32_t blockNumber,
 		uint32_t eraseCount) {
 	//SD_TRACE("WS", blockNumber);
 	// send pre-erase count
@@ -427,7 +427,7 @@ inline bool SDCard<Spi, Cs>::writeStart(uint32_t blockNumber,
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::writeStop() {
+inline bool SDCard_SPI<Spi, Cs>::writeStop() {
 	//PROFILE();
 	//XPCC_LOG_DEBUG << "SD:writeStop()\n";
 	if (!waitNotBusy(SD_WRITE_TIMEOUT))
@@ -450,7 +450,7 @@ fail:
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::writeData(const uint8_t* src) {
+inline bool SDCard_SPI<Spi, Cs>::writeData(const uint8_t* src) {
 	//PROFILE();
 	// wait for previous write to finish
 	if (!waitNotBusy(SD_WRITE_TIMEOUT))
@@ -468,7 +468,7 @@ inline bool SDCard<Spi, Cs>::writeData(const uint8_t* src) {
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::writeData(uint8_t token, const uint8_t* src) {
+inline bool SDCard_SPI<Spi, Cs>::writeData(uint8_t token, const uint8_t* src) {
 
 #if USE_SD_CRC
 		uint16_t crc = CRC_CCITT(src, 512);
@@ -511,7 +511,7 @@ fail:
 }
 
 template<typename Spi, typename Cs>
-inline bool SDCard<Spi, Cs>::writeBlock(uint32_t blockNumber,
+inline bool SDCard_SPI<Spi, Cs>::writeBlock(uint32_t blockNumber,
 		const uint8_t* src) {
 	//SD_TRACE("WB", blockNumber);
 	//PROFILE();
@@ -544,7 +544,7 @@ inline bool SDCard<Spi, Cs>::writeBlock(uint32_t blockNumber,
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::_cmd(int cmd, int arg, int timeout) {
+inline int SDCard_SPI<Spi, Cs>::_cmd(int cmd, int arg, int timeout) {
 	//PROFILE();
 	Cs::reset();
 
@@ -571,7 +571,7 @@ inline int SDCard<Spi, Cs>::_cmd(int cmd, int arg, int timeout) {
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::_cmd8() {
+inline int SDCard_SPI<Spi, Cs>::_cmd8() {
 	Cs::reset();
 	// send a command
 	Spi::write(0x40 | 8); // CMD8
@@ -604,7 +604,7 @@ inline int SDCard<Spi, Cs>::_cmd8() {
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::_cmd58() {
+inline int SDCard_SPI<Spi, Cs>::_cmd58() {
 	Cs::reset();
 	int arg = 0;
 	// send a command
@@ -636,7 +636,7 @@ inline int SDCard<Spi, Cs>::_cmd58() {
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::initialise_card() {
+inline int SDCard_SPI<Spi, Cs>::initialise_card() {
 	// Set to 100kHz for initialisation, and clock card with cs = 1
 
 	uint8_t s;
@@ -668,7 +668,7 @@ inline int SDCard<Spi, Cs>::initialise_card() {
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::initialise_card_v1() {
+inline int SDCard_SPI<Spi, Cs>::initialise_card_v1() {
 	xpcc::Timeout<> t(500);
 	while (!t.isExpired()) {
 		_cmd(55, 0);
@@ -683,7 +683,7 @@ inline int SDCard<Spi, Cs>::initialise_card_v1() {
 }
 
 template<typename Spi, typename Cs>
-inline int SDCard<Spi, Cs>::initialise_card_v2() {
+inline int SDCard_SPI<Spi, Cs>::initialise_card_v2() {
 	xpcc::Timeout<> t(500);
 	while (!t.isExpired()) {
 
@@ -701,7 +701,7 @@ inline int SDCard<Spi, Cs>::initialise_card_v2() {
 }
 
 template<typename Spi, typename Cs>
-inline uint32_t SDCard<Spi, Cs>::ext_bits(unsigned char* data, int msb,
+inline uint32_t SDCard_SPI<Spi, Cs>::ext_bits(unsigned char* data, int msb,
 		int lsb) {
 	uint32_t bits = 0;
 	uint32_t size = 1 + msb - lsb;
@@ -716,7 +716,7 @@ inline uint32_t SDCard<Spi, Cs>::ext_bits(unsigned char* data, int msb,
 }
 
 template<typename Spi, typename Cs>
-inline uint32_t SDCard<Spi, Cs>::_sd_sectors() {
+inline uint32_t SDCard_SPI<Spi, Cs>::_sd_sectors() {
 	uint32_t c_size, c_size_mult, read_bl_len;
 	uint32_t block_len, mult, blocknr;
 	uint32_t hc_c_size;

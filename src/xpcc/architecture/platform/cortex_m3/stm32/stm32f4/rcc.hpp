@@ -8,7 +8,7 @@
 #ifndef SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_RCC_HPP_
 #define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_RCC_HPP_
 
-#include "../../stm32.hpp"
+#include "../device.hpp"
 
 namespace xpcc {
 namespace stm32 {

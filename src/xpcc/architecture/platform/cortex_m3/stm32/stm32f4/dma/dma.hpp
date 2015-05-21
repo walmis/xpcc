@@ -5,12 +5,12 @@
  *      Author: walmis
  */
 
-#ifndef SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_DMA_DMA_CHANNEL_HPP_
-#define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_DMA_DMA_CHANNEL_HPP_
+#pragma once
 
-#include "../../../stm32.hpp"
+#include <xpcc/architecture/utils.hpp>
+#include "../../device.hpp"
 #include <xpcc/processing/function.hpp>
-
+#include <xpcc/debug.hpp>
 namespace xpcc {
 namespace stm32 {
 namespace dma {
@@ -136,48 +136,13 @@ enum class PINCOS {
 };
 
 enum class IntFlag {
-
-	FEIF0  = ((uint32_t) 0x10800001),
-	DMEIF0 = ((uint32_t) 0x10800004),
-	TEIF0  = ((uint32_t) 0x10000008),
-	HTIF0  = ((uint32_t) 0x10000010),
-	TCIF0  = ((uint32_t) 0x10000020),
-	FEIF1  = ((uint32_t) 0x10000040),
-	DMEIF1 = ((uint32_t) 0x10000100),
-	TEIF1  = ((uint32_t) 0x10000200),
-	HTIF1  = ((uint32_t) 0x10000400),
-	TCIF1  = ((uint32_t) 0x10000800),
-	FEIF2  = ((uint32_t) 0x10010000),
-	DMEIF2 = ((uint32_t) 0x10040000),
-	TEIF2  = ((uint32_t) 0x10080000),
-	HTIF2  = ((uint32_t) 0x10100000),
-	TCIF2  = ((uint32_t) 0x10200000),
-	FEIF3  = ((uint32_t) 0x10400000),
-	DMEIF3 = ((uint32_t) 0x11000000),
-	TEIF3  = ((uint32_t) 0x12000000),
-	HTIF3  = ((uint32_t) 0x14000000),
-	TCIF3  = ((uint32_t) 0x18000000),
-	FEIF4  = ((uint32_t) 0x20000001),
-	DMEIF4 = ((uint32_t) 0x20000004),
-	TEIF4  = ((uint32_t) 0x20000008),
-	HTIF4  = ((uint32_t) 0x20000010),
-	TCIF4  = ((uint32_t) 0x20000020),
-	FEIF5  = ((uint32_t) 0x20000040),
-	DMEIF5 = ((uint32_t) 0x20000100),
-	TEIF5  = ((uint32_t) 0x20000200),
-	HTIF5  = ((uint32_t) 0x20000400),
-	TCIF5  = ((uint32_t) 0x20000800),
-	FEIF6  = ((uint32_t) 0x20010000),
-	DMEIF6 = ((uint32_t) 0x20040000),
-	TEIF6  = ((uint32_t) 0x20080000),
-	HTIF6  = ((uint32_t) 0x20100000),
-	TCIF6  = ((uint32_t) 0x20200000),
-	FEIF7  = ((uint32_t) 0x20400000),
-	DMEIF7 = ((uint32_t) 0x21000000),
-	TEIF7  = ((uint32_t) 0x22000000),
-	HTIF7  = ((uint32_t) 0x24000000),
-	TCIF7  = ((uint32_t) 0x28000000)
+	TransferComplete                        = ((uint32_t)0x00000020),
+	HalfTransfer                        = ((uint32_t)0x000000010),
+	TransferError                        = ((uint32_t)0x00000008),
+	DirectModeError                       = ((uint32_t)0x00000004),
+	FifoError                        = ((uint32_t)0x0000001)
 };
+
 
 enum class Interrupt {
 	TransferComplete                        = ((uint32_t)0x00000010),
@@ -186,6 +151,9 @@ enum class Interrupt {
 	DirectModeError                       = ((uint32_t)0x00000002),
 	FifoError                        = ((uint32_t)0x00000080)
 };
+
+ENUM_CLASS_FLAG(Interrupt);
+ENUM_CLASS_FLAG(IntFlag);
 
 #define TRANSFER_IT_ENABLE_MASK (uint32_t)(DMA_SxCR_TCIE | DMA_SxCR_HTIE | \
                                            DMA_SxCR_TEIE | DMA_SxCR_DMEIE)
@@ -201,8 +169,9 @@ class Config {
 public:
 	Config(Channel channel = Channel::Channel_0) {
 		/*-------------- Reset DMA init structure parameters values ----------------*/
-		/* Initialize the DMA_Channel member */
-		_Channel = (uint32_t)channel;
+
+		CR_flags = 0;
+		FCR_flags = 0x21; //reset value
 
 		/* Initialize the DMA_PeripheralBaseAddr member */
 		_PeripheralBaseAddr = 0;
@@ -210,46 +179,15 @@ public:
 		/* Initialize the DMA_Memory0BaseAddr member */
 		_Memory0BaseAddr = 0;
 
-		/* Initialize the DMA_DIR member */
-		_DIR = (uint32_t)XferDir::PeripheralToMemory;
-
 		/* Initialize the DMA_BufferSize member */
 		_BufferSize = 0;
 
-		/* Initialize the DMA_PeripheralInc member */
-		_PeripheralInc = (uint32_t)PeripheralInc::Disable;
-
-		/* Initialize the DMA_MemoryInc member */
-		_MemoryInc = (uint32_t)MemoryInc::Disable;
-
-		/* Initialize the DMA_PeripheralDataSize member */
-		_PeripheralDataSize = (uint32_t)PeripheralDataSize::Byte;
-
-		/* Initialize the DMA_MemoryDataSize member */
-		_MemoryDataSize = (uint32_t)MemoryDataSize::Byte;
-
-		/* Initialize the DMA_Mode member */
-		_Mode = (uint32_t)Mode::Normal;
-
-		/* Initialize the DMA_Priority member */
-		_Priority = (uint32_t)Prioriy::Low;
-
-		/* Initialize the DMA_FIFOMode member */
-		_FIFOMode = (uint32_t)FIFOMode::Disable;
-
-		/* Initialize the DMA_FIFOThreshold member */
-		_FIFOThreshold = (uint32_t)FIFOThreshold::OneQuarterFull;
-
-		/* Initialize the DMA_MemoryBurst member */
-		_MemoryBurst = (uint32_t)MemoryBurst::Single;
-
-		/* Initialize the DMA_PeripheralBurst member */
-		_PeripheralBurst = (uint32_t)PeripheralBurst::Single;
 	}
 
 	ALWAYS_INLINE
 	Config* channel(Channel ch) {
-		_Channel = (uint32_t)ch;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_CHSEL));
+		CR_flags |= (uint32_t)ch;
 		return this;
 	}
 	ALWAYS_INLINE
@@ -264,7 +202,8 @@ public:
 	}
 	ALWAYS_INLINE
 	Config* xferDirection(XferDir dir) {
-		_DIR = (uint32_t)dir;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_DIR));
+		CR_flags |= (uint32_t)dir;
 		return this;
 	}
 	ALWAYS_INLINE
@@ -274,52 +213,75 @@ public:
 	}
 	ALWAYS_INLINE
 	Config* memoryDataSize(MemoryDataSize size) {
-		_MemoryDataSize = (uint32_t)size;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_MSIZE));
+		CR_flags |= (uint32_t)size;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* peripheralDataSize(PeripheralDataSize size) {
-		_PeripheralDataSize = (uint32_t)size;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_PSIZE));
+		CR_flags |= (uint32_t)size;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* peripheralInc(PeripheralInc mode) {
-		_PeripheralInc = (uint32_t)mode;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_PINC));
+		CR_flags |= (uint32_t)mode;
 		return this;
 	}
 	ALWAYS_INLINE
+	Config* flowControl(FlowControl mode) {
+		/* Check the needed flow controller  */
+		if (mode != FlowControl::Memory) {
+			/* Configure DMA_SxCR_PFCTRL bit with the input parameter */
+			CR_flags |= (uint32_t) DMA_SxCR_PFCTRL;
+		} else {
+			/* Clear the PFCTRL bit: Memory is the flow controller */
+			CR_flags &= ~(uint32_t) DMA_SxCR_PFCTRL;
+		}
+		return this;
+	}
+
+	ALWAYS_INLINE
 	Config* memoryInc(MemoryInc mode) {
-		_MemoryInc = (uint32_t)mode;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_MINC));
+		CR_flags |= (uint32_t)mode;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* mode(Mode mode) {
-		_Mode = (uint32_t)mode;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_CIRC));
+		CR_flags |= (uint32_t)mode;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* priority(Prioriy prio) {
-		_Priority = (uint32_t)prio;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_PL));
+		CR_flags |= (uint32_t)prio;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* fifoMode(FIFOMode mode) {
-		_FIFOMode = (uint32_t)mode;
+		FCR_flags &= (uint32_t) ~(DMA_SxFCR_DMDIS);
+		FCR_flags |= (uint32_t)mode;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* fifoThreshold(FIFOThreshold thresh) {
-		_FIFOThreshold = (uint32_t)thresh;
+		FCR_flags &= (uint32_t) ~(DMA_SxFCR_FTH);
+		FCR_flags |= (uint32_t)thresh;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* memoryBurst(MemoryBurst burst) {
-		_MemoryBurst = (uint32_t)burst;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_MBURST));
+		CR_flags |= (uint32_t)burst;
 		return this;
 	}
 	ALWAYS_INLINE
 	Config* peripheralBurst(PeripheralBurst burst) {
-		_PeripheralBurst = (uint32_t)burst;
+		CR_flags &= ((uint32_t) ~(DMA_SxCR_PBURST));
+		CR_flags |= (uint32_t)burst;
 		return this;
 	}
 
@@ -327,8 +289,8 @@ public:
 	///-----------------------///
 private:
 
-	uint32_t _Channel; /*!< Specifies the channel used for the specified stream.
-	 This parameter can be a value of @ref channel */
+	uint32_t FCR_flags;
+	uint32_t CR_flags;
 
 	uint32_t _PeripheralBaseAddr; /*!< Specifies the peripheral base address for DMAy Streamx. */
 
@@ -336,51 +298,10 @@ private:
 	 This memory is the default memory used when double buffer mode is
 	 not enabled. */
 
-	uint32_t _DIR; /*!< Specifies if the data will be transferred from memory to peripheral,
-	 from memory to memory or from peripheral to memory.
-	 This parameter can be a value of @ref DMA_data_transfer_direction */
-
 	uint32_t _BufferSize; /*!< Specifies the buffer size, in data unit, of the specified Stream.
 	 The data unit is equal to the configuration set in DMA_PeripheralDataSize
 	 or DMA_MemoryDataSize members depending in the transfer direction. */
 
-	uint32_t _PeripheralInc; /*!< Specifies whether the Peripheral address register should be incremented or not.
-	 This parameter can be a value of @ref DMA_peripheral_incremented_mode */
-
-	uint32_t _MemoryInc; /*!< Specifies whether the memory address register should be incremented or not.
-	 This parameter can be a value of @ref DMA_memory_incremented_mode */
-
-	uint32_t _PeripheralDataSize; /*!< Specifies the Peripheral data width.
-	 This parameter can be a value of @ref DMA_peripheral_data_size */
-
-	uint32_t _MemoryDataSize; /*!< Specifies the Memory data width.
-	 This parameter can be a value of @ref DMA_memory_data_size */
-
-	uint32_t _Mode; /*!< Specifies the operation mode of the DMAy Streamx.
-	 This parameter can be a value of @ref DMA_circular_normal_mode
-	 @note The circular buffer mode cannot be used if the memory-to-memory
-	 data transfer is configured on the selected Stream */
-
-	uint32_t _Priority; /*!< Specifies the software priority for the DMAy Streamx.
-	 This parameter can be a value of @ref DMA_priority_level */
-
-	uint32_t _FIFOMode; /*!< Specifies if the FIFO mode or Direct mode will be used for the specified Stream.
-	 This parameter can be a value of @ref fifo_direct_mode
-	 @note The Direct mode (FIFO mode disabled) cannot be used if the
-	 memory-to-memory data transfer is configured on the selected Stream */
-
-	uint32_t _FIFOThreshold; /*!< Specifies the FIFO threshold level.
-	 This parameter can be a value of @ref DMA_fifo_threshold_level */
-
-	uint32_t _MemoryBurst; /*!< Specifies the Burst transfer configuration for the memory transfers.
-	 It specifies the amount of data to be transferred in a single non interruptable
-	 transaction. This parameter can be a value of @ref DMA_memory_burst
-	 @note The burst mode is possible only if the address Increment mode is enabled. */
-
-	uint32_t _PeripheralBurst; /*!< Specifies the Burst transfer configuration for the peripheral transfers.
-	 It specifies the amount of data to be transferred in a single non interruptable
-	 transaction. This parameter can be a value of @ref DMA_peripheral_burst
-	 @note The burst mode is possible only if the address Increment mode is enabled. */
 };
 
 class DMAStream {
@@ -389,43 +310,48 @@ public:
 	DMAStream(Stream stream) {
 		DMAy_Streamx = (DMA_Stream_TypeDef*) stream;
 
-		uint8_t id = getStreamIndex((uint32_t)DMAy_Streamx);
+		stream_index = getStreamIndex((uint32_t)DMAy_Streamx);
 
-		if(id == 255) return;
+		if(stream_index == 255) return;
 
-		if(streams[id] == 0) {
-			streams[id] = this;
+		//make sure dma is turned on
+		if(stream_index < 8) {
+			RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+		} else {
+			RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN;
+		}
+
+		if(streams[stream_index] == 0) {
+			streams[stream_index] = this;
 		} else {
 			return;
 		}
 
-		NVIC_EnableIRQ((IRQn_Type)getIRQn());
+		NVIC_EnableIRQ((IRQn_Type)getIRQn(stream_index));
 	}
 
 	~DMAStream() {
-		uint8_t id = getStreamIndex((uint32_t)DMAy_Streamx);
+		if(stream_index == 255) return;
 
-		if(id == 255) return;
-
-		if(streams[id] == this) {
-			streams[id] = 0;
+		if(streams[stream_index] == this) {
+			streams[stream_index] = 0;
 		}
 
-		NVIC_DisableIRQ((IRQn_Type)getIRQn());
+		NVIC_DisableIRQ((IRQn_Type)getIRQn(stream_index));
 	}
 
 	void init(Config &cfg) {
 		uint32_t tmpreg = 0;
 		/*------------------------- DMAy Streamx CR Configuration ------------------*/
 		/* Get the DMAy_Streamx CR value */
-		tmpreg = DMAy_Streamx->CR;
 
-		/* Clear CHSEL, MBURST, PBURST, PL, MSIZE, PSIZE, MINC, PINC, CIRC and DIR bits */
-		tmpreg &= ((uint32_t) ~(DMA_SxCR_CHSEL | DMA_SxCR_MBURST
-				| DMA_SxCR_PBURST |
-				DMA_SxCR_PL | DMA_SxCR_MSIZE | DMA_SxCR_PSIZE |
-				DMA_SxCR_MINC | DMA_SxCR_PINC | DMA_SxCR_CIRC |
-				DMA_SxCR_DIR));
+		DMAy_Streamx->CR &= TRANSFER_IT_ENABLE_MASK;
+		while (DMAy_Streamx->CR & DMA_SxCR_EN);
+
+		clearInterruptFlags(IntFlag::DirectModeError | IntFlag::FifoError |
+				IntFlag::HalfTransfer | IntFlag::TransferComplete | IntFlag::TransferError);
+
+		tmpreg = 0;
 
 		/* Configure DMAy Streamx: */
 		/* Set CHSEL bits according to DMA_CHSEL value */
@@ -438,12 +364,9 @@ public:
 		/* Set PL bits according to DMA_Priority value */
 		/* Set MBURST bits according to DMA_MemoryBurst value */
 		/* Set PBURST bits according to DMA_PeripheralBurst value */
-		tmpreg |= cfg._Channel | cfg._DIR | cfg._PeripheralInc | cfg._MemoryInc
-				| cfg._PeripheralDataSize | cfg._MemoryDataSize | cfg._Mode
-				| cfg._Priority | cfg._MemoryBurst | cfg._PeripheralBurst;
 
 		/* Write to DMAy Streamx CR register */
-		DMAy_Streamx->CR = tmpreg;
+		DMAy_Streamx->CR |= cfg.CR_flags;
 
 		/*------------------------- DMAy Streamx FCR Configuration -----------------*/
 		/* Get the DMAy_Streamx FCR value */
@@ -455,7 +378,7 @@ public:
 		/* Configure DMAy Streamx FIFO:
 		 Set DMDIS bits according to DMA_FIFOMode value
 		 Set FTH bits according to DMA_FIFOThreshold value */
-		tmpreg |= cfg._FIFOMode | cfg._FIFOThreshold;
+		tmpreg |= cfg.FCR_flags;
 
 		/* Write to DMAy Streamx CR */
 		DMAy_Streamx->FCR = tmpreg;
@@ -512,6 +435,7 @@ public:
 	 *                                          is the peripheral.
 	 * @retval None
 	 */
+
 	inline void flowControllerConfig(FlowControl DMA_FlowCtrl) {
 
 		/* Check the needed flow controller  */
@@ -884,101 +808,16 @@ public:
 
 	//convenience function to check if transfer is complete
 	inline bool isComplete() {
-		return getInterruptStatus(Interrupt::TransferComplete);
+		return getInterruptStatus(IntFlag::TransferComplete);
 	}
 
 	inline bool isError() {
-		return getInterruptStatus(Interrupt::TransferError);
+		return getInterruptStatus(IntFlag::TransferError|
+				IntFlag::DirectModeError|IntFlag::FifoError);
 	}
 
-	/**
-	 * @brief  Checks whether the specified DMAy Streamx flag is set or not.
-	 * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
-	 *          to 7 to select the DMA Stream.
-	 * @param  DMA_FLAG: specifies the flag to check.
-	 *          This parameter can be one of the following values:
-	 *            @arg DMA_FLAG_TCIFx:  Streamx transfer complete flag
-	 *            @arg DMA_FLAG_HTIFx:  Streamx half transfer complete flag
-	 *            @arg DMA_FLAG_TEIFx:  Streamx transfer error flag
-	 *            @arg DMA_FLAG_DMEIFx: Streamx direct mode error flag
-	 *            @arg DMA_FLAG_FEIFx:  Streamx FIFO error flag
-	 *         Where x can be 0 to 7 to select the DMA Stream.
-	 * @retval The new state of DMA_FLAG (SET or RESET).
-	 */
-	inline FlagStatus getFlagStatus(IntFlag DMA_FLAG) {
-		FlagStatus bitstatus = RESET;
-		DMA_TypeDef* DMAy;
-		uint32_t tmpreg = 0;
+	const uint8_t flag_bitpos[8] = {0, 6, 16, 22};
 
-		/* Determine the DMA to which belongs the stream */
-		if (DMAy_Streamx < DMA2_Stream0) {
-			/* DMAy_Streamx belongs to DMA1 */
-			DMAy = DMA1;
-		} else {
-			/* DMAy_Streamx belongs to DMA2 */
-			DMAy = DMA2;
-		}
-
-		/* Check if the flag is in HISR or LISR */
-		if (((uint32_t)DMA_FLAG & HIGH_ISR_MASK)) {
-			/* Get DMAy HISR register value */
-			tmpreg = DMAy->HISR;
-		} else {
-			/* Get DMAy LISR register value */
-			tmpreg = DMAy->LISR;
-		}
-
-		/* Mask the reserved bits */
-		tmpreg &= (uint32_t) RESERVED_MASK;
-
-		/* Check the status of the specified DMA flag */
-		if ((tmpreg & (uint32_t)DMA_FLAG)) {
-			/* DMA_FLAG is set */
-			bitstatus = SET;
-		} else {
-			/* DMA_FLAG is reset */
-			bitstatus = RESET;
-		}
-
-		/* Return the DMA_FLAG status */
-		return bitstatus;
-	}
-
-	/**
-	 * @brief  Clears the DMAy Streamx's pending flags.
-	 * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
-	 *          to 7 to select the DMA Stream.
-	 * @param  DMA_FLAG: specifies the flag to clear.
-	 *          This parameter can be any combination of the following values:
-	 *            @arg DMA_FLAG_TCIFx:  Streamx transfer complete flag
-	 *            @arg DMA_FLAG_HTIFx:  Streamx half transfer complete flag
-	 *            @arg DMA_FLAG_TEIFx:  Streamx transfer error flag
-	 *            @arg DMA_FLAG_DMEIFx: Streamx direct mode error flag
-	 *            @arg DMA_FLAG_FEIFx:  Streamx FIFO error flag
-	 *         Where x can be 0 to 7 to select the DMA Stream.
-	 * @retval None
-	 */
-	inline void clearFlag(IntFlag DMA_FLAG) {
-		DMA_TypeDef* DMAy;
-
-		/* Determine the DMA to which belongs the stream */
-		if (DMAy_Streamx < DMA2_Stream0) {
-			/* DMAy_Streamx belongs to DMA1 */
-			DMAy = DMA1;
-		} else {
-			/* DMAy_Streamx belongs to DMA2 */
-			DMAy = DMA2;
-		}
-
-		/* Check if LIFCR or HIFCR register is targeted */
-		if (((uint32_t)DMA_FLAG & HIGH_ISR_MASK) != (uint32_t) RESET) {
-			/* Set DMAy HIFCR register clear flag bits */
-			DMAy->HIFCR = (uint32_t) ((uint32_t)DMA_FLAG & RESERVED_MASK);
-		} else {
-			/* Set DMAy LIFCR register clear flag bits */
-			DMAy->LIFCR = (uint32_t) ((uint32_t)DMA_FLAG & RESERVED_MASK);
-		}
-	}
 
 	/**
 	 * @brief  Enables or disables the specified DMAy Streamx interrupts.
@@ -1022,6 +861,28 @@ public:
 
 	}
 
+	uint32_t getInterruptFlags() {
+		DMA_TypeDef* DMAy;
+
+		/* Determine the DMA to which belongs the stream */
+		if (DMAy_Streamx < DMA2_Stream0) {
+			/* DMAy_Streamx belongs to DMA1 */
+			DMAy = DMA1;
+		} else {
+			/* DMAy_Streamx belongs to DMA2 */
+			DMAy = DMA2;
+		}
+
+		uint8_t idx = stream_index & 7;
+
+		volatile uint32_t* ISR = &DMAy->LISR;
+		if(idx > 3) {
+			ISR = &DMAy->HISR;
+		}
+
+		return (*ISR >> flag_bitpos[idx & 3]) & 0x3F;
+	}
+
 	/**
 	 * @brief  Checks whether the specified DMAy Streamx interrupt has occurred or not.
 	 * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
@@ -1036,10 +897,8 @@ public:
 	 *         Where x can be 0 to 7 to select the DMA Stream.
 	 * @retval The new state of DMA_IT (SET or RESET).
 	 */
-	bool getInterruptStatus(Interrupt DMA_IT) {
-		bool bitstatus = RESET;
+	bool getInterruptStatus(IntFlag DMA_IT) {
 		DMA_TypeDef* DMAy;
-		uint32_t tmpreg = 0, enablestatus = 0;
 
 		/* Determine the DMA to which belongs the stream */
 		if (DMAy_Streamx < DMA2_Stream0) {
@@ -1050,42 +909,14 @@ public:
 			DMAy = DMA2;
 		}
 
-		/* Check if the interrupt enable bit is in the CR or FCR register */
-		if (((uint32_t)DMA_IT & TRANSFER_IT_MASK) != (uint32_t) RESET) {
-			/* Get the interrupt enable position mask in CR register */
-			tmpreg = (uint32_t) (((uint32_t)DMA_IT >> 11) & TRANSFER_IT_ENABLE_MASK);
+		uint8_t idx = stream_index & 7;
 
-			/* Check the enable bit in CR register */
-			enablestatus = (uint32_t) (DMAy_Streamx->CR & tmpreg);
-		} else {
-			/* Check the enable bit in FCR register */
-			enablestatus = (uint32_t) (DMAy_Streamx->FCR & (uint32_t)Interrupt::FifoError);
+		volatile uint32_t* volatile ISR = &DMAy->LISR;
+		if(idx > 3) {
+			ISR = &DMAy->HISR;
 		}
 
-		/* Check if the interrupt pending flag is in LISR or HISR */
-		if (((uint32_t)DMA_IT & HIGH_ISR_MASK) != (uint32_t) RESET) {
-			/* Get DMAy HISR register value */
-			tmpreg = DMAy->HISR;
-		} else {
-			/* Get DMAy LISR register value */
-			tmpreg = DMAy->LISR;
-		}
-
-		/* mask all reserved bits */
-		tmpreg &= (uint32_t) RESERVED_MASK;
-
-		/* Check the status of the specified DMA interrupt */
-		if (((tmpreg & (uint32_t)DMA_IT) != (uint32_t) RESET)
-				&& (enablestatus != (uint32_t) RESET)) {
-			/* DMA_IT is set */
-			bitstatus = SET;
-		} else {
-			/* DMA_IT is reset */
-			bitstatus = RESET;
-		}
-
-		/* Return the DMA_IT status */
-		return bitstatus;
+		return (*ISR >> flag_bitpos[idx & 3]) & (uint32_t)DMA_IT;
 	}
 
 	/**
@@ -1102,7 +933,7 @@ public:
 	 *         Where x can be 0 to 7 to select the DMA Stream.
 	 * @retval None
 	 */
-	void clearInterruptPendingBit(Interrupt DMA_IT) {
+	void clearInterruptFlags(IntFlag DMA_IT) {
 		DMA_TypeDef* DMAy;
 
 		/* Determine the DMA to which belongs the stream */
@@ -1114,37 +945,39 @@ public:
 			DMAy = DMA2;
 		}
 
-		/* Check if LIFCR or HIFCR register is targeted */
-		if (((uint32_t)DMA_IT & HIGH_ISR_MASK) != (uint32_t) RESET) {
-			/* Set DMAy HIFCR register clear interrupt bits */
-			DMAy->HIFCR = (uint32_t) ((uint32_t)DMA_IT & RESERVED_MASK);
-		} else {
-			/* Set DMAy LIFCR register clear interrupt bits */
-			DMAy->LIFCR = (uint32_t) ((uint32_t)DMA_IT & RESERVED_MASK);
+		uint8_t idx = stream_index & 7;
+
+		volatile uint32_t* volatile IFCR = &DMAy->LIFCR;
+		if(idx > 3) {
+			IFCR = &DMAy->HIFCR;
 		}
+
+		*IFCR = (uint64_t)DMA_IT << flag_bitpos[idx & 3];
 	}
 
 	void handleIRQ() {
 		if(callback) {
-			callback(this);
+			callback();
 		}
-		if(getInterruptStatus(Interrupt::TransferComplete)) {
-			clearInterruptPendingBit(Interrupt::TransferComplete);
+		if(getInterruptStatus(IntFlag::TransferComplete)) {
+			clearInterruptFlags(IntFlag::TransferComplete);
 		} else
-		if(getInterruptStatus(Interrupt::TransferError)) {
-			clearInterruptPendingBit(Interrupt::TransferError);
+		if(getInterruptStatus(IntFlag::TransferError)) {
+			clearInterruptFlags(IntFlag::TransferError);
 		}
 	}
 
-	bool attachCallback(xpcc::function<void(DMAStream*)> fn) {
+	bool attachCallback(xpcc::function<void()> fn) {
+		callback = fn;
+
 		interruptConfig(Interrupt::TransferComplete, ENABLE);
 		interruptConfig(Interrupt::TransferError, ENABLE);
-		callback = fn;
+
 		return true;
 	}
 
 	static DMAStream* streams[];
-	xpcc::function<void(DMAStream*)> callback;
+	xpcc::function<void()> callback;
 
 private:
 	uint8_t getStreamIndex(uint32_t stream) {
@@ -1187,47 +1020,46 @@ private:
 	}
 
 	/// get irqn of current stream
-	uint8_t getIRQn() {
-		uint32_t stream = reinterpret_cast<uint32_t>(DMAy_Streamx);
-		switch((Stream)stream) {
-		case Stream::DMA1_0:
+	uint8_t getIRQn(uint8_t idx) {
+		switch(idx) {
+		case 0:
 			return DMA1_Stream0_IRQn;
-		case Stream::DMA1_1:
+		case 1:
 			return DMA1_Stream1_IRQn;
-		case Stream::DMA1_2:
+		case 2:
 			return DMA1_Stream2_IRQn;
-		case Stream::DMA1_3:
+		case 3:
 			return DMA1_Stream3_IRQn;
-		case Stream::DMA1_4:
+		case 4:
 			return DMA1_Stream4_IRQn;
-		case Stream::DMA1_5:
+		case 5:
 			return DMA1_Stream5_IRQn;
-		case Stream::DMA1_6:
+		case 6:
 			return DMA1_Stream6_IRQn;
-		case Stream::DMA1_7:
+		case 7:
 			return DMA1_Stream7_IRQn;
-		case Stream::DMA2_0:
+		case 8:
 			return DMA2_Stream0_IRQn;
-		case Stream::DMA2_1:
+		case 9:
 			return DMA2_Stream1_IRQn;
-		case Stream::DMA2_2:
+		case 10:
 			return DMA2_Stream2_IRQn;
-		case Stream::DMA2_3:
+		case 11:
 			return DMA2_Stream3_IRQn;
-		case Stream::DMA2_4:
+		case 12:
 			return DMA2_Stream4_IRQn;
-		case Stream::DMA2_5:
+		case 13:
 			return DMA2_Stream5_IRQn;
-		case Stream::DMA2_6:
+		case 14:
 			return DMA2_Stream6_IRQn;
-		case Stream::DMA2_7:
+		case 15:
 			return DMA2_Stream7_IRQn;
 		default:
 			return 255;
 		}
 	}
 
-
+	uint8_t stream_index;
 	DMA_Stream_TypeDef* DMAy_Streamx;
 };
 
@@ -1235,4 +1067,3 @@ private:
 }
 }
 
-#endif /* SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_DMA_DMA_CHANNEL_HPP_ */

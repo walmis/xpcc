@@ -149,6 +149,7 @@
 	inline uint32_t operator&(name a, uint32_t b) \
 	{return (static_cast<uint32_t>(a) & (b));}
 
+	#define SECTION(s) __attribute__((section(s)))
 
 #endif	// !__DOXYGEN__
 

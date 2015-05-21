@@ -31,6 +31,12 @@ namespace stm32 {
  * @ingroup		stm32
  */
 
+#if defined(STM32F411xE)
+#define USART3 0
+#define UART4 0
+#define UART5 0
+#endif
+
 USART_TypeDef* const _uart[] = {USART1, USART2, USART3, UART4, UART5, USART6};
 
 #define UARTx (_uart[uartid-1])
@@ -194,7 +200,8 @@ public:
 ////	%% endif
 //	}
 
-	static void initialize(uint32_t baudrate, Parity parity = Parity::Disabled, OversamplingMode oversample =OversamplingMode::By8) {
+
+	static void init(uint32_t baudrate, Parity parity = Parity::Disabled, OversamplingMode oversample =OversamplingMode::By8) {
 		enable();
 		// DIRTY HACK: disable and reenable uart to be able to set
 		//             baud rate as well as parity
@@ -207,6 +214,8 @@ public:
 
 		setTransmitterEnable(true);
 		setReceiverEnable(true);
+
+		enableInterruptVector(true, 0xF);
 	}
 
 	static void setOversamplingMode(OversamplingMode mode) {
@@ -240,12 +249,41 @@ public:
 	}
 //	%% endif
 
-	static void put(uint8_t data) {
-		UARTx->DR = data;
+	static void flush() {}
+
+	static inline size_t write(uint8_t byte) {
+		while(!isTransmitRegisterEmpty());
+		put(byte);
+		return 1;
 	}
 
-	static uint8_t get() {
+	static inline int16_t read() {
+		if(isReceiveRegisterNotEmpty())	{
+			return get();
+		}
+		return -1;
+	}
+
+	static inline void put(uint8_t data) {
+		UARTx->DR = data;
+		sending = 1;
+	}
+
+	static inline uint8_t get() {
 		return UARTx->DR;
+	}
+
+	static inline bool txBusy() {
+		//return !isTransmitRegisterEmpty();
+		return sending;
+	}
+
+	static inline bool txEmpty() {
+		return isTransmitRegisterEmpty();
+	}
+
+	static inline bool rxEmpty() {
+		return !isReceiveRegisterNotEmpty();
 	}
 
 	static void setTransmitterEnable(const bool enable) {
@@ -264,7 +302,7 @@ public:
 		}
 	}
 
-	static bool isReceiveRegisterNotEmpty() {
+	static inline bool isReceiveRegisterNotEmpty() {
 //	%% if target is stm32f0 or target is stm32f3
 //		return UARTx->ISR & USART_ISR_RXNE;
 //	%% elif target is stm32f2 or target is stm32f4
@@ -272,7 +310,7 @@ public:
 //	%% endif
 	}
 
-	static bool isTransmitRegisterEmpty() {
+	static inline bool isTransmitRegisterEmpty() {
 //	%% if target is stm32f0 or target is stm32f3
 //		return UARTx->ISR & USART_ISR_TXE;
 //	%% elif target is stm32f2 or target is stm32f4
@@ -371,7 +409,10 @@ public:
 		// Transmit Data Register empty
 		if (state & USART_SR_TC)
 		{
+			sending = 0;
+			UARTx->SR &= ~USART_SR_TC;
 			if(txCallback) txCallback();
+
 
 		} // USART_SR_TXE
 	}
@@ -379,6 +420,7 @@ public:
 private:
 	static void (*txCallback)();
 	static void (*rxCallback)();
+	static bool sending;
 
 	static uint32_t getClock() {
 		if ((uartid == 1) || (uartid == 6)) {
@@ -388,6 +430,9 @@ private:
 		}
 	}
 };
+
+template<int uartid>
+bool Uart<uartid>::sending = 0;
 
 typedef Uart<1> Usart1;
 typedef Uart<2> Usart2;

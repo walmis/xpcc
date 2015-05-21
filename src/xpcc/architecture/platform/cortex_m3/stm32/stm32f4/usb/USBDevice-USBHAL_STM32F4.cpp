@@ -57,8 +57,8 @@ USBHAL::USBHAL(void) {
 //    pin_function(PA_10, STM_PIN_DATA(2, 10));
 //    pin_function(PA_11, STM_PIN_DATA(2, 10));
 //    pin_function(PA_12, STM_PIN_DATA(2, 10));
-    PA11::setFunction(AltFunction::AF_OTG_FS);
-    PA12::setFunction(AltFunction::AF_OTG_FS);
+    stm32::PA11::setFunction(stm32::AltFunction::AF_OTG_FS);
+    stm32::PA12::setFunction(stm32::AltFunction::AF_OTG_FS);
 
     // Set ID pin to open drain with pull-up resistor
     //pin_mode(PA_10, OpenDrain);

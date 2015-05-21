@@ -36,6 +36,9 @@ namespace stm32 {
 /* ------------ SDIO registers bit address in the alias region ----------- */
 #define SDIO_OFFSET                (SDIO_BASE - PERIPH_BASE)
 
+#define SDIO_CPSM_Disable                    ((uint32_t)0x00000000)
+#define SDIO_CPSM_Enable                     ((uint32_t)0x00000400)
+
 /* --- CLKCR Register ---*/
 /* Alias word address of CLKEN bit */
 #define CLKCR_OFFSET              (SDIO_OFFSET + 0x04)
@@ -135,6 +138,8 @@ public:
 		SDIOIT = ((uint32_t) 0x00400000),
 		CEATAEND = ((uint32_t) 0x00800000)
 	};
+
+
 #define IS_SDIO_IT(IT) ((((IT) & (uint32_t)0xFF000000) == 0x00) && ((IT) != (uint32_t)0x00))
 	/**
 	 * @}
@@ -267,7 +272,7 @@ public:
 	}
 
 	static inline void sendCommand(uint32_t argument, uint32_t cmdindex,
-			ResponseType rtype, SDIOWait wait = SDIOWait::NoWait) {
+			ResponseType resptype, SDIOWait wait = SDIOWait::NoWait) {
 		uint32_t tmpreg;
 		/*---------------------------- SDIO ARG Configuration ------------------------*/
 		/* Set the SDIO Argument value */
@@ -282,8 +287,8 @@ public:
 		/* Set WAITRESP bits according to SDIO_Response value */
 		/* Set WAITINT and WAITPEND bits according to SDIO_Wait value */
 		/* Set CPSMEN bits according to SDIO_CPSM value */
-		tmpreg |= (uint32_t) cmdindex | (uint32_t) rtype | (uint32_t) wait
-				| 0x01;
+		tmpreg |= ((uint32_t) cmdindex & SDIO_CMD_CMDINDEX) | ((uint32_t) resptype & SDIO_CMD_WAITRESP) | (uint32_t) wait
+				| SDIO_CPSM_Enable;
 
 		/* Write to SDIO CMD */
 		SDIO->CMD = tmpreg;
@@ -303,7 +308,7 @@ public:
 
 	static inline void startDataTransaction(TransferDir dir, uint32_t length,
 			TransferMode mode = TransferMode::Block, DataBlockSize bs =
-					DataBlockSize::_512b, uint32_t timeout = 0xFFFF) {
+					DataBlockSize::_512b, uint32_t timeout = 0xFFFFFF) {
 
 		uint32_t tmpreg;
 		/* Set the SDIO Data TimeOut value */
@@ -326,6 +331,13 @@ public:
 
 		/* Write to SDIO DCTRL */
 		SDIO->DCTRL = tmpreg;
+	}
+
+	static inline void resetDataPath() {
+		SDIO->DCTRL = 0;
+	}
+	static inline void resetCommandPath() {
+		SDIO->CMD = 0;
 	}
 
 	static inline uint32_t getDataCounter(void) {
@@ -415,6 +427,9 @@ public:
 			SDIO->MASK &= ~(uint32_t) it;
 		}
 	}
+	static inline uint32_t getInterruptFlags() {
+		return SDIO->STA;
+	}
 
 	static inline bool getInterruptStatus(Interrupt it) {
 		if ((SDIO->STA & (uint32_t) it)) {
@@ -429,6 +444,8 @@ public:
 	}
 
 };
+
+ENUM_CLASS_FLAG(SDIO_HAL::Interrupt);
 
 }
 }

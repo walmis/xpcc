@@ -63,7 +63,7 @@
 
 #pragma once
 
-#include <stm32f4xx.h>
+#include "stm32/device.hpp"
 
 //#include "stm32/device.h"
 //
@@ -157,11 +157,21 @@
 #include "stm32/stm32f4/usb/USBDevice-USBEndpoints_STM32F4.h"
 #include "stm32/stm32f4/gpio/gpio.hpp"
 #include "stm32/stm32f4/gpio/gpio_interrupt.hpp"
-#include "stm32/stm32f4/timer/general_purpose.hpp"
-#include "stm32/stm32f4/uart/uart_hal.hpp"
 #include "stm32/stm32f4/rcc.hpp"
+#include "stm32/stm32f4/dma/dma.hpp"
+
 #include "stm32/stm32f4/i2c/i2c_master.hpp"
+#include "stm32/stm32f4/uart/uart_hal.hpp"
+
+#include "stm32/stm32f4/timer/advanced.hpp"
+#include "stm32/stm32f4/timer/general_purpose.hpp"
+
 #include "stm32/stm32f4/spi/spi_hal.hpp"
 #include "stm32/stm32f4/sdio/sdio_hal.hpp"
-#include "stm32/stm32f4/dma/dma.hpp"
+#include "stm32/stm32f4/sdio/sdio_sdcard.hpp"
+
+#include "stm32/stm32f4/adc/adc.hpp"
+
+#include "common/buffered_uart.hpp"
+
 #endif

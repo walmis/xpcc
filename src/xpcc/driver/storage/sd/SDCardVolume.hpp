@@ -9,10 +9,10 @@
 #define SDIO_HPP_
 
 #include <xpcc/processing.hpp>
-#include "SDCard.h"
 #include <fatfs/diskio.h>
 #include <fatfs/ff.h>
 #include <xpcc/driver/storage/fat.hpp>
+#include <xpcc/driver/storage/sd/SDCardSPI.h>
 
 
 template <typename Card>
@@ -29,7 +29,7 @@ public:
 	DSTATUS doInitialize () override {
 		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 
-		if(!this->initialise())
+		if(!this->init())
 			return STA_NODISK;
 
 		return 0;
@@ -37,7 +37,7 @@ public:
 
 	DSTATUS doGetStatus () override {
 		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
-		if(!this->initialized) {
+		if(!this->isInitialized()) {
 			return STA_NODISK;
 		}
 
@@ -194,7 +194,7 @@ public:
 			if(!this->initialized) {
 				*buffer = 0;
 			} else {
-				*buffer = this->_sectors;
+				*buffer = this->getSectorCount();
 			}
 			return RES_OK;
 		case GET_SECTOR_SIZE:
