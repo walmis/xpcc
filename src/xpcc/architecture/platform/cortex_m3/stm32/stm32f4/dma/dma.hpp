@@ -140,7 +140,8 @@ enum class IntFlag {
 	HalfTransfer                        = ((uint32_t)0x000000010),
 	TransferError                        = ((uint32_t)0x00000008),
 	DirectModeError                       = ((uint32_t)0x00000004),
-	FifoError                        = ((uint32_t)0x0000001)
+	FifoError                        = ((uint32_t)0x0000001),
+	All = TransferComplete | HalfTransfer | TransferError | DirectModeError | FifoError
 };
 
 

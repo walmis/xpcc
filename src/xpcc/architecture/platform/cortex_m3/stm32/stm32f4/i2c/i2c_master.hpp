@@ -29,6 +29,137 @@ namespace stm32
  * @ingroup		stm32
  */
 
+/*
+ * This driver was not so straight forward to implement, because the official
+ * documentation by ST is not so clear about the reading operation.
+ * So here is the easier to understand version (# = wait for next interrupt).
+ *
+ * Writing:
+ * --------
+ *	- set start bit
+ *	#
+ *	- check SB bit
+ *	- write address
+ *	#
+ *	- check ADDR bit
+ *	- clear ADDR bit
+ *	- if no bytes are to be written, check for next operation immediately
+ *	#
+ *	- check TXE bit
+ *	- write data
+ *	- on write of last bytes, disable Buffer interrupt, and wait for BTF interrupt
+ *	#
+ *	- check BTF bit
+ *	- if no bytes left, check for next operation
+ *
+ * It is important to note, that we wait for the last byte transfer to complete
+ * before checking the next operation.
+ *
+ *
+ * Reading is a lot more complicated. In master read mode, the controller can
+ * stretch the SCL line low, while there is new received data in the registers.
+ *
+ * The data and the shift register together hold two bytes, so we have to send
+ * NACK and the STOP condition two bytes in advance and then read both bytes!!!
+ *
+ * 1-byte read:
+ * ------------
+ *	- set start bit (RESTART!)
+ *	#
+ *	- check SB bit
+ *	- set ACK low
+ *	- write address
+ *	#
+ *	- check ADDR bit
+ *	- clear ADDR bit
+ *	- set STOP high
+ *	- (wait until STOP low)
+ *	- read data 1
+ *	- check for next operation
+ *
+ * 2-byte read:
+ * ------------
+ *	- set start bit (RESTART!)
+ *	#
+ *	- check SB bit
+ *	- set ACK low
+ *	- set POS high (must be used ONLY in two byte transfers, clear it afterwards!)
+ *	- write address
+ *	#
+ *	- check ADDR bit
+ *	- clear ADDR bit
+ *	#
+ *	- check BTF bit
+ *	- set STOP high
+ *	- read data 1
+ *	- (wait until STOP low)
+ *	- read data 2
+ *	- check for next operation
+ *
+ * 3-byte read:
+ * ------------
+ *	- set start bit (RESTART!)
+ *	#
+ *	- check SB bit
+ *	- write address
+ *	#
+ *	- check ADDR bit
+ *	- clear ADDR bit
+ *	#
+ *	- check BTF bit
+ *	- set ACK LOW
+ *	- read data 1
+ *	#
+ *	- check BTF bit
+ *	- set STOP high
+ *	- read data 1
+ *	- (wait until STOP low)
+ *	- read data 2
+ *	- check for next operation
+ *
+ * N-byte read:
+ * -------------
+ *	- set start bit (RESTART!)
+ *	#
+ *	- check SB bit
+ *	- write address
+ *	#
+ *	- check ADDR bit
+ *	- enable Buffer Interrupt
+ *	- clear ADDR bit
+ *	#
+ *	- check RXNE bit
+ *	- read data < N-3
+ *	#
+ *	- check RXNE bit
+ *	- read data N-3
+ *	- disable Buffer Interrupt
+ *	#
+ *	- check BTF bit
+ *	- set ACK low
+ *	- read data N-2
+ *	#
+ *	- check BTF bit
+ *	- set STOP high
+ *	- read data N-1
+ *	- (wait until STOP low)
+ *	- read data N
+ *	- check for next operation
+ *
+ * Please read the documentation of the driver before you attempt to fix this
+ * driver. I strongly recommend the use of an logic analyzer or oscilloscope,
+ * to confirm the drivers behavior.
+ * The event states are labeled as 'EVn_m' in reference to the manual.
+ */
+
+/* To debug the internal state of the driver, you can instantiate a
+ * xpcc::IOStream, which will then be used to dump state data of the operations
+ * via the serial port.
+ * Be advised, that a typical I2C read/write operation can take 10 to 100 longer
+ * because the strings have to be copied during the interrupt!
+ *
+ * You can enable serial debugging with this define.
+ */
 
 #define SERIAL_DEBUGGING 0
 
@@ -173,7 +304,7 @@ public:
 			switch (s.next)
 			{
 				case xpcc::I2c::Operation::Read:
-					address = (s.address & 0xfe) | xpcc::I2c::READ;
+					address = ((s.address<<1) & 0xfe) | xpcc::I2c::READ;
 					initializeRead(delegate->reading());
 					if (readBytesLeft <= 2)
 					{
@@ -194,20 +325,20 @@ public:
 					break;
 
 				case xpcc::I2c::Operation::Write:
-					address = (s.address & 0xfe) | xpcc::I2c::WRITE;
+					address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 					initializeWrite(delegate->writing());
 					DEBUG_STREAM("write op: writing=" << writeBytesLeft);
 					break;
 
 				case xpcc::I2c::Operation::Restart:
-					address = (s.address & 0xfe) | xpcc::I2c::WRITE;
+					address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 					initializeRestartAfterAddress();
 					DEBUG_STREAM("restart op");
 					break;
 
 				default:
 				case xpcc::I2c::Operation::Stop:
-					address = (s.address & 0xfe) | xpcc::I2c::WRITE;
+					address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 					initializeStopAfterAddress();
 					DEBUG_STREAM("stop op");
 					break;
@@ -241,11 +372,10 @@ public:
 				DEBUG_STREAM("STOP");
 				I2Cx->CR1 |= I2C_CR1_STOP;
 
-	#if WAIT_FOR_STOP_LOW
 				DEBUG_STREAM("waiting for stop");
-				while (I2Cx->CR1 & I2C_CR1_STOP)
+				uint_fast32_t deadlockPreventer = 100000;
+				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
 					;
-	#endif
 
 				uint16_t dr = I2Cx->DR;
 				*readPointer++ = dr & 0xff;
@@ -312,11 +442,11 @@ public:
 				uint16_t dr = I2Cx->DR;
 				*readPointer++ = dr & 0xff;
 
-	#if WAIT_FOR_STOP_LOW
+
 				DEBUG_STREAM("waiting for stop");
-				while (I2Cx->CR1 & I2C_CR1_STOP)
+				uint_fast32_t deadlockPreventer = 100000;
+				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
 					;
-	#endif
 
 				DEBUG_STREAM("reading data2");
 				dr = I2Cx->DR;
@@ -377,9 +507,10 @@ public:
 
 					DEBUG_STREAM("disable interrupts");
 					I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN | I2C_CR2_ITERREN);
+					checkNextOperation = CHECK_NEXT_OPERATION_NO;
 					reset(xpcc::I2c::DetachCause::NormalStop);
 					DEBUG_STREAM("write finished");
-					break;
+					return;
 			}
 			checkNextOperation = CHECK_NEXT_OPERATION_NO;
 		}
@@ -391,29 +522,27 @@ public:
 
 		if (sr1 & I2C_SR1_BERR)
 		{
-			DEBUG_STREAM("BUS ERROR");
+			XPCC_LOG_ERROR << "I2C BUS ERROR\n";
 			I2Cx->CR1 |= I2C_CR1_STOP;
 			error = xpcc::I2cMaster::Error::BusCondition;
 		}
 		else if (sr1 & I2C_SR1_AF)
 		{	// acknowledge fail
 			I2Cx->CR1 |= I2C_CR1_STOP;
-			DEBUG_STREAM("ACK FAIL");
+			//DEBUG_STREAM("I2C ERR ACK FAIL");
 			 // may also be ADDRESS_NACK
 			error = xpcc::I2cMaster::Error::DataNack;
 		}
 		else if (sr1 & I2C_SR1_ARLO)
 		{	// arbitration lost
-			DEBUG_STREAM("ARBITRATION LOST");
+			XPCC_LOG_ERROR << "I2C ERR ARBITRATION LOST\n";
 			error = xpcc::I2cMaster::Error::ArbitrationLost;
 		}
 		else
 		{
-			DEBUG_STREAM("UNKNOWN");
+			XPCC_LOG_ERROR << "I2C ERR UNKNOWN\n";
 			error = xpcc::I2cMaster::Error::Unknown;
 		}
-
-		reset(xpcc::I2c::DetachCause::ErrorCondition);
 		// Overrun error is not handled here separately
 
 		// Clear flags and interrupts
@@ -426,6 +555,9 @@ public:
 
 		DEBUG_STREAM("disable interrupts");
 		I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN | I2C_CR2_ITERREN);
+
+		reset(xpcc::I2c::DetachCause::ErrorCondition);
+
 	}
 
 
@@ -480,6 +612,30 @@ private:
 	static inline void
 	callStarting()
 	{
+		uint_fast32_t deadlockPreventer = 100000;
+		while ((I2Cx->CR1 & I2C_CR1_STOP) and (deadlockPreventer-- > 0))
+			;
+
+		// If the bus is busy during a starting condition, we generate an error and detach the transaction
+		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
+		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
+		{
+			// we wait a short amount of time for the bus to become free.
+			deadlockPreventer = 10000;
+			while ((I2Cx->SR2 & I2C_SR2_BUSY) and (deadlockPreventer-- > 0))
+				;
+
+			if (I2Cx->SR2 & I2C_SR2_BUSY)
+			{
+				// either SDA or SCL is low, which leads to irrecoverable deadlock.
+				// Call error handler manually to detach the transaction object and resolve the deadlock.
+				// Further transactions may not succeed either, but will not lead to a deadlock.
+				error = xpcc::I2cMaster::Error::BusCondition;
+				reset(DetachCause::ErrorCondition);
+				return;
+			}
+		}
+
 		DEBUG_STREAM("callStarting");
 
 		I2Cx->CR1 &= ~I2C_CR1_POS;

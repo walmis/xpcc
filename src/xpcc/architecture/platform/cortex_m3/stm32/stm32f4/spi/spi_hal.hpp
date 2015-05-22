@@ -123,9 +123,15 @@ public:
 	acknowledgeInterruptFlag(InterruptFlag flags);
 };
 
+typedef SpiHal<1> Spi1;
+typedef SpiHal<2> Spi2;
+typedef SpiHal<3> Spi3;
+
 } // namespace stm32
 
 } // namespace xpcc
+
+
 
 #include "spi_hal_impl.hpp"
 

@@ -32,6 +32,20 @@ void Usart1::disable() {
 	RCC->APB2ENR &= ~RCC_APB2ENR_USART1EN;
 }
 
+template<>
+void Usart1::enableInterruptVector(bool enable, uint32_t priority)
+{
+	if (enable) {
+		// Set priority for the interrupt vector
+		NVIC_SetPriority(USART1_IRQn, priority);
+
+		// register IRQ at the NVIC
+		NVIC_EnableIRQ (USART1_IRQn);
+	} else {
+		NVIC_DisableIRQ (USART1_IRQn);
+	}
+}
+
 extern "C" void
 USART1_IRQHandler()
 {
