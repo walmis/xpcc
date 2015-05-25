@@ -211,7 +211,6 @@ public:
 
 		delegate = 0;
 
-		reset();
 		// Enable clock
 		switch(i2cid) {
 		case 1:
@@ -231,15 +230,40 @@ public:
 			break;
 		}
 
+		setIrqPriority(0xF);
+
 		I2Cx->CR1 = I2C_CR1_SWRST; 		// reset module
 		I2Cx->CR1 = 0;
 
 		I2Cx->CR2 = static_cast<uint32_t>(peripheralFrequency) / 1000000;
 		I2Cx->CCR = prescaler;
+
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
 		I2Cx->TRISE = 0x09;
+		I2Cx->FLTR = 0x04;
+		//I2Cx->FLTR = 0x09;
 
 		I2Cx->CR1 |= I2C_CR1_PE; // Enable peripheral
+		I2Cx->CR2 |= I2C_CR2_ITERREN;
+
+		reset();
+	}
+
+	static inline void setIrqPriority(uint8_t prio) {
+		switch(i2cid) {
+		case 1:
+			NVIC_SetPriority(I2C1_ER_IRQn, prio);
+			NVIC_SetPriority(I2C1_EV_IRQn, prio);
+			break;
+		case 2:
+			NVIC_SetPriority(I2C2_ER_IRQn, prio);
+			NVIC_SetPriority(I2C2_EV_IRQn, prio);
+			break;
+		case 3:
+			NVIC_SetPriority(I2C3_ER_IRQn, prio);
+			NVIC_SetPriority(I2C3_EV_IRQn, prio);
+			break;
+		}
 	}
 
 	// start documentation inherited
@@ -255,9 +279,13 @@ public:
 
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
+		xpcc::atomic::Lock l;
+
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
-		xpcc::atomic::Lock l;
+		//I2Cx->CR1 &= ~I2C_CR1_PE;
+
+		busReset();
 
 		if (delegate != 0) {
 			I2cDelegate* old = delegate;
@@ -290,7 +318,6 @@ public:
 	// parameter advice
 	static void handleIRQ() {
 		DEBUG_STREAM("\n--- interrupt ---");
-
 		uint16_t sr1 = I2Cx->SR1;
 
 		if (sr1 & I2C_SR1_SB)
@@ -347,12 +374,12 @@ public:
 			I2Cx->DR = address;
 		}
 		else if (sr1 & I2C_SR1_ADDR) {
-
 			// EV6: ADDR=1, cleared by reading SR1 register followed by reading SR2.
 			DEBUG_STREAM("address sent");
 			DEBUG_STREAM("writeBytesLeft=" << writeBytesLeft);
 			DEBUG_STREAM("readBytesLeft=" << readBytesLeft);
 
+			xpcc::atomic::Lock l;
 			if (writeBytesLeft > 0 || readBytesLeft > 3)
 			{
 				DEBUG_STREAM("enable buffers");
@@ -363,24 +390,30 @@ public:
 				checkNextOperation = CHECK_NEXT_OPERATION_YES;
 			}
 
+			// Only after setting ACK, read SR2 to clear the ADDR (next byte will start arriving)
 			DEBUG_STREAM("clearing ADDR");
 			uint16_t sr2 = I2Cx->SR2;
 			(void) sr2;
 
 			if (readBytesLeft == 1)
 			{
+				// Schedule a Stop
 				DEBUG_STREAM("STOP");
 				I2Cx->CR1 |= I2C_CR1_STOP;
 
-				DEBUG_STREAM("waiting for stop");
-				uint_fast32_t deadlockPreventer = 100000;
-				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
-					;
+				// Enable the RXNE: it will trigger as soon as the 1 byte is received to get the result
+				I2Cx->CR2 |= I2C_CR2_ITBUFEN;
 
-				uint16_t dr = I2Cx->DR;
-				*readPointer++ = dr & 0xff;
-				readBytesLeft = 0;
-				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
+//				DEBUG_STREAM("waiting for stop");
+//				PB15::set();
+//				uint_fast32_t deadlockPreventer = 100000;
+//				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+//					;
+//				PB15::reset();
+//				uint16_t dr = I2Cx->DR;
+//				*readPointer++ = dr & 0xff;
+//				readBytesLeft = 0;
+				checkNextOperation = CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF;
 			}
 		}
 
@@ -419,6 +452,14 @@ public:
 				DEBUG_STREAM("RXNE: readBytesLeft=" << readBytesLeft);
 			}
 
+			if(readBytesLeft == 1) {
+
+				uint16_t dr = I2Cx->DR;
+				*readPointer++ = dr & 0xff;
+				readBytesLeft = 0;
+
+				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
+			}
 			if (readBytesLeft <= 3)
 			{
 				// disable RxNE, and wait for BTF
@@ -439,18 +480,10 @@ public:
 				I2Cx->CR1 |= I2C_CR1_STOP;
 
 				DEBUG_STREAM("reading data1");
-				uint16_t dr = I2Cx->DR;
-				*readPointer++ = dr & 0xff;
-
-
-				DEBUG_STREAM("waiting for stop");
-				uint_fast32_t deadlockPreventer = 100000;
-				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
-					;
+				*readPointer++ = I2Cx->DR & 0xff;
 
 				DEBUG_STREAM("reading data2");
-				dr = I2Cx->DR;
-				*readPointer++ = dr & 0xff;
+				*readPointer++ = I2Cx->DR & 0xff;
 
 				readBytesLeft = 0;
 				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
@@ -506,7 +539,7 @@ public:
 					}
 
 					DEBUG_STREAM("disable interrupts");
-					I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN | I2C_CR2_ITERREN);
+					I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN /*| I2C_CR2_ITERREN*/);
 					checkNextOperation = CHECK_NEXT_OPERATION_NO;
 					reset(xpcc::I2c::DetachCause::NormalStop);
 					DEBUG_STREAM("write finished");
@@ -518,18 +551,23 @@ public:
 
 	static void handleERR_IRQ() {
 		DEBUG_STREAM("ERROR!");
+
 		uint16_t sr1 = I2Cx->SR1;
 
 		if (sr1 & I2C_SR1_BERR)
 		{
 			XPCC_LOG_ERROR << "I2C BUS ERROR\n";
-			I2Cx->CR1 |= I2C_CR1_STOP;
+			//busReset();
 			error = xpcc::I2cMaster::Error::BusCondition;
 		}
 		else if (sr1 & I2C_SR1_AF)
 		{	// acknowledge fail
 			I2Cx->CR1 |= I2C_CR1_STOP;
-			//DEBUG_STREAM("I2C ERR ACK FAIL");
+			uint_fast32_t deadlockPreventer = 10000;
+			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+				;
+
+			XPCC_LOG_ERROR << "I2C ERR ACK FAIL\n";
 			 // may also be ADDRESS_NACK
 			error = xpcc::I2cMaster::Error::DataNack;
 		}
@@ -547,17 +585,43 @@ public:
 
 		// Clear flags and interrupts
 		I2Cx->CR1 &= ~I2C_CR1_POS;
+
 		I2Cx->SR1 = 0;
 		I2Cx->SR2 = 0;
+
 		writeBytesLeft = 0;
 		readBytesLeft = 0;
 		checkNextOperation = CHECK_NEXT_OPERATION_NO;
 
 		DEBUG_STREAM("disable interrupts");
-		I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN | I2C_CR2_ITERREN);
+		I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN /*| I2C_CR2_ITERREN*/);
 
 		reset(xpcc::I2c::DetachCause::ErrorCondition);
+	}
 
+	static inline void busReset() {
+		//XPCC_LOG_ERROR << "I2C BUS RESET\n";
+
+		//save registers
+		//uint32_t CR1 = I2Cx->CR1 & 0xFF; //mask only setting bits
+		uint32_t CR1 = 1;
+		uint32_t CR2 = I2Cx->CR2;
+		uint32_t CCR = I2Cx->CCR;
+		uint32_t TRISE = I2Cx->TRISE;
+		uint32_t FLTR = I2Cx->FLTR;
+
+		//reset peripheral
+		I2Cx->CR1 = I2C_CR1_SWRST;
+		//wait for reset
+		while(I2Cx->CR2 != 0);
+		I2Cx->CR1 = 0;
+
+		//restore registers
+		I2Cx->TRISE = TRISE;
+		I2Cx->FLTR = FLTR;
+		I2Cx->CCR = CCR;
+		I2Cx->CR2 = CR2;
+		I2Cx->CR1 = CR1;
 	}
 
 
@@ -612,6 +676,9 @@ private:
 	static inline void
 	callStarting()
 	{
+	//	busReset();
+		I2Cx->CR1 |= I2C_CR1_PE;
+
 		uint_fast32_t deadlockPreventer = 100000;
 		while ((I2Cx->CR1 & I2C_CR1_STOP) and (deadlockPreventer-- > 0))
 			;
@@ -637,19 +704,20 @@ private:
 		}
 
 		DEBUG_STREAM("callStarting");
+		error = xpcc::I2cMaster::Error::NoError;
+		checkNextOperation = CHECK_NEXT_OPERATION_NO;
 
 		I2Cx->CR1 &= ~I2C_CR1_POS;
 		I2Cx->SR1 = 0;
 		I2Cx->SR2 = 0;
 
-		// generate startcondition
-		I2Cx->CR1 |= I2C_CR1_START;
-		checkNextOperation = CHECK_NEXT_OPERATION_NO;
-
 		// and enable interrupts
 		DEBUG_STREAM("enable interrupts");
 		I2Cx->CR2 &= ~I2C_CR2_ITBUFEN;
 		I2Cx->CR2 |= I2C_CR2_ITEVTEN | I2C_CR2_ITERREN;
+
+		// generate startcondition
+		I2Cx->CR1 |= I2C_CR1_START;
 	}
 
 private:
