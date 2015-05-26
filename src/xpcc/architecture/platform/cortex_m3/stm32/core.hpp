@@ -33,6 +33,16 @@
 
 #include <stdint.h>
 
+template<typename Gpio>
+struct GpioProfiler {
+	GpioProfiler() {
+		Gpio::set();
+	}
+	~GpioProfiler() {
+		Gpio::reset();
+	}
+};
+
 namespace xpcc
 {
 	namespace stm32

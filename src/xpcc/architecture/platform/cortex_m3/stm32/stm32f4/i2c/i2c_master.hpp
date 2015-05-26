@@ -240,8 +240,8 @@ public:
 
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
 		I2Cx->TRISE = 0x09;
-		I2Cx->FLTR = 0x04;
-		//I2Cx->FLTR = 0x09;
+		//I2Cx->FLTR = 0x04;
+		I2Cx->FLTR = I2C_FLTR_ANOFF;
 
 		I2Cx->CR1 |= I2C_CR1_PE; // Enable peripheral
 		I2Cx->CR2 |= I2C_CR2_ITERREN;
@@ -319,6 +319,7 @@ public:
 	static void handleIRQ() {
 		DEBUG_STREAM("\n--- interrupt ---");
 		uint16_t sr1 = I2Cx->SR1;
+		//XPCC_LOG_DEBUG << sr1 << endl;
 
 		if (sr1 & I2C_SR1_SB)
 		{
@@ -380,20 +381,35 @@ public:
 			DEBUG_STREAM("readBytesLeft=" << readBytesLeft);
 
 			xpcc::atomic::Lock l;
+			// Only after setting ACK, read SR2 to clear the ADDR (next byte will start arriving)
+			DEBUG_STREAM("clearing ADDR");
+			uint16_t sr2 = I2Cx->SR2;
+			(void) sr2;
+
+			//write max 2 bytes immediately
+			if(writeBytesLeft > 0) {
+				I2Cx->DR = *writePointer++; // write data
+				writeBytesLeft--;
+				if(writeBytesLeft) {
+					I2Cx->DR = *writePointer++; // write data
+					writeBytesLeft--;
+				}
+				if(!writeBytesLeft) {
+					checkNextOperation = CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF;
+				}
+			} else {
+				if (!readBytesLeft)
+				{
+					checkNextOperation = CHECK_NEXT_OPERATION_YES;
+				}
+			}
+			//if more to write enable BUF interrupt
+			//else wait for BTF
 			if (writeBytesLeft > 0 || readBytesLeft > 3)
 			{
 				DEBUG_STREAM("enable buffers");
 				I2Cx->CR2 |= I2C_CR2_ITBUFEN;
 			}
-			if (!readBytesLeft && !writeBytesLeft)
-			{
-				checkNextOperation = CHECK_NEXT_OPERATION_YES;
-			}
-
-			// Only after setting ACK, read SR2 to clear the ADDR (next byte will start arriving)
-			DEBUG_STREAM("clearing ADDR");
-			uint16_t sr2 = I2Cx->SR2;
-			(void) sr2;
 
 			if (readBytesLeft == 1)
 			{
@@ -472,9 +488,9 @@ public:
 		{
 			// EV8_2
 			DEBUG_STREAM("BTF");
-
 			if (readBytesLeft == 2)
 			{
+				xpcc::atomic::Lock l;
 				// EV7_1: RxNE=1, cleared by reading DR register, programming STOP=1
 				DEBUG_STREAM("STOP");
 				I2Cx->CR1 |= I2C_CR1_STOP;
@@ -491,6 +507,7 @@ public:
 
 			if (readBytesLeft == 3)
 			{
+				xpcc::atomic::Lock l;
 				// EV7_1: RxNE=1, cleared by reading DR register, programming ACK=0
 				I2Cx->CR1 &= ~I2C_CR1_ACK;
 				DEBUG_STREAM("NACK");
@@ -509,6 +526,7 @@ public:
 				// TxE and BTF are cleared by hardware by the Stop condition
 				DEBUG_STREAM("BTF, write=0");
 				checkNextOperation = CHECK_NEXT_OPERATION_YES;
+				I2Cx->DR; //this will clear BTF interrupt
 			}
 		}
 
@@ -558,6 +576,12 @@ public:
 		{
 			XPCC_LOG_ERROR << "I2C BUS ERROR\n";
 			//busReset();
+
+			I2Cx->CR1 |= I2C_CR1_STOP;
+			uint_fast32_t deadlockPreventer = 10000;
+			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+				;
+
 			error = xpcc::I2cMaster::Error::BusCondition;
 		}
 		else if (sr1 & I2C_SR1_AF)
@@ -604,6 +628,7 @@ public:
 
 		//save registers
 		//uint32_t CR1 = I2Cx->CR1 & 0xFF; //mask only setting bits
+
 		uint32_t CR1 = 1;
 		uint32_t CR2 = I2Cx->CR2;
 		uint32_t CCR = I2Cx->CCR;
@@ -622,6 +647,7 @@ public:
 		I2Cx->CCR = CCR;
 		I2Cx->CR2 = CR2;
 		I2Cx->CR1 = CR1;
+
 	}
 
 
