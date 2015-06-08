@@ -110,32 +110,37 @@ void TickerTask::interrupt(int irqN) {
 }
 
 void TickerTask::tasksRun(xpcc::function<void()> idleFunc) {
+	tasksInit();
+	while(1) {
+		tick();
+	}
+}
+
+void TickerTask::tasksInit() {
 	TickerTask::idleFunc = idleFunc;
 	TickerTask* task = base;
 	while (task) {
 		task->handleInit();
 		task = task->next;
 	}
-
-	while(1) {
-		tick();
-	}
 }
-
+#ifdef TASK_DEBUG
 void TickerTask::printTasks(IOStream& stream) {
 	TickerTask* task = TickerTask::base;
 	stream.printf("--- TASKS ---\n");
 	while(task) {
 		stream.printf("Task(@0x%x) flags:%x ", task, task->flags);
+
 		if(task->_getFlag(FLAG_BLOCKING)) {
 			stream.printf("lr:%x", task->yield_return_address);
 		}
+
 		stream << endl;
 		task = task->next;
 	}
 	stream.printf("-------------\n");
 }
-
+#endif
 TickerTask* TickerTask::base = 0;
 xpcc::function<void()> TickerTask::idleFunc;
 TickerTask* volatile TickerTask::current = 0;

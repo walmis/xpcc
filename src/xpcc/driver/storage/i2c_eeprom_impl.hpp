@@ -55,11 +55,6 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 	uint8_t i;
 	uint8_t n;
 
-	while(state == AdapterState::Busy) {
-		//XPCC_LOG_ERROR << "#";
-		xpcc::yield();
-	}
-
 	while(bytes > 0) {
 		i = 0;
 		if(addrSize == 2)
@@ -75,6 +70,7 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 
 		//XPCC_LOG_DEBUG .printf("busy %d\n", (state == xpcc::I2c::AdapterState::Busy));
 
+		//for(int retry = 0; retry < 10; retry++) {
 		if(!initialize(buffer, i, data, n, 0, 0)) {
 			return false;
 		}
@@ -84,18 +80,17 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		}
 		//XPCC_LOG_ERROR << "a+";
 
-		while(state == xpcc::I2c::AdapterState::Busy) {
-			xpcc::yield();
+		if(!event.wait(20)) {
+			XPCC_LOG_ERROR << "Eeprom I2C WR timeout" << endl;
+			return false;
 		}
 
-		//XPCC_LOG_ERROR << "a-";
-
-		//if(!waitAvailable(20)) return false;
-		sleep(10);
 
 		bytes -= n;
 		address += n;
 		data += n;
+
+		xpcc::sleep(6);
 	}
 
 	return state == AdapterState::Idle;
@@ -106,9 +101,6 @@ template <typename I2cMaster>
 bool
 xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 {
-	while(state == AdapterState::Busy) {
-		xpcc::yield();
-	}
 
 	int i = 0;
 	if(addrSize == 2)
@@ -124,9 +116,12 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 		XPCC_LOG_ERROR << '2' << endl;
 		return false;
 	}
-	while(state == xpcc::I2c::AdapterState::Busy) {
-		xpcc::yield();
+
+	if(!event.wait(10*bytes)) {
+		XPCC_LOG_ERROR << "Eeprom I2C RD timeout" << endl;
+		return false;
 	}
+
 	//XPCC_LOG_ERROR << '3' << (uint8_t)state << " " << address << endl;
 	return state == AdapterState::Idle;
 }
@@ -176,8 +171,9 @@ xpcc::I2cEeprom<I2cMaster>::isAvailable()
 	{
 		return false;
 	}
-	while(state == xpcc::I2c::AdapterState::Busy) {
-		xpcc::yield();
+
+	if(!event.wait(10)) {
+		return false;
 	}
 
 	return state == xpcc::I2c::AdapterState::Idle;
@@ -228,12 +224,14 @@ xpcc::I2cEeprom<I2cMaster>::attaching()
 {
 	if (state == xpcc::I2c::AdapterState::Busy)
 		return false;
+
+	event.reset();
 	state = xpcc::I2c::AdapterState::Busy;
 	return true;
 }
 
 template <typename I2cMaster>
-xpcc::I2cDelegate::Starting
+xpcc::I2cTransaction::Starting
 xpcc::I2cEeprom<I2cMaster>::starting()
 {
 	Starting s;
@@ -249,7 +247,7 @@ xpcc::I2cEeprom<I2cMaster>::starting()
 }
 
 template <typename I2cMaster>
-xpcc::I2cDelegate::Writing
+xpcc::I2cTransaction::Writing
 xpcc::I2cEeprom<I2cMaster>::writing()
 {
 	Writing w;
@@ -269,7 +267,7 @@ xpcc::I2cEeprom<I2cMaster>::writing()
 }
 
 template <typename I2cMaster>
-xpcc::I2cDelegate::Reading
+xpcc::I2cTransaction::Reading
 xpcc::I2cEeprom<I2cMaster>::reading()
 {
 	Reading r;
@@ -286,4 +284,5 @@ xpcc::I2cEeprom<I2cMaster>::stopped(DetachCause cause)
 	isReading = false;
 	twoBuffers = false;
 	state = (cause == DetachCause::NormalStop) ? AdapterState::Idle : AdapterState::Error;
+	event.signal();
 }

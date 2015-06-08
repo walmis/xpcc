@@ -9,21 +9,27 @@
 
 namespace xpcc {
 
-void USBMSD_VolumeHandler::handleTick() {
+void USBMSD_VolumeHandler::run() {
 	if (requestedBlock != -1) {
-		bool res;
+		bool res = true;
 
 		switch (opType) {
 		case READ:
 
-			if (haveBlock != requestedBlock) {
-				res = volume.doRead(dataptr, requestedBlock, 1) == RES_OK;
+			if (!bufferedBlocksRemaining) {
+				uint32_t cnt = std::min((uint32_t)bufferSize/512, blocksLeft ? blocksLeft : 1);
+				//XPCC_LOG_DEBUG .printf("r1 %d %d\n", requestedBlock, cnt);
+				res = volume.doRead(buffer, requestedBlock, cnt) == RES_OK;
+				bufferedBlocksRemaining = cnt;
+				bufPtr = buffer;
+			}
 
-			} else {
-				//XPCC_LOG_DEBUG.printf("+");
-				memcpy(dataptr, buffer, 512);
+			//XPCC_LOG_DEBUG .printf("s %d\n", requestedBlock);
+			if(res) {
+				memcpy(dataptr, bufPtr, 512);
+				bufPtr+=512;
+				bufferedBlocksRemaining--;
 				haveBlock = -1;
-				res = true;
 			}
 
 			if (blocksLeft != 0) {
@@ -43,8 +49,8 @@ void USBMSD_VolumeHandler::handleTick() {
 
 		case WRITE:
 			if (firstBlock) {
-				XPCC_LOG_DEBUG.printf("MSD::write_begins r:%d c:%d\n",
-						requestedBlock, totalBlocks);
+//				XPCC_LOG_DEBUG.printf("MSD::write_begins r:%d c:%d\n",
+//						requestedBlock, totalBlocks);
 				volume.doIoctl(CTRL_ERASE_COUNT, &totalBlocks);
 
 				firstBlock = false;
@@ -56,43 +62,66 @@ void USBMSD_VolumeHandler::handleTick() {
 			//size_t left = blocksLeft;
 			disk_write_finalize(true);
 
+			//XPCC_LOG_DEBUG .printf("wr %d\n", block);
 			res = volume.doWrite(buffer, block, 1) == RES_OK;
 
 			break;
 		}
 	}
 
-	if (readBlock != -1) {
-		if (volume.doRead(buffer, readBlock, 1) == RES_OK) {
-			haveBlock = readBlock;
+	//read some blocks in advance
+	if (!bufferedBlocksRemaining && readBlock != -1) {
+		uint32_t cnt = std::min((uint32_t)bufferSize/512, blocksLeft);
+		if(cnt) {
+			//XPCC_LOG_DEBUG .printf("r2 %d %d\n", readBlock, cnt);
+			if (volume.doRead(buffer, readBlock, cnt) == RES_OK) {
+				bufPtr = buffer;
+				bufferedBlocksRemaining = cnt;
+				readBlock = -1;
+			}
+		} else {
+			readBlock = -1;
 		}
-		readBlock = -1;
 	}
 
 }
 
+void USBMSD_VolumeHandler::runBlocking() {
+	event.wait();
+	run();
+}
+//called from usb interrupt//
 void USBMSD_VolumeHandler::transfer_begins(TransferType type,
 		uint32_t startBlock, int numBlocks) {
+	//XPCC_LOG_DEBUG .printf("tr t:%d start:%d num:%d\n", (uint32_t)type, startBlock, numBlocks);
+	bufferedBlocksRemaining = 0;
+	bufPtr = buffer;
+
 	requestedBlock = -1;
 	opType = type;
 	totalBlocks = numBlocks;
 	firstBlock = true;
+	event.signal();
 }
-
+//called from usb interrupt//
 int USBMSD_VolumeHandler::disk_read_start(uint8_t * data, uint32_t block,
 		uint32_t blocksLeft) {
 	requestedBlock = block;
 	dataptr = data;
 	this->blocksLeft = blocksLeft;
-
+	event.signal();
 	return 0;
 }
-
+//called from usb interrupt//
 int USBMSD_VolumeHandler::disk_write_start(const uint8_t * data, uint32_t block,
 		uint32_t blocksLeft) {
+
+	//XPCC_LOG_DEBUG .printf("wr start block:%d left:%d\n", block, blocksLeft);
+
 	requestedBlock = block;
 	dataptr = (uint8_t*)data;
 	this->blocksLeft = blocksLeft;
+	event.signal();
 	return 0;
 }
 

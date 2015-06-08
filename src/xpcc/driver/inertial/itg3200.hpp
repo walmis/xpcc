@@ -212,7 +212,7 @@ namespace xpcc
 		uint8_t
 		readRegister(itg3200::Register reg);
 		
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		
 		enum Running {
 			NOTHING_RUNNING,

@@ -49,6 +49,7 @@ void Usart1::enableInterruptVector(bool enable, uint32_t priority)
 extern "C" void
 USART1_IRQHandler()
 {
+	IRQWrapper w;
 	Usart1::handleIRQ();
 } // IRQHandler
 

@@ -128,7 +128,7 @@ public:
 	update();
 
 private:
-	xpcc::I2cWriteReadAdapter adapter;
+	xpcc::I2cWriteReadTransaction adapter;
 
 	enum class
 	Running {

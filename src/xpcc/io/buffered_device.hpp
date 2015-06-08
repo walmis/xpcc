@@ -23,7 +23,7 @@ public:
 	}
 
 	virtual size_t write(char c) {
-		while(_blocking && !txAvailable()) xpcc::yield();
+		while(_blocking && !txAvailable()) txEvent.wait();
 		return txbuf.write(c);
 	}
 
@@ -32,7 +32,7 @@ public:
 			while(len) {
 				int16_t wr = std::min((int16_t)len, txAvailable());
 				if(wr<1) {
-					xpcc::yield();
+					txEvent.wait();
 					continue;
 				}
 				txbuf.write(buf, wr);
@@ -63,8 +63,18 @@ public:
 	}
 
 protected:
+
+	int16_t popTx() {
+		int16_t c = txbuf.read();
+		txEvent.signal();
+		return c;
+	}
+
+
 	IOBuffer txbuf;
 	IOBuffer rxbuf;
+
+	xpcc::Event txEvent;
 };
 
 #endif /* BUFFERED_DEVICE_HPP_ */

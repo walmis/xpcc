@@ -132,16 +132,16 @@ _isatty(int /*file*/)
  *         Since the _reent struct is not used in the current implementation,
  *         the following messages must be suppressed.
  */
-extern uint8_t __heap_start;
-extern uint8_t __heap_end;
+extern uint8_t __heap_base__;
+extern uint8_t __heap_end__;
 
 extern "C"
 void *
 _sbrk_r(struct _reent *,  ptrdiff_t size)
 {
-	static uint8_t *heap_ptr = &__heap_start;
+	static uint8_t *heap_ptr = &__heap_base__;
 
-	if((heap_ptr + size) < &__heap_end) {
+	if((heap_ptr + size) < &__heap_end__) {
 		void *base  = heap_ptr;
 		heap_ptr += size;
 		return base;
@@ -153,43 +153,6 @@ _sbrk_r(struct _reent *,  ptrdiff_t size)
 // ----------------------------------------------------------------------------
 // __heap_start is set in the linker command file and is the end of
 // statically allocated data (thus start of heap).
-extern uint8_t __heap_start;
-extern uint8_t __heap_end;
-
-//static xpcc::BlockAllocator<uint16_t, 8> allocator;
-
-extern "C" int memsys3Init();
-extern "C" void *memsys3Realloc(void *pPrior, int nBytes);
-extern "C" void memsys3Free(void *pPrior);
-extern "C" void *memsys3Malloc(int nBytes);
-
-extern "C"
-void __xpcc_initialize_memory(void)
-{
-	//allocator.initialize(&__heap_start, &__heap_end);
-	//memsys3Init();
-}
-
-extern "C" void *pvPortMalloc( size_t xWantedSize );
-extern "C" void vPortFree( void *pv );
-
-//extern "C"
-//void *malloc(size_t size)
-//{
-//	xpcc::atomic::Lock lock;
-//	//return pvPortMalloc(size);
-//	return memsys3Malloc(size);
-//	//return allocator.allocate(size);
-//}
-//
-//extern "C"
-//void free(void *p)
-//{
-//	xpcc::atomic::Lock lock;
-//	memsys3Free(p);
-//	//vPortFree(p);
-//	//allocator.free(p);
-//}
 
 static uint32_t lfsr = 1;
 extern "C"

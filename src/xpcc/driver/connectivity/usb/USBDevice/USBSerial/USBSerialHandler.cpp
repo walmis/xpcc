@@ -37,6 +37,7 @@ void USBSerialHandler::sendPacket(bool blocking) {
 		size++;
 	}
 
+	//XPCC_LOG_DEBUG .printf("wr\n");
 	if(blocking)
 		device->write(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
 	else
@@ -83,7 +84,7 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
     		uint32_t len;
 
     		if(readEP_NB(buf, &len)) {
-    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
+    			//XPCC_LOG_DEBUG .printf("bulkOUT read %d\n", len);
     			rx_buffer.write(buf, len);
     			return true;
     		}
@@ -124,7 +125,6 @@ int16_t USBSerialHandler::txAvailable() {
 
 void USBSerialHandler::SOF(int frameNumber) {
 	if(device->configured()) {
-
 		if (tx_buffer.bytes_used() && inEp_request
 				&& (latency_timer.isExpired() || tx_buffer.bytes_used() >= MAX_PACKET_SIZE_EPBULK)) {
 
@@ -140,7 +140,7 @@ void USBSerialHandler::SOF(int frameNumber) {
     		uint32_t len;
 
     		if(readEP_NB(buf, &len)) {
-    			//XPCC_LOG_DEBUG .printf("SOF%d\n", buffer->dataLength);
+    			//XPCC_LOG_DEBUG .printf("SOF read %d\n", len);
     			rx_buffer.write(buf, len);
     		}
     	}
@@ -213,9 +213,9 @@ bool USBSerialHandler::USBCallback_setConfiguration(uint8_t configuration) {
 	isActive = true;
 
     // Configure endpoints > 0
-    device->addEndpoint(intIn, MAX_PACKET_SIZE_EPINT);
-    device->addEndpoint(bulkIn, MAX_PACKET_SIZE_EPBULK);
-    device->addEndpoint(bulkOut, MAX_PACKET_SIZE_EPBULK);
+    device->addEndpoint(intIn, MAX_PACKET_SIZE_EPINT, USBHAL::EPType::Interrupt);
+    device->addEndpoint(bulkIn, MAX_PACKET_SIZE_EPBULK, USBHAL::EPType::Bulk);
+    device->addEndpoint(bulkOut, MAX_PACKET_SIZE_EPBULK, USBHAL::EPType::Bulk);
 
     // We activate the endpoint to be able to recceive data
     device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);

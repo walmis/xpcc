@@ -256,96 +256,179 @@ static inline GPIO_TypeDef* _port(uint8_t p) {
 	return ports[p];
 }
 
+constexpr uint8_t IDToPort(uint8_t id) {
+	return (id>>4) & 0x0F;
+}
 
-template <int Port, int Pin>
-class GpioPin {
+constexpr uint8_t IDToPin(uint8_t id) {
+	return id & 0x0F;
+}
+
+class _GpioPin {
 public:
 	ALWAYS_INLINE static void
-	setOutput(bool status) {
-		set(status);
-		setOutput(); }
-	ALWAYS_INLINE static void
-	setOutput() {
-		setInput();
-		_port(Port)->MODER |= (1<<(Pin*2));
+	setOutput(uint8_t port, uint8_t pin, bool status) {
+		set(port, pin, status);
+		setOutput(port, pin);
 	}
 	ALWAYS_INLINE static void
-	setInput() {
-		_port(Port)->MODER &= ~(3<<(Pin*2));
+	setOutput(uint8_t port, uint8_t pin) {
+		setInput(port, pin);
+		_port(port)->MODER |= (1<<(pin*2));
 	}
-
 	ALWAYS_INLINE static void
-	setAnalog() {
-		setInput();
-		_port(Port)->MODER |= (3<<(Pin*2));
+	setInput(uint8_t port, uint8_t pin) {
+		_port(port)->MODER &= ~(3<<(pin*2));
 	}
 
 	ALWAYS_INLINE static void
-	setSpeed(GPIOSpeed speed) {
-		_port(Port)->OSPEEDR &= ~(0x03 << (Pin * 2));
-		_port(Port)->OSPEEDR |= ((uint32_t)(speed) << (Pin * 2));
+	setAnalog(uint8_t port, uint8_t pin) {
+		setInput(port, pin);
+		_port(port)->MODER |= (3<<(pin*2));
 	}
 
 	ALWAYS_INLINE static void
-	setFunction(AltFunction af) {
+	setSpeed(uint8_t port, uint8_t pin, GPIOSpeed speed) {
+		_port(port)->OSPEEDR &= ~(0x03 << (pin * 2));
+		_port(port)->OSPEEDR |= ((uint32_t)(speed) << (pin * 2));
+	}
+
+	ALWAYS_INLINE static void
+	setFunction(uint8_t port, uint8_t pin, AltFunction af) {
 		uint8_t altFunction = (uint8_t)af;
-		setInput();
+		setInput(port, pin);
 
 		altFunction &= 0xF;
 		uint32_t temp = 0x00;
 		uint32_t temp_2 = 0x00;
-		temp = ((uint32_t)(altFunction) << ((uint32_t)((uint32_t)Pin & (uint32_t)0x07) * 4)) ;
-		_port(Port)->AFR[Pin >> 0x03] &= ~((uint32_t)0xF << ((uint32_t)((uint32_t)Pin & (uint32_t)0x07) * 4)) ;
-		temp_2 = _port(Port)->AFR[Pin >> 0x03] | temp;
-		_port(Port)->AFR[Pin >> 0x03] = temp_2;
+		temp = ((uint32_t)(altFunction) << ((uint32_t)((uint32_t)pin & (uint32_t)0x07) * 4)) ;
+		_port(port)->AFR[pin >> 0x03] &= ~((uint32_t)0xF << ((uint32_t)((uint32_t)pin & (uint32_t)0x07) * 4)) ;
+		temp_2 = _port(port)->AFR[pin >> 0x03] | temp;
+		_port(port)->AFR[pin >> 0x03] = temp_2;
 
-		_port(Port)->MODER |= (2<<(Pin*2));
+		_port(port)->MODER |= (2<<(pin*2));
 	}
 
 	ALWAYS_INLINE static void
-	setOutputType(GPIOOType type) {
-		_port(Port)->OTYPER  &= ~(1 << ((uint16_t)Pin)) ;
-		_port(Port)->OTYPER |= (uint16_t)(((uint16_t)type) << ((uint16_t)Pin));
+	setOutputType(uint8_t port, uint8_t pin, GPIOOType type) {
+		_port(port)->OTYPER  &= ~(1 << ((uint16_t)pin)) ;
+		_port(port)->OTYPER |= (uint16_t)(((uint16_t)type) << ((uint16_t)pin));
 	}
 
 	ALWAYS_INLINE static void
-	setPullMode(GPIOPuPd mode) {
-		_port(Port)->PUPDR &= ~(2 << ((uint16_t)Pin * 2));
-		_port(Port)->PUPDR |= (((uint32_t)mode) << (Pin * 2));
+	setPullMode(uint8_t port, uint8_t pin, GPIOPuPd mode) {
+		_port(port)->PUPDR &= ~(2 << ((uint16_t)pin * 2));
+		_port(port)->PUPDR |= (((uint32_t)mode) << (pin * 2));
 	}
 
 	ALWAYS_INLINE static void
-	set() {
-		_port(Port)->BSRRL = 1<<Pin;
+	set(uint8_t port, uint8_t pin) {
+		_port(port)->BSRRL = 1<<pin;
 	}
 
 	ALWAYS_INLINE static void
-	reset() {
-		_port(Port)->BSRRH = 1<<Pin;
+	reset(uint8_t port, uint8_t pin) {
+		_port(port)->BSRRH = 1<<pin;
 	}
 
 	ALWAYS_INLINE static void
-	toggle() {
-		_port(Port)->ODR ^= (1<<Pin);
+	toggle(uint8_t port, uint8_t pin) {
+		_port(port)->ODR ^= (1<<pin);
 	}
 
 	ALWAYS_INLINE static void
-	set(bool status) {
+	set(uint8_t port, uint8_t pin, bool status) {
 		if(status) {
-			set();
+			set(port, pin);
 		} else {
-			reset();
+			reset(port, pin);
 		}
 	}
 
 	ALWAYS_INLINE static bool
+	read(uint8_t port, uint8_t pin) {
+		return _port(port)->ODR & (1<<pin);
+	}
+
+	ALWAYS_INLINE static bool
+	attachInterrupt(uint8_t port, uint8_t pin, xpcc::function<void()> fn, IntEdge edges = IntEdge::RISING_EDGE) {
+		return GpioInt::attach(port, pin, fn, edges);
+	}
+};
+
+template <int port, int pin>
+class GpioPin {
+public:
+	static const int Port = port;
+	static const int Pin = pin;
+	static const int Id = (port<<4) | pin;
+
+	ALWAYS_INLINE static void
+	setOutput(bool status) {
+		_GpioPin::setOutput(port, pin);
+	}
+	ALWAYS_INLINE static void
+	setOutput() {
+		_GpioPin::setOutput(port, pin);
+	}
+	ALWAYS_INLINE static void
+	setInput() {
+		_GpioPin::setInput(port, pin);
+	}
+
+	ALWAYS_INLINE static void
+	setAnalog() {
+		_GpioPin::setAnalog(port, pin);
+	}
+
+	ALWAYS_INLINE static void
+	setSpeed(GPIOSpeed speed) {
+		_GpioPin::setSpeed(port, pin, speed);
+	}
+
+	ALWAYS_INLINE static void
+	setFunction(AltFunction af) {
+		_GpioPin::setFunction(port, pin, af);
+	}
+
+	ALWAYS_INLINE static void
+	setOutputType(GPIOOType type) {
+		_GpioPin::setOutputType(port, pin, type);
+	}
+
+	ALWAYS_INLINE static void
+	setPullMode(GPIOPuPd mode) {
+		_GpioPin::setPullMode(port, pin, mode);
+	}
+
+	ALWAYS_INLINE static void
+	set() {
+		_GpioPin::set(port, pin);
+	}
+
+	ALWAYS_INLINE static void
+	reset() {
+		_GpioPin::reset(port, pin);
+	}
+
+	ALWAYS_INLINE static void
+	toggle() {
+		_GpioPin::toggle(port, pin);
+	}
+
+	ALWAYS_INLINE static void
+	set(bool status) {
+		_GpioPin::set(port, pin, status);
+	}
+
+	ALWAYS_INLINE static bool
 	read() {
-		return _port(Port)->ODR & (1<<Pin);
+		return _GpioPin::read(port, pin);
 	}
 
 	ALWAYS_INLINE static bool
 	attachInterrupt(xpcc::function<void()> fn, IntEdge edges = IntEdge::RISING_EDGE) {
-		return GpioInt::attach(Port, Pin, fn, edges);
+		return GpioInt::attach(port, pin, fn, edges);
 	}
 };
 

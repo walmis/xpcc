@@ -308,7 +308,7 @@ public:
 
 	static inline void startDataTransaction(TransferDir dir, uint32_t length,
 			TransferMode mode = TransferMode::Block, DataBlockSize bs =
-					DataBlockSize::_512b, uint32_t timeout = 0xFFFFFF) {
+					DataBlockSize::_512b, uint32_t timeout = 0xFFFFFFFF) {
 
 		uint32_t tmpreg;
 		/* Set the SDIO Data TimeOut value */

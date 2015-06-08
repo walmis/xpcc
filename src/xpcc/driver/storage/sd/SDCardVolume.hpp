@@ -14,18 +14,18 @@
 #include <xpcc/driver/storage/fat.hpp>
 #include <xpcc/driver/storage/sd/SDCardSPI.h>
 
+#define INVALID 0xFFFFFFFE
 
 template <typename Card>
 class SDCardVolume : public Card, public xpcc::fat::PhysicalVolume,
 	xpcc::TickerTask {
 
 public:
-	SDCardVolume() : last_block(0), read_sem_taken(false),
+	SDCardVolume() : last_block(INVALID), read_sem_taken(false),
 	write_sem_taken(false),	reading(false), writing(false),
 	eraseCount(0), wrRemaining(0)
 {}
 
-//private:
 	DSTATUS doInitialize () override {
 		//XPCC_LOG_DEBUG .printf("%s()\n", __FUNCTION__);
 
@@ -46,7 +46,7 @@ public:
 
 	void stopRead() {
 		if(read_sem_taken) {
-			last_block = 0;
+			last_block = INVALID;
 			this->readStop();
 			this->semaphore()->give();
 			read_sem_taken = false;
@@ -58,7 +58,7 @@ public:
 			if(wrRemaining != 0) {
 				XPCC_LOG_WARNING .printf("erase count != 0 before stop\n");
 			}
-			last_block = 0;
+			last_block = INVALID;
 			this->writeStop();
 
 			this->semaphore()->give();
@@ -98,15 +98,17 @@ public:
 				return RES_ERROR;
 			}
 			read_sem_taken = true;
-			last_block = 0;
+			last_block = INVALID;
 		}
 
 		reading = true;
-		//XPCC_LOG_DEBUG .printf("%s(%d, %d)\n", __FUNCTION__, sectorNumber, sectorCount);
+		//XPCC_LOG_DEBUG .printf("doRead(%d, %d) lb:%d\n", sectorNumber, sectorCount, last_block);
 
 		if(last_block+1 != sectorNumber) {
 			//XPCC_LOG_DEBUG .printf("last block %d\n", last_block);
-			this->readStop();
+			if(last_block != INVALID) {
+				this->readStop();
+			}
 			this->readStart(sectorNumber);
 
 			//XPCC_LOG_DEBUG .printf("read start %d\n", sectorNumber);
@@ -114,10 +116,7 @@ public:
 
 		last_block = sectorNumber + sectorCount - 1;
 
-		for(int i = 0; i < sectorCount; i++) {
-			this->readData(buffer, 512);
-			buffer+=512;
-		}
+		this->readData(buffer, 512*sectorCount);
 
 		last_op = xpcc::Clock::now();
 
@@ -144,7 +143,7 @@ public:
 				return RES_ERROR;
 			}
 			write_sem_taken = true;
-			last_block = 0;
+			last_block = INVALID;
 			eraseCount = 0;
 		}
 
@@ -152,7 +151,7 @@ public:
 		writing = true;
 
 		if(last_block+1 != sectorNumber) {
-			if(last_block != 0) {
+			if(last_block != INVALID) {
 				this->writeStop();
 			}
 			this->writeStart(sectorNumber, eraseCount);
@@ -167,7 +166,7 @@ public:
 			if(wrRemaining) {
 				wrRemaining--;
 				if(!wrRemaining) {
-					last_block = UINT32_MAX-1;
+					last_block = INVALID-1;
 				}
 			}
 			sectorCount--;
@@ -191,7 +190,7 @@ public:
 			return RES_OK;
 
 		case GET_SECTOR_COUNT:
-			if(!this->initialized) {
+			if(!this->isInitialized()) {
 				*buffer = 0;
 			} else {
 				*buffer = this->getSectorCount();
@@ -223,4 +222,6 @@ private:
 	uint32_t wrRemaining;
 };
 
+
+#undef INVALID
 #endif /* SDIO_HPP_ */

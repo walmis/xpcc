@@ -13,6 +13,7 @@
 #include <xpcc/container.hpp>
 #include <xpcc/processing.hpp>
 #include <xpcc/io/iodevice.hpp>
+#include "USBCDC.h"
 
 namespace xpcc {
 
@@ -29,8 +30,8 @@ static const uint8_t cdc_line_coding[7]= {0x80, 0x25, 0x00, 0x00, 0x00, 0x00, 0x
 class USBSerialHandler : public USBInterfaceHandler, public IODevice {
 public:
 
-	USBSerialHandler(uint8_t bulkIn = EPBULK_IN,
-			uint8_t bulkOut = EPBULK_OUT, uint8_t intIn = EPINT_IN) :
+	USBSerialHandler(uint8_t bulkIn = CDC_EPBULK_IN,
+			uint8_t bulkOut = CDC_EPBULK_OUT, uint8_t intIn = CDC_EPINT_IN) :
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
 					intIn), latency_timer(), tx_buffer(128), rx_buffer(128){
 
@@ -76,10 +77,7 @@ protected:
 	bool USBCallback_setConfiguration(uint8_t configuration) override;
 
 private:
-
 	//DoubleBuffer<MAX_CDC_REPORT_SIZE> rx_buffer;
-	IOBuffer rx_buffer;
-	IOBuffer tx_buffer;
 
 	bool EP_handler(uint8_t ep) override;
 
@@ -102,6 +100,9 @@ private:
 	bool readEP_NB(uint8_t * buffer, uint32_t * size);
 
 	xpcc::Timeout<> latency_timer;
+
+	IOBuffer tx_buffer;
+	IOBuffer rx_buffer;
 };
 
 }

@@ -40,15 +40,15 @@
 #include "processing/communicatable_task.hpp"
 #include "processing/protothread.hpp"
 
-#include "processing/scheduler/scheduler.hpp"
-
 #include "processing/timestamp.hpp"
 #include "processing/timeout.hpp"
 #include "processing/periodic_timer.hpp"
 #include "processing/ticker_task.hpp"
 #include "processing/coop_task.hpp"
 #include "processing/function_pointer.hpp"
-#include "processing/semaphore.hpp"
+
+#include "processing/rtos.hpp"
+
 #include "processing/function.hpp"
 
 #endif	// XPCC__PROCESSING_HPP

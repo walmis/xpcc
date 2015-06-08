@@ -9,7 +9,7 @@
 #define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_SDIO_SDIO_SDCARD_HPP_
 
 #include "sdio_hal.hpp"
-#include <xpcc/processing/semaphore.hpp>
+#include <xpcc/processing.hpp>
 #include <xpcc/driver/storage/sd/SDCardInterface.hpp>
 
 namespace xpcc {
@@ -18,8 +18,7 @@ namespace stm32 {
 class SDIO_SDCard : SDCardInterface  {
 public:
 
-	SDIO_SDCard() :	dma_stm(dma::Stream::DMA2_3),
-		initialized(false), _sectors(0), RCA(0) {}
+	SDIO_SDCard();
 
 	enum class ResponseType {
 			None, Short, Long, R3Resp
@@ -48,6 +47,8 @@ public:
 	bool readData(uint8_t* buffer, size_t length);
 
 	bool readSingleBlock(uint8_t* buffer, size_t block_number);
+
+	bool readMultipleBlocks(uint8_t* buffer, size_t block_number, uint32_t numBlocks);
 
 	//------------------------------------------------------------------------------
 	/** Start a write multiple blocks sequence.
@@ -91,6 +92,8 @@ public:
 		return &_semaphore;
 	}
 
+	void handleIRQ();
+
 private:
 	bool cmd(uint32_t cmd, uint32_t arg, ResponseType resp = ResponseType::Short,
 			uint32_t timeout = SD_COMMAND_TIMEOUT);
@@ -122,6 +125,8 @@ private:
 	bool initialized;
 
 	uint32_t rd_block;
+
+	Event evt;
 };
 
 }

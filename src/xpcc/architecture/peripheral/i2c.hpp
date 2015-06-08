@@ -124,7 +124,7 @@ public:
 	 * @return	Caller gains control if `true`. Call has no effect if `false`.
 	 */
 	static bool
-	start(I2cDelegate *delegate);
+	start(I2cTransaction *delegate);
 
 	/**
 	 * Requests bus control and starts the transfer, blocks until delegate is detached.
@@ -134,7 +134,7 @@ public:
 	 * @return	Caller gains control if `true`. Call has no effect if `false`.
 	 */
 	static bool
-	startBlocking(I2cDelegate *delegate);
+	startBlocking(I2cTransaction *delegate);
 
 	/**
 	 * Perform a software reset of the driver in case of an error.
@@ -172,10 +172,10 @@ public:
  * @author	Niklas Hauser
  * @ingroup	i2c
  */
-class I2cDelegate : public I2c
+class I2cTransaction : public I2c
 {
 public:
-	I2cDelegate() : next(0) {}
+	I2cTransaction() {}
 	/// Contains the information required to begin an I2C transfer
 	struct Starting {
 		uint8_t address;	///< the slave address excluding read/write bit
@@ -196,8 +196,9 @@ public:
 		std::size_t size;			///< number of bytes to be read
 	};
 
+	I2cMaster::Error errno = I2cMaster::Error::NoError;
 	//support linked list of delegates
-	I2cDelegate* volatile next;
+	I2cTransaction* next = 0;
 
 public:
 	/**

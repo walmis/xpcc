@@ -42,4 +42,5 @@ private:
 	uint8_t *bytes;					///< pointer to allocated buffer
 };
 
+
 #endif /* IO_BUFFER_HPP_ */

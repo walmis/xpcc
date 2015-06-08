@@ -154,7 +154,7 @@ namespace xpcc {
 #define DEFAULT_CONFIGURATION (1)
 
 // max packet size
-#define MAX_PACKET  MAX_PACKET_SIZE_EPBULK
+#define MAX_USB_PACKET  MAX_PACKET_SIZE_EPBULK
 
 // CSW Status
 enum Status {
@@ -163,24 +163,13 @@ enum Status {
     CSW_ERROR,
 };
 
+USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
+		bulkIn(bulkIn), bulkOut(bulkOut) {
 
-USBMSDHandler::USBMSDHandler() : bulkIn(255), bulkOut(255) {
 	stage = READ_CBW;
 	page = 0;
-	writeBusy = false;
 
-	memset((uint8_t*)&senseData, 0, sizeof(RequestSense));
-
-	senseData.AddSenseLen = 0x0A;
-	senseData.ResponseCode = 0x70;
-
-	memset((void *) &cbw, 0, sizeof(CBW));
-	memset((void *) &csw, 0, sizeof(CSW));
-}
-
-void USBMSDHandler::setEndpoints(uint8_t bulkIn, uint8_t bulkOut) {
-	this->bulkIn = bulkIn;
-	this->bulkOut = bulkOut;
+	setPageSize(512);
 }
 
 
@@ -192,6 +181,7 @@ bool USBMSDHandler::USBCallback_request(void) {
     static uint8_t maxLUN[1] = {0};
 
     if (transfer->setup.bmRequestType.Type == CLASS_TYPE) {
+    	 XPCC_LOG_DEBUG .printf("MSC control req %x\n", transfer->setup.bRequest);
         switch (transfer->setup.bRequest) {
             case MSC_REQUEST_RESET:
                 reset();
@@ -221,21 +211,21 @@ bool USBMSDHandler::initialize() {
         }
     }
 
+    BlockSize = disk_sector_size();
+
 	stage = READ_CBW;
 	writeBusy = false;
     blockReady = false;
-    writeRequest = false;
+    writeRequestPending = false;
     blockSent = true;
 
-	BlockSize = disk_sector_size();
-	if (BlockSize != 0) {
-		if(page)
-			delete[] page;
+	memset((uint8_t*)&senseData, 0, sizeof(RequestSense));
 
-		page = new uint8_t[BlockSize];
-		if (page == NULL)
-			return false;
-	}
+	senseData.AddSenseLen = 0x0A;
+	senseData.ResponseCode = 0x70;
+
+	memset((void *) &cbw, 0, sizeof(CBW));
+	memset((void *) &csw, 0, sizeof(CSW));
 
     return true;
 }
@@ -246,7 +236,7 @@ void USBMSDHandler::reset() {
 }
 
 bool USBMSDHandler::EP_handler(uint8_t ep) {
-	//XPCC_LOG_DEBUG .printf("USBMSDHandler::EP_handler(%d)\n", ep);
+	//XPCC_LOG_ERROR .printf("USBMSDHandler::EP_handler(%d)\n", ep);
 	if(ep == bulkIn) {
 
 	    switch (stage) {
@@ -323,7 +313,7 @@ void USBMSDHandler::disk_write_finalize(bool success) {
 	//XPCC_LOG_DEBUG.printf("finalize writeRequest:%d %d\n", writeRequest, writeBusy);
 
     if(!success) {
-    	XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_write_finalize(%d)\n", success);
+    	//XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_write_finalize(%d)\n", success);
 
     	device->disableInterrupts();
 
@@ -345,11 +335,17 @@ void USBMSDHandler::disk_write_finalize(bool success) {
 		device->disableInterrupts();
 		writeBusy = false;
 
-		if(writeRequest) {
+		//if another OUT write request occurs while we written the data
+		//service it now
+		if(writeRequestPending) {
 			memoryWrite();
 		} else {
 			device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 		}
+//		else {
+//			//else continue reading
+//			device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
+//		}
 
 		if ((!length) || (stage != PROCESS_CBW)) {
 			csw.Status = (stage == ERROR) ? CSW_FAILED : CSW_PASSED;
@@ -363,22 +359,24 @@ void USBMSDHandler::disk_write_finalize(bool success) {
 }
 
 bool USBMSDHandler::memoryWrite () {
-
-	writeRequest = true;
 	//XPCC_LOG_DEBUG .printf("writeRequest busy:%d\n", writeBusy);
+	writeRequestPending = true;
 
 	if(!writeBusy) {
-		uint8_t buf[MAX_PACKET_SIZE_EPBULK];
 		uint32_t size = 0;
 
 		//XPCC_LOG_DEBUG .printf("start read * ");
 		bool res = device->readEP_NB(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
+
 
 		//XPCC_LOG_DEBUG .printf("<readRes %d>\n", res);
 
 		if(!res) {
 			return false;
 		}
+
+		//immediately start reading more packets
+		//device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 
 		if (blockAddr + ((dataPos+size) / (BlockSize+1)) > BlockCount) {
 			size = BlockSize - (dataPos & (BlockSize-1));
@@ -397,6 +395,7 @@ bool USBMSDHandler::memoryWrite () {
 		// if the array is filled, write it in memory
 		if (dataPos >= BlockSize) {
 			writeBusy = true;
+			writeRequestPending = false;
 			disk_write_start(page, blockAddr, length/BlockSize);
 
 			blockAddr++;
@@ -404,8 +403,10 @@ bool USBMSDHandler::memoryWrite () {
 		} else {
 			device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 		}
+
 		return true;
 	}
+
 	return false;
 }
 
@@ -426,11 +427,12 @@ bool USBMSDHandler::inquiryRequest (void) {
 		char productRev[4];
 	} inquiry = {
 			0x00, 0x80, 0x00, 0x01,
-			36 - 4, 0x00, 0x00, 0x00,
-			"xpcc",
-			"Mass Storage",
-			"1.0"
+			36 - 4, 0x00, 0x00, 0x00
 	};
+
+	strncpy(inquiry.vendorID, this->vendorId, 8);
+	strncpy(inquiry.productID, this->productId, 16);
+	strncpy(inquiry.productRev, this->productRev, 4);
 
     if (!write((uint8_t*)&inquiry, sizeof(inquiry))) {
         return false;
@@ -546,14 +548,13 @@ void USBMSDHandler::fail() {
 
 
 void USBMSDHandler::CBWDecode() {
-	uint8_t buf[MAX_PACKET_SIZE_EPBULK];
 	uint32_t size;
 
-	device->readEP(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
+	device->readEP_NB(bulkOut, buf, &size, MAX_PACKET_SIZE_EPBULK);
 
 	if (size == sizeof(cbw)) {
         memcpy((uint8_t *)&cbw, buf, size);
-        XPCC_LOG_DEBUG .printf("USBMSDHandler::CBWDecode() SCSI Command (0x%x)\n", cbw.CB[0]);
+        //XPCC_LOG_DEBUG .printf("CBWDecode() SCSI Command (0x%x)\n", cbw.CB[0]);
         if (cbw.Signature == CBW_Signature) {
             csw.Tag = cbw.Tag;
             csw.DataResidue = cbw.DataLength;
@@ -605,6 +606,11 @@ void USBMSDHandler::CBWDecode() {
                         }
                         break;
 
+                    case MEDIA_REMOVAL:
+                    	csw.Status = CSW_PASSED;
+                    	sendCSW();
+                    	break;
+
                    // case VERIFY10:
                     //case 0x1b:
 //                    case MEDIA_REMOVAL:
@@ -613,7 +619,7 @@ void USBMSDHandler::CBWDecode() {
 //
 //                        break;
                     default:
-                    	//XPCC_LOG_DEBUG .printf("Unhandled command %x\n", cbw.CB[0]);
+                    	XPCC_LOG_DEBUG .printf("Unhandled command %x\n", cbw.CB[0]);
 
             			SCSI_SET_SENSE(SCSI_SENSE_KEY_ILLEGAL_REQUEST,
             		                   SCSI_ASENSE_INVALID_COMMAND,
@@ -624,6 +630,8 @@ void USBMSDHandler::CBWDecode() {
             }
         }
     }
+
+
 	device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
 }
 
@@ -654,7 +662,7 @@ void USBMSDHandler::testUnitReady (void) {
 
 
 void USBMSDHandler::disk_read_finalize(bool success) {
-	XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_read_finalize(%d)\n", success);
+	//XPCC_LOG_DEBUG .printf("USBMSDHandler::disk_read_finalize(%d)\n", success);
 
 	//xpcc::atomic::Lock lock;
 
@@ -688,7 +696,7 @@ void USBMSDHandler::sendBlock() {
     if(blockReady && readRequest) {
 		uint32_t n;
 
-		n = (length > MAX_PACKET) ? MAX_PACKET : length;
+		n = (length > MAX_USB_PACKET) ? MAX_USB_PACKET : length;
 
 		if ((blockAddr + ((dataPos + n - 1) / BlockSize)) > BlockCount) {
 			XPCC_LOG_ERROR.printf("USBMSDHandler::sendBlock() error line:%d\n",
@@ -831,16 +839,35 @@ bool USBMSDHandler::USBCallback_setConfiguration(uint8_t configuration) {
         return false;
     }
     XPCC_LOG_DEBUG .printf("USBMSDHandler::USBCallback_setConfiguration()\n");
+
     initialize();
 
     // Configure endpoints > 0
-    device->addEndpoint(bulkIn, MAX_PACKET_SIZE_EPBULK);
-    device->addEndpoint(bulkOut, MAX_PACKET_SIZE_EPBULK);
+    device->addEndpoint(bulkOut, MAX_PACKET_SIZE_EPBULK, USBHAL::EPType::Bulk);
+    device->addEndpoint(bulkIn, MAX_PACKET_SIZE_EPBULK, USBHAL::EPType::Bulk);
 
     //activate readings
     device->readStart(bulkOut, MAX_PACKET_SIZE_EPBULK);
     return true;
 }
 
+void USBMSDHandler::set_device_strings(const char* vendorId, const char* productId,
+		const char* productRev) {
+
+	this->productId = productId;
+	this->vendorId = vendorId;
+	this->productRev = productRev;
+
+}
+
+void USBMSDHandler::setPageSize(size_t size) {
+	if(page) {
+		delete[] page;
+	}
+
+	page = new uint8_t[size];
+}
 
 } /* namespace xpcc */
+
+

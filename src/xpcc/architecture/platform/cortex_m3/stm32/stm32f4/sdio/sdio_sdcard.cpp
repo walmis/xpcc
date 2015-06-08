@@ -14,6 +14,21 @@ using namespace stm32;
 #define SD_OCR_ERRORBITS                ((uint32_t)0xFDFFE008)
 #define DATATIMEOUT (0xFFFFFF)
 
+static SDIO_SDCard* inst;
+
+SDIO_SDCard::SDIO_SDCard() : dma_stm(dma::Stream::DMA2_3),
+	initialized(false), _sectors(0), RCA(0) {
+	inst = this;
+}
+
+extern "C"
+void SDIO_IRQHandler() {
+	//IRQWrapper w;
+	CH_IRQ_PROLOGUE();
+	inst->handleIRQ();
+	CH_IRQ_EPILOGUE();
+}
+
 static uint32_t ext_bits(unsigned char* data, int msb,
 		int lsb) {
 	uint32_t bits = 0;
@@ -44,7 +59,10 @@ bool xpcc::stm32::SDIO_SDCard::init() {
 			->fifoThreshold(dma::FIFOThreshold::Full)
 			->priority(dma::Prioriy::VeryHigh);
 
+	dma_stm.attachCallback([this]() { evt.signal(); });
+
 	SDIO_HAL::init();
+	NVIC_EnableIRQ(SDIO_IRQn);
 
 	SDIO_HAL::setBusWidth(SDIO_HAL::BusWidth::_1b);
 	SDIO_HAL::setClockDiv(192);
@@ -58,8 +76,12 @@ bool xpcc::stm32::SDIO_SDCard::init() {
 		//sdcard v1
 		init_v1_card();
 	} else {
-		init_v2_card();
+		if(init_v2_card()) {
+			initialized = true;
+			return true;
+		}
 	}
+
 
 }
 
@@ -68,20 +90,56 @@ bool xpcc::stm32::SDIO_SDCard::isInitialized() {
 }
 
 bool xpcc::stm32::SDIO_SDCard::readStart(uint32_t blockNumber) {
-
+	//XPCC_LOG_DEBUG .printf("r+ %d\n", blockNumber);
 	rd_block = blockNumber;
 	return true;
 
 }
 
 bool xpcc::stm32::SDIO_SDCard::readStop() {
-
+	//XPCC_LOG_DEBUG .printf("r- %d\n", rd_block);
 	return true;
 }
 
 bool xpcc::stm32::SDIO_SDCard::readData(uint8_t* buffer, size_t length) {
+	//XPCC_LOG_DEBUG .printf("rd %d+%d\n", rd_block, length/512);
+	if(length <= 512) {
+		return readSingleBlock(buffer, rd_block++);
+	} else {
+		bool res = readMultipleBlocks(buffer, rd_block, length/512);
+		rd_block += length/512;
+		return res;
+	}
+}
 
-	return readSingleBlock(buffer, rd_block++);
+bool xpcc::stm32::SDIO_SDCard::readMultipleBlocks(uint8_t* buffer,
+		size_t block_number, uint32_t numBlocks) {
+
+	SDIO_HAL::resetDataPath();
+
+	//initialize dma controller
+	if(!dmaInit(buffer, false)) {
+		return false;
+	}
+
+	//tell SDIO to begin block transfer
+	if(!startBlockTransfer(buffer, false, numBlocks*512)) {
+		return false;
+	}
+
+	//send read cmd to initiate transfer
+	if(!cmd(SD_CMD_READ_MULT_BLOCK, block_number*cdv)) {
+		return false;
+	}
+
+	//GpioProfiler<PB15> p;
+
+	//send read cmd to initiate transfer
+	bool res = waitTransfer();
+
+	cmd(SD_CMD_STOP_TRANSMISSION, 0);
+
+	return res;
 }
 
 bool xpcc::stm32::SDIO_SDCard::readSingleBlock(uint8_t* buffer,
@@ -100,9 +158,11 @@ bool xpcc::stm32::SDIO_SDCard::readSingleBlock(uint8_t* buffer,
 	}
 
 	//send read cmd to initiate transfer
-	if(!cmd(17, block_number*cdv)) {
+	if(!cmd(SD_CMD_READ_SINGLE_BLOCK, block_number*cdv)) {
 		return false;
 	}
+
+	//GpioProfiler<PB15> p;
 
 	//send read cmd to initiate transfer
 	return waitTransfer();
@@ -111,7 +171,7 @@ bool xpcc::stm32::SDIO_SDCard::readSingleBlock(uint8_t* buffer,
 
 bool xpcc::stm32::SDIO_SDCard::writeStart(uint32_t blockNumber,
 		uint32_t eraseCount) {
-
+	//XPCC_LOG_DEBUG .printf("w+ %d", blockNumber);
 	SDIO_HAL::resetDataPath();
 
 	if (eraseCount > 1) {
@@ -136,31 +196,32 @@ bool xpcc::stm32::SDIO_SDCard::writeStart(uint32_t blockNumber,
 }
 
 bool xpcc::stm32::SDIO_SDCard::writeStop() {
+	//XPCC_LOG_DEBUG .printf("w-");
+
 	SDIO_HAL::setClockState(true);
 	if(!cmd(SD_CMD_STOP_TRANSMISSION, 0)) {
 		return false;
 	}
 
+	//GpioProfiler<PB15> p;
 	uint8_t status;
-	getCardStatus(status);
-	XPCC_LOG_DEBUG .printf("status 0x%x\n", status);
+	while(1) {
+		if(!getCardStatus(status)) break;
 
+		if((SDCardState)status == SDCardState::SD_CARD_PROGRAMMING) {
+			sleep(1);
+		} else {
+			break;
+		}
+	}
+
+	//XPCC_LOG_DEBUG .printf("status 0x%x\n", status);
 
 	return true;
-
-
-//  while (((response & 0x100)>>8)==0) {
-//	//After CMD12, SD Card puts itself to the prg mode, by pulling D0 to low.
-//	//DPSM is not aware of this. (I hope it is aware of this during multiblock communication. I need to verify this.
-//	//If it is not, then I have to repeat the same procedure after each block during multiblock write which will cause too much overhead)
-//	//Check Card status with CMD13 till, we get READY_FOR_DATA response
-//	//CMD13:Send Status
-//	SD_Command(CMD13, SHRESP, RCA << 16);
-//	SD_Response(&response, RESP_R1b);
-//  }
 }
 
 bool xpcc::stm32::SDIO_SDCard::writeData(const uint8_t* src) {
+	//XPCC_LOG_DEBUG .printf("wb\n");
 	SDIO_HAL::resetDataPath();
 
 	if(!dmaInit((uint8_t*)src, true)) {
@@ -176,7 +237,6 @@ bool xpcc::stm32::SDIO_SDCard::writeData(const uint8_t* src) {
 		return false;
 	}
 
-
 	//data is sent, stop clock and wait for more data
 	SDIO_HAL::setClockState(false);
 
@@ -184,6 +244,8 @@ bool xpcc::stm32::SDIO_SDCard::writeData(const uint8_t* src) {
 }
 
 bool xpcc::stm32::SDIO_SDCard::writeData(uint8_t token, const uint8_t* src) {
+	//unused
+	return false;
 }
 
 bool xpcc::stm32::SDIO_SDCard::writeBlock(uint32_t blockNumber,
@@ -228,47 +290,56 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 		break;
 	}
 
+	evt.reset();
+
 	//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
 	SDIO->ICR=(SDIO_STA_CCRCFAIL | SDIO_STA_CTIMEOUT | SDIO_STA_CMDREND | SDIO_STA_CMDSENT);
 
+	SDIO_HAL::interruptConfig(SDIO_HAL::Interrupt::CMDSENT|
+							  SDIO_HAL::Interrupt::CCRCFAIL|
+							  SDIO_HAL::Interrupt::CTIMEOUT|
+							  SDIO_HAL::Interrupt::CMDREND, true);
+
 	SDIO_HAL::sendCommand(arg, cmd, type);
 
-	Timeout<> t(10);
+	if(!evt.wait(20)) {
+		return false;
+	}
 
-	while(!t.isExpired()) {
-		uint32_t status = SDIO_HAL::getInterruptFlags();
+	//while(!t.isExpired()) {
+	uint32_t status = SDIO_HAL::getInterruptFlags();
 
-		if(resp == ResponseType::None) {
-			if(status & SDIO_HAL::Interrupt::CMDSENT) {
-				XPCC_LOG_DEBUG .printf("cmd %d sent\n", cmd);
+	if(resp == ResponseType::None) {
+		if(status & SDIO_HAL::Interrupt::CMDSENT) {
+			XPCC_LOG_DEBUG .printf("cmd %d sent\n", cmd);
 
-				//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
-				return 1;
-			}
-		} else {
+			//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
+			return 1;
+		}
+	} else {
 
-			if(status & (SDIO_HAL::Interrupt::CMDREND|
-					SDIO_HAL::Interrupt::CCRCFAIL|SDIO_HAL::Interrupt::CTIMEOUT))  {
+		if(status & (SDIO_HAL::Interrupt::CMDREND|
+				SDIO_HAL::Interrupt::CCRCFAIL|SDIO_HAL::Interrupt::CTIMEOUT))  {
 
-				if ((status & SDIO_HAL::Interrupt::CMDREND)
-						|| ((status & SDIO_HAL::Interrupt::CCRCFAIL)
-								&& resp == ResponseType::R3Resp)) {
+			if ((status & SDIO_HAL::Interrupt::CMDREND)
+					|| ((status & SDIO_HAL::Interrupt::CCRCFAIL)
+							&& resp == ResponseType::R3Resp)) {
 //
-					//delay_ms(5);
+				//delay_ms(5);
 //					XPCC_LOG_DEBUG.printf("cmd%d STA:%x resp received cmd:%d r:%x\n",
 //							cmd, SDIO->STA, SDIO_HAL::getCommandResponse(),
 //							SDIO_HAL::getResponse(SDIO_HAL::SDIOResp::RESP1));
 
-					//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
-					return 1;
-				}
-
-				XPCC_LOG_DEBUG .printf("cmd %d err st %x\n", cmd, SDIO->STA);
-				return 0;
-
+				//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
+				return 1;
 			}
+
+			XPCC_LOG_DEBUG .printf("cmd %d err st %x\n", cmd, SDIO->STA);
+			return 0;
+
 		}
 	}
+	//}
 
 	XPCC_LOG_DEBUG .printf("cmd %d timeout\n", cmd);
 	return 0;
@@ -276,6 +347,7 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 }
 
 bool xpcc::stm32::SDIO_SDCard::init_v1_card() {
+	return false;
 }
 
 bool xpcc::stm32::SDIO_SDCard::init_v2_card() {
@@ -330,7 +402,7 @@ bool xpcc::stm32::SDIO_SDCard::init_v2_card() {
 
 	//change bus width
 	sd_wide_bus(true);
-	SDIO_HAL::setClockDiv(0); // set clock rate 24mhz
+	SDIO_HAL::setClockDiv(1); // set clock rate 12mhz
 
 	//card is ready
 	return true;
@@ -348,10 +420,13 @@ void xpcc::stm32::SDIO_SDCard::sd_wide_bus(bool enable) {
 }
 
 bool xpcc::stm32::SDIO_SDCard::startBlockTransfer(uint8_t* block, bool write, uint32_t len) {
+	xpcc::atomic::Lock l;
 
 	if(write) {
 		SDIO_HAL::setClockState(false);
 	}
+
+	evt.reset();
 
 	//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
 	SDIO->ICR=(SDIO_STA_DCRCFAIL | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_DATAEND | SDIO_STA_STBITERR | SDIO_STA_DBCKEND);
@@ -425,20 +500,31 @@ uint32_t xpcc::stm32::SDIO_SDCard::getSectorCount() {
 bool xpcc::stm32::SDIO_SDCard::waitTransfer() {
 	////Check if there is an ongoing transmission
 	//Check if the DMA is disabled (SDIO disables the DMA after it is done with it)
-	while(!dma_stm.getInterruptStatus(dma::IntFlag::TransferComplete)) {
+
+//	//Wait till SDIO is not active
+//	while (SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::RXACT|SDIO_HAL::Interrupt::TXACT)) {
+//
+//	}
+
+	//enable interrupt
+	//SDIO_HAL::interruptConfig(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
+	//		SDIO_HAL::Interrupt::DBCKEND|SDIO_HAL::Interrupt::STBITERR, true);
+
+	//wait for interrupt
+	{
+		xpcc::atomic::Unlock u;
+		if(!evt.wait(20)) {
+			return false;
+		}
 	}
+
 
 	if(dma_stm.isError()) {
 		XPCC_LOG_DEBUG .printf("SDIO DMA Error 0x%x\n", dma_stm.getInterruptFlags());
 		return false;
 	}
 
-	//Wait till SDIO is not active
-	while (SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::RXACT|SDIO_HAL::Interrupt::TXACT)) {
-
-	}
-
-
+	//GpioProfiler<PB15> p;
 	while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
 			SDIO_HAL::Interrupt::DBCKEND|SDIO_HAL::Interrupt::STBITERR)) {
 
@@ -450,9 +536,7 @@ bool xpcc::stm32::SDIO_SDCard::waitTransfer() {
     }
 
 
-
     return true;
-
 }
 
 bool xpcc::stm32::SDIO_SDCard::dmaInit(uint8_t* block, bool write) {
@@ -479,23 +563,25 @@ bool xpcc::stm32::SDIO_SDCard::dmaInit(uint8_t* block, bool write) {
 	if(write)
 		SDIO_HAL::DMACmd(ENABLE);
 
-	if(!(DMA2_Stream3->CR & 1)) {
-		XPCC_LOG_DEBUG << "dma not enabled\n";
-	}
-
 	return 1;
 }
 
 bool xpcc::stm32::SDIO_SDCard::getCardStatus(uint8_t& status) {
-
 		// Send SEND_STATUS command
 		if(!cmd(SD_CMD_SEND_STATUS,RCA << 16)) {
 			return false;// CMD13
 		}
-
 		// Find out card status
 		status = (SDIO_HAL::getResponse(SDIO_HAL::SDIOResp::RESP1) & 0x1e00) >> 9;
-
 		// Check for errors
 		return true;
 }
+
+void xpcc::stm32::SDIO_SDCard::handleIRQ() {
+	//disable interrupts
+	SDIO->MASK = 0;
+	//signal threads
+	evt.signal();
+}
+
+

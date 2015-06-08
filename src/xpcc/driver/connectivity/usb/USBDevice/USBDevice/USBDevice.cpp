@@ -727,15 +727,15 @@ CONTROL_TRANSFER * USBDevice::getTransferPtr(void)
     return &transfer;
 }
 
-bool USBDevice::addEndpoint(uint8_t endpoint, uint32_t maxPacket)
+bool USBDevice::addEndpoint(uint8_t endpoint, uint32_t maxPacket, EPType type)
 {
-    return realiseEndpoint(endpoint, maxPacket, 0);
+    return realiseEndpoint(endpoint, maxPacket, 0, type);
 }
 
 bool USBDevice::addRateFeedbackEndpoint(uint8_t endpoint, uint32_t maxPacket)
 {
     /* For interrupt endpoints only */
-    return realiseEndpoint(endpoint, maxPacket, RATE_FEEDBACK_MODE);
+    return realiseEndpoint(endpoint, maxPacket, RATE_FEEDBACK_MODE, EPType::Interrupt);
 }
 
 uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
@@ -807,7 +807,7 @@ USBDevice::USBDevice(uint16_t vendor_id, uint16_t product_id, uint16_t product_r
 
 bool USBDevice::readStart(uint8_t endpoint, uint32_t maxSize)
 {
-    return endpointRead(endpoint, maxSize) == EP_PENDING;
+	return endpointRead(endpoint, maxSize) == EP_PENDING;
 }
 
 
@@ -941,46 +941,29 @@ uint8_t * USBDevice::stringLangidDesc() {
 }
 
 uint8_t * USBDevice::stringImanufacturerDesc() {
-    static const uint8_t stringImanufacturerDescriptor[] = {
-        0x12,                                            /*bLength*/
-        STRING_DESCRIPTOR,                               /*bDescriptorType 0x03*/
-        'm',0,'b',0,'e',0,'d',0,'.',0,'o',0,'r',0,'g',0, /*bString iManufacturer - mbed.org*/
-    };
-    return (uint8_t*)stringImanufacturerDescriptor;
+	STRDESC(USB_MANUFACTURER_STRING, stringImanufacturerDescriptor);
+    return (uint8_t*)&stringImanufacturerDescriptor;
 }
 
 uint8_t * USBDevice::stringIserialDesc() {
-    static const uint8_t stringIserialDescriptor[] = {
-        0x16,                                                           /*bLength*/
-        STRING_DESCRIPTOR,                                              /*bDescriptorType 0x03*/
-        '0',0,'1',0,'2',0,'3',0,'4',0,'5',0,'6',0,'7',0,'8',0,'9',0,    /*bString iSerial - 0123456789*/
-    };
-    return (uint8_t*)stringIserialDescriptor;
+	STRDESC("012345678", stringIserialDescriptor);
+
+    return (uint8_t*)&stringIserialDescriptor;
 }
 
 uint8_t * USBDevice::stringIConfigurationDesc() {
-    static const uint8_t stringIconfigurationDescriptor[] = {
-        0x06,               /*bLength*/
-        STRING_DESCRIPTOR,  /*bDescriptorType 0x03*/
-        '0',0,'1',0,        /*bString iConfiguration - 01*/
-    };
-    return (uint8_t*)stringIconfigurationDescriptor;
+	STRDESC("01", stringIconfigurationDescriptor);
+
+    return (uint8_t*)&stringIconfigurationDescriptor;
 }
 
 uint8_t * USBDevice::stringIinterfaceDesc() {
-    static const uint8_t stringIinterfaceDescriptor[] = {
-        0x08,               /*bLength*/
-        STRING_DESCRIPTOR,  /*bDescriptorType 0x03*/
-        'U',0,'S',0,'B',0,  /*bString iInterface - USB*/
-    };
-    return (uint8_t*)stringIinterfaceDescriptor;
+	STRDESC("USB", stringIinterfaceDescriptor);
+
+    return (uint8_t*)&stringIinterfaceDescriptor;
 }
 
 uint8_t * USBDevice::stringIproductDesc() {
-    static const uint8_t stringIproductDescriptor[] = {
-        0x16,                                                       /*bLength*/
-        STRING_DESCRIPTOR,                                          /*bDescriptorType 0x03*/
-        'U',0,'S',0,'B',0,' ',0,'D',0,'E',0,'V',0,'I',0,'C',0,'E',0 /*bString iProduct - USB DEVICE*/
-    };
-    return (uint8_t*)stringIproductDescriptor;
+	STRDESC(USB_PRODUCT_STRING, stringIproductDescriptor);
+    return (uint8_t*)&stringIproductDescriptor;
 }

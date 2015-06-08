@@ -17,6 +17,15 @@
 */
 
 
+#ifndef MSD_EPBULK_IN
+#define MSD_EPBULK_IN EPBULK_IN
+#endif
+
+#ifndef MSD_EPBULK_OUT
+#define MSD_EPBULK_OUT EPBULK_OUT
+#endif
+
+
 #ifndef USBMSD_H
 #define USBMSD_H
 
@@ -68,7 +77,9 @@ namespace xpcc {
 /*! 
  * \tparam USBMSDHandler subclass that implements disk access methods
  */
-template <class MSDHandler>
+
+class USBMSDHandler;
+
 class USBMSD: public USBDevice {
 public:
 
@@ -79,12 +90,8 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
-	USBMSD(uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104,
-			uint16_t product_release = 0x0001) : USBDevice(vendor_id, product_id, product_release) {
-
-		this->addInterfaceHandler(msd);
-
-	};
+	USBMSD(USBMSDHandler* msd, uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104,
+			uint16_t product_release = 0x0001);
 
 
 protected:
@@ -134,7 +141,7 @@ protected:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(EPBULK_IN),     // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_IN),     // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -143,7 +150,7 @@ protected:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(EPBULK_OUT),    // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_OUT),    // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -152,8 +159,6 @@ protected:
 	    return (uint8_t*)configDescriptor;
 	}
 
-
-    MSDHandler msd;
 };
 
 }

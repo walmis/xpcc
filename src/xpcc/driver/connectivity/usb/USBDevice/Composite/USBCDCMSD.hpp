@@ -8,6 +8,18 @@
 #ifndef CDCMSD_HPP_
 #define CDCMSD_HPP_
 
+#ifndef USB_PRODUCT_STRING
+#define USB_PRODUCT_STRING		"USB CDC MSD"
+#endif
+
+#ifndef USB_MANUFACTURER_STRING
+#define USB_MANUFACTURER_STRING	"xpcc"
+#endif
+
+#ifndef USB_SERIAL_STRING
+#define USB_SERIAL_STRING		"012345678"
+#endif
+
 #include "../USBDevice/USBDevice.h"
 #include "../USBSerial/USBSerialHandler.hpp"
 #include "../USBMSD/USBMSDHandler.h"
@@ -19,19 +31,18 @@
 
 namespace xpcc {
 
-template<class MSDHandlerClass = USBMSDHandler, class SerialHandlerClass = USBSerialHandler>
+
 
 class USBCDCMSD: public USBDevice, public IODevice {
 public:
 	template <typename ... Args>
-	USBCDCMSD(uint16_t vendor_id,
-			uint16_t product_id, uint16_t product_release, Args... args) :
-			USBDevice(vendor_id, product_id, product_release),
-			msd(args..., EP5IN, EP5OUT),
-			serial(EPBULK_IN, EPBULK_OUT, EPINT_IN) {
+	USBCDCMSD(USBMSDHandler* msd, uint16_t vendor_id,
+				uint16_t product_id, uint16_t product_release) :
+				USBDevice(vendor_id, product_id, product_release),
+				msd(*msd), serial(CDC_EPBULK_IN, CDC_EPBULK_OUT, CDC_EPINT_IN) {
 
-		this->addInterfaceHandler(serial);
-		this->addInterfaceHandler(msd);
+		this->addInterfaceHandler(this->serial);
+		this->addInterfaceHandler(this->msd);
 	}
 
 	//override IODevice methods
@@ -50,22 +61,15 @@ public:
 		return serial.getch();
 	}
 
-	uint8_t * stringIinterfaceDesc() override {
-	    static const uint8_t stringIinterfaceDescriptor[] = {
-	        0x0e,
-	        STRING_DESCRIPTOR,
-	        'C',0,'D',0,'C',0,'M',0,'S',0,'C',0,
-	    };
-	    return (uint8_t*)stringIinterfaceDescriptor;
+	uint8_t * stringImanufacturerDesc() override {
+		STRDESC(USB_MANUFACTURER_STRING, manufacturer);
+	    return (uint8_t*)&manufacturer;
 	}
 
 	uint8_t * stringIproductDesc() override {
-	    static const uint8_t stringIproductDescriptor[] = {
-	        0x1c,
-	        STRING_DESCRIPTOR,
-	        'C',0,'D',0,'C',0,'M',0,'S',0,'D',0,' ',0,'D',0,'E',0,'V',0,'I',0,'C',0,'E',0
-	    };
-	    return (uint8_t*)stringIproductDescriptor;
+	    STRDESC(USB_PRODUCT_STRING, stringIproductDescriptor);
+
+	    return (uint8_t*)&stringIproductDescriptor;
 	}
 
 
@@ -125,7 +129,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        ENDPOINT_DESCRIPTOR_LENGTH,     // bLength
 	        ENDPOINT_DESCRIPTOR,            // bDescriptorType
-	        PHY_TO_DESC(EPINT_IN),          // bEndpointAddress
+	        PHY_TO_DESC(CDC_EPINT_IN),          // bEndpointAddress
 	        E_INTERRUPT,                    // bmAttributes (0x03=intr)
 	        LSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (MSB)
@@ -146,7 +150,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                      // bLength
 	        5,                      // bDescriptorType
-	        PHY_TO_DESC(EPBULK_IN), // bEndpointAddress
+	        PHY_TO_DESC(CDC_EPBULK_IN), // bEndpointAddress
 	        0x02,                   // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),    // wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),    // wMaxPacketSize (MSB)
@@ -155,7 +159,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                      // bLength
 	        5,                      // bDescriptorType
-	        PHY_TO_DESC(EPBULK_OUT),// bEndpointAddress
+	        PHY_TO_DESC(CDC_EPBULK_OUT),// bEndpointAddress
 	        0x02,                   // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),    // wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),     // wMaxPacketSize (MSB)
@@ -175,7 +179,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(EP5IN),     // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_IN),     // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -184,7 +188,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(EP5OUT),    // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_OUT),    // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -193,9 +197,8 @@ public:
 	    return (uint8_t*)configDescriptor;
 	}
 
-	MSDHandlerClass msd;
-	SerialHandlerClass serial;
-
+	USBSerialHandler serial;
+	USBMSDHandler& msd;
 };
 
 }

@@ -158,7 +158,7 @@ namespace xpcc
 		update();
 		
 	private:
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		xpcc::Timeout<> timeout;
 		
 		enum Running {

@@ -75,7 +75,7 @@ private:
 	static BufferedUart* inst;
 
 	bool _send() {
-		int16_t ch = inst->txbuf.read();
+		int16_t ch = inst->popTx();
 		if(ch < 0) return false;
 
 		Uart::put(ch);

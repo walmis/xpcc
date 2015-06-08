@@ -101,14 +101,14 @@ namespace xpcc {
 }
 
 #endif
-#if 1
+#if 0
 #include <functional>
 namespace xpcc {
 	using std::function;
 }
 #endif
 
-#if 0
+#if 1
 #pragma once
 #include <utility>
 #include <type_traits>

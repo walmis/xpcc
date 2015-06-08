@@ -53,7 +53,7 @@ namespace xpcc
 	 */
 
 	template <typename I2cMaster>
-	class I2cEeprom : public xpcc::I2cDelegate
+	class I2cEeprom : public xpcc::I2cTransaction
 	{
 	public:
 		I2cEeprom(uint8_t address, uint8_t addrSize = 2, uint8_t pageSize = 64);
@@ -146,6 +146,7 @@ namespace xpcc
 		bool isReading;
 		
 		uint8_t buffer[3];
+		Event event;
 		
 	private:
 		bool

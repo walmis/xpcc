@@ -12,7 +12,7 @@
 #include "timestamp.hpp"
 #include "../io/iostream.hpp"
 
-#define TASK_DEBUG
+//#define TASK_DEBUG
 
 namespace xpcc {
   
@@ -48,8 +48,6 @@ protected:
 		_setFlag(FLAG_RUNNING);
 	}
 
-	static bool inInterruptContext();
-
 	///internal pointer to the next tickerTask
 	TickerTask *next;
 
@@ -82,6 +80,8 @@ public:
 		FLAG_YIELDING = 8,
 	};
 
+	static bool inInterruptContext();
+
 	static void tick();
 
 	///yield current task. Call this function repeatedly until some blocking operation finishes.
@@ -95,19 +95,12 @@ public:
 	///Start infinite loop processing all tasks repeatedly. This will cause all tasks' TickerTask::handleTick to be called repeatedly.
 	///@param idleFunc function to be executed when all tasks in the chain are executed. Useful to put the processor to sleep if no work is to be done
 	static void tasksRun(xpcc::function<void()> idleFunc = 0);
+	static void tasksInit();
 #ifdef TASK_DEBUG
 	uint32_t yield_return_address;
 	static void printTasks(IOStream& stream);
 #endif
 };
-
-static ALWAYS_INLINE void yield(uint16_t timeAvailable = 0) {
-	xpcc::TickerTask::yield(timeAvailable);
-}
-
-static ALWAYS_INLINE void sleep(uint16_t time_ms) {
-	xpcc::TickerTask::sleep(time_ms);
-}
 
 }
 

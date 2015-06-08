@@ -16,6 +16,16 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef CDC_EPBULK_OUT
+#define CDC_EPBULK_OUT EPBULK_OUT
+#endif
+#ifndef CDC_EPBULK_IN
+#define CDC_EPBULK_IN EPBULK_IN
+#endif
+#ifndef CDC_EPINT_IN
+#define CDC_EPINT_IN EPINT_IN
+#endif
+
 #ifndef USBCDC_H
 #define USBCDC_H
 
@@ -30,6 +40,7 @@
 #include "../USBDevice/USBDevice.h"
 
 namespace xpcc {
+
 
 
 class USBCDC: public USBDevice {
@@ -137,7 +148,7 @@ protected:
     	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
     	        ENDPOINT_DESCRIPTOR_LENGTH,     // bLength
     	        ENDPOINT_DESCRIPTOR,            // bDescriptorType
-    	        PHY_TO_DESC(EPINT_IN),          // bEndpointAddress
+    	        PHY_TO_DESC(CDC_EPINT_IN),          // bEndpointAddress
     	        E_INTERRUPT,                    // bmAttributes (0x03=intr)
     	        LSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (LSB)
     	        MSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (MSB)
@@ -157,7 +168,7 @@ protected:
     	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
     	        ENDPOINT_DESCRIPTOR_LENGTH, // bLength
     	        ENDPOINT_DESCRIPTOR,        // bDescriptorType
-    	        PHY_TO_DESC(EPBULK_IN),     // bEndpointAddress
+    	        PHY_TO_DESC(CDC_EPBULK_IN),     // bEndpointAddress
     	        E_BULK,                     // bmAttributes (0x02=bulk)
     	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
     	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -166,7 +177,7 @@ protected:
     	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
     	        ENDPOINT_DESCRIPTOR_LENGTH, // bLength
     	        ENDPOINT_DESCRIPTOR,        // bDescriptorType
-    	        PHY_TO_DESC(EPBULK_OUT),    // bEndpointAddress
+    	        PHY_TO_DESC(CDC_EPBULK_OUT),    // bEndpointAddress
     	        E_BULK,                     // bmAttributes (0x02=bulk)
     	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
     	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)

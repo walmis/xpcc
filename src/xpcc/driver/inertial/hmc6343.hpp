@@ -292,7 +292,7 @@ namespace xpcc
 		readRegister(hmc6343::Register reg, uint8_t &data);
 
 	private:
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		xpcc::Timeout<> timeout;
 
 		enum Running

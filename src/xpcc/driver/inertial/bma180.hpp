@@ -481,7 +481,7 @@ namespace xpcc
 		uint8_t
 		readRegister(bma180::Register reg);
 		
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		
 		enum Status {
 			READ_ACCELEROMETER_PENDING = 0x01,

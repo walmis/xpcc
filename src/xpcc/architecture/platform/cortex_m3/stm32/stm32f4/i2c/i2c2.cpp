@@ -9,11 +9,12 @@
 namespace xpcc {
 namespace stm32 {
 template<>
-xpcc::I2cDelegate * volatile I2cMaster2::delegate = 0;
+xpcc::I2cTransaction * volatile I2cMaster2::delegate = 0;
 
 extern "C" void
 I2C2_EV_IRQHandler(void)
 {
+	IRQWrapper w;
 	I2cMaster2::handleIRQ();
 }
 
@@ -21,6 +22,7 @@ I2C2_EV_IRQHandler(void)
 extern "C" void
 I2C2_ER_IRQHandler(void)
 {
+	IRQWrapper w;
 	I2cMaster2::handleERR_IRQ();
 }
 

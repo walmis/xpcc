@@ -28,7 +28,7 @@ namespace xpcc
  * @author	Niklas Hauser
  * @ingroup	i2c
  */
-class I2cWriteReadAdapter : public I2cDelegate
+class I2cWriteReadTransaction : public I2cTransaction
 {
 private:
 	uint8_t address;
@@ -38,9 +38,10 @@ private:
 	const uint8_t *writeBuffer;
 	volatile AdapterState state;
 	bool isReading;
+	Event event;
 
 public:
-	I2cWriteReadAdapter()
+	I2cWriteReadTransaction()
 	:	state(AdapterState::Idle)
 	{
 	}
@@ -54,7 +55,11 @@ public:
 	}
 
 	inline bool isBusy() {
-		return state == AdapterState::Busy;
+		return !event.isPending();
+	}
+
+	inline bool wait(uint32_t timeout_ms = 0) {
+		return event.wait(timeout_ms);
 	}
 
 	/**
@@ -118,6 +123,8 @@ protected:
 	{
 		if (state == AdapterState::Busy)
 			return false;
+
+		event.reset();
 		state = AdapterState::Busy;
 		return true;
 	}
@@ -162,6 +169,7 @@ protected:
 	{
 		isReading = false;
 		state = (cause == DetachCause::NormalStop) ? AdapterState::Idle : AdapterState::Error;
+		event.signal();
 	}
 	///@}
 };
@@ -179,16 +187,17 @@ protected:
  * @author	Niklas Hauser
  * @ingroup	i2c
  */
-class I2cWriteAdapter : public I2cDelegate
+class I2cWriteTransaction : public I2cTransaction
 {
 private:
 	uint8_t address;
 	uint8_t size;
 	const uint8_t *buffer;
 	volatile AdapterState state;
+	Event event;
 
 public:
-	I2cWriteAdapter()
+	I2cWriteTransaction()
 	:	state(AdapterState::Idle)
 	{
 	}
@@ -202,7 +211,7 @@ public:
 	}
 
 	inline bool isBusy() {
-		return state == AdapterState::Busy;
+		return !event.isPending();
 	}
 
 	/**
@@ -248,6 +257,10 @@ public:
 		return false;
 	}
 
+	inline bool wait(uint32_t timeout_ms = 0) {
+		return event.wait(timeout_ms);
+	}
+
 private:
 	/// @internal
 	///@{
@@ -256,6 +269,8 @@ private:
 	{
 		if (state == AdapterState::Busy)
 			return false;
+
+		event.reset();
 		state = AdapterState::Busy;
 		return true;
 	}
@@ -293,6 +308,7 @@ private:
 	stopped(DetachCause cause)
 	{
 		state = (cause == DetachCause::NormalStop) ? AdapterState::Idle : AdapterState::Error;
+		event.signal();
 	}
 	///@}
 };
@@ -310,16 +326,17 @@ private:
  * @author	Niklas Hauser
  * @ingroup	i2c
  */
-class I2cReadAdapter : public I2cDelegate
+class I2cReadTransaction : public I2cTransaction
 {
 private:
 	uint8_t address;
 	uint8_t size;
 	uint8_t *buffer;
 	volatile AdapterState state;
+	Event event;
 
 public:
-	I2cReadAdapter()
+	I2cReadTransaction()
 	:	state(AdapterState::Idle)
 	{
 	}
@@ -333,7 +350,8 @@ public:
 	}
 
 	inline bool isBusy() {
-		return state == AdapterState::Busy;
+		return !event.isPending();
+		//return state == AdapterState::Busy;
 	}
 
 	/**
@@ -379,6 +397,10 @@ public:
 		return false;
 	}
 
+	inline bool wait(uint32_t timeout_ms = 0) {
+		return event.wait(timeout_ms);
+	}
+
 private:
 	///@{
 	/// @internal
@@ -387,6 +409,8 @@ private:
 	{
 		if (state == AdapterState::Busy)
 			return false;
+
+		event.reset();
 		state = AdapterState::Busy;
 		return true;
 	}
@@ -424,6 +448,7 @@ private:
 	stopped(DetachCause cause)
 	{
 		state = (cause == DetachCause::NormalStop) ? AdapterState::Idle : AdapterState::Error;
+		event.signal();
 	}
 	///@}
 };

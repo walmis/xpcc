@@ -34,6 +34,14 @@ namespace xpcc {
 
 class USBHAL {
 public:
+
+	enum class EPType {
+		Control,
+		Isochronous,
+		Bulk,
+		Interrupt
+	};
+
     /* Configuration */
     USBHAL();
     ~USBHAL();
@@ -64,7 +72,7 @@ public:
     EP_STATUS endpointWriteResult(uint8_t endpoint);
     void stallEndpoint(uint8_t endpoint);
     void unstallEndpoint(uint8_t endpoint);
-    bool realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t options);
+    bool realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t options, EPType type);
     bool getEndpointStallState(unsigned char endpoint);
     uint32_t endpointReadcore(uint8_t endpoint, uint8_t *buffer);
 

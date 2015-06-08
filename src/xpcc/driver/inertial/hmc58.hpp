@@ -196,7 +196,7 @@ namespace xpcc
 		uint8_t
 		readRegister(hmc58::Register reg);
 		
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		
 		enum Status {
 			READ_MAGNETOMETER_PENDING = 0x01,

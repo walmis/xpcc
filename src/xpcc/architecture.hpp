@@ -38,5 +38,6 @@
 
 #include "architecture/platform.hpp"
 #include "architecture/driver.hpp"
+#include "processing/rtos.hpp"
 
 #endif	// XPCC__ARCHITECTURE_HPP

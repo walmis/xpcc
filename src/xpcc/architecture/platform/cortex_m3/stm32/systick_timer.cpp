@@ -31,6 +31,7 @@
 #include <xpcc/architecture/driver/atomic/lock.hpp>
 #include <xpcc/architecture/driver/clock.hpp>
 #include <xpcc/utils/dummy.hpp>
+#include <xpcc/processing/rtos.hpp>
 
 #include <stm32f4xx.h>
 #include "systick_timer.hpp"
@@ -40,6 +41,7 @@ static xpcc::stm32::InterruptHandler sysTickHandler = &xpcc::dummy;
 extern "C" void
 SysTick_Handler(void)
 {
+	xpcc::IRQWrapper w;
 	xpcc::Clock::increment();
 	sysTickHandler();
 }

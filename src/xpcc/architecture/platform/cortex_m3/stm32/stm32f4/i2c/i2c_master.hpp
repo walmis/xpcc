@@ -198,10 +198,10 @@ public:
 	 *		`Standard` or `Fast`, `High` datarate is not supported
 	 */
 	static ALWAYS_INLINE void
-	initialize()
+	initialize(uint32_t frequency = 400000)
 	{
 		int peripheralFrequency = Clocks::getPCLK1Frequency();
-		uint32_t rawRate = 400000;
+		uint32_t rawRate = frequency;
 		//static_assert(rawRate <= 400000, "The STM32 does not support High I2C baudrate.");
 		//static_assert(peripheralFrequency/2 >= rawRate, "The APB1 frequency needs to be at least 2x higher than I2C baudrate.");
 
@@ -240,8 +240,8 @@ public:
 
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
 		I2Cx->TRISE = 0x09;
-		//I2Cx->FLTR = 0x04;
-		I2Cx->FLTR = I2C_FLTR_ANOFF;
+		I2Cx->FLTR = 0x04;
+		I2Cx->FLTR |= I2C_FLTR_ANOFF;
 
 		I2Cx->CR1 |= I2C_CR1_PE; // Enable peripheral
 		I2Cx->CR2 |= I2C_CR2_ITERREN;
@@ -268,7 +268,7 @@ public:
 
 	// start documentation inherited
 	static bool
-	start(xpcc::I2cDelegate *delegate) {
+	start(xpcc::I2cTransaction *delegate) {
 		return attachDelegate(delegate);
 	}
 
@@ -277,6 +277,68 @@ public:
 		return error;
 	}
 
+	static bool
+	reset(I2cTransaction* transaction) {
+		xpcc::atomic::Lock l;
+
+		if(delegate == transaction) {
+			reset();
+			return true;
+		} else {
+			I2cTransaction* d = delegate;
+			while(d) {
+				if(d->next == transaction) {
+					d->next->stopped(DetachCause::SoftwareReset);
+					d->next = d->next->next;
+					return true;
+				}
+				d = d->next;
+			}
+		}
+
+		return false;
+	}
+
+	static void busReset() {
+		//XPCC_LOG_ERROR << "I2C BUS RESET\n";
+
+		//save registers
+		//uint32_t CR1 = I2Cx->CR1 & 0xFF; //mask only setting bits
+
+		//reset all transactions
+//		I2cTransaction* d = delegate;
+//		while(d) {
+//			d->stopped(DetachCause::SoftwareReset);
+//
+//			d = d->next;
+//		}
+//		delegate = 0;
+
+		//soft reset the bus
+		uint32_t CR1 = 1;
+		uint32_t CR2 = I2Cx->CR2;
+		uint32_t CCR = I2Cx->CCR;
+		uint32_t TRISE = I2Cx->TRISE;
+		uint32_t FLTR = I2Cx->FLTR;
+
+		//reset peripheral
+		I2Cx->CR1 = I2C_CR1_SWRST;
+		//wait for reset
+		while(I2Cx->CR2 != 0);
+		I2Cx->CR1 = 0;
+
+		//restore registers
+		I2Cx->TRISE = TRISE;
+		I2Cx->FLTR = FLTR;
+		I2Cx->CCR = CCR;
+		I2Cx->CR2 = CR2;
+		I2Cx->CR1 = CR1;
+
+	}
+
+
+	/* resets current transaction,
+	 * starts next transaction if available */
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 		xpcc::atomic::Lock l;
@@ -285,10 +347,11 @@ public:
 		writeBytesLeft = 0;
 		//I2Cx->CR1 &= ~I2C_CR1_PE;
 
-		busReset();
+		//busReset();
 
 		if (delegate != 0) {
-			I2cDelegate* old = delegate;
+			delegate->errno = error;
+			I2cTransaction* old = delegate;
 			//attach new delegate in the chain
 			delegate = delegate->next;
 
@@ -326,7 +389,7 @@ public:
 			// EV5: SB=1, cleared by reading SR1 register followed by writing DR register with Address.
 			DEBUG_STREAM("startbit set");
 
-			xpcc::I2cDelegate::Starting s = delegate->starting();
+			xpcc::I2cTransaction::Starting s = delegate->starting();
 			uint8_t address;
 
 			switch (s.next)
@@ -575,23 +638,24 @@ public:
 		if (sr1 & I2C_SR1_BERR)
 		{
 			XPCC_LOG_ERROR << "I2C BUS ERROR\n";
-			//busReset();
 
-			I2Cx->CR1 |= I2C_CR1_STOP;
-			uint_fast32_t deadlockPreventer = 10000;
-			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
-				;
+			busReset();
+
+			//I2Cx->CR1 |= I2C_CR1_STOP;
+//			uint_fast32_t deadlockPreventer = 10000;
+//			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+//				;
 
 			error = xpcc::I2cMaster::Error::BusCondition;
 		}
 		else if (sr1 & I2C_SR1_AF)
 		{	// acknowledge fail
 			I2Cx->CR1 |= I2C_CR1_STOP;
-			uint_fast32_t deadlockPreventer = 10000;
-			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
-				;
+//			uint_fast32_t deadlockPreventer = 10000;
+//			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+//				;
 
-			XPCC_LOG_ERROR << "I2C ERR ACK FAIL\n";
+			//XPCC_LOG_ERROR << "I2C ERR ACK FAIL\n";
 			 // may also be ADDRESS_NACK
 			error = xpcc::I2cMaster::Error::DataNack;
 		}
@@ -623,34 +687,6 @@ public:
 		reset(xpcc::I2c::DetachCause::ErrorCondition);
 	}
 
-	static inline void busReset() {
-		//XPCC_LOG_ERROR << "I2C BUS RESET\n";
-
-		//save registers
-		//uint32_t CR1 = I2Cx->CR1 & 0xFF; //mask only setting bits
-
-		uint32_t CR1 = 1;
-		uint32_t CR2 = I2Cx->CR2;
-		uint32_t CCR = I2Cx->CCR;
-		uint32_t TRISE = I2Cx->TRISE;
-		uint32_t FLTR = I2Cx->FLTR;
-
-		//reset peripheral
-		I2Cx->CR1 = I2C_CR1_SWRST;
-		//wait for reset
-		while(I2Cx->CR2 != 0);
-		I2Cx->CR1 = 0;
-
-		//restore registers
-		I2Cx->TRISE = TRISE;
-		I2Cx->FLTR = FLTR;
-		I2Cx->CCR = CCR;
-		I2Cx->CR2 = CR2;
-		I2Cx->CR1 = CR1;
-
-	}
-
-
 private:
 	static CheckNextOperation checkNextOperation;
 	// buffer management
@@ -663,10 +699,10 @@ private:
 	static xpcc::I2cMaster::Error error;
 
 	// delegating
-	static xpcc::I2cDelegate * volatile delegate;
+	static xpcc::I2cTransaction * volatile delegate;
 
 	static inline void
-	initializeWrite(xpcc::I2cDelegate::Writing w)
+	initializeWrite(xpcc::I2cTransaction::Writing w)
 	{
 		writePointer = w.buffer;
 		writeBytesLeft = w.size;
@@ -675,7 +711,7 @@ private:
 	}
 
 	static inline void
-	initializeRead(xpcc::I2cDelegate::Reading r)
+	initializeRead(xpcc::I2cTransaction::Reading r)
 	{
 		readPointer = r.buffer;
 		readBytesLeft = r.size;
@@ -703,12 +739,20 @@ private:
 	callStarting()
 	{
 	//	busReset();
-		I2Cx->CR1 |= I2C_CR1_PE;
+		//I2Cx->CR1 |= I2C_CR1_PE;
+//		XPCC_LOG_DEBUG .printf("CR1 %x CR2 %x SR1 %x SR2 %x\n", I2Cx->CR1,
+//				I2Cx->CR2, I2Cx->SR1, I2Cx->SR2);
 
-		uint_fast32_t deadlockPreventer = 100000;
-		while ((I2Cx->CR1 & I2C_CR1_STOP) and (deadlockPreventer-- > 0))
+
+		uint_fast32_t deadlockPreventer = 10000;
+		while ((I2Cx->CR1 & I2C_CR1_STOP) and (--deadlockPreventer > 0))
 			;
 
+		if(deadlockPreventer == 0) {
+			XPCC_LOG_DEBUG .printf("Err\n");
+		}
+
+		//XPCC_LOG_DEBUG .printf("--CR1 %x %d\n", I2Cx->CR1, deadlockPreventer);
 		// If the bus is busy during a starting condition, we generate an error and detach the transaction
 		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
 		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
@@ -720,6 +764,7 @@ private:
 
 			if (I2Cx->SR2 & I2C_SR2_BUSY)
 			{
+				//XPCC_LOG_DEBUG .printf("Busy\n");
 				// either SDA or SCL is low, which leads to irrecoverable deadlock.
 				// Call error handler manually to detach the transaction object and resolve the deadlock.
 				// Further transactions may not succeed either, but will not lead to a deadlock.
@@ -748,7 +793,7 @@ private:
 
 private:
 
-	static bool attachDelegate(xpcc::I2cDelegate *d) {
+	static bool attachDelegate(xpcc::I2cTransaction *d) {
 		xpcc::atomic::Lock l;
 
 		if(delegate == d)
@@ -765,11 +810,11 @@ private:
 				callStarting();
 				return true;
 			} else {
-				xpcc::I2cDelegate* p = delegate;
+				xpcc::I2cTransaction* p = delegate;
 				while(p->next) {
 					if(p == d) {
 						//the same delegate is already in the chain
-						//XPCC_LOG_ERROR << "same delegate in chain\n";
+						XPCC_LOG_ERROR << "same delegate in chain\n";
 						d->stopped(DetachCause::SoftwareReset);
 						return false;
 					}

@@ -48,6 +48,7 @@ void Uart4::disable() {
 extern "C" void
 UART4_IRQHandler()
 {
+	IRQWrapper w;
 	Uart4::handleIRQ();
 } // IRQHandler
 

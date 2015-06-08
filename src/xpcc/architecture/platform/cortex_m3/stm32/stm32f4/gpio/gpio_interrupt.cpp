@@ -7,9 +7,10 @@
 
 #include <xpcc/container/linked_list.hpp>
 #include <xpcc/processing/function.hpp>
+#include <xpcc/processing/rtos.hpp>
 #include "../../device.hpp"
 #include "gpio_interrupt.hpp"
-
+#include "gpio.hpp"
 namespace xpcc {
 
 
@@ -18,9 +19,10 @@ struct Entry {
 	uint8_t pin;
 	uint8_t edges;
 	xpcc::function<void()> func;
+	Entry* next = 0;
 };
 
-static LinkedList<Entry> handlers;
+static Entry* handlers;
 
 static volatile uint8_t _currentEdge;
 static volatile uint8_t _currentPort;
@@ -60,13 +62,21 @@ bool xpcc::GpioInt::attach(uint8_t port, uint8_t pin, xpcc::function<void()> fn,
 		EXTI->FTSR &= ~(1<<pin);
 	}
 
-	Entry e;
-	e.pin = pin;
-	e.port = port;
-	e.func = fn;
-	e.edges = (uint8_t) edges;
+	Entry *e = new Entry;;
+	e->pin = pin;
+	e->port = port;
+	e->func = fn;
+	e->edges = (uint8_t) edges;
 
-	handlers.append(e);
+	if(!handlers) {
+		handlers = e;
+	} else {
+		Entry* n = handlers;
+		while(n->next) {
+			n = n->next;
+		}
+		n->next = e;
+	}
 
 	EXTI->IMR |= (1<<pin);
 
@@ -85,53 +95,64 @@ static void handleEXTI() {
 	uint32_t flags = EXTI->PR;
 	if(!flags) return;
 
-	for(auto e : handlers) {
+	EXTI->PR = flags; //clear pending interrupts immediately
 
-		if(flags & (1<<e.pin)) {
-			_currentPin = e.pin;
-			_currentPort = e.port;
+	Entry* e = handlers;
+
+	while(e) {
+		if(flags & (1<<e->pin)) {
+			_currentPin = e->pin;
+			_currentPort = e->port;
 			_currentEdge = 0; //unknown
 
-			if(e.func) e.func();
-
-			EXTI->PR |= (1<<e.pin);
+			e->func();
 		}
+
+		e = e->next;
 	}
+
 
 }
 
 extern "C"
 void EXTI0_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI1_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI2_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI3_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI4_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI9_5_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 
 extern "C"
 void EXTI15_10_IRQHandler() {
+	IRQWrapper w;
 	handleEXTI();
 }
 

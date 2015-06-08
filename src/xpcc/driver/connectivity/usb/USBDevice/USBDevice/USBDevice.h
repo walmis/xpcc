@@ -26,6 +26,23 @@
 
 namespace xpcc {
 
+#define STRDESC(str, name) struct { \
+			    uint8_t size = sizeof(CONCAT(u, str)) + 2 - 2;\
+			    uint8_t id = 3;\
+			    char16_t s[sizeof(CONCAT(u, str))] = CONCAT(u, str);\
+			  } static const name
+
+#ifndef USB_PRODUCT_STRING
+#define USB_PRODUCT_STRING		"USB Device"
+#endif
+
+#ifndef USB_MANUFACTURER_STRING
+#define USB_MANUFACTURER_STRING	"xpcc"
+#endif
+
+#ifndef USB_SERIAL_STRING
+#define USB_SERIAL_STRING		"012345678"
+#endif
 
 class USBDevice: public USBHAL
 {
@@ -56,7 +73,7 @@ public:
     * @param maxPacket Maximum size of a packet which can be sent for this endpoint
     * @returns true if successful, false otherwise
     */
-    bool addEndpoint(uint8_t endpoint, uint32_t maxPacket);
+    bool addEndpoint(uint8_t endpoint, uint32_t maxPacket, EPType type);
 
     /*
     * Start a reading on a certain endpoint.

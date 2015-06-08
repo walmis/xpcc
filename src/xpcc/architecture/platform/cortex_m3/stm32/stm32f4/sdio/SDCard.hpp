@@ -110,7 +110,7 @@ enum SDError {
 
 #define SDIO_SEND_IF_COND               ((uint32_t)0x00000008)
 
-enum class SDCardState
+enum SDCardState
 {
   SD_CARD_READY                  = ((uint32_t)0x00000001),
   SD_CARD_IDENTIFICATION         = ((uint32_t)0x00000002),

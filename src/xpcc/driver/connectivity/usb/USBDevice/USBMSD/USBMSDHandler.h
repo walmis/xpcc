@@ -10,7 +10,7 @@
 
 #include "../USBDevice/USBDevice.h"
 #include "../USBDevice/USBInterfaceHandler.h"
-
+#include "USBMSD.h"
 
 namespace xpcc {
 
@@ -33,11 +33,14 @@ public:
 		WRITE_PROTECT =   0x08
 	};
 
-	USBMSDHandler();
-
-	void setEndpoints(uint8_t bulkIn, uint8_t bulkOut);
+	USBMSDHandler(uint8_t bulkIn = MSD_EPBULK_IN,
+			uint8_t bulkOut = MSD_EPBULK_OUT);
 
 	bool initialize();
+
+	void set_device_strings(const char* vendorId, const char* productId, const char* productRev);
+
+	void setPageSize(size_t size);
 
 protected:
 
@@ -45,7 +48,7 @@ protected:
 		READ,
 		WRITE
 	};
-
+	uint32_t a;
 	/*
 	 * Called when usb msd transfer request is received.
 	 * @param Transfer type READ or WRITE
@@ -174,6 +177,7 @@ private:
 		uint8_t SenseKeySpecific[3];
 	}__attribute__((packed));
 
+	uint8_t buf[MAX_PACKET_SIZE_EPBULK];
 
     //state of the bulk-only state machine
     Stage stage;
@@ -204,6 +208,10 @@ private:
 
     uint32_t BlockCount;
 
+    const char* vendorId = "xpcc";
+    const char* productId = "MassStorage";
+    const char* productRev = "1.0";
+
     void CBWDecode();
     void sendCSW (void);
     bool inquiryRequest (void);
@@ -221,7 +229,7 @@ private:
 
     volatile bool blockReady;
     volatile bool readRequest;
-    volatile bool writeRequest;
+    volatile bool writeRequestPending;
 
     volatile bool blockSent;
 

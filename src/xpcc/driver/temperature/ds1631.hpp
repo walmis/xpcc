@@ -140,7 +140,7 @@ namespace xpcc
 		getTemperature();
 		
 	private:
-		xpcc::I2cWriteReadAdapter adapter;
+		xpcc::I2cWriteReadTransaction adapter;
 		
 		enum Running {
 			NOTHING_RUNNING,

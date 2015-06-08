@@ -48,6 +48,7 @@ void Usart6::disable() {
 extern "C" void
 USART6_IRQHandler()
 {
+	IRQWrapper w;
 	Usart6::handleIRQ();
 } // IRQHandler
 
