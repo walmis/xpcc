@@ -1632,7 +1632,7 @@
 			</provider>
 		</extension>
 	</configuration>
-	<configuration id="cdt.managedbuild.config.gnu.cross.exe.release.735040115.1597797067.2059625533.1941898696" name="STM32F411">
+	<configuration id="cdt.managedbuild.config.gnu.cross.exe.release.735040115.1597797067.2059625533.881386908" name="STM32F4-Chibi">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
 			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
 			<provider-reference id="org.eclipse.cdt.managedbuilder.core.MBSLanguageSettingsProvider" ref="shared-provider"/>

@@ -131,7 +131,6 @@ void boot_entry(void)
 	SystemInit();
 
 	__segs_init();
-	__xpcc_initialize_memory();
 
 	unsigned int *div_ptr = (unsigned int *)((unsigned int *)*(PTR_ROM_DRIVER_TABLE))[4];
 	// Get addresses of integer divide routines in ROM

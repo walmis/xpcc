@@ -36,8 +36,8 @@ namespace xpcc {
 #define S2_BULK_OUT EP2OUT
 #define S2_INT_IN   EP4IN
 
-#define MSD_BULK_IN  EP3IN
-#define MSD_BULK_OUT EP3OUT
+#define MSD_EPBULK_IN  EP3IN
+#define MSD_EPBULK_OUT EP3OUT
 #endif
 
 class USB2xCDCMSD: public USBDevice {
@@ -52,7 +52,6 @@ public:
 		this->addInterfaceHandler(serial1);
 		this->addInterfaceHandler(serial2);
 
-		msd.setEndpoints(MSD_BULK_IN, MSD_BULK_OUT);
 		this->addInterfaceHandler(msd);
 	}
 
@@ -303,7 +302,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(MSD_BULK_IN),     // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_IN),     // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
@@ -312,7 +311,7 @@ public:
 	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	        7,                          // bLength
 	        5,                          // bDescriptorType
-	        PHY_TO_DESC(MSD_BULK_OUT),    // bEndpointAddress
+	        PHY_TO_DESC(MSD_EPBULK_OUT),    // bEndpointAddress
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)

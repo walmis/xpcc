@@ -10,7 +10,7 @@
 using namespace xpcc;
 using namespace xpcc::lpc11;
 
-xpcc::I2cDelegate* lpc11::I2cMaster0::delegate = 0;
+xpcc::I2cTransaction* lpc11::I2cMaster0::delegate = 0;
 volatile bool I2cMaster0::newSession;
 uint8_t * I2cMaster0::readPointer;
 const uint8_t * I2cMaster0::writePointer;

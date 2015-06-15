@@ -24,8 +24,6 @@ namespace xpcc {
 
 class Event  {
 public:
-	Event() : cond(true) {}
-
 	bool isPending() {
 		return cond.wait(TIME_IMMEDIATE) == MSG_TIMEOUT;
 	}
@@ -66,7 +64,7 @@ public:
 	}
 
 protected:
-	chibios_rt::BinarySemaphore cond;
+	chibios_rt::BinarySemaphore cond{true};
 };
 
 }

@@ -505,7 +505,7 @@ bool USBHAL::getEndpointStallState(unsigned char endpoint) {
     return false;
 }
 
-bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t options) {
+bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t options, EPType type) {
     uint32_t tmpEpRamPtr;
 
     if (endpoint > LAST_PHYSICAL_ENDPOINT) {

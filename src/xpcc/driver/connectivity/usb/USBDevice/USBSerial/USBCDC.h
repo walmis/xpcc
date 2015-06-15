@@ -41,7 +41,13 @@
 
 namespace xpcc {
 
+#ifndef USB_PRODUCT_STRING
+#define USB_PRODUCT_STRING		"USB Serial"
+#endif
 
+#ifndef USB_MANUFACTURER_STRING
+#define USB_MANUFACTURER_STRING	"xpcc"
+#endif
 
 class USBCDC: public USBDevice {
 public:
@@ -54,7 +60,6 @@ public:
     * @param product_release Your preoduct_release
     */
     USBCDC(uint16_t vendor_id, uint16_t product_id, uint16_t product_release);
-
 
 protected:
     
@@ -70,14 +75,29 @@ protected:
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    virtual uint8_t * stringIproductDesc() {
+    	STRDESC(USB_PRODUCT_STRING, stringIproductDescriptor);
+        return (uint8_t*)&stringIproductDescriptor;
+    }
+
+    virtual uint8_t * stringImanufacturerDesc() {
+    	STRDESC(USB_MANUFACTURER_STRING, stringImanuf);
+        return (uint8_t*)&stringImanuf;
+    }
     
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    virtual uint8_t * stringIinterfaceDesc() {
+        static const uint8_t stringIinterfaceDescriptor[] = {
+            0x08,
+            STRING_DESCRIPTOR,
+            'C',0,'D',0,'C',0,
+        };
+        return (uint8_t*)stringIinterfaceDescriptor;
+    }
     
     /*
     * Get configuration descriptor

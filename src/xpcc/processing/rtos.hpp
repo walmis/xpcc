@@ -8,8 +8,8 @@
 #ifndef SRC_XPCC_PROCESSING_RTOS_HPP_
 #define SRC_XPCC_PROCESSING_RTOS_HPP_
 
-#if 0
-
+#if !XPCC_CHIBI_RTOS
+#include "ticker_task.hpp"
 #include "SimpleTasker/semaphore.hpp"
 #include "SimpleTasker/event.hpp"
 #include "SimpleTasker/interrupt_wrapper.hpp"

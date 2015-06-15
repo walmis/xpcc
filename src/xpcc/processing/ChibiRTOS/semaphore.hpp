@@ -15,16 +15,29 @@ namespace xpcc {
 
 class Semaphore {
 public:
-	Semaphore();
 
-	void give();
-	bool take(uint16_t timeout = 0) __attribute__ ((warn_unused_result));
-	bool take_nonblocking() __attribute__ ((warn_unused_result));
+	void give() {
+		syssts_t s = chSysGetStatusAndLockX();
+		sem.signalI();
+		chSysRestoreStatusX(s);
+	}
 
-	bool taken();
+	bool take(uint16_t timeout_ms = 0) __attribute__ ((warn_unused_result)) {
+		return sem.wait(MS2ST(timeout_ms)) == MSG_OK;
+	}
+	bool take_nonblocking() __attribute__ ((warn_unused_result)) {
+		return sem.wait(TIME_IMMEDIATE) == MSG_OK;
+	}
+
+	bool taken() {
+		syssts_t s = chSysGetStatusAndLockX();
+		bool state = sem.getStateI();
+		chSysRestoreStatusX(s);
+		return state;
+	}
 
 private:
-	chibios_rt::BinarySemaphore sem;
+	chibios_rt::BinarySemaphore sem{false};
 };
 
 }

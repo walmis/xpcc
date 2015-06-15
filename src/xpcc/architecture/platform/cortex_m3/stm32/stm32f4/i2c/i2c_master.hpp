@@ -384,6 +384,11 @@ public:
 		uint16_t sr1 = I2Cx->SR1;
 		//XPCC_LOG_DEBUG << sr1 << endl;
 
+		if(!delegate) {
+			XPCC_LOG_ERROR << "I2C IRQ DELEGATE NULL\n";
+			return;
+		}
+
 		if (sr1 & I2C_SR1_SB)
 		{
 			// EV5: SB=1, cleared by reading SR1 register followed by writing DR register with Address.

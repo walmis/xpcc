@@ -282,7 +282,7 @@ public:
 	}
 
 	static bool
-	start(xpcc::I2cDelegate *d) {
+	start(xpcc::I2cTransaction *d) {
 		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
 		{
 			newSession = true;
@@ -296,7 +296,7 @@ public:
 	}
 
 	static bool
-	startBlocking(xpcc::I2cDelegate *d) {
+	startBlocking(xpcc::I2cTransaction *d) {
 
 		if (!xpcc::accessor::asVolatile(delegate) && d && d->attaching())
 		{
@@ -350,7 +350,7 @@ public:
 
 				//DEBUG_STREAM .printf("Start %x\n", delegate);
 				// REPEATED START has been transmitted
-				xpcc::I2cDelegate::Starting s = delegate->starting();
+				xpcc::I2cTransaction::Starting s = delegate->starting();
 
 				uint8_t address;
 				DEBUG_STREAM .printf("Start/next %d\n", s.next);
@@ -548,11 +548,11 @@ private:
 	static volatile bool newSession;
 
 	// delegating
-	static xpcc::I2cDelegate *delegate;
+	static xpcc::I2cTransaction *delegate;
 	volatile static xpcc::I2cMaster::Error error;
 
 	static inline void
-	initializeWrite(xpcc::I2cDelegate::Writing w)
+	initializeWrite(xpcc::I2cTransaction::Writing w)
 	{
 		writePointer = w.buffer;
 		writeBytesLeft = w.size;
@@ -561,7 +561,7 @@ private:
 	}
 
 	static inline void
-	initializeRead(xpcc::I2cDelegate::Reading r)
+	initializeRead(xpcc::I2cTransaction::Reading r)
 	{
 		readPointer = r.buffer;
 		readBytesLeft = r.size;

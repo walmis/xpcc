@@ -63,22 +63,5 @@ uint8_t * USBCDC::deviceDesc() {
     return (uint8_t*)deviceDescriptor;
 }
 
-uint8_t * USBCDC::stringIinterfaceDesc() {
-    static const uint8_t stringIinterfaceDescriptor[] = {
-        0x08,
-        STRING_DESCRIPTOR,
-        'C',0,'D',0,'C',0,
-    };
-    return (uint8_t*)stringIinterfaceDescriptor;
-}
-
-uint8_t * USBCDC::stringIproductDesc() {
-    static const uint8_t stringIproductDescriptor[] = {
-        0x16,
-        STRING_DESCRIPTOR,
-        'C',0,'D',0,'C',0,' ',0,'D',0,'E',0,'V',0,'I',0,'C',0,'E',0
-    };
-    return (uint8_t*)stringIproductDescriptor;
-}
 
 
