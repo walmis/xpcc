@@ -239,8 +239,13 @@ public:
 		I2Cx->CCR = prescaler;
 
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
-		I2Cx->TRISE = 0x09;
-		I2Cx->FLTR = 0x04;
+		if(frequency > 200000) {
+			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency)/1000000 * 500 / 1000) + 1;
+		} else {
+			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency) / 1000000) + 1;
+		}
+
+		//I2Cx->FLTR = 0x02;
 		I2Cx->FLTR |= I2C_FLTR_ANOFF;
 
 		I2Cx->CR1 |= I2C_CR1_PE; // Enable peripheral
@@ -278,7 +283,7 @@ public:
 	}
 
 	static bool
-	reset(I2cTransaction* transaction) {
+	resetTransaction(I2cTransaction* transaction) {
 		xpcc::atomic::Lock l;
 
 		if(delegate == transaction) {
@@ -341,7 +346,7 @@ public:
 	 * starts next transaction if available */
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
-		xpcc::atomic::Lock l;
+
 
 		readBytesLeft = 0;
 		writeBytesLeft = 0;
@@ -350,16 +355,17 @@ public:
 		//busReset();
 
 		if (delegate != 0) {
-			delegate->errno = error;
-			I2cTransaction* old = delegate;
-			//attach new delegate in the chain
-			delegate = delegate->next;
+			I2cTransaction* old = 0;
+			{
+				xpcc::atomic::Lock l;
+				delegate->errno = error;
+				old = delegate;
+				//attach new delegate in the chain
+				delegate = delegate->next;
+			}
 
 			old->next = 0;
-			{
-				xpcc::atomic::Unlock u;
-				old->stopped(cause);
-			}
+			old->stopped(cause);
 
 			if(delegate) {
 				//i2stop();
@@ -386,6 +392,7 @@ public:
 
 		if(!delegate) {
 			XPCC_LOG_ERROR << "I2C IRQ DELEGATE NULL\n";
+			busReset();
 			return;
 		}
 
@@ -441,8 +448,8 @@ public:
 			}
 
 			I2Cx->DR = address;
-		}
-		else if (sr1 & I2C_SR1_ADDR) {
+		} else
+		if (sr1 & I2C_SR1_ADDR) {
 			// EV6: ADDR=1, cleared by reading SR1 register followed by reading SR2.
 			DEBUG_STREAM("address sent");
 			DEBUG_STREAM("writeBytesLeft=" << writeBytesLeft);
@@ -501,7 +508,7 @@ public:
 			}
 		}
 
-		else if (sr1 & I2C_SR1_TXE)
+		if (sr1 & I2C_SR1_TXE)
 		{
 			// EV8_1: TxE=1, shift register empty, data register empty, write Data1 in DR
 			// EV8: TxE=1, shift register not empty, data register empty, cleared by writing DR
@@ -524,7 +531,7 @@ public:
 			}
 		}
 
-		else if (sr1 & I2C_SR1_RXNE)
+		if (sr1 & I2C_SR1_RXNE)
 		{
 			if (readBytesLeft > 3)
 			{
@@ -543,7 +550,7 @@ public:
 				readBytesLeft = 0;
 
 				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
-			}
+			} else
 			if (readBytesLeft <= 3)
 			{
 				// disable RxNE, and wait for BTF
@@ -656,9 +663,10 @@ public:
 		else if (sr1 & I2C_SR1_AF)
 		{	// acknowledge fail
 			I2Cx->CR1 |= I2C_CR1_STOP;
-//			uint_fast32_t deadlockPreventer = 10000;
-//			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
-//				;
+
+			uint_fast32_t deadlockPreventer = 1000;
+			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+				;
 
 			//XPCC_LOG_ERROR << "I2C ERR ACK FAIL\n";
 			 // may also be ADDRESS_NACK
@@ -692,7 +700,7 @@ public:
 		reset(xpcc::I2c::DetachCause::ErrorCondition);
 	}
 
-private:
+//private:
 	static CheckNextOperation checkNextOperation;
 	// buffer management
 	static xpcc::I2c::Operation nextOperation;
@@ -750,34 +758,37 @@ private:
 
 
 		uint_fast32_t deadlockPreventer = 10000;
-		while ((I2Cx->CR1 & I2C_CR1_STOP) and (--deadlockPreventer > 0))
+		while ((I2Cx->CR1 & I2C_CR1_STOP) and (deadlockPreventer-- > 0))
 			;
 
-		if(deadlockPreventer == 0) {
-			XPCC_LOG_DEBUG .printf("Err\n");
+		if((I2Cx->CR1 & I2C_CR1_STOP)) {
+			busReset();
 		}
 
-		//XPCC_LOG_DEBUG .printf("--CR1 %x %d\n", I2Cx->CR1, deadlockPreventer);
-		// If the bus is busy during a starting condition, we generate an error and detach the transaction
-		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
-		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
-		{
-			// we wait a short amount of time for the bus to become free.
-			deadlockPreventer = 10000;
-			while ((I2Cx->SR2 & I2C_SR2_BUSY) and (deadlockPreventer-- > 0))
-				;
-
-			if (I2Cx->SR2 & I2C_SR2_BUSY)
-			{
-				//XPCC_LOG_DEBUG .printf("Busy\n");
-				// either SDA or SCL is low, which leads to irrecoverable deadlock.
-				// Call error handler manually to detach the transaction object and resolve the deadlock.
-				// Further transactions may not succeed either, but will not lead to a deadlock.
-				error = xpcc::I2cMaster::Error::BusCondition;
-				reset(DetachCause::ErrorCondition);
-				return;
-			}
-		}
+//		//XPCC_LOG_DEBUG .printf("--CR1 %x %d\n", I2Cx->CR1, deadlockPreventer);
+//		// If the bus is busy during a starting condition, we generate an error and detach the transaction
+//		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
+//		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
+//		{
+//			// we wait a short amount of time for the bus to become free.
+////			deadlockPreventer = 10000;
+////			while ((I2Cx->SR2 & I2C_SR2_BUSY) and (deadlockPreventer-- > 0))
+////				;
+////			if((I2Cx->SR2 & I2C_SR2_BUSY)) {
+////				XPCC_LOG_DEBUG .printf("bus bsy\n");
+////			}
+//
+//			if (I2Cx->SR2 & I2C_SR2_BUSY)
+//			{
+//				//XPCC_LOG_DEBUG .printf("Busy\n");
+//				// either SDA or SCL is low, which leads to irrecoverable deadlock.
+//				// Call error handler manually to detach the transaction object and resolve the deadlock.
+//				// Further transactions may not succeed either, but will not lead to a deadlock.
+//				error = xpcc::I2cMaster::Error::BusCondition;
+//				reset(DetachCause::ErrorCondition);
+//				return;
+//			}
+//		}
 
 		DEBUG_STREAM("callStarting");
 		error = xpcc::I2cMaster::Error::NoError;
@@ -796,14 +807,13 @@ private:
 		I2Cx->CR1 |= I2C_CR1_START;
 	}
 
-private:
+//private:
 
 	static bool attachDelegate(xpcc::I2cTransaction *d) {
-		xpcc::atomic::Lock l;
-
 		if(delegate == d)
 			return false;
 
+		xpcc::atomic::Lock l;
 		if(d->attaching()) {
 			//DMB();
 			if(!delegate) {
