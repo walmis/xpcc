@@ -88,7 +88,7 @@ bool xpcc::stm32::SDIO_SDCard::init() {
 		}
 	}
 
-
+	return false;
 }
 
 bool xpcc::stm32::SDIO_SDCard::isInitialized() {
@@ -309,7 +309,7 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 
 	uint32_t deadlockPreventer = 10000;
 	while (((SDIO->STA) & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
-	SDIO_STA_CCRCFAIL | SDIO_STA_CMDSENT)) == 0 && deadlockPreventer--)
+	SDIO_STA_CCRCFAIL | SDIO_STA_CMDSENT)) == 0 && --deadlockPreventer)
 		;
 
 	//while(!t.isExpired()) {
@@ -330,12 +330,10 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 			if ((status & SDIO_HAL::Interrupt::CMDREND)
 					|| ((status & SDIO_HAL::Interrupt::CCRCFAIL)
 							&& resp == ResponseType::R3Resp)) {
-//
 				//delay_ms(5);
 //					XPCC_LOG_DEBUG.printf("cmd%d STA:%x resp received cmd:%d r:%x\n",
 //							cmd, SDIO->STA, SDIO_HAL::getCommandResponse(),
 //							SDIO_HAL::getResponse(SDIO_HAL::SDIOResp::RESP1));
-
 				//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
 				return 1;
 			}
@@ -445,7 +443,7 @@ bool xpcc::stm32::SDIO_SDCard::startBlockTransfer(uint8_t* block, bool write, ui
 	if(write) {
 		//wait for fifo to fill up
 		uint32_t deadlockPreventer = 10000;
-		while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::TXFIFOF) && deadlockPreventer--);
+		while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::TXFIFOF) && --deadlockPreventer);
 		//resume clock
 		SDIO_HAL::setClockState(true);
 	}
