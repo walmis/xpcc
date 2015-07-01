@@ -54,7 +54,8 @@ public:
 
     void disableInterrupts();
     void enableInterrupts();
-    bool suspended() { return _suspended; };
+    bool suspended() { return _suspended; }
+    bool connected() { return _connected; }
 
     /* Endpoint 0 */
     void EP0setup(uint8_t *buffer);
@@ -99,6 +100,7 @@ public:
 
 protected:
     bool _suspended;
+    bool _connected;
     USBInterfaceHandler* handlers;
 
     virtual void busReset(void){};
@@ -112,10 +114,11 @@ protected:
     	CALL_HANDLERS(EP0in());
     };
     virtual void connectStateChanged(unsigned int connected){
+    	_connected = connected;
     	CALL_HANDLERS(connectStateChanged(connected));
     };
     virtual void suspendStateChanged(unsigned int suspended){
-    	this->_suspended = suspended;
+    	_suspended = suspended;
     	CALL_HANDLERS(suspendStateChanged(suspended));
     };
     virtual void SOF(int frameNumber){
@@ -134,6 +137,8 @@ protected:
     	}
     	return false;
     }
+
+    ////DEPRECATED!
     //virtual EP handlers, this order must be preserved
     //since they are called directly from vtable
     virtual bool EP1_OUT_callback(){return false;};

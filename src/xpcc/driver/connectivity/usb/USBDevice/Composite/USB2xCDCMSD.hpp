@@ -107,7 +107,11 @@ public:
 	        2,                      // bDescriptorType;
 	        LSB(164+DFU_SIZE),              // wTotalLength
 	        MSB(164+DFU_SIZE),
+#ifdef DFU_SUPPORT
 	        6,                      // bNumInterfaces
+#else
+			5,
+#endif
 	        1,                      // bConfigurationValue
 	        0,                      // iConfiguration
 	        0xc0,                   // bmAttributes

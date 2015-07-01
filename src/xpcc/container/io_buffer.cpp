@@ -6,10 +6,9 @@
  */
 
 #include "io_buffer.hpp"
+#include <algorithm>
 #include <string.h>
 #include <stdio.h>
-
-#define MIN(X, Y)  ((X) < (Y) ? (X) : (Y))
 
 size_t IOBuffer::bytes_free() {
 	return ((mask) - ((head - tail) & mask));
@@ -42,13 +41,17 @@ IOBuffer::IOBuffer(uint8_t* buf, size_t size) :
 }
 
 int16_t IOBuffer::read(uint8_t* buffer, size_t size) {
-	size = MIN(size, bytes_used());
+	size = std::min(size, bytes_used());
 	if(!size) return 0;
 
-	size_t bytes_read1 = MIN(size, (size_t)(mask + 1) - tail);
-
+	//this gives length from tail to end of buffer or requested size
+	size_t bytes_read1 = std::min(size, (size_t)(mask + 1) - tail);
+	//copy from tail to end of buffer
 	memcpy(buffer, bytes + tail, bytes_read1);
-	memcpy(buffer + bytes_read1, bytes, size - bytes_read1);
+
+	if(size - bytes_read1 > 0) {
+		memcpy(buffer + bytes_read1, bytes, size - bytes_read1);
+	}
 
 	tail = (tail + size) & mask;
 
@@ -86,31 +89,6 @@ size_t IOBuffer::write(const uint8_t* buffer, size_t size) {
 	return size;
 }
 
-size_t IOBuffer::write(uint8_t c) {
-	uint16_t i = (head + 1) & mask;
-
-	// if there isn't enough room for it in the transmit buffer
-	if (i == tail) {
-		return 0;
-	}
-	// add byte to the buffer
-	bytes[head] = c;
-	head = i;
-	// return number of bytes written (always 1)
-	return 1;
-}
-
-int16_t IOBuffer::read(void) {
-	uint16_t c;
-	// if the head and tail are equal, the buffer is empty
-	if ((head == tail))
-		return (-1);
-
-	// pull character from tail
-	c = bytes[tail];
-	tail = (tail + 1) & mask;
-	return (c);
-}
 
 void IOBuffer::flush(void) {
 	// don't reverse this or there may be problems if the RX interrupt

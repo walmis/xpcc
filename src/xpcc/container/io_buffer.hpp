@@ -27,8 +27,33 @@ public:
 	bool empty() { return head == tail; }
 
 	size_t write(const uint8_t* buffer, size_t size);
-	size_t write(uint8_t c);
-	int16_t read(void);
+
+	inline size_t write(uint8_t c) {
+		uint16_t i = (head + 1) & mask;
+
+		// if there isn't enough room for it in the transmit buffer
+		if (i == tail) {
+			return 0;
+		}
+		// add byte to the buffer
+		bytes[head] = c;
+		head = i;
+		// return number of bytes written (always 1)
+		return 1;
+	}
+
+	inline int16_t read(void) {
+		uint16_t c;
+		// if the head and tail are equal, the buffer is empty
+		if ((head == tail))
+			return (-1);
+
+		// pull character from tail
+		c = bytes[tail];
+		tail = (tail + 1) & mask;
+		return (c);
+	}
+
 	int16_t read(uint8_t* buffer, size_t size);
 
 	void flush(void);

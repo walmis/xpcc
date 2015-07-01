@@ -158,7 +158,14 @@
                 .align  2
                 .thumb_func
                 .global Reset_Handler
+
 Reset_Handler:
+				ldr r0, =0x2000FFF0
+				ldr r0,[r0]
+				ldr r1, =0xDEADBEEF
+				cmp r0, r1
+				beq bootjmp
+
                 /* Interrupts are globally masked initially.*/
                 cpsid   i
 
@@ -290,6 +297,19 @@ endfiniloop:
 
                 /* Branching to the defined exit handler.*/
                 b       __default_exit
+
+bootjmp:
+				ldr r0, =0x2000FFF0
+				movs r1, #0
+				str r1,[r0]
+
+				ldr r0, =0x1FFF0000
+				ldr r0, [r0]
+				msr msp, r0
+
+				ldr r0, =0x1FFF0004
+				ldr r0, [r0]
+				mov pc, r0
 
 #endif /* !defined(__DOXYGEN__) */
 

@@ -6,12 +6,13 @@
  * license. See the file `LICENSE` for the full license governing this code.
  */
 // ----------------------------------------------------------------------------
-#pragma once
+#ifndef XPCC_STM32_I2C_x_HPP
+#define XPCC_STM32_I2C_x_HPP
 
 #include "../../../stm32.hpp"
 #include <xpcc/architecture/peripheral/i2c.hpp>
 #include <xpcc/architecture/driver/atomic.hpp>
-#include "../gpio/gpio.hpp"
+
 namespace xpcc
 {
 
@@ -206,7 +207,7 @@ public:
 
 		// set the prescaler rate register
 		// ccrPrescaler = peripheralFrequency / (2 * I2CFrequency)
-		uint16_t prescaler;
+		uint16_t prescaler = peripheralFrequency / (2 * rawRate);
 
 		delegate = 0;
 
@@ -216,35 +217,16 @@ public:
 			RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
 			NVIC_EnableIRQ(I2C1_ER_IRQn);
 			NVIC_EnableIRQ(I2C1_EV_IRQn);
-
-			tx_stream = new dma::DMAStream(dma::Stream::DMA1_1);
-			rx_stream = new dma::DMAStream(dma::Stream::DMA1_0);
-
-			rx_chan = dma::Channel::Channel_1;
-			tx_chan = dma::Channel::Channel_0;
-
 			break;
 		case 2:
 			RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
 			NVIC_EnableIRQ(I2C2_ER_IRQn);
 			NVIC_EnableIRQ(I2C2_EV_IRQn);
-
-			tx_stream = new dma::DMAStream(dma::Stream::DMA1_7);
-			rx_stream = new dma::DMAStream(dma::Stream::DMA1_3);
-
-			rx_chan = dma::Channel::Channel_7;
-			tx_chan = dma::Channel::Channel_7;
 			break;
 		case 3:
 			RCC->APB1ENR |= RCC_APB1ENR_I2C3EN;
 			NVIC_EnableIRQ(I2C3_ER_IRQn);
 			NVIC_EnableIRQ(I2C3_EV_IRQn);
-
-			tx_stream = new dma::DMAStream(dma::Stream::DMA1_4);
-			rx_stream = new dma::DMAStream(dma::Stream::DMA1_2);
-
-			rx_chan = dma::Channel::Channel_3;
-			tx_chan = dma::Channel::Channel_3;
 			break;
 		}
 
@@ -254,47 +236,21 @@ public:
 		I2Cx->CR1 = 0;
 
 		I2Cx->CR2 = static_cast<uint32_t>(peripheralFrequency) / 1000000;
+		I2Cx->CCR = prescaler;
 
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
-		if(frequency >= 400000) {
-			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency)/1000000 * 300 / 1000) + 1;
-
-			prescaler = peripheralFrequency / (3 * rawRate);
-			I2Cx->CCR = prescaler | I2C_CCR_FS;
-
+		if(frequency > 200000) {
+			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency)/1000000 * 500 / 1000) + 1;
 		} else {
 			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency) / 1000000) + 1;
-			prescaler = peripheralFrequency / (2 * rawRate);
-			I2Cx->CCR = prescaler;
 		}
 
-
-
-		dma::Config cfg;
-
-		cfg.channel(tx_chan)
-				->peripheralDataSize(dma::PeripheralDataSize::Byte)
-				->memoryDataSize(dma::MemoryDataSize::Byte)
-				->memoryInc(dma::MemoryInc::Enable)
-				->periphBaseAddress((uint32_t)&I2Cx->DR)
-				->priority(dma::Prioriy::High)
-				->xferDirection(dma::XferDir::MemoryToPeripheral);
-
-		tx_stream->init(cfg);
-		tx_stream->attachCallback(dma_tx_end);
-
-		cfg.channel(rx_chan)
-				->xferDirection(dma::XferDir::PeripheralToMemory);
-
-		rx_stream->init(cfg);
-		rx_stream->attachCallback(dma_rx_end);
-
-		I2Cx->FLTR = 0x04;
+		//I2Cx->FLTR = 0x02;
 		I2Cx->FLTR |= I2C_FLTR_ANOFF;
 
-		I2Cx->CR2 |= I2C_CR2_ITERREN | I2C_CR2_DMAEN;
-
 		I2Cx->CR1 |= I2C_CR1_PE; // Enable peripheral
+		I2Cx->CR2 |= I2C_CR2_ITERREN;
+
 		reset();
 	}
 
@@ -303,8 +259,6 @@ public:
 		case 1:
 			NVIC_SetPriority(I2C1_ER_IRQn, prio);
 			NVIC_SetPriority(I2C1_EV_IRQn, prio);
-			NVIC_SetPriority(DMA1_Stream0_IRQn, prio);
-			NVIC_SetPriority(DMA1_Stream1_IRQn, prio);
 			break;
 		case 2:
 			NVIC_SetPriority(I2C2_ER_IRQn, prio);
@@ -364,8 +318,6 @@ public:
 //			d = d->next;
 //		}
 //		delegate = 0;
-		tx_stream->disable();
-		rx_stream->disable();
 
 		//soft reset the bus
 		uint32_t CR1 = 1;
@@ -389,31 +341,31 @@ public:
 
 	}
 
+
 	/* resets current transaction,
 	 * starts next transaction if available */
 	static void
 	reset(DetachCause cause=DetachCause::SoftwareReset) {
 
-		rx_stream->disable();
-		tx_stream->disable();
 
-		I2Cx->CR2 &= ~I2C_CR2_ITEVTEN;
+		readBytesLeft = 0;
+		writeBytesLeft = 0;
+		//I2Cx->CR1 &= ~I2C_CR1_PE;
 
 		//busReset();
 
-		if (delegate) {
+		if (delegate != 0) {
+			I2cTransaction* old = 0;
 			{
 				xpcc::atomic::Lock l;
-				I2cTransaction* old = 0;
-
 				delegate->errno = error;
 				old = delegate;
 				//attach new delegate in the chain
 				delegate = delegate->next;
-
-				old->next = 0;
-				old->stopped(cause);
 			}
+
+			old->next = 0;
+			old->stopped(cause);
 
 			if(delegate) {
 				//i2stop();
@@ -422,58 +374,24 @@ public:
 				//i2start();
 				callStarting();
 				//XPCC_LOG_DEBUG .printf("d %x-> %x\n", old, delegate);
+			} else {
+				//i2stop();
 			}
+
+		} else {
+			//i2stop();
 		}
 	}
 	// end documentation inherited
-
-	static void dma_tx_end() {
-
-		if(tx_stream->isError()) {
-			XPCC_LOG_DEBUG .printf("dtxe err %x\n", tx_stream->getInterruptFlags());
-		}
-
-		tx_stream->disable();
-
-		if(nextOperation == Operation::Write) {
-			checkNextOperation = CHECK_NEXT_OPERATION_YES;
-			checkNextOp();
-
-		} else {
-
-			/* Enables interrupts to catch BTF event meaning transmission part complete.
-			 Interrupt handler will decide to generate STOP or to begin receiving part
-			 of R/W transaction itself.*/
-			I2Cx->CR2 |= I2C_CR2_ITEVTEN;
-			//XPCC_LOG_DEBUG .printf("t\n");
-		}
-	}
-
-	static void dma_rx_end() {
-		if(rx_stream->isError()) {
-			XPCC_LOG_DEBUG .printf("drxe err %x\n", tx_stream->getInterruptFlags());
-		}
-
-		rx_stream->disable();
-
-		I2Cx->CR2 &= ~I2C_CR2_LAST;
-		I2Cx->CR1 &= ~I2C_CR1_ACK;
-		I2Cx->CR1 |= I2C_CR1_STOP;
-
-		//XPCC_LOG_DEBUG .printf("r\n");
-
-		checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
-
-		checkNextOp();
-
-	}
 
 	// parameter advice
 	static void handleIRQ() {
 		DEBUG_STREAM("\n--- interrupt ---");
 		uint16_t sr1 = I2Cx->SR1;
-
-		if(sr1 == 0 || !delegate) {
+		//XPCC_LOG_DEBUG << sr1 << endl;
+		if(!delegate) {
+			XPCC_LOG_ERROR << "I2C IRQ DELEGATE NULL\n";
+			busReset();
 			return;
 		}
 
@@ -481,7 +399,6 @@ public:
 		{
 			// EV5: SB=1, cleared by reading SR1 register followed by writing DR register with Address.
 			DEBUG_STREAM("startbit set");
-			//XPCC_LOG_DEBUG .printf("+\n");
 
 			xpcc::I2cTransaction::Starting s = delegate->starting();
 			uint8_t address;
@@ -491,22 +408,33 @@ public:
 				case xpcc::I2c::Operation::Read:
 					address = ((s.address<<1) & 0xfe) | xpcc::I2c::READ;
 					initializeRead(delegate->reading());
-
-
+					if (readBytesLeft <= 2)
+					{
+						DEBUG_STREAM("NACK");
+						I2Cx->CR1 &= ~I2C_CR1_ACK;
+					}
+					else
+					{
+						DEBUG_STREAM("ACK");
+						I2Cx->CR1 |= I2C_CR1_ACK;
+					}
+					if (readBytesLeft == 2)
+					{
+						DEBUG_STREAM("POS");
+						I2Cx->CR1 |= I2C_CR1_POS;
+					}
 					DEBUG_STREAM("read op: reading=" << readBytesLeft);
 					break;
 
 				case xpcc::I2c::Operation::Write:
 					address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 					initializeWrite(delegate->writing());
-
 					DEBUG_STREAM("write op: writing=" << writeBytesLeft);
 					break;
 
 				case xpcc::I2c::Operation::Restart:
 					address = ((s.address<<1) & 0xfe) | xpcc::I2c::WRITE;
 					initializeRestartAfterAddress();
-
 					DEBUG_STREAM("restart op");
 					break;
 
@@ -526,62 +454,167 @@ public:
 			DEBUG_STREAM("writeBytesLeft=" << writeBytesLeft);
 			DEBUG_STREAM("readBytesLeft=" << readBytesLeft);
 
-//			XPCC_LOG_DEBUG .printf("ADDR %d %d\n", tx_stream->getCurrDataCounter(),
-//					rx_stream->getCurrDataCounter());
-			I2Cx->CR2 &= ~I2C_CR2_ITEVTEN;
-
-			if(tx_stream->getCurrDataCounter()) {
-			    tx_stream->enable();
-
-			} else if(rx_stream->getCurrDataCounter()) {
-				rx_stream->enable();
-				I2Cx->CR2 |= I2C_CR2_LAST;
-
-				/* Needed in receiver mode. */
-				if (rx_stream->getCurrDataCounter() < 2) {
-					I2Cx->CR1 &= ~I2C_CR1_ACK;
-				} else {
-					I2Cx->CR1 |= I2C_CR1_ACK;
-				}
-			}
-
+			xpcc::atomic::Lock l;
 			// Only after setting ACK, read SR2 to clear the ADDR (next byte will start arriving)
 			DEBUG_STREAM("clearing ADDR");
-			(void)I2Cx->SR2;
+			uint16_t sr2 = I2Cx->SR2;
+			(void) sr2;
 
-			if(!tx_stream->getCurrDataCounter() && !rx_stream->getCurrDataCounter()) {
-				checkNextOperation = CHECK_NEXT_OPERATION_YES;
-				checkNextOp();
+			//write max 2 bytes immediately
+			if(writeBytesLeft > 0) {
+				I2Cx->DR = *writePointer++; // write data
+				writeBytesLeft--;
+				if(writeBytesLeft) {
+					I2Cx->DR = *writePointer++; // write data
+					writeBytesLeft--;
+				}
+				if(!writeBytesLeft) {
+					checkNextOperation = CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF;
+				}
+			} else {
+				if (!readBytesLeft)
+				{
+					checkNextOperation = CHECK_NEXT_OPERATION_YES;
+				}
+			}
+			//if more to write enable BUF interrupt
+			//else wait for BTF
+			if (writeBytesLeft > 0 || readBytesLeft > 3)
+			{
+				DEBUG_STREAM("enable buffers");
+				I2Cx->CR2 |= I2C_CR2_ITBUFEN;
 			}
 
+			if (readBytesLeft == 1)
+			{
+				// Schedule a Stop
+				DEBUG_STREAM("STOP");
+				I2Cx->CR1 |= I2C_CR1_STOP;
+
+				// Enable the RXNE: it will trigger as soon as the 1 byte is received to get the result
+				I2Cx->CR2 |= I2C_CR2_ITBUFEN;
+
+//				DEBUG_STREAM("waiting for stop");
+//				PB15::set();
+//				uint_fast32_t deadlockPreventer = 100000;
+//				while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+//					;
+//				PB15::reset();
+//				uint16_t dr = I2Cx->DR;
+//				*readPointer++ = dr & 0xff;
+//				readBytesLeft = 0;
+				checkNextOperation = CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF;
+			}
+		}
+
+		else if (sr1 & I2C_SR1_TXE)
+		{
+			// EV8_1: TxE=1, shift register empty, data register empty, write Data1 in DR
+			// EV8: TxE=1, shift register not empty, data register empty, cleared by writing DR
+			if (writeBytesLeft > 0)
+			{
+				DEBUG_STREAM("tx more bytes");
+				I2Cx->DR = *writePointer++; // write data
+				writeBytesLeft--;
+
+				DEBUG_STREAM("TXE: writeBytesLeft=" << writeBytesLeft);
+
+				checkNextOperation = CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF;
+			}
+			// no else!
+			if (writeBytesLeft == 0)
+			{
+				// disable TxE, and wait for EV8_2
+				DEBUG_STREAM("last byte transmitted, wait for btf");
+				I2Cx->CR2 &= ~I2C_CR2_ITBUFEN;
+			}
+		}
+
+		else if (sr1 & I2C_SR1_RXNE)
+		{
+			if (readBytesLeft > 3)
+			{
+				// EV7: RxNE=1, cleared by reading DR register
+				uint16_t dr = I2Cx->DR;
+				*readPointer++ = dr & 0xff;
+				readBytesLeft--;
+
+				DEBUG_STREAM("RXNE: readBytesLeft=" << readBytesLeft);
+			}
+
+			if(readBytesLeft == 1) {
+
+				uint16_t dr = I2Cx->DR;
+				*readPointer++ = dr & 0xff;
+				readBytesLeft = 0;
+				//stop was already set
+				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
+			}
+			if (readBytesLeft <= 3)
+			{
+				// disable RxNE, and wait for BTF
+				DEBUG_STREAM("fourth last byte received, wait for btf");
+				I2Cx->CR2 &= ~I2C_CR2_ITBUFEN;
+			}
 		}
 
 		if (sr1 & I2C_SR1_BTF)
 		{
 			// EV8_2
 			DEBUG_STREAM("BTF");
-			//XPCC_LOG_DEBUG << "BTF\n";
+			if (readBytesLeft == 2)
+			{
+				xpcc::atomic::Lock l;
+				// EV7_1: RxNE=1, cleared by reading DR register, programming STOP=1
+				DEBUG_STREAM("STOP");
+				I2Cx->CR1 |= I2C_CR1_STOP;
 
-		    /* Catches BTF event after the end of transmission.*/
+				DEBUG_STREAM("reading data1");
+				*readPointer++ = I2Cx->DR & 0xff;
 
-		    I2Cx->CR2 &= ~I2C_CR2_ITEVTEN;
-		    I2Cx->DR; //this will clear BTF interrupt
+				DEBUG_STREAM("reading data2");
+				*readPointer++ = I2Cx->DR & 0xff;
 
-		    checkNextOperation = CHECK_NEXT_OPERATION_YES;
-		    checkNextOp();
+				readBytesLeft = 0;
+				checkNextOperation = CHECK_NEXT_OPERATION_YES_NO_STOP_BIT;
+			}
+
+			if (readBytesLeft == 3)
+			{
+				xpcc::atomic::Lock l;
+				// EV7_1: RxNE=1, cleared by reading DR register, programming ACK=0
+				I2Cx->CR1 &= ~I2C_CR1_ACK;
+				DEBUG_STREAM("NACK");
+
+				*readPointer++ = I2Cx->DR & 0xff;
+				readBytesLeft--;
+
+				DEBUG_STREAM("BTF: readBytesLeft=2");
+			}
+
+			if (checkNextOperation == CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF
+				&& writeBytesLeft == 0)
+			{
+				// EV8_2: TxE=1, BTF = 1, Program Stop request.
+				// TxE and BTF are cleared by hardware by the Stop condition
+				DEBUG_STREAM("BTF, write=0");
+				checkNextOperation = CHECK_NEXT_OPERATION_YES;
+				I2Cx->DR; //this will clear BTF interrupt
+			}
 		}
 
-
-	}
-
-	static void checkNextOp() {
 		if (checkNextOperation > CHECK_NEXT_OPERATION_NO_WAIT_FOR_BTF)
 		{
 			switch (nextOperation)
 			{
 				case xpcc::I2c::Operation::Write:
-					initializeWrite(delegate->writing());
-					tx_stream->enable();
+					if (checkNextOperation != CHECK_NEXT_OPERATION_YES_NO_STOP_BIT)
+					{
+						initializeWrite(delegate->writing());
+						// reenable TXE
+						I2Cx->CR2 |= I2C_CR2_ITBUFEN;
+						DEBUG_STREAM("write op");
+					}
 					break;
 
 				case xpcc::I2c::Operation::Restart:
@@ -597,7 +630,7 @@ public:
 					}
 
 					DEBUG_STREAM("disable interrupts");
-					I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN /*| I2C_CR2_ITERREN*/);
+					I2Cx->CR2 &= ~(I2C_CR2_ITEVTEN | I2C_CR2_ITBUFEN /*| I2C_CR2_ITERREN*/);
 					checkNextOperation = CHECK_NEXT_OPERATION_NO;
 					reset(xpcc::I2c::DetachCause::NormalStop);
 					DEBUG_STREAM("write finished");
@@ -609,7 +642,6 @@ public:
 
 	static void handleERR_IRQ() {
 		DEBUG_STREAM("ERROR!");
-		//XPCC_LOG_DEBUG << "ERROR!\n";
 
 		uint16_t sr1 = I2Cx->SR1;
 
@@ -629,6 +661,10 @@ public:
 		else if (sr1 & I2C_SR1_AF)
 		{	// acknowledge fail
 			I2Cx->CR1 |= I2C_CR1_STOP;
+
+			uint_fast32_t deadlockPreventer = 1000;
+			while ((I2Cx->CR1 & I2C_CR1_STOP) && deadlockPreventer-- > 0)
+				;
 
 			//XPCC_LOG_ERROR << "I2C ERR ACK FAIL\n";
 			 // may also be ADDRESS_NACK
@@ -652,6 +688,8 @@ public:
 		I2Cx->SR1 = 0;
 		I2Cx->SR2 = 0;
 
+		writeBytesLeft = 0;
+		readBytesLeft = 0;
 		checkNextOperation = CHECK_NEXT_OPERATION_NO;
 
 		DEBUG_STREAM("disable interrupts");
@@ -665,12 +703,11 @@ public:
 	// buffer management
 	static xpcc::I2c::Operation nextOperation;
 
+	static uint8_t *readPointer;
+	static const uint8_t *writePointer;
+	static std::size_t readBytesLeft;
+	static std::size_t writeBytesLeft;
 	static xpcc::I2cMaster::Error error;
-
-	static dma::DMAStream* tx_stream;
-	static dma::DMAStream* rx_stream;
-	static dma::Channel rx_chan;
-	static dma::Channel tx_chan;
 
 	// delegating
 	static xpcc::I2cTransaction * volatile delegate;
@@ -678,33 +715,34 @@ public:
 	static inline void
 	initializeWrite(xpcc::I2cTransaction::Writing w)
 	{
-		tx_stream->memoryTargetConfig((uint32_t)w.buffer, dma::Memory::Memory_0);
-		tx_stream->setCurrDataCounter(w.size);
-		rx_stream->setCurrDataCounter(0);
-
+		writePointer = w.buffer;
+		writeBytesLeft = w.size;
+		readBytesLeft = 0;
 		nextOperation = static_cast<xpcc::I2c::Operation>(w.next);
 	}
 
 	static inline void
 	initializeRead(xpcc::I2cTransaction::Reading r)
 	{
-
-		rx_stream->memoryTargetConfig((uint32_t)r.buffer, dma::Memory::Memory_0);
-		rx_stream->setCurrDataCounter(r.size);
-		tx_stream->setCurrDataCounter(0);
-
+		readPointer = r.buffer;
+		readBytesLeft = r.size;
+		writeBytesLeft = 0;
 		nextOperation = static_cast<xpcc::I2c::Operation>(r.next);
 	}
 
 	static inline void
 	initializeStopAfterAddress()
 	{
+		writeBytesLeft = 0;
+		readBytesLeft = 0;
 		nextOperation = xpcc::I2c::Operation::Stop;
 	}
 
 	static inline void
 	initializeRestartAfterAddress()
 	{
+		writeBytesLeft = 0;
+		readBytesLeft = 0;
 		nextOperation = xpcc::I2c::Operation::Restart;
 	}
 
@@ -725,44 +763,43 @@ public:
 			busReset();
 		}
 
-
-		//XPCC_LOG_DEBUG .printf("--CR1 %x %d\n", I2Cx->CR1, deadlockPreventer);
-		// If the bus is busy during a starting condition, we generate an error and detach the transaction
-		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
-		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
-		{
-			// we wait a short amount of time for the bus to become free.
-//			deadlockPreventer = 10000;
-//			while ((I2Cx->SR2 & I2C_SR2_BUSY) and (deadlockPreventer-- > 0))
-//				;
-//			if((I2Cx->SR2 & I2C_SR2_BUSY)) {
-//				XPCC_LOG_DEBUG .printf("bus bsy\n");
+//		//XPCC_LOG_DEBUG .printf("--CR1 %x %d\n", I2Cx->CR1, deadlockPreventer);
+//		// If the bus is busy during a starting condition, we generate an error and detach the transaction
+//		// Before a restart condition the clock line is pulled low, and this check would trigger falsely.
+//		if ((I2Cx->SR2 & I2C_SR2_BUSY) and (nextOperation != xpcc::I2c::Operation::Restart))
+//		{
+//			// we wait a short amount of time for the bus to become free.
+////			deadlockPreventer = 10000;
+////			while ((I2Cx->SR2 & I2C_SR2_BUSY) and (deadlockPreventer-- > 0))
+////				;
+////			if((I2Cx->SR2 & I2C_SR2_BUSY)) {
+////				XPCC_LOG_DEBUG .printf("bus bsy\n");
+////			}
+//
+//			if (I2Cx->SR2 & I2C_SR2_BUSY)
+//			{
+//				//XPCC_LOG_DEBUG .printf("Busy\n");
+//				// either SDA or SCL is low, which leads to irrecoverable deadlock.
+//				// Call error handler manually to detach the transaction object and resolve the deadlock.
+//				// Further transactions may not succeed either, but will not lead to a deadlock.
+//				error = xpcc::I2cMaster::Error::BusCondition;
+//				reset(DetachCause::ErrorCondition);
+//				return;
 //			}
-
-			if (I2Cx->SR2 & I2C_SR2_BUSY)
-			{
-				//XPCC_LOG_DEBUG .printf("Busy\n");
-				// either SDA or SCL is low, which leads to irrecoverable deadlock.
-				// Call error handler manually to detach the transaction object and resolve the deadlock.
-				// Further transactions may not succeed either, but will not lead to a deadlock.
-				error = xpcc::I2cMaster::Error::BusCondition;
-				reset(DetachCause::ErrorCondition);
-				return;
-			}
-		}
+//		}
 
 		DEBUG_STREAM("callStarting");
 		error = xpcc::I2cMaster::Error::NoError;
 		checkNextOperation = CHECK_NEXT_OPERATION_NO;
 
-		//I2Cx->CR1 &= ~I2C_CR1_POS;
-		//I2Cx->SR1 = 0;
-		//I2Cx->SR2 = 0;
+		I2Cx->CR1 &= ~I2C_CR1_POS;
+		I2Cx->SR1 = 0;
+		I2Cx->SR2 = 0;
 
 		// and enable interrupts
 		DEBUG_STREAM("enable interrupts");
-		//I2Cx->CR2 &= ~I2C_CR2_ITBUFEN;
-		I2Cx->CR2 |= I2C_CR2_ITERREN | I2C_CR2_DMAEN | I2C_CR2_ITEVTEN;
+		I2Cx->CR2 &= ~I2C_CR2_ITBUFEN;
+		I2Cx->CR2 |= I2C_CR2_ITEVTEN | I2C_CR2_ITERREN;
 
 		// generate startcondition
 		I2Cx->CR1 |= I2C_CR1_START;
@@ -772,10 +809,9 @@ public:
 		if(delegate == d)
 			return false;
 
-
+		xpcc::atomic::Lock l;
 		if(d->attaching()) {
 			//DMB();
-			xpcc::atomic::Lock l;
 			if(!delegate) {
 				//ERR << 'a';
 				delegate = d;
@@ -785,7 +821,6 @@ public:
 				callStarting();
 				return true;
 			} else {
-
 				xpcc::I2cTransaction* p = delegate;
 				while(p->next) {
 					if(p == d) {
@@ -821,15 +856,15 @@ template <int i2cid>
 xpcc::I2c::Operation I2cMaster<i2cid>::nextOperation;
 // buffer management
 template <int i2cid>
+uint8_t *I2cMaster<i2cid>::readPointer;
+template <int i2cid>
+const uint8_t *I2cMaster<i2cid>::writePointer;
+template <int i2cid>
+std::size_t I2cMaster<i2cid>::readBytesLeft;
+template <int i2cid>
+std::size_t I2cMaster<i2cid>::writeBytesLeft;
+template <int i2cid>
 xpcc::I2cMaster::Error I2cMaster<i2cid>::error;
-template <int i2cid>
-dma::DMAStream* I2cMaster<i2cid>::tx_stream;
-template <int i2cid>
-dma::DMAStream* I2cMaster<i2cid>::rx_stream;
-template <int i2cid>
-dma::Channel I2cMaster<i2cid>::rx_chan;
-template <int i2cid>
-dma::Channel I2cMaster<i2cid>::tx_chan;
 
 typedef I2cMaster<1> I2cMaster1;
 typedef I2cMaster<2> I2cMaster2;
@@ -841,3 +876,4 @@ typedef I2cMaster<3> I2cMaster3;
 
 } // namespace xpcc
 
+#endif // XPCC_STM32_I2C_x_HPP

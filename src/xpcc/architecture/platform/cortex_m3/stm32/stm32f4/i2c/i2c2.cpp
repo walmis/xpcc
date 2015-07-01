@@ -5,7 +5,7 @@
  *      Author: walmis
  */
 
-#include "i2c_master.hpp"
+#include <xpcc/architecture/platform/cortex_m3/stm32/stm32f4/i2c/i2c_master.hpp>
 namespace xpcc {
 namespace stm32 {
 template<>

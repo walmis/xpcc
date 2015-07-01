@@ -76,12 +76,14 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		}
 
 		if(!I2cMaster::start(this)) {
+
 			return false;
 		}
 		//XPCC_LOG_ERROR << "a+";
 
-		if(!event.wait(20)) {
+		if(!event.wait(100)) {
 			XPCC_LOG_ERROR << "Eeprom I2C WR timeout" << endl;
+			I2cMaster::resetTransaction(this);
 			return false;
 		}
 
@@ -90,7 +92,7 @@ xpcc::I2cEeprom<I2cMaster>::write(uint16_t address, const uint8_t *data, uint8_t
 		address += n;
 		data += n;
 
-		xpcc::sleep(6);
+		xpcc::sleep(10);
 	}
 
 	return state == AdapterState::Idle;
@@ -108,7 +110,7 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 	buffer[i++] = address;
 	
 	if(!initialize(buffer, i, data, bytes)) {
-		XPCC_LOG_ERROR << '1' << endl;
+		XPCC_LOG_ERROR << "ERROR: Eeprom transaction busy" << endl;
 		return false;
 	}
 
@@ -117,8 +119,9 @@ xpcc::I2cEeprom<I2cMaster>::read(uint16_t address, uint8_t *data, uint8_t bytes)
 		return false;
 	}
 
-	if(!event.wait(10*bytes)) {
+	if(!event.wait(100)) {
 		XPCC_LOG_ERROR << "Eeprom I2C RD timeout" << endl;
+		I2cMaster::resetTransaction(this);
 		return false;
 	}
 

@@ -90,7 +90,8 @@ USBHAL::USBHAL(void) {
     OTG_FS->GREGS.GINTMSK |= USB_OTG_GINTMSK_IEPINT |
     						USB_OTG_GINTMSK_RXFLVLM | // RX FIFO not empty
 							USB_OTG_GINTMSK_USBRST |
-							USB_OTG_GINTMSK_SOFM; // USB reset
+							USB_OTG_GINTMSK_SOFM |
+							USB_OTG_GINTMSK_USBSUSPM; // USB reset
 
     OTG_FS->DREGS.DCFG |= (0x3 << 0) | // Full speed
                           USB_OTG_DCFG_NZLSOHSK; // Non-zero-length status OUT handshake
@@ -158,7 +159,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket,
                        (1 << 15) | // Active endpoint
                        (type << 18); // Endpoint type
 
-    XPCC_LOG_DEBUG .printf("realize %d type %d\n", endpoint, type);
+    //XPCC_LOG_DEBUG .printf("realize %d type %d\n", endpoint, type);
 
     if (endpoint & 0x1) { // In Endpoint
         // Set up the Tx FIFO
@@ -371,7 +372,8 @@ void USBHAL::_usbisr(void) {
 
     //GpioProfiler<stm32::PB15> p;
     if (OTG_FS->GREGS.GINTSTS & USB_OTG_GINTMSK_USBRST) { // USB Reset
-        XPCC_LOG_DEBUG << "USB Reset\n";
+        //XPCC_LOG_DEBUG << "USB Reset\n";
+
 
 //        OTG_FS->GREGS.GRSTCTL = USB_OTG_GRSTCTL_CSRST;
 //        while (OTG_FS->GREGS.GRSTCTL & USB_OTG_GRSTCTL_CSRST);
@@ -444,6 +446,10 @@ void USBHAL::_usbisr(void) {
 
         busReset();
 
+        if(_suspended) {
+        	suspendStateChanged(false);
+        }
+
         return;
     }
 
@@ -494,6 +500,16 @@ void USBHAL::_usbisr(void) {
             (void) OTG_FS->FIFO[0][0];
         }
         OTG_FS->GREGS.GINTSTS = USB_OTG_GINTMSK_RXFLVLM;
+    }
+
+    if (OTG_FS->GREGS.GINTSTS & (USB_OTG_GINTMSK_USBSUSPM)) {
+
+    	bool sus = OTG_FS->DREGS.DSTS & 1;
+    	//XPCC_LOG_DEBUG .printf("sus %d\n", sus);
+    	if(_suspended != sus) {
+    		suspendStateChanged(sus);
+    	}
+    	OTG_FS->GREGS.GINTSTS = USB_OTG_GINTMSK_USBSUSPM;
     }
 
     if (OTG_FS->GREGS.GINTSTS & USB_OTG_GINTMSK_IEPINT) { // In endpoint interrupt

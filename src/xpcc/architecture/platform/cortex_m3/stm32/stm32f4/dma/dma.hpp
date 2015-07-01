@@ -397,7 +397,7 @@ public:
 		DMAy_Streamx->M0AR = cfg._Memory0BaseAddr;
 	}
 
-	void enable(bool enable = true) {
+	inline void enable(bool enable = true) {
 		if (enable) {
 			/* Enable the selected DMAy Streamx by setting EN bit */
 			DMAy_Streamx->CR |= (uint32_t) DMA_SxCR_EN;
@@ -405,6 +405,13 @@ public:
 			/* Disable the selected DMAy Streamx by clearing EN bit */
 			DMAy_Streamx->CR &= ~(uint32_t) DMA_SxCR_EN;
 		}
+	}
+
+	inline void disable() {
+		clearInterruptFlags(IntFlag::DirectModeError | IntFlag::FifoError |
+				IntFlag::HalfTransfer | IntFlag::TransferComplete | IntFlag::TransferError);
+
+		enable(0);
 	}
 
 	void periphIncOffsetSizeConfig(PINCOS DMA_Pincos) {
@@ -417,6 +424,11 @@ public:
 			/* Clear the PINCOS bit: Peripheral address incremented according to PSIZE */
 			DMAy_Streamx->CR &= ~(uint32_t) DMA_SxCR_PINCOS;
 		}
+	}
+
+	inline void setChannel(Channel ch) {
+		DMAy_Streamx->CR &= ((uint32_t) ~(DMA_SxCR_CHSEL));
+		DMAy_Streamx->CR |= (uint32_t)ch;
 	}
 
 	/**
@@ -782,6 +794,21 @@ public:
 			/* The selected DMAy Streamx EN bit is cleared (DMA is disabled and
 			 all transfers are complete) */
 			return 0;
+		}
+	}
+
+	ALWAYS_INLINE
+	void setXferDirection(XferDir dir) {
+		DMAy_Streamx->CR &= ((uint32_t) ~(DMA_SxCR_DIR));
+		DMAy_Streamx->CR |= (uint32_t)dir;
+	}
+
+	ALWAYS_INLINE
+	void setMemoryInc(MemoryInc mode) {
+		if(mode != MemoryInc::Enable) {
+			DMAy_Streamx->CR &= ((uint32_t) ~(DMA_SxCR_MINC));
+		} else {
+			DMAy_Streamx->CR |= (uint32_t)mode;
 		}
 	}
 

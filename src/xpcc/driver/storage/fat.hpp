@@ -259,9 +259,9 @@ public:
 		return c;
 	}
 
-	size_t write(uint8_t* buffer, size_t len) {
+	size_t write(const uint8_t* buffer, size_t len) {
 		uint32_t written = 0;
-		if(f_write(&file, (void*) buffer, len, (unsigned int*) &written) != FR_OK) {
+		if(f_write(&file, (const void*) buffer, len, (unsigned int*) &written) != FR_OK) {
 			return -1;
 		}
 		return written;

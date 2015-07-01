@@ -418,6 +418,10 @@ public:
 		*(__IO uint32_t *) DCTRL_DMAEN_BB = (uint32_t) enable;
 	}
 
+	static inline void setInterruptMask(Interrupt it) {
+		SDIO->MASK = (uint32_t) it;
+	}
+
 	static inline void interruptConfig(Interrupt it, bool NewState) {
 		if (NewState) {
 			/* Enable the SDIO interrupts */

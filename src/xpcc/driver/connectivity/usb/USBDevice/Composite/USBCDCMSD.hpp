@@ -77,9 +77,13 @@ public:
 	    static const uint8_t configDescriptor[] = {
 	        9,                      // bLength;
 	        2,                      // bDescriptorType;
-	        LSB(0x62),              // wTotalLength
-	        MSB(0x62),
-	        3,                      // bNumInterfaces
+	        LSB(0x62+DFU_SIZE),              // wTotalLength
+	        MSB(0x62+DFU_SIZE),
+#ifdef DFU_SUPPORT
+	        4,                      // bNumInterfaces
+#else
+			3,
+#endif
 	        1,                      // bConfigurationValue
 	        0,                      // iConfiguration
 	        0xc0,                   // bmAttributes
@@ -192,7 +196,9 @@ public:
 	        0x02,                       // bmAttributes (0x02=bulk)
 	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
 	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
-	        0                           // bInterval
+	        0,                           // bInterval
+
+			DFU_INTF_DESC(0x03)
 	    };
 	    return (uint8_t*)configDescriptor;
 	}

@@ -266,7 +266,10 @@ public:
 
 	static inline void put(uint8_t data) {
 		UARTx->DR = data;
-		sending = 1;
+		//sending = true;
+		if(txIntEn) {
+			enableInterrupt(Interrupt::TxEmpty);
+		}
 	}
 
 	static inline uint8_t get() {
@@ -275,7 +278,8 @@ public:
 
 	static inline bool txBusy() {
 		//return !isTransmitRegisterEmpty();
-		return sending;
+		return UARTx->CR1 & USART_CR1_TXEIE;
+		//return sending;
 	}
 
 	static inline bool txEmpty() {
@@ -319,23 +323,14 @@ public:
 	}
 
 	static void enableInterruptVector(bool enable, uint32_t priority);
-//	{
-//		if (enable) {
-//			// Set priority for the interrupt vector
-//			NVIC_SetPriority(UARTx_IRQn, priority);
-//
-//			// register IRQ at the NVIC
-//			NVIC_EnableIRQ (UARTx_IRQn);
-//		} else {
-//			NVIC_DisableIRQ (UARTx_IRQn);
-//		}
-//	}
+
 
 	static void enableTxCompleteInterrupt(bool en) {
-		if(en)
-			enableInterrupt(Interrupt::TxComplete);
-		else
-			disableInterrupt(Interrupt::TxComplete);
+		txIntEn = en;
+//		if(en)
+//			enableInterrupt(Interrupt::TxEmpty);
+//		else
+//			disableInterrupt(Interrupt::TxEmpty);
 	}
 
 	static void enableRxCompleteInterrupt(bool en) {
@@ -397,6 +392,11 @@ public:
 //	%% endif
 	}
 
+	static bool setBaud(uint32_t baudrate) {
+		UARTx->BRR = getBaudrateSettings(baudrate, OversamplingMode::By8);
+		return true;
+	}
+
 	static void handleIRQ() {
 		uint32_t state = UARTx->SR;
 
@@ -407,12 +407,20 @@ public:
 		} // USART_SR_RXNE
 
 		// Transmit Data Register empty
-		if (state & USART_SR_TC)
+		if (state & USART_SR_TXE)
 		{
-			sending = 0;
-			UARTx->SR &= ~USART_SR_TC;
-			if(txCallback) txCallback();
-
+			//sending = 0;
+			//UARTx->SR &= ~USART_SR_TC;
+			if(txCallback)
+				txCallback();
+			//handler did not provide us with data?
+			//__disable_irq();
+			if(isTransmitRegisterEmpty()) {
+				//stop firing interrupts
+				//sending = false;
+				disableInterrupt(Interrupt::TxEmpty);
+			}
+			//__enable_irq();
 
 		} // USART_SR_TXE
 	}
@@ -420,7 +428,8 @@ public:
 private:
 	static void (*txCallback)();
 	static void (*rxCallback)();
-	static bool sending;
+	//static bool sending;
+	static bool txIntEn;
 
 	static uint32_t getClock() {
 		if ((uartid == 1) || (uartid == 6)) {
@@ -431,8 +440,10 @@ private:
 	}
 };
 
+//template<int uartid>
+//bool Uart<uartid>::sending = 0;
 template<int uartid>
-bool Uart<uartid>::sending = 0;
+bool Uart<uartid>::txIntEn = 0;
 
 typedef Uart<1> Usart1;
 typedef Uart<2> Usart2;

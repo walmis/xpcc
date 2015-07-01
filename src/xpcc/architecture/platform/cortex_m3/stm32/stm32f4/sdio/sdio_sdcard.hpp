@@ -113,8 +113,6 @@ private:
 
 
 	dma::DMAStream dma_stm;
-	dma::Config dma_cfg;
-
 
 	xpcc::Semaphore _semaphore;
 	uint32_t cdv;
@@ -126,7 +124,8 @@ private:
 
 	uint32_t rd_block;
 
-	Event evt;
+	Event dma_evt;
+	Event sdio_evt;
 };
 
 }

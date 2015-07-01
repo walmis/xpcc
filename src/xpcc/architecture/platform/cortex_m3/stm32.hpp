@@ -160,7 +160,7 @@
 #include "stm32/stm32f4/rcc.hpp"
 #include "stm32/stm32f4/dma/dma.hpp"
 
-#include "stm32/stm32f4/i2c/i2c_master.hpp"
+#include <xpcc/architecture/platform/cortex_m3/stm32/stm32f4/i2c/i2c_master.hpp>
 #include "stm32/stm32f4/uart/uart_hal.hpp"
 
 #include "stm32/stm32f4/timer/advanced.hpp"

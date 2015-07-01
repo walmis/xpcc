@@ -31,7 +31,7 @@ static ALWAYS_INLINE void sleep(uint16_t time_ms) {
 #include "ChibiRTOS/interrupt_wrapper.hpp"
 namespace xpcc {
 static ALWAYS_INLINE void yield(uint16_t timeAvailable = 0) {
-	xpcc::TickerTask::yield(timeAvailable);
+	chThdYield();
 }
 
 static ALWAYS_INLINE void sleep(uint16_t time_ms) {

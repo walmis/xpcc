@@ -44,7 +44,10 @@ static uint32_t ext_bits(unsigned char* data, int msb,
 }
 
 bool xpcc::stm32::SDIO_SDCard::init() {
+	if(initialized)
+		return true;
 
+	dma::Config dma_cfg;
 	//prepare dma channel config
 	dma_cfg.channel(dma::Channel::Channel_4)
 			->mode(dma::Mode::Normal)
@@ -59,7 +62,10 @@ bool xpcc::stm32::SDIO_SDCard::init() {
 			->fifoThreshold(dma::FIFOThreshold::Full)
 			->priority(dma::Prioriy::VeryHigh);
 
-	dma_stm.attachCallback([this]() { evt.signal(); });
+	dma_stm.init(dma_cfg);
+	dma_stm.attachCallback([this]() {
+		dma_evt.signal();
+	});
 
 	SDIO_HAL::init();
 	NVIC_EnableIRQ(SDIO_IRQn);
@@ -290,21 +296,21 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 		break;
 	}
 
-	evt.reset();
+	sdio_evt.reset();
 
-	//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
-	SDIO->ICR=(SDIO_STA_CCRCFAIL | SDIO_STA_CTIMEOUT | SDIO_STA_CMDREND | SDIO_STA_CMDSENT);
-
-	SDIO_HAL::interruptConfig(SDIO_HAL::Interrupt::CMDSENT|
-							  SDIO_HAL::Interrupt::CCRCFAIL|
-							  SDIO_HAL::Interrupt::CTIMEOUT|
-							  SDIO_HAL::Interrupt::CMDREND, true);
+	SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
+//
+//	SDIO_HAL::interruptConfig(SDIO_HAL::Interrupt::CMDSENT|
+//							  SDIO_HAL::Interrupt::CCRCFAIL|
+//							  SDIO_HAL::Interrupt::CTIMEOUT|
+//							  SDIO_HAL::Interrupt::CMDREND, true);
 
 	SDIO_HAL::sendCommand(arg, cmd, type);
 
-	if(!evt.wait(20)) {
-		return false;
-	}
+	uint32_t deadlockPreventer = 10000;
+	while (((SDIO->STA) & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+	SDIO_STA_CCRCFAIL | SDIO_STA_CMDSENT)) == 0 && deadlockPreventer--)
+		;
 
 	//while(!t.isExpired()) {
 	uint32_t status = SDIO_HAL::getInterruptFlags();
@@ -335,6 +341,7 @@ bool xpcc::stm32::SDIO_SDCard::cmd(uint32_t cmd, uint32_t arg,
 			}
 
 			XPCC_LOG_DEBUG .printf("cmd %d err st %x\n", cmd, SDIO->STA);
+			SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
 			return 0;
 
 		}
@@ -402,7 +409,7 @@ bool xpcc::stm32::SDIO_SDCard::init_v2_card() {
 
 	//change bus width
 	sd_wide_bus(true);
-	SDIO_HAL::setClockDiv(1); // set clock rate 12mhz
+	SDIO_HAL::setClockDiv(0); // set clock rate 12mhz
 
 	//card is ready
 	return true;
@@ -420,16 +427,16 @@ void xpcc::stm32::SDIO_SDCard::sd_wide_bus(bool enable) {
 }
 
 bool xpcc::stm32::SDIO_SDCard::startBlockTransfer(uint8_t* block, bool write, uint32_t len) {
-	xpcc::atomic::Lock l;
-
+	xpcc::atomic::Lock lock;
 	if(write) {
 		SDIO_HAL::setClockState(false);
 	}
 
-	evt.reset();
+	dma_evt.reset();
+	sdio_evt.reset();
 
-	//SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
-	SDIO->ICR=(SDIO_STA_DCRCFAIL | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_DATAEND | SDIO_STA_STBITERR | SDIO_STA_DBCKEND);
+	SDIO_HAL::clearInterrupt(SDIO_STATIC_FLAGS);
+	//SDIO->ICR=(SDIO_STA_DCRCFAIL | SDIO_STA_DTIMEOUT | SDIO_STA_TXUNDERR | SDIO_STA_RXOVERR | SDIO_STA_DATAEND | SDIO_STA_STBITERR | SDIO_STA_DBCKEND);
 
 	SDIO_HAL::startDataTransaction(write ? SDIO_HAL::TransferDir::ToCard :
 			SDIO_HAL::TransferDir::ToSDIO, len,
@@ -437,7 +444,8 @@ bool xpcc::stm32::SDIO_SDCard::startBlockTransfer(uint8_t* block, bool write, ui
 
 	if(write) {
 		//wait for fifo to fill up
-		while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::TXFIFOF));
+		uint32_t deadlockPreventer = 10000;
+		while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::TXFIFOF) && deadlockPreventer--);
 		//resume clock
 		SDIO_HAL::setClockState(true);
 	}
@@ -505,30 +513,39 @@ bool xpcc::stm32::SDIO_SDCard::waitTransfer() {
 //	while (SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::RXACT|SDIO_HAL::Interrupt::TXACT)) {
 //
 //	}
-
+	sdio_evt.reset();
 	//enable interrupt
-	//SDIO_HAL::interruptConfig(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
-	//		SDIO_HAL::Interrupt::DBCKEND|SDIO_HAL::Interrupt::STBITERR, true);
+	SDIO_HAL::setInterruptMask(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
+			SDIO_HAL::Interrupt::DATAEND|SDIO_HAL::Interrupt::STBITERR);
 
 	//wait for interrupt
-	{
-		xpcc::atomic::Unlock u;
-		if(!evt.wait(20)) {
+
+	bool r1 = dma_evt.wait(1000);
+	bool r2 = sdio_evt.wait(1000);
+	if(!r1 || !r2) {
+		XPCC_LOG_DEBUG .printf("r1 r2 timeout\n");
+	}
+
+	//if(dma_stm.isError()) {
+		//XPCC_LOG_DEBUG .printf("SDIO DMA Error 0x%x\n", dma_stm.getInterruptFlags());
+		//return false;
+	//}
+	Timeout<> t(1000);
+	while(SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::TXACT | SDIO_HAL::Interrupt::RXACT)) {
+#ifdef XPCC_CHIBI_RTOS
+		chThdSleepMicroseconds(100);
+#else
+		yield();
+#endif
+		if(t.isExpired()) {
+			XPCC_LOG_DEBUG .printf("SDIO ACT wait timeout\n");
 			return false;
 		}
 	}
-
-
-	if(dma_stm.isError()) {
-		XPCC_LOG_DEBUG .printf("SDIO DMA Error 0x%x\n", dma_stm.getInterruptFlags());
-		return false;
-	}
-
-	//GpioProfiler<PB15> p;
-	while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
-			SDIO_HAL::Interrupt::DBCKEND|SDIO_HAL::Interrupt::STBITERR)) {
-
-	}
+//	while(!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::DTIMEOUT|SDIO_HAL::Interrupt::DCRCFAIL|
+//			SDIO_HAL::Interrupt::DBCKEND|SDIO_HAL::Interrupt::STBITERR)) {
+//
+//	}
 
     if (!SDIO_HAL::getInterruptStatus(SDIO_HAL::Interrupt::DBCKEND)) { //An Error has occured.
     	XPCC_LOG_DEBUG .printf("SDIO:Data Transmission Error 0x%x\n", SDIO_HAL::getInterruptFlags());
@@ -541,7 +558,7 @@ bool xpcc::stm32::SDIO_SDCard::waitTransfer() {
 
 bool xpcc::stm32::SDIO_SDCard::dmaInit(uint8_t* block, bool write) {
 	if(((uint32_t)block & 3) != 0) {
-		XPCC_LOG_DEBUG << "Err SD Block is not 4 byte aligned\n";
+		XPCC_LOG_DEBUG .printf("Err SD Block (0x%x) is not 4 byte aligned\n", block);
 		return false;
 	}
 	if((uint32_t)block & 0x10000000) {
@@ -553,10 +570,11 @@ bool xpcc::stm32::SDIO_SDCard::dmaInit(uint8_t* block, bool write) {
 	if(!write)
 		SDIO_HAL::DMACmd(ENABLE);
 
-	dma_cfg.memory0BaseAddress((uint32_t)block);
-	dma_cfg.xferDirection(write?dma::XferDir::MemoryToPeripheral : dma::XferDir::PeripheralToMemory);
-	dma_cfg.bufferSize(0);
-	dma_stm.init(dma_cfg);
+	dma_stm.disable();
+
+	dma_stm.memoryTargetConfig((uint32_t)block, dma::Memory::Memory_0);
+	dma_stm.setXferDirection(write?dma::XferDir::MemoryToPeripheral : dma::XferDir::PeripheralToMemory);
+	dma_stm.setCurrDataCounter(0);
 	//Enable the DMA (When it is enabled, it starts to respond dma requests)
 	dma_stm.enable();
 
@@ -581,7 +599,7 @@ void xpcc::stm32::SDIO_SDCard::handleIRQ() {
 	//disable interrupts
 	SDIO->MASK = 0;
 	//signal threads
-	evt.signal();
+	sdio_evt.signal();
 }
 
 

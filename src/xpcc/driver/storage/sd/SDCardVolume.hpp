@@ -128,6 +128,8 @@ public:
 
 	xpcc::fat::Result
 	doWrite(const uint8_t *buffer, int32_t sectorNumber, uint32_t sectorCount) override {
+		xpcc::fat::Result ret = RES_OK;
+
 		if(!operation.take(600)) {
 			XPCC_LOG_ERROR .printf("WR operation.take() timeout\n");
 			return RES_ERROR;
@@ -154,7 +156,10 @@ public:
 			if(last_block != INVALID) {
 				this->writeStop();
 			}
-			this->writeStart(sectorNumber, eraseCount);
+			if(!this->writeStart(sectorNumber, std::max(eraseCount, sectorCount))) {
+				ret = RES_ERROR;
+				goto w_exit;
+			}
 			wrRemaining = eraseCount;
 			eraseCount = 0;
 		}
@@ -162,7 +167,11 @@ public:
 		last_block = sectorNumber + sectorCount - 1;
 
 		while(sectorCount) {
-			this->writeData(buffer);
+			if(!this->writeData(buffer)) {
+				this->writeStop();
+				ret = RES_ERROR;
+				goto w_exit;
+			}
 			if(wrRemaining) {
 				wrRemaining--;
 				if(!wrRemaining) {
@@ -172,13 +181,13 @@ public:
 			sectorCount--;
 			buffer+=512;
 		}
-
+w_exit:
 		last_op = xpcc::Clock::now();
 
 		writing = false;
 
 		operation.give();
-		return RES_OK;
+		return ret;
 	}
 
 	xpcc::fat::Result

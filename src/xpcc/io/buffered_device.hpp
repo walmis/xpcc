@@ -23,7 +23,7 @@ public:
 	}
 
 	virtual size_t write(char c) {
-		while(_blocking && !txAvailable()) txEvent.wait();
+		while(_blocking && !txAvailable()) txEvent.wait(1);
 		return txbuf.write(c);
 	}
 
@@ -32,7 +32,7 @@ public:
 			while(len) {
 				int16_t wr = std::min((int16_t)len, txAvailable());
 				if(wr<1) {
-					txEvent.wait();
+					txEvent.wait(1);
 					continue;
 				}
 				txbuf.write(buf, wr);

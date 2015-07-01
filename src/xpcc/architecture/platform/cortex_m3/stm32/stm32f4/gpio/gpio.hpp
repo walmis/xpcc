@@ -347,7 +347,7 @@ public:
 
 	ALWAYS_INLINE static bool
 	read(uint8_t port, uint8_t pin) {
-		return _port(port)->ODR & (1<<pin);
+		return _port(port)->IDR & (1<<pin);
 	}
 
 	ALWAYS_INLINE static bool
@@ -365,7 +365,7 @@ public:
 
 	ALWAYS_INLINE static void
 	setOutput(bool status) {
-		_GpioPin::setOutput(port, pin);
+		_GpioPin::setOutput(port, pin, status);
 	}
 	ALWAYS_INLINE static void
 	setOutput() {
