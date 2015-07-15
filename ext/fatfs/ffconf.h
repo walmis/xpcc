@@ -1,7 +1,9 @@
 /*---------------------------------------------------------------------------/
 /  FatFs - FAT file system module configuration file  R0.11 (C)ChaN, 2015
 /---------------------------------------------------------------------------*/
+#ifdef CHIBI_RTOS
 #include <ch.h>
+#endif
 
 #define _FFCONF 32020	/* Revision ID */
 
@@ -229,8 +231,11 @@
 /      can be opened simultaneously under file lock control. Note that the file
 /      lock feature is independent of re-entrancy. */
 
-
+#ifdef CHIBI_RTOS
 #define _FS_REENTRANT	1
+#else
+#define _FS_REENTRANT	0
+#endif
 #define _FS_TIMEOUT		MS2ST(1000)
 #define	_SYNC_t			semaphore_t*
 /* The _FS_REENTRANT option switches the re-entrancy (thread safe) of the FatFs

@@ -110,6 +110,7 @@ void TickerTask::interrupt(int irqN) {
 }
 
 void TickerTask::tasksRun(xpcc::function<void()> idleFunc) {
+	TickerTask::idleFunc = idleFunc;
 	tasksInit();
 	while(1) {
 		tick();

@@ -32,27 +32,25 @@ public:
 		(bool)isPending();
 	}
 
-	bool wait(uint32_t timeout_ms = 0) {
+	bool wait(uint32_t timeout_ms = 0xFFFFFFFF) {
 		if(TickerTask::inInterruptContext()) return false;
 
 		//(bool)isPending(); //this resets the event into waiting state
 
-		if(!timeout_ms) {
+		if(timeout_ms == 0xFFFFFFFF) {
 			return cond.wait() == MSG_OK;
 		} else {
 			return cond.wait(MS2ST(timeout_ms)) == MSG_OK;
 		}
 	}
 
-	bool wait_us(uint32_t timeout_us = 0) {
+	bool wait_us(uint32_t timeout_us = 0xFFFFFFFF) {
 		if(TickerTask::inInterruptContext()) return false;
 
-		//(bool)isPending(); //this resets the event into waiting state
-
-		if(!timeout_us) {
+		if(timeout_us == 0xFFFFFFFF) {
 			return cond.wait() == MSG_OK;
 		} else {
-			return cond.wait(timeout_us) == MSG_OK;
+			return cond.wait(US2ST(timeout_us)) == MSG_OK;
 		}
 	}
 

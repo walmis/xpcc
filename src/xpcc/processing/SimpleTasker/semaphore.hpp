@@ -18,7 +18,7 @@ public:
 	Semaphore();
 
 	void give();
-	bool take(uint16_t timeout = 0) __attribute__ ((warn_unused_result));
+	bool take(uint16_t timeout = 0xFFFF) __attribute__ ((warn_unused_result));
 	bool take_nonblocking() __attribute__ ((warn_unused_result));
 
 	inline bool taken() {

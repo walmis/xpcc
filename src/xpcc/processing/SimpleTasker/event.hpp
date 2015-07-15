@@ -14,9 +14,22 @@ namespace xpcc {
 
 class Event {
 public:
-	void wait();
-	void signal();
+	bool wait(uint32_t timeout_ms = 0xFFFFFFFF)  {
+		if(TickerTask::inInterruptContext()) return false;
 
+		return sem.take(timeout_ms);
+	}
+	void signal() {
+		sem.give();
+	}
+
+	bool isPending() {
+		return sem.take_nonblocking();
+	}
+
+	void reset() {
+		(bool)isPending();
+	}
 protected:
 	Semaphore sem;
 };

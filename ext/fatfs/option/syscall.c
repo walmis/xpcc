@@ -5,12 +5,10 @@
 
 #include <stdlib.h>		/* ANSI memory controls */
 #include <malloc.h>		/* ANSI memory controls */
-#include <ch.h>
 #include "../ff.h"
 
-
 #if _FS_REENTRANT
-
+#include <ch.h>
 /*------------------------------------------------------------------------*/
 /* Create a Synchronization Object                                        */
 /*------------------------------------------------------------------------*/

@@ -203,6 +203,30 @@ public:
 	    return (uint8_t*)configDescriptor;
 	}
 
+	uint8_t * deviceDesc() {
+	    static const uint8_t deviceDescriptor[] = {
+	        DEVICE_DESCRIPTOR_LENGTH,       /* bLength */
+	        DEVICE_DESCRIPTOR,              /* bDescriptorType */
+	        LSB(USB_VERSION_2_0),           /* bcdUSB (LSB) */
+	        MSB(USB_VERSION_2_0),           /* bcdUSB (MSB) */
+	        0xEF,                           /* bDeviceClass */
+	        0x02,                           /* bDeviceSubClass */
+	        0x01,                           /* bDeviceprotocol */
+	        MAX_PACKET_SIZE_EP0,            /* bMaxPacketSize0 */
+	        LSB(VENDOR_ID),                 /* idVendor (LSB) */
+	        MSB(VENDOR_ID),                 /* idVendor (MSB) */
+	        LSB(PRODUCT_ID),                /* idProduct (LSB) */
+	        MSB(PRODUCT_ID),                /* idProduct (MSB) */
+	        LSB(PRODUCT_RELEASE),           /* bcdDevice (LSB) */
+	        MSB(PRODUCT_RELEASE),           /* bcdDevice (MSB) */
+	        STRING_OFFSET_IMANUFACTURER,    /* iManufacturer */
+	        STRING_OFFSET_IPRODUCT,         /* iProduct */
+	        STRING_OFFSET_ISERIAL,          /* iSerialNumber */
+	        0x01                            /* bNumConfigurations */
+	    };
+	    return (uint8_t*)deviceDescriptor;
+	}
+
 	USBSerialHandler serial;
 	USBMSDHandler& msd;
 };

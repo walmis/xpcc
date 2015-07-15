@@ -205,6 +205,7 @@ namespace chibios_rt {
       return chVTIsSystemTimeWithin(start, end);
     }
 
+
     struct Lock {
     	Lock() {
     		lock();
@@ -2477,6 +2478,17 @@ namespace chibios_rt {
      */
     virtual msg_t get(void) = 0;
   };
+
+struct LockWith {
+	LockWith(Mutex &mtx) :
+			_mtx(mtx) {
+		_mtx.lock();
+	}
+	~LockWith() {
+		_mtx.unlock();
+	}
+	Mutex& _mtx;
+};
 }
 
 #endif /* _CH_HPP_ */

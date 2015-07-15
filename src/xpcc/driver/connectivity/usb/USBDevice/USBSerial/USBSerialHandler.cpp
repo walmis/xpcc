@@ -95,9 +95,9 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
     } else
 
     if(ep == bulkIn) {
-
+    	//XPCC_LOG_DEBUG .printf("CDC bulkIN send\n");
     	if(tx_buffer.bytes_used()) {
-    		//XPCC_LOG_DEBUG .printf("bulkIN send\n");
+
     		sendPacket(false);
     		return true;
     	}
@@ -177,6 +177,8 @@ bool USBSerialHandler::USBCallback_request(void) {
     /* Process class-specific requests */
 
     if (transfer->setup.bmRequestType.Type == CLASS_TYPE) {
+    	//XPCC_LOG_DEBUG .printf("class req %d\n", transfer->setup.bRequest);
+    	//XPCC_LOG_DEBUG .dump_buffer(cdc_line_coding, 7);
         switch (transfer->setup.bRequest) {
             case CDC_GET_LINE_CODING:
                 transfer->remaining = 7;
@@ -186,8 +188,10 @@ bool USBSerialHandler::USBCallback_request(void) {
                 break;
             case CDC_SET_LINE_CODING:
                 transfer->remaining = 7;
+                transfer->notify = true;
                 success = true;
                 terminal_connected = true;
+                isActive = true;
                 break;
             case CDC_SET_CONTROL_LINE_STATE:
                 terminal_connected = false;
@@ -199,6 +203,13 @@ bool USBSerialHandler::USBCallback_request(void) {
     }
 
     return success;
+}
+
+void USBSerialHandler::USBCallback_requestCompleted(uint8_t * buf, uint32_t length) {
+	if(length == 7) {
+		memcpy(cdc_line_coding, buf, 7);
+	}
+
 }
 
 bool USBSerialHandler::USBCallback_setConfiguration(uint8_t configuration) {

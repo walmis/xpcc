@@ -62,7 +62,7 @@ public:
     USBCDC(uint16_t vendor_id, uint16_t product_id, uint16_t product_release);
 
 protected:
-    
+
     /*
     * Get device descriptor. Warning: this method has to store the length of the report descriptor in reportLength.
     *

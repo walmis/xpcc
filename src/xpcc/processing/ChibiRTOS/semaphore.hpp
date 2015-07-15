@@ -22,7 +22,10 @@ public:
 		chSysRestoreStatusX(s);
 	}
 
-	bool take(uint16_t timeout_ms = 0) __attribute__ ((warn_unused_result)) {
+	bool take(uint32_t timeout_ms = TIME_INFINITE) __attribute__ ((warn_unused_result)) {
+		if(timeout_ms == TIME_INFINITE)
+			return sem.wait(TIME_INFINITE) == MSG_OK;
+
 		return sem.wait(MS2ST(timeout_ms)) == MSG_OK;
 	}
 	bool take_nonblocking() __attribute__ ((warn_unused_result)) {
