@@ -78,21 +78,21 @@ symbols
 import os
 
 # check which configuration-file to load
-if 'library' in BUILD_TARGETS:
-	defaultConfigfile = 'library.cfg'
-else:
-	target = ARGUMENTS.get('target', 'hosted')
-	if target == 'atmega':
-		defaultConfigfile = 'unittest_atmega.cfg'
-	elif target == 'atxmega':
-		defaultConfigfile = 'unittest_atxmega.cfg'
-	elif target == 'stm32':
-		defaultConfigfile = 'unittest_stm32.cfg'
-	elif target == 'hosted':
-		defaultConfigfile = 'unittest_hosted.cfg'
-	else:
-		print "Error: unknown target '%s'. Use 'hosted' (default), 'atmega', 'atxmega' or 'stm32'." % target
-		exit(1)
+#if 'library' in BUILD_TARGETS:
+defaultConfigfile = 'library.cfg'
+#else:
+	#target = ARGUMENTS.get('target', 'hosted')
+	#if target == 'atmega':
+		#defaultConfigfile = 'unittest_atmega.cfg'
+	#elif target == 'atxmega':
+		#defaultConfigfile = 'unittest_atxmega.cfg'
+	#elif target == 'stm32':
+		#defaultConfigfile = 'unittest_stm32.cfg'
+	#elif target == 'hosted':
+		#defaultConfigfile = 'unittest_hosted.cfg'
+	#else:
+		#print "Error: unknown target '%s'. Use 'hosted' (default), 'atmega', 'atxmega' or 'stm32'." % target
+		#exit(1)
 
 # create the build environment
 env = Environment(
@@ -103,35 +103,35 @@ env = Environment(
 # build the xpcc library
 xpccLibrary = env.XpccLibrary()
 
-if 'library' in BUILD_TARGETS:
-	env.Clean('library', 'libxpcc.a')
-	env.Alias('library', [xpccLibrary,
-			Command('libxpcc.a', xpccLibrary, Copy("$TARGET", "$SOURCE"))])
-else:
-	# find only files located in 'test' folders
-	files = env.FindFiles(path = '.', unittest=True)
+#if 'library' in BUILD_TARGETS:
+env.Clean('library', 'libxpcc.a')
+env.Alias('library', [xpccLibrary,
+                Command('libxpcc.a', xpccLibrary, Copy("$TARGET", "$SOURCE"))])
+#else:
+	## find only files located in 'test' folders
+	#files = env.FindFiles(path = '.', unittest=True)
 	
-	# declare a file which later runs all the tests
-	template = ARGUMENTS.get('template', env['XPCC_CONFIG']['build']['template'])
-	runner = env.UnittestRunner(target = env.Buildpath('runner.cpp'),
-								source = files.header,
-								template = template)
+	## declare a file which later runs all the tests
+	#template = ARGUMENTS.get('template', env['XPCC_CONFIG']['build']['template'])
+	#runner = env.UnittestRunner(target = env.Buildpath('runner.cpp'),
+								#source = files.header,
+								#template = template)
 	
-	sources = [runner] + files.sources
+	#sources = [runner] + files.sources
 	
-	# build the program
-	program = env.Program(target = 'executable',
-						  source = sources)
+	## build the program
+	#program = env.Program(target = 'executable',
+						  #source = sources)
 	
-	env.Alias('build', program)
-	env.Alias('size', env.Size(program))
-	env.Alias('symbols', env.Symbols(program))
-	env.Alias('defines', env.ShowDefines())
+	#env.Alias('build', program)
+	#env.Alias('size', env.Size(program))
+	#env.Alias('symbols', env.Symbols(program))
+	#env.Alias('defines', env.ShowDefines())
 	
-	if env.CheckArchitecture('hosted'):
-		env.Alias('run', env.Run(program))
-		env.Alias('all', ['build', 'run'])
-	else:
-		env.Alias('all', ['build', 'size'])
+	#if env.CheckArchitecture('hosted'):
+		#env.Alias('run', env.Run(program))
+		#env.Alias('all', ['build', 'run'])
+	#else:
+		#env.Alias('all', ['build', 'size'])
 	
-	env.Default('all')
+	#env.Default('all')

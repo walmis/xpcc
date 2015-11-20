@@ -20,7 +20,6 @@ void Timer<timerptr>::enableCapturePins()
     } else if (TIMER == LPC_TMR32B1) {  /** CT32B1_CAP0 */
         IOCon::setPinFunc(1, 0, 3);
     }
-#error "B"
 }
 
 template<int timerptr>

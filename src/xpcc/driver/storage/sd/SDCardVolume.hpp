@@ -17,8 +17,7 @@
 #define INVALID 0xFFFFFFFE
 
 template <typename Card>
-class SDCardVolume : public Card, public xpcc::fat::PhysicalVolume,
-	xpcc::TickerTask {
+class SDCardVolume : public Card, public xpcc::fat::PhysicalVolume {
 
 public:
 	SDCardVolume() : last_block(INVALID), read_sem_taken(false),
@@ -66,7 +65,7 @@ public:
 		}
 	}
 
-	void handleTick() {
+	void update() {
 		if(read_sem_taken && !reading) {
 			if((xpcc::Clock::now() - last_op) > SD_READ_TIMEOUT) {
 				stopRead();

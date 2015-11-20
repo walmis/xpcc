@@ -401,6 +401,10 @@ public:
 		uint32_t state = UARTx->SR;
 
 		// Read Data Register not empty
+//		if (state & USART_SR_ORE) {
+//			XPCC_LOG_DEBUG .printf("uart ovr\n");
+//		}
+
 		if (state & USART_SR_RXNE)
 		{
 			if(rxCallback) rxCallback();

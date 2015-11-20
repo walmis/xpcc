@@ -256,11 +256,11 @@ static inline GPIO_TypeDef* _port(uint8_t p) {
 	return ports[p];
 }
 
-constexpr uint8_t IDToPort(uint8_t id) {
+constexpr uint8_t GPIO_IDToPort(uint8_t id) {
 	return (id>>4) & 0x0F;
 }
 
-constexpr uint8_t IDToPin(uint8_t id) {
+constexpr uint8_t GPIO_IDToPin(uint8_t id) {
 	return id & 0x0F;
 }
 
