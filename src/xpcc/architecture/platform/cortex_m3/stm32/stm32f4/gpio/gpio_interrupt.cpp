@@ -7,7 +7,7 @@
 
 #include <xpcc/container/linked_list.hpp>
 #include <xpcc/processing/function.hpp>
-#include <xpcc/processing/rtos.hpp>
+#include <xpcc/processing/rtos_abstraction.hpp>
 #include "../../device.hpp"
 #include "gpio_interrupt.hpp"
 #include "gpio.hpp"

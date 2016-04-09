@@ -338,8 +338,8 @@ USBHAL::USBHAL(void) {
 
 
     // Set the maximum packet size for the control endpoints
-    realiseEndpoint(EP0IN, MAX_PACKET_SIZE_EP0, 0);
-    realiseEndpoint(EP0OUT, MAX_PACKET_SIZE_EP0, 0);
+    realiseEndpoint(EP0IN, MAX_PACKET_SIZE_EP0, 0, USBHAL::EPType::Control);
+    realiseEndpoint(EP0OUT, MAX_PACKET_SIZE_EP0, 0, USBHAL::EPType::Control);
 
 
     // Enable interrupts for device events and EP0
@@ -445,7 +445,7 @@ EP_STATUS USBHAL::endpointWriteResult(uint8_t endpoint) {
     return EP_PENDING;
 }
 
-bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t flags) {
+bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t flags, USBHAL::EPType type) {
     // Realise an endpoint
     LPC_USB->USBDevIntClr = EP_RLZED;
     LPC_USB->USBReEp |= EP(endpoint);

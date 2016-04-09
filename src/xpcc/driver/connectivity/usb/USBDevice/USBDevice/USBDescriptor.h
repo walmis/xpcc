@@ -16,6 +16,9 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef USBDESC
+#define USBDESC
+
 /* Standard descriptor types */
 #define DEVICE_DESCRIPTOR        (1)
 #define CONFIGURATION_DESCRIPTOR (2)
@@ -43,8 +46,10 @@
 #define USB_VERSION_2_0 (0x0200)
 
 /* Least/Most significant byte of short integer */
-#define LSB(n)  ((n)&0xff)
-#define MSB(n)  (((n)&0xff00)>>8)
+constexpr uint8_t LSB(uint32_t n) { return n&0xff; }
+constexpr uint8_t MSB(uint32_t n) { return (((n)&0xff00)>>8); }
+//#define LSB(n)  ((static_cast<uint8_t>(n))&0xff)
+//#define MSB(n)  (((n)&0xff00)>>8)
 
 #define WBVAL(x) ((x) & 0xFF),(((x) >> 8) & 0xFF)
 
@@ -75,4 +80,4 @@
 #define E_FEEDBACK              (0x10)
 #define E_IMPLICIT_FEEDBACK     (0x20)
 
-
+#endif

@@ -23,10 +23,8 @@ SDIO_SDCard::SDIO_SDCard() : dma_stm(dma::Stream::DMA2_3),
 
 extern "C"
 void SDIO_IRQHandler() {
-	//IRQWrapper w;
-	CH_IRQ_PROLOGUE();
+	IRQWrapper w;
 	inst->handleIRQ();
-	CH_IRQ_EPILOGUE();
 }
 
 static uint32_t ext_bits(unsigned char* data, int msb,

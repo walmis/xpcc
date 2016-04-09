@@ -49,6 +49,8 @@
 
 #pragma once
 
+#define XPCC_USB_SUPPORT
+
 #include <lpc17xx/cmsis/LPC17xx.h>
 #include <lpc17xx/cmsis/core_cm3.h>
 #include <lpc17xx/cmsis/system_LPC17xx.h>

@@ -1,0 +1,22 @@
+add_sources(
+	src/chevents.c
+	src/chmsg.c
+	src/chvt.c
+	src/chheap.c
+	src/chmboxes.c
+	src/chsem.c
+	src/chqueues.c
+	src/chschd.c
+	src/chthreads.c
+	src/chsys.c
+	src/chcond.c
+	src/chmtx.c
+	src/chdynamic.c
+	src/chstats.c
+	src/chdebug.c
+	src/chregistry.c
+	src/chmemcore.c
+	src/chmempools.c
+	src/ch.cpp
+	src/chtm.c
+)

@@ -445,15 +445,15 @@ bool USBMSDHandler::readFormatCapacity() {
     BlockCount = disk_sectors();
 
 	uint8_t capacity[] = { 0x00, 0x00, 0x00, 0x08,
-                           (BlockCount >> 24) & 0xff,
-                           (BlockCount >> 16) & 0xff,
-                           (BlockCount >> 8) & 0xff,
-                           (BlockCount >> 0) & 0xff,
+                           uint8_t((BlockCount >> 24) & 0xff),
+                           uint8_t((BlockCount >> 16) & 0xff),
+                           uint8_t((BlockCount >> 8) & 0xff),
+                           uint8_t((BlockCount >> 0) & 0xff),
 
                            0x02,
-                           (BlockSize >> 16) & 0xff,
-                           (BlockSize >> 8) & 0xff,
-                           (BlockSize >> 0) & 0xff,
+                           uint8_t((BlockSize >> 16) & 0xff),
+                           uint8_t((BlockSize >> 8) & 0xff),
+                           uint8_t((BlockSize >> 0) & 0xff),
                          };
     if (!write(capacity, sizeof(capacity))) {
         return false;
@@ -466,15 +466,15 @@ bool USBMSDHandler::readCapacity (void) {
     BlockCount = disk_sectors();
 
 	uint8_t capacity[] = {
-        ((BlockCount - 1) >> 24) & 0xff,
-        ((BlockCount - 1) >> 16) & 0xff,
-        ((BlockCount - 1) >> 8) & 0xff,
-        ((BlockCount - 1) >> 0) & 0xff,
+        uint8_t(((BlockCount - 1) >> 24) & 0xff),
+        uint8_t(((BlockCount - 1) >> 16) & 0xff),
+        uint8_t(((BlockCount - 1) >> 8) & 0xff),
+        uint8_t(((BlockCount - 1) >> 0) & 0xff),
 
-        (BlockSize >> 24) & 0xff,
-        (BlockSize >> 16) & 0xff,
-        (BlockSize >> 8) & 0xff,
-        (BlockSize >> 0) & 0xff,
+        uint8_t((BlockSize >> 24) & 0xff),
+        uint8_t((BlockSize >> 16) & 0xff),
+        uint8_t((BlockSize >> 8) & 0xff),
+        uint8_t((BlockSize >> 0) & 0xff),
     };
 
     if (!write(capacity, sizeof(capacity))) {
@@ -501,7 +501,7 @@ bool USBMSDHandler::write (uint8_t * buf, uint16_t size) {
 
 bool USBMSDHandler::modeSense6 (void) {
 	uint8_t sense6[] = { 0x03, 0x00,
-			(disk_status() & WRITE_PROTECT) ? 0x80 : 0x00, 0x00 };
+			uint8_t((disk_status() & WRITE_PROTECT) ? 0x80 : 0x00), 0x00 };
 
     if (!write(sense6, sizeof(sense6))) {
         return false;

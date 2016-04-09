@@ -7,7 +7,7 @@
 
 
 #include "dma.hpp"
-#include <xpcc/processing/rtos.hpp>
+#include <xpcc/processing/rtos_abstraction.hpp>
 namespace xpcc {
 namespace stm32 {
 namespace dma {

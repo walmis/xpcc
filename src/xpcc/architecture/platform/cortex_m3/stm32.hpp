@@ -63,6 +63,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include "stm32/device.hpp"
 
 //#include "stm32/device.h"
@@ -154,6 +155,8 @@
 #include "stm32/systick_timer.hpp"
 
 #if defined(STM32F4XX)
+#define XPCC_USB_SUPPORT
+
 #include "stm32/stm32f4/usb/USBDevice-USBEndpoints_STM32F4.h"
 #include "stm32/stm32f4/gpio/gpio.hpp"
 #include "stm32/stm32f4/gpio/gpio_interrupt.hpp"

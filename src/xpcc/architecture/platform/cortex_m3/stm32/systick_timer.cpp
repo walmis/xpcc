@@ -31,7 +31,7 @@
 #include <xpcc/architecture/driver/atomic/lock.hpp>
 #include <xpcc/architecture/driver/clock.hpp>
 #include <xpcc/utils/dummy.hpp>
-#include <xpcc/processing/rtos.hpp>
+#include <xpcc/processing/rtos_abstraction.hpp>
 
 #include <stm32f4xx.h>
 #include "systick_timer.hpp"

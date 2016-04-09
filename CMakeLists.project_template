@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.5)
+
+SET(XPCC_DIR /home/walmis/Desktop/Programming/git/xpcc/)
+SET(PLATFORM lpc11xx)
+SET(PROJECT_NAME "NT-IMU-LPC11")
+SET(LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/lpc11xx/linkscript.ld")
+#SET(LIBRARIES) #additional libraries
+
+set(SOURCES
+    ./I2Cdev.cpp
+    ./fault.cpp
+    ./MPU6050.cpp
+    ./main.cpp
+    ./lpc11xx/cmsis/LPC11xx_handlers.c
+    ./lpc11xx/cmsis/LPC1xxx_startup.c
+    ./lpc11xx/cmsis/system_LPC11xx.c
+)
+
+include(${XPCC_DIR}/xpccProject.cmake)
+
+project(${PROJECT_NAME} CXX C)
+
+set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-I")
+set(CMAKE_INCLUDE_SYSTEM_FLAG_C "-I")

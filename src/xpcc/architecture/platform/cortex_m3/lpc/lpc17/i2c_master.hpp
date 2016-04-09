@@ -11,6 +11,7 @@
 
 #include <xpcc/architecture/platform.hpp>
 #include <xpcc/architecture/peripheral/i2c.hpp>
+#include <xpcc/architecture/driver/atomic.hpp>
 
 #define DMB() asm volatile("DMB" ::: "memory")
 
@@ -294,7 +295,7 @@ public:
 	}
 
 	static bool
-	start(xpcc::I2cDelegate *d) {
+	start(xpcc::I2cTransaction *d) {
 		if(!attachDelegate(d)) {
 			return false;
 		}
@@ -312,7 +313,7 @@ public:
 		xpcc::atomic::Lock l;
 		DMB();
 		if (delegate != 0) {
-			I2cDelegate* old = delegate;
+			I2cTransaction* old = delegate;
 			//attach new delegate in the chain
 			delegate = delegate->next;
 
@@ -356,7 +357,7 @@ public:
 
 				//DEBUG_STREAM .printf("Start %x\n", delegate);
 				// REPEATED START has been transmitted
-				xpcc::I2cDelegate::Starting s = delegate->starting();
+				xpcc::I2cTransaction::Starting s = delegate->starting();
 
 				uint8_t address;
 				DEBUG_STREAM .printf("Start/next %d\n", s.next);
@@ -528,7 +529,7 @@ public:
 	}
 
 private:
-	static bool attachDelegate(xpcc::I2cDelegate *d) {
+	static bool attachDelegate(xpcc::I2cTransaction *d) {
 		xpcc::atomic::Lock l;
 
 		if(delegate == d)
@@ -544,7 +545,7 @@ private:
 				i2start();
 				return true;
 			} else {
-				xpcc::I2cDelegate* p = delegate;
+				xpcc::I2cTransaction* p = delegate;
 				while(p->next) {
 					if(p == d) {
 						//the same delegate is already in the chain
@@ -581,11 +582,11 @@ private:
 	static volatile bool newSession;
 
 	// delegating
-	static xpcc::I2cDelegate* volatile delegate;
+	static xpcc::I2cTransaction* volatile delegate;
 	volatile static xpcc::I2cMaster::Error error;
 
 	static inline void
-	initializeWrite(xpcc::I2cDelegate::Writing w)
+	initializeWrite(xpcc::I2cTransaction::Writing w)
 	{
 		writePointer = w.buffer;
 		writeBytesLeft = w.size;
@@ -594,7 +595,7 @@ private:
 	}
 
 	static inline void
-	initializeRead(xpcc::I2cDelegate::Reading r)
+	initializeRead(xpcc::I2cTransaction::Reading r)
 	{
 		readPointer = r.buffer;
 		readBytesLeft = r.size;

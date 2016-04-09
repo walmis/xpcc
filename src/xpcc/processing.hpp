@@ -47,7 +47,7 @@
 #include "processing/coop_task.hpp"
 #include "processing/function_pointer.hpp"
 
-#include "processing/rtos.hpp"
+#include "processing/rtos_abstraction.hpp"
 
 #include "processing/function.hpp"
 
