@@ -38,6 +38,7 @@
 #include <lpc11xx/cmsis/core_cm0.h>
 #include <lpc11xx/cmsis/system_LPC11xx.h>
 
+#include <xpcc/architecture/utils.hpp>
 /**
  * XPCC drivers for various peripherals and core components.
  *
@@ -46,6 +47,8 @@
  *		Rev. 11 — 26 July 2012
  *		UM10398
  */
+
+#include "../iocon.hpp"
 
 // Chapter 12: General Purpose I/O (GPIO)
 #include "gpio.hpp"

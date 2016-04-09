@@ -51,6 +51,13 @@ namespace xpcc
 				UART_PARITY_SP_0 							/*!< Forced "0" stick parity */
 			} CfgParity;
 
+			enum RxFifoTriggerLevel {
+				TRIGGER_1 	= 0<<6,					/*!< No parity */
+				TRIGGER_4   = 1<<6,	 						/*!< Odd parity */
+				TRIGGER_8   = 2<<6, 							/*!< Even parity */
+				TRIGGER_14  = 3<<6, 							/*!< Forced "1" stick parity */
+			} ;
+
 			static void init(uint32_t baud = 115200,
 					CfgDataBits dataBits = UART_DATABIT_8,
 					CfgParity parity = UART_PARITY_NONE,
@@ -73,6 +80,7 @@ namespace xpcc
 			static void flush() {
 				while (txBusy());
 			}
+
 
 			static ALWAYS_INLINE bool txBusy() {
 				return !((LPC_UART->LSR & LSR_THRE) && (LPC_UART->LSR & LSR_TEMT));

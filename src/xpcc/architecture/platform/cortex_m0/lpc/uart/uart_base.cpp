@@ -106,7 +106,7 @@ xpcc::lpc11::Uart1::setBaud(uint32_t baudrate)
 		  if ((temp % baudrate) > (baudrate / 2))
 			diviser++;
 
-		  if (diviser > 2 && diviser < 65536)
+		  if (diviser >= 1 && diviser < 65536)
 		  {
 			calcBaudrate = temp / diviser;
 

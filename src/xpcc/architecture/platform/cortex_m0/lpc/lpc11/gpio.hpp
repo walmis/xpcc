@@ -45,6 +45,13 @@
 #define PIO1_2		R_PIO1_2
 #define PIO1_3		SWDIO_PIO1_3
 
+enum Port {
+	PIO0,
+	PIO1,
+	PIO2,
+	PIO3
+};
+
 /*
  * 12-bit ports.
  */
@@ -73,6 +80,185 @@ namespace xpcc
 		};
 	}
 }
+
+#define CASE_PIN(port, pin) case pin: return &LPC_IOCON->CONCAT4(PIO, port, _, pin)
+
+ALWAYS_INLINE
+volatile uint32_t* _get_pin(uint8_t port, uint8_t pin) {
+	switch(port) {
+	case 0: switch(pin) {
+			CASE_PIN(0, 0);
+			CASE_PIN(0, 1);
+			CASE_PIN(0, 2);
+			CASE_PIN(0, 3);
+			CASE_PIN(0, 4);
+			CASE_PIN(0, 5);
+			CASE_PIN(0, 6);
+			CASE_PIN(0, 7);
+			CASE_PIN(0, 8);
+			CASE_PIN(0, 9);
+			CASE_PIN(0, 10);
+			CASE_PIN(0, 11);
+		}
+
+		case 1: switch(pin) {
+			CASE_PIN(1, 0);
+			CASE_PIN(1, 1);
+			CASE_PIN(1, 2);
+			CASE_PIN(1, 3);
+			CASE_PIN(1, 4);
+			CASE_PIN(1, 5);
+			CASE_PIN(1, 6);
+			CASE_PIN(1, 7);
+			CASE_PIN(1, 8);
+			CASE_PIN(1, 9);
+			CASE_PIN(1, 10);
+			CASE_PIN(1, 11);
+		};
+
+		case 2: switch(pin) {
+			CASE_PIN(2, 0);
+			CASE_PIN(2, 1);
+			CASE_PIN(2, 2);
+			CASE_PIN(2, 3);
+			CASE_PIN(2, 4);
+			CASE_PIN(2, 5);
+			CASE_PIN(2, 6);
+			CASE_PIN(2, 7);
+			CASE_PIN(2, 8);
+			CASE_PIN(2, 9);
+			CASE_PIN(2, 10);
+			CASE_PIN(2, 11);
+		}
+
+		case 3: switch(pin) {
+			CASE_PIN(3, 0);
+			CASE_PIN(3, 1);
+			CASE_PIN(3, 2);
+			CASE_PIN(3, 3);
+			CASE_PIN(3, 4);
+			CASE_PIN(3, 5);
+		}
+	}
+
+	while(1);
+}
+
+template <int Port, int Pin>
+class GPIO {
+		//static const int Port = port;
+		//static const int Pin = pin;
+
+public:
+		static const int port = Port;
+		static const int pin = Pin;
+
+		ALWAYS_INLINE static void
+		setOutput(bool status) {
+			setOutput();
+			set(status);
+		}
+
+		ALWAYS_INLINE static void
+		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) {
+			*_get_pin(Port, Pin) &= ~0b1111;
+			if(Port == 1) {
+				if(Pin == 0 || Pin == 1 || Pin == 2 || Pin == 3) {
+					uint32_t temp = *_get_pin(Port, Pin);
+					temp &= ~0x7;
+					temp |= 1;
+					*_get_pin(Port, Pin) = temp;
+				}
+			}
+			if(Port == 0) {
+				if(Pin == 0 || Pin == 10 || Pin == 11) {
+					uint32_t temp = *_get_pin(Port, Pin);
+					temp &= ~0x7;
+					temp |= 1;
+					*_get_pin(Port, Pin) = temp;
+				}
+			}
+			*_get_pin(Port, Pin) |= type;
+
+			switch(Port) {
+				case 0: LPC_GPIO0->DIR |= 1 << Pin; break;
+				case 1: LPC_GPIO1->DIR |= 1 << Pin; break;
+				case 2: LPC_GPIO2->DIR |= 1 << Pin; break;
+				case 3: LPC_GPIO3->DIR |= 1 << Pin; break;
+			}
+
+		}
+
+		ALWAYS_INLINE static void
+		setAltFunc(uint8_t altFunc) {
+			xpcc::lpc11::IOCon::setPinFunc(Port, Pin, altFunc);
+		}
+
+		ALWAYS_INLINE static void
+		setMode(PinMode mode) {
+			xpcc::lpc11::IOCon::setPinMode(Port, Pin, mode);
+		}
+
+		ALWAYS_INLINE static void
+		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) {
+			*_get_pin(Port, Pin) &= ~0b1111;
+			if(Port == 0) {
+				if(Pin == 0 || Pin == 10 || Pin == 11) {
+					uint32_t temp = *_get_pin(Port, Pin);
+					temp &= ~0x7;
+					temp |= 1;
+					*_get_pin(Port, Pin) = temp;
+				}
+			} else
+			if(Port == 1) {
+				if(Pin == 0 || Pin == 1 || Pin == 2 || Pin == 3) {
+					uint32_t temp = *_get_pin(Port, Pin);
+					temp &= ~0x7;
+					temp |= 1;
+					*_get_pin(Port, Pin) = temp;
+				}
+			}
+
+			*_get_pin(Port, Pin) |= type;
+			switch(Port) {
+				case 0: LPC_GPIO0->DIR &= ~(1 << Pin); break;
+				case 1: LPC_GPIO1->DIR &= ~(1 << Pin); break;
+				case 2: LPC_GPIO2->DIR &= ~(1 << Pin); break;
+				case 3: LPC_GPIO3->DIR &= ~(1 << Pin); break;
+			}
+		}
+
+		ALWAYS_INLINE static void set()    {
+			switch(Port) {
+				case 0: LPC_GPIO0->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
+				case 1: LPC_GPIO1->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
+				case 2: LPC_GPIO2->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
+				case 3: LPC_GPIO3->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
+			}
+		}
+
+		ALWAYS_INLINE static void reset()  {
+			switch(Port) {
+				case 0: LPC_GPIO0->MASKED_ACCESS[1 << Pin] = 0; break;
+				case 1: LPC_GPIO1->MASKED_ACCESS[1 << Pin] = 0; break;
+				case 2: LPC_GPIO2->MASKED_ACCESS[1 << Pin] = 0; break;
+				case 3: LPC_GPIO3->MASKED_ACCESS[1 << Pin] = 0; break;
+			}
+		}
+
+		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } }
+		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } }
+
+		ALWAYS_INLINE static bool read()     {
+			switch(Port) {
+				case 0: return LPC_GPIO0->MASKED_ACCESS[1 << Pin] >> Pin; break;
+				case 1: return LPC_GPIO1->MASKED_ACCESS[1 << Pin] >> Pin; break;
+				case 2: return LPC_GPIO2->MASKED_ACCESS[1 << Pin] >> Pin; break;
+				case 3: return LPC_GPIO3->MASKED_ACCESS[1 << Pin] >> Pin; break;
+			}
+			return 0;
+		}
+};
 
 /**
  * \ingroup	lpc11xx

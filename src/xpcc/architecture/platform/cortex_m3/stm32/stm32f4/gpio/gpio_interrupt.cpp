@@ -28,7 +28,7 @@ static volatile uint8_t _currentEdge;
 static volatile uint8_t _currentPort;
 static volatile uint8_t _currentPin;
 
-uint8_t port_bits[4] = {0, 4, 8, 12};
+const uint8_t port_bits[4] = {0, 4, 8, 12};
 
 
 IntEdge GpioInt::currentEdge() {

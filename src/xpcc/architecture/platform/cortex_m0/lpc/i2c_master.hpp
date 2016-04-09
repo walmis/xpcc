@@ -244,15 +244,9 @@ public:
 	 * @param	rate
 	 *		`Standard` or `Fast`, `High` datarate is not supported
 	 */
-	template<DataRate rate=DataRate::Standard>
 	static ALWAYS_INLINE void
-	initialize()
+	initialize(uint32_t target_clock = 1000000)
 	{
-
-		uint32_t target_clock = 100000;
-		if(rate == DataRate::Fast) {
-			target_clock = 400000;
-		}
 
 		IOCon::setPinFunc(0, 4, 1);
 		IOCon::setPinFunc(0, 5, 1);

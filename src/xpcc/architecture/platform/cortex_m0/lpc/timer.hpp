@@ -21,11 +21,9 @@
 #define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
 #endif
 
-
+#include <xpcc/processing/function.hpp>
 #include "timer_defs.hpp"
 #include "iocon.hpp"
-
-
 
 
 namespace xpcc {
@@ -366,7 +364,8 @@ public:
 			TIMER->TC = val;
 		}
 
-
+		static void
+		attachInterrupt(xpcc::function<void()> fun);
 
 		/*********************************************************************//**
 		 * @brief 		Initial Timer/Counter device

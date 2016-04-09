@@ -8,8 +8,6 @@
 #ifndef IOCON_HPP_
 #define IOCON_HPP_
 
-#include <xpcc/architecture.hpp>
-#include "device.h"
 
 #if defined(__ARM_LPC11UXX__)
 typedef struct {						/*!< LPC11AXX/LPC11UXX/LPC11EXX IOCON Structure */
@@ -58,36 +56,36 @@ typedef struct {						/*!< LPC11XX/LPC11XXLV/LPC11UXX IOCON Structure */
 
 enum PinMode {
 	/** Disable pull-down and pull-up resistor at resistor at pad */
-	MD_PUP = (0x0 << 3),
+	Floating = (0x0 << 3),
 	/** Enable pull-down resistor at pad */
-	MD_BUK = (0x1 << 3),
+	PullDown = (0x1 << 3),
 	/** Enable pull-up resistor at pad */
-	MD_PLN = (0x2 << 3),
+	PullUp = (0x2 << 3),
 	/** Enable pull-down and pull-up resistor at resistor at pad= (repeater mode), */
 	MD_PDN = (0x3 << 3),
 	/** Enable hysteresis */
-	MD_HYS = (0x1 << 5),
+	Hysteresis = (0x1 << 5),
 	/** Invert enable */
 	MD_INV = (0x1 << 6),
 	/** Select analog mode */
-	MD_ADMODE = (0x0 << 7),
+	Analog = (0x0 << 7),
 	/** Select digitial mode */
-	MD_DIGMODE = (0x1 << 7),
+	Digital = (0x1 << 7),
 	/** Disable 10nS input glitch filter */
 	MD_DISFIL = (0x0 << 8),
 	/** Enable 10nS input glitch filter */
-	MD_ENFIL = (0x1 << 8),
+	GlitchFilter = (0x1 << 8),
 	/** I2C standard mode/fast-mode */
 	MD_SFI2C = (0x0 << 8),
 	/** I2C standard I/O functionality */
-	MD_STDI2C = (0x1 << 8),
+	StdI2c = (0x1 << 8),
 	/** I2C Fast-mode Plus */
-	MD_FASTI2C = (0x2 << 8),
+	FastI2c = (0x2 << 8),
 	/** Open drain mode bit */
-	MD_OPENDRAIN = (0x1 << 10)
+	OpenDrain = (0x1 << 10)
 };
 
-
+ENUM_CLASS_FLAG(PinMode);
 
 #define FUNC0 0x0
 #define FUNC1 0x1
