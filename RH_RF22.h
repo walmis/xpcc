@@ -386,6 +386,14 @@
 #define RH_RF22_MODTYP_FSK                         0x02
 #define RH_RF22_MODTYP_GFSK                        0x03
 
+// RH_RF22_REG_31_EZMAC_STATUS
+#define RH_RF22_EZMAC_PKSENT                        (1<<0)
+#define RH_RF22_EZMAC_PKTX                          (1<<1)
+#define RH_RF22_EZMAC_CRCERRROR                     (1<<2)
+#define RH_RF22_EZMAC_PKVALID                       (1<<3)
+#define RH_RF22_EZMAC_PKRX                          (1<<4)
+#define RH_RF22_EZMAC_PKSRCH                        (1<<5)
+#define RH_RF22_EZMAC_RXCRC1                        (1<<6)
 
 // RH_RF22_REG_75_FREQUENCY_BAND_SELECT            0x75
 #define RH_RF22_SBSEL                              0x40
@@ -869,9 +877,9 @@ public:
 	FSK_PN9_Rb2Fd5,      ///< FSK, No Manchester, Rb = 2kbs, Fd = 5kHz, PN9 random modulation for testing
 
 	FSK_Rb2Fd5,	     ///< FSK, No Manchester, Rb = 2kbs,    Fd = 5kHz
-	FSK_Rb2_4Fd36,       ///< FSK, No Manchester, Rb = 2.4kbs,  Fd = 36kHz
-	FSK_Rb4_8Fd45,       ///< FSK, No Manchester, Rb = 4.8kbs,  Fd = 45kHz
-	FSK_Rb9_6Fd45,       ///< FSK, No Manchester, Rb = 9.6kbs,  Fd = 45kHz
+	FSK_Rb2_4Fd9_6,       ///< FSK, No Manchester, Rb = 2.4kbs,  Fd = 9.6kHz
+	FSK_Rb4_8Fd9_6,       ///< FSK, No Manchester, Rb = 4.8kbs,  Fd = 9.6kHz
+	FSK_Rb9_6Fd9_6,       ///< FSK, No Manchester, Rb = 9.6kbs,  Fd = 9.6kHz
 	FSK_Rb19_2Fd9_6,     ///< FSK, No Manchester, Rb = 19.2kbs, Fd = 9.6kHz
 	FSK_Rb38_4Fd19_6,    ///< FSK, No Manchester, Rb = 38.4kbs, Fd = 19.6kHz
 	FSK_Rb57_6Fd28_8,    ///< FSK, No Manchester, Rb = 57.6kbs, Fd = 28.8kHz
@@ -880,9 +888,9 @@ public:
 	FSK_Rb_512Fd4_5,     ///< FSK, No Manchester, Rb = 512bs,  Fd = 4.5kHz, for POCSAG compatibility
 
 	GFSK_Rb2Fd5,         ///< GFSK, No Manchester, Rb = 2kbs,    Fd = 5kHz
-	GFSK_Rb2_4Fd36,      ///< GFSK, No Manchester, Rb = 2.4kbs,  Fd = 36kHz
-	GFSK_Rb4_8Fd45,      ///< GFSK, No Manchester, Rb = 4.8kbs,  Fd = 45kHz
-	GFSK_Rb9_6Fd45,      ///< GFSK, No Manchester, Rb = 9.6kbs,  Fd = 45kHz
+	GFSK_Rb2_4Fd9_6,      ///< GFSK, No Manchester, Rb = 2.4kbs,  Fd = 9.6kHz
+	GFSK_Rb4_8Fd9_6,      ///< GFSK, No Manchester, Rb = 4.8kbs,  Fd = 9.6kHz
+	GFSK_Rb9_6Fd9_6,      ///< GFSK, No Manchester, Rb = 9.6kbs,  Fd = 9.6kHz
 	GFSK_Rb19_2Fd9_6,    ///< GFSK, No Manchester, Rb = 19.2kbs, Fd = 9.6kHz
 	GFSK_Rb38_4Fd19_6,   ///< GFSK, No Manchester, Rb = 38.4kbs, Fd = 19.6kHz
 	GFSK_Rb57_6Fd28_8,   ///< GFSK, No Manchester, Rb = 57.6kbs, Fd = 28.8kHz
@@ -939,7 +947,10 @@ public:
     /// - Sets the frequency to 434.0 MHz
     /// - Sets the modem data rate to FSK_Rb2_4Fd36
     /// \return  true if everything was successful
-    bool        init();
+    bool        HWinit();
+
+    //initializes all registers
+    bool 		init();
 
     /// Issues a software reset to the 
     /// RH_RF22 module. Blocks for 1ms to ensure the reset is complete.
@@ -989,7 +1000,7 @@ public:
     /// for frequencies 240.0 to 480MHz, and 0.0 to 0.318750MHz for  frequencies 480.0 to 960MHz, 
     /// \return true if the selected frquency centre + (fhch * fhs) is within range and the afcPullInRange 
     /// is within range
-    bool        setFrequency(float centre, float afcPullInRange = 0.05);
+    bool        setFrequency(uint32_t centre, uint32_t afcPullInRange = 50000);
 
     /// Sets the frequency hopping step size.
     /// \param[in] fhs Frequency Hopping step size in 10kHz increments
@@ -1032,7 +1043,10 @@ public:
 
 
     virtual void handleRxComplete() {}
+    virtual void handleRxStart() {}
     virtual void handleTxComplete() {}
+    virtual void handleReset() {}
+
     /// Sets the transmitter power output level in register RH_RF22_REG_6D_TX_POWER.
     /// Be a good neighbour and set the lowest power level you need.
     /// After init(), the power will be set to RH_RF22::RH_RF22_TXPOW_8DBM on RF22B
@@ -1136,7 +1150,7 @@ protected:
     /// This is a low level function to handle the interrupts for one instance of RH_RF22.
     /// Called automatically by isr*()
     /// Should not need to be called.
-    void           handleInterrupt();
+    virtual void           handleInterrupt();
 
     /// Clears the receiver buffer.
     /// Internal use only

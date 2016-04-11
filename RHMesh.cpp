@@ -64,8 +64,8 @@ bool RHMesh::doArp(uint8_t address)
     // It will contain the complete route to the destination
     uint8_t messageLen = sizeof(_tmpMessage);
     // FIXME: timeout should be configurable
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < 4000)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < 4000)
     {
 	if (RHRouter::recvfromAck(_tmpMessage, &messageLen))
 	{
@@ -222,8 +222,8 @@ bool RHMesh::recvfromAck(uint8_t* buf, uint8_t* len, uint8_t* source, uint8_t* d
 ////////////////////////////////////////////////////////////////////
 bool RHMesh::recvfromAckTimeout(uint8_t* buf, uint8_t* len, uint16_t timeout, uint8_t* from, uint8_t* to, uint8_t* id, uint8_t* flags)
 {  
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < timeout)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < timeout)
     {
 	if (recvfromAck(buf, len, from, to, id, flags))
 	    return true;

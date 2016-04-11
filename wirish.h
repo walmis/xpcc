@@ -76,8 +76,12 @@ typedef enum WiringPinMode {
 } WiringPinMode;
 
 extern void pinMode(uint8_t pin, WiringPinMode mode);
-extern uint32_t millis();
-extern uint32_t micros();
+
+namespace RH {
+uint32_t millis();
+uint32_t micros();
+}
+
 extern void delay(uint32_t millis);
 extern void attachInterrupt(uint8_t, void (*)(void), int mode);
 extern void digitalWrite(uint8_t pin, uint8_t val);
@@ -91,10 +95,18 @@ extern void rh_atomic_block_end();
 //extern long random(long to);
 //extern long random(long from, long to);
 
-enum {
-	HIGH = 1,
-	LOW = 0
-};
+#ifndef HIGH
+#define HIGH 1
+#endif
+
+#ifndef LOW
+#define LOW 0
+#endif
+
+//enum {
+//	HIGH = 1,
+//	LOW = 0
+//};
 
 #define LSBFIRST 0
 #define MSBFIRST 1

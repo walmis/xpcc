@@ -1,7 +1,4 @@
 // RH_RF22.cpp
-//
-// Copyright (C) 2011 Mike McCauley
-// $Id: RH_RF22.cpp,v 1.17 2014/05/30 19:30:54 mikem Exp $
 
 #include <RH_RF22.h>
 #include <cmath>
@@ -27,9 +24,9 @@ PROGMEM static const RH_RF22::ModemConfig MODEM_CONFIG_TABLE[] =
     //  1c,   1f,   20,   21,   22,   23,   24,   25,   2c,   2d,   2e,   58,   69,   6e,   6f,   70,   71,   72
     // FSK, No Manchester, Max Rb err <1%, Xtal Tol 20ppm
     { 0x2b, 0x03, 0xf4, 0x20, 0x41, 0x89, 0x00, 0x36, 0x40, 0x0a, 0x1d, 0x80, 0x60, 0x10, 0x62, 0x2c, 0x22, 0x08 }, // 2, 5
-    { 0x1b, 0x03, 0x41, 0x60, 0x27, 0x52, 0x00, 0x07, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x13, 0xa9, 0x2c, 0x22, 0x3a }, // 2.4, 36
-    { 0x1d, 0x03, 0xa1, 0x20, 0x4e, 0xa5, 0x00, 0x13, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x27, 0x52, 0x2c, 0x22, 0x48 }, // 4.8, 45
-    { 0x1e, 0x03, 0xd0, 0x00, 0x9d, 0x49, 0x00, 0x45, 0x40, 0x0a, 0x20, 0x80, 0x60, 0x4e, 0xa5, 0x2c, 0x22, 0x48 }, // 9.6, 45
+    { 0x27, 0x03, 0xA1, 0x20, 0x4E, 0xA5, 0x00, 0x29, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x13, 0xa9, 0x2c, 0x22, 0x0F }, // 2.4, 9.6
+    { 0x27, 0x03, 0xd0, 0x00, 0x9d, 0x49, 0x00, 0xa0, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x27, 0x52, 0x2c, 0x22, 0x0F }, // 4.8, 9.6
+    { 0x27, 0x03, 0x68, 0x01, 0x3A, 0x93, 0x02, 0x78, 0x40, 0x0a, 0x20, 0x80, 0x60, 0x4e, 0xa5, 0x2c, 0x22, 0x0F }, // 9.6, 9.6
     { 0x2b, 0x03, 0x34, 0x02, 0x75, 0x25, 0x07, 0xff, 0x40, 0x0a, 0x1b, 0x80, 0x60, 0x9d, 0x49, 0x2c, 0x22, 0x0f }, // 19.2, 9.6
     { 0x02, 0x03, 0x68, 0x01, 0x3a, 0x93, 0x04, 0xd5, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x09, 0xd5, 0x0c, 0x22, 0x1f }, // 38.4, 19.6
     { 0x06, 0x03, 0x45, 0x01, 0xd7, 0xdc, 0x07, 0x6e, 0x40, 0x0a, 0x2d, 0x80, 0x60, 0x0e, 0xbf, 0x0c, 0x22, 0x2e }, // 57.6. 28.8
@@ -41,9 +38,9 @@ PROGMEM static const RH_RF22::ModemConfig MODEM_CONFIG_TABLE[] =
     // GFSK, No Manchester, Max Rb err <1%, Xtal Tol 20ppm
     // These differ from FSK only in register 71, for the modulation type
     { 0x2b, 0x03, 0xf4, 0x20, 0x41, 0x89, 0x00, 0x36, 0x40, 0x0a, 0x1d, 0x80, 0x60, 0x10, 0x62, 0x2c, 0x23, 0x08 }, // 2, 5
-    { 0x1b, 0x03, 0x41, 0x60, 0x27, 0x52, 0x00, 0x07, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x13, 0xa9, 0x2c, 0x23, 0x3a }, // 2.4, 36
-    { 0x1d, 0x03, 0xa1, 0x20, 0x4e, 0xa5, 0x00, 0x13, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x27, 0x52, 0x2c, 0x23, 0x48 }, // 4.8, 45
-    { 0x1e, 0x03, 0xd0, 0x00, 0x9d, 0x49, 0x00, 0x45, 0x40, 0x0a, 0x20, 0x80, 0x60, 0x4e, 0xa5, 0x2c, 0x23, 0x48 }, // 9.6, 45
+    { 0x27, 0x03, 0xA1, 0x20, 0x4E, 0xA5, 0x00, 0x29, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x13, 0xa9, 0x2c, 0x23, 0x0F }, // 2.4, 9.6
+     { 0x27, 0x03, 0xd0, 0x00, 0x9d, 0x49, 0x00, 0xa0, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x27, 0x52, 0x2c, 0x23, 0x0F }, // 4.8, 9.6
+    { 0x27, 0x03, 0x68, 0x01, 0x3A, 0x93, 0x02, 0x78, 0x40, 0x0a, 0x20, 0x80, 0x60, 0x4e, 0xa5, 0x2c, 0x23, 0x0F }, // 9.6, 9.6
     { 0x2b, 0x03, 0x34, 0x02, 0x75, 0x25, 0x07, 0xff, 0x40, 0x0a, 0x1b, 0x80, 0x60, 0x9d, 0x49, 0x2c, 0x23, 0x0f }, // 19.2, 9.6
     { 0x02, 0x03, 0x68, 0x01, 0x3a, 0x93, 0x04, 0xd5, 0x40, 0x0a, 0x1e, 0x80, 0x60, 0x09, 0xd5, 0x0c, 0x23, 0x1f }, // 38.4, 19.6
     { 0x06, 0x03, 0x45, 0x01, 0xd7, 0xdc, 0x07, 0x6e, 0x40, 0x0a, 0x2d, 0x80, 0x60, 0x0e, 0xbf, 0x0c, 0x23, 0x2e }, // 57.6. 28.8
@@ -68,7 +65,7 @@ RH_RF22::RH_RF22(uint8_t slaveSelectPin, uint8_t interruptPin, RHGenericSPI& spi
     _polynomial = CRC_16_IBM; // Historical
 }
 
-bool RH_RF22::init()
+bool RH_RF22::HWinit()
 {
     if (!RHSPIDriver::init())
 	return false;
@@ -83,26 +80,7 @@ bool RH_RF22::init()
     // On all other platforms, its innocuous, belt and braces
     pinMode(_interruptPin, INPUT);
 
-    delay(15);
-
-    // Software reset the device
-    reset();
-
-    // Get the device type and check it
-    // This also tests whether we are really connected to a device
-    _deviceType = spiRead(RH_RF22_REG_00_DEVICE_TYPE);
-    if (   _deviceType != RH_RF22_DEVICE_TYPE_RX_TRX
-        && _deviceType != RH_RF22_DEVICE_TYPE_TX)
-    {
-    	DEBUG("RF22: Device type unknown (0x%x)\n", _deviceType);
-    	return false;
-    }
-
-
-    // Enable interrupt output on the radio. Interrupt line will now go high until
-    // an interrupt occurs
-    spiWrite(RH_RF22_REG_05_INTERRUPT_ENABLE1, RH_RF22_ENTXFFAEM | RH_RF22_ENRXFFAFULL | RH_RF22_ENPKSENT | RH_RF22_ENPKVALID | RH_RF22_ENCRCERROR | RH_RF22_ENFFERR);
-    spiWrite(RH_RF22_REG_06_INTERRUPT_ENABLE2, RH_RF22_ENPREAVAL | RH_RF22_ENPOR);
+    delay(5);
 
     // Set up interrupt handler
     // Since there are a limited number of interrupt glue functions isr*() available,
@@ -123,6 +101,28 @@ bool RH_RF22::init()
     SPI.usingInterrupt(interruptNumber);
     #endif
     _interruptCount++;
+
+    return true;
+}
+
+bool RH_RF22::init() {
+    // Software reset the device
+    reset();
+
+    // Get the device type and check it
+    // This also tests whether we are really connected to a device
+    _deviceType = spiRead(RH_RF22_REG_00_DEVICE_TYPE);
+    if (   _deviceType != RH_RF22_DEVICE_TYPE_RX_TRX
+        && _deviceType != RH_RF22_DEVICE_TYPE_TX)
+    {
+    	DEBUG("RF22: Device type unknown (0x%x)\n", _deviceType);
+    	return false;
+    }
+
+    // Enable interrupt output on the radio. Interrupt line will now go high until
+    // an interrupt occurs
+    spiWrite(RH_RF22_REG_05_INTERRUPT_ENABLE1, RH_RF22_ENTXFFAEM | RH_RF22_ENRXFFAFULL | RH_RF22_ENPKSENT | RH_RF22_ENPKVALID | RH_RF22_ENCRCERROR | RH_RF22_ENFFERR);
+    spiWrite(RH_RF22_REG_06_INTERRUPT_ENABLE2, RH_RF22_ENPREAVAL | RH_RF22_ENPOR);
 
     setModeIdle();
 
@@ -157,10 +157,10 @@ bool RH_RF22::init()
     setPromiscuous(false); 
 
     // Set some defaults. An innocuous ISM frequency, and reasonable pull-in
-    setFrequency(434.0, 0.05);
+    setFrequency(434000000, 50000);
 //    setFrequency(900.0);
     // Some slow, reliable default speed and modulation
-    setModemConfig(FSK_Rb2_4Fd36);
+    setModemConfig(FSK_Rb2_4Fd9_6);
 //    setModemConfig(FSK_Rb125Fd125);
     setGpioReversed(false);
     // Lowish power
@@ -232,7 +232,7 @@ void RH_RF22::handleInterrupt()
 //	Serial.println("IWUT");
     }
     if (_lastInterruptFlags[1] & RH_RF22_IPOR) {
-    	//printf("POR!!!\n");
+    	handleReset();
     }
     if (_lastInterruptFlags[0] & RH_RF22_IPKSENT)
     {
@@ -285,10 +285,11 @@ void RH_RF22::handleInterrupt()
     if (_lastInterruptFlags[1] & RH_RF22_IPREAVAL)
     {
 //	Serial.println("IPREAVAL");
-	_lastRssi = (int8_t)(((int)rssiRead()*100 / 190) - 127);
-	_lastPreambleTime = millis();
+	_lastRssi = (int8_t)rssiRead();
+	_lastPreambleTime = RH::millis();
 	resetRxFifo();
 	clearRxBuf();
+	handleRxStart();
     }
 }
 
@@ -320,7 +321,7 @@ void RH_RF22::reset()
 
     spiWrite(RH_RF22_REG_07_OPERATING_MODE1, RH_RF22_SWRES);
     // Wait for it to settle
-    delay(1);
+    delay(2);
 
     tmp = spiRead(RH_RF22_REG_03_INTERRUPT_STATUS1);
     tmp = spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2);
@@ -377,33 +378,60 @@ void RH_RF22::setWutPeriod(uint16_t wtm, uint8_t wtr, uint8_t wtd)
 // Returns true if centre + (fhch * fhs) is within limits
 // Caution, different versions of the RH_RF22 support different max freq
 // so YMMV
-bool RH_RF22::setFrequency(float centre, float afcPullInRange)
+bool RH_RF22::setFrequency(uint32_t centre, uint32_t afcPullInRange)
 {
-    uint8_t fbsel = RH_RF22_SBSEL;
-    uint8_t afclimiter;
-    if (centre < 240.0f || centre > 960.0f) // 930.0 for early silicon
-	return false;
-    if (centre >= 480.0f)
-    {
-	if (afcPullInRange < 0.0f || afcPullInRange > 0.318750f)
-	    return false;
-	centre /= 2;
-	fbsel |= RH_RF22_HBSEL;
-	afclimiter = afcPullInRange * 1000000.0f / 1250.0f;
-    }
-    else
-    {
-	if (afcPullInRange < 0.0f || afcPullInRange > 0.159375f)
-	    return false;
-	afclimiter = afcPullInRange * 1000000.0f / 625.0f;
-    }
-    centre /= 10.0f;
-    float integerPart = std::floor(centre);
-    float fractionalPart = centre - integerPart;
+//    uint8_t fbsel = RH_RF22_SBSEL;
+//    uint8_t afclimiter;
+//    if (centre < 240.0f || centre > 960.0f) // 930.0 for early silicon
+//	return false;
+//    if (centre >= 480.0f)
+//    {
+//	if (afcPullInRange < 0.0f || afcPullInRange > 0.318750f)
+//	    return false;
+//	centre /= 2;
+//	fbsel |= RH_RF22_HBSEL;
+//	afclimiter = afcPullInRange * 1000000.0f / 1250.0f;
+//    }
+//    else
+//    {
+//	if (afcPullInRange < 0.0f || afcPullInRange > 0.159375f)
+//	    return false;
+//	afclimiter = afcPullInRange * 1000000.0f / 625.0f;
+//    }
+//    centre /= 10.0f;
+//    float integerPart = floorf(centre);
+//    float fractionalPart = centre - integerPart;
+//
+//    uint8_t fb = (uint8_t)integerPart - 24; // Range 0 to 23
+//    fbsel |= fb;
+//    uint16_t fc = fractionalPart * 64000;
 
-    uint8_t fb = (uint8_t)integerPart - 24; // Range 0 to 23
-    fbsel |= fb;
-    uint16_t fc = fractionalPart * 64000;
+	uint8_t fbsel = RH_RF22_SBSEL;
+	uint8_t afclimiter;
+
+	if (centre < 240000000UL || centre > 960000000UL) // 930.0 for early silicon
+		return false;
+
+	if (centre >= 480000000UL) {
+		if (afcPullInRange < 0 || afcPullInRange > 318750)
+			return false;
+
+		centre /= 2;
+		fbsel |= RH_RF22_HBSEL;
+		afclimiter = afcPullInRange / 1250;
+	} else {
+		if (afcPullInRange < 0 || afcPullInRange > 159375)
+			return false;
+		afclimiter = afcPullInRange / 625;
+	}
+
+	uint32_t integerPart = centre / 10000000UL;
+	uint32_t fractionalPart = (centre % 10000000UL) / 10000UL;
+
+	uint8_t fb = (uint8_t) integerPart - 24; // Range 0 to 23
+	fbsel |= fb;
+	uint16_t fc = fractionalPart * 64;
+
     spiWrite(RH_RF22_REG_73_FREQUENCY_OFFSET1, 0);  // REVISIT
     spiWrite(RH_RF22_REG_74_FREQUENCY_OFFSET2, 0);
     spiWrite(RH_RF22_REG_75_FREQUENCY_BAND_SELECT, fbsel);

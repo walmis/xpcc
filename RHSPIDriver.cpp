@@ -23,7 +23,7 @@ bool RHSPIDriver::init()
     pinMode(_slaveSelectPin, OUTPUT);
     digitalWrite(_slaveSelectPin, HIGH);
 
-    delay(100);
+    delay(1);
     return true;
 }
 

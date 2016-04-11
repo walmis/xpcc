@@ -56,13 +56,13 @@ bool RHReliableDatagram::sendtoWait(uint8_t* buf, uint8_t len, uint8_t address)
 
 	if (retries > 1)
 	    _retransmissions++;
-	unsigned long thisSendTime = millis(); // Timeout does not include original transmit time
+	unsigned long thisSendTime = RH::millis(); // Timeout does not include original transmit time
 
 	// Compute a new timeout, random between _timeout and _timeout*2
 	// This is to prevent collisions on every retransmit
 	// if 2 nodes try to transmit at the same time
 	uint16_t timeout = _timeout + (_timeout * random(0, 256) / 256);
-        while ((millis() - thisSendTime) < timeout)
+        while ((RH::millis() - thisSendTime) < timeout)
 	{
 	    if (available())
 	    {
@@ -135,8 +135,8 @@ bool RHReliableDatagram::recvfromAck(uint8_t* buf, uint8_t* len, uint8_t* from, 
 
 bool RHReliableDatagram::recvfromAckTimeout(uint8_t* buf, uint8_t* len, uint16_t timeout, uint8_t* from, uint8_t* to, uint8_t* id, uint8_t* flags)
 {
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < timeout)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < timeout)
     {
 	if (recvfromAck(buf, len, from, to, id, flags))
 	    return true;

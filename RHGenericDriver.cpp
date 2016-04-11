@@ -36,8 +36,8 @@ void RHGenericDriver::waitAvailable()
 // Works correctly even on millis() rollover
 bool RHGenericDriver::waitAvailableTimeout(uint16_t timeout)
 {
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < timeout)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < timeout)
     {
         if (available())
            return true;
@@ -55,8 +55,8 @@ bool RHGenericDriver::waitPacketSent()
 
 bool RHGenericDriver::waitPacketSent(uint16_t timeout)
 {
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < timeout)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < timeout)
     {
         if (_mode != RHModeTx) // Any previous transmit finished?
            return true;

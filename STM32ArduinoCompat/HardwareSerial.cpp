@@ -2,7 +2,7 @@
 //
 // Author: mikem@airspayce.com
 
-#include <HardwareSerial.h>
+#include "HardwareSerial.h"
 #include <stm32f4xx_usart.h>
 
 // Preinstantiated Serial objects

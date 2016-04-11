@@ -290,8 +290,8 @@ bool RHRouter::recvfromAck(uint8_t* buf, uint8_t* len, uint8_t* source, uint8_t*
 ////////////////////////////////////////////////////////////////////
 bool RHRouter::recvfromAckTimeout(uint8_t* buf, uint8_t* len, uint16_t timeout, uint8_t* source, uint8_t* dest, uint8_t* id, uint8_t* flags)
 {  
-    unsigned long starttime = millis();
-    while ((millis() - starttime) < timeout)
+    unsigned long starttime = RH::millis();
+    while ((RH::millis() - starttime) < timeout)
     {
 	if (recvfromAck(buf, len, source, dest, id, flags))
 	    return true;
