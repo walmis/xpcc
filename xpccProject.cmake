@@ -99,11 +99,11 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                         COMMENT "Generating BIN image ${PROJECT_NAME}.bin"
                         VERBATIM)
                         
-# add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
-#                         COMMAND arm-none-eabi-objdump
-#                         ARGS   -C -D "${PROJECT_NAME}" > "${PROJECT_NAME}.S" 
-#                         COMMENT "Dumping Assembly listing"
-#                         VERBATIM) 
+add_custom_target(dump_assembly
+                        COMMAND arm-none-eabi-strip --strip-debug "${PROJECT_NAME}" -o "${PROJECT_NAME}_nodbg"
+                        COMMAND ${XPCC_OBJDUMP} -C -D "${PROJECT_NAME}_nodbg" > "${PROJECT_NAME}.S" 
+                        COMMENT "Dumping Assembly listing"
+                        VERBATIM) 
                         
 add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
                         COMMAND ${XPCC_OBJSIZE}
