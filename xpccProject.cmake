@@ -19,7 +19,13 @@ if(NOT WIN32)
   set(BoldWhite   "${Esc}[1;37m")
 endif()
 
-message(STATUS "${Red}Configuring XPCC${ColourReset}")
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
+
+message(STATUS "${Cyan}Configuring XPCC${ColourReset}")
 execute_process(COMMAND mkdir -p ${CMAKE_BINARY_DIR}/xpcc)
 
 SET(xpcc_DIR ${CMAKE_BINARY_DIR}/xpcc)
@@ -29,7 +35,7 @@ execute_process(
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
 )
 
-message(STATUS "${Red}Finished Configuring XPCC${ColourReset}")
+message(STATUS "${Cyan}Finished Configuring XPCC${ColourReset}")
 
 add_custom_target(xpcc_build
     COMMAND make
@@ -63,8 +69,8 @@ set(CMAKE_INCLUDE_SYSTEM_FLAG_C "-I" CACHE STRING "")
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "" CACHE INTERNAL "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "" CACHE INTERNAL "")
 
-#SET(CMAKE_C_COMPILER_ARG1 ${XPCC_COMPILER_ARG1}  CACHE STRING "")
-#SET(CMAKE_CXX_COMPILER_ARG1 ${XPCC_COMPILER_ARG1}  CACHE STRING "")
+SET(CMAKE_C_COMPILER_ARG1 ${XPCC_COMPILER_ARG1}  CACHE STRING "")
+SET(CMAKE_CXX_COMPILER_ARG1 ${XPCC_COMPILER_ARG1}  CACHE STRING "")
 
 #project(${PROJECT_NAME} CXX C ASM)
 
@@ -93,11 +99,11 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                         COMMENT "Generating BIN image ${PROJECT_NAME}.bin"
                         VERBATIM)
                         
-add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
-                        COMMAND arm-none-eabi-objdump
-                        ARGS   -C -D -S "${PROJECT_NAME}" > "${PROJECT_NAME}.S" 
-                        COMMENT "Dumping Assembly listing"
-                        VERBATIM) 
+# add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
+#                         COMMAND arm-none-eabi-objdump
+#                         ARGS   -C -D "${PROJECT_NAME}" > "${PROJECT_NAME}.S" 
+#                         COMMENT "Dumping Assembly listing"
+#                         VERBATIM) 
                         
 add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
                         COMMAND ${XPCC_OBJSIZE}

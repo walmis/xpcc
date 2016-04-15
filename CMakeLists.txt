@@ -129,17 +129,9 @@ elseif(${PLATFORM} STREQUAL "stm32f4")
     
        include_directories(
             src/xpcc/architecture/platform/cortex_m3/stm32/stm32f4/chibi/
-            ext/chibiRTOS/include/
        )
-       add_subdirectory(
-            ext/chibiRTOS/
-       )
-       add_definitions(-DXPCC_RTOS_CHIBI)
        
     endif()
-
-    #add fatfs to build
-    add_sources(${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/ff.c)
 
     message(STATUS "Adding STM32F4 platform driver")
     add_subdirectory(src/xpcc/architecture/platform/cortex_m3/stm32/stm32f4)
@@ -196,14 +188,37 @@ SET(XPCC_COMPILER_ARG1 "-mcpu=${CMAKE_SYSTEM_PROCESSOR} -mthumb" CACHE INTERNAL 
 #set cpu flags so compiler defines can be detected on arm-none-eabi
 #SET(CMAKE_C_COMPILER_ARG1 -mcpu=${CMAKE_SYSTEM_PROCESSOR})
 #SET(CMAKE_CXX_COMPILER_ARG1 -mcpu=${CMAKE_SYSTEM_PROCESSOR})
+   
+if (${CHIBI_RTOS})
+
+    include_directories(
+        ext/chibiRTOS/include/
+    )
+    add_subdirectory(
+        ext/chibiRTOS/
+    )
+    add_definitions(-DXPCC_RTOS_CHIBI)
+    
+    add_sources(${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/syscall_chibi.c)
+    
+endif()
 
 project(xpcc_lib CXX C ASM)
 
 #SET(CMAKE_C_COMPILER_ARG1 "")
 #SET(CMAKE_CXX_COMPILER_ARG1 "")
 
+#add fatfs to build
+add_sources(
+    ${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/ff.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/unicode.c
+)
+
 add_subdirectory(src/xpcc)
+
 add_library(xpcc STATIC ${SOURCES})
+
+add_subdirectory(ext/RadioHead)
 
 get_property(incDirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 target_include_directories(xpcc PUBLIC ${incDirs} )
