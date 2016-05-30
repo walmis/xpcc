@@ -14,6 +14,8 @@ add_sources(
 	../uart/uart_1.cpp
 	../systick_timer.cpp
 	../core.cpp
+	./startup/LPC1xxx_startup.c
+	./startup/LPC11xx_handlers.c
 
 )
 

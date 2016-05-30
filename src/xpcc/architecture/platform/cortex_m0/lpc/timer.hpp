@@ -58,6 +58,8 @@ enum CaptureFlags : uint8_t {
 	INT_ON_CAPTURE = 1<<2
 };
 
+ENUM_CLASS_FLAG(CaptureFlags);
+
 enum class MatchPins {
 	PINS_MAT0 = 0,	/*!< External Match Output 0 */
 	PINS_MAT1,      /*!< External Match Output 1 */

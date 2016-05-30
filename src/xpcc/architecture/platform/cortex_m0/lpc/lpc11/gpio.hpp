@@ -83,7 +83,7 @@ namespace xpcc
 
 #define CASE_PIN(port, pin) case pin: return &LPC_IOCON->CONCAT4(PIO, port, _, pin)
 
-ALWAYS_INLINE
+inline
 volatile uint32_t* _get_pin(uint8_t port, uint8_t pin) {
 	switch(port) {
 	case 0: switch(pin) {
@@ -146,20 +146,17 @@ volatile uint32_t* _get_pin(uint8_t port, uint8_t pin) {
 
 template <int Port, int Pin>
 class GPIO {
-		//static const int Port = port;
-		//static const int Pin = pin;
-
 public:
 		static const int port = Port;
 		static const int pin = Pin;
 
-		ALWAYS_INLINE static void
+		inline static void
 		setOutput(bool status) {
 			setOutput();
 			set(status);
 		}
 
-		ALWAYS_INLINE static void
+		inline static void
 		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) {
 			*_get_pin(Port, Pin) &= ~0b1111;
 			if(Port == 1) {
@@ -189,17 +186,17 @@ public:
 
 		}
 
-		ALWAYS_INLINE static void
+		inline static void
 		setAltFunc(uint8_t altFunc) {
 			xpcc::lpc11::IOCon::setPinFunc(Port, Pin, altFunc);
 		}
 
-		ALWAYS_INLINE static void
+		inline static void
 		setMode(PinMode mode) {
 			xpcc::lpc11::IOCon::setPinMode(Port, Pin, mode);
 		}
 
-		ALWAYS_INLINE static void
+		inline static void
 		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) {
 			*_get_pin(Port, Pin) &= ~0b1111;
 			if(Port == 0) {
@@ -228,7 +225,7 @@ public:
 			}
 		}
 
-		ALWAYS_INLINE static void set()    {
+		inline static void set()    {
 			switch(Port) {
 				case 0: LPC_GPIO0->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
 				case 1: LPC_GPIO1->MASKED_ACCESS[1 << Pin] = 1<<Pin; break;
@@ -237,7 +234,7 @@ public:
 			}
 		}
 
-		ALWAYS_INLINE static void reset()  {
+		inline static void reset()  {
 			switch(Port) {
 				case 0: LPC_GPIO0->MASKED_ACCESS[1 << Pin] = 0; break;
 				case 1: LPC_GPIO1->MASKED_ACCESS[1 << Pin] = 0; break;
@@ -246,10 +243,10 @@ public:
 			}
 		}
 
-		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } }
-		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } }
+		inline static void toggle()         { if (read()) { reset(); } else {   set(); } }
+		inline static void set(bool status) { if (status) {   set(); } else { reset(); } }
 
-		ALWAYS_INLINE static bool read()     {
+		inline static bool read()     {
 			switch(Port) {
 				case 0: return LPC_GPIO0->MASKED_ACCESS[1 << Pin] >> Pin; break;
 				case 1: return LPC_GPIO1->MASKED_ACCESS[1 << Pin] >> Pin; break;

@@ -245,7 +245,7 @@ public:
 	 *		`Standard` or `Fast`, `High` datarate is not supported
 	 */
 	static ALWAYS_INLINE void
-	initialize(uint32_t target_clock = 1000000)
+	initialize(uint32_t target_clock = 100000)
 	{
 
 		IOCon::setPinFunc(0, 4, 1);

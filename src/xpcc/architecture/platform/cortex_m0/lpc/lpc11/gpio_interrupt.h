@@ -80,6 +80,23 @@ public:
 		int_info.func = fn;
 	}
 
+	void setIrqPriority(uint8_t irq_prio) {
+		switch(int_info.port) {
+		case 0:
+			NVIC_SetPriority(EINT0_IRQn, irq_prio);
+			break;
+		case 1:
+			NVIC_SetPriority(EINT1_IRQn, irq_prio);
+			break;
+		case 2:
+			NVIC_SetPriority(EINT2_IRQn, irq_prio);
+			break;
+		case 3:
+			NVIC_SetPriority(EINT3_IRQn, irq_prio);
+			break;
+		}
+	}
+
 	static void enableInterrupts() {
 		NVIC_EnableIRQ(EINT0_IRQn);
 		NVIC_EnableIRQ(EINT1_IRQn);
