@@ -38,12 +38,12 @@ execute_process(
 message(STATUS "${Cyan}Finished Configuring XPCC${ColourReset}")
 
 add_custom_target(xpcc_build
-    COMMAND make
+    COMMAND $(MAKE)
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
 )
 
 add_custom_target(xpcc_clean
-    COMMAND make clean
+    COMMAND $(MAKE) clean
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
 )
 
