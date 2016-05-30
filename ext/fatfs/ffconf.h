@@ -231,13 +231,17 @@
 /      can be opened simultaneously under file lock control. Note that the file
 /      lock feature is independent of re-entrancy. */
 
-#ifdef CHIBI_RTOS
+#ifdef XPCC_RTOS_CHIBI
+
+#include <ch.h>
+#define _FS_TIMEOUT		MS2ST(1000)
+#define	_SYNC_t			semaphore_t*
 #define _FS_REENTRANT	1
+
 #else
 #define _FS_REENTRANT	0
 #endif
-#define _FS_TIMEOUT		MS2ST(1000)
-#define	_SYNC_t			semaphore_t*
+
 /* The _FS_REENTRANT option switches the re-entrancy (thread safe) of the FatFs
 /  module itself. Note that regardless of this option, file access to different
 /  volume is always re-entrant and volume control functions, f_mount(), f_mkfs()

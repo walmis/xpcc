@@ -177,6 +177,9 @@ elseif(${PLATFORM} STREQUAL "lpc17xx")
     add_subdirectory(src/xpcc/architecture/platform/cortex_m3/lpc/lpc17)
     
     message(STATUS "Adding LPC17xx platform driver")
+    
+else()
+    message(FATAL "Unknown PLATFORM")
 endif()
 
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} CACHE INTERNAL "")

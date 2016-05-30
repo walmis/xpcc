@@ -152,8 +152,9 @@ _sbrk_r(struct _reent *,  ptrdiff_t size)
 
 extern "C"
 void* _sbrk(intptr_t size) {
-
+    return _sbrk_r(0, size);
 }
+
 // ----------------------------------------------------------------------------
 // __heap_start is set in the linker command file and is the end of
 // statically allocated data (thus start of heap).
