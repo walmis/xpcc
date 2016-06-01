@@ -70,7 +70,7 @@ include_directories(
 )
 
 SET(ARM_COMMON_FLAGS "-mthumb -mthumb-interwork -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
-SET(ARM_COMMON_LD_FLAGS "-nostartfiles -Wl,-gc-sections --specs=nano.specs")
+SET(ARM_COMMON_LD_FLAGS "-nostartfiles -Wl,-gc-sections --specs=nano.specs -u _sbrk")
 
 SET(ASM_OPTIONS "-x assembler-with-cpp")
 
