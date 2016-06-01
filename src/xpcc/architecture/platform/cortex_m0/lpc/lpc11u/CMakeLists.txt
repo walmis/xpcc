@@ -19,6 +19,8 @@ add_sources(
 
 )
 
+set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")    
+
 if (${CHIBI_RTOS}) 
 
 

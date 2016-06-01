@@ -20,6 +20,8 @@ add_sources(
 	./dma/dma.cpp
 )
 
+set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")    
+
 if (${CHIBI_RTOS}) 
 
 add_sources(

@@ -67,5 +67,12 @@ private:
 	uint8_t *bytes;					///< pointer to allocated buffer
 };
 
+template <int size>
+class StaticIOBuffer : public IOBuffer {
+public:
+	StaticIOBuffer() : IOBuffer(buf, size) {}
+
+	uint8_t buf[size];
+};
 
 #endif /* IO_BUFFER_HPP_ */

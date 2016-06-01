@@ -72,6 +72,7 @@ public:
 	static uint8_t currentPin();
 
 	GpioInt(uint8_t port, uint8_t pin, IntEdge edges = IntEdge::RISING_EDGE, xpcc::function<void()> callback = 0);
+	~GpioInt();
 
 	void enable();
 	void disable();

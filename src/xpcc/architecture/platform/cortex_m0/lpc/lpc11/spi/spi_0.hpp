@@ -205,9 +205,9 @@ namespace xpcc
 
 			enum class MappingSck
 			{
-			PIO0_6  = 0,		///< Selects SCK0 function in pin location SWCLK/PIO0_10/SCK0/CT16B0_MAT2
-				PIO0_10 = 1,		///< Selects SCK0 function in pin location PIO2_11/SCK0
-				PIO2_11 = 2,		///< Selects SCK0 function in pin location PIO0_6/SCK0
+				PIO0_10  = 0,		///< Selects SCK0 function in pin location SWCLK/PIO0_10/SCK0/CT16B0_MAT2
+				PIO2_11 = 1,		///< Selects SCK0 function in pin location PIO2_11/SCK0
+				PIO0_6 = 2,		///< Selects SCK0 function in pin location PIO0_6/SCK0
 			};
 
 			static void

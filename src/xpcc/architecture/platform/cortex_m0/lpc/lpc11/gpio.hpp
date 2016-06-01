@@ -257,173 +257,30 @@ public:
 		}
 };
 
-/**
- * \ingroup	lpc11xx
- * \brief	Create a input/output pin type
- * 
- * \hideinitializer
- */
-#define	GPIO__IO(name, port, pin) \
-	struct name { \
-		static const int Port = port; \
-		static const int Pin = pin; \
-		ALWAYS_INLINE static void \
-		setOutput(bool status) { \
-			setOutput(); \
-			set(status); \
-		} \
-		ALWAYS_INLINE static void \
-		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
-			if(port == 1) { \
-				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
-				}\
-			}\
-			if(port == 0) { \
-				if(pin == 0 || pin == 10 || pin == 11) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
-				}\
-			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
-		} \
-		ALWAYS_INLINE static void \
-		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
-			if(port == 1) { \
-				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
-				}\
-			}\
-			if(port == 0) { \
-				if(pin == 0 || pin == 10 || pin == 11) { \
-					uint32_t temp = LPC_IOCON->CONCAT4(PIO, port, _, pin); \
-					temp &= ~0x7; \
-					temp |= 1; \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) = temp; \
-				}\
-			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
-		} \
-		ALWAYS_INLINE static void set()    { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
-		ALWAYS_INLINE static void reset()  { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = 0;          } \
-		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } } \
-		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } } \
-		ALWAYS_INLINE static bool read()           { return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; } \
+template <int Port, int Pin>
+class GPIOInput : public GPIO<Port,Pin> {
+	GPIOInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) {
+		GPIO<Port,Pin>::setInput(type);
 	}
+};
 
-/**
- * \brief	Create a output pin type
- * 
- * Examples:
- * \code
- * GPIO__OUTPUT(Led, 0, 7);
- * 
- * Led::setOutput();
- * Led::setOutput(xpcc::lpc::PUSH_PULL);
- * Led::setOutput(xpcc::lpc::OPEN_DRAIN);
- * 
- * Led::set();
- * Led::reset();
- * 
- * Led::toggle();
- * \endcode
- * 
- * \hideinitializer
- * \ingroup	lpc11xx
- */
-#define	GPIO__OUTPUT(name, port, pin) \
-	struct name { \
-		static const int Port = port; \
-		static const int Pin = pin; \
-		ALWAYS_INLINE static void \
-		setOutput(bool status) { \
-			setOutput(); \
-			set(status); \
-		} \
-		ALWAYS_INLINE static void \
-		setOutput(::xpcc::lpc::OutputType type = ::xpcc::lpc::PUSH_PULL) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
-			if(port == 1) { \
-				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
-				}\
-			}\
-			if(port == 0) { \
-				if(pin == 0 || pin == 10 || pin == 11) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
-				}\
-			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR |= 1 << pin; \
-		} \
-		ALWAYS_INLINE static void set()            { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = (1 << pin); } \
-		ALWAYS_INLINE static void reset()          { CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin] = 0;          } \
-		ALWAYS_INLINE static void toggle()         { if (read()) { reset(); } else {   set(); } } \
-		ALWAYS_INLINE static void set(bool status) { if (status) {   set(); } else { reset(); } } \
-	protected: \
-		ALWAYS_INLINE static bool \
-		read() { \
-			return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; \
-		} \
+template <int Port, int Pin>
+class GPIOOutput : public GPIO<Port,Pin> {
+	GPIOOutput(bool status) {
+		GPIO<Port,Pin>::setOutput(status);
 	}
+};
 
-/**
- * \brief	Create a input type
- * 
- * Examples:
- * \code
- * GPIO__INPUT(Button, 0, 3);
- * 
- * Button::setInput();
- * Button::setInput(xpcc::lpc::PULLUP);
- * Button::setInput(xpcc::lpc::PULLDOWN);
- * 
- * if (Button::read()) {
- *     ...
- * }
- * \endcode
- * 
- * \hideinitializer
- * \ingroup	lpc11xx
- */
-#define GPIO__INPUT(name, port, pin) \
-	struct name { \
-		static const int Port = port; \
-		static const int Pin = pin; \
-		ALWAYS_INLINE static void \
-		setInput(::xpcc::lpc::InputType type = ::xpcc::lpc::PULLUP) { \
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) &= ~0b1111;\
-			if(port == 1) { \
-				if(pin == 0 || pin == 1 || pin == 2 || pin == 3) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
-				}\
-			}\
-			if(port == 0) { \
-				if(pin == 0 || pin == 10 || pin == 11) { \
-					LPC_IOCON->CONCAT4(PIO, port, _, pin) |= 1;\
-				}\
-			}\
-			LPC_IOCON->CONCAT4(PIO, port, _, pin) |= type; \
-			CONCAT(LPC_GPIO, port)->DIR           &= ~(1 << pin); \
-		} \
-		ALWAYS_INLINE static bool \
-		read() { \
-			return (CONCAT(LPC_GPIO, port)->MASKED_ACCESS[1 << pin]) >> pin; \
-		} \
-	}
+constexpr uint32_t GPIOn(uint8_t port, uint8_t pin) {
+	return ((port&7)<<5) | (pin&5);
+}
 
+constexpr uint8_t GPIOPort(uint8_t pin) {
+	return pin>>5;
+}
+constexpr uint8_t GPIOPin(uint8_t pin) {
+	return pin&0x1f;
+}
 
 namespace xpcc
 {

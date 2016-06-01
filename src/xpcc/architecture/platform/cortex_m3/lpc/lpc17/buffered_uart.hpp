@@ -16,9 +16,8 @@ namespace xpcc{
 
 template <typename Uart>
 class BufferedUart : public BufferedIODevice {
-public:
-	BufferedUart(uint32_t baud, uint16_t txS, uint16_t rxS) :
-		BufferedIODevice(txS, rxS) {
+private:
+	void init(uint32_t baud) {
 		inst = this;
 
 		Uart::init(baud);
@@ -28,7 +27,18 @@ public:
 
 		Uart::enableTxCompleteInterrupt(true);
 		Uart::enableRxCompleteInterrupt(true);
+	}
+public:
 
+	BufferedUart(uint32_t baud, IOBuffer &txBuf, IOBuffer &rxBuf) :
+		BufferedIODevice(txBuf, rxBuf) {
+		init(baud);
+	}
+
+	BufferedUart(uint32_t baud, uint16_t txS, uint16_t rxS) :
+		BufferedIODevice(txS, rxS) {
+
+		init(baud);
 	}
 
 	~BufferedUart() {

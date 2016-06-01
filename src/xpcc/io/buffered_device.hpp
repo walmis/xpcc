@@ -16,6 +16,12 @@
 
 class BufferedIODevice : public xpcc::IODevice {
 public:
+	BufferedIODevice(IOBuffer& tb, IOBuffer& rb)
+	{
+		txbuf = std::move(tb);
+		rxbuf = std::move(rb);
+	}
+
 	BufferedIODevice(uint16_t txS, uint16_t rxS) :
 	txbuf(txS), rxbuf(rxS)
 	{

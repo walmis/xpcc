@@ -1146,6 +1146,8 @@ public:
     /// \return The maximum message length supported by this driver
     uint8_t maxMessageLength();
 
+    void           setThisAddress(uint8_t thisAddress);
+    
 protected:
     /// This is a low level function to handle the interrupts for one instance of RH_RF22.
     /// Called automatically by isr*()
@@ -1212,8 +1214,6 @@ protected:
     /// ReStart the transmission of the contents 
     /// of the Tx buffer after a atransmission failure
     void           restartTransmit();
-
-    void           setThisAddress(uint8_t thisAddress);
 
 protected:
     /// Low level interrupt service routine for RF22 connected to interrupt 0
