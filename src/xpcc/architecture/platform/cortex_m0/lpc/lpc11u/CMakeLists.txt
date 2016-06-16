@@ -13,10 +13,10 @@ add_sources(
 	../uart/uart_1.cpp
 	../systick_timer.cpp
 	../core.cpp
-	
+	../timer_registry.cpp
 	./startup/LPC11Uxx_handlers.c
 	./startup/LPC1xxx_startup.c
-
+        ./startup/startup_xpcc.cpp
 )
 
 set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")    

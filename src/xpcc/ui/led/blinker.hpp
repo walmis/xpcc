@@ -8,7 +8,7 @@ namespace ui
 
 
 template <typename Pin, int deadtime = 20>
-class Blinker : xpcc::TickerTask {
+class Blinker {
 
 public:
 
@@ -26,7 +26,7 @@ public:
 		}
 	}
 
-	void handleTick() override {
+	void run() {
 		if(t.isExpired() && t.isActive()) {
 			if(!dead) {
 				Pin::set(0);

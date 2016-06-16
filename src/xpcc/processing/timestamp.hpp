@@ -64,6 +64,10 @@ namespace xpcc
 			return this->time;
 		}
 
+		operator int() {
+			return this->time;
+		}
+
 		inline Timestamp
 		operator + (const Timestamp& other) const
 		{

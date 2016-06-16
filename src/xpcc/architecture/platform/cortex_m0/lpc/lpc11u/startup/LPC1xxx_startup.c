@@ -124,6 +124,8 @@ void boot_entry(void) __attribute__((noreturn));
 void __pre_boot() __attribute((weak));
 void __pre_boot() {}
 
+extern void startup_xpcc();
+
 void boot_entry(void)
 {
 	__pre_boot();
@@ -139,6 +141,8 @@ void boot_entry(void)
 	pDivRom_uidiv = (unsigned int *)div_ptr[1];
 
 	__ctors_init();
+        
+        startup_xpcc();
 
 	main();
 

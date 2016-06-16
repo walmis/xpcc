@@ -50,5 +50,6 @@
 #include "processing/rtos_abstraction.hpp"
 
 #include "processing/function.hpp"
+#include "processing/timer_registry.hpp"
 
 #endif	// XPCC__PROCESSING_HPP

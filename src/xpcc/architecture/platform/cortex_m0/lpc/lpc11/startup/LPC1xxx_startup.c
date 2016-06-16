@@ -116,6 +116,7 @@ inline __attribute__((always_inline)) void __segs_init() {
 void boot_entry(void) __attribute__((noreturn));
 
 extern void __preinit(void) __attribute__((weak));
+extern void startup_xpcc();
 
 void boot_entry(void)
 {
@@ -129,6 +130,7 @@ void boot_entry(void)
 
     __ctors_init();
 
+    startup_xpcc();
 
 	main();
 

@@ -11,7 +11,7 @@
 
 // ----------------------------------------------------------------------------
 uint8_t
-xpcc::lpc11u::SpiMaster0::write(uint8_t data)
+xpcc::lpc11::SpiMaster0::write(uint8_t data)
 {
 	/* Move on only if TX FIFO not full. */
 	while (!(LPC_SSP0->SR & SPI_SRn_TNF));

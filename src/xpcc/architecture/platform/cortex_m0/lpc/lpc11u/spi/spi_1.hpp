@@ -1,10 +1,3 @@
-
-/*
- * WARNING: This file is generated automatically, do not edit!
- * Please modify the corresponding *.in file instead and rebuild this file. 
- */
-// ----------------------------------------------------------------------------
-
 #ifndef XPCC_LPC11__SPI_1_HPP
 #define XPCC_LPC11__SPI_1_HPP
 
@@ -14,7 +7,7 @@
 #include "../../spi_registers.h"
 namespace xpcc
 {
-	namespace lpc11u
+	namespace lpc11
 	{
 		/**
 		 * \brief	Serial peripheral interface (SPI1)

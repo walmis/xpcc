@@ -15,7 +15,7 @@ add_sources(
 	./communication/xpcc/backend/header.cpp
 	./communication/xpcc/dispatcher.cpp
 	./processing/ticker_task.cpp
-
+        ./processing/timer_registry.cpp
 	#./debug/logger/hosted/default_style.cpp add only for hosted platform
 	./debug/error_report.cpp
 	./utils/crc.cpp

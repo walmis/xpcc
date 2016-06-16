@@ -14,7 +14,7 @@
 #include "../../spi_registers.h"
 namespace xpcc
 {
-	namespace lpc11u
+	namespace lpc11
 	{
 		/**
 		 * \brief	Serial peripheral interface (SPI0)

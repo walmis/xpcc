@@ -72,12 +72,12 @@ void PIOINT3_IRQHandler() {
 	handle_int(EINT3_IRQn);
 }
 
-bool GpioInt::attach(uint8_t port, uint8_t pin, xpcc::function<void()> fn,
+GpioInt* GpioInt::attach(uint8_t port, uint8_t pin, xpcc::function<void()> fn,
 			IntEdge edges) {
     
     GpioInt* i = new GpioInt(port, pin, edges, fn);
     i->enable();
-    
+    return i;
 }
 
 GpioInt::~GpioInt() {

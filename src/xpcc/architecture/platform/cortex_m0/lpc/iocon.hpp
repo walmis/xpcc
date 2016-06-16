@@ -18,6 +18,11 @@ typedef struct {						/*!< LPC11AXX/LPC11UXX/LPC11EXX IOCON Structure */
 enum CHIP_IOCON_PIN_LOC_T {
 };
 
+#define SWITCH_PINS_PORT0(pin)  (pin == 0 || pin == 10 || pin == 11 || \
+							pin == 12 || pin == 13 || pin == 14 || pin == 15)
+
+#define SWITCH_PINS_PORT1(pin)  0
+
 #else
 /**
  * @brief LPC11XX I/O Configuration register offset
@@ -104,8 +109,7 @@ class IOCon {
 public:
 
 #if defined(__ARM_LPC11UXX__)
-	static void
-	ALWAYS_INLINE
+	static inline void
 	setPinFunc(uint8_t port, uint8_t pin, uint8_t func)
 	{
 		uint32_t tmp;
@@ -122,8 +126,7 @@ public:
 			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
 		}
 	}
-	static void
-	ALWAYS_INLINE
+	static inline void
 	setGpioMode(uint8_t port, uint8_t pin)
 	{
 		uint32_t tmp;
@@ -144,8 +147,7 @@ public:
 			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
 		}
 	}
-	static void
-	ALWAYS_INLINE
+	static inline void
 	setPinMode(uint8_t port, uint8_t pin, PinMode mode)
 	{
 		uint32_t tmp;
@@ -162,8 +164,7 @@ public:
 			((LPC_IOCON_T*)LPC_IOCON)->PIO1[pin] = tmp;
 		}
 	}
-	static void
-	ALWAYS_INLINE
+	static inline void
 	setPinLoc(CHIP_IOCON_PIN_LOC_T sel)	{
 	}
 #else

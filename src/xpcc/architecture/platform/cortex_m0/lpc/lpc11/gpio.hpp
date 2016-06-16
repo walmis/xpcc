@@ -85,63 +85,22 @@ namespace xpcc
 
 inline
 volatile uint32_t* _get_pin(uint8_t port, uint8_t pin) {
-	switch(port) {
-	case 0: switch(pin) {
-			CASE_PIN(0, 0);
-			CASE_PIN(0, 1);
-			CASE_PIN(0, 2);
-			CASE_PIN(0, 3);
-			CASE_PIN(0, 4);
-			CASE_PIN(0, 5);
-			CASE_PIN(0, 6);
-			CASE_PIN(0, 7);
-			CASE_PIN(0, 8);
-			CASE_PIN(0, 9);
-			CASE_PIN(0, 10);
-			CASE_PIN(0, 11);
-		}
+	uint32_t tmp;
 
-		case 1: switch(pin) {
-			CASE_PIN(1, 0);
-			CASE_PIN(1, 1);
-			CASE_PIN(1, 2);
-			CASE_PIN(1, 3);
-			CASE_PIN(1, 4);
-			CASE_PIN(1, 5);
-			CASE_PIN(1, 6);
-			CASE_PIN(1, 7);
-			CASE_PIN(1, 8);
-			CASE_PIN(1, 9);
-			CASE_PIN(1, 10);
-			CASE_PIN(1, 11);
-		};
-
-		case 2: switch(pin) {
-			CASE_PIN(2, 0);
-			CASE_PIN(2, 1);
-			CASE_PIN(2, 2);
-			CASE_PIN(2, 3);
-			CASE_PIN(2, 4);
-			CASE_PIN(2, 5);
-			CASE_PIN(2, 6);
-			CASE_PIN(2, 7);
-			CASE_PIN(2, 8);
-			CASE_PIN(2, 9);
-			CASE_PIN(2, 10);
-			CASE_PIN(2, 11);
-		}
-
-		case 3: switch(pin) {
-			CASE_PIN(3, 0);
-			CASE_PIN(3, 1);
-			CASE_PIN(3, 2);
-			CASE_PIN(3, 3);
-			CASE_PIN(3, 4);
-			CASE_PIN(3, 5);
-		}
+	int offset=0;
+	if(port == 0) {
+		offset = iocon_offsets0[pin];
+	} else if(port == 1) {
+		offset = iocon_offsets1[pin];
+	} else if(port == 2) {
+		offset = iocon_offsets2[pin];
+	} else if(port == 3) {
+		offset = iocon_offsets3[pin];
+	} else {
+		while(1);
 	}
 
-	while(1);
+	return ((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
 }
 
 template <int Port, int Pin>
