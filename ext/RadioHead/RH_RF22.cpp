@@ -106,18 +106,27 @@ bool RH_RF22::HWinit()
 }
 
 bool RH_RF22::init() {
-    // Software reset the device
+	for(int i = 0; i < 100; i++) {
+		// Get the device type and check it
+		// This also tests whether we are really connected to a device
+		_deviceType = spiRead(RH_RF22_REG_00_DEVICE_TYPE);
+		if (_deviceType == RH_RF22_DEVICE_TYPE_RX_TRX || _deviceType == RH_RF22_DEVICE_TYPE_TX) {
+			break;
+		}
+		delay(1);
+	}
+
+	if (   _deviceType != RH_RF22_DEVICE_TYPE_RX_TRX
+		&& _deviceType != RH_RF22_DEVICE_TYPE_TX)
+	{
+		DEBUG("RF22: Device type unknown (0x%x)\n", _deviceType);
+		return false;
+	}
+
+	// Software reset the device
     reset();
 
-    // Get the device type and check it
-    // This also tests whether we are really connected to a device
-    _deviceType = spiRead(RH_RF22_REG_00_DEVICE_TYPE);
-    if (   _deviceType != RH_RF22_DEVICE_TYPE_RX_TRX
-        && _deviceType != RH_RF22_DEVICE_TYPE_TX)
-    {
-    	DEBUG("RF22: Device type unknown (0x%x)\n", _deviceType);
-    	return false;
-    }
+
 
     // Enable interrupt output on the radio. Interrupt line will now go high until
     // an interrupt occurs
@@ -231,6 +240,11 @@ void RH_RF22::handleInterrupt()
 	handleWakeupTimerInterrupt();
 //	Serial.println("IWUT");
     }
+
+    if (_lastInterruptFlags[1] & RH_RF22_ICHIPRDY) {
+    	_chipReady = true;
+    }
+
     if (_lastInterruptFlags[1] & RH_RF22_IPOR) {
     	handleReset();
     }
@@ -315,17 +329,21 @@ void RH_RF22::isr2()
 void RH_RF22::reset()
 {
 	uint8_t tmp;
+	_chipReady = false;
 
     tmp = spiRead(RH_RF22_REG_03_INTERRUPT_STATUS1);
     tmp = spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2);
 
     spiWrite(RH_RF22_REG_07_OPERATING_MODE1, RH_RF22_SWRES);
     // Wait for it to settle
-    delay(15);
+    //delay(15);
 
-    tmp = spiRead(RH_RF22_REG_03_INTERRUPT_STATUS1);
-    tmp = spiRead(RH_RF22_REG_04_INTERRUPT_STATUS2);
-
+    for(int i = 0; i < 100; i++) {
+    	if(_chipReady) {
+    		break;
+    	}
+    	delay(1);
+    }
 }
 
 uint8_t RH_RF22::statusRead()
@@ -469,7 +487,7 @@ uint8_t RH_RF22::ezmacStatusRead()
 
 void RH_RF22::setOpMode(uint8_t mode)
 {
-    spiWrite(RH_RF22_REG_07_OPERATING_MODE1, mode);
+    spiWrite(RH_RF22_REG_07_OPERATING_MODE1, mode | _lbd_en);
 }
 
 void RH_RF22::setModeIdle()

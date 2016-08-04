@@ -79,6 +79,11 @@ namespace xpcc
 		{
 			return Timestamp(time - other.time);
 		}
+		inline uint32_t
+		operator - (const uint32_t other) const
+		{
+			return Timestamp(time - other);
+		}
 		
 		inline bool
 		operator == (const Timestamp& other) const

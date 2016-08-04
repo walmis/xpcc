@@ -1148,6 +1148,16 @@ public:
 
     void           setThisAddress(uint8_t thisAddress);
     
+    void		   enableLowBatteryDetector() {
+    	_lbd_en = RH_RF22_ENLBD;
+		spiWrite(RH_RF22_REG_07_OPERATING_MODE1, spiRead(RH_RF22_REG_07_OPERATING_MODE1) | RH_RF22_ENLBD);
+    }
+
+    /// Returns battery voltage in millivolts
+    uint16_t getBatteryVoltage() {
+    	return 1700 + (spiRead(RH_RF22_REG_1B_BATTERY_VOLTAGE_LEVEL)+1) * 50;
+    }
+
 protected:
     /// This is a low level function to handle the interrupts for one instance of RH_RF22.
     /// Called automatically by isr*()
@@ -1256,6 +1266,10 @@ protected:
   
     /// Time in millis since the last preamble was received (and the last time the RSSI was measured)
     uint32_t            _lastPreambleTime;
+
+    volatile bool 		_chipReady;
+
+    uint8_t _lbd_en;
 };
 
 /// @example rf22_client.pde

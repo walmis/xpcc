@@ -139,10 +139,9 @@ void boot_entry(void)
 	// These address are then used by the code in aeabi_romdiv_patch.s
 	pDivRom_idiv = (unsigned int *)div_ptr[0];
 	pDivRom_uidiv = (unsigned int *)div_ptr[1];
-
-	__ctors_init();
-        
         startup_xpcc();
+ 
+	__ctors_init();
 
 	main();
 

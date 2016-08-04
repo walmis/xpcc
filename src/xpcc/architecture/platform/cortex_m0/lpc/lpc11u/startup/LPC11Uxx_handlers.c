@@ -45,10 +45,8 @@
  *****************************************************************************/
 #include <lpc11xx/cmsis/LPC11Uxx.h>
 
-extern void default_irq_handler();
-
 void irq_undefined() {
-	default_irq_handler();
+	while(1);
 }
 
 

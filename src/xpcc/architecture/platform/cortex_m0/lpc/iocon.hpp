@@ -169,7 +169,7 @@ public:
 	}
 #else
 	static void
-	ALWAYS_INLINE
+	inline
 	setPinFunc(uint8_t port, uint8_t pin, uint8_t func)
 	{
 		uint32_t tmp;
@@ -192,29 +192,33 @@ public:
 	}
 
 	static void
-	ALWAYS_INLINE
+	inline
 	setPinMode(uint8_t port, uint8_t pin, PinMode mode)
 	{
 		uint32_t tmp;
 
 		int offset=0;
 		if(port == 0) {
+			if(pin > 11) return;
 			offset = iocon_offsets0[pin];
 		} else if(port == 1) {
+			if(pin > 11) return;
 			offset = iocon_offsets1[pin];
 		} else if(port == 2) {
+			if(pin > 11) return;
 			offset = iocon_offsets2[pin];
 		} else if(port == 3) {
+			if(pin > 5) return;
 			offset = iocon_offsets3[pin];
 		}
 
 		tmp = *((uint32_t *) (((uint32_t) LPC_IOCON) + offset));
-		tmp &= 0b0111000111;
+		tmp &= 0b0101000111;
 		tmp |= (uint8_t)mode;
 		*((uint32_t *) (((uint32_t) LPC_IOCON) + offset)) = tmp;
 	}
 	static void
-	ALWAYS_INLINE
+	inline
 	setPinLoc(CHIP_IOCON_PIN_LOC_T sel)	{
 		*((uint32_t *) (((uint32_t) LPC_IOCON) + (sel >> 2))) = sel & 0x03;
 	}

@@ -118,7 +118,7 @@ void boot_entry(void) __attribute__((noreturn));
 extern void __preinit(void) __attribute__((weak));
 extern void startup_xpcc();
 
-void boot_entry(void)
+__attribute__((section(".startup"))) void boot_entry(void)
 {
 	__preinit();
 
@@ -127,10 +127,11 @@ void boot_entry(void)
 	__segs_init();
 
 	//__xpcc_initialize_memory();
+    startup_xpcc();
 
     __ctors_init();
 
-    startup_xpcc();
+    
 
 	main();
 

@@ -82,7 +82,7 @@ namespace xpcc {
 			 * Channel can be casted to and from an integer.
 			 *
 			 */
-			enum class ChannelMask
+			enum class ChannelMask : uint8_t
 			{
 				PIO0_11	= 0x01,
 				PIO1_0 	= 0x02,
@@ -101,6 +101,8 @@ namespace xpcc {
 				CHANNEL_5 = 0x20,
 				CHANNEL_6 = 0x40,
 				CHANNEL_7 = 0x80,
+
+				ALL = 0xff
 			};
 
 			enum class Channel
@@ -132,33 +134,48 @@ namespace xpcc {
 			 * 							are changed to analog mode.
 			 */
 			static void inline
-			configurePins(uint8_t channelBitmask = 0xff)
+			configurePins(ChannelMask channelBitmask = ChannelMask::ALL)
 			{
-				  if (channelBitmask & 0x01) {
-					  LPC_IOCON->R_PIO0_11 &= ~0x8F; /*  ADC I/O config */
-					  LPC_IOCON->R_PIO0_11 |= 0x02;  /* ADC IN0 */
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_0) {
+					  //LPC_IOCON->R_PIO0_11 &= ~0xBF; /*  ADC I/O config */
+					  //LPC_IOCON->R_PIO0_11 |= 0x02;  /* ADC IN0 */
+					  IOCon::setPinMode(0, 11, PinMode::Floating | PinMode::Analog);
+					  IOCon::setPinFunc(0, 11, 1);
 				  }
-				  if (channelBitmask & 0x02) {
-					  LPC_IOCON->R_PIO1_0  &= ~0x8F;
-					  LPC_IOCON->R_PIO1_0  |= 0x02;  /* ADC IN1 */
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_1) {
+//					  LPC_IOCON->R_PIO1_0  &= ~0xBF;
+//					  LPC_IOCON->R_PIO1_0  |= 0x02;  /* ADC IN1 */
+					  IOCon::setPinMode(1, 0, PinMode::Floating | PinMode::Analog);
+					  IOCon::setPinFunc(1, 0, 1);
 				  }
-				  if (channelBitmask & 0x04) {
-					  LPC_IOCON->R_PIO1_1  &= ~0x8F;
-					  LPC_IOCON->R_PIO1_1  |= 0x02;  /* ADC IN2 */
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_2) {
+//					  LPC_IOCON->R_PIO1_1  &= ~0xBF;
+//					  LPC_IOCON->R_PIO1_1  |= 0x02;  /* ADC IN2 */
+					  IOCon::setPinMode(1, 1, PinMode::Floating | PinMode::Analog);
+					  IOCon::setPinFunc(1, 1, 1);
 				  }
-				  if (channelBitmask & 0x08) {
-					  LPC_IOCON->R_PIO1_2 &= ~0x8F;
-					  LPC_IOCON->R_PIO1_2 |= 0x02;	/* ADC IN3 */
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_3) {
+					 // LPC_IOCON->R_PIO1_2 &= ~0xBF;
+					  //LPC_IOCON->R_PIO1_2 |= 0x02;	/* ADC IN3 */
+					  IOCon::setPinMode(1, 2, PinMode::Floating | PinMode::Analog);
+					  IOCon::setPinFunc(1, 2, 1);
 				  }
 //				  if (channelBitmask & 0x10) {}
-				  if (channelBitmask & 0x20) {
-					  LPC_IOCON->PIO1_4    = 0x01;	// Select AD5 pin function
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_5) {
+					  //IOCon::setPinMode(1, 4, PinMode::Floating | PinMode::Analog);
+					 //LPC_IOCON->PIO1_4    = 0x01;	// Select AD5 pin function
+					 IOCon::setPinMode(1, 4, PinMode::Floating | PinMode::Analog);
+					 IOCon::setPinFunc(1, 4, 1);
 				  }
-				  if (channelBitmask & 0x40) {
-					  LPC_IOCON->PIO1_10   = 0x01;	// Select AD6 pin function
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_6) {
+					  IOCon::setPinMode(1, 10, PinMode::Floating | PinMode::Analog);
+					  IOCon::setPinFunc(1, 10, 1);
+					  //LPC_IOCON->PIO1_10   = 0x01;	// Select AD6 pin function
 				  }
-				  if (channelBitmask & 0x80) {
-					  LPC_IOCON->PIO1_11   = 0x01;	// Select AD7 pin function
+				  if ((uint8_t)channelBitmask & (uint8_t)ChannelMask::CHANNEL_7) {
+					  IOCon::setPinMode(1, 11, PinMode::Floating | PinMode::Analog);
+					  //LPC_IOCON->PIO1_11   = 0x01;	// Select AD7 pin function
+					  IOCon::setPinFunc(1, 11, 1);
 				  }
 			}
 		};
@@ -291,7 +308,7 @@ namespace xpcc {
 			 * \param	resolution		More bits mean lower conversion rate.
 			 */
 			static inline void
-			initialize (Resolution resolution = Resolution::BITS_10)
+			initialize (uint32_t clockrate = 4500000, Resolution resolution = Resolution::BITS_10)
 			{
 			  /* Disable Power down bit to the ADC block. */
 			  LPC_SYSCON->PDRUNCFG &= ~(PDRUNCFG_ADC_PD);
@@ -303,8 +320,9 @@ namespace xpcc {
 			  LPC_ADC->INTEN &= ~ADC_INTEN_ADGINTEN;
 
 			  /* Set clock and resolution */
-			  LPC_ADC->CR = (static_cast<uint32_t>(resolution)) | (10 << 8);
+			  //LPC_ADC->CR = (static_cast<uint32_t>(resolution)) | (10 << 8);
 
+			  LPC_ADC->CR = ((SystemCoreClock/LPC_SYSCON->SYSAHBCLKDIV)/clockrate-1)<<8;
 			  /* Enable interrupts */
 			  NVIC_EnableIRQ(ADC_IRQn);
 			}
@@ -320,14 +338,14 @@ namespace xpcc {
 			 * \param	interruptMask	Bitmask of channels that will generate an interrupt.
 			 */
 			static inline void
-			startConversion(uint8_t channelMask, uint8_t interruptMask = 0)
+			startConversion(ChannelMask channelMask, ChannelMask interruptMask = (ChannelMask)0)
 			{
 				// clear and then set the interrupt Mask, ADGINEN is cleared, too.
-				LPC_ADC->INTEN = interruptMask;
+				LPC_ADC->INTEN = (uint8_t)interruptMask;
 
 				// clear and then select channel bits
 				LPC_ADC->CR &= ~(ADC_CR_SEL_MASK | ADC_CR_START_EDGE_MASK);
-				LPC_ADC->CR |= channelMask;
+				LPC_ADC->CR |= (uint8_t)channelMask;
 
 				// Set burst to start conversion now.
 				LPC_ADC->CR |= ADC_CR_BURST;
@@ -348,9 +366,9 @@ namespace xpcc {
 			 * Can be used for a single channel too if the ChannelMask is known.
 			 */
 			static inline bool
-			isConversionFinished(uint8_t channelMask)
+			isConversionFinished(ChannelMask channelMask)
 			{
-				return ((LPC_ADC->STAT & ADC_STAT_DONE_MASK) & channelMask);
+				return ((LPC_ADC->STAT & ADC_STAT_DONE_MASK) & (uint8_t)channelMask);
 			}
 
 			/**
@@ -390,6 +408,8 @@ namespace xpcc {
 			}
 
 		};
+
+		ENUM_CLASS_FLAG(Adc::ChannelMask);
 	}  // namespace lpc111x
 }
 
