@@ -64,10 +64,12 @@ namespace xpcc
 			return this->time;
 		}
 
-		operator int() {
+		operator int() const {
 			return this->time;
 		}
-
+		operator uint32_t() const {
+			return this->time;
+		}
 		inline Timestamp
 		operator + (const Timestamp& other) const
 		{
@@ -85,40 +87,46 @@ namespace xpcc
 			return Timestamp(time - other);
 		}
 		
+		template<typename T>
 		inline bool
-		operator == (const Timestamp& other) const
+		operator == (const T& other) const
 		{
-			return (time == other.time);
+			return (time == (uint32_t)other);
 		}
 		
+		template<typename T>
 		inline bool
-		operator != (const Timestamp& other) const
+		operator != (const T& other) const
 		{
-			return (time != other.time);
+			return (time != (uint32_t)other);
 		}
 		
+		template<typename T>
 		inline bool
-		operator < (const Timestamp& other) const
+		operator < (const T& other) const
 		{
-			return ((int_fast16_t) (time - other.time)) < 0;
+			return ((int_fast16_t) (time - (uint32_t)other)) < 0;
 		}
 		
+		template<typename T>
 		inline bool
-		operator > (const Timestamp& other) const
+		operator > (const T& other) const
 		{
-			return ((int_fast16_t) (time - other.time)) > 0;
+			return ((int_fast16_t) (time - (uint32_t)other)) > 0;
 		}
 		
+		template<typename T>
 		inline bool
-		operator <= (const Timestamp& other) const
+		operator <= (const T& other) const
 		{
-			return ((int_fast16_t) (time - other.time)) <= 0;
+			return ((int_fast16_t) (time - (uint32_t)other)) <= 0;
 		}
 		
+		template<typename T>
 		inline bool
-		operator >= (const Timestamp& other) const
+		operator >= (const T& other) const
 		{
-			return ((int_fast16_t) (time - other.time)) >= 0;
+			return ((int_fast16_t) (time - (uint32_t)other)) >= 0;
 		}
 	
 	private:
