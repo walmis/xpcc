@@ -26,25 +26,25 @@ if(CCACHE_FOUND)
 endif(CCACHE_FOUND)
 
 message(STATUS "${Cyan}Configuring XPCC${ColourReset}")
-execute_process(COMMAND mkdir -p ${CMAKE_BINARY_DIR}/xpcc)
+execute_process(COMMAND mkdir -p ${CMAKE_BINARY_DIR}/xpcc.build)
 
-SET(xpcc_DIR ${CMAKE_BINARY_DIR}/xpcc)
+SET(xpcc_DIR ${CMAKE_BINARY_DIR}/xpcc.build)
 
 execute_process(
     COMMAND ${CMAKE_COMMAND} -DPLATFORM=${PLATFORM} ${XPCC_CMAKE_DEFINES} ${XPCC_DIR}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc.build
 )
 
 message(STATUS "${Cyan}Finished Configuring XPCC${ColourReset}")
 
 add_custom_target(xpcc_build
     COMMAND $(MAKE)
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc.build
 )
 
 add_custom_target(xpcc_clean
     COMMAND $(MAKE) clean
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/xpcc.build
 )
 
 find_package(xpcc REQUIRED)
