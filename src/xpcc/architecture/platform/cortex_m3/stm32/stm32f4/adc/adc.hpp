@@ -547,9 +547,9 @@ static inline void acknowledgeInterruptFlag(const InterruptFlag flags) {
 //	ENUM_CLASS_FLAG(Adc::InterruptFlag);
 };
 
-typedef Adc<(int) ADC1> Adc1;
-typedef Adc<(int) ADC2> Adc2;
-typedef Adc<(int) ADC3> Adc3;
+typedef Adc<(int) ADC1_BASE> Adc1;
+typedef Adc<(int) ADC2_BASE> Adc2;
+typedef Adc<(int) ADC3_BASE> Adc3;
 
 } // namespace stm32
 

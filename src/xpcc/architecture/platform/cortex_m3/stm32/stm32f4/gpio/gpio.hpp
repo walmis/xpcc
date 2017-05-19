@@ -248,7 +248,7 @@ enum GPIOPuPd
 };
 
 
-static GPIO_TypeDef* const ports[] = {
+static GPIO_TypeDef* const ports[9] = {
 		GPIOA, GPIOB, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH, GPIOI
 };
 

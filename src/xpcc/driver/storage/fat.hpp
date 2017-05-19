@@ -193,7 +193,7 @@ protected:
 
 class Directory {
 public:
-	FRESULT open(char* path) {
+	FRESULT open(const char* path) {
 		return f_opendir(&directory, path);
 	}
 

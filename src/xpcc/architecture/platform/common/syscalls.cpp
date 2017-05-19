@@ -323,3 +323,14 @@ char* strtok(char *str, const char* delim) {
 
     return ret;
 }
+
+extern "C"
+void* calloc(size_t nmemb, size_t size) {
+   if(!nmemb) return 0;
+   void* ptr = malloc(nmemb*size);
+   if(!ptr) return 0;
+   
+   memset(ptr, 0, nmemb*size);
+   
+   return ptr;
+}

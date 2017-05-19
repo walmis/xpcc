@@ -196,7 +196,7 @@ public:
 		std::size_t size;			///< number of bytes to be read
 	};
 
-	I2cMaster::Error errno = I2cMaster::Error::NoError;
+	I2cMaster::Error error =  I2cMaster::Error::NoError;
 	//support linked list of delegates
 	I2cTransaction* next = 0;
 

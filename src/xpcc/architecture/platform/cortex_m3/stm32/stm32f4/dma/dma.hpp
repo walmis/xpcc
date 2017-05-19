@@ -16,22 +16,22 @@ namespace stm32 {
 namespace dma {
 
 enum class Stream {
-	DMA1_0 = (uint32_t) DMA1_Stream0,
-	DMA1_1 = (uint32_t) DMA1_Stream1,
-	DMA1_2 = (uint32_t) DMA1_Stream2,
-	DMA1_3 = (uint32_t) DMA1_Stream3,
-	DMA1_4 = (uint32_t) DMA1_Stream4,
-	DMA1_5 = (uint32_t) DMA1_Stream5,
-	DMA1_6 = (uint32_t) DMA1_Stream6,
-	DMA1_7 = (uint32_t) DMA1_Stream7,
-	DMA2_0 = (uint32_t) DMA2_Stream0,
-	DMA2_1 = (uint32_t) DMA2_Stream1,
-	DMA2_2 = (uint32_t) DMA2_Stream2,
-	DMA2_3 = (uint32_t) DMA2_Stream3,
-	DMA2_4 = (uint32_t) DMA2_Stream4,
-	DMA2_5 = (uint32_t) DMA2_Stream5,
-	DMA2_6 = (uint32_t) DMA2_Stream6,
-	DMA2_7 = (uint32_t) DMA2_Stream7,
+	DMA1_0 = static_cast<uint32_t>( DMA1_Stream0_BASE),
+	DMA1_1 = static_cast<uint32_t>( DMA1_Stream1_BASE),
+	DMA1_2 = static_cast<uint32_t>( DMA1_Stream2_BASE),
+	DMA1_3 = static_cast<uint32_t>( DMA1_Stream3_BASE),
+	DMA1_4 = static_cast<uint32_t>( DMA1_Stream4_BASE),
+	DMA1_5 = static_cast<uint32_t>( DMA1_Stream5_BASE),
+	DMA1_6 = static_cast<uint32_t>( DMA1_Stream6_BASE),
+	DMA1_7 = static_cast<uint32_t>( DMA1_Stream7_BASE),
+	DMA2_0 = static_cast<uint32_t>( DMA2_Stream0_BASE),
+	DMA2_1 = static_cast<uint32_t>( DMA2_Stream1_BASE),
+	DMA2_2 = static_cast<uint32_t>( DMA2_Stream2_BASE),
+	DMA2_3 = static_cast<uint32_t>( DMA2_Stream3_BASE),
+	DMA2_4 = static_cast<uint32_t>( DMA2_Stream4_BASE),
+	DMA2_5 = static_cast<uint32_t>( DMA2_Stream5_BASE),
+	DMA2_6 = static_cast<uint32_t>( DMA2_Stream6_BASE),
+	DMA2_7 = static_cast<uint32_t>( DMA2_Stream7_BASE),
 };
 
 enum class Channel {

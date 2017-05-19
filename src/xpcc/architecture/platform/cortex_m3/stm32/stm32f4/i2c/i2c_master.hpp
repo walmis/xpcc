@@ -406,7 +406,7 @@ public:
 				xpcc::atomic::Lock l;
 				I2cTransaction* old = 0;
 
-				delegate->errno = error;
+				delegate->error = error;
 				old = delegate;
 				//attach new delegate in the chain
 				delegate = delegate->next;
