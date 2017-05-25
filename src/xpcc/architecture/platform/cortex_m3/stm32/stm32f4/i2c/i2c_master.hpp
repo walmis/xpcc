@@ -199,14 +199,13 @@ public:
 	static ALWAYS_INLINE void
 	initialize(uint32_t frequency = 400000)
 	{
-		int peripheralFrequency = Clocks::getPCLK1Frequency();
-		uint32_t rawRate = frequency;
+		//uint32_t rawRate = frequency;
 		//static_assert(rawRate <= 400000, "The STM32 does not support High I2C baudrate.");
 		//static_assert(peripheralFrequency/2 >= rawRate, "The APB1 frequency needs to be at least 2x higher than I2C baudrate.");
 
 		// set the prescaler rate register
 		// ccrPrescaler = peripheralFrequency / (2 * I2CFrequency)
-		uint16_t prescaler;
+		//uint16_t prescaler;
 
 		delegate = 0;
 
@@ -253,22 +252,10 @@ public:
 		I2Cx->CR1 = I2C_CR1_SWRST; 		// reset module
 		I2Cx->CR1 = 0;
 
-		I2Cx->CR2 = static_cast<uint32_t>(peripheralFrequency) / 1000000;
 
 		// DEBUG_STREAM("ccrPrescaler=" << prescaler);
-		if(frequency >= 400000) {
-			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency)/1000000 * 300 / 1000) + 1;
-
-			prescaler = peripheralFrequency / (3 * rawRate);
-			I2Cx->CCR = prescaler | I2C_CCR_FS;
-
-		} else {
-			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency) / 1000000) + 1;
-			prescaler = peripheralFrequency / (2 * rawRate);
-			I2Cx->CCR = prescaler;
-		}
-
-
+		setBusFrequency(frequency);
+		busFrequency = frequency;
 
 		dma::Config cfg;
 
@@ -350,6 +337,25 @@ public:
 		return false;
 	}
 
+	static void setBusFrequency(uint32_t frequency_hz) {
+		int peripheralFrequency = Clocks::getPCLK1Frequency();
+		uint32_t prescaler;
+
+		I2Cx->CR2 = static_cast<uint32_t>(peripheralFrequency) / 1000000;
+
+		if(frequency_hz >= 400000) {
+			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency)/1000000 * 300 / 1000) + 1;
+
+			prescaler = peripheralFrequency / (3 * frequency_hz);
+			I2Cx->CCR = prescaler | I2C_CCR_FS;
+
+		} else {
+			I2Cx->TRISE = (static_cast<uint32_t>(peripheralFrequency) / 1000000) + 1;
+			prescaler = peripheralFrequency / (2 * frequency_hz);
+			I2Cx->CCR = prescaler;
+		}
+	}
+
 	static void busReset() {
 		//XPCC_LOG_ERROR << "I2C BUS RESET\n";
 
@@ -404,6 +410,11 @@ public:
 		if (delegate) {
 			{
 				xpcc::atomic::Lock l;
+
+				if(delegate->busSpeed != 0) {
+					setBusFrequency(busFrequency); //restore bus frequency
+				}
+
 				I2cTransaction* old = 0;
 
 				delegate->error = error;
@@ -672,6 +683,8 @@ public:
 	static dma::Channel rx_chan;
 	static dma::Channel tx_chan;
 
+	static uint32_t busFrequency;
+
 	// delegating
 	static xpcc::I2cTransaction * volatile delegate;
 
@@ -758,6 +771,9 @@ public:
 		//I2Cx->CR1 &= ~I2C_CR1_POS;
 		//I2Cx->SR1 = 0;
 		//I2Cx->SR2 = 0;
+		if(delegate->busSpeed != 0) {
+			setBusFrequency(delegate->busSpeed * 1000);
+		}
 
 		// and enable interrupts
 		DEBUG_STREAM("enable interrupts");
@@ -790,7 +806,7 @@ public:
 				while(p->next) {
 					if(p == d) {
 						//the same delegate is already in the chain
-						XPCC_LOG_ERROR << "same delegate in chain\n";
+						//XPCC_LOG_ERROR << "same delegate in chain\n";
 						d->stopped(DetachCause::SoftwareReset);
 						return false;
 					}
@@ -830,6 +846,8 @@ template <int i2cid>
 dma::Channel I2cMaster<i2cid>::rx_chan;
 template <int i2cid>
 dma::Channel I2cMaster<i2cid>::tx_chan;
+template <int i2cid>
+uint32_t I2cMaster<i2cid>::busFrequency;
 
 typedef I2cMaster<1> I2cMaster1;
 typedef I2cMaster<2> I2cMaster2;

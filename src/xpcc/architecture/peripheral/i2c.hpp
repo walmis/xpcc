@@ -199,6 +199,8 @@ public:
 	I2cMaster::Error error =  I2cMaster::Error::NoError;
 	//support linked list of delegates
 	I2cTransaction* next = 0;
+	//bus speed in khz for this transaction
+	uint32_t busSpeed = 0;
 
 public:
 	/**
