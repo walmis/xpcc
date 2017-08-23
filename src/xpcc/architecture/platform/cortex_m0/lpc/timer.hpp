@@ -16,10 +16,16 @@
 #define LPC_TMR16B1 LPC_CT16B1
 #define LPC_TMR32B0 LPC_CT32B0
 #define LPC_TMR32B1 LPC_CT32B1
+#define LPC_TMR16B0_BASE LPC_CT16B0_BASE
+#define LPC_TMR16B1_BASE LPC_CT16B1_BASE
+#define LPC_TMR32B0_BASE LPC_CT32B0_BASE
+#define LPC_TMR32B1_BASE LPC_CT32B1_BASE
 #else
 #include <lpc11xx/cmsis/LPC11xx.h>
 #define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
 #endif
+
+#define IS_TIMER(x) (timerptr == int(x))
 
 #include <xpcc/processing/function.hpp>
 #include "timer_defs.hpp"
@@ -343,13 +349,13 @@ public:
 			// Disable timer/counter
 			TIMER->TCR = 0x00;
 			// Disable power
-		    if (TIMER == LPC_TMR16B0) {    //  16-bit counter/TIMER 0
+		    if (IS_TIMER(LPC_TMR16B0)) {    //  16-bit counter/TIMER 0
 		    	LPC_SYSCON->SYSAHBCLKCTRL &= ~(1<<7);
-		    } else if(TIMER == LPC_TMR16B1) {    //  16-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR16B1)) {    //  16-bit counter/timer 1
 		    	LPC_SYSCON->SYSAHBCLKCTRL &= ~(1<<8);
-		    } else if(TIMER == LPC_TMR32B0) {    //  32-bit counter/timer 0
+		    } else if(IS_TIMER(LPC_TMR32B0)) {    //  32-bit counter/timer 0
 		    	LPC_SYSCON->SYSAHBCLKCTRL &= ~(1<<9);
-		    } else if(TIMER == LPC_TMR32B1) {    //  32-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR32B1)) {    //  32-bit counter/timer 1
 		    	LPC_SYSCON->SYSAHBCLKCTRL &= ~(1<<10);
 		    }
 		}
@@ -390,16 +396,16 @@ public:
 
 
 			// Set power
-		    if(TIMER == LPC_TMR16B0) {
+		    if(IS_TIMER(LPC_TMR16B0)) {
 		        LPC_SYSCON->SYSAHBCLKCTRL |= (1<<7);
 
-		    } else if(TIMER == LPC_TMR16B1) {
+		    } else if(IS_TIMER(LPC_TMR16B1)) {
 		    	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<8);
 
-		    } else if(TIMER == LPC_TMR32B0) {
+		    } else if(IS_TIMER(LPC_TMR32B0)) {
 		    	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<9);
 
-		    } else if(TIMER == LPC_TMR32B1) {
+		    } else if(IS_TIMER(LPC_TMR32B1)) {
 		    	LPC_SYSCON->SYSAHBCLKCTRL |= (1<<10);
 		    }
 
@@ -418,7 +424,7 @@ public:
 				val = TIM_ConverUSecToVal (prescale_value)-1;
 			}
 
-			if ((TIMER == LPC_TMR16B0) || (TIMER == LPC_TMR16B1)) {
+			if ((IS_TIMER(LPC_TMR16B0)) || (IS_TIMER(LPC_TMR16B1))) {
 				val &= 0xFFFF;
 			}
 			TIMER->PR = val;
@@ -460,7 +466,7 @@ public:
 		    uint32_t val;
 
 		    val = TIMER->CR0;
-			if((TIMER == LPC_TMR16B0) || (TIMER == LPC_TMR16B1)) {
+			if(IS_TIMER(LPC_TMR16B0) || IS_TIMER(LPC_TMR16B1)) {
 		        val &= 0xFFFF;
 		    }
 
@@ -484,13 +490,13 @@ public:
 		static void
 		ALWAYS_INLINE
 		enableIRQ() {
-		    if (TIMER == LPC_TMR16B0) {    //  16-bit counter/TIMER 0
+		    if (IS_TIMER(LPC_TMR16B0)) {    //  16-bit counter/TIMER 0
 		    	NVIC_EnableIRQ(TIMER_16_0_IRQn);
-		    } else if(TIMER == LPC_TMR16B1) {    //  16-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR16B1)) {    //  16-bit counter/timer 1
 		    	NVIC_EnableIRQ(TIMER_16_1_IRQn);
-		    } else if(TIMER == LPC_TMR32B0) {    //  32-bit counter/timer 0
+		    } else if(IS_TIMER(LPC_TMR32B0)) {    //  32-bit counter/timer 0
 		    	NVIC_EnableIRQ(TIMER_32_0_IRQn);
-		    } else if(TIMER == LPC_TMR32B1) {    //  32-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR32B1)) {    //  32-bit counter/timer 1
 		    	NVIC_EnableIRQ(TIMER_32_1_IRQn);
 		    }
 		}
@@ -498,13 +504,13 @@ public:
 		static void
 		ALWAYS_INLINE
 		disableIRQ() {
-		    if (TIMER == LPC_TMR16B0) {    //  16-bit counter/TIMER 0
+		    if (IS_TIMER(LPC_TMR16B0)) {    //  16-bit counter/TIMER 0
 		    	NVIC_DisableIRQ(TIMER_16_0_IRQn);
-		    } else if(TIMER == LPC_TMR16B1) {    //  16-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR16B1)) {    //  16-bit counter/timer 1
 		    	NVIC_DisableIRQ(TIMER_16_1_IRQn);
-		    } else if(TIMER == LPC_TMR32B0) {    //  32-bit counter/timer 0
+		    } else if(IS_TIMER(LPC_TMR32B0)) {    //  32-bit counter/timer 0
 		    	NVIC_DisableIRQ(TIMER_32_0_IRQn);
-		    } else if(TIMER == LPC_TMR32B1) {    //  32-bit counter/timer 1
+		    } else if(IS_TIMER(LPC_TMR32B1)) {    //  32-bit counter/timer 1
 		    	NVIC_DisableIRQ(TIMER_32_1_IRQn);
 		    }
 		}
@@ -526,10 +532,10 @@ private:
 	};
 
 
-typedef Timer<(int)LPC_TMR16B0> Timer16B0;
-typedef Timer<(int)LPC_TMR16B1> Timer16B1;
-typedef Timer<(int)LPC_TMR32B0> Timer32B0;
-typedef Timer<(int)LPC_TMR32B1> Timer32B1;
+typedef Timer<(int)LPC_TMR16B0_BASE> Timer16B0;
+typedef Timer<(int)LPC_TMR16B1_BASE> Timer16B1;
+typedef Timer<(int)LPC_TMR32B0_BASE> Timer32B0;
+typedef Timer<(int)LPC_TMR32B1_BASE> Timer32B1;
 
 
 }

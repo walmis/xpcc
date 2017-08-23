@@ -8,16 +8,16 @@ namespace lpc11 {
 template <int timerptr>
 void Timer<timerptr>::enableCapturePins()
 {
-    if (TIMER == LPC_TMR16B0) {  /** CT16B0_CAP0 */
+    if (IS_TIMER(LPC_TMR16B0)) {  /** CT16B0_CAP0 */
         IOCon::setPinFunc(0, 2, 2);
 
-    } else if (TIMER == LPC_TMR16B1) {  /** CT16B1_CAP1 */
+    } else if (IS_TIMER(LPC_TMR16B1)) {  /** CT16B1_CAP1 */
         IOCon::setPinFunc(0, 20, 1);
 
-    } else if (TIMER == LPC_TMR32B0) {  /** CT32B0_CAP0 */
+    } else if (IS_TIMER(LPC_TMR32B0)) {  /** CT32B0_CAP0 */
         IOCon::setPinFunc(0, 17, 2);
 
-    } else if (TIMER == LPC_TMR32B1) {  /** CT32B1_CAP0 */
+    } else if (IS_TIMER(LPC_TMR32B1)) {  /** CT32B1_CAP0 */
         IOCon::setPinFunc(0, 12, 3);
     }
 
@@ -26,7 +26,7 @@ void Timer<timerptr>::enableCapturePins()
 template<int timerptr>
 void Timer<timerptr>::assignMatchPins(MatchPins matchPins) {
 	// 16-bit counter/timer 0 external Match Output
-	if (TIMER == LPC_TMR16B0) {
+	if (IS_TIMER(LPC_TMR16B0)) {
 		switch(matchPins) {
 			case MatchPins::PINS_MAT0:
 			IOCon::setPinFunc(0, 8, 2);
@@ -43,7 +43,7 @@ void Timer<timerptr>::assignMatchPins(MatchPins matchPins) {
 
 		// 16-bit counter/timer 1 external Match Output
 	} else
-	if (TIMER == LPC_TMR16B1) {
+	if (IS_TIMER(LPC_TMR16B1)) {
 		switch(matchPins) {
 			case MatchPins::PINS_MAT0:
 			IOCon::setPinFunc(1, 9, 1);
@@ -58,7 +58,7 @@ void Timer<timerptr>::assignMatchPins(MatchPins matchPins) {
 
 		// 32-bit counter/timer 0 external Match Output
 	} else
-	if (TIMER == LPC_TMR32B0) {
+	if (IS_TIMER(LPC_TMR32B0)) {
 		switch(matchPins) {
 			case MatchPins::PINS_MAT0:
 			IOCon::setPinFunc(1, 6, 2);
@@ -76,7 +76,7 @@ void Timer<timerptr>::assignMatchPins(MatchPins matchPins) {
 
 		// 32-bit counter/timer 1 external Match Output
 	} else
-	if (TIMER == LPC_TMR32B1) {
+	if (IS_TIMER(LPC_TMR32B1)) {
 		switch(matchPins) {
 			case MatchPins::PINS_MAT0:
 			IOCon::setPinFunc(1, 1, 3);
