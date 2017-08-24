@@ -321,8 +321,10 @@ namespace xpcc {
 
 			  /* Set clock and resolution */
 			  //LPC_ADC->CR = (static_cast<uint32_t>(resolution)) | (10 << 8);
+			  uint32_t div =  ((SystemCoreClock/LPC_SYSCON->SYSAHBCLKDIV)/clockrate-1);
+			  if(div > 255) div = 255;
 
-			  LPC_ADC->CR = ((SystemCoreClock/LPC_SYSCON->SYSAHBCLKDIV)/clockrate-1)<<8;
+			  LPC_ADC->CR = div<<8;
 			  /* Enable interrupts */
 			  NVIC_EnableIRQ(ADC_IRQn);
 			}
