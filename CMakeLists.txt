@@ -218,6 +218,10 @@ add_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/unicode.c
 )
 
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs
+)
+
 add_subdirectory(src/xpcc)
 
 add_library(xpcc STATIC ${SOURCES})

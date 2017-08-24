@@ -1,7 +1,7 @@
 add_sources(
 	../core.cpp
 	../systick_timer.cpp
-	
+
 	./i2c/i2c3.cpp
 	./i2c/i2c1.cpp
 	./i2c/i2c2.cpp
@@ -20,16 +20,15 @@ add_sources(
 	./dma/dma.cpp
 )
 
-set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")    
+set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")
 
-if (${CHIBI_RTOS}) 
+if (${CHIBI_RTOS})
 
-add_sources(
-	./chibi/crt0_v7m.S
-	./chibi/chcoreasm_v7m.S
-	./chibi/chcore.c
-	./chibi/chcore_v7m.c
-)
+# add_sources(
+# 	./chibi/crt0_v7m.S
+# 	./chibi/chcoreasm_v7m.S
+# 	./chibi/chcore.c
+# 	./chibi/chcore_v7m.c
+# )
 
 endif()
-
