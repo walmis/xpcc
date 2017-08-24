@@ -99,8 +99,8 @@ public:
 
 };
 
-typedef SpiSlave<(int)LPC_SSP0> SpiSlave0;
-typedef SpiSlave<(int)LPC_SSP1> SpiSlave1;
+typedef SpiSlave<(int)LPC_SSP0_BASE> SpiSlave0;
+typedef SpiSlave<(int)LPC_SSP1_BASE> SpiSlave1;
 
 }
 }

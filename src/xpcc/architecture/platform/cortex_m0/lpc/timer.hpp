@@ -23,6 +23,10 @@
 #else
 #include <lpc11xx/cmsis/LPC11xx.h>
 #define TIMER reinterpret_cast<LPC_TMR_TypeDef*>(timerptr)
+#define LPC_TMR16B0_BASE LPC_CT16B0_BASE
+#define LPC_TMR16B1_BASE LPC_CT16B1_BASE
+#define LPC_TMR32B0_BASE LPC_CT32B0_BASE
+#define LPC_TMR32B1_BASE LPC_CT32B1_BASE
 #endif
 
 #define IS_TIMER(x) (timerptr == int(x))

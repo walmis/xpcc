@@ -46,6 +46,8 @@ public:
 			inst = 0;
 	}
 
+	using IODevice::write;
+
 	bool setBaud(uint32_t baud) {
 		rxbuf.flush();
 		txbuf.flush();
