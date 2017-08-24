@@ -57,7 +57,7 @@ public:
 		result[3] = result_table[4];
 	}
 
-	static void writeFlash(unsigned flash_address, unsigned * flash_data_buf,
+	static uint32_t writeFlash(unsigned flash_address, unsigned * flash_data_buf,
 			unsigned count, uint32_t clk = SystemCoreClock / 1000) {
 		__disable_irq();
 		uint32_t param_table[5];
@@ -70,6 +70,7 @@ public:
 		param_table[4] = clk;
 		call(param_table, result_table);
 		__enable_irq();
+		return result_table[0];
 	}
 
 	static void eraseSector(unsigned start_sector, unsigned end_sector,
