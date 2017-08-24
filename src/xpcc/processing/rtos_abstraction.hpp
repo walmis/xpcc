@@ -14,20 +14,13 @@
 #define CHIBI 1
 
 #if XPCC_RTOS_CHIBI
-#include <ch.h>
-#include <ch.hpp>
 
 #include "RTOSAbstraction/ChibiRTOS/semaphore.hpp"
 #include "RTOSAbstraction/ChibiRTOS/event.hpp"
 #include "RTOSAbstraction/ChibiRTOS/interrupt_wrapper.hpp"
 namespace xpcc {
-static ALWAYS_INLINE void yield(uint16_t timeAvailable = 0) {
-	chThdYield();
-}
-
-static ALWAYS_INLINE void sleep(uint16_t time_ms) {
-	chThdSleep(MS2ST(time_ms));
-}
+void yield(uint16_t timeAvailable = 0);
+void sleep(uint16_t time_ms);
 }
 #else
 

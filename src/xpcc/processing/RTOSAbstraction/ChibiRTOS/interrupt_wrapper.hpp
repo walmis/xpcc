@@ -10,18 +10,14 @@
 
 namespace xpcc {
 
-#include <ch.h>
-
 class IRQWrapper {
 public:
 	//prologue
-	IRQWrapper() {
-		CH_IRQ_PROLOGUE();
-	}
+	IRQWrapper();
 	//epilogue
-	~IRQWrapper() {
-		CH_IRQ_EPILOGUE();
-	}
+	~IRQWrapper();
+private:
+	void* data;
 };
 }
 

@@ -8,7 +8,6 @@
 #ifndef SRC_XPCC_PROCESSING_EVENT_HPP_
 #define SRC_XPCC_PROCESSING_EVENT_HPP_
 
-#include <ch.hpp>
 #include "../../ticker_task.hpp"
 
 namespace xpcc {
@@ -24,45 +23,19 @@ namespace xpcc {
 
 class Event  {
 public:
-	bool isPending() {
-		return cond.wait(TIME_IMMEDIATE) == MSG_TIMEOUT;
-	}
+	Event();
+	~Event();
 
-	void reset() {
-		(bool)isPending();
-	}
-
-	bool wait(uint32_t timeout_ms = 0xFFFFFFFF) {
-		if(TickerTask::inInterruptContext()) return false;
-
-		//(bool)isPending(); //this resets the event into waiting state
-
-		if(timeout_ms == 0xFFFFFFFF) {
-			return cond.wait() == MSG_OK;
-		} else {
-			return cond.wait(MS2ST(timeout_ms)) == MSG_OK;
-		}
-	}
-
-	bool wait_us(uint32_t timeout_us = 0xFFFFFFFF) {
-		if(TickerTask::inInterruptContext()) return false;
-
-		if(timeout_us == 0xFFFFFFFF) {
-			return cond.wait() == MSG_OK;
-		} else {
-			return cond.wait(US2ST(timeout_us)) == MSG_OK;
-		}
-	}
+	bool isPending();
+	void reset();
+	bool wait(uint32_t timeout_ms = 0xFFFFFFFF);
+	bool wait_us(uint32_t timeout_us = 0xFFFFFFFF);
 
 	//signal waiting threads
-	void signal() {
-		syssts_t s = chSysGetStatusAndLockX();
-		cond.signalI();
-		chSysRestoreStatusX(s);
-	}
+	void signal();
 
 protected:
-	chibios_rt::BinarySemaphore cond{true};
+	void* event;
 };
 
 }

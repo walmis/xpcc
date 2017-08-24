@@ -19,6 +19,8 @@ if(NOT WIN32)
   set(BoldWhite   "${Esc}[1;37m")
 endif()
 
+enable_language(ASM)
+
 find_program(CCACHE_FOUND ccache)
 if(CCACHE_FOUND)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
@@ -56,7 +58,7 @@ if(NOT LINKER_SCRIPT)
         configure_file("${XPCC_LINKER_SCRIPT}" "linkscript.ld" @ONLY)
     endif()
 
-    SET(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/linkscript.ld")
+    SET(LINKER_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/linkscript.ld")
 endif()
 
 set(CMAKE_CXX_STANDARD 11)
@@ -68,11 +70,14 @@ SET(CMAKE_BUILD_TYPE MINSIZEREL CACHE INTERNAL "")
 
 SET(CMAKE_C_COMPILER ${XPCC_C_COMPILER} CACHE INTERNAL "")
 SET(CMAKE_CXX_COMPILER ${XPCC_CXX_COMPILER} CACHE INTERNAL "")
+SET(CMAKE_ASM_COMPILER ${XPCC_ASM_COMPILER} CACHE INTERNAL "")
 
 SET(CMAKE_C_FLAGS ${XPCC_C_FLAGS} CACHE INTERNAL "")
 SET(CMAKE_CXX_FLAGS ${XPCC_CXX_FLAGS} CACHE INTERNAL "")
 SET(CMAKE_EXE_LINKER_FLAGS "${XPCC_EXE_LINKER_FLAGS} -T ${LINKER_SCRIPT}" CACHE INTERNAL "")
 
+SET(ASM_OPTIONS "-x assembler-with-cpp")
+SET(CMAKE_ASM_FLAGS "${CFLAGS} ${ASM_OPTIONS}" CACHE INTERNAL "")
 
 set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-I" CACHE STRING "")
 set(CMAKE_INCLUDE_SYSTEM_FLAG_C "-I" CACHE STRING "")
@@ -101,7 +106,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                                 ${PROJECT_NAME}.hex
                         COMMENT "Generating HEX image ${PROJECT_NAME}.hex"
                         VERBATIM)
-                        
+
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                         COMMAND ${XPCC_OBJCOPY}
                         ARGS     -O binary
@@ -109,16 +114,15 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                                 ${PROJECT_NAME}.bin
                         COMMENT "Generating BIN image ${PROJECT_NAME}.bin"
                         VERBATIM)
-                        
+
 add_custom_target(dump_assembly
                         COMMAND arm-none-eabi-strip --strip-debug "${PROJECT_NAME}" -o "${PROJECT_NAME}_nodbg"
-                        COMMAND ${XPCC_OBJDUMP} -C -D "${PROJECT_NAME}_nodbg" > "${PROJECT_NAME}.S" 
+                        COMMAND ${XPCC_OBJDUMP} -C -D "${PROJECT_NAME}_nodbg" > "${PROJECT_NAME}.S"
                         COMMENT "Dumping Assembly listing"
-                        VERBATIM) 
-                        
+                        VERBATIM)
+
 add_custom_command(TARGET ${PROJECT_NAME}  POST_BUILD
                         COMMAND ${XPCC_OBJSIZE}
                         ARGS    ${PROJECT_NAME}
                         COMMENT "Image Size"
                         VERBATIM)
-

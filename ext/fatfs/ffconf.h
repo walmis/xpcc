@@ -1,9 +1,6 @@
 /*---------------------------------------------------------------------------/
 /  FatFs - FAT file system module configuration file  R0.11 (C)ChaN, 2015
 /---------------------------------------------------------------------------*/
-#ifdef CHIBI_RTOS
-#include <ch.h>
-#endif
 
 #define _FFCONF 32020	/* Revision ID */
 
@@ -216,7 +213,7 @@
 /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR.
 /  When timestamp feature is enabled (_FS_NORTC	== 0), get_fattime() function need
 /  to be added to the project to read current time form RTC. _NORTC_MON,
-/  _NORTC_MDAY and _NORTC_YEAR have no effect. 
+/  _NORTC_MDAY and _NORTC_YEAR have no effect.
 /  These options have no effect at read-only configuration (_FS_READONLY == 1). */
 
 
@@ -233,9 +230,8 @@
 
 #ifdef XPCC_RTOS_CHIBI
 
-#include <ch.h>
-#define _FS_TIMEOUT		MS2ST(1000)
-#define	_SYNC_t			semaphore_t*
+#define _FS_TIMEOUT		1000
+#define	_SYNC_t			void*
 #define _FS_REENTRANT	1
 
 #else
@@ -281,4 +277,3 @@
 /   PIC24       0           H8S         0           MSP430      0
 /   PIC32       0           H8/300H     0           8051        0/1
 */
-

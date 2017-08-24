@@ -9,38 +9,22 @@
 #define SEMAPHORE_H_
 
 #include <stdint.h>
-#include <ch.hpp>
 
 namespace xpcc {
 
 class Semaphore {
 public:
+	Semaphore();
+	~Semaphore();
+	
+	void give();
 
-	void give() {
-		syssts_t s = chSysGetStatusAndLockX();
-		sem.signalI();
-		chSysRestoreStatusX(s);
-	}
-
-	bool take(uint32_t timeout_ms = TIME_INFINITE) __attribute__ ((warn_unused_result)) {
-		if(timeout_ms == TIME_INFINITE)
-			return sem.wait(TIME_INFINITE) == MSG_OK;
-
-		return sem.wait(MS2ST(timeout_ms)) == MSG_OK;
-	}
-	bool take_nonblocking() __attribute__ ((warn_unused_result)) {
-		return sem.wait(TIME_IMMEDIATE) == MSG_OK;
-	}
-
-	bool taken() {
-		syssts_t s = chSysGetStatusAndLockX();
-		bool state = sem.getStateI();
-		chSysRestoreStatusX(s);
-		return state;
-	}
+	bool take(uint32_t timeout_ms = 0) __attribute__ ((warn_unused_result));
+	bool take_nonblocking() __attribute__ ((warn_unused_result));
+	bool taken();
 
 private:
-	chibios_rt::BinarySemaphore sem{false};
+	void* semaphore;
 };
 
 }

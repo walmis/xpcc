@@ -69,7 +69,7 @@ include_directories(
     ./ext
 )
 
-SET(ARM_COMMON_FLAGS "-mthumb -mthumb-interwork -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
+SET(ARM_COMMON_FLAGS "-mthumb -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
 SET(ARM_COMMON_LD_FLAGS "-nostartfiles -Wl,-gc-sections --specs=nano.specs -u _sbrk")
 
 SET(ASM_OPTIONS "-x assembler-with-cpp")
@@ -78,28 +78,28 @@ macro(set_arm_settings CORTEX_TYPE)
     message(STATUS "Configuring for ${CORTEX_TYPE}")
     set(CMAKE_SYSTEM_NAME Generic CACHE INTERNAL "")
     set(CMAKE_SYSTEM_PROCESSOR ${CORTEX_TYPE} CACHE INTERNAL "")
-    
+
     SET(CMAKE_CXX_COMPILER arm-none-eabi-g++ CACHE INTERNAL "" )
     SET(CMAKE_C_COMPILER arm-none-eabi-gcc CACHE INTERNAL "" )
     SET(CMAKE_ASM_COMPILER arm-none-eabi-gcc CACHE INTERNAL "")
-    
+
     SET(CMAKE_OBJCOPY arm-none-eabi-objcopy CACHE INTERNAL "")
     SET(CMAKE_OBJSIZE arm-none-eabi-size CACHE INTERNAL "")
     SET(CMAKE_OBJDUMP arm-none-eabi-objdump CACHE INTERNAL "")
 
     SET(CMAKE_ASM_FLAGS "${CFLAGS} ${ASM_OPTIONS}" CACHE INTERNAL "")
-     
+
     SET(COMMON_FLAGS "${ARM_COMMON_FLAGS} -mcpu=${CORTEX_TYPE}")
-    
+
     if(${CORTEX_TYPE} STREQUAL "cortex-m4")
         SET(COMMON_FLAGS "${COMMON_FLAGS} -mfloat-abi=hard -mfpu=fpv4-sp-d16")
     endif()
-    
+
     SET(CMAKE_CXX_FLAGS "${COMMON_FLAGS} -std=gnu++11 -fno-rtti -fno-exceptions" CACHE INTERNAL "")
     SET(CMAKE_C_FLAGS "${COMMON_FLAGS} -std=gnu99" CACHE INTERNAL "")
-    
-    set(CMAKE_EXE_LINKER_FLAGS "${ARM_COMMON_LD_FLAGS}" CACHE INTERNAL "")    
-    
+
+    set(CMAKE_EXE_LINKER_FLAGS "${ARM_COMMON_LD_FLAGS}" CACHE INTERNAL "")
+
 endmacro()
 
 # drivers
@@ -108,78 +108,79 @@ if (${PLATFORM} STREQUAL "linux")
 
 
 elseif(${PLATFORM} STREQUAL "stm32f4")
-    
+
     set_arm_settings("cortex-m4")
-    
+
     #set(CMAKE_C_COMPILER_ARG1 -mthumb -mcpu=cortex-m4)
     #set(CMAKE_CXX_COMPILER_ARG1 -mthumb -mcpu=cortex-m4)
 
     SET(USB_SUPPORT true)
-    
+
     add_definitions(-DSTM32F407xx)
     add_definitions(-DSTM32F4XX)
     add_definitions(-D__ARM_STM32__)
 
     include_directories(
-        ext/cmsis/stm32/Include/ 
+        ext/cmsis/stm32/Include/
         ext/cmsis/stm32/Device/ST/STM32F4xx/Include/
     )
-    
-    if (${CHIBI_RTOS})
-    
-       include_directories(
-            src/xpcc/architecture/platform/cortex_m3/stm32/stm32f4/chibi/
-       )
-       
-    endif()
+
+    # if (${CHIBI_RTOS})
+    #
+    #    include_directories(
+    #         src/xpcc/architecture/platform/cortex_m3/stm32/stm32f4/chibi/
+    #    )
+    #
+    # endif()
 
     message(STATUS "Adding STM32F4 platform driver")
     add_subdirectory(src/xpcc/architecture/platform/cortex_m3/stm32/stm32f4)
 
-elseif(${PLATFORM} STREQUAL "lpc11xx")  
+elseif(${PLATFORM} STREQUAL "lpc11xx")
 
     set_arm_settings("cortex-m0")
 
     SET(USB_SUPPORT false)
-    
+
     add_definitions(-D__ARM_LPC11XX__)
-    
+
     include_directories(
        ext/lpc11xx/cmsis/
     )
-    
+
     add_subdirectory(src/xpcc/architecture/platform/cortex_m0/lpc/lpc11)
-    
+
     message(STATUS "Adding LPC11xx platform driver")
-    
-elseif(${PLATFORM} STREQUAL "lpc11Uxx")   
+
+elseif(${PLATFORM} STREQUAL "lpc11Uxx")
 
     set_arm_settings("cortex-m0")
     SET(USB_SUPPORT true)
-    
+
     add_definitions(-D__ARM_LPC11UXX__)
-    
+
     include_directories(
        ext/lpc11xx/cmsis/
     )
-    
+
     add_subdirectory(src/xpcc/architecture/platform/cortex_m0/lpc/lpc11u)
-    
+
     message(STATUS "Adding LPC11Uxx platform driver")
 
 
-elseif(${PLATFORM} STREQUAL "lpc17xx")   
+elseif(${PLATFORM} STREQUAL "lpc17xx")
     set_arm_settings("cortex-m3")
     SET(USB_SUPPORT true)
-    
+
     add_definitions(-D__ARM_LPC17XX__)
-    
+
     add_subdirectory(src/xpcc/architecture/platform/cortex_m3/lpc/lpc17)
-    
+
     message(STATUS "Adding LPC17xx platform driver")
-    
+
 else()
-    message(FATAL "Unknown PLATFORM")
+    message(SEND_ERROR "Unknown PLATFORM")
+
 endif()
 
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} CACHE INTERNAL "")
@@ -191,19 +192,19 @@ SET(XPCC_COMPILER_ARG1 "-mcpu=${CMAKE_SYSTEM_PROCESSOR} -mthumb" CACHE INTERNAL 
 #set cpu flags so compiler defines can be detected on arm-none-eabi
 #SET(CMAKE_C_COMPILER_ARG1 -mcpu=${CMAKE_SYSTEM_PROCESSOR})
 #SET(CMAKE_CXX_COMPILER_ARG1 -mcpu=${CMAKE_SYSTEM_PROCESSOR})
-   
-if (${CHIBI_RTOS})
 
-    include_directories(
-        ext/chibiRTOS/include/
-    )
-    add_subdirectory(
-        ext/chibiRTOS/
-    )
-    add_definitions(-DXPCC_RTOS_CHIBI)
-    
-    add_sources(${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/syscall_chibi.c)
-    
+if (${CHIBI_RTOS})
+#
+#     include_directories(
+#         ext/chibiRTOS/include/
+#     )
+#     add_subdirectory(
+#         ext/chibiRTOS/
+#     )
+     add_definitions(-DXPCC_RTOS_CHIBI)
+#
+#     add_sources(${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/syscall_chibi.c)
+#
 endif()
 
 project(xpcc_lib CXX C ASM)
@@ -232,13 +233,12 @@ target_compile_definitions(xpcc PUBLIC ${CompDefs})
 # Add all targets to the build-tree export set
 export(TARGETS xpcc
   FILE "${PROJECT_BINARY_DIR}/xpccTargets.cmake")
- 
-configure_file(${PROJECT_SOURCE_DIR}/xpccConfig.cmake.in 
+
+configure_file(${PROJECT_SOURCE_DIR}/xpccConfig.cmake.in
     ${PROJECT_BINARY_DIR}/xpccConfig.cmake @ONLY)
-    
+
 # Export the package for use from the build-tree
 # (this registers the build-tree with a global CMake-registry)
 #export(PACKAGE xpcc)
 
 # vim: set et ft=cmake fenc=utf-8 ff=unix sts=4 sw=4 ts=4 :
-
