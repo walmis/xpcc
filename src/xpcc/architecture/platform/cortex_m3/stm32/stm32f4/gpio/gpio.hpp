@@ -264,7 +264,7 @@ constexpr uint8_t GPIO_IDToPin(uint8_t id) {
 	return id & 0x0F;
 }
 
-class _GpioPin {
+class GPIO {
 public:
 	ALWAYS_INLINE static void
 	setOutput(uint8_t port, uint8_t pin, bool status) {
@@ -350,7 +350,7 @@ public:
 		return _port(port)->IDR & (1<<pin);
 	}
 
-	ALWAYS_INLINE static bool
+	ALWAYS_INLINE static xpcc::OwnPtr<GpioInt>
 	attachInterrupt(uint8_t port, uint8_t pin, xpcc::function<void()> fn, IntEdge edges = IntEdge::RISING_EDGE) {
 		return GpioInt::attach(port, pin, fn, edges);
 	}
@@ -365,68 +365,68 @@ public:
 
 	ALWAYS_INLINE static void
 	setOutput(bool status) {
-		_GpioPin::setOutput(port, pin, status);
+		GPIO::setOutput(port, pin, status);
 	}
 	ALWAYS_INLINE static void
 	setOutput() {
-		_GpioPin::setOutput(port, pin);
+		GPIO::setOutput(port, pin);
 	}
 	ALWAYS_INLINE static void
 	setInput() {
-		_GpioPin::setInput(port, pin);
+		GPIO::setInput(port, pin);
 	}
 
 	ALWAYS_INLINE static void
 	setAnalog() {
-		_GpioPin::setAnalog(port, pin);
+		GPIO::setAnalog(port, pin);
 	}
 
 	ALWAYS_INLINE static void
 	setSpeed(GPIOSpeed speed) {
-		_GpioPin::setSpeed(port, pin, speed);
+		GPIO::setSpeed(port, pin, speed);
 	}
 
 	ALWAYS_INLINE static void
 	setFunction(AltFunction af) {
-		_GpioPin::setFunction(port, pin, af);
+		GPIO::setFunction(port, pin, af);
 	}
 
 	ALWAYS_INLINE static void
 	setOutputType(GPIOOType type) {
-		_GpioPin::setOutputType(port, pin, type);
+		GPIO::setOutputType(port, pin, type);
 	}
 
 	ALWAYS_INLINE static void
 	setPullMode(GPIOPuPd mode) {
-		_GpioPin::setPullMode(port, pin, mode);
+		GPIO::setPullMode(port, pin, mode);
 	}
 
 	ALWAYS_INLINE static void
 	set() {
-		_GpioPin::set(port, pin);
+		GPIO::set(port, pin);
 	}
 
 	ALWAYS_INLINE static void
 	reset() {
-		_GpioPin::reset(port, pin);
+		GPIO::reset(port, pin);
 	}
 
 	ALWAYS_INLINE static void
 	toggle() {
-		_GpioPin::toggle(port, pin);
+		GPIO::toggle(port, pin);
 	}
 
 	ALWAYS_INLINE static void
 	set(bool status) {
-		_GpioPin::set(port, pin, status);
+		GPIO::set(port, pin, status);
 	}
 
 	ALWAYS_INLINE static bool
 	read() {
-		return _GpioPin::read(port, pin);
+		return GPIO::read(port, pin);
 	}
 
-	ALWAYS_INLINE static bool
+	ALWAYS_INLINE static xpcc::OwnPtr<GpioInt>
 	attachInterrupt(xpcc::function<void()> fn, IntEdge edges = IntEdge::RISING_EDGE) {
 		return GpioInt::attach(port, pin, fn, edges);
 	}

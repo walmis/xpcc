@@ -10,7 +10,7 @@
 
 #include <xpcc/architecture/utils.hpp>
 #include <xpcc/processing/function.hpp>
-
+#include <xpcc/processing/own_ptr.hpp>
 
 namespace xpcc {
 
@@ -21,12 +21,33 @@ enum class IntEdge {
 
 class GpioInt {
 public:
-	static bool attach(uint8_t port, uint8_t pin, xpcc::function<void()> fn,
+	//returns a newly allocated GpioInt object
+	static OwnPtr<GpioInt> attach(uint8_t port, uint8_t pin, xpcc::function<void()> fn,
 			IntEdge edges = IntEdge::RISING_EDGE);
+
+	GpioInt(uint8_t port, uint8_t pin,
+		xpcc::function<void()> callback = 0, IntEdge edges = IntEdge::RISING_EDGE);
+
+	~GpioInt();
+
+	void enable();
+	void disable();
+
+	void setCallback(xpcc::function<void()> fn) { func = fn; }
+	void setEdges(IntEdge edges);
 
 	static IntEdge currentEdge();
 	static uint8_t currentPort();
 	static uint8_t currentPin();
+
+	static void _handleInterrupt();
+
+private:
+	uint8_t port;
+	uint8_t pin;
+	uint8_t edges;
+	xpcc::function<void()> func;
+	GpioInt* next = 0;
 };
 
 ENUM_CLASS_FLAG(IntEdge);
