@@ -71,8 +71,13 @@ include_directories(
 
 SET(ARM_COMMON_FLAGS "-mthumb -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
 SET(ARM_COMMON_LD_FLAGS "-nostartfiles -Wl,-gc-sections --specs=nano.specs -u _sbrk")
-
 SET(ASM_OPTIONS "-x assembler-with-cpp")
+
+IF(${ENABLE_LTO})
+  SET(ARM_COMMON_FLAGS "${ARM_COMMON_FLAGS} -flto")
+  SET(ARM_COMMON_LD_FLAGS "${ARM_COMMON_LD_FLAGS} -flto -Os")
+  message(STATUS "Link time optimization ENABLED")
+ENDIF()
 
 macro(set_arm_settings CORTEX_TYPE)
     message(STATUS "Configuring for ${CORTEX_TYPE}")
@@ -82,11 +87,13 @@ macro(set_arm_settings CORTEX_TYPE)
     SET(CMAKE_CXX_COMPILER arm-none-eabi-g++ CACHE INTERNAL "" )
     SET(CMAKE_C_COMPILER arm-none-eabi-gcc CACHE INTERNAL "" )
     SET(CMAKE_ASM_COMPILER arm-none-eabi-gcc CACHE INTERNAL "")
-
+    SET(CMAKE_AR arm-none-eabi-gcc-ar CACHE INTERNAL "")
+    SET(CMAKE_RANLIB arm-none-eabi-gcc-ranlib CACHE INTERNAL "")
+ 
     SET(CMAKE_OBJCOPY arm-none-eabi-objcopy CACHE INTERNAL "")
     SET(CMAKE_OBJSIZE arm-none-eabi-size CACHE INTERNAL "")
     SET(CMAKE_OBJDUMP arm-none-eabi-objdump CACHE INTERNAL "")
-
+    
     SET(CMAKE_ASM_FLAGS "${CFLAGS} ${ASM_OPTIONS}" CACHE INTERNAL "")
 
     SET(COMMON_FLAGS "${ARM_COMMON_FLAGS} -mcpu=${CORTEX_TYPE}")
