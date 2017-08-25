@@ -30,7 +30,7 @@
 /**
  * \defgroup 	processing Processing
  * \brief 		processing
- * 
+ *
  */
 
 #ifndef XPCC__PROCESSING_HPP
@@ -50,6 +50,7 @@
 #include "processing/rtos_abstraction.hpp"
 
 #include "processing/function.hpp"
+#include "processing/own_ptr.hpp"
 #include "processing/timer_registry.hpp"
 
 #endif	// XPCC__PROCESSING_HPP
