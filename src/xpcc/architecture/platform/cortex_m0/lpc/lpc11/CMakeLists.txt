@@ -15,15 +15,19 @@ add_sources(
 	../systick_timer.cpp
 	../core.cpp
 	../timer_registry.cpp
-	./startup/LPC1xxx_startup.c
+	#./startup/LPC1xxx_startup.c
 	./startup/LPC11xx_handlers.c
-        ./startup/startup_xpcc.cpp
+  ./startup/startup_xpcc.cpp
+  ../../startup/crt0_v6m.S
 )
 
-set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")    
+set(XPCC_PLATFORM_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/CMakePlatform.inc" CACHE INTERNAL "")
 
-if (${CHIBI_RTOS}) 
+if(${USE_CORE_ALLOC})
+    add_sources(../../../common/core_alloc.cpp)
+endif()
+
+if (${CHIBI_RTOS})
 
 
 endif()
-

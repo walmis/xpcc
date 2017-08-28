@@ -28,11 +28,11 @@
  *
  */
 
-// The GCC compiler defines the current architecture derived from the -mcpu argument. 
+// The GCC compiler defines the current architecture derived from the -mcpu argument.
 // When target cpu is the cortex-m0, it automatically defines __ARM_ARCH_6M__
-// Some versions define __ARM_ARCH_6SM__ instead 
-#if !defined(__ARM_ARCH_6M__) && !defined(__ARM_ARCH_6SM__) 
-  #error "The target ARM cpu must be Cortex-M0 compatible (-mcpu=cortex-m0)" 
+// Some versions define __ARM_ARCH_6SM__ instead
+#if !defined(__ARM_ARCH_6M__) && !defined(__ARM_ARCH_6SM__)
+  #error "The target ARM cpu must be Cortex-M0 compatible (-mcpu=cortex-m0)"
 #endif
 
 // Declare a weak alias macro as described in the GCC manual[1][2]
@@ -45,7 +45,10 @@
  *****************************************************************************/
 #include <LPC11xx.h>
 
-extern void default_irq_handler();
+__attribute__((weak))
+void default_irq_handler() {
+  while(1) {}
+}
 
 void irq_undefined() {
   // Do nothing when occured interrupt is not defined, just keep looping
@@ -100,17 +103,17 @@ void SysTick_Handler(void)      WEAK_ALIAS(fault_undefined);
  *****************************************************************************/
 
 // Prototype the entry values, which are handled by the linker script
-extern void __stack_end;
-extern void boot_entry(void);
+extern uint32_t __main_stack_end__;
+extern void Reset_Handler(void);
 
-// Defined irq vectors using simple c code following the description in a white 
+// Defined irq vectors using simple c code following the description in a white
 // paper from ARM[3] and code example from Simonsson Fun Technologies[4].
 // These vectors are placed at the memory location defined in the linker script
 const void *vectors[] SECTION(".irq_vectors") =
 {
   // Stack and program reset entry point
-  &__stack_end,          // The initial stack pointer
-  boot_entry,            // The reset handler
+  &__main_stack_end__,          // The initial stack pointer
+  Reset_Handler,            // The reset handler
 
   // Various fault handlers
   NMI_Handler,           // The NMI handler
@@ -127,7 +130,7 @@ const void *vectors[] SECTION(".irq_vectors") =
   0,                     // Reserved
   PendSV_Handler,        // The PendSV handler
   SysTick_Handler,       // The SysTick handler
-  
+
   // Wakeup I/O pins handlers
   WAKEUP_IRQHandler,     // PIO0_0  Wakeup
   WAKEUP_IRQHandler,     // PIO0_1  Wakeup
@@ -142,7 +145,7 @@ const void *vectors[] SECTION(".irq_vectors") =
   WAKEUP_IRQHandler,     // PIO0_10 Wakeup
   WAKEUP_IRQHandler,     // PIO0_11 Wakeup
   WAKEUP_IRQHandler,     // PIO1_0  Wakeup
-  
+
   // Specific peripheral irq handlers
   CAN_IRQHandler,        // CAN
   SSP1_IRQHandler,       // SSP1
@@ -172,4 +175,3 @@ const void *vectors[] SECTION(".irq_vectors") =
  *  [3] http://www.arm.com/files/pdf/Cortex-M3_programming_for_ARM7_developers.pdf
  *  [4] http://fun-tech.se/stm32/OlimexBlinky/mini.php
  *****************************************************************************/
-
