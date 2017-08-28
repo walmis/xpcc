@@ -49,6 +49,7 @@ SECTIONS
 		KEEP(*(.irq_vectors .irq_vectors.*))
 		KEEP(*(.fwversion))
 
+    @CRP@
 		/*. = 0x000002FC;
                 KEEP(*(.crp))
 		*/
