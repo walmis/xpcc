@@ -53,20 +53,20 @@ class GpioInterrupt {
 public:
 	// call from interrupt context, returns true if interrupt source
 	// contains all provided predicates
-	static ALWAYS_INLINE
-	bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEdge edge) {
-		if(irqn >= FLEX_INT0_IRQn && irqn <= FLEX_INT7_IRQn) {
-			uint8_t num = (port == 1) ? 24 + pin : pin;
-
-			if(LPC_SYSCON->PINTSEL[irqn] == num) {
-
-				LPC_GPIO_PIN_INT->IST |= 1<<irqn;
-				return true;
-			}
-		}
-
-		return false;
-	}
+	// static ALWAYS_INLINE
+	// bool checkInterrupt(int irqn, uint8_t port, uint8_t pin, IntEdge edge) {
+	// 	if(irqn >= FLEX_INT0_IRQn && irqn <= FLEX_INT7_IRQn) {
+	// 		uint8_t num = (port == 1) ? 24 + pin : pin;
+	//
+	// 		if(LPC_SYSCON->PINTSEL[irqn] == num) {
+	//
+	// 			LPC_GPIO_PIN_INT->IST |= 1<<irqn;
+	// 			return true;
+	// 		}
+	// 	}
+	//
+	// 	return false;
+	// }
 
 	static ALWAYS_INLINE
 	void enableInterrupt(uint32_t port, uint32_t pin, IntEdge edge = IntEdge::RISING_EDGE) {
