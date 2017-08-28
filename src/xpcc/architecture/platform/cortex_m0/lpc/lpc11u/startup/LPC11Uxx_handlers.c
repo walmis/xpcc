@@ -28,11 +28,11 @@
  *
  */
 
-// The GCC compiler defines the current architecture derived from the -mcpu argument. 
+// The GCC compiler defines the current architecture derived from the -mcpu argument.
 // When target cpu is the cortex-m0, it automatically defines __ARM_ARCH_6M__
-// Some versions define __ARM_ARCH_6SM__ instead 
-#if !defined(__ARM_ARCH_6M__) && !defined(__ARM_ARCH_6SM__) 
-  #error "The target ARM cpu must be Cortex-M0 compatible (-mcpu=cortex-m0)" 
+// Some versions define __ARM_ARCH_6SM__ instead
+#if !defined(__ARM_ARCH_6M__) && !defined(__ARM_ARCH_6SM__)
+  #error "The target ARM cpu must be Cortex-M0 compatible (-mcpu=cortex-m0)"
 #endif
 
 // Declare a weak alias macro as described in the GCC manual[1][2]
@@ -100,17 +100,17 @@ void SysTick_Handler(void)      WEAK_ALIAS(fault_undefined);
  *****************************************************************************/
 
 // Prototype the entry values, which are handled by the linker script
-extern void __stack_end;
-extern void boot_entry(void);
+extern uint32_t __main_stack_end__;
+extern void Reset_Handler(void);
 
-// Defined irq vectors using simple c code following the description in a white 
+// Defined irq vectors using simple c code following the description in a white
 // paper from ARM[3] and code example from Simonsson Fun Technologies[4].
 // These vectors are placed at the memory location defined in the linker script
 const void *vectors[] SECTION(".irq_vectors") =
 {
   // Stack and program reset entry point
-  &__stack_end,          // The initial stack pointer
-  boot_entry,            // The reset handler
+  &__main_stack_end__,          // The initial stack pointer
+  Reset_Handler,            // The reset handler
 
   NMI_Handler, // The NMI handler
   HardFault_Handler, // The hard fault handler
@@ -169,4 +169,3 @@ const void *vectors[] SECTION(".irq_vectors") =
  *  [3] http://www.arm.com/files/pdf/Cortex-M3_programming_for_ARM7_developers.pdf
  *  [4] http://fun-tech.se/stm32/OlimexBlinky/mini.php
  *****************************************************************************/
-
