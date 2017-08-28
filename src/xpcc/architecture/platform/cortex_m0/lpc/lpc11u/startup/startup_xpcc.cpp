@@ -8,16 +8,16 @@ unsigned int *pDivRom_uidiv;
 
 extern "C" void __early_init() {
 
+    SystemInit();
+}
+
+extern "C" void __late_init() {
     unsigned int *div_ptr = (unsigned int *)((unsigned int *)*(PTR_ROM_DRIVER_TABLE))[4];
     // Get addresses of integer divide routines in ROM
     // These address are then used by the code in aeabi_romdiv_patch.s
     pDivRom_idiv = (unsigned int *)div_ptr[0];
     pDivRom_uidiv = (unsigned int *)div_ptr[1];
 
-    SystemInit();
-}
-
-extern "C" void __late_init() {
     xpcc::lpc11::SysTickTimer::enable();
 }
 
