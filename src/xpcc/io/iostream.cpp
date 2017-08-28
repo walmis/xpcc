@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -61,7 +61,7 @@ void
 xpcc::IOStream::writeInteger(uint16_t value)
 {
 	accessor::Flash<uint16_t> basePtr = xpcc::accessor::asFlash(base);
-	
+
 	bool zero = true;
 	uint8_t i = 4;
 	do {
@@ -76,7 +76,7 @@ xpcc::IOStream::writeInteger(uint16_t value)
 			this->device->write(d);
 		}
 	} while (i);
-	
+
 	this->device->write(static_cast<char>(value) + '0');
 }
 
@@ -85,7 +85,7 @@ xpcc::IOStream::writeInteger(int32_t value)
 {
 #if defined(XPCC__CPU_AVR)
 	char buffer[ArithmeticTraits<int32_t>::decimalDigits + 1]; // +1 for '\0'
-	
+
 	// Uses the optimized non standard function 'ltoa()' which is
 	// not always available.
 
@@ -106,13 +106,13 @@ xpcc::IOStream::writeInteger(uint32_t value)
 {
 #if defined(XPCC__CPU_AVR)
 	char buffer[ArithmeticTraits<uint32_t>::decimalDigits + 1]; // +1 for '\0'
-	
+
 	// Uses the optimized non standard function 'ultoa()' which is
 	// not always available.
 	this->device->write(ultoa(value, buffer, 10));
 #else
 	char buffer[ArithmeticTraits<uint32_t>::decimalDigits + 1]; // +1 for '\0'
-	
+
 	// ptr points to the end of the string, it will be filled backwards
 	char *ptr = buffer + ArithmeticTraits<uint32_t>::decimalDigits;
 
@@ -148,12 +148,12 @@ void
 xpcc::IOStream::writeInteger(uint64_t value)
 {
 	char buffer[ArithmeticTraits<uint64_t>::decimalDigits + 1]; // +1 for '\0'
-	
+
 	// ptr points to the end of the string, it will be filled backwards
 	char *ptr = buffer + ArithmeticTraits<uint64_t>::decimalDigits;
-	
+
 	*ptr = '\0';
-	
+
 	// calculate the string backwards
 	do{
 		uint64_t quot = value / 10;
@@ -224,39 +224,48 @@ xpcc::IOStream::writeBin(uint8_t value)
 
 }
 
+void
+xpcc::IOStream::writeFloat(const float& value, int precision) {
+				char str[20]; // +1 for '\0'
+#ifdef PRINTF_FLOAT
+				xpccFloat(str, value, precision);
+				this->device->write(str);
+#endif
+}
+
 // ----------------------------------------------------------------------------
 xpcc::IOStream&
 xpcc::IOStream::operator << (const void* p)
 {
 #if XPCC__SIZEOF_POINTER == 2
-	
+
 	this->device->write('0');
 	this->device->write('x');
-	
+
 	uint16_t value = reinterpret_cast<uint16_t>(p);
-	
+
 	writeHex(value >> 8);
 	writeHex(value);
-	
+
 #elif XPCC__SIZEOF_POINTER == 4
-	
+
 	this->device->write('0');
 	this->device->write('x');
-	
+
 	uint32_t value = reinterpret_cast<uint32_t>(p);
-	
+
 	writeHex(value >> 24);
 	writeHex(value >> 16);
 	writeHex(value >> 8);
 	writeHex(value);
-	
+
 #elif XPCC__SIZEOF_POINTER == 8
-	
+
 	this->device->write('0');
 	this->device->write('x');
-	
+
 	uint64_t value = reinterpret_cast<uint64_t>(p);
-	
+
 	writeHex(value >> 56);
 	writeHex(value >> 48);
 	writeHex(value >> 40);
@@ -265,7 +274,7 @@ xpcc::IOStream::operator << (const void* p)
 	writeHex(value >> 16);
 	writeHex(value >> 8);
 	writeHex(value);
-	
+
 #endif
 	return *this;
 }
