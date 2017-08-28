@@ -135,12 +135,17 @@ _isatty(int /*file*/)
 extern uint8_t __heap_base__;
 extern uint8_t __heap_end__;
 
+#define MEM_ALIGN_SIZE      sizeof(void*)
+#define MEM_ALIGN_MASK      (MEM_ALIGN_SIZE - 1)
+#define MEM_ALIGN_PREV(p)   ((size_t)(p) & ~MEM_ALIGN_MASK)
+#define MEM_ALIGN_NEXT(p)   MEM_ALIGN_PREV((size_t)(p) + MEM_ALIGN_MASK)
+
 extern "C"
 void *
 _sbrk_r(struct _reent *,  ptrdiff_t size)
 {
 	static uint8_t *heap_ptr = &__heap_base__;
-
+	size = MEM_ALIGN_NEXT(size);
 	if((heap_ptr + size) < &__heap_end__) {
 		void *base  = heap_ptr;
 		heap_ptr += size;
@@ -329,8 +334,8 @@ void* calloc(size_t nmemb, size_t size) {
    if(!nmemb) return 0;
    void* ptr = malloc(nmemb*size);
    if(!ptr) return 0;
-   
+
    memset(ptr, 0, nmemb*size);
-   
+
    return ptr;
 }
