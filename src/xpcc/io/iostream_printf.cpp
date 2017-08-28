@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -39,7 +39,7 @@ xpcc::IOStream::printf(const char *fmt, ...)
 {
 	va_list ap;
 	va_start(ap, fmt);
-	
+
 	vprintf(fmt, ap);
 
 	va_end(ap);
@@ -50,7 +50,7 @@ xpcc::IOStream&
 xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 
 	unsigned char c;
-	
+
 	// for all chars in format (fmt)
 	while ((c = *fmt++) != 0)
 	{
@@ -58,14 +58,14 @@ xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 		bool isLong = 0;
 		bool isLongLong = 0;
 		int8_t precision = -1;
-		
+
 		if (c != '%')
 		{
 			this->device->write(c);
 			continue;
 		}
 		c = *fmt++;
-		
+
 		size_t width = 0;
 		char fill = ' ';
 		if (c == '0')
@@ -96,7 +96,7 @@ xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 			}
 			c = *fmt++;
 		}
-		
+
 		uint_fast8_t base = 10;
 		bool floating = false;
 
@@ -111,7 +111,7 @@ xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 			default:
 				this->device->write(c);
 				continue;
-				
+
 			case 's':
 				ptr = (char *) va_arg(ap, char *);
 				while ((c = *ptr++))
@@ -131,24 +131,24 @@ xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 			case 'u':
 				base = 10;
 				break;
-				
+
 			case 'x':
 				base = 16;
 				break;
-				
+
 			case 'b':
 				base = 2;
 				break;
 		}
-		
-		
+
+
 		// Number output
 		if(!floating) {
 			unsigned long unsignedValue;
-			
+
 			{
 				long signedValue = 0;
-				
+
 				if (isLongLong) {
 					signedValue = va_arg(ap, long long);
 				}
@@ -172,47 +172,47 @@ xpcc::IOStream::vprintf(const char *fmt, va_list ap) {
 				}
 				unsignedValue = (unsigned long) signedValue;
 			}
-			
+
 			{
 				char scratch[26];
-				
+
 				ptr = scratch + sizeof(scratch);
 				*--ptr = 0;
 				do
 				{
 					char ch = (unsignedValue % base) + '0';
-					
+
 					if (ch > '9') {
 						ch += 'A' - '9' - 1;
 					}
-					
+
 					*--ptr = ch;
 					unsignedValue /= base;
-					
+
 					if (width) {
 						--width;
 					}
 				} while (unsignedValue);
-				
+
 				// insert padding chars
 				while (width--) {
 					*--ptr = fill;
 				}
-				
+
 				// output result
 				while ((c = *ptr++)) {
 					this->device->write(c);
 				}
 			}
 		} else { //floating point
-			if(xpccFloat) {
+#ifdef PRINTF_FLOAT
 				float value = va_arg(ap, double);
 
 				this->writeFloat(value, precision);
 			}
+#endif
 		}
 	}
-	
+
 	return *this;
 }
-

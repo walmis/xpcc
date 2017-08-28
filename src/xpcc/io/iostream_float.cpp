@@ -5,7 +5,7 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright
  *       notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -79,6 +79,7 @@ inline uint8_t itoa(int num, char* str) {
 }
 
 void xpccFloat(char* str, float value, int precision) {
+#ifdef PRINTF_FLOAT
 	float v;
 	char *ptr = &str[0];
 
@@ -152,7 +153,7 @@ void xpccFloat(char* str, float value, int precision) {
 	}
 
 	*ptr++ = '\0';	// End of string
-
+#endif
 }
 
 // ----------------------------------------------------------------------------
