@@ -52,8 +52,10 @@ public:
 
 
 	static void feed() {
+		__disable_irq();
 		  LPC_WWDT->FEED = 0xAA;		/* Feeding sequence */
 		  LPC_WWDT->FEED = 0x55;
+		__enable_irq();
 	}
 
 
