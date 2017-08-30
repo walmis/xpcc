@@ -9,19 +9,21 @@
 #define SRC_XPCC_PROCESSING_RTOSABSTRACTION_CHIBIRTOS_R_MUTEX_HPP_
 
 /* Recursive mutex */
+#include <stdint.h>
+namespace xpcc {
+	class RMutex {
+	public:
+		RMutex();
+		~RMutex();
 
-class RMutex {
-public:
-	RMutex();
-	~RMutex();
+		void lock();
+		bool lock(uint32_t timeout);
+		bool try_lock();
 
-	void lock();
-	void unlock();
-	bool try_lock();
-
-private:
-	void* data;
-};
-
+		void unlock();
+	private:
+		void* data;
+	};
+}
 
 #endif /* SRC_XPCC_PROCESSING_RTOSABSTRACTION_CHIBIRTOS_R_MUTEX_HPP_ */
