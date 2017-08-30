@@ -13,6 +13,7 @@ void Timer32B0::attachInterrupt(xpcc::function<void()> fn) {
 
 extern "C"
 void TIMER32_0_IRQHandler() {
+	IRQWrapper w;
 	irqHandler();
 }
 }
