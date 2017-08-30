@@ -16,6 +16,7 @@
 #if XPCC_RTOS_CHIBI
 
 #include "RTOSAbstraction/ChibiRTOS/semaphore.hpp"
+#include "RTOSAbstraction/ChibiRTOS/r_mutex.hpp"
 #include "RTOSAbstraction/ChibiRTOS/event.hpp"
 #include "RTOSAbstraction/ChibiRTOS/interrupt_wrapper.hpp"
 namespace xpcc {
