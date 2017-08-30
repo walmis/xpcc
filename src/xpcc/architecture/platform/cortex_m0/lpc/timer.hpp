@@ -197,6 +197,23 @@ public:
 
 		}
 
+		static uint32_t
+		ALWAYS_INLINE
+		getMatchValue(uint32_t matchChannel)
+		{
+			switch(matchChannel)
+			{
+			case 0:
+				return TIMER->MR0;
+			case 1:
+				return TIMER->MR1;
+		    case 2:
+		    	return TIMER->MR2;
+		    case 3:
+		    	return TIMER->MR3;
+			}
+		}
+
 		/*********************************************************************//**
 		 * @brief 		Configuration for Match register
 		 * @param[in]	timer Pointer to timer device
@@ -216,12 +233,14 @@ public:
 		 *					MatchValue: Set the value to be compared with TC value
 		 * @return 		None
 		 **********************************************************************/
+
+
 		static void
 		ALWAYS_INLINE
 		configureMatch(uint32_t matchChannel,
 								uint32_t matchValue,
 								ExtMatchOpt extMatch = ExtMatchOpt::EXTMATCH_NOTHING,
-								bool resetOnMatch = true,
+								bool resetOnMatch = false,
 								bool stopOnMatch = false,
 								bool intOnMatch = false)
 		{
@@ -259,6 +278,36 @@ public:
 
 			TIMER->EMR &= ~TIM_EM_MASK(matchChannel);
 			TIMER->EMR |= TIM_EM_SET(matchChannel, (int)extMatch);
+		}
+
+		static void
+		ALWAYS_INLINE
+		setInterruptOnMatch(uint8_t matchChannel, bool enable) {
+			if(enable) {
+				TIMER->MCR &= ~TIM_INT_ON_MATCH(matchChannel);
+			} else {
+				TIMER->MCR |= TIM_INT_ON_MATCH(matchChannel);
+			}
+		}
+
+		static void
+		ALWAYS_INLINE
+		setStopOnMatch(uint8_t matchChannel, bool enable) {
+			if(enable) {
+				TIMER->MCR &= ~TIM_STOP_ON_MATCH(matchChannel);
+			} else {
+				TIMER->MCR |= TIM_STOP_ON_MATCH(matchChannel);
+			}
+		}
+
+		static void
+		ALWAYS_INLINE
+		setResetOnMatch(uint8_t matchChannel, bool enable) {
+			if(enable) {
+				TIMER->MCR &= ~TIM_RESET_ON_MATCH(matchChannel);
+			} else {
+				TIMER->MCR |= TIM_RESET_ON_MATCH(matchChannel);
+			}
 		}
 
 		static void
