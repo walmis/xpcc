@@ -21,7 +21,9 @@
 #include <xpcc/driver/connectivity/usb/USBDevice/USBDevice/USBHAL.h>
 #include <xpcc/architecture.hpp>
 
+#ifndef __packed
 #define __packed __attribute__((packed))
+#endif
 
 namespace xpcc {
 //USBHAL * USBHAL::instance;
@@ -41,10 +43,15 @@ namespace xpcc {
 
 // USB RAM
 
-uint8_t __attribute((section(".usb_ram"))) _usb_ram[0x800];
+//uint8_t __attribute((section(".usb_ram"))) _usb_ram[0x800];
+extern "C" uint8_t __usbram_start;
+extern "C" uint8_t __usbram_end;
 
-#define USB_RAM_START ((uint32_t)&_usb_ram)
-#define USB_RAM_SIZE  (sizeof(_usb_ram))
+uint8_t* _usb_ram = &__usbram_start;
+
+
+#define USB_RAM_START ((uint32_t)&__usbram_start)
+#define USB_RAM_SIZE  ((uint32_t)&__usbram_end-(uint32_t)&__usbram_start)
 
 // SYSAHBCLKCTRL
 #define CLK_USB     (1UL<<14)
@@ -91,19 +98,19 @@ static volatile int epComplete = 0;
 struct EP_COMMAND_STATUS{
     uint32_t out[2];
     uint32_t in[2];
-} __packed;
+} /*__packed*/;
 
 struct CONTROL_TRANSFER{
     uint8_t out[MAX_PACKET_SIZE_EP0];
     uint8_t in[MAX_PACKET_SIZE_EP0];
     uint8_t setup[SETUP_PACKET_SIZE];
-} __packed;
+} /*__packed*/;
 
 struct EP_STATE {
     uint32_t    maxPacket;
     uint32_t    buffer[2];
     uint32_t    options;
-} __packed;
+} /*__packed*/;
 
 static volatile EP_STATE endpointState[NUMBER_OF_PHYSICAL_ENDPOINTS];
 
@@ -611,6 +618,7 @@ ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
 
 extern "C"
 void USB_IRQHandler() {
+	IRQWrapper w;
 	if(instance) {
 		instance->_usbisr();
 	}

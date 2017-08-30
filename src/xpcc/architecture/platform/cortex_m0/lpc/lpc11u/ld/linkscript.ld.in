@@ -33,9 +33,14 @@ PROVIDE(__heap_end__  = ORIGIN(RAM) + LENGTH(RAM) - PROCESS_STACK_SIZE - MAIN_ST
 
 PROVIDE(__process_stack_base__  = ORIGIN(RAM) + LENGTH(RAM) - PROCESS_STACK_SIZE - MAIN_STACK_SIZE);
 PROVIDE(__process_stack_end__  = ORIGIN(RAM) + LENGTH(RAM) - MAIN_STACK_SIZE);
+PROVIDE(__main_thread_stack_base__ = __process_stack_base__);
+PROVIDE(__main_thread_stack_end__ = __process_stack_end__);
 
 PROVIDE(__main_stack_base__  = ORIGIN(RAM) + LENGTH(RAM) - MAIN_STACK_SIZE);
 PROVIDE(__main_stack_end__  = ORIGIN(RAM) + LENGTH(RAM));
+
+PROVIDE (__usbram_start =  ORIGIN(USBRAM));
+PROVIDE (__usbram_end =  ORIGIN(USBRAM) + LENGTH(USBRAM));
 
 SECTIONS
 {
@@ -163,7 +168,7 @@ SECTIONS
 
 	.usb_ram (NOLOAD) :
 	{
-
+        
 	} >USBRAM
 
 	.fastcode :
