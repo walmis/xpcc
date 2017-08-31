@@ -31,7 +31,7 @@ public:
 	USBSerialHandler(uint8_t bulkIn = CDC_EPBULK_IN,
 			uint8_t bulkOut = CDC_EPBULK_OUT, uint8_t intIn = CDC_EPINT_IN) :
 			bulkIn(bulkIn), bulkOut(bulkOut), intIn(
-					intIn), latency_timer(), tx_buffer(256), rx_buffer(128){
+					intIn), latency_timer(){
 
 		inEp_request = true;
 		data_waiting = false;
@@ -102,8 +102,8 @@ private:
 
 	xpcc::Timeout<> latency_timer;
 
-	IOBuffer tx_buffer;
-	IOBuffer rx_buffer;
+	StaticIOBuffer<256> tx_buffer;
+	StaticIOBuffer<128> rx_buffer;
 };
 
 }

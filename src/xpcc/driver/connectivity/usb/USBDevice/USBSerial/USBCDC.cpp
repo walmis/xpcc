@@ -29,37 +29,149 @@ using namespace xpcc;
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
-USBCDC::USBCDC(uint16_t vendor_id, uint16_t product_id, uint16_t product_release):
-		USBDevice(vendor_id, product_id, product_release) {
-
-}
-
 
 //bool USBCDC::isAttached() {
 //	return terminal_connected;
 //}
 
+//CDC_EPBULK_IN
 
 
-uint8_t * USBCDC::deviceDesc() {
-    static const uint8_t deviceDescriptor[] = {
-        18,                   // bLength
-        1,                    // bDescriptorType
-        0x10, 0x01,           // bcdUSB
-        2,                    // bDeviceClass
-        0,                    // bDeviceSubClass
-        0,                    // bDeviceProtocol
-        MAX_PACKET_SIZE_EP0,  // bMaxPacketSize0
-        LSB(VENDOR_ID), MSB(VENDOR_ID),  // idVendor
-        LSB(PRODUCT_ID), MSB(PRODUCT_ID),// idProduct
-        0x00, 0x01,           // bcdDevice
-        1,                    // iManufacturer
-        2,                    // iProduct
-        3,                    // iSerialNumber
-        1                     // bNumConfigurations
-    };
+uint8_t * USBDevice::stringIinterfaceDesc() {
+    USB_STRING(stringIinterfaceDescriptor, "CDC");
+    return (uint8_t*)&stringIinterfaceDescriptor;
+}
+
+#define USB_DEVICE_DESC(name, vendor_id, product_id) \
+
+
+uint8_t * USBDevice::deviceDesc() {
+	static const uint8_t deviceDescriptor[] = {
+	    18,                   // bLength
+	    1,                    // bDescriptorType
+	    0x10, 0x01,           // bcdUSB
+	    2,                    // bDeviceClass
+	    0,                    // bDeviceSubClass
+	    0,                    // bDeviceProtocol
+	    MAX_PACKET_SIZE_EP0,  // bMaxPacketSize0
+	    LSB(USB_VENDOR_ID), MSB(USB_VENDOR_ID),  // idVendor
+	    LSB(USB_PRODUCT_ID), MSB(USB_PRODUCT_ID),// idProduct
+	    0x00, 0x01,           // bcdDevice
+	    1,                    // iManufacturer
+	    2,                    // iProduct
+	    3,                    // iSerialNumber
+	    1                     // bNumConfigurations
+	};
     return (uint8_t*)deviceDescriptor;
 }
 
+ uint8_t * USBDevice::stringIproductDesc() {
+	USB_STRING(stringIproductDescriptor, "CDC Device");
+    return (uint8_t*)&stringIproductDescriptor;
+}
 
+#define CONFIG1_DESC_SIZE (9+8+9+5+5+4+5+7+9+7+7+DFU_SIZE)
+uint8_t * USBDevice::configurationDesc() {
+	 static const uint8_t configDescriptor[] = {
+	        // configuration descriptor
+	        9,                      // bLength
+	        2,                      // bDescriptorType
+	        LSB(CONFIG1_DESC_SIZE), // wTotalLength
+	        MSB(CONFIG1_DESC_SIZE),
+	        3,                      // bNumInterfaces
+	        1,                      // bConfigurationValue
+	        0,                      // iConfiguration
+	        0x80,                   // bmAttributes
+	        50,                     // bMaxPower
 
+	        // IAD to associate the two CDC interfaces
+	        0x08,                   // bLength
+	        0x0b,                   // bDescriptorType
+	        0x00,                   // bFirstInterface
+	        0x02,                   // bInterfaceCount
+	        0x02,                   // bFunctionClass
+	        0x02,                   // bFunctionSubClass
+	        0,                      // bFunctionProtocol
+	        0,                      // iFunction
+
+	        // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+	        9,                      // bLength
+	        4,                      // bDescriptorType
+	        0,                      // bInterfaceNumber
+	        0,                      // bAlternateSetting
+	        1,                      // bNumEndpoints
+	        0x02,                   // bInterfaceClass
+	        0x02,                   // bInterfaceSubClass
+	        0x01,                   // bInterfaceProtocol
+	        0,                      // iInterface
+
+	        // CDC Header Functional Descriptor, CDC Spec 5.2.3.1, Table 26
+	        5,                      // bFunctionLength
+	        0x24,                   // bDescriptorType
+	        0x00,                   // bDescriptorSubtype
+	        0x10, 0x01,             // bcdCDC
+
+	        // Call Management Functional Descriptor, CDC Spec 5.2.3.2, Table 27
+	        5,                      // bFunctionLength
+	        0x24,                   // bDescriptorType
+	        0x01,                   // bDescriptorSubtype
+	        0x03,                   // bmCapabilities
+	        1,                      // bDataInterface
+
+	        // Abstract Control Management Functional Descriptor, CDC Spec 5.2.3.3, Table 28
+	        4,                      // bFunctionLength
+	        0x24,                   // bDescriptorType
+	        0x02,                   // bDescriptorSubtype
+	        0x06,                   // bmCapabilities
+
+	        // Union Functional Descriptor, CDC Spec 5.2.3.8, Table 33
+	        5,                      // bFunctionLength
+	        0x24,                   // bDescriptorType
+	        0x06,                   // bDescriptorSubtype
+	        0,                      // bMasterInterface
+	        1,                      // bSlaveInterface0
+
+	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	        ENDPOINT_DESCRIPTOR_LENGTH,     // bLength
+	        ENDPOINT_DESCRIPTOR,            // bDescriptorType
+	        PHY_TO_DESC(CDC_EPINT_IN),          // bEndpointAddress
+	        E_INTERRUPT,                    // bmAttributes (0x03=intr)
+	        LSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (LSB)
+	        MSB(MAX_PACKET_SIZE_EPINT),     // wMaxPacketSize (MSB)
+	        16,                             // bInterval
+
+	        // interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+	        9,                          // bLength
+	        4,                          // bDescriptorType
+	        1,                          // bInterfaceNumber
+	        0,                          // bAlternateSetting
+	        2,                          // bNumEndpoints
+	        0x0A,                       // bInterfaceClass
+	        0x00,                       // bInterfaceSubClass
+	        0x00,                       // bInterfaceProtocol
+	        0,                          // iInterface
+
+	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	        ENDPOINT_DESCRIPTOR_LENGTH, // bLength
+	        ENDPOINT_DESCRIPTOR,        // bDescriptorType
+	        PHY_TO_DESC(CDC_EPBULK_IN),     // bEndpointAddress
+	        E_BULK,                     // bmAttributes (0x02=bulk)
+	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
+	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
+	        0,                          // bInterval
+
+	        // endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	        ENDPOINT_DESCRIPTOR_LENGTH, // bLength
+	        ENDPOINT_DESCRIPTOR,        // bDescriptorType
+	        PHY_TO_DESC(CDC_EPBULK_OUT),    // bEndpointAddress
+	        E_BULK,                     // bmAttributes (0x02=bulk)
+	        LSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (LSB)
+	        MSB(MAX_PACKET_SIZE_EPBULK),// wMaxPacketSize (MSB)
+	        0,                           // bInterval
+
+	        DFU_INTF_DESC(2)
+
+	    };
+	    return (uint8_t*)configDescriptor;
+}
+#undef CONFIG1_DESC_SIZE

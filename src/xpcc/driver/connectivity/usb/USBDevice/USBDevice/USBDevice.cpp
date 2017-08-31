@@ -793,11 +793,7 @@ uint8_t * USBDevice::findDescriptor(uint8_t descriptorType)
 //}
 
 
-USBDevice::USBDevice(uint16_t vendor_id, uint16_t product_id, uint16_t product_release){
-    VENDOR_ID = vendor_id; 
-    PRODUCT_ID = product_id; 
-    PRODUCT_RELEASE = product_release;
-
+USBDevice::USBDevice(){
     /* Set initial device state */
     device.state = POWERED;
     device.configuration = 0;
@@ -905,8 +901,7 @@ bool USBDevice::readEP_NB(uint8_t endpoint, uint8_t * buffer, uint32_t * size, u
     return (result == EP_COMPLETED);
 }
 
-
-
+__attribute((weak))
 uint8_t * USBDevice::deviceDesc() {
     static const uint8_t deviceDescriptor[] = {
         DEVICE_DESCRIPTOR_LENGTH,       /* bLength */
@@ -917,12 +912,12 @@ uint8_t * USBDevice::deviceDesc() {
         0x00,                           /* bDeviceSubClass */
         0x00,                           /* bDeviceprotocol */
         MAX_PACKET_SIZE_EP0,            /* bMaxPacketSize0 */
-        LSB(VENDOR_ID),                 /* idVendor (LSB) */
-        MSB(VENDOR_ID),                 /* idVendor (MSB) */
-        LSB(PRODUCT_ID),                /* idProduct (LSB) */
-        MSB(PRODUCT_ID),                /* idProduct (MSB) */
-        LSB(PRODUCT_RELEASE),           /* bcdDevice (LSB) */
-        MSB(PRODUCT_RELEASE),           /* bcdDevice (MSB) */
+        LSB(USB_VENDOR_ID),                 /* idVendor (LSB) */
+        MSB(USB_VENDOR_ID),                 /* idVendor (MSB) */
+        LSB(USB_PRODUCT_ID),                /* idProduct (LSB) */
+        MSB(USB_PRODUCT_ID),                /* idProduct (MSB) */
+        0,           /* bcdDevice (LSB) */
+        0,           /* bcdDevice (MSB) */
         STRING_OFFSET_IMANUFACTURER,    /* iManufacturer */
         STRING_OFFSET_IPRODUCT,         /* iProduct */
         STRING_OFFSET_ISERIAL,          /* iSerialNumber */
@@ -931,6 +926,7 @@ uint8_t * USBDevice::deviceDesc() {
     return (uint8_t*)deviceDescriptor;
 }
 
+__attribute((weak))
 uint8_t * USBDevice::stringLangidDesc() {
     static const uint8_t stringLangidDescriptor[] = {
         0x04,               /*bLength*/
@@ -940,30 +936,33 @@ uint8_t * USBDevice::stringLangidDesc() {
     return (uint8_t*)stringLangidDescriptor;
 }
 
+
+__attribute((weak))
 uint8_t * USBDevice::stringImanufacturerDesc() {
-	STRDESC(USB_MANUFACTURER_STRING, stringImanufacturerDescriptor);
+	USB_STRING(stringImanufacturerDescriptor, "xpcc");
     return (uint8_t*)&stringImanufacturerDescriptor;
 }
 
+__attribute((weak))
 uint8_t * USBDevice::stringIserialDesc() {
-	STRDESC("012345678", stringIserialDescriptor);
-
+	USB_STRING(stringIserialDescriptor, "012345678");
     return (uint8_t*)&stringIserialDescriptor;
 }
 
+__attribute((weak))
 uint8_t * USBDevice::stringIConfigurationDesc() {
-	STRDESC("01", stringIconfigurationDescriptor);
-
+	USB_STRING(stringIconfigurationDescriptor, "01");
     return (uint8_t*)&stringIconfigurationDescriptor;
 }
 
+__attribute((weak))
 uint8_t * USBDevice::stringIinterfaceDesc() {
-	STRDESC("USB", stringIinterfaceDescriptor);
-
+	USB_STRING(stringIinterfaceDescriptor, "USB");
     return (uint8_t*)&stringIinterfaceDescriptor;
 }
 
+__attribute((weak))
 uint8_t * USBDevice::stringIproductDesc() {
-	STRDESC(USB_PRODUCT_STRING, stringIproductDescriptor);
-    return (uint8_t*)&stringIproductDescriptor;
+	USB_STRING(stringIproductDescriptor, "Generic Device");
+	return (uint8_t*)&stringIproductDescriptor;
 }

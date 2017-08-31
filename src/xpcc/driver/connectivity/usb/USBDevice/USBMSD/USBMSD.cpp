@@ -20,8 +20,7 @@
 #include "USBMSD.h"
 namespace xpcc {
 
-USBMSD::USBMSD(USBMSDHandler* msd, uint16_t vendor_id, uint16_t product_id,
-		uint16_t product_release): USBDevice(vendor_id, product_id, product_release) {
+USBMSD::USBMSD(USBMSDHandler* msd) {
 
 		this->addInterfaceHandler(*msd);
 };

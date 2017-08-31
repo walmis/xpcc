@@ -26,28 +26,32 @@
 
 namespace xpcc {
 
-#define STRDESC(str, name) struct { \
-			    uint8_t size = sizeof(CONCAT(u, str)) + 2 - 2;\
-			    uint8_t id = 3;\
+
+#define USB_STRING(name, str) static const struct { \
+				uint8_t size = sizeof(CONCAT(u, str)) + 2; \
+				uint8_t id = 3; \
 			    char16_t s[sizeof(CONCAT(u, str))] = CONCAT(u, str);\
-			  } static const name
+			  } name
 
-#ifndef USB_PRODUCT_STRING
-#define USB_PRODUCT_STRING		"USB Device"
-#endif
 
-#ifndef USB_MANUFACTURER_STRING
-#define USB_MANUFACTURER_STRING	"xpcc"
-#endif
+//#ifndef USB_PRODUCT_STRING
+//#define USB_PRODUCT_STRING		"USB Device"
+//#endif
+//
+//#ifndef USB_MANUFACTURER_STRING
+//#define USB_MANUFACTURER_STRING	"xpcc"
+//#endif
+//
+//#ifndef USB_SERIAL_STRING
+//#define USB_SERIAL_STRING		"012345678"
+//#endif
 
-#ifndef USB_SERIAL_STRING
-#define USB_SERIAL_STRING		"012345678"
-#endif
 
 class USBDevice: public USBHAL
 {
 public:
-    USBDevice(uint16_t vendor_id, uint16_t product_id, uint16_t product_release);
+    USBDevice();
+
     
     /*
     * Check if the device is configured
@@ -233,63 +237,63 @@ public:
     *
     * @returns pointer to the device descriptor
     */
-    virtual uint8_t * deviceDesc();
+    static uint8_t * deviceDesc();
     
     /*
     * Get configuration descriptor
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc(){return nullptr;};
+    static uint8_t * configurationDesc();
     
     /*
     * Get string lang id descriptor
     *
     * @return pointer to the string lang id descriptor
     */
-    virtual uint8_t * stringLangidDesc();
+    static uint8_t * stringLangidDesc();
     
     /*
     * Get string manufacturer descriptor
     *
     * @returns pointer to the string manufacturer descriptor
     */
-    virtual uint8_t * stringImanufacturerDesc();
+    static uint8_t * stringImanufacturerDesc();
     
     /*
     * Get string product descriptor
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    static uint8_t * stringIproductDesc();
     
     /*
     * Get string serial descriptor
     *
     * @returns pointer to the string serial descriptor
     */
-    virtual uint8_t * stringIserialDesc();
+    static uint8_t * stringIserialDesc();
     
     /*
     * Get string configuration descriptor
     *
     * @returns pointer to the string configuration descriptor
     */
-    virtual uint8_t * stringIConfigurationDesc();
+    static uint8_t * stringIConfigurationDesc();
     
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    static uint8_t * stringIinterfaceDesc();
     
     /*
     * Get the length of the report descriptor
     *
     * @returns length of the report descriptor
     */
-    virtual uint16_t reportDescLength() { return 0; };
+    static uint16_t reportDescLength() { return 0; };
     
     CONTROL_TRANSFER * getTransferPtr(void);
 
@@ -302,10 +306,6 @@ protected:
     virtual void EP0in(void);
     uint8_t * findDescriptor(uint8_t descriptorType);
     
-    uint16_t VENDOR_ID;
-    uint16_t PRODUCT_ID;
-    uint16_t PRODUCT_RELEASE;
-
 private:
     bool addRateFeedbackEndpoint(uint8_t endpoint, uint32_t maxPacket);
     bool requestGetDescriptor(void);

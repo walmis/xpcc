@@ -25,10 +25,6 @@
 #include <xpcc/io.hpp>
 #include <xpcc/architecture/driver.hpp>
 
-
-
-
-
 namespace xpcc {
 
 #include "USBCDC.h"
@@ -60,7 +56,7 @@ namespace xpcc {
 * @endcode
 */
 
-class USBSerial: public USBCDC, public xpcc::IODevice {
+class USBSerial final: public USBCDC, public xpcc::IODevice {
 public:
 
     /**
@@ -71,12 +67,8 @@ public:
     * @param product_release Your preoduct_release (default: 0x0001)
     *
     */
-	USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012,
-			uint16_t product_release = 0x0001) :
-			USBCDC(vendor_id, product_id, product_release) {
-
-		this->addInterfaceHandler(handler);
-
+	USBSerial() {
+		addInterfaceHandler(handler);
 	};
 
     size_t

@@ -90,8 +90,7 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
-	USBMSD(USBMSDHandler* msd, uint16_t vendor_id = 0x0703, uint16_t product_id = 0x0104,
-			uint16_t product_release = 0x0001);
+	USBMSD(USBMSDHandler* msd);
 
 
 protected:

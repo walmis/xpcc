@@ -80,4 +80,13 @@ constexpr uint8_t MSB(uint32_t n) { return (((n)&0xff00)>>8); }
 #define E_FEEDBACK              (0x10)
 #define E_IMPLICIT_FEEDBACK     (0x20)
 
+#ifndef USB_VENDOR_ID
+#define USB_VENDOR_ID 0xffff
+#endif
+
+#ifndef USB_PRODUCT_ID
+#define USB_PRODUCT_ID 0xaaaa
+#endif
+
+
 #endif
