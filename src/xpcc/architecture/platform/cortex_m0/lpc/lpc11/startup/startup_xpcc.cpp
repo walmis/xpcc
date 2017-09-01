@@ -6,7 +6,10 @@ extern "C" void __early_init() {
     SystemInit();
 }
 
+extern "C" void __user_late_init() __attribute__((weak));
+
 extern "C" void __late_init() {
+	if(__user_late_init()) __user_late_init();
     xpcc::lpc11::SysTickTimer::enable();
 }
 

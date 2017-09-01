@@ -88,5 +88,41 @@ constexpr uint8_t MSB(uint32_t n) { return (((n)&0xff00)>>8); }
 #define USB_PRODUCT_ID 0xaaaa
 #endif
 
+#define USB_STRING(name, str) static const struct { \
+				uint8_t size = sizeof(CONCAT(u, str)) + 2; \
+				uint8_t id = 3; \
+			    char16_t s[sizeof(CONCAT(u, str))] = CONCAT(u, str);\
+			  } name
+
+
+#define USB_INTERFACE_STRING(text) \
+		uint8_t * USBDevice::stringIinterfaceDesc() { \
+		    USB_STRING(stringIinterfaceDescriptor, text);\
+		    return (uint8_t*)&stringIinterfaceDescriptor; \
+		} \
+
+#define USB_PRODUCT_STRING(text) \
+		uint8_t * USBDevice::stringIproductDesc() { \
+		    USB_STRING(stringIproductDesc, text);\
+		    return (uint8_t*)&stringIproductDesc; \
+		} \
+
+#define USB_MANUFACTURER_STRING(text) \
+		uint8_t * USBDevice::stringImanufacturerDesc() { \
+			USB_STRING(stringImanufacturerDesc, text);\
+			return (uint8_t*)&stringImanufacturerDesc; \
+		} \
+
+#define USB_SERIAL_STRING(text) \
+		uint8_t * USBDevice::stringIserialDesc() { \
+			USB_STRING(stringIserialDesc, text);\
+			return (uint8_t*)&stringIserialDesc; \
+		} \
+
+#define USB_CONFIGURATION_STRING(text) \
+		uint8_t * USBDevice::stringIConfigurationDesc() { \
+			USB_STRING(stringIConfigurationDesc, text);\
+			return (uint8_t*)&stringIConfigurationDesc; \
+		} \
 
 #endif

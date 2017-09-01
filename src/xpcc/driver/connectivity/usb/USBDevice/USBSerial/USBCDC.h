@@ -42,18 +42,6 @@
 
 namespace xpcc {
 
-#ifndef CDC_EPBULK_OUT
-#define CDC_EPBULK_OUT EPBULK_OUT
-#endif
-
-#ifndef CDC_EPBULK_IN
-#define CDC_EPBULK_IN EPBULK_IN
-#endif
-
-#ifndef CDC_EPINT_IN
-#define CDC_EPINT_IN EPINT_IN
-#endif
-
 class USBCDC: public USBDevice {
 public:
 

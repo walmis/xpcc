@@ -97,6 +97,8 @@ add_sources(
 	./driver/connectivity/usb/USBDevice/USBSerial/USBSerialHandler.cpp
 	./driver/connectivity/usb/USBDevice/USBSerial/USBCDC.cpp
 	./driver/connectivity/usb/USBDevice/USBDevice/USBDevice.cpp
+	./driver/connectivity/usb/USBDevice/Composite/USBCDCMSD.cpp
+	./driver/connectivity/usb/USBDevice/Composite/USB2xCDCMSD.cpp
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBHID.cpp 
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBMouseKeyboard.cpp
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBKeyboard.cpp

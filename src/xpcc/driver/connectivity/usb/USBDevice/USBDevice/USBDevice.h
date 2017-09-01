@@ -27,26 +27,6 @@
 namespace xpcc {
 
 
-#define USB_STRING(name, str) static const struct { \
-				uint8_t size = sizeof(CONCAT(u, str)) + 2; \
-				uint8_t id = 3; \
-			    char16_t s[sizeof(CONCAT(u, str))] = CONCAT(u, str);\
-			  } name
-
-
-//#ifndef USB_PRODUCT_STRING
-//#define USB_PRODUCT_STRING		"USB Device"
-//#endif
-//
-//#ifndef USB_MANUFACTURER_STRING
-//#define USB_MANUFACTURER_STRING	"xpcc"
-//#endif
-//
-//#ifndef USB_SERIAL_STRING
-//#define USB_SERIAL_STRING		"012345678"
-//#endif
-
-
 class USBDevice: public USBHAL
 {
 public:

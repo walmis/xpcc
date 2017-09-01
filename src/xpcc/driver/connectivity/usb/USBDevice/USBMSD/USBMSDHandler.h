@@ -33,14 +33,18 @@ public:
 		WRITE_PROTECT =   0x08
 	};
 
-	USBMSDHandler(uint8_t bulkIn = MSD_EPBULK_IN,
-			uint8_t bulkOut = MSD_EPBULK_OUT);
-
+	USBMSDHandler();
+	USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut);
 	bool initialize();
 
 	void set_device_strings(const char* vendorId, const char* productId, const char* productRev);
 
 	void setPageSize(size_t size);
+
+	void setEndpoints(uint8_t bulkIn, uint8_t bulkOut) {
+		this->bulkIn = bulkIn;
+		this->bulkOut = bulkOut;
+	}
 
 protected:
 

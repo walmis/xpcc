@@ -138,42 +138,6 @@ protected:
     	return false;
     }
 
-    ////DEPRECATED!
-    //virtual EP handlers, this order must be preserved
-    //since they are called directly from vtable
-    virtual bool EP1_OUT_callback(){return false;};
-    virtual bool EP1_IN_callback(){return false;};
-    virtual bool EP2_OUT_callback(){return false;};
-    virtual bool EP2_IN_callback(){return false;};
-    virtual bool EP3_OUT_callback(){return false;};
-    virtual bool EP3_IN_callback(){return false;};
-    virtual bool EP4_OUT_callback(){return false;};
-    virtual bool EP4_IN_callback(){return false;};
-    
-#ifndef __ARM_LPC11UXX__
-    virtual bool EP5_OUT_callback(){return false;};
-    virtual bool EP5_IN_callback(){return false;};
-    virtual bool EP6_OUT_callback(){return false;};
-    virtual bool EP6_IN_callback(){return false;};
-    virtual bool EP7_OUT_callback(){return false;};
-    virtual bool EP7_IN_callback(){return false;};
-    virtual bool EP8_OUT_callback(){return false;};
-    virtual bool EP8_IN_callback(){return false;};
-    virtual bool EP9_OUT_callback(){return false;};
-    virtual bool EP9_IN_callback(){return false;};
-    virtual bool EP10_OUT_callback(){return false;};
-    virtual bool EP10_IN_callback(){return false;};
-    virtual bool EP11_OUT_callback(){return false;};
-    virtual bool EP11_IN_callback(){return false;};
-    virtual bool EP12_OUT_callback(){return false;};
-    virtual bool EP12_IN_callback(){return false;};
-    virtual bool EP13_OUT_callback(){return false;};
-    virtual bool EP13_IN_callback(){return false;};
-    virtual bool EP14_OUT_callback(){return false;};
-    virtual bool EP14_IN_callback(){return false;};
-    virtual bool EP15_OUT_callback(){return false;};
-    virtual bool EP15_IN_callback(){return false;};
-#endif
 };
 
 }

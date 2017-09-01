@@ -601,21 +601,6 @@ static void disableEndpoints(void) {
     epRamPtr = usbRamPtr;
 }
 
-template <typename F, class T>
-ALWAYS_INLINE F getVirtual(T* instance, F offset, int index) {
-	int* cVtablePtr = (int*)((int*)instance)[0];
-	union see_bits {
-		F p;
-		int i;
-	};
-	see_bits a;
-	a.p = offset;
-	uint32_t *t = (uint32_t*)((uint8_t*)cVtablePtr + a.i) + index;
-	F func;
-	*reinterpret_cast<void**>(&func) = (void*)*t;
-	return func;
-}
-
 extern "C"
 void USB_IRQHandler() {
 	IRQWrapper w;
@@ -709,12 +694,6 @@ void USBHAL::_usbisr(void) {
             epComplete |= EP(num);
             if(EP_handler(num)) {
             	 epComplete &= ~EP(num);
-            } else {
-				typedef bool (USBHAL::*fptr)(void);
-				fptr handler = getVirtual<fptr, USBHAL>(this, &USBHAL::EP1_OUT_callback, num-2);
-				if((this->*handler)()) {
-					 epComplete &= ~EP(num);
-				}
             }
         }
     }

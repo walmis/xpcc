@@ -163,11 +163,16 @@ enum Status {
     CSW_ERROR,
 };
 
-USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) :
-		bulkIn(bulkIn), bulkOut(bulkOut) {
+USBMSDHandler::USBMSDHandler(uint8_t bulkIn, uint8_t bulkOut) : USBMSDHandler() {
+	this->bulkIn = bulkIn;
+	this->bulkOut = bulkOut;
+}
+
+USBMSDHandler::USBMSDHandler() {
 
 	stage = READ_CBW;
 	page = 0;
+	length = 0;
 
 	setPageSize(512);
 }

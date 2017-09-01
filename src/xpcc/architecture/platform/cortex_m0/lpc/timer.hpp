@@ -572,12 +572,12 @@ public:
 private:
 		static uint32_t TIM_ConverUSecToVal (uint32_t usec)
 		{
-			uint64_t clkdlycnt;
+			uint32_t clkdlycnt;
 
 			// Get Pclock of timer
 			clkdlycnt = SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV;
 
-			clkdlycnt = (clkdlycnt * usec) / 1000000;
+			clkdlycnt = (clkdlycnt / 1000000) * usec;
 			return (uint32_t) clkdlycnt;
 		}
 
