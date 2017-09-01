@@ -22,6 +22,7 @@ USB2xCDCMSD::USB2xCDCMSD(USBMSDHandler* msd_handler) :
 	this->addInterfaceHandler(msd);
 }
 
+__attribute__((weak))
 uint8_t * USBDevice::deviceDesc() {
 	static const uint8_t deviceDescriptor[] = {
 	DEVICE_DESCRIPTOR_LENGTH, /* bLength */
@@ -46,6 +47,7 @@ uint8_t * USBDevice::deviceDesc() {
 	return (uint8_t*) deviceDescriptor;
 }
 
+__attribute__((weak))
 uint8_t * USBDevice::configurationDesc() {
 	static const uint8_t configDescriptor[] = { 9,                   // bLength;
 			2,                      // bDescriptorType;

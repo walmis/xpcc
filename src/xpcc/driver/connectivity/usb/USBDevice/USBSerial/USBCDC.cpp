@@ -29,9 +29,15 @@ using namespace xpcc;
 
 #define MAX_CDC_REPORT_SIZE MAX_PACKET_SIZE_EPBULK
 
+__attribute__((weak))
 USB_INTERFACE_STRING("CDC");
+
+__attribute__((weak))
 USB_PRODUCT_STRING("CDC Device");
 
+USBCDC::USBCDC() {}
+
+__attribute__((weak))
 uint8_t * USBDevice::deviceDesc() {
 	static const uint8_t deviceDescriptor[] = {
 	    18,                   // bLength
@@ -53,6 +59,7 @@ uint8_t * USBDevice::deviceDesc() {
 }
 
 #define CONFIG1_DESC_SIZE (9+8+9+5+5+4+5+7+9+7+7+DFU_SIZE)
+__attribute__((weak))
 uint8_t * USBDevice::configurationDesc() {
 	 static const uint8_t configDescriptor[] = {
 	        // configuration descriptor

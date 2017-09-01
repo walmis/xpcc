@@ -8,8 +8,14 @@
 #include "USBCDCMSD.hpp"
 
 namespace xpcc {
+
+__attribute__((weak))
 USB_PRODUCT_STRING("USB CDC MSD");
+
+__attribute__((weak))
 USB_MANUFACTURER_STRING("xpcc");
+
+__attribute__((weak))
 USB_SERIAL_STRING("012345678");
 
 USBCDCMSD::USBCDCMSD(USBMSDHandler* msd) :
@@ -21,6 +27,7 @@ USBCDCMSD::USBCDCMSD(USBMSDHandler* msd) :
 	this->addInterfaceHandler(this->msd);
 }
 
+__attribute__((weak))
 uint8_t * USBDevice::deviceDesc() {
 	static const uint8_t deviceDescriptor[] = {
 	DEVICE_DESCRIPTOR_LENGTH, /* bLength */
@@ -45,6 +52,7 @@ uint8_t * USBDevice::deviceDesc() {
 	return (uint8_t*) deviceDescriptor;
 }
 
+__attribute__((weak))
 uint8_t * USBDevice::configurationDesc() {
 	static const uint8_t configDescriptor[] = { 9,                   // bLength;
 			2,                      // bDescriptorType;

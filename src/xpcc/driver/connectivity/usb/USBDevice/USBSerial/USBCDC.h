@@ -52,7 +52,7 @@ public:
     * @param product_id Your product_id
     * @param product_release Your preoduct_release
     */
-    USBCDC(){}
+    USBCDC();
 
 
 

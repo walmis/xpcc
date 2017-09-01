@@ -190,6 +190,15 @@ else()
 
 endif()
 
+IF(${USB_VENDOR_ID})
+add_definitions(-DUSB_VENDOR_ID=${USB_VENDOR_ID})
+message(STATUS "USB Vendor ID: ${USB_VENDOR_ID}")
+endif()
+IF(${USB_PRODUCT_ID})
+add_definitions(-DUSB_PRODUCT_ID=${USB_PRODUCT_ID})
+message(STATUS "USB Product ID: ${USB_PRODUCT_ID}")
+endif()
+
 SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} CACHE INTERNAL "")
 SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} CACHE INTERNAL "")
 SET(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} CACHE INTERNAL "")
@@ -201,17 +210,7 @@ SET(XPCC_COMPILER_ARG1 "-mcpu=${CMAKE_SYSTEM_PROCESSOR} -mthumb" CACHE INTERNAL 
 #SET(CMAKE_CXX_COMPILER_ARG1 -mcpu=${CMAKE_SYSTEM_PROCESSOR})
 
 if (${CHIBI_RTOS})
-#
-#     include_directories(
-#         ext/chibiRTOS/include/
-#     )
-#     add_subdirectory(
-#         ext/chibiRTOS/
-#     )
      add_definitions(-DXPCC_RTOS_CHIBI)
-#
-#     add_sources(${CMAKE_CURRENT_SOURCE_DIR}/ext/fatfs/option/syscall_chibi.c)
-#
 endif()
 
 project(xpcc_lib CXX C ASM)

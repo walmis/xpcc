@@ -21,7 +21,9 @@
 #include "../DFU.hpp"
 namespace xpcc {
 
+__attribute__((weak))
 USB_PRODUCT_STRING("XPCC Mass Storage");
+__attribute__((weak))
 USB_INTERFACE_STRING("MSD");
 
 USBMSD::USBMSD(USBMSDHandler* msd) {
@@ -29,6 +31,7 @@ USBMSD::USBMSD(USBMSDHandler* msd) {
 		msd->setEndpoints(MSD_EPBULK_IN, MSD_EPBULK_OUT);
 };
 
+__attribute__((weak))
 uint8_t * USBDevice::configurationDesc() {
     static const uint8_t configDescriptor[] = {
 
