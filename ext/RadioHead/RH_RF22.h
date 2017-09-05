@@ -1268,6 +1268,7 @@ protected:
     uint32_t            _lastPreambleTime;
 
     volatile bool 		_chipReady;
+    volatile bool		_initBusy;
 
     uint8_t _lbd_en;
 };

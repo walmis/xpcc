@@ -5,7 +5,7 @@
  *      Author: walmis
  */
 #include "USB2xCDCMSD.hpp"
-
+#ifdef CDC2MSD_MSD_EPBULK_OUT
 namespace xpcc {
 
 USB_INTERFACE_STRING("Dual CDC + MSD");
@@ -272,3 +272,4 @@ uint8_t * USBDevice::configurationDesc() {
 }
 
 }
+#endif

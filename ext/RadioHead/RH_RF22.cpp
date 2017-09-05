@@ -106,6 +106,7 @@ bool RH_RF22::HWinit()
 }
 
 bool RH_RF22::init() {
+	_initBusy = true;
 	for(int i = 0; i < 100; i++) {
 		// Get the device type and check it
 		// This also tests whether we are really connected to a device
@@ -174,7 +175,7 @@ bool RH_RF22::init() {
     setGpioReversed(false);
     // Lowish power
     setTxPower(RH_RF22_TXPOW_8DBM);
-
+    _initBusy = false;
     return true;
 }
 
@@ -246,7 +247,9 @@ void RH_RF22::handleInterrupt()
     }
 
     if (_lastInterruptFlags[1] & RH_RF22_IPOR) {
-    	handleReset();
+    	if(!_initBusy) {
+    		handleReset();
+    	}
     }
     if (_lastInterruptFlags[0] & RH_RF22_IPKSENT)
     {
