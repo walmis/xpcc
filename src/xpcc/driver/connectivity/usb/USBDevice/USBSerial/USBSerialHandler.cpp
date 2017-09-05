@@ -60,6 +60,7 @@ void USBSerialHandler::putch(char c) {
 					isActive = false;
 					return;
 				}
+				xpcc::yield();
 			}
 		}
 	}
