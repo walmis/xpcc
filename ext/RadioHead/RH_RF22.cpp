@@ -401,31 +401,6 @@ void RH_RF22::setWutPeriod(uint16_t wtm, uint8_t wtr, uint8_t wtd)
 // so YMMV
 bool RH_RF22::setFrequency(uint32_t centre, uint32_t afcPullInRange)
 {
-//    uint8_t fbsel = RH_RF22_SBSEL;
-//    uint8_t afclimiter;
-//    if (centre < 240.0f || centre > 960.0f) // 930.0 for early silicon
-//	return false;
-//    if (centre >= 480.0f)
-//    {
-//	if (afcPullInRange < 0.0f || afcPullInRange > 0.318750f)
-//	    return false;
-//	centre /= 2;
-//	fbsel |= RH_RF22_HBSEL;
-//	afclimiter = afcPullInRange * 1000000.0f / 1250.0f;
-//    }
-//    else
-//    {
-//	if (afcPullInRange < 0.0f || afcPullInRange > 0.159375f)
-//	    return false;
-//	afclimiter = afcPullInRange * 1000000.0f / 625.0f;
-//    }
-//    centre /= 10.0f;
-//    float integerPart = floorf(centre);
-//    float fractionalPart = centre - integerPart;
-//
-//    uint8_t fb = (uint8_t)integerPart - 24; // Range 0 to 23
-//    fbsel |= fb;
-//    uint16_t fc = fractionalPart * 64000;
 
 	uint8_t fbsel = RH_RF22_SBSEL;
 	uint8_t afclimiter;
@@ -458,7 +433,11 @@ bool RH_RF22::setFrequency(uint32_t centre, uint32_t afcPullInRange)
     spiWrite(RH_RF22_REG_75_FREQUENCY_BAND_SELECT, fbsel);
     spiWrite(RH_RF22_REG_76_NOMINAL_CARRIER_FREQUENCY1, fc >> 8);
     spiWrite(RH_RF22_REG_77_NOMINAL_CARRIER_FREQUENCY0, fc & 0xff);
-    spiWrite(RH_RF22_REG_2A_AFC_LIMITER, afclimiter);
+    if(afcPullInRange) {
+    	spiWrite(RH_RF22_REG_2A_AFC_LIMITER, afclimiter);
+    } else {
+    	spiWrite(RH_RF22_REG_1D_AFC_LOOP_GEARSHIFT_OVERRIDE, 0b00000100); //disable AFC
+    }
     return !(statusRead() & RH_RF22_FREQERR);
 }
 
