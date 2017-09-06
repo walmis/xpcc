@@ -101,6 +101,7 @@ class GPIO {
 public:
 		static const int port = Port;
 		static const int pin = Pin;
+		static const int id = Port<<5 | Pin;
 
 		inline static void
 		setOutput(bool status) {

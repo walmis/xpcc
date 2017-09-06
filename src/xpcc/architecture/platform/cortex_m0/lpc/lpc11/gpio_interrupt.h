@@ -42,6 +42,12 @@ public:
 		Entry* next = 0;
 	};
 
+	uint8_t port;
+	uint8_t pin;
+	uint8_t edges;
+	xpcc::function<void()> func;
+	GpioInt* next = 0;
+
 	static ALWAYS_INLINE
 	void enableInterrupt(uint32_t port, uint32_t pin, IntEdge edge = IntEdge::RISING_EDGE) {
 
