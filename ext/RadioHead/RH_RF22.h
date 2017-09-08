@@ -1106,6 +1106,12 @@ public:
     /// \param[in] nibbles Preamble length in nibbles of 4 bits each.  
     void           setPreambleLength(uint8_t nibbles);
 
+    //    Preamble Detection Threshold. The value in the preath[4:0] register corresponds to the
+    //    number of nibbles (4 bits) of preamble pattern (i.e., 01010...) that must be received correctly,
+	//    before a PREAMBLE_VALID signal is issued. This threshold helps guard against
+    //    false preamble detection upon noise.
+    void           setPreambleThreshold(uint8_t nibbles);
+
     /// Sets the sync words for transmit and receive in registers RH_RF22_REG_36_SYNC_WORD3 
     /// to RH_RF22_REG_39_SYNC_WORD0
     /// Caution: SyncWords should be set to the same 
@@ -1264,7 +1270,7 @@ protected:
     /// Index into TX buffer of the next to send chunk
     volatile uint8_t    _txBufSentIndex;
   
-    /// Time in millis since the last preamble was received (and the last time the RSSI was measured)
+    /// Time in micros since the last preamble was received (and the last time the RSSI was measured)
     uint32_t            _lastPreambleTime;
 
     volatile bool 		_chipReady;

@@ -303,7 +303,7 @@ void RH_RF22::handleInterrupt()
     {
 //	Serial.println("IPREAVAL");
 	_lastRssi = (int8_t)rssiRead();
-	_lastPreambleTime = RH::millis();
+	_lastPreambleTime = RH::micros();
 	resetRxFifo();
 	clearRxBuf();
 	handleRxStart();
@@ -538,6 +538,14 @@ bool RH_RF22::setModemConfig(ModemConfigChoice index)
 void RH_RF22::setPreambleLength(uint8_t nibbles)
 {
     spiWrite(RH_RF22_REG_34_PREAMBLE_LENGTH, nibbles);
+}
+// REVISIT: top bit is in Header Control 2 0x33
+void RH_RF22::setPreambleThreshold(uint8_t nibbles)
+{
+	uint8_t reg = spiRead(RH_RF22_REG_35_PREAMBLE_DETECTION_CONTROL1);
+	reg &= ~0b111;
+	reg |= (nibbles<<3);
+    spiWrite(RH_RF22_REG_35_PREAMBLE_DETECTION_CONTROL1, reg);
 }
 
 // Caution doesnt set sync word len in Header Control 2 0x33
