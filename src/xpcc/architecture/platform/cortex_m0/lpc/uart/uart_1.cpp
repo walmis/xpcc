@@ -75,6 +75,7 @@ void Uart1::handleIRQ() {
 extern "C" void
 UART_IRQHandler()
 {
+	IRQWrapper w;
 	Uart1::handleIRQ();
 }
 

@@ -54,21 +54,25 @@ static void handle_int(uint32_t irqn) {
 
 extern "C"
 void PIOINT0_IRQHandler() {
+	IRQWrapper w;
 	handle_int(EINT0_IRQn);
 }
 
 extern "C"
 void PIOINT1_IRQHandler() {
+	IRQWrapper w;
 	handle_int(EINT1_IRQn);
 }
 
 extern "C"
 void PIOINT2_IRQHandler() {
+	IRQWrapper w;
 	handle_int(EINT2_IRQn);
 }
 
 extern "C"
 void PIOINT3_IRQHandler() {
+	IRQWrapper w;
 	handle_int(EINT3_IRQn);
 }
 

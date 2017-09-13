@@ -20,6 +20,7 @@ xpcc::I2c::Operation I2cMaster0::nextOperation;
 volatile xpcc::I2cMaster::Error I2cMaster0::error(xpcc::I2cMaster::Error::NoError);
 
 extern "C" void I2C_IRQHandler() {
+	IRQWrapper w;
 	lpc11::I2cMaster0::IRQ();
 }
 
