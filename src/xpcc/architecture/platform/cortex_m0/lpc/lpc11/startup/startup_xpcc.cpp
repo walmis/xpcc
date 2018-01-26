@@ -9,8 +9,9 @@ extern "C" void __early_init() {
 extern "C" void __user_late_init() __attribute__((weak));
 
 extern "C" void __late_init() {
-	if(__user_late_init()) __user_late_init();
-    xpcc::lpc11::SysTickTimer::enable();
+	if(__user_late_init) __user_late_init();
+  xpcc::lpc11::SysTickTimer::enable();
+  __enable_irq();
 }
 
 
@@ -27,4 +28,3 @@ void __core_init(void) { }
 extern "C"
 __attribute__((weak))
 void __init_ram_areas() { }
-    

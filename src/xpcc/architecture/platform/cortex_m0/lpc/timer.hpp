@@ -140,7 +140,7 @@ public:
 		ALWAYS_INLINE
 		initPWM(uint32_t match_value, uint8_t main_channel = 3) {
 			//set pwm match channel
-			configureMatch(main_channel, match_value);
+			configureMatch(main_channel, match_value, ExtMatchOpt::EXTMATCH_NOTHING, true);
 
 		}
 

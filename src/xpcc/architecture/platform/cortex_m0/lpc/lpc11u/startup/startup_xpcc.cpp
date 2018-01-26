@@ -23,6 +23,7 @@ extern "C" void __late_init() {
     if(__user_late_init) __user_late_init();
 
     xpcc::lpc11::SysTickTimer::enable();
+    __enable_irq();
 }
 
 
