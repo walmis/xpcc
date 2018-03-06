@@ -44,6 +44,7 @@ public:
 
 	size_t write(const uint8_t* buf, size_t len) {
 		size_t n = 0;
+		if(!len) return 0;
 		//if uart is empty, start transmission
 		if(!Uart::txBusy()) {
 			txbuf.write(*buf++);
