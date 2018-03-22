@@ -48,9 +48,6 @@ namespace xpcc
 	public :
 		IODevice() : _blocking(true) {}
 		
-		virtual
-		~IODevice()	{}
-		
 		//write blocking
 
 		///	Write a single character
