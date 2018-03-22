@@ -69,8 +69,8 @@ include_directories(
     ./ext
 )
 
-SET(ARM_COMMON_FLAGS "-mthumb -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
-SET(ARM_COMMON_LD_FLAGS "-nostartfiles -Wl,-gc-sections --specs=nano.specs -u _sbrk")
+SET(ARM_COMMON_FLAGS "-ffreestanding -mthumb -ffunction-sections -fdata-sections -g3 -fno-common -fmessage-length=0")
+SET(ARM_COMMON_LD_FLAGS "-ffreestanding -nostartfiles -Wl,-gc-sections --specs=nano.specs -u _sbrk")
 SET(ASM_OPTIONS "-x assembler-with-cpp")
 
 IF(${ENABLE_LTO})
@@ -89,11 +89,10 @@ macro(set_arm_settings CORTEX_TYPE)
     SET(CMAKE_ASM_COMPILER arm-none-eabi-gcc CACHE INTERNAL "")
     SET(CMAKE_AR arm-none-eabi-gcc-ar CACHE INTERNAL "")
     SET(CMAKE_RANLIB arm-none-eabi-gcc-ranlib CACHE INTERNAL "")
- 
     SET(CMAKE_OBJCOPY arm-none-eabi-objcopy CACHE INTERNAL "")
     SET(CMAKE_OBJSIZE arm-none-eabi-size CACHE INTERNAL "")
     SET(CMAKE_OBJDUMP arm-none-eabi-objdump CACHE INTERNAL "")
-    
+
     SET(CMAKE_ASM_FLAGS "${CFLAGS} ${ASM_OPTIONS}" CACHE INTERNAL "")
 
     SET(COMMON_FLAGS "${ARM_COMMON_FLAGS} -mcpu=${CORTEX_TYPE}")
