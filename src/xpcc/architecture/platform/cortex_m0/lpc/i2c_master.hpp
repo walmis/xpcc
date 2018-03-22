@@ -259,7 +259,7 @@ public:
 
 		uint32_t temp;
 
-		temp = SystemCoreClock / LPC_SYSCON->SYSAHBCLKDIV / target_clock;
+		temp = SystemCoreClock / target_clock;
 
 		reset();
 
