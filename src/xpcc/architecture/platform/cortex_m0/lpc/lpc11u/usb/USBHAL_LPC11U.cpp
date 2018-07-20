@@ -532,6 +532,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t opti
 
     if ((tmpEpRamPtr + maxPacket) > (USB_RAM_START + USB_RAM_SIZE)) {
         // Out of memory
+    	XPCC_LOG_DEBUG << "USB: failed to allocate endpoint " << endpoint << '\n';
         return false;
     }
 
@@ -545,6 +546,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t opti
 
         if ((tmpEpRamPtr + maxPacket) > (USB_RAM_START + USB_RAM_SIZE)) {
             // Out of memory
+        	XPCC_LOG_DEBUG << "USB: failed to allocate endpoint " << endpoint << '\n';
             return false;
         }
 
