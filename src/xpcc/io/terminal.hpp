@@ -14,10 +14,10 @@
 
 namespace xpcc {
 
-class Terminal : public xpcc::TickerTask {
+class Terminal {
 
 public:
-	Terminal(xpcc::IODevice &device) : device(device) {}
+	Terminal(xpcc::IOStream &stream) : stream(stream) {}
 
 	int toInt(const char *p);
 	float toFloat(const char* c);
@@ -41,19 +41,18 @@ public:
 	void printf(const char *fmt, ...) {
 		va_list ap;
 		va_start(ap, fmt);
-		xpcc::IOStream s(device);
-		s.vprintf(fmt, ap);
-
+		stream.vprintf(fmt, ap);
 		va_end(ap);
 	}
+
+	bool readChar();
 
 protected:
 	virtual void handleCommand(uint8_t nargs, char* argv[]) = 0;
 
-	xpcc::IODevice& device;
-
-protected:
-	virtual void handleTick() override;
+	xpcc::IOStream& stream;
+	const char* prompt = "xpcc> ";
+	bool echo = true;
 
 private:
 	char buffer[64];

@@ -48,7 +48,7 @@ namespace xpcc
 {
 	/**
 	 * \brief 	This Formats all primary types into a string stream for
-	 * 			output or it reads values from a input and converts them to
+	 * 			output or it s values from a input and converts them to
 	 * 			a given type;
 	 *
 	 * \ingroup io
@@ -77,12 +77,25 @@ namespace xpcc
 		}
 
 		inline IOStream&
+		write(char* str) {
+			this->device->write(str);
+		}
+
+		inline IOStream&
 		write(uint8_t* buffer, size_t length)
 		{
 			while(length--) {
 				this->device->write(*buffer++);
 			}
 			return *this;
+		}
+
+		int16_t read() {
+			return this->device->read();
+		}
+
+		int16_t available() {
+			return this->device->rxAvailable();
 		}
 
 		inline IOStream&

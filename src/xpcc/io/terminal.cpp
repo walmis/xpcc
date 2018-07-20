@@ -39,47 +39,55 @@ void Terminal::parse() {
 	}
 
 	handleCommand(nargs, arglist);
+	if(prompt) {
+		stream.write('\r');
+		stream.write((char*)prompt);
+	}
 
-	device.write('\r');
-	device.write("xpcc> ");
+	memset(buffer, 0, sizeof(buffer));
 
 }
 
-void Terminal::handleTick() {
+bool Terminal::readChar() {
 	int16_t c;
-	if ((c = device.read()) > 0) {
+	if ((c = stream.read()) > 0) {
 
 		if(c == '\b' || c == 127) { //backspace
 			if(pos > 0) {
 				pos--;
-	            device.write('\b');
-	            device.write(' ');
-	            device.write('\b');
+	            stream.write('\b');
+	            stream.write(' ');
+	            stream.write('\b');
 			}
 		} else {
 			if (c == '\n' || c == '\r') {
 				//remove the newline character
 				buffer[pos] = 0;
-
-				device.write('\r');
-				device.write('\n');
+				if(echo) {
+					stream.write('\r');
+					stream.write('\n');
+				}
 
 				parse();
 				pos = 0;
-				return;
+				return true;
 			} else {
 				if(!isprint(c)) {
-					return;
+					return true;
 				} else {
 					buffer[pos] = c;
 					pos++;
 					pos %= sizeof(buffer);
-					device.write(c);
+					if(echo) {
+						stream.write(c);
+					}
 				}
 			}
 
 		}
+		return true;
 	}
+	return false;
 }
 
 }
