@@ -73,6 +73,10 @@ int16_t USBSerialHandler::getch() {
 	return rx_buffer.read();
 }
 
+void USBSerialHandler::flush() {
+	//expire latency timer to flush data ASAP
+	latency_timer.restart(0);
+}
 
 bool USBSerialHandler::EP_handler(uint8_t ep) {
     //XPCC_LOG_DEBUG .printf("ep handler %d\n", ep);

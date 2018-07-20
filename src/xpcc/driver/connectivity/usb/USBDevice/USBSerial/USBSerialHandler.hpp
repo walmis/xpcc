@@ -59,12 +59,10 @@ public:
 		return 1;
 	}
 
-	void
-	flush() override {}
+	void flush() override;
 
 	/// Read a single character
-	int16_t
-	read() override {
+	int16_t	read() override {
 		return getch();
 	}
 	///////
