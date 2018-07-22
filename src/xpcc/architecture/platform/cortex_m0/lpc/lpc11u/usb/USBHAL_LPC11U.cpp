@@ -18,7 +18,7 @@
 #define TARGET_LPC11U24
 #ifdef TARGET_LPC11U24
 
-#include <xpcc/driver/connectivity/usb/USBDevice/USBDevice/USBHAL.h>
+#include <xpcc/driver/usb.hpp>
 #include <xpcc/architecture.hpp>
 #include <xpcc/debug.hpp>
 
@@ -41,18 +41,6 @@ namespace xpcc {
 // Get endpoint direction
 #define IN_EP(endpoint)     ((endpoint) & 1U ? true : false)
 #define OUT_EP(endpoint)    ((endpoint) & 1U ? false : true)
-
-// USB RAM
-
-//uint8_t __attribute((section(".usb_ram"))) _usb_ram[0x800];
-extern "C" uint8_t __usbram_start;
-extern "C" uint8_t __usbram_end;
-
-uint8_t* _usb_ram = &__usbram_start;
-
-
-#define USB_RAM_START ((uint32_t)&__usbram_start)
-#define USB_RAM_SIZE  ((uint32_t)&__usbram_end-(uint32_t)&__usbram_start)
 
 // SYSAHBCLKCTRL
 #define CLK_USB     (1UL<<14)
@@ -113,21 +101,28 @@ struct EP_STATE {
     uint32_t    options;
 } /*__packed*/;
 
-static volatile EP_STATE endpointState[NUMBER_OF_PHYSICAL_ENDPOINTS];
+#ifndef USB_MEM_SIZE
+#define USB_MEM_SIZE 64*6
+#endif
+
+uint8_t ep_ram[64*6] __attribute((aligned(64), section(".usbram")));
+
+static volatile EP_STATE endpointState[NUMBER_OF_PHYSICAL_ENDPOINTS] ;
 
 // Pointer to the endpoint command/status list
-static EP_COMMAND_STATUS *ep = NULL;
+static EP_COMMAND_STATUS ep[NUMBER_OF_LOGICAL_ENDPOINTS] __attribute((aligned(256), section(".usbram")));
 
 // Pointer to endpoint 0 data (IN/OUT and SETUP)
-static CONTROL_TRANSFER *ct = NULL;
+static CONTROL_TRANSFER _ct __attribute((aligned(64), section(".usbram")));
+#define ct (&_ct)
 
 // Shadow DEVCMDSTAT register to avoid accidentally clearing flags or
 // initiating a remote wakeup event.
 static volatile uint32_t devCmdStat;
 
 // Pointers used to allocate USB RAM
-static uint32_t usbRamPtr = USB_RAM_START;
-static uint32_t epRamPtr = 0; // Buffers for endpoints > 0 start here
+//static uint32_t usbRamPtr = 0;
+static uint32_t epRamPtr = (uint32_t)ep_ram; // Buffers for endpoints > 0 start here
 
 #define ROUND_UP_TO_MULTIPLE(x, m) ((((x)+((m)-1))/(m))*(m))
 
@@ -142,9 +137,11 @@ void USBMemCopy(uint8_t *dst, uint8_t *src, uint32_t size) {
 }
 
 static USBHAL* instance;
+//EP_COMMAND_STATUS ep[NUMBER_OF_LOGICAL_ENDPOINTS] __attribute((aligned(256)));
 
 USBHAL::USBHAL(void) {
     NVIC_DisableIRQ(USB_IRQn);
+    handlers = 0;
     
     // fill in callback array
     instance = this;
@@ -165,16 +162,22 @@ USBHAL::USBHAL(void) {
 
     // Reserve space in USB RAM for endpoint command/status list
     // Must be 256 byte aligned
-    usbRamPtr = ROUND_UP_TO_MULTIPLE(usbRamPtr, 256);
-    ep = (EP_COMMAND_STATUS *)usbRamPtr;
-    usbRamPtr += (sizeof(EP_COMMAND_STATUS) * NUMBER_OF_LOGICAL_ENDPOINTS);
+    //usbRamPtr = ROUND_UP_TO_MULTIPLE(usbRamPtr, 256);
+    //usbRamPtr = (uint32_t)memalign(256, USB_RAM_SIZE);
+    //ep = (EP_COMMAND_STATUS *)usbRamPtr;
+    //ep = (EP_COMMAND_STATUS*)memalign(256, sizeof(EP_COMMAND_STATUS) * NUMBER_OF_LOGICAL_ENDPOINTS);
+    //usbRamPtr += (sizeof(EP_COMMAND_STATUS) * NUMBER_OF_LOGICAL_ENDPOINTS);
     LPC_USB->EPLISTSTART = (uint32_t)(ep) & 0xffffff00;
 
     // Reserve space in USB RAM for Endpoint 0
     // Must be 64 byte aligned
-    usbRamPtr = ROUND_UP_TO_MULTIPLE(usbRamPtr, 64);
-    ct = (CONTROL_TRANSFER *)usbRamPtr;
-    usbRamPtr += sizeof(CONTROL_TRANSFER);
+   // usbRamPtr = ROUND_UP_TO_MULTIPLE(usbRamPtr, 64);
+    //ct = (CONTROL_TRANSFER *)usbRamPtr;
+   // usbRamPtr += sizeof(CONTROL_TRANSFER);
+
+    //static CONTROL_TRANSFER ct __attribute((aligned(64)));
+
+    //ct = (CONTROL_TRANSFER*)chCoreAllocAligned(64, sizeof(CONTROL_TRANSFER));
     LPC_USB->DATABUFSTART =(uint32_t)(ct) & 0xffc00000;
 
     // Setup command/status list for EP0
@@ -531,7 +534,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t opti
     // Must be 64 byte aligned
     tmpEpRamPtr = ROUND_UP_TO_MULTIPLE(tmpEpRamPtr, 64);
 
-    if ((tmpEpRamPtr + maxPacket) > (USB_RAM_START + USB_RAM_SIZE)) {
+    if ((tmpEpRamPtr + maxPacket) > ((uint32_t)ep_ram + sizeof(ep_ram))) {
         // Out of memory
     	XPCC_LOG_DEBUG << "USB: failed to allocate endpoint " << endpoint << '\n';
         return false;
@@ -545,7 +548,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t opti
         // Must be 64 byte aligned
         tmpEpRamPtr = ROUND_UP_TO_MULTIPLE(tmpEpRamPtr, 64);
 
-        if ((tmpEpRamPtr + maxPacket) > (USB_RAM_START + USB_RAM_SIZE)) {
+        if ((tmpEpRamPtr + maxPacket) > ((uint32_t)ep_ram + sizeof(ep_ram))) {
             // Out of memory
         	XPCC_LOG_DEBUG << "USB: failed to allocate endpoint " << endpoint << '\n';
             return false;
@@ -579,6 +582,7 @@ bool USBHAL::realiseEndpoint(uint8_t endpoint, uint32_t maxPacket, uint32_t opti
     return true;
 }
 
+
 void USBHAL::remoteWakeup(void) {
     // Clearing DSUS bit initiates a remote wakeup if the
     // device is currently enabled and suspended - otherwise
@@ -601,7 +605,7 @@ static void disableEndpoints(void) {
     }
 
     // Start of USB RAM for endpoints > 0
-    epRamPtr = usbRamPtr;
+    epRamPtr = (uint32_t)ep_ram;
 }
 
 extern "C"

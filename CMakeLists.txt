@@ -231,7 +231,7 @@ add_subdirectory(src/xpcc)
 
 add_library(xpcc STATIC ${SOURCES})
 
-add_subdirectory(ext/RadioHead)
+add_subdirectory(ext)
 
 get_property(incDirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 target_include_directories(xpcc PUBLIC ${incDirs} )

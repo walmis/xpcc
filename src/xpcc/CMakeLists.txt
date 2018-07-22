@@ -37,13 +37,13 @@ if(${USB_SUPPORT})
 
 add_sources(
 	#TODO ./driver/connectivity/usb/USBDevice/USBAudio/USBAudio.cpp
-	./driver/connectivity/usb/USBDevice/USBMSD/USBMSD.cpp
-	./driver/connectivity/usb/USBDevice/USBMSD/USBMSDHandler.cpp
-	./driver/connectivity/usb/USBDevice/USBSerial/USBSerialHandler.cpp
-	./driver/connectivity/usb/USBDevice/USBSerial/USBCDC.cpp
-	./driver/connectivity/usb/USBDevice/USBDevice/USBDevice.cpp
-	./driver/connectivity/usb/USBDevice/Composite/USBCDCMSD.cpp
-	./driver/connectivity/usb/USBDevice/Composite/USB2xCDCMSD.cpp
+	./driver/usb/USBDevice/USBMSD/USBMSD.cpp
+	./driver/usb/USBDevice/USBMSD/USBMSDHandler.cpp
+	./driver/usb/USBDevice/USBSerial/USBSerialHandler.cpp
+	./driver/usb/USBDevice/USBSerial/USBCDC.cpp
+	./driver/usb/USBDevice/USBDevice/USBDevice.cpp
+	./driver/usb/USBDevice/Composite/USBCDCMSD.cpp
+	./driver/usb/USBDevice/Composite/USB2xCDCMSD.cpp
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBHID.cpp 
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBMouseKeyboard.cpp
 	#TODO ./driver/connectivity/usb/USBDevice/USBHID/USBKeyboard.cpp

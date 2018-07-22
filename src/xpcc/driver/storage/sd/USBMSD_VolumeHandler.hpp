@@ -10,7 +10,7 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/driver/storage/fat.hpp>
-#include <xpcc/driver/connectivity/usb/USBDevice/USBMSD/USBMSDHandler.h>
+#include <xpcc/driver/usb/USBDevice/USBMSD/USBMSDHandler.h>
 
 namespace xpcc {
 

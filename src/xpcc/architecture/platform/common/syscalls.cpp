@@ -47,7 +47,6 @@
 #include <sys/stat.h>
 #include <ctype.h>
 
-#include <xpcc/architecture/driver/heap/block_allocator.hpp>
 #include <xpcc/architecture/driver/atomic.hpp>
 // ----------------------------------------------------------------------------
 /*
