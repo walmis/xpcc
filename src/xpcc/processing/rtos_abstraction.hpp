@@ -25,17 +25,16 @@ void sleep(uint16_t time_ms);
 }
 #else
 
-#include "ticker_task.hpp"
 #include "RTOSAbstraction/SimpleTasker/semaphore.hpp"
 #include "RTOSAbstraction/SimpleTasker/event.hpp"
 #include "RTOSAbstraction/SimpleTasker/interrupt_wrapper.hpp"
+extern "C" void _delay_ms(uint32_t);
 namespace xpcc {
 static ALWAYS_INLINE void yield(uint16_t timeAvailable = 0) {
-	xpcc::TickerTask::yield(timeAvailable);
 }
 
 static ALWAYS_INLINE void sleep(uint16_t time_ms) {
-	xpcc::TickerTask::sleep(time_ms);
+    _delay_ms(time_ms);
 }
 }
 #endif

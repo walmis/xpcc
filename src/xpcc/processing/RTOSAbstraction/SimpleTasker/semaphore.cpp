@@ -8,7 +8,6 @@
 #ifndef XPCC_RTOS_CHIBIS
 
 #include "semaphore.hpp"
-#include "../../ticker_task.hpp"
 #include <xpcc/architecture.hpp>
 
 xpcc::Semaphore::Semaphore() : _taken(false) {

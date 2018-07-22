@@ -15,8 +15,6 @@ namespace xpcc {
 class Event {
 public:
 	bool wait(uint32_t timeout_ms = 0xFFFFFFFF)  {
-		if(TickerTask::inInterruptContext()) return false;
-
 		return sem.take(timeout_ms);
 	}
 	void signal() {
