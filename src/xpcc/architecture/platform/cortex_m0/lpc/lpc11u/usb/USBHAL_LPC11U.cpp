@@ -20,6 +20,7 @@
 
 #include <xpcc/driver/connectivity/usb/USBDevice/USBDevice/USBHAL.h>
 #include <xpcc/architecture.hpp>
+#include <xpcc/debug.hpp>
 
 #ifndef __packed
 #define __packed __attribute__((packed))

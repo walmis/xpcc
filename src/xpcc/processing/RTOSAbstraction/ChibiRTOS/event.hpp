@@ -8,8 +8,6 @@
 #ifndef SRC_XPCC_PROCESSING_EVENT_HPP_
 #define SRC_XPCC_PROCESSING_EVENT_HPP_
 
-#include "../../ticker_task.hpp"
-
 namespace xpcc {
 
 /*

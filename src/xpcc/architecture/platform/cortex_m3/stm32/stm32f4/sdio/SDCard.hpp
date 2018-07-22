@@ -9,8 +9,7 @@
 #define SRC_XPCC_ARCHITECTURE_PLATFORM_CORTEX_M3_STM32_STM32F4_SDIO_SDCARD_HPP_
 
 #include <xpcc/debug.hpp>
-#include <xpcc/processing/semaphore.hpp>
-#include <xpcc/processing/timeout.hpp>
+#include <xpcc/processing.hpp>
 
 namespace xpcc {
 

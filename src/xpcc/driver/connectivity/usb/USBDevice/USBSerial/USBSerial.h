@@ -58,15 +58,6 @@ namespace xpcc {
 
 class USBSerial final: public USBCDC, public xpcc::IODevice {
 public:
-
-    /**
-    *   Constructor
-    *
-    * @param vendor_id Your vendor_id (default: 0x1f00)
-    * @param product_id Your product_id (default: 0x2012)
-    * @param product_release Your preoduct_release (default: 0x0001)
-    *
-    */
 	USBSerial() {
 		addInterfaceHandler(handler);
 	};

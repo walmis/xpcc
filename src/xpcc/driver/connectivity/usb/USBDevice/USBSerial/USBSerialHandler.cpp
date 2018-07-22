@@ -22,7 +22,7 @@
 
 using namespace xpcc;
 
-void USBSerialHandler::sendPacket(bool blocking) {
+void USBSerialHandler::sendPacket() {
 	isActive = true;
 
 	uint8_t buf[MAX_CDC_REPORT_SIZE];
@@ -38,10 +38,8 @@ void USBSerialHandler::sendPacket(bool blocking) {
 	}
 
 	//XPCC_LOG_DEBUG .printf("wr\n");
-	if(blocking)
-		device->write(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
-	else
-		device->writeNB(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
+
+	device->writeNB(bulkIn, buf, size, MAX_CDC_REPORT_SIZE);
 
 	latency_timer.restart(latency);
 }
@@ -103,7 +101,7 @@ bool USBSerialHandler::EP_handler(uint8_t ep) {
     	//XPCC_LOG_DEBUG .printf("CDC bulkIN send\n");
     	if(tx_buffer.bytes_used()) {
 
-    		sendPacket(false);
+    		sendPacket();
     		return true;
     	}
     	inEp_request = true;
@@ -135,7 +133,7 @@ void USBSerialHandler::SOF(int frameNumber) {
 
 			inEp_request = false;
 			//XPCC_LOG_DEBUG .printf("SOF send\n");
-			sendPacket(false);
+			sendPacket();
 
 		}
 

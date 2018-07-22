@@ -36,15 +36,9 @@
 #ifndef XPCC__PROCESSING_HPP
 #define	XPCC__PROCESSING_HPP
 
-#include "processing/task.hpp"
-#include "processing/communicatable_task.hpp"
-#include "processing/protothread.hpp"
-
 #include "processing/timestamp.hpp"
 #include "processing/timeout.hpp"
 #include "processing/periodic_timer.hpp"
-#include "processing/ticker_task.hpp"
-#include "processing/coop_task.hpp"
 #include "processing/function_pointer.hpp"
 
 #include "processing/rtos_abstraction.hpp"

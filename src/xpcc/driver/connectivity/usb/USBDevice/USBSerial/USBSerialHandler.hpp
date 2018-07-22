@@ -80,7 +80,7 @@ private:
 
 	bool EP_handler(uint8_t ep) override;
 
-	void sendPacket(bool blocking);
+	void sendPacket();
 
 	uint8_t latency = 32;
 
@@ -102,6 +102,7 @@ private:
 
 	StaticIOBuffer<256> tx_buffer;
 	StaticIOBuffer<128> rx_buffer;
+	Event event;
 };
 
 }
