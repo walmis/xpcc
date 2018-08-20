@@ -48,7 +48,7 @@ void Timer<timerptr>::assignMatchPins(MatchPins matchPins) {
 			IOCon::setPinFunc(1, 9, 1);
 			break;
 			case MatchPins::PINS_MAT1:
-			IOCon::setPinFunc(0, 10, 2);
+			IOCon::setPinFunc(1, 10, 2);
 			break;
 			case MatchPins::PINS_MAT2:
 			case MatchPins::PINS_MAT3:
